@@ -1,0 +1,36 @@
+name: Build and test
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+
+      - name: Cache YARN dependencies
+        uses: actions/cache@v1
+        with:
+          path: node_modules
+          key: ${{ runner.OS }}-yarn-cache-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.OS }}-yarn-cache-
+
+      - name: Install
+        run: yarn --no-progress --non-interactive --frozen-lockfile
+
+      - name: Lint
+        run: yarn lint
+
+      - name: Prettier
+        run: yarn format
+
+      - name: Test
+        run: CI=true yarn test
+
+      - name: Typecheck
+        run: yarn typecheck
+# Few tips github actions
+# - name: Setup SSH debug session
+#   uses: mxschmitt/action-tmate@v2
+

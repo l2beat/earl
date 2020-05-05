@@ -13,7 +13,7 @@ export function autofix(_oldValue: any, newValue: any) {
   const source = readFileSync(filePath, 'utf8')
   const lines = source.split('\n')
   const lineWithInvocation = lines[line]
-  // this is super primitive, but it's actually not that bad...
+  // this is super primitive, and won't work for more complicated cases...
   // probably soon we will have to rewrite to regular AST parsing
   const newLine = lineWithInvocation.replace(/toEqual\((.*)\)/, `toEqual(${toLiteral(newValue)})`)
   lines[line] = newLine

@@ -6,6 +6,8 @@
     "moduleResolution": "node",
     "strict": true,
     "target": "ES2018",
-    "esModuleInterop": true
-  }
+    "esModuleInterop": true,
+    "outDir": "dist"
+  },
+  "include": ["src", "test"]
 }

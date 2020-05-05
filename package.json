@@ -1,10 +1,23 @@
 {
-  "name": "boilerplate",
-  "version": "0.0.1",
+  "name": "earljs",
+  "description": "Ergonomic, modern and type-safe assertion library",
+  "keywords": [
+    "assertions",
+    "modern",
+    "mocha",
+    "chai",
+    "jest",
+    "typescript"
+  ],
+  "repository": "git@github.com:krzkaczor/earl.git",
+  "author": "Kris Kaczor <chris@kaczor.io>",
   "license": "MIT",
+  "version": "0.0.1",
   "main": "./dist/index.js",
-  "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
+  "files": [
+    "dist/**/*"
+  ],
   "scripts": {
     "start": "ts-node -T ./src/index.ts",
     "format": "prettier --check \"./**/*.ts\"",
@@ -12,9 +25,11 @@
     "lint": "eslint --ext .ts src test",
     "lint:fix": "yarn lint --fix",
     "typecheck": "tsc --noEmit",
-    "clean": "rm -rf dist && rm -f tsconfig.build.tsbuildinfo",
+    "clean": "rm -rf dist",
+    "build": "tsc -p ./tsconfig.prod.json",
     "test": "mocha --config .mocharc.js",
-    "test:fix": "yarn lint:fix && yarn format:fix && yarn test && yarn typecheck"
+    "test:fix": "yarn lint:fix && yarn format:fix && yarn test && yarn typecheck",
+    "prepublishOnly": "yarn lint && yarn format && yarn test && build"
   },
   "dependencies": {
     "@types/node": "^13.13.0",
@@ -39,6 +54,7 @@
     "eslint-plugin-sonarjs": "^0.5.0",
     "eslint-plugin-unused-imports": "^0.1.2",
     "mocha": "^6.2.2",
+    "prettier": "^2.0.5",
     "sinon": "^8.0.1",
     "sinon-chai": "^3.3.0",
     "ts-node": "^8.5.4",
