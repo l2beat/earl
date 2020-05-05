@@ -1,0 +1,44 @@
+{
+  "name": "boilerplate",
+  "version": "0.0.1",
+  "license": "MIT",
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "scripts": {
+    "start": "ts-node -T ./src/index.ts",
+    "format": "prettier --check \"./**/*.ts\"",
+    "format:fix": "prettier --write \"./**/*.ts\"",
+    "lint": "eslint --ext .ts src test",
+    "lint:fix": "yarn lint --fix",
+    "typecheck": "tsc --noEmit",
+    "clean": "rm -rf dist && rm -f tsconfig.build.tsbuildinfo",
+    "test": "mocha --config .mocharc.js",
+    "test:fix": "yarn lint:fix && yarn format:fix && yarn test && yarn typecheck"
+  },
+  "dependencies": {
+    "@types/node": "^13.13.0",
+    "ts-essentials": "^6.0.3"
+  },
+  "devDependencies": {
+    "@types/chai": "^4.2.7",
+    "@types/chai-as-promised": "^7.1.2",
+    "@types/mocha": "^5.2.7",
+    "@types/sinon-chai": "^3.2.4",
+    "@typescript-eslint/eslint-plugin": "^2.25.0",
+    "@typescript-eslint/parser": "^2.12.0",
+    "chai": "^4.2.0",
+    "chai-as-promised": "^7.1.1",
+    "eslint": "^6.8.0",
+    "eslint-config-typestrict": "^1.0.0",
+    "eslint-plugin-no-only-tests": "^2.4.0",
+    "eslint-plugin-sonarjs": "^0.5.0",
+    "eslint-plugin-simple-import-sort": "^5.0.3",
+    "eslint-plugin-unused-imports": "^0.1.2",
+    "mocha": "^6.2.2",
+    "sinon": "^8.0.1",
+    "sinon-chai": "^3.3.0",
+    "ts-node": "^8.5.4",
+    "typescript": "^3.8.3"
+  }
+}
