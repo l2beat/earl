@@ -29,7 +29,7 @@
     "build": "tsc -p ./tsconfig.prod.json",
     "test": "mocha --config .mocharc.js",
     "test:fix": "yarn lint:fix && yarn format:fix && yarn test && yarn typecheck",
-    "prepublishOnly": "yarn lint && yarn format && yarn test && build"
+    "prepublishOnly": "yarn lint && yarn format && yarn test && yarn typecheck && yarn build"
   },
   "dependencies": {
     "@types/node": "^13.13.0",
