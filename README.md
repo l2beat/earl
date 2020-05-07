@@ -9,6 +9,20 @@
   </p>
 </p>
 
+## Installation
+
+```sh
+npm install --save-dev earljs
+```
+
+## Example
+
+```typescript
+import { expect } from 'earljs'
+
+expect(response).toEqual({ body: { trimmed: true, timestamp: expect.any() } })
+```
+
 ## Motivation
 
 I used to love mocha + chai combo, but as time flew, I felt it's limiting. Other projects like Jest shown that there is
@@ -65,8 +79,8 @@ expect(serverResponse).toEqual({ users: [{ name: 'Kris Kaczor' }] })
 
 ### Driven by you
 
-Yes you! This document presents current best thinking behind this project. Help us to guide it's future development!
-Don't hesitate to create issue in this project or reach out me directly on twitter
+Yes you! This document presents current best thinking behind this project. Help us to guide it's future development! If
+you like what you see give us a 🌟. Don't hesitate to create issue in this project or reach out me directly on twitter
 ([@krzkaczor](https://twitter.com/krzkaczor)).
 
 ## Future plans:
