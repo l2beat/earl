@@ -9,6 +9,20 @@
   </p>
 </p>
 
+## Installation
+
+```sh
+npm install --save-dev earljs
+```
+
+## Example
+
+```typescript
+import { expect } from 'earljs'
+
+expect(response).toEqual({ body: { trimmed: true, timestamp: expect.any() } })
+```
+
 ## Motivation
 
 I used to love mocha + chai combo, but as time flew, I felt it's limiting. Other projects like Jest shown that there is
