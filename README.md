@@ -1,60 +1,89 @@
-# Earl
+<p align="center">
+  <img src="https://image.flaticon.com/icons/svg/491/491657.svg" width="120" alt="Earl">
+  <h2 align="center">Earl</h2>
+  <p align="center">Ergonomic, modern and type-safe assertion library</p>
+  <p align="center">Brings good parts of <b>Jest</b> back to good ol' <b>Mocha</b></p>
+  <p align="center">
+    <img alt="Build status" src="https://circleci.com/gh/krzkaczor/ts-essentials.svg?style=svg">
+    <a href="/package.json"><img alt="Software License" src="https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square"></a>
+  </p>
+</p>
 
-Ergonomic, modern, type-safe and test runner agnostic assertion library
+## Motivation
 
-**Chai** replacement, brings good parts of Jest back to Mocha (or your favorite test runner)
+I used to love mocha + chai combo, but as time flew, I felt it's limiting. Other projects like Jest shown that there is
+room for innovation in this space. With last version published 2 years ago, `Chai` seems abandoned. Furthermore, as
+TypeScript becomes more and more popular, it became evident that some things about writing assertions could be improved.
+
+**Earl** is an effort to bring a little bit of innovation in the space of assertion libraries. This is just an MVP. It
+works but we NEED your feedback to make it something remarkable!
+
+### Why not just Jest?
+
+I really enjoy some of the Jest's features — that's what inspired this library in the first place. However, I really
+hate others. Simply put, Jest feels too [magical](https://github.com/facebook/jest/issues/4414) and
+[full](https://github.com/facebook/jest/issues/2441) of [bugs](https://github.com/facebook/jest/issues/8688) for my
+taste. Lots of its complexity comes from the features that I don't even care about like modules mocking or test
+parallelization. On the other hand, I always enjoyed simplicity and confidence that Mocha provides.
 
 ## Features
 
-### AutoFix
+### Powerful Matchers
 
-Automatically fix expected (if omitted) values to match actual. Option to force fix existing values. Works with different matchers.
-
-Implementation requires stack traces with correct sourcemaps - available in 99% environments. This feature is inspired by Jest's inline snapshots.
-
-```js
-expect(5).toEqual();
-// becomes after run
-expect(5).toEqual(5);
-```
-
-### Type-safe (support for TypeScript)
-
-```js
-expect(5).toEqual("abc"); // errors during compile time
-```
-
-### Deep eq by default
-
-Turns out that 99% of the time this is what you want. For remaining cases use `shallow.eq` matcher.
-
-```js
-expect({ abc: "abc" }).toEqual({ abc: "abc" }); // deep eq by default
-```
-
-### Matchers as values
-
-Matchers can be values like `expect.anything()` and can be combine for example with `toEqual`. Allowing, for example to easily assert not fully deterministic objects. Unlike `chai-subset` using this asserts much more info about actual object shape.
+Matchers can be values like `expect.anything()` and can be combined with `toEqual`. Allowing, for example to easily
+assert not fully deterministic objects. Unlike `chai-subset` using this asserts much more info about actual object
+shape.
 
 ```js
 expect({
-  abc: "abc",
-  timestamp: "05/02/2020 @ 8:09am (UTC)",
-}).toEqual({ abc: "abc", timestamp: expect.anyString() });
+  abc: 'abc',
+  timestamp: '05/02/2020 @ 8:09am (UTC)',
+}).toEqual({ abc: 'abc', timestamp: expect.anyString() })
 ```
 
-### Batteries included
+### Type-safe (support for TypeScript) and goes well with static analysis
 
-Reimplements most common `chai` matchers and make them part of the core.
+```js
+expect(5).toEqual('abc') // errors during compile time
+// matchers are always functions, not properties which goes well with `no-unused-expressions` eslint rule
+```
 
-Sinon like features out of the box? or at least support for sinon.
+### AutoFix (experimental)
 
-Maybe support for type-level tests in TS?
+Automatically fix expected (if omitted) values to match actual. Option to force fix existing values. Works with
+different matchers.
 
-### Extendable
+Implementation requires stack traces with correct sourcemaps - available in 99% environments. This feature is inspired
+by Jest's inline snapshots.
 
-Chai style plugins with additional matchers etc. Matchers can (and should!) implement support to autofix.
+```js
+expect(serverResponse).toEqual()
+
+// becomes after first run
+expect(serverResponse).toEqual({ users: [{ name: 'Kris Kaczor' }] })
+```
 
 ### Driven by you
 
-Yes you! This document presents current best thinking behind this project. Do you want to propose a feature? Don't hesitate to create issue or reach out me directly on twitter (@krzkaczor)
+Yes you! This document presents current best thinking behind this project. Help us to guide it's future development!
+Don't hesitate to create issue in this project or reach out me directly on twitter
+([@krzkaczor](https://twitter.com/krzkaczor)).
+
+## Future plans:
+
+### Batteries included
+
+Re-implements most common `chai` matchers and makes them part of the core.
+
+#### Future ideas:
+
+- Sinon like features out of the box? Creating spies is super common.
+- Maybe support for type-level tests in TS?
+
+### Extendable
+
+TypeSafe Chai style plugins with additional matchers etc. Matchers can (and should!) implement support for autofix.
+
+### Pretty, readable output for failed assertions
+
+<small>Icon made by Freepik from www.flaticon.com</small>
