@@ -79,8 +79,8 @@ expect(serverResponse).toEqual({ users: [{ name: 'Kris Kaczor' }] })
 
 ### Driven by you
 
-Yes you! This document presents current best thinking behind this project. Help us to guide it's future development!
-Don't hesitate to create issue in this project or reach out me directly on twitter
+Yes you! This document presents current best thinking behind this project. Help us to guide it's future development! If
+you like what you see give us a 🌟. Don't hesitate to create issue in this project or reach out me directly on twitter
 ([@krzkaczor](https://twitter.com/krzkaczor)).
 
 ## Future plans:
