@@ -20,6 +20,8 @@ npm install --save-dev earljs
 ```typescript
 import { expect } from 'earljs'
 
+const response = await apiCall()
+
 expect(response).toEqual({ body: { trimmed: true, timestamp: expect.any() } })
 ```
 
@@ -28,9 +30,7 @@ expect(response).toEqual({ body: { trimmed: true, timestamp: expect.any() } })
 I used to love mocha + chai combo, but as time flew, I felt it's limiting. Other projects like Jest shown that there is
 room for innovation in this space. With last version published 2 years ago, `Chai` seems abandoned. Furthermore, as
 TypeScript becomes more and more popular, it became evident that some things about writing assertions could be improved.
-
-**Earl** is an effort to bring a little bit of innovation in the space of assertion libraries. This is just an MVP. It
-works but we NEED your feedback to make it something remarkable!
+**Earl** is an effort to bring a little bit of innovation in the space of assertion libraries.
 
 ### Why not just Jest?
 
@@ -82,6 +82,13 @@ expect(serverResponse).toEqual({ users: [{ name: 'Kris Kaczor' }] })
 Yes you! This document presents current best thinking behind this project. Help us to guide it's future development! If
 you like what you see give us a 🌟. Don't hesitate to create issue in this project or reach out me directly on twitter
 ([@krzkaczor](https://twitter.com/krzkaczor)).
+
+## Project state
+
+I would call the current state a Minimal MVP ;) All of the features mentioned above work but are very limited. There are
+only 2 matchers currently, autofix relies on raw text manipulation.
+
+All of this will be improved after initial round of feedback.
 
 ## Future plans:
 
