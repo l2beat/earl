@@ -1,8 +1,28 @@
 import { expect } from 'chai'
+import sinon from 'sinon'
 
+import { Expectation } from '../../src/Expectation'
 import { AnythingMatcher } from '../../src/matchers'
 import { smartEq } from '../../src/matchers/toEqual'
-import { InternalExpectation } from '../../src/Expectation'
+
+describe('toEqual', () => {
+  it('does not call autofix when not needed', () => {
+    const dummyAutofix = sinon.spy()
+    const e = new Expectation(dummyAutofix, 'abc')
+
+    expect(() => e.toEqual(undefined)).to.throw()
+    expect(dummyAutofix).not.to.be.called
+  })
+
+  it('calls autofix on missing values', () => {
+    const dummyAutofix = sinon.spy()
+    const e = new Expectation(dummyAutofix, 'abc')
+
+    e.toEqual()
+
+    expect(dummyAutofix).to.be.calledOnceWithExactly(undefined, 'abc')
+  })
+})
 
 describe('smartEq', () => {
   it('compares primitive values', () => {

@@ -1,17 +1,20 @@
-import { InternalExpectation } from '../Expectation'
 import { isEqualWith } from 'lodash'
+
+import { Expectation, InternalExpectation } from '../Expectation'
 import { Matcher } from '../matchers'
 
 /**
  * Does deep "smart" equality check
  */
-export function toEqual<T>(this: InternalExpectation<T>, expected?: T): void {
-  if (!smartEq(this.actual, expected)) {
+export function toEqual<T>(this: Expectation<T>, expected?: T): void {
+  const internalThis = (this as any) as InternalExpectation<T>
+
+  if (!smartEq(internalThis.actual, expected)) {
     if (arguments.length === 0) {
-      console.log(`Autofixing ${JSON.stringify(this.actual)}...`)
-      this.autofix(expected, this.actual)
+      console.log(`Autofixing ${JSON.stringify(internalThis.actual)}...`)
+      internalThis.autofix(expected, internalThis.actual)
     } else {
-      throw new Error(`${JSON.stringify(this.actual)} not equal to ${JSON.stringify(expected)}`)
+      throw new Error(`${JSON.stringify(internalThis.actual)} not equal to ${JSON.stringify(expected)}`)
     }
   }
 }

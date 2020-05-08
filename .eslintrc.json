@@ -38,6 +38,7 @@
         "checkLoops": false
       }
     ],
+    "no-invalid-this": "off",
     "no-control-regex": "error",
     "no-debugger": "error",
     "no-delete-var": "error",

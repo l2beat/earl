@@ -1,6 +1,6 @@
+import { autofix } from './autofix'
 import { Expectation } from './Expectation'
 import { AnythingMatcher } from './matchers'
-import { autofix } from './autofix'
 
 interface expectInterface {
   <T>(actual: T): Expectation<T>
