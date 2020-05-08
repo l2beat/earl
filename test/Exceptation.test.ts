@@ -33,9 +33,29 @@ describe('smartEq', () => {
   it('compares object values against matchers', () => {
     expect(smartEq({}, { abc: AnythingMatcher.make() })).to.be.false
     expect(smartEq({ complex: { abc: 'ced' } }, { complex: AnythingMatcher.make() })).to.be.true
+    expect(smartEq({ complex: undefined }, { complex: AnythingMatcher.make() })).to.be.true
+    expect(smartEq({}, { complex: AnythingMatcher.make() })).to.be.false
   })
 
-  it.skip('compares arrays')
-  it.skip('compares falsy values')
-  it.skip('compares undefined vs object') // this can trigger some edge cases in object comparison
+  it('compares undefined', () => {
+    expect(smartEq(undefined, {})).to.be.false
+    expect(smartEq(undefined, null)).to.be.false
+    expect(smartEq(undefined, 0)).to.be.false
+    expect(smartEq(undefined, '')).to.be.false
+    expect(smartEq(undefined, undefined)).to.be.true
+  })
+
+  it('compares null', () => {
+    expect(smartEq(null, {})).to.be.false
+    expect(smartEq(null, undefined)).to.be.false
+    expect(smartEq(null, 0)).to.be.false
+    expect(smartEq(null, '')).to.be.false
+    expect(smartEq(null, null)).to.be.true
+  })
+
+  it('compares arrays', () => {
+    expect(smartEq([], {})).to.be.false
+    expect(smartEq([1, 2, 3], [1, 2])).to.be.false
+    expect(smartEq([1, 2, 3], [1, 2, 3])).to.be.true
+  })
 })
