@@ -1,5 +1,6 @@
 import { Expectation } from './Expectation'
 import { AnythingMatcher } from './matchers'
+import { autofix } from './autofix'
 
 interface expectInterface {
   <T>(actual: T): Expectation<T>
@@ -7,6 +8,6 @@ interface expectInterface {
 }
 
 export const expect: expectInterface = <T>(actual: T): Expectation<T> => {
-  return new Expectation(actual)
+  return new Expectation(autofix, actual)
 }
 expect.anything = AnythingMatcher.make

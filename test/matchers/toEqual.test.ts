@@ -1,7 +1,8 @@
 import { expect } from 'chai'
 
-import { smartEq } from '../src/Expectation'
-import { AnythingMatcher } from '../src/matchers'
+import { AnythingMatcher } from '../../src/matchers'
+import { smartEq } from '../../src/matchers/toEqual'
+import { InternalExpectation } from '../../src/Expectation'
 
 describe('smartEq', () => {
   it('compares primitive values', () => {
