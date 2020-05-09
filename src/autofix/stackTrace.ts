@@ -10,6 +10,7 @@ export type GetCallTraceType = typeof getCallTrace
 
 /**
  * Get call trace on a given position on a current stack
+ * @todo: probably it not rely on position index but find first file in stack trace that's outside of the current package
  */
 export function getCallTrace(position: number): CallTrace {
   const stack = new StackTracey()
