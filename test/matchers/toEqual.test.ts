@@ -20,7 +20,7 @@ describe('toEqual', () => {
 
     e.toEqual()
 
-    expect(dummyAutofix).to.be.calledOnceWithExactly(undefined, 'abc')
+    expect(dummyAutofix).to.be.calledOnceWithExactly('toEqual', 'abc')
   })
 })
 

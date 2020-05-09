@@ -53,6 +53,7 @@
     "eslint-plugin-simple-import-sort": "^5.0.3",
     "eslint-plugin-sonarjs": "^0.5.0",
     "eslint-plugin-unused-imports": "^0.1.2",
+    "lines-and-columns": "^1.1.6",
     "mocha": "^6.2.2",
     "prettier": "^2.0.5",
     "sinon": "^8.0.1",
