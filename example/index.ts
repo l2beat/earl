@@ -10,6 +10,6 @@ const response = {
 expect(response).toEqual({ body: { trimmed: true, timestamp: expect.anything() } })
 expect(response).toEqual()
 
-expect(true).toEqual(true)
+expect(true).toEqual()
 
 console.log('Done!')

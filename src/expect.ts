@@ -8,6 +8,6 @@ interface expectInterface {
 }
 
 export const expect: expectInterface = <T>(actual: T): Expectation<T> => {
-  return new Expectation(autofix, actual)
+  return new Expectation(autofix(), actual)
 }
 expect.anything = AnythingMatcher.make

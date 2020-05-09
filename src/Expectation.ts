@@ -1,12 +1,13 @@
+import { AutofixType } from './autofix'
 import { toEqual } from './matchers/toEqual'
 
 export interface InternalExpectation<T> {
-  readonly autofix: (_oldValue: any, newValue: any) => void
+  readonly autofix: AutofixType
   readonly actual: T
 }
 
 export class Expectation<T> {
-  constructor(private readonly autofix: (_oldValue: any, newValue: any) => void, private readonly actual: T) {}
+  constructor(private readonly autofix: AutofixType, private readonly actual: T) {}
 
   toEqual = toEqual
 }
