@@ -1,4 +1,4 @@
-![Earl](https://raw.githubusercontent.com/krzkaczor/earl/kk/logo/docs/images/gh-cover.png)
+![Earl](https://raw.githubusercontent.com/krzkaczor/earl/master/docs/images/gh-cover.png)
 
 <p align="center">
   <p align="center">Ergonomic, modern and type-safe assertion library</p>
