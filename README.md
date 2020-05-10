@@ -1,6 +1,6 @@
+![Earl](https://raw.githubusercontent.com/krzkaczor/earl/kk/logo/docs/images/gh-cover.png)
+
 <p align="center">
-  <img src="https://image.flaticon.com/icons/svg/491/491657.svg" width="120" alt="Earl">
-  <h2 align="center">Earl</h2>
   <p align="center">Ergonomic, modern and type-safe assertion library</p>
   <p align="center">Brings good parts of <b>Jest</b> back to good ol' <b>Mocha</b></p>
   <p align="center">
