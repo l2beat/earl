@@ -107,4 +107,8 @@ TypeSafe Chai style plugins with additional matchers etc. Matchers can (and shou
 
 ### Pretty, readable output for failed assertions
 
-<small>Icon made by Freepik from www.flaticon.com</small>
+# License
+
+Krzysztof Kaczor MIT
+
+<small>Icons used in logo made by <a href="https://www.flaticon.com/authors/dinosoftlabs" title="DinosoftLabs">DinosoftLabs</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></small>
