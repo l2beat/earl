@@ -108,12 +108,6 @@ TypeSafe Chai style plugins with additional matchers etc. Matchers can (and shou
 
 ### Pretty, readable output for failed assertions
 
-# License
-
-Krzysztof Kaczor MIT
-
-<small>Icons used in logo made by <a href="https://www.flaticon.com/authors/dinosoftlabs" title="DinosoftLabs">DinosoftLabs</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></small>
-
 ## Contributors ✨
 
 Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
@@ -124,4 +118,10 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
 
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
-This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind welcome!
+Contributions of any kind welcome!
+
+Earl logo by [@sz-piotr](https://github.com/sz-piotr)
+
+# License
+
+Krzysztof Kaczor MIT
