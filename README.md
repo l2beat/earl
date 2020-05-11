@@ -1,5 +1,4 @@
 ![Earl](https://raw.githubusercontent.com/krzkaczor/earl/master/docs/images/gh-cover.png)
-[![All Contributors](https://img.shields.io/badge/all_contributors-3-orange.svg?style=flat-square)](#contributors)
 
 <p align="center">
   <p align="center">Ergonomic, modern and type-safe assertion library</p>
@@ -7,6 +6,7 @@
   <p align="center">
     <img alt="Build status" src="https://github.com/krzkaczor/earl/workflows/Build%20and%20test/badge.svg">
     <a href="/package.json"><img alt="Software License" src="https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square"></a>
+    <img alt="All contributors" src="https://img.shields.io/badge/all_contributors-3-orange.svg?style=flat-square">
   </p>
 </p>
 
