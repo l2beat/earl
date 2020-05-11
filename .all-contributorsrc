@@ -30,6 +30,15 @@
         "ideas",
         "design"
       ]
+    },
+    {
+      "login": "quezak",
+      "name": "Artur Kozak",
+      "avatar_url": "https://avatars0.githubusercontent.com/u/666206?v=4",
+      "profile": "http://twitter.com/quezak2",
+      "contributions": [
+        "ideas"
+      ]
     }
   ],
   "contributorsPerLine": 7
