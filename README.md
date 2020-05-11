@@ -4,7 +4,7 @@
   <p align="center">Ergonomic, modern and type-safe assertion library</p>
   <p align="center">Brings good parts of <b>Jest</b> back to good ol' <b>Mocha</b></p>
   <p align="center">
-    <img alt="Build status" src="https://circleci.com/gh/krzkaczor/ts-essentials.svg?style=svg">
+    <img alt="Build status" src="https://github.com/krzkaczor/earl/workflows/Build%20and%20test/badge.svg">
     <a href="/package.json"><img alt="Software License" src="https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square"></a>
   </p>
 </p>
