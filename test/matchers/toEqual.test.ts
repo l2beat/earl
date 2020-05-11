@@ -2,7 +2,7 @@ import { expect } from 'chai'
 import sinon from 'sinon'
 
 import { Expectation } from '../../src/Expectation'
-import { AnythingMatcher } from '../../src/matchers'
+import { AnythingMatcher } from '../../src/matchers/asymmetric/Anything'
 import { smartEq } from '../../src/matchers/toEqual'
 
 describe('toEqual', () => {

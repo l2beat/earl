@@ -1,9 +1,6 @@
-export abstract class Matcher {
-  abstract check(v: any): boolean
-  abstract toString(): string
-}
+import { AsymmetricMatcher } from './Base'
 
-export class AnythingMatcher extends Matcher {
+export class AnythingMatcher extends AsymmetricMatcher {
   toString() {
     return 'AnythingMatcher'
   }

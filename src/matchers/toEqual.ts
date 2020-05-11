@@ -1,7 +1,7 @@
 import { isEqualWith } from 'lodash'
 
 import { Expectation, InternalExpectation } from '../Expectation'
-import { Matcher } from '../matchers'
+import { AsymmetricMatcher } from './asymmetric/Base'
 
 /**
  * Does deep "smart" equality check
@@ -22,7 +22,7 @@ export function toEqual<T>(this: Expectation<T>, expected?: T): void {
 
 export function smartEq(actual: any, expected: any): boolean {
   return isEqualWith(actual, expected, (a: any, b: any) => {
-    if (b instanceof Matcher) {
+    if (b instanceof AsymmetricMatcher) {
       return b.check(a)
     }
   })
