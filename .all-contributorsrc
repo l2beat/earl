@@ -1,0 +1,45 @@
+{
+  "projectName": "y",
+  "projectOwner": "y",
+  "repoType": "github",
+  "repoHost": "https://github.com",
+  "files": [
+    "README.md"
+  ],
+  "imageSize": 100,
+  "commit": true,
+  "commitConvention": "none",
+  "contributors": [
+    {
+      "login": "krzkaczor",
+      "name": "Kris Kaczor",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/1814312?v=4",
+      "profile": "https://twitter.com/krzkaczor",
+      "contributions": [
+        "code",
+        "doc",
+        "ideas"
+      ]
+    },
+    {
+      "login": "sz-piotr",
+      "name": "Piotr Szlachciak",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/17070569?v=4",
+      "profile": "https://github.com/sz-piotr",
+      "contributions": [
+        "ideas",
+        "design"
+      ]
+    },
+    {
+      "login": "quezak",
+      "name": "Artur Kozak",
+      "avatar_url": "https://avatars0.githubusercontent.com/u/666206?v=4",
+      "profile": "http://twitter.com/quezak2",
+      "contributions": [
+        "ideas"
+      ]
+    }
+  ],
+  "contributorsPerLine": 7
+}
