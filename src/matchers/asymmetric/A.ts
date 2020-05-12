@@ -4,16 +4,17 @@ interface Newable {
   new (...args: any[]): any
 }
 
-type NewableOrPrimitive = Newable | BigIntConstructor | SymbolConstructor
+// @note: don't use BigIntContructor here to avoid relying on modern node typings being installed
+type BigIntLike = { asIntN: Function; asUintN: Function; (value?: any): any }
+
+type NewableOrPrimitive = Newable | SymbolConstructor | BigIntLike
 
 /**
  * Matches a instance of a class.
  * It's works with primitives as expected (uses typeof).
  * When matching Object won't match nulls.
- *
  */
 export class AMatcher extends AsymmetricMatcher {
-  // @todo proper type
   constructor(private readonly clazz: NewableOrPrimitive) {
     super()
   }
