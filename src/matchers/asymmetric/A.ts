@@ -4,12 +4,17 @@ interface Newable {
   new (...args: any[]): any
 }
 
+type NewableOrPrimitive = Newable | BigIntConstructor | SymbolConstructor
+
 /**
- * Matches a instance of a class. It's works with primitives as expected (uses typeof)
+ * Matches a instance of a class.
+ * It's works with primitives as expected (uses typeof).
+ * When matching Object won't match nulls.
+ *
  */
 export class AMatcher extends AsymmetricMatcher {
   // @todo proper type
-  constructor(private readonly clazz: Newable) {
+  constructor(private readonly clazz: NewableOrPrimitive) {
     super()
   }
 
@@ -25,12 +30,28 @@ export class AMatcher extends AsymmetricMatcher {
       return typeof v === 'number' || v instanceof Number
     }
     if (this.clazz === Boolean) {
-      return typeof v === 'boolean' || v instanceof Number
+      return typeof v === 'boolean' || v instanceof Boolean
     }
+    if (this.clazz === BigInt) {
+      return typeof v === 'bigint' || v instanceof BigInt
+    }
+    if (this.clazz === Function) {
+      return typeof v === 'function' || v instanceof Function
+    }
+    if (this.clazz === Object) {
+      return typeof v === 'object' && v !== null
+    }
+    if (this.clazz === Symbol) {
+      return typeof v === 'symbol'
+    }
+    if (this.clazz === Array) {
+      return Array.isArray(v)
+    }
+
     return v instanceof this.clazz
   }
 
-  static make(clazz: Newable): AMatcher {
+  static make(clazz: NewableOrPrimitive): AMatcher {
     return new AMatcher(clazz)
   }
 }

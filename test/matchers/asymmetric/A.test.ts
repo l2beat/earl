@@ -2,11 +2,12 @@ import { expect } from 'chai'
 
 import { AMatcher } from '../../../src/matchers/asymmetric/A'
 
-describe.only('A asymmetric matcher', () => {
+describe('A asymmetric matcher', () => {
   it('should match string', () => {
     const a = AMatcher.make(String)
 
     expect(a.check('a')).to.be.true
+    // eslint-disable-next-line
     expect(a.check(new String('green'))).to.be.true
 
     expect(a.check(undefined)).to.be.false
@@ -19,6 +20,7 @@ describe.only('A asymmetric matcher', () => {
     const a = AMatcher.make(Number)
 
     expect(a.check(5)).to.be.true
+    // eslint-disable-next-line
     expect(a.check(new Number(5))).to.be.true
 
     expect(a.check(undefined)).to.be.false
@@ -30,9 +32,11 @@ describe.only('A asymmetric matcher', () => {
   it('should match boolean', () => {
     const a = AMatcher.make(Boolean)
 
-    expect(a.check(5)).to.be.true
-    expect(a.check(new Number(5))).to.be.true
+    expect(a.check(true)).to.be.true
+    // eslint-disable-next-line
+    expect(a.check(new Boolean(false))).to.be.true
 
+    expect(a.check(5)).to.be.false
     expect(a.check(undefined)).to.be.false
     expect(a.check(null)).to.be.false
     expect(a.check([])).to.be.false
@@ -40,11 +44,12 @@ describe.only('A asymmetric matcher', () => {
   })
 
   it('should match bigint', () => {
-    const a = AMatcher.make(Boolean)
+    const a = AMatcher.make(BigInt)
 
-    expect(a.check(5)).to.be.true
-    expect(a.check(new Number(5))).to.be.true
+    expect(a.check(5n)).to.be.true
+    expect(a.check(BigInt(5))).to.be.true
 
+    expect(a.check(5)).to.be.false
     expect(a.check(undefined)).to.be.false
     expect(a.check(null)).to.be.false
     expect(a.check([])).to.be.false
@@ -52,10 +57,9 @@ describe.only('A asymmetric matcher', () => {
   })
 
   it('should match function', () => {
-    const a = AMatcher.make(Boolean)
+    const a = AMatcher.make(Function)
 
-    expect(a.check(5)).to.be.true
-    expect(a.check(new Number(5))).to.be.true
+    expect(a.check(() => {})).to.be.true
 
     expect(a.check(undefined)).to.be.false
     expect(a.check(null)).to.be.false
@@ -64,48 +68,37 @@ describe.only('A asymmetric matcher', () => {
   })
 
   it('should match object', () => {
-    const a = AMatcher.make(Boolean)
+    const a = AMatcher.make(Object)
 
-    expect(a.check(5)).to.be.true
-    expect(a.check(new Number(5))).to.be.true
+    expect(a.check({})).to.be.true
+    // eslint-disable-next-line
+    expect(a.check(new Object({ a: 5 }))).to.be.true
+    expect(a.check([])).to.be.true
 
     expect(a.check(undefined)).to.be.false
     expect(a.check(null)).to.be.false
-    expect(a.check([])).to.be.false
-    expect(a.check({})).to.be.false
   })
 
   it('should match symbol', () => {
-    const a = AMatcher.make(Boolean)
+    const a = AMatcher.make(Symbol)
 
-    expect(a.check(5)).to.be.true
-    expect(a.check(new Number(5))).to.be.true
-
-    expect(a.check(undefined)).to.be.false
-    expect(a.check(null)).to.be.false
-    expect(a.check([])).to.be.false
-    expect(a.check({})).to.be.false
-  })
-  it('should match undefined', () => {
-    const a = AMatcher.make(Boolean)
-
-    expect(a.check(5)).to.be.true
-    expect(a.check(new Number(5))).to.be.true
+    // eslint-disable-next-line
+    expect(a.check(Symbol())).to.be.true
 
     expect(a.check(undefined)).to.be.false
     expect(a.check(null)).to.be.false
     expect(a.check([])).to.be.false
     expect(a.check({})).to.be.false
   })
+
   it('should match an array', () => {
-    const a = AMatcher.make(Boolean)
+    const a = AMatcher.make(Array)
 
-    expect(a.check(5)).to.be.true
-    expect(a.check(new Number(5))).to.be.true
+    expect(a.check([])).to.be.true
 
+    expect(a.check(5)).to.be.false
     expect(a.check(undefined)).to.be.false
     expect(a.check(null)).to.be.false
-    expect(a.check([])).to.be.false
     expect(a.check({})).to.be.false
   })
 })
