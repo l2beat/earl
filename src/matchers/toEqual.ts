@@ -3,10 +3,16 @@ import { isEqualWith } from 'lodash'
 import { Expectation, InternalExpectation } from '../Expectation'
 import { AsymmetricMatcher } from './asymmetric/Base'
 
+export type ValueOrMatcher<T> = T extends {}
+  ? {
+      [P in keyof T]: T[P] | AsymmetricMatcher<T[P]>
+    }
+  : T | AsymmetricMatcher<T>
+
 /**
  * Does deep "smart" equality check
  */
-export function toEqual<T>(this: Expectation<T>, expected?: T): void {
+export function toEqual<T>(this: Expectation<T>, expected?: ValueOrMatcher<T>): void {
   const internalThis = (this as any) as InternalExpectation<T>
 
   if (!smartEq(internalThis.actual, expected)) {

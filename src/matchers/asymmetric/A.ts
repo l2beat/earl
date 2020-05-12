@@ -1,21 +1,35 @@
 import { AsymmetricMatcher } from './Base'
 
-interface Newable {
-  new (...args: any[]): any
+interface Newable<T> {
+  new (...args: any[]): T
 }
 
-// @note: don't use BigIntContructor here to avoid relying on modern node typings being installed
+// @note: don't use BigIntConstructor here to avoid relying on modern node typings being installed
 type BigIntLike = { asIntN: Function; asUintN: Function; (value?: any): any }
 
-type NewableOrPrimitive = Newable | SymbolConstructor | BigIntLike
+export type NewableOrPrimitive<T = any> = Newable<T> | SymbolConstructor | BigIntLike
+
+export type Class2Primitive<T> = T extends String
+  ? string
+  : T extends Number
+  ? number
+  : T extends Boolean
+  ? boolean
+  : T extends BigIntLike
+  ? bigint
+  : T extends Symbol
+  ? symbol
+  : T extends Exact<T, Object>
+  ? any
+  : T
 
 /**
  * Matches a instance of a class.
  * It's works with primitives as expected (uses typeof).
  * When matching Object won't match nulls.
  */
-export class AMatcher extends AsymmetricMatcher {
-  constructor(private readonly clazz: NewableOrPrimitive) {
+export class AMatcher<T> extends AsymmetricMatcher<Class2Primitive<T>> {
+  constructor(private readonly clazz: NewableOrPrimitive<T>) {
     super()
   }
 
@@ -24,35 +38,37 @@ export class AMatcher extends AsymmetricMatcher {
   }
 
   check(v: any) {
-    if (this.clazz === String) {
+    if (this.clazz === (String as any)) {
       return typeof v === 'string' || v instanceof String
     }
-    if (this.clazz === Number) {
+    if (this.clazz === (Number as any)) {
       return typeof v === 'number' || v instanceof Number
     }
-    if (this.clazz === Boolean) {
+    if (this.clazz === (Boolean as any)) {
       return typeof v === 'boolean' || v instanceof Boolean
     }
     if (this.clazz === BigInt) {
       return typeof v === 'bigint' || v instanceof BigInt
     }
-    if (this.clazz === Function) {
+    if (this.clazz === (Function as any)) {
       return typeof v === 'function' || v instanceof Function
     }
-    if (this.clazz === Object) {
+    if (this.clazz === (Object as any)) {
       return typeof v === 'object' && v !== null
     }
     if (this.clazz === Symbol) {
       return typeof v === 'symbol'
     }
-    if (this.clazz === Array) {
+    if (this.clazz === (Array as any)) {
       return Array.isArray(v)
     }
 
     return v instanceof this.clazz
   }
 
-  static make(clazz: NewableOrPrimitive): AMatcher {
+  static make<T>(clazz: NewableOrPrimitive<T>): AMatcher<T> {
     return new AMatcher(clazz)
   }
 }
+
+type Exact<T, Shape> = T extends Shape ? (Exclude<keyof T, keyof Shape> extends never ? T : never) : never

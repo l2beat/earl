@@ -1,6 +1,6 @@
 import { AsymmetricMatcher } from './Base'
 
-export class AnythingMatcher extends AsymmetricMatcher {
+export class AnythingMatcher extends AsymmetricMatcher<any> {
   toString() {
     return 'AnythingMatcher'
   }
@@ -9,7 +9,7 @@ export class AnythingMatcher extends AsymmetricMatcher {
     return true
   }
 
-  static make(): AnythingMatcher {
+  static make(): any {
     return new AnythingMatcher()
   }
 }
