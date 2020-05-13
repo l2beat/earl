@@ -35,7 +35,7 @@
     "@types/node": "^13.13.0",
     "lodash": "^4.17.15",
     "stacktracey": "^1.2.127",
-    "ts-essentials": "^6.0.3"
+    "ts-essentials": "^6.0.5"
   },
   "devDependencies": {
     "@types/chai": "^4.2.7",

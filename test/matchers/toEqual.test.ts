@@ -1,8 +1,9 @@
 import { expect } from 'chai'
 import sinon from 'sinon'
 
+import { expect as earl } from '../../src'
 import { Expectation } from '../../src/Expectation'
-import { AnythingMatcher } from '../../src/matchers'
+import { AnythingMatcher } from '../../src/matchers/asymmetric/Anything'
 import { smartEq } from '../../src/matchers/toEqual'
 
 describe('toEqual', () => {
@@ -21,6 +22,36 @@ describe('toEqual', () => {
     e.toEqual()
 
     expect(dummyAutofix).to.be.calledOnceWithExactly('toEqual', 'abc')
+  })
+
+  it('works with complex object', () => {
+    class B {
+      constructor(readonly prop2: string) {}
+    }
+
+    const actual = {
+      trimmed: true,
+      timestamp: '12345',
+      name: 'Alice Duck',
+      age: 15,
+      nested: {
+        b: new B('abc'),
+        deep: {
+          nested: true,
+        },
+      },
+    }
+
+    earl(actual).toEqual({
+      trimmed: true,
+      timestamp: earl.anything(),
+      name: earl.stringContaining('Duck'),
+      age: earl.a(Number),
+      nested: {
+        b: earl.a(B),
+        deep: earl.a(Object),
+      },
+    })
   })
 })
 
