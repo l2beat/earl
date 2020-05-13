@@ -4,7 +4,7 @@ import { AMatcher } from '../../../src/matchers/asymmetric/A'
 
 describe('A asymmetric matcher', () => {
   it('should match string', () => {
-    const a = AMatcher.make(String)
+    const a = new AMatcher(String)
 
     expect(a.check('a')).to.be.true
     // eslint-disable-next-line
@@ -17,7 +17,7 @@ describe('A asymmetric matcher', () => {
   })
 
   it('should match numbers', () => {
-    const a = AMatcher.make(Number)
+    const a = new AMatcher(Number)
 
     expect(a.check(5)).to.be.true
     // eslint-disable-next-line
@@ -30,7 +30,7 @@ describe('A asymmetric matcher', () => {
   })
 
   it('should match boolean', () => {
-    const a = AMatcher.make(Boolean)
+    const a = new AMatcher(Boolean)
 
     expect(a.check(true)).to.be.true
     // eslint-disable-next-line
@@ -44,7 +44,7 @@ describe('A asymmetric matcher', () => {
   })
 
   it('should match bigint', () => {
-    const a = AMatcher.make(BigInt)
+    const a = new AMatcher(BigInt)
 
     expect(a.check(5n)).to.be.true
     expect(a.check(BigInt(5))).to.be.true
@@ -57,7 +57,7 @@ describe('A asymmetric matcher', () => {
   })
 
   it('should match function', () => {
-    const a = AMatcher.make(Function)
+    const a = new AMatcher(Function)
 
     expect(a.check(() => {})).to.be.true
 
@@ -68,7 +68,7 @@ describe('A asymmetric matcher', () => {
   })
 
   it('should match object', () => {
-    const a = AMatcher.make(Object)
+    const a = new AMatcher(Object)
 
     expect(a.check({})).to.be.true
     // eslint-disable-next-line
@@ -80,7 +80,8 @@ describe('A asymmetric matcher', () => {
   })
 
   it('should match symbol', () => {
-    const a = AMatcher.make(Symbol)
+    // eslint-disable-next-line
+    const a = new AMatcher(Symbol)
 
     // eslint-disable-next-line
     expect(a.check(Symbol())).to.be.true
@@ -92,7 +93,7 @@ describe('A asymmetric matcher', () => {
   })
 
   it('should match an array', () => {
-    const a = AMatcher.make(Array)
+    const a = new AMatcher(Array)
 
     expect(a.check([])).to.be.true
 

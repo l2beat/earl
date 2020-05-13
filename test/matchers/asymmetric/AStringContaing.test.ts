@@ -4,14 +4,14 @@ import { AStringContainingMatcher } from '../../../src/matchers/asymmetric/AStri
 
 describe('AStringContaining matcher', () => {
   it('matches strings containing substring', () => {
-    const anything = AStringContainingMatcher.make('test')
+    const anything = new AStringContainingMatcher('test')
 
     expect(anything.check('abc test cde')).to.be.true
     expect(anything.check('testtesttest')).to.be.true
   })
 
   it('doesnt match non-strings', () => {
-    const anything = AStringContainingMatcher.make('test')
+    const anything = new AStringContainingMatcher('test')
 
     expect(anything.check(undefined)).to.be.false
     expect(anything.check(1)).to.be.false
@@ -20,7 +20,7 @@ describe('AStringContaining matcher', () => {
   })
 
   it('doesnt match strings not containing substring', () => {
-    const anything = AStringContainingMatcher.make('test')
+    const anything = new AStringContainingMatcher('test')
 
     expect(anything.check('')).to.be.false
     expect(anything.check('tes')).to.be.false

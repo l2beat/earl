@@ -30,7 +30,7 @@ export type Class2Primitive<T> = T extends String
  * It's works with primitives as expected (uses typeof).
  * When matching Object won't match nulls.
  */
-export class AMatcher<T> extends AsymmetricMatcher<Class2Primitive<T>> {
+export class AMatcher<T> extends AsymmetricMatcher {
   constructor(private readonly clazz: NewableOrPrimitive<T>) {
     super()
   }
@@ -68,7 +68,7 @@ export class AMatcher<T> extends AsymmetricMatcher<Class2Primitive<T>> {
     return v instanceof this.clazz
   }
 
-  static make<T>(clazz: NewableOrPrimitive<T>): AMatcher<T> {
-    return new AMatcher(clazz)
+  static make<T>(clazz: NewableOrPrimitive<T>): Class2Primitive<T> {
+    return new AMatcher(clazz) as any
   }
 }

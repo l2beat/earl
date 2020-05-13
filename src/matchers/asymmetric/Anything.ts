@@ -1,6 +1,6 @@
 import { AsymmetricMatcher } from './Base'
 
-export class AnythingMatcher extends AsymmetricMatcher<any> {
+export class AnythingMatcher extends AsymmetricMatcher {
   toString() {
     return 'AnythingMatcher'
   }
