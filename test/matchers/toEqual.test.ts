@@ -45,7 +45,7 @@ describe('toEqual', () => {
     earl(actual).toEqual({
       trimmed: true,
       timestamp: earl.anything(),
-      name: earl.aStringContaining('Duck'),
+      name: earl.stringContaining('Duck'),
       age: earl.a(Number),
       nested: {
         b: earl.a(B),

@@ -3,7 +3,7 @@ import { AsymmetricMatcher } from './Base'
 /**
  * Matches any string that contains another string
  */
-export class AStringContainingMatcher extends AsymmetricMatcher {
+export class StringContainingMatcher extends AsymmetricMatcher {
   constructor(private readonly substring: string) {
     super()
   }
@@ -17,6 +17,6 @@ export class AStringContainingMatcher extends AsymmetricMatcher {
   }
 
   static make(substring: string): string {
-    return new AStringContainingMatcher(substring) as any
+    return new StringContainingMatcher(substring) as any
   }
 }
