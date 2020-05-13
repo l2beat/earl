@@ -1,3 +1,5 @@
+import { Exact } from 'ts-essentials'
+
 import { AsymmetricMatcher } from './Base'
 
 interface Newable<T> {
@@ -19,7 +21,7 @@ export type Class2Primitive<T> = T extends String
   ? bigint
   : T extends Symbol
   ? symbol
-  : T extends Exact<T, Object>
+  : T extends Exact<Object, T>
   ? any
   : T
 
@@ -70,5 +72,3 @@ export class AMatcher<T> extends AsymmetricMatcher<Class2Primitive<T>> {
     return new AMatcher(clazz)
   }
 }
-
-type Exact<T, Shape> = T extends Shape ? (Exclude<keyof T, keyof Shape> extends never ? T : never) : never

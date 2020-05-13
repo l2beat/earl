@@ -1,13 +1,14 @@
 import { isEqualWith } from 'lodash'
+import { XOR } from 'ts-essentials'
 
 import { Expectation, InternalExpectation } from '../Expectation'
 import { AsymmetricMatcher } from './asymmetric/Base'
 
 export type ValueOrMatcher<T> = T extends {}
   ? {
-      [P in keyof T]: T[P] | AsymmetricMatcher<T[P]>
+      [P in keyof T]: XOR<ValueOrMatcher<T[P]>, AsymmetricMatcher<T[P]>>
     }
-  : T | AsymmetricMatcher<T>
+  : XOR<T, AsymmetricMatcher<T>>
 
 /**
  * Does deep "smart" equality check
