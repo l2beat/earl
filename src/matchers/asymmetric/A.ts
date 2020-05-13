@@ -35,10 +35,6 @@ export class AMatcher<T> extends AsymmetricMatcher {
     super()
   }
 
-  toString() {
-    return 'AMatcher'
-  }
-
   check(v: any) {
     if (this.clazz === (String as any)) {
       return typeof v === 'string' || v instanceof String

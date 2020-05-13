@@ -8,10 +8,6 @@ export class StringContainingMatcher extends AsymmetricMatcher {
     super()
   }
 
-  toString() {
-    return 'AMatcher'
-  }
-
   check(v: any) {
     return typeof v === 'string' && v.indexOf(this.substring) !== -1
   }
