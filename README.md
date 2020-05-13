@@ -84,6 +84,19 @@ Yes you! This document presents current best thinking behind this project. Help 
 you like what you see give us a 🌟. Don't hesitate to create issue in this project or reach out me directly on twitter
 ([@krzkaczor](https://twitter.com/krzkaczor)).
 
+## API
+
+### Matchers
+
+- `toEqual` - performs deep equality check, ensures type equality works with asymmetric matchers
+
+### Asymmetric Matchers
+
+- `anything` - matches anything
+- `a(class)` - matches any instance of a class. Works as expected with primitives like String, Number etc. Use
+  `a(Object)` to match any object (won't match null)
+- `stringContaining(substring)` - matches any string containing given substring
+
 ## Project state
 
 I would call the current state a Minimal MVP ;) All of the features mentioned above work but are very limited. There are
