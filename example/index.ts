@@ -1,13 +1,33 @@
 import { expect } from '../src'
 
+class Person {
+  constructor(readonly name: string) {}
+}
+
 const response = {
-  body: {
-    trimmed: true,
-    timestamp: '12345',
+  trimmed: true,
+  timestamp: '12345',
+  name: 'Alice Duck',
+  age: 15,
+  nested: {
+    b: new Person('Jack'),
+    deep: {
+      nested: true,
+    },
   },
 }
 
-expect(response).toEqual({ body: { trimmed: true, timestamp: expect.anything() } })
+expect(response).toEqual({
+  trimmed: true,
+  timestamp: expect.anything(),
+  name: expect.stringContaining('Duck'),
+  age: expect.a(Number),
+  nested: {
+    b: expect.a(Person),
+    deep: expect.a(Object),
+  },
+})
+
 expect(response).toEqual()
 
 expect(true).toEqual()
