@@ -23,6 +23,7 @@ describe('A asymmetric matcher', () => {
     // eslint-disable-next-line
     expect(m.check(new Number(5))).to.be.true
 
+    expect(m.check(NaN)).to.be.false
     expect(m.check(undefined)).to.be.false
     expect(m.check(null)).to.be.false
     expect(m.check([])).to.be.false
