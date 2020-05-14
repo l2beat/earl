@@ -32,12 +32,13 @@
     "prepublishOnly": "yarn lint && yarn format && yarn test && yarn typecheck && yarn build"
   },
   "dependencies": {
-    "@types/node": "^13.13.0",
     "lodash": "^4.17.15",
     "stacktracey": "^1.2.127",
-    "ts-essentials": "^6.0.5"
+    "ts-essentials": "^6.0.5",
+    "lines-and-columns": "^1.1.6"
   },
   "devDependencies": {
+    "@types/node": "^13.13.0",
     "@types/chai": "^4.2.7",
     "@types/chai-as-promised": "^7.1.2",
     "@types/lodash": "^4.14.150",
@@ -53,7 +54,6 @@
     "eslint-plugin-simple-import-sort": "^5.0.3",
     "eslint-plugin-sonarjs": "^0.5.0",
     "eslint-plugin-unused-imports": "^0.1.2",
-    "lines-and-columns": "^1.1.6",
     "mocha": "^6.2.2",
     "prettier": "^2.0.5",
     "sinon": "^8.0.1",
