@@ -12,7 +12,7 @@
   "repository": "git@github.com:krzkaczor/earl.git",
   "author": "Kris Kaczor <chris@kaczor.io>",
   "license": "MIT",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "files": [
