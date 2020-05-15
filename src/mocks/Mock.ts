@@ -1,8 +1,14 @@
 import { smartEq } from '../matchers/toEqual'
 
+export interface MockCall {
+  args: any[]
+  result: { type: 'return'; value: any } | { type: 'throw'; error: any }
+}
+
 export interface Mock<A extends any[], T> {
   /** Calls the mock function */
   (...args: A): T
+  calls: MockCall[]
   /**
    * Sets the return value of calls to the Mock.
    * Overrides any previous configuration.
@@ -129,14 +135,25 @@ export function mockFn(): Mock<any[], undefined> {
     return runSpec(current, args)
   }
 
+  mock.calls = [] as MockCall[]
+
   function runSpec(spec: Spec, args: any[]) {
     switch (spec.type) {
       case 'return':
+        mock.calls.push({ args, result: { type: 'return', value: spec.value } })
         return spec.value
       case 'throw':
+        mock.calls.push({ args, result: { type: 'throw', error: spec.error } })
         throw spec.error
       case 'exec':
-        return spec.implementation(...args)
+        try {
+          const value = spec.implementation(...args)
+          mock.calls.push({ args, result: { type: 'return', value } })
+          return value
+        } catch (error) {
+          mock.calls.push({ args, result: { type: 'throw', error } })
+          throw error
+        }
     }
   }
 

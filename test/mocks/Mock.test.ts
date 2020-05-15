@@ -237,4 +237,57 @@ describe('Mock', () => {
       expect(fn('foo')).to.equal('yes')
     })
   })
+
+  describe('.calls', () => {
+    it('is empty at first', () => {
+      const fn = mockFn()
+      expect(fn.calls).to.deep.equal([])
+    })
+
+    it('stores a single call', () => {
+      const fn = mockFn()
+      fn()
+      expect(fn.calls).to.deep.equal([{ args: [], result: { type: 'return', value: undefined } }])
+    })
+
+    it('stores multiple calls', () => {
+      const fn = mockFn()
+      fn()
+      fn(1)
+      fn(5, 'yo')
+      expect(fn.calls).to.deep.equal([
+        { args: [], result: { type: 'return', value: undefined } },
+        { args: [1], result: { type: 'return', value: undefined } },
+        { args: [5, 'yo'], result: { type: 'return', value: undefined } },
+      ])
+    })
+
+    it('respects .throws', () => {
+      const error = new Error('Boom')
+      const fn = mockFn().throws(error)
+      try {
+        fn()
+      } catch {}
+      expect(fn.calls).to.deep.equal([{ args: [], result: { type: 'throw', error } }])
+    })
+
+    it('respects .executes', () => {
+      const error = new Error('Boom')
+      const fn = mockFn().executes((x: number) => {
+        if (x < 3) {
+          return 3
+        } else {
+          throw error
+        }
+      })
+      try {
+        fn(2)
+        fn(5)
+      } catch {}
+      expect(fn.calls).to.deep.equal([
+        { args: [2], result: { type: 'return', value: 3 } },
+        { args: [5], result: { type: 'throw', error } },
+      ])
+    })
+  })
 })
