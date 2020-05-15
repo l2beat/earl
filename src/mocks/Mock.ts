@@ -8,110 +8,112 @@ export interface Mock<A extends any[], T> {
    * Overrides any previous configuration.
    * @param value value to be returned.
    */
-  returns <U> (value: U): Mock<any[], U>
+  returns<U>(value: U): Mock<any[], U>
   /**
    * Schedules the mock to return a value the next time it's called.
    * If anything is already scheduled it will be used first.
    * @param value value to be returned.
    */
-  returnsOnce <U> (value: U): Mock<A, T | U>
+  returnsOnce<U>(value: U): Mock<A, T | U>
   /**
    * Sets the error thrown by calls to the Mock.
    * Overrides any previous configuration.
    * @param error error to be thrown.
    */
-  throws (error: any): Mock<any[], never>
+  throws(error: any): Mock<any[], never>
   /**
    * Schedules the mock to throw an error the next time it's called.
    * If anything is already scheduled it will be used first.
    * @param error error to be thrown.
    */
-  throwsOnce (error: any): Mock<A, T>
-  /** 
+  throwsOnce(error: any): Mock<A, T>
+  /**
    * Sets the underlying implementation of the Mock.
    * Overrides any previous configuration.
    * @param implementation function to execute.
    */
-  executes <B extends any[], U> (implementation: (...args: B) => U): Mock<B, U>
+  executes<B extends any[], U>(implementation: (...args: B) => U): Mock<B, U>
   /**
    * Schedules the mock use the provided implementation the next time it's called.
    * If anything is already scheduled it will be used first.
    * @param implementation function to execute.
    */
-  executesOnce <B extends A, U> (implementation: (...args: B) => U): Mock<B, T | U>
+  executesOnce<B extends A, U>(implementation: (...args: B) => U): Mock<B, T | U>
   /**
    * Specifies a different behavior when other arguments are given
    * @param args arguments to match
    */
-  given <B extends A>(...args: B): {
+  given<B extends A>(
+    ...args: B
+  ): {
     /**
      * Sets the return value of calls to the Mock.
      * @param value value to be returned.
      */
-    returns <U> (value: U): Mock<A, T | U>
+    returns<U>(value: U): Mock<A, T | U>
     /**
      * Schedules the mock to return a value the next time it's called.
      * If anything is already scheduled it will be used first.
      * @param value value to be returned.
      */
-    returnsOnce <U> (value: U): Mock<A, T | U>
+    returnsOnce<U>(value: U): Mock<A, T | U>
     /**
      * Sets the error thrown by calls to the Mock.
      * @param error error to be thrown.
      */
-    throws (error: any): Mock<A, T>
+    throws(error: any): Mock<A, T>
     /**
      * Schedules the mock to throw an error the next time it's called.
      * If anything is already scheduled it will be used first.
      * @param error error to be thrown.
      */
-    throwsOnce (error: any): Mock<A, T>
-    /** 
+    throwsOnce(error: any): Mock<A, T>
+    /**
      * Sets the underlying implementation of the Mock.
      * @param implementation function to execute.
      */
-    executes <U> (implementation: (...args: B) => U): Mock<A, T | U>
+    executes<U>(implementation: (...args: B) => U): Mock<A, T | U>
     /**
      * Schedules the mock use the provided implementation the next time it's called.
      * If anything is already scheduled it will be used first.
      * @param implementation function to execute.
      */
-    executesOnce <U> (implementation: (...args: B) => U): Mock<A, T | U>
+    executesOnce<U>(implementation: (...args: B) => U): Mock<A, T | U>
   }
 }
 
 interface ReturnSpec {
-  type: 'return',
-  value: any,
+  type: 'return'
+  value: any
 }
 
 interface ThrowSpec {
-  type: 'throw',
-  error: any,
+  type: 'throw'
+  error: any
 }
 
 interface ExecSpec {
-  type: 'exec',
-  implementation: (...args: any[]) => any,
+  type: 'exec'
+  implementation: (...args: any[]) => any
 }
 
 type Spec = ReturnSpec | ThrowSpec | ExecSpec
 
 interface Override {
-  args: any[],
-  spec: Spec,
+  args: any[]
+  spec: Spec
 }
 
-export function mockFn (): Mock<any[], undefined> {
+export function mockFn(): Mock<any[], undefined> {
   let spec: Spec = {
     type: 'return',
-    value: undefined
+    value: undefined,
   }
   let queue: Spec[] = []
   let oneTimeOverrides: Override[] = []
   let recurringOverrides: Override[] = []
 
-  function mock (...args: any[]) {
+  function mock(...args: any[]) {
     for (const override of oneTimeOverrides) {
       if (smartEq(args, override.args)) {
         oneTimeOverrides.splice(oneTimeOverrides.indexOf(override), 1)
@@ -127,15 +129,18 @@ export function mockFn (): Mock<any[], undefined> {
     return runSpec(current, args)
   }
 
-  function runSpec (spec: Spec, args: any[]) {
+  function runSpec(spec: Spec, args: any[]) {
     switch (spec.type) {
-      case 'return': return spec.value
-      case 'throw': throw spec.error
-      case 'exec': return spec.implementation(...args)
+      case 'return':
+        return spec.value
+      case 'throw':
+        throw spec.error
+      case 'exec':
+        return spec.implementation(...args)
     }
   }
 
-  function reset (newSpec: Spec) {
+  function reset(newSpec: Spec) {
     spec = newSpec
     queue = []
     oneTimeOverrides = []
@@ -174,35 +179,38 @@ export function mockFn (): Mock<any[], undefined> {
 
   mock.given = function (...args: any[]) {
     return {
-      returns (value: any) {
+      returns(value: any) {
         recurringOverrides.push({ args, spec: { type: 'return', value } })
         return mock
       },
 
-      returnsOnce (value: any) {
+      returnsOnce(value: any) {
         oneTimeOverrides.push({ args, spec: { type: 'return', value } })
         return mock
       },
 
-      throws (error: any) {
+      throws(error: any) {
         recurringOverrides.push({ args, spec: { type: 'throw', error } })
         return mock
       },
 
-      throwsOnce (error: any) {
+      throwsOnce(error: any) {
         oneTimeOverrides.push({ args, spec: { type: 'throw', error } })
         return mock
       },
 
-      executes (implementation: (...args: any[]) => any) {
-        recurringOverrides.push({ args, spec: { type: 'exec', implementation } })
+      executes(implementation: (...args: any[]) => any) {
+        recurringOverrides.push({
+          args,
+          spec: { type: 'exec', implementation },
+        })
         return mock
       },
 
-      executesOnce (implementation: (...args: any[]) => any) {
+      executesOnce(implementation: (...args: any[]) => any) {
         oneTimeOverrides.push({ args, spec: { type: 'exec', implementation } })
         return mock
-      }
+      },
     }
   }
 
