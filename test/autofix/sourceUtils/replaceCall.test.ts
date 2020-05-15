@@ -1,6 +1,6 @@
 import { expect } from 'chai'
 
-import { replaceCallInSource } from '../../src/autofix/sourceUtils'
+import { replaceCallInSource } from '../../../src/autofix/sourceUtils'
 
 describe('replaceCall', () => {
   it('works when no previous value was provided', () => {
