@@ -1,4 +1,4 @@
-import { smartEq } from '../matchers/toEqual'
+import { smartEq } from './matchers/toEqual'
 
 export interface MockCall {
   args: any[]
@@ -9,6 +9,7 @@ export interface Mock<A extends any[], T> {
   /** Calls the mock function */
   (...args: A): T
   calls: MockCall[]
+  isExhausted(): boolean
   /**
    * Sets the return value of calls to the Mock.
    * Overrides any previous configuration.
@@ -136,6 +137,9 @@ export function mockFn(): Mock<any[], undefined> {
   }
 
   mock.calls = [] as MockCall[]
+  mock.isExhausted = function () {
+    return queue.length === 0 && oneTimeOverrides.length === 0
+  }
 
   function runSpec(spec: Spec, args: any[]) {
     switch (spec.type) {

@@ -1,7 +1,7 @@
 import { expect } from 'chai'
 
-import { expect as earl } from '../../src'
-import { mockFn } from '../../src/mocks/Mock'
+import { expect as earl } from '../src'
+import { mockFn } from '../src/Mock'
 
 describe('Mock', () => {
   describe('mockFn()', () => {
@@ -288,6 +288,29 @@ describe('Mock', () => {
         { args: [2], result: { type: 'return', value: 3 } },
         { args: [5], result: { type: 'throw', error } },
       ])
+    })
+  })
+
+  describe('.isExhausted', () => {
+    it('returns true initially', () => {
+      const fn = mockFn()
+      expect(fn.isExhausted()).to.equal(true)
+    })
+
+    it('returns false if there are queued calls', () => {
+      const fn = mockFn().returnsOnce(3)
+      expect(fn.isExhausted()).to.equal(false)
+      fn()
+      expect(fn.isExhausted()).to.equal(true)
+    })
+
+    it('returns false if there are queued calls with argument matching', () => {
+      const fn = mockFn().given(1).returnsOnce(3)
+      expect(fn.isExhausted()).to.equal(false)
+      fn()
+      expect(fn.isExhausted()).to.equal(false)
+      fn(1)
+      expect(fn.isExhausted()).to.equal(true)
     })
   })
 })
