@@ -11,8 +11,6 @@ export function toEqual<T>(this: Expectation<T>, expected?: T): void {
 
   if (!smartEq(internalThis.actual, expected)) {
     if (arguments.length === 0) {
-      console.log(`Autofixing ${JSON.stringify(internalThis.actual)}...`)
-
       internalThis.autofix('toEqual', internalThis.actual)
     } else {
       throw new Error(`${JSON.stringify(internalThis.actual)} not equal to ${JSON.stringify(expected)}`)

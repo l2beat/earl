@@ -29,7 +29,7 @@ describe('autofix', () => {
       column: 15,
     }))
 
-    autofix(dummyFs, dummyCT)('toEqual', 4)
+    autofix(dummyFs, dummyCT, () => false)('toEqual', 4)
 
     expect(dummyFs.writeFile).to.have.been.calledWithExactly(filePath, sourceAFixed)
   })
