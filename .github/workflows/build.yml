@@ -1,10 +1,14 @@
 name: Build and test
 
-on: [push]
+on: [push, pull_request]
 
 jobs:
   build:
     runs-on: ubuntu-latest
+
+    # we want to run on forks but avoid duplicates inside our own repo
+    if: github.event_name == 'push' || github.event.pull_request.head.repo.full_name != 'krzkaczor/earl'
+    
     steps:
       - uses: actions/checkout@v1
 
