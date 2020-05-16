@@ -1,4 +1,4 @@
-import { smartEq } from './matchers/toEqual'
+import { smartEq } from './validators/toEqual'
 
 export interface MockCall {
   args: any[]

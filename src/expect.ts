@@ -1,8 +1,8 @@
 import { autofix } from './autofix'
 import { Expectation } from './Expectation'
-import { AMatcher } from './matchers/asymmetric/A'
-import { AnythingMatcher } from './matchers/asymmetric/Anything'
-import { StringContainingMatcher } from './matchers/asymmetric/StringContaining'
+import { AMatcher } from './matchers/A'
+import { AnythingMatcher } from './matchers/Anything'
+import { StringContainingMatcher } from './matchers/StringContaining'
 
 interface expectInterface {
   <T>(actual: T): Expectation<T>

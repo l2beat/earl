@@ -1,6 +1,6 @@
 import { expect } from 'chai'
 
-import { StringContainingMatcher } from '../../../src/matchers/asymmetric/StringContaining'
+import { StringContainingMatcher } from '../../src/matchers/StringContaining'
 
 describe('StringContaining asymmetric matcher', () => {
   it('matches strings containing substring', () => {
