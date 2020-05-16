@@ -40,7 +40,7 @@ export class AMatcher<T> extends AsymmetricMatcher {
       return typeof v === 'string' || v instanceof String
     }
     if (this.clazz === (Number as any)) {
-      return typeof v === 'number' || v instanceof Number
+      return (typeof v === 'number' && !isNaN(v)) || v instanceof Number
     }
     if (this.clazz === (Boolean as any)) {
       return typeof v === 'boolean' || v instanceof Boolean

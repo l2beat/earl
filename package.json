@@ -32,17 +32,19 @@
     "prepublishOnly": "yarn lint && yarn format && yarn test && yarn typecheck && yarn build"
   },
   "dependencies": {
+    "debug": "^4.1.1",
+    "lines-and-columns": "^1.1.6",
     "lodash": "^4.17.15",
     "stacktracey": "^1.2.127",
-    "ts-essentials": "^6.0.5",
-    "lines-and-columns": "^1.1.6"
+    "ts-essentials": "^6.0.5"
   },
   "devDependencies": {
-    "@types/node": "^13.13.0",
     "@types/chai": "^4.2.7",
     "@types/chai-as-promised": "^7.1.2",
+    "@types/debug": "^4.1.5",
     "@types/lodash": "^4.14.150",
     "@types/mocha": "^5.2.7",
+    "@types/node": "^13.13.0",
     "@types/sinon-chai": "^3.2.4",
     "@typescript-eslint/eslint-plugin": "^2.25.0",
     "@typescript-eslint/parser": "^2.12.0",

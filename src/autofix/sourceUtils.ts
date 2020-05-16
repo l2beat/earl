@@ -38,9 +38,34 @@ export class CallNotFoundError extends Error {
 }
 
 /**
- * Transforms object into a literal that can be placed back into source.
+ * Transforms any value into a literal that can be placed back into source.
  * @todo use prettier on output
  */
 export function toLiteral(value: any): string {
+  // if it's an object
+  if (typeof value === 'object' && value !== null) {
+    const ctor = value?.constructor?.name
+    const serializableTypes = ['Object']
+    if (typeof value === 'object' && value !== null && !serializableTypes.includes(ctor)) {
+      // ...and don't know how to serialize it, just use a matcher
+      return `expect.a(${ctor})`
+    }
+
+    // otherwise run recursively
+    let out = ''
+    Object.keys(value).forEach((k) => {
+      out += `"${k}":` + toLiteral(value[k]) + ','
+    })
+
+    return '{' + out + '}'
+  }
+
+  if (value === null) {
+    return 'null'
+  }
+  if (value === undefined) {
+    return 'undefined'
+  }
+
   return JSON.stringify(value)
 }
