@@ -11,6 +11,9 @@ jobs:
     
     steps:
       - uses: actions/checkout@v1
+      - uses: actions/setup-node@v1
+        with:
+          node-version: '14.2.0'
 
       - name: Cache YARN dependencies
         uses: actions/cache@v1
