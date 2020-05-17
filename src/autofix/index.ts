@@ -2,8 +2,9 @@ import debug from 'debug'
 
 import { Fs, RealFs } from './fs'
 import { shouldPreventAutofix } from './predicates'
-import { AutofixError, NoCallSiteError, OutOfFileError, replaceCallInSource, toLiteral } from './sourceUtils'
+import { AutofixError, NoCallSiteError, OutOfFileError, replaceCallInSource } from './replaceCallInSource'
 import { getCallTrace as realGetCallTrace, GetCallTraceType } from './stackTrace'
+import { toLiteral } from './toLiteral'
 
 const d = debug('earl:autofix')
 

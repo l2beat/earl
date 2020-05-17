@@ -1,8 +1,8 @@
 import { expect } from 'chai'
 
-import { NoCallSiteError, OutOfFileError, replaceCallInSource } from '../../../src/autofix/sourceUtils'
+import { NoCallSiteError, OutOfFileError, replaceCallInSource } from '../../src/autofix/replaceCallInSource'
 
-describe('replaceCall', () => {
+describe('replaceCallInSource', () => {
   it('works when no previous value was provided', () => {
     const source = `
 console.log("Hello world");
