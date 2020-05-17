@@ -8,7 +8,7 @@ interface expectInterface {
   <T>(actual: T): Expectation<T>
   <T>(actual: T): Expectation<T>
 
-  // asymmetric matchers
+  // matchers
   anything: typeof AnythingMatcher.make
   a: typeof AMatcher.make
   stringContaining: typeof StringContainingMatcher.make

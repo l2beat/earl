@@ -1,6 +1,6 @@
 import { Exact } from 'ts-essentials'
 
-import { AsymmetricMatcher } from './Base'
+import { Matcher } from './Base'
 
 interface Newable<T> {
   new (...args: any[]): T
@@ -30,7 +30,7 @@ export type Class2Primitive<T> = T extends String
  * It's works with primitives as expected (uses typeof).
  * When matching Object won't match nulls.
  */
-export class AMatcher<T> extends AsymmetricMatcher {
+export class AMatcher<T> extends Matcher {
   constructor(private readonly clazz: NewableOrPrimitive<T>) {
     super()
   }

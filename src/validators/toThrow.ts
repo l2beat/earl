@@ -23,7 +23,7 @@ export function toThrow<T extends Function>(this: Expectation<T>, expectedMsg?: 
   if (expectedMsg !== undefined) {
     return {
       success: error?.message === expectedMsg,
-      reason: `Expected to throw "${expectedMsg}" but didn't`,
+      reason: `Expected to throw "${expectedMsg}" but threw "${error?.message}"`,
       negatedReason: `Expected not to throw "${expectedMsg}" but did`,
     }
   } else {

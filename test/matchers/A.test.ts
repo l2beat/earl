@@ -2,7 +2,7 @@ import { expect } from 'chai'
 
 import { AMatcher } from '../../src/matchers/A'
 
-describe('A asymmetric matcher', () => {
+describe('A matcher', () => {
   it('should match string', () => {
     const m = new AMatcher(String)
 

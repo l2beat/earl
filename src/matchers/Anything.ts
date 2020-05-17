@@ -1,6 +1,6 @@
-import { AsymmetricMatcher } from './Base'
+import { Matcher } from './Base'
 
-export class AnythingMatcher extends AsymmetricMatcher {
+export class AnythingMatcher extends Matcher {
   check(_v: any) {
     return true
   }

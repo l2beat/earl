@@ -229,7 +229,7 @@ describe('Mock', () => {
       expect(fn(3, 4)).to.equal(undefined)
     })
 
-    it('supports asymmetric matchers', () => {
+    it('supports matchers', () => {
       const fn = mockFn().returns(null).given(earl.a(Number)).returns(3).given(earl.a(String)).returns('yes')
 
       expect(fn(false)).to.equal(null)
