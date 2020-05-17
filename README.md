@@ -101,6 +101,10 @@ These should be used with `toEqual`.
   `a(Object)` to match any object (won't match null)
 - `stringContaining(substring)` - matches any string containing given substring
 
+### Modifiers
+
+- `not` - will make expectation fail when it should succeed and succeed when it should fail
+
 ## Project state
 
 I would call the current state a Minimal MVP ;) All of the features mentioned above work but are very limited. There are

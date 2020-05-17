@@ -13,6 +13,7 @@ export interface InternalExpectation<T> {
 export class Expectation<T> {
   constructor(private readonly autofix: AutofixType, private readonly actual: T, private isNegated: boolean = false) {}
 
+  // modifiers
   get not(): this {
     if (this.isNegated) {
       throw new Error('Tried negating already negated expectation')
@@ -23,6 +24,7 @@ export class Expectation<T> {
     return this
   }
 
+  // validators
   toEqual = satisfy(toEqual)
   toThrow = satisfy(toThrow)
 }
