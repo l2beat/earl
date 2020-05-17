@@ -19,10 +19,10 @@ describe('toThrow', () => {
           throw new Error('Test msg')
         }).toThrow('Dummy msg')
 
-      expect(run).to.throw('Expected to throw "Dummy msg" but didn\'t')
+      expect(run).to.throw('Expected to throw "Dummy msg" but threw "Test msg"')
     })
 
-    it.skip('works when negated', () => {
+    it('works when negated', () => {
       const run = () =>
         earl(() => {
           throw new Error('Test msg')
@@ -31,13 +31,13 @@ describe('toThrow', () => {
       expect(run).not.to.throw()
     })
 
-    it.skip('throws when negated and msg match', () => {
+    it('throws when negated and msg match', () => {
       const run = () =>
         earl(() => {
           throw new Error('Test msg')
         }).not.toThrow('Test msg')
 
-      expect(run).not.to.throw()
+      expect(run).to.throw('Expected not to throw "Test msg" but did')
     })
   })
 
