@@ -22,7 +22,7 @@ export function autofix(
     console.log(`Autofixing ${functionCall}...`)
     d(`Autofixing: `, functionCall, newValue)
 
-    const callTrace = getCallTrace(3)
+    const callTrace = getCallTrace(4) // @todo: rewrite this to something smarter
     d(`Fixing file ${callTrace.file} ${callTrace.line}:${callTrace.column}`)
     try {
       const source = fs.readFile(callTrace.file)
