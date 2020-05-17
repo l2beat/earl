@@ -15,7 +15,7 @@ export function replaceCallInSource({ source, column, line, call, newArg }: Repl
   const lines = new LinesAndColumns(source)
   const index = lines.indexForLocation({ line, column })
   if (index === null) {
-    throw new CallNotFoundError(`Location ${line}:${column} out of file`)
+    throw new OutOfFileError()
   }
 
   const beforeCallSource = source.slice(0, index)
@@ -25,15 +25,18 @@ export function replaceCallInSource({ source, column, line, call, newArg }: Repl
   const regex = new RegExp(regexString, 'm')
   const modifiedSource = atCallSource.replace(regex, `${call}(${newArg})`)
   if (modifiedSource === atCallSource) {
-    throw new CallNotFoundError(`Couldn't find a call ${call} at location ${column}:${line}`)
+    throw new NoCallSiteError()
   }
 
   return beforeCallSource + modifiedSource
 }
 
-export class CallNotFoundError extends Error {
+export class OutOfFileError extends Error {}
+export class NoCallSiteError extends Error {}
+export class AutofixError extends Error {
   constructor(public readonly reason: string) {
-    super(`CallNotFound: ${reason}`)
+    super(`Autofix failed! It seems like source maps are not configured correctly.
+Details: ${reason}`)
   }
 }
 

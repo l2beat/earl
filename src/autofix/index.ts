@@ -2,7 +2,7 @@ import debug from 'debug'
 
 import { Fs, RealFs } from './fs'
 import { shouldPreventAutofix } from './predicates'
-import { replaceCallInSource, toLiteral } from './sourceUtils'
+import { AutofixError, NoCallSiteError, OutOfFileError, replaceCallInSource, toLiteral } from './sourceUtils'
 import { getCallTrace as realGetCallTrace, GetCallTraceType } from './stackTrace'
 
 const d = debug('earl:autofix')
@@ -24,16 +24,28 @@ export function autofix(
 
     const callTrace = getCallTrace(3)
     d(`Fixing file ${callTrace.file} ${callTrace.line}:${callTrace.column}`)
-    const source = fs.readFile(callTrace.file)
+    try {
+      const source = fs.readFile(callTrace.file)
 
-    const newSource = replaceCallInSource({
-      source,
-      column: callTrace.column,
-      line: callTrace.line,
-      call: functionCall,
-      newArg: toLiteral(newValue),
-    })
+      const newSource = replaceCallInSource({
+        source,
+        column: callTrace.column,
+        line: callTrace.line,
+        call: functionCall,
+        newArg: toLiteral(newValue),
+      })
 
-    fs.writeFile(callTrace.file, newSource)
+      fs.writeFile(callTrace.file, newSource)
+    } catch (e) {
+      if (e instanceof OutOfFileError) {
+        throw new AutofixError(`Couldn't find ${callTrace.file}:${callTrace.line}:${callTrace.column}`)
+      }
+      if (e instanceof NoCallSiteError) {
+        throw new AutofixError(
+          `Couldn't find a call ${functionCall} in ${callTrace.file}:${callTrace.column}:${callTrace.line}`,
+        )
+      }
+      throw new AutofixError(e.message)
+    }
   }
 }
