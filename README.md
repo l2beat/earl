@@ -86,11 +86,15 @@ you like what you see give us a 🌟. Don't hesitate to create issue in this pro
 
 ## API
 
-### Matchers
+### Validators
 
 - `toEqual` - performs deep equality check, ensures type equality works with asymmetric matchers
+- `toThrow(expectedErrorMsg?: string)` - checks if expected error was threw. Requires checked value to be a
+  parameterless function.
 
-### Asymmetric Matchers
+### Matchers
+
+These should be used with `toEqual`.
 
 - `anything` - matches anything
 - `a(class)` - matches any instance of a class. Works as expected with primitives like String, Number etc. Use
