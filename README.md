@@ -88,7 +88,8 @@ you like what you see give us a 🌟. Don't hesitate to create issue in this pro
 
 ### Validators
 
-- `toEqual` - performs deep equality check, ensures type equality works with asymmetric matchers
+- `toEqual` - performs deep equality check, ensures type equality, supports additional matchers
+- `toLooseEqual` - like toEqual but without type checking
 - `toThrow(expectedErrorMsg?: string)` - checks if expected error was threw. Requires checked value to be a
   parameterless function.
 

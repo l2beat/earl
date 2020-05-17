@@ -1,9 +1,9 @@
-import { AsymmetricMatcher } from './Base'
+import { Matcher } from './Base'
 
 /**
  * Matches any string that contains another string
  */
-export class StringContainingMatcher extends AsymmetricMatcher {
+export class StringContainingMatcher extends Matcher {
   constructor(private readonly substring: string) {
     super()
   }

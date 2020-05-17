@@ -2,7 +2,7 @@ import { expect } from 'chai'
 
 import { AnythingMatcher } from '../../src/matchers/Anything'
 
-describe('Anything asymmetric matcher', () => {
+describe('Anything matcher', () => {
   it('should match anything', () => {
     const m = AnythingMatcher.make()
 

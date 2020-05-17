@@ -1,7 +1,7 @@
 import { isEqualWith } from 'lodash'
 
 import { Expectation, InternalExpectation } from '../Expectation'
-import { AsymmetricMatcher } from '../matchers/Base'
+import { Matcher } from '../matchers/Base'
 import { ValidationResult } from './common'
 
 /**
@@ -40,7 +40,7 @@ export function toEqual<T>(this: Expectation<T>, expected?: T): ValidationResult
 
 export function smartEq(actual: any, expected: any): boolean {
   return isEqualWith(actual, expected, (a: any, b: any) => {
-    if (b instanceof AsymmetricMatcher) {
+    if (b instanceof Matcher) {
       return b.check(a)
     }
   })

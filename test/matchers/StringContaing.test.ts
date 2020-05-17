@@ -2,7 +2,7 @@ import { expect } from 'chai'
 
 import { StringContainingMatcher } from '../../src/matchers/StringContaining'
 
-describe('StringContaining asymmetric matcher', () => {
+describe('StringContaining matcher', () => {
   it('matches strings containing substring', () => {
     const m = new StringContainingMatcher('test')
 
