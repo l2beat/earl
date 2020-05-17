@@ -1,6 +1,6 @@
 import { expect } from 'chai'
 
-import { AMatcher } from '../../../src/matchers/asymmetric/A'
+import { AMatcher } from '../../src/matchers/A'
 
 describe('A asymmetric matcher', () => {
   it('should match string', () => {

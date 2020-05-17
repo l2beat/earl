@@ -1,6 +1,6 @@
 import { expect } from 'chai'
 
-import { AnythingMatcher } from '../../../src/matchers/asymmetric/Anything'
+import { AnythingMatcher } from '../../src/matchers/Anything'
 
 describe('Anything asymmetric matcher', () => {
   it('should match anything', () => {
