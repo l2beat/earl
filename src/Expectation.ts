@@ -1,7 +1,9 @@
 import { AutofixType } from './autofix'
 import { ValidationResult } from './validators/common'
 import { toEqual } from './validators/toEqual'
+import { toThrow } from './validators/toThrow'
 
+// used by validators to access private fields for Expectation cls
 export interface InternalExpectation<T> {
   readonly autofix: AutofixType
   readonly actual: T
@@ -22,6 +24,7 @@ export class Expectation<T> {
   }
 
   toEqual = satisfy(toEqual)
+  toThrow = satisfy(toThrow)
 }
 
 export function satisfy<T extends (...args: any[]) => ValidationResult>(validator: T): T {

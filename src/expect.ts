@@ -6,6 +6,7 @@ import { StringContainingMatcher } from './matchers/StringContaining'
 
 interface expectInterface {
   <T>(actual: T): Expectation<T>
+  <T>(actual: T): Expectation<T>
 
   // asymmetric matchers
   anything: typeof AnythingMatcher.make
