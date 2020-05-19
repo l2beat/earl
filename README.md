@@ -114,12 +114,16 @@ These should be used with `toEqual`.
 
 Currently earl features two types of mocks:
 
-- strictMocks are well defined mocks with expected calls and responses defined up front
-- looseMocks are more traditional mocks similar to sinon/jest. 
+- `strictMocks` are well defined mocks with expected calls and responses defined up front
+- `looseMocks` are more traditional mocks similar to sinon/jest.
+
+Both types of mocks are automatically verified (`isExhausted` check) if test runner integration is enabled.
 
 ### Examples:
 
-```
+```js
+import { expect, strictMockFn } from 'earljs'
+
 const mock = strictMockFn()
 
 mock.expectedCall(1).returns('a')
@@ -129,7 +133,27 @@ mock.expectedCall(earl.a(Number)).returns('c')
 expect(mock(1)).toEqual('a')
 expect(mock(2)).toEqual('b')
 expect(mock(5)).toEqual('c')
+// unexpected call
 expect(mock(1)).toThrow()
+
+// note: use test runner integration to auto verify mocks and avoid writing this check by hand
+expect(mock).toBeExhausted()
+```
+
+### Test runner integration
+
+By integrating with a test runner you get:
+
+- automatic mocks verification after each test
+
+Currently only integration with mocha is supported. To enable, simply require `earljs/mocha` with mocha, you can put it
+in `.mocharc.js`:
+
+```js
+module.exports = {
+  require: ['earljs/mocha'],
+  // ...
+}
 ```
 
 ## Project state
