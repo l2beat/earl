@@ -52,7 +52,7 @@ interface ExecSpec {
 
 type Spec = ReturnSpec | ThrowSpec | ExecSpec
 
-export function strictMockFn(): StrictMock<any[], undefined> {
+export function strictMockFn<ARGS extends any[], RETURN>(): StrictMock<ARGS, RETURN> {
   const queue: Spec[] = []
 
   function mock(...args: any[]) {

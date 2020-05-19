@@ -124,7 +124,7 @@ Both types of mocks are automatically verified (`isExhausted` check) if test run
 ```js
 import { expect, strictMockFn } from 'earljs'
 
-const mock = strictMockFn()
+const mock = strictMockFn<[number], string>()
 
 mock.expectedCall(1).returns('a')
 mock.expectedCall(2).returns('b')
