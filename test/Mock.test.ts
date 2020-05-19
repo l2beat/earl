@@ -12,6 +12,8 @@ describe('Mock', () => {
 
     it('function returns undefined by default', () => {
       const fn = mockFn()
+
+      expect(fn()).to.equal(undefined)
       expect(fn()).to.equal(undefined)
     })
   })
@@ -19,6 +21,8 @@ describe('Mock', () => {
   describe('.returns', () => {
     it('sets function return value', () => {
       const fn = mockFn().returns(3)
+
+      expect(fn()).to.equal(3)
       expect(fn()).to.equal(3)
     })
 
@@ -62,6 +66,8 @@ describe('Mock', () => {
   describe('.throws', () => {
     it('sets function to throw', () => {
       const fn = mockFn().throws(new Error('Boom'))
+
+      expect(fn).to.throw('Boom')
       expect(fn).to.throw('Boom')
     })
 
@@ -105,6 +111,8 @@ describe('Mock', () => {
   describe('.executes', () => {
     it('sets function to execute implementation', () => {
       const fn = mockFn().executes((x: number) => x + 1)
+
+      expect(fn(4)).to.equal(5)
       expect(fn(4)).to.equal(5)
     })
 
@@ -124,6 +132,7 @@ describe('Mock', () => {
   describe('.executesOnce', () => {
     it('queues function to execute implementation', () => {
       const fn = mockFn().executesOnce((x: number) => x + 1)
+
       expect(fn(4)).to.equal(5)
       expect(fn(4)).to.equal(undefined)
     })
@@ -133,6 +142,7 @@ describe('Mock', () => {
         .executesOnce((x: number) => x + 1)
         .executesOnce((x: number) => x / 2)
         .executesOnce(() => 15)
+
       expect(fn(4)).to.equal(5)
       expect(fn(4)).to.equal(2)
       expect(fn(4)).to.equal(15)
@@ -143,6 +153,7 @@ describe('Mock', () => {
       const fn = mockFn()
         .executes((x: number) => x + 1)
         .executesOnce((x: number) => x / 2)
+
       expect(fn(4)).to.equal(2)
       expect(fn(4)).to.equal(5)
     })
@@ -151,6 +162,7 @@ describe('Mock', () => {
   describe('.given', () => {
     it('supports .returns', () => {
       const fn = mockFn().given(1, 2).returns(3)
+
       expect(fn(1, 2)).to.equal(3)
       expect(fn(1, 2)).to.equal(3)
       expect(fn(3, 4)).to.equal(undefined)
