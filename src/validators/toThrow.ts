@@ -9,7 +9,7 @@ import { ValidationResult } from './common'
 // .toThrow(ErrorClass, 'message')
 // .toThrow(ErrorClass, /message/)
 // support for autofix with toThrow(AUTOFIX)
-export function toThrow<T extends Function>(this: Expectation<T>, expectedMsg?: string): ValidationResult {
+export function toThrow<T extends () => any>(this: Expectation<T>, expectedMsg?: string): ValidationResult {
   const internalThis = (this as any) as InternalExpectation<T>
   assert(internalThis.actual instanceof Function, 'Actual has to be a function to check if threw')
 
