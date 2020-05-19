@@ -1,29 +1,33 @@
 import { expect } from 'chai'
 
-import { expect as earl } from '../src'
-import { mockFn } from '../src/Mock'
+import { expect as earl } from '../../src'
+import { looseMockFn } from '../../src/mocks/looseMock'
 
-describe('Mock', () => {
+describe('looseMock', () => {
   describe('mockFn()', () => {
     it('creates a function', () => {
-      const fn = mockFn()
+      const fn = looseMockFn()
       expect(fn).to.be.instanceOf(Function)
     })
 
     it('function returns undefined by default', () => {
-      const fn = mockFn()
+      const fn = looseMockFn()
+
+      expect(fn()).to.equal(undefined)
       expect(fn()).to.equal(undefined)
     })
   })
 
   describe('.returns', () => {
     it('sets function return value', () => {
-      const fn = mockFn().returns(3)
+      const fn = looseMockFn().returns(3)
+
+      expect(fn()).to.equal(3)
       expect(fn()).to.equal(3)
     })
 
     it('resets any existing config', () => {
-      const fn = mockFn()
+      const fn = looseMockFn()
         .throws(new Error('Boom'))
         .given(1, 2)
         .executes((a, b) => a + b)
@@ -37,13 +41,13 @@ describe('Mock', () => {
 
   describe('.returnsOnce', () => {
     it('queues function return value', () => {
-      const fn = mockFn().returnsOnce(3)
+      const fn = looseMockFn().returnsOnce(3)
       expect(fn()).to.equal(3)
       expect(fn()).to.equal(undefined)
     })
 
     it('can queue multiple values', () => {
-      const fn = mockFn().returnsOnce(3).returnsOnce(4).returnsOnce('hello')
+      const fn = looseMockFn().returnsOnce(3).returnsOnce(4).returnsOnce('hello')
       expect(fn()).to.equal(3)
       expect(fn()).to.equal(4)
       expect(fn()).to.equal('hello')
@@ -51,7 +55,7 @@ describe('Mock', () => {
     })
 
     it('respects previous configuration', () => {
-      const fn = mockFn()
+      const fn = looseMockFn()
         .executes((x: number) => x + 1)
         .returnsOnce(3)
       expect(fn(1)).to.equal(3)
@@ -61,12 +65,14 @@ describe('Mock', () => {
 
   describe('.throws', () => {
     it('sets function to throw', () => {
-      const fn = mockFn().throws(new Error('Boom'))
+      const fn = looseMockFn().throws(new Error('Boom'))
+
+      expect(fn).to.throw('Boom')
       expect(fn).to.throw('Boom')
     })
 
     it('resets any existing config', () => {
-      const fn = mockFn()
+      const fn = looseMockFn()
         .returns(3)
         .given(1, 2)
         .executes((a, b) => a + b)
@@ -80,13 +86,16 @@ describe('Mock', () => {
 
   describe('.throwsOnce', () => {
     it('queues function to throw', () => {
-      const fn = mockFn().throwsOnce(new Error('Boom'))
+      const fn = looseMockFn().throwsOnce(new Error('Boom'))
       expect(fn).to.throw('Boom')
       expect(fn()).to.equal(undefined)
     })
 
     it('can queue multiple values', () => {
-      const fn = mockFn().throwsOnce(new Error('Boom')).throwsOnce(new Error('Bam')).throwsOnce(new TypeError('BANG'))
+      const fn = looseMockFn()
+        .throwsOnce(new Error('Boom'))
+        .throwsOnce(new Error('Bam'))
+        .throwsOnce(new TypeError('BANG'))
       expect(fn).to.throw(Error, 'Boom')
       expect(fn).to.throw(Error, 'Bam')
       expect(fn).to.throw(TypeError, 'BANG')
@@ -94,7 +103,7 @@ describe('Mock', () => {
     })
 
     it('respects previous configuration', () => {
-      const fn = mockFn()
+      const fn = looseMockFn()
         .executes((x: number) => x + 1)
         .throwsOnce(new Error('Boom'))
       expect(fn).to.throw('Boom')
@@ -104,12 +113,14 @@ describe('Mock', () => {
 
   describe('.executes', () => {
     it('sets function to execute implementation', () => {
-      const fn = mockFn().executes((x: number) => x + 1)
+      const fn = looseMockFn().executes((x: number) => x + 1)
+
+      expect(fn(4)).to.equal(5)
       expect(fn(4)).to.equal(5)
     })
 
     it('resets any existing config', () => {
-      const fn = mockFn()
+      const fn = looseMockFn()
         .returns(3)
         .given('foo')
         .returns(5)
@@ -123,16 +134,18 @@ describe('Mock', () => {
 
   describe('.executesOnce', () => {
     it('queues function to execute implementation', () => {
-      const fn = mockFn().executesOnce((x: number) => x + 1)
+      const fn = looseMockFn().executesOnce((x: number) => x + 1)
+
       expect(fn(4)).to.equal(5)
       expect(fn(4)).to.equal(undefined)
     })
 
     it('can queue multiple values', () => {
-      const fn = mockFn()
+      const fn = looseMockFn()
         .executesOnce((x: number) => x + 1)
         .executesOnce((x: number) => x / 2)
         .executesOnce(() => 15)
+
       expect(fn(4)).to.equal(5)
       expect(fn(4)).to.equal(2)
       expect(fn(4)).to.equal(15)
@@ -140,9 +153,10 @@ describe('Mock', () => {
     })
 
     it('respects previous configuration', () => {
-      const fn = mockFn()
+      const fn = looseMockFn()
         .executes((x: number) => x + 1)
         .executesOnce((x: number) => x / 2)
+
       expect(fn(4)).to.equal(2)
       expect(fn(4)).to.equal(5)
     })
@@ -150,7 +164,8 @@ describe('Mock', () => {
 
   describe('.given', () => {
     it('supports .returns', () => {
-      const fn = mockFn().given(1, 2).returns(3)
+      const fn = looseMockFn().given(1, 2).returns(3)
+
       expect(fn(1, 2)).to.equal(3)
       expect(fn(1, 2)).to.equal(3)
       expect(fn(3, 4)).to.equal(undefined)
@@ -158,7 +173,7 @@ describe('Mock', () => {
     })
 
     it('supports .returnsOnce', () => {
-      const fn = mockFn().given(1, 2).returnsOnce(3)
+      const fn = looseMockFn().given(1, 2).returnsOnce(3)
       expect(fn(1, 2)).to.equal(3)
       expect(fn(1, 2)).to.equal(undefined)
       expect(fn(3, 4)).to.equal(undefined)
@@ -166,7 +181,7 @@ describe('Mock', () => {
     })
 
     it('supports multiple .returnsOnce', () => {
-      const fn = mockFn().given(1, 2).returnsOnce(3).given(1, 2).returnsOnce(4)
+      const fn = looseMockFn().given(1, 2).returnsOnce(3).given(1, 2).returnsOnce(4)
       expect(fn(1, 2)).to.equal(3)
       expect(fn(1, 2)).to.equal(4)
       expect(fn(1, 2)).to.equal(undefined)
@@ -175,7 +190,7 @@ describe('Mock', () => {
     })
 
     it('supports .throws', () => {
-      const fn = mockFn().given(1, 2).throws(new Error('Boom'))
+      const fn = looseMockFn().given(1, 2).throws(new Error('Boom'))
       expect(() => fn(1, 2)).to.throw('Boom')
       expect(() => fn(1, 2)).to.throw('Boom')
       expect(fn(3, 4)).to.equal(undefined)
@@ -183,7 +198,7 @@ describe('Mock', () => {
     })
 
     it('supports .throwsOnce', () => {
-      const fn = mockFn().given(1, 2).throwsOnce(new Error('Boom'))
+      const fn = looseMockFn().given(1, 2).throwsOnce(new Error('Boom'))
       expect(() => fn(1, 2)).to.throw('Boom')
       expect(fn(1, 2)).to.equal(undefined)
       expect(fn(3, 4)).to.equal(undefined)
@@ -191,7 +206,7 @@ describe('Mock', () => {
     })
 
     it('supports multiple .throwsOnce', () => {
-      const fn = mockFn().given(1, 2).throwsOnce(new Error('Boom')).given(1, 2).throwsOnce(new Error('Bam'))
+      const fn = looseMockFn().given(1, 2).throwsOnce(new Error('Boom')).given(1, 2).throwsOnce(new Error('Bam'))
       expect(() => fn(1, 2)).to.throw('Boom')
       expect(() => fn(1, 2)).to.throw('Bam')
       expect(fn(1, 2)).to.equal(undefined)
@@ -200,7 +215,7 @@ describe('Mock', () => {
     })
 
     it('supports .executes', () => {
-      const fn = mockFn()
+      const fn = looseMockFn()
         .given(1, 2)
         .executes((a, b) => a + b)
       expect(fn(1, 2)).to.equal(3)
@@ -209,7 +224,7 @@ describe('Mock', () => {
     })
 
     it('supports .executesOnce', () => {
-      const fn = mockFn()
+      const fn = looseMockFn()
         .given(1, 2)
         .executesOnce((a, b) => a + b)
       expect(fn(1, 2)).to.equal(3)
@@ -218,7 +233,7 @@ describe('Mock', () => {
     })
 
     it('supports multiple .executesOnce', () => {
-      const fn = mockFn()
+      const fn = looseMockFn()
         .given(1, 2)
         .executesOnce((a, b) => a + b)
         .given(1, 2)
@@ -230,7 +245,7 @@ describe('Mock', () => {
     })
 
     it('supports matchers', () => {
-      const fn = mockFn().returns(null).given(earl.a(Number)).returns(3).given(earl.a(String)).returns('yes')
+      const fn = looseMockFn().returns(null).given(earl.a(Number)).returns(3).given(earl.a(String)).returns('yes')
 
       expect(fn(false)).to.equal(null)
       expect(fn(1)).to.equal(3)
@@ -240,18 +255,18 @@ describe('Mock', () => {
 
   describe('.calls', () => {
     it('is empty at first', () => {
-      const fn = mockFn()
+      const fn = looseMockFn()
       expect(fn.calls).to.deep.equal([])
     })
 
     it('stores a single call', () => {
-      const fn = mockFn()
+      const fn = looseMockFn()
       fn()
       expect(fn.calls).to.deep.equal([{ args: [], result: { type: 'return', value: undefined } }])
     })
 
     it('stores multiple calls', () => {
-      const fn = mockFn()
+      const fn = looseMockFn()
       fn()
       fn(1)
       fn(5, 'yo')
@@ -264,7 +279,7 @@ describe('Mock', () => {
 
     it('respects .throws', () => {
       const error = new Error('Boom')
-      const fn = mockFn().throws(error)
+      const fn = looseMockFn().throws(error)
       try {
         fn()
       } catch {}
@@ -273,7 +288,7 @@ describe('Mock', () => {
 
     it('respects .executes', () => {
       const error = new Error('Boom')
-      const fn = mockFn().executes((x: number) => {
+      const fn = looseMockFn().executes((x: number) => {
         if (x < 3) {
           return 3
         } else {
@@ -293,19 +308,19 @@ describe('Mock', () => {
 
   describe('.isExhausted', () => {
     it('returns true initially', () => {
-      const fn = mockFn()
+      const fn = looseMockFn()
       expect(fn.isExhausted()).to.equal(true)
     })
 
     it('returns false if there are queued calls', () => {
-      const fn = mockFn().returnsOnce(3)
+      const fn = looseMockFn().returnsOnce(3)
       expect(fn.isExhausted()).to.equal(false)
       fn()
       expect(fn.isExhausted()).to.equal(true)
     })
 
     it('returns false if there are queued calls with argument matching', () => {
-      const fn = mockFn().given(1).returnsOnce(3)
+      const fn = looseMockFn().given(1).returnsOnce(3)
       expect(fn.isExhausted()).to.equal(false)
       fn()
       expect(fn.isExhausted()).to.equal(false)

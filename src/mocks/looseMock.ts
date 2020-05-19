@@ -1,51 +1,58 @@
-import { smartEq } from './validators/toEqual'
+import { smartEq } from '../validators/toEqual'
 
 export interface MockCall {
   args: any[]
   result: { type: 'return'; value: any } | { type: 'throw'; error: any }
 }
 
-export interface Mock<A extends any[], T> {
+export interface LooseMock<A extends any[], T> {
   /** Calls the mock function */
   (...args: A): T
   calls: MockCall[]
   isExhausted(): boolean
+
   /**
    * Sets the return value of calls to the Mock.
    * Overrides any previous configuration.
    * @param value value to be returned.
    */
-  returns<U>(value: U): Mock<any[], U>
+  returns<U>(value: U): LooseMock<any[], U>
+
   /**
    * Schedules the mock to return a value the next time it's called.
    * If anything is already scheduled it will be used first.
    * @param value value to be returned.
    */
-  returnsOnce<U>(value: U): Mock<A, T | U>
+  returnsOnce<U>(value: U): LooseMock<A, T | U>
+
   /**
    * Sets the error thrown by calls to the Mock.
    * Overrides any previous configuration.
    * @param error error to be thrown.
    */
-  throws(error: any): Mock<any[], never>
+  throws(error: any): LooseMock<any[], never>
+
   /**
    * Schedules the mock to throw an error the next time it's called.
    * If anything is already scheduled it will be used first.
    * @param error error to be thrown.
    */
-  throwsOnce(error: any): Mock<A, T>
+  throwsOnce(error: any): LooseMock<A, T>
+
   /**
    * Sets the underlying implementation of the Mock.
    * Overrides any previous configuration.
    * @param implementation function to execute.
    */
-  executes<B extends any[], U>(implementation: (...args: B) => U): Mock<B, U>
+  executes<B extends any[], U>(implementation: (...args: B) => U): LooseMock<B, U>
+
   /**
    * Schedules the mock use the provided implementation the next time it's called.
    * If anything is already scheduled it will be used first.
    * @param implementation function to execute.
    */
-  executesOnce<B extends A, U>(implementation: (...args: B) => U): Mock<B, T | U>
+  executesOnce<B extends A, U>(implementation: (...args: B) => U): LooseMock<B, T | U>
+
   /**
    * Specifies a different behavior when other arguments are given
    * @param args arguments to match
@@ -57,35 +64,35 @@ export interface Mock<A extends any[], T> {
      * Sets the return value of calls to the Mock.
      * @param value value to be returned.
      */
-    returns<U>(value: U): Mock<A, T | U>
+    returns<U>(value: U): LooseMock<A, T | U>
     /**
      * Schedules the mock to return a value the next time it's called.
      * If anything is already scheduled it will be used first.
      * @param value value to be returned.
      */
-    returnsOnce<U>(value: U): Mock<A, T | U>
+    returnsOnce<U>(value: U): LooseMock<A, T | U>
     /**
      * Sets the error thrown by calls to the Mock.
      * @param error error to be thrown.
      */
-    throws(error: any): Mock<A, T>
+    throws(error: any): LooseMock<A, T>
     /**
      * Schedules the mock to throw an error the next time it's called.
      * If anything is already scheduled it will be used first.
      * @param error error to be thrown.
      */
-    throwsOnce(error: any): Mock<A, T>
+    throwsOnce(error: any): LooseMock<A, T>
     /**
      * Sets the underlying implementation of the Mock.
      * @param implementation function to execute.
      */
-    executes<U>(implementation: (...args: B) => U): Mock<A, T | U>
+    executes<U>(implementation: (...args: B) => U): LooseMock<A, T | U>
     /**
      * Schedules the mock use the provided implementation the next time it's called.
      * If anything is already scheduled it will be used first.
      * @param implementation function to execute.
      */
-    executesOnce<U>(implementation: (...args: B) => U): Mock<A, T | U>
+    executesOnce<U>(implementation: (...args: B) => U): LooseMock<A, T | U>
   }
 }
 
@@ -111,7 +118,7 @@ interface Override {
   spec: Spec
 }
 
-export function mockFn(): Mock<any[], undefined> {
+export function looseMockFn(): LooseMock<any[], undefined> {
   let spec: Spec = {
     type: 'return',
     value: undefined,

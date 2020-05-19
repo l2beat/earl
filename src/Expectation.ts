@@ -1,5 +1,6 @@
 import { AutofixType } from './autofix'
 import { ValidationResult } from './validators/common'
+import { toBeExhausted } from './validators/mock'
 import { toEqual } from './validators/toEqual'
 import { toLooseEqual } from './validators/toLooseEqual'
 import { toThrow } from './validators/toThrow'
@@ -29,6 +30,7 @@ export class Expectation<T> {
   toEqual = satisfy(toEqual)
   toLooseEqual = satisfy(toLooseEqual)
   toThrow = satisfy(toThrow)
+  toBeExhausted = satisfy(toBeExhausted)
 }
 
 export function satisfy<T extends (...args: any[]) => ValidationResult>(validator: T): T {
