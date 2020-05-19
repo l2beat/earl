@@ -94,6 +94,7 @@ you like what you see give us a 🌟. Don't hesitate to create issue in this pro
 - `toLooseEqual` - like toEqual but without type checking
 - `toThrow(expectedErrorMsg?: string)` - checks if expected error was threw. Requires checked value to be a
   parameterless function.
+- `toBeExhausted()` - checks if given mock is exhausted. Works both with strict and loose mocks.
 
 ### Matchers
 
@@ -108,6 +109,28 @@ These should be used with `toEqual`.
 ### Modifiers
 
 - `not` - will make expectation fail when it should succeed and succeed when it should fail
+
+### Mocks
+
+Currently earl features two types of mocks:
+
+- strictMocks are well defined mocks with expected calls and responses defined up front
+- looseMocks are more traditional mocks similar to sinon/jest. 
+
+### Examples:
+
+```
+const mock = strictMockFn()
+
+mock.expectedCall(1).returns('a')
+mock.expectedCall(2).returns('b')
+mock.expectedCall(earl.a(Number)).returns('c')
+
+expect(mock(1)).toEqual('a')
+expect(mock(2)).toEqual('b')
+expect(mock(5)).toEqual('c')
+expect(mock(1)).toThrow()
+```
 
 ## Project state
 
