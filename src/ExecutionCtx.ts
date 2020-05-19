@@ -1,5 +1,9 @@
+import debug from 'debug'
+
 import { expect } from './expect'
 import { Mock } from './mocks/common'
+
+const d = debug('earl:ExecutionCtx')
 
 /**
  * Used to track entities (like mocks) created during single test run
@@ -9,16 +13,22 @@ export class ExecutionCtx {
   private mocks: Mock[] = []
 
   registerMock(mock: Mock): void {
+    d('Registering new mock')
+
     this.mocks.push(mock)
   }
 
   verifyAllMocks(): void {
+    d(`Verifying all mocks: ${this.mocks.length}`)
+
     for (const mock of this.mocks) {
       expect(mock).toBeExhausted()
     }
   }
 
   reset(): void {
+    d('Reset')
+
     this.mocks = []
   }
 }

@@ -1,3 +1,4 @@
+import { defaultExecutionCtx } from '../ExecutionCtx'
 import { smartEq } from '../validators/toEqual'
 
 export interface MockCall {
@@ -242,5 +243,6 @@ export function looseMockFn(): LooseMock<any[], undefined> {
     }
   }
 
+  defaultExecutionCtx.registerMock(mock as any)
   return mock
 }
