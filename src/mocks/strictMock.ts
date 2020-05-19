@@ -1,3 +1,4 @@
+import { defaultExecutionCtx } from '../ExecutionCtx'
 import { smartEq } from '../validators/toEqual'
 
 export interface StrictMock<A extends any[], T> {
@@ -108,5 +109,6 @@ export function strictMockFn<ARGS extends any[], RETURN>(): StrictMock<ARGS, RET
     }
   }
 
+  defaultExecutionCtx.registerMock(mock as any)
   return mock
 }
