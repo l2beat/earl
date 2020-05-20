@@ -1,10 +1,7 @@
 import { Control } from './common'
 import { smartEq } from './toEqual'
 
-/**
- * Like toEqual but without type checking.
- * @todo: follow design of jest's loose equal
- */
+// @todo: follow design of jest's loose equal
 export function toLooseEqual(control: Control<any>, expected?: any) {
   const reason = `${JSON.stringify(control.actual)} not loose equal to ${JSON.stringify(expected)}`
   const negatedReason = `${JSON.stringify(control.actual)} loose equal to ${JSON.stringify(expected)}`

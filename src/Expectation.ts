@@ -29,7 +29,9 @@ export class Expectation<T> {
 
   // validators
 
+  /** Does deep "smart" equality check. **Autofixes the argument**. */
   toEqual(): void
+  /** Does deep "smart" equality check. */
   toEqual(value: T): void
   toEqual(value?: T) {
     if (arguments.length === 0) {
@@ -39,7 +41,9 @@ export class Expectation<T> {
     }
   }
 
+  /** Like toEqual but without type checking. **Autofixes the argument**. */
   toLooseEqual(): void
+  /** Like toEqual but without type checking. */
   toLooseEqual(value: any): void
   toLooseEqual(value?: any) {
     if (arguments.length === 0) {

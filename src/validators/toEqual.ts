@@ -3,9 +3,6 @@ import { isEqualWith } from 'lodash'
 import { Matcher } from '../matchers/Base'
 import { Control } from './common'
 
-/**
- * Does deep "smart" equality check
- */
 export function toEqual<T>(control: Control<T>, expected?: T) {
   const reason = `${JSON.stringify(control.actual)} not equal to ${JSON.stringify(expected)}`
   const negatedReason = `${JSON.stringify(control.actual)} equal to ${JSON.stringify(expected)}`
