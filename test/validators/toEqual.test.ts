@@ -12,7 +12,7 @@ describe('toEqual', () => {
       const dummyAutofix = sinon.spy()
       const e = new Expectation(dummyAutofix, 'abc')
 
-      expect(() => e.toEqual(undefined)).to.throw()
+      expect(() => e.toEqual(undefined as any)).to.throw()
       expect(dummyAutofix).not.to.be.called
     })
 

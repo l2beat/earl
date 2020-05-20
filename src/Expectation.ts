@@ -1,5 +1,6 @@
 import { AutofixType } from './autofix'
-import { ValidationResult } from './validators/common'
+import { Mock } from './mocks/common'
+import { Control, ValidationResult } from './validators/common'
 import { toBeExhausted } from './validators/mock'
 import { toEqual } from './validators/toEqual'
 import { toLooseEqual } from './validators/toLooseEqual'
@@ -27,19 +28,54 @@ export class Expectation<T> {
   }
 
   // validators
-  toEqual = satisfy(toEqual)
-  toLooseEqual = satisfy(toLooseEqual)
-  toThrow = satisfy(toThrow)
-  toBeExhausted = satisfy(toBeExhausted)
-}
 
-export function satisfy<T extends (...args: any[]) => ValidationResult>(validator: T): T {
-  const res: any = function (this: Expectation<T>, ...args: any[]) {
-    const internalThis = (this as any) as InternalExpectation<T>
+  toEqual(): void
+  toEqual(value: T): void
+  toEqual(value?: T) {
+    if (arguments.length === 0) {
+      toEqual(this.getControl())
+    } else {
+      toEqual(this.getControl(), value)
+    }
+  }
 
-    const result = validator.apply(this, args)
+  toLooseEqual(): void
+  toLooseEqual(value: any): void
+  toLooseEqual(value?: any) {
+    if (arguments.length === 0) {
+      toLooseEqual(this.getControl())
+    } else {
+      toLooseEqual(this.getControl(), value)
+    }
+  }
 
-    if (internalThis.isNegated) {
+  // @todo: overloads like:
+  // .toThrow(/message/)
+  // .toThrow(ErrorClass)
+  // .toThrow(ErrorClass, 'message')
+  // .toThrow(ErrorClass, /message/)
+  // support for autofix with toThrow(AUTOFIX)
+  toThrow(this: Expectation<() => any>, message?: string) {
+    toThrow(this.getControl(), message)
+  }
+
+  toBeExhausted(this: Expectation<Mock>) {
+    toBeExhausted(this.getControl())
+  }
+
+  // utils
+
+  private getControl(): Control<T> {
+    return {
+      actual: this.actual,
+      assert: this.assert,
+      autofix: this.autofix,
+      isNegated: this.isNegated,
+    }
+  }
+
+  private assert(result: ValidationResult) {
+    if (this.isNegated) {
       if (result.success) {
         throw new Error(result.negatedReason)
       }
@@ -49,6 +85,4 @@ export function satisfy<T extends (...args: any[]) => ValidationResult>(validato
       }
     }
   }
-
-  return res
 }
