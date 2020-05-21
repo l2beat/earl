@@ -92,13 +92,13 @@ you like what you see give us a 🌟. Don't hesitate to create issue in this pro
 
 - `toEqual` - performs deep equality check, ensures type equality, supports additional matchers
 - `toLooseEqual` - like toEqual but without type checking
-- `toThrow(expectedErrorMsg?: string)` - checks if expected error was threw. Requires checked value to be a
+- `toThrow(expectedErrorMsg?: string)` - checks if expected error was throws. Requires checked value to be a
   parameterless function.
 - `toBeExhausted()` - checks if given mock is exhausted. Works both with strict and loose mocks.
 
 ### Matchers
 
-These should be used with `toEqual`.
+These should be used with `toEqual` or other validators using `smartEq` (ex. strictMocks's `expectedCall`).
 
 - `anything()` - matches anything
 - `a(class)` - matches any instance of a class. Works as expected with primitives like String, Number etc. Use
@@ -128,7 +128,7 @@ const mock = strictMockFn<[number], string>()
 
 mock.expectedCall(1).returns('a')
 mock.expectedCall(2).returns('b')
-mock.expectedCall(earl.a(Number)).returns('c')
+mock.expectedCall(expect.a(Number)).returns('c')
 
 expect(mock(1)).toEqual('a')
 expect(mock(2)).toEqual('b')
