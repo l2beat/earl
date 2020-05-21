@@ -1,40 +1,33 @@
 import { isEqualWith } from 'lodash'
 
-import { Expectation, InternalExpectation } from '../Expectation'
 import { Matcher } from '../matchers/Base'
-import { ValidationResult } from './common'
+import { Control } from './common'
 
-/**
- * Does deep "smart" equality check
- */
-export function toEqual<T>(this: Expectation<T>, expected?: T): ValidationResult {
-  const internalThis = (this as any) as InternalExpectation<T>
+export function toEqual<T>(control: Control<T>, expected?: T) {
+  const reason = `${JSON.stringify(control.actual)} not equal to ${JSON.stringify(expected)}`
+  const negatedReason = `${JSON.stringify(control.actual)} equal to ${JSON.stringify(expected)}`
 
-  const reason = `${JSON.stringify(internalThis.actual)} not equal to ${JSON.stringify(expected)}`
-  const negatedReason = `${JSON.stringify(internalThis.actual)} equal to ${JSON.stringify(expected)}`
-
-  if (!smartEq(internalThis.actual, expected)) {
-    if (arguments.length === 0 && !internalThis.isNegated) {
-      internalThis.autofix('toEqual', internalThis.actual)
-
-      return {
+  if (!smartEq(control.actual, expected)) {
+    if (arguments.length === 1 && !control.isNegated) {
+      control.autofix('toEqual', control.actual)
+      control.assert({
         success: true,
         reason,
         negatedReason,
-      }
+      })
     } else {
-      return {
+      control.assert({
         success: false,
         reason,
         negatedReason,
-      }
+      })
     }
   } else {
-    return {
+    control.assert({
       success: true,
       reason,
       negatedReason,
-    }
+    })
   }
 }
 

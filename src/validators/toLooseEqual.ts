@@ -1,38 +1,31 @@
-import { Expectation, InternalExpectation } from '../Expectation'
-import { ValidationResult } from './common'
+import { Control } from './common'
 import { smartEq } from './toEqual'
 
-/**
- * Like toEqual but without type checking.
- * @todo: follow design of jest's loose equal
- */
-export function toLooseEqual<T>(this: Expectation<T>, expected?: any): ValidationResult {
-  const internalThis = (this as any) as InternalExpectation<T>
+// @todo: follow design of jest's loose equal
+export function toLooseEqual(control: Control<any>, expected?: any) {
+  const reason = `${JSON.stringify(control.actual)} not loose equal to ${JSON.stringify(expected)}`
+  const negatedReason = `${JSON.stringify(control.actual)} loose equal to ${JSON.stringify(expected)}`
 
-  const reason = `${JSON.stringify(internalThis.actual)} not loose equal to ${JSON.stringify(expected)}`
-  const negatedReason = `${JSON.stringify(internalThis.actual)} loose equal to ${JSON.stringify(expected)}`
-
-  if (!smartEq(internalThis.actual, expected)) {
-    if (arguments.length === 0 && !internalThis.isNegated) {
-      internalThis.autofix('toLooseEqual', internalThis.actual)
-
-      return {
+  if (!smartEq(control.actual, expected)) {
+    if (arguments.length === 1 && !control.isNegated) {
+      control.autofix('toLooseEqual', control.actual)
+      control.assert({
         success: true,
         reason,
         negatedReason,
-      }
+      })
     } else {
-      return {
+      control.assert({
         success: false,
         reason,
         negatedReason,
-      }
+      })
     }
   } else {
-    return {
+    control.assert({
       success: true,
       reason,
       negatedReason,
-    }
+    })
   }
 }
