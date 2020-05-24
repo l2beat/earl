@@ -2,6 +2,7 @@ import { autofix } from './autofix'
 import { Expectation } from './Expectation'
 import { AMatcher } from './matchers/A'
 import { AnythingMatcher } from './matchers/Anything'
+import { NumberCloseTo } from './matchers/NumberCloseTo'
 import { StringContainingMatcher } from './matchers/StringContaining'
 
 interface expectInterface {
@@ -12,6 +13,7 @@ interface expectInterface {
   anything: typeof AnythingMatcher.make
   a: typeof AMatcher.make
   stringContaining: typeof StringContainingMatcher.make
+  numberCloseTo: typeof NumberCloseTo.make
 }
 
 export const expect: expectInterface = <T>(actual: T): Expectation<T> => {
@@ -20,3 +22,4 @@ export const expect: expectInterface = <T>(actual: T): Expectation<T> => {
 expect.anything = AnythingMatcher.make
 expect.a = AMatcher.make
 expect.stringContaining = StringContainingMatcher.make
+expect.numberCloseTo = NumberCloseTo.make
