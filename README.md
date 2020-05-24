@@ -10,6 +10,14 @@
   </p>
 </p>
 
+## Features
+
+- 💪 Powerful validators and matchers
+- 🤖 Type-safe - written in TypeScript and goes well with static analysis
+- ✍ AutoFix - magically writes missing assertions for you
+- 🎭 Builtin support for mocks
+- 🏃‍♂️ Integration with test runners (mocha)
+
 ## Installation
 
 ```sh
@@ -38,37 +46,38 @@ TypeScript becomes more and more popular, it became evident that some things abo
 I really enjoy some of the Jest's features — that's what inspired this library in the first place. However, I really
 hate others. Jest feels too [magical](https://github.com/facebook/jest/issues/4414) and
 [full](https://github.com/facebook/jest/issues/2441) of [bugs](https://github.com/facebook/jest/issues/8688) for my
-taste. Lots of its complexity comes from the features that I don't even care about like modules mocking or test
-parallelization. On the other hand, I always enjoyed simplicity and confidence that Mocha provides.
+taste. On the other hand, I always enjoyed simplicity and confidence that Mocha provides.
 
 Simply put, **Jest takes control away from you, Mocha puts you in charge**.
 
 ## Features
 
-### Powerful Matchers
+### 💪 Powerful validators and matchers
 
-Matchers can be values like `expect.anything()` and can be combined with `toEqual`. Allowing, for example to easily
-assert not fully deterministic objects. Unlike `chai-subset` using this asserts much more info about actual object
-shape.
+Validators like `toEqual` or `toThrow` are acting as advanced assertions. They can be combined with matchers like
+`expect.anything()` to match whole ranges of values. Allowing, for example to easily assert not fully deterministic
+objects. Unlike `chai-subset` using this asserts much more info about actual object shape.
 
 ```js
 expect({
-  abc: 'abc',
+  data: { id: 5, name: 'Kris' },
   timestamp: '05/02/2020 @ 8:09am (UTC)',
-}).toEqual({ abc: 'abc', timestamp: expect.a(String) })
+}).toEqual({
+  data: { id: expect.a(Number), name: 'Kris' },
+  timestamp: expect.a(String),
+})
 ```
 
-### Type-safe (support for TypeScript) and goes well with static analysis
+### 🤖 Type-safe (support for TypeScript) and goes well with static analysis
 
 ```js
-expect(5).toEqual('abc') // errors during compile time
+expect(5).toEqual('abc') // 💥 blows up during compile time
 // matchers are always functions, not properties which goes well with `no-unused-expressions` eslint rule
 ```
 
-### AutoFix (experimental)
+### ✍️ AutoFix
 
-Automatically fix expected (if omitted) values to match actual. Option to force fix existing values. Works with
-different matchers.
+Automatically fix expected (if omitted) values to match actual. Works with different validators.
 
 Implementation requires stack traces with correct sourcemaps - available in 99% environments. This feature is inspired
 by Jest's inline snapshots.
@@ -80,25 +89,27 @@ expect(serverResponse).toEqual()
 expect(serverResponse).toEqual({ users: [{ name: 'Kris Kaczor' }] })
 ```
 
-### Driven by you
+### ✨ Driven by you
 
-Yes you! This document presents current best thinking behind this project. Help us to guide it's future development! If
-you like what you see give us a 🌟. Don't hesitate to create issue in this project or reach out me directly on twitter
-([@krzkaczor](https://twitter.com/krzkaczor)).
+Yes you! Help us to guide it's future development! If you like what you see give us a 🌟. Don't hesitate to create issue
+in this project or reach out me directly on twitter ([@krzkaczor](https://twitter.com/krzkaczor)). Take a look at our
+roadmap.
 
 ## API
 
+Validators are advanced assertions, most of them work with additional matchers.
+
 ### Validators
 
-- `toEqual` - performs deep equality check, ensures type equality, supports additional matchers
-- `toLooseEqual` - like toEqual but without type checking
+- `toEqual(object)` - performs deep equality check, ensures type equality, supports additional matchers
+- `toLooseEqual(object)` - like toEqual but without type checking
 - `toThrow(expectedErrorMsg?: string)` - checks if expected error was throws. Requires checked value to be a
   parameterless function.
 - `toBeExhausted()` - checks if given mock is exhausted. Works both with strict and loose mocks.
 
 ### Matchers
 
-These should be used with `toEqual` or other validators using `smartEq` (ex. strictMocks's `expectedCall`).
+These should be combined with validators like `toEqual` or strictMocks's `expectedCall`.
 
 - `anything()` - matches anything
 - `a(class)` - matches any instance of a class. Works as expected with primitives like String, Number etc. Use
@@ -146,8 +157,8 @@ By integrating with a test runner you get:
 
 - automatic mocks verification after each test
 
-Currently only integration with mocha is supported. To enable, simply require `earljs/mocha` with mocha, you can put it
-in `.mocharc.js`:
+Currently only integration with `mocha` is supported. To enable, simply require `earljs/mocha` with mocha, you can put
+it in `.mocharc.js`:
 
 ```js
 module.exports = {
@@ -156,31 +167,17 @@ module.exports = {
 }
 ```
 
-## Project state
+## 🛣️ Roadmap
 
-I would call the current state a Minimal MVP ;) All of the features mentioned above work but are very limited. There are
-only 2 matchers currently, autofix relies on raw text manipulation.
+- [🔌 Plugin system ](https://github.com/krzkaczor/earl/issues/30)
+- [📸 Snapshots](https://github.com/krzkaczor/earl/issues/31)
+- [Mocks](https://github.com/krzkaczor/earl/issues/12) - Current implementation is minimal and supports only function
+  mocks
+- [Improve diff readability](https://github.com/krzkaczor/earl/issues/15)
+- More standard validators and matchers
+- Autofix improvements - support prettier etc.
 
-All of this will be improved after initial round of feedback.
-
-## Future plans:
-
-### Batteries included
-
-Re-implements most common `chai` matchers and makes them part of the core.
-
-#### Future ideas:
-
-- Sinon like features out of the box? Creating spies is super common.
-- Maybe support for type-level tests in TS?
-
-### Extendable
-
-TypeSafe Chai style plugins with additional matchers etc. Matchers can (and should!) implement support for autofix.
-
-### Pretty, readable output for failed assertions
-
-## Contributors ✨
+## ✨ Contributors
 
 Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
 
@@ -196,4 +193,4 @@ Earl logo by [@sz-piotr](https://github.com/sz-piotr)
 
 # License
 
-Krzysztof Kaczor MIT
+Kris Kaczor MIT
