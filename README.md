@@ -173,6 +173,8 @@ module.exports = {
 
 ## 🛣️ Roadmap
 
+To help us prioritize future work you can vote with GH reactions 👍
+
 - [🔌 Plugin system ](https://github.com/krzkaczor/earl/issues/30)
 - [📸 Snapshots](https://github.com/krzkaczor/earl/issues/31)
 - [Mocks](https://github.com/krzkaczor/earl/issues/12) - Current implementation is minimal and supports only function
