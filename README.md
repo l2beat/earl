@@ -107,6 +107,10 @@ Validators are advanced assertions, most of them work with additional matchers.
 - `toLooseEqual(object)` - like toEqual but without type checking
 - `toThrow(expectedErrorMsg?: string)` - checks if expected error was throws. Requires checked value to be a
   parameterless function.
+- `toBeRejected(expectedErrorMsg?: string)` - checks if promise was rejected with a expected error. Note: this validator
+  returns another promise that needs to be handled properly (awaited or returned from test case). To avoid mistakes use
+  [`no-floating-promises`](https://github.com/typescript-eslint/typescript-eslint/blob/master/packages/eslint-plugin/docs/rules/no-floating-promises.md)
+  eslint rule (it's part of [TypeSTRICT](https://github.com/krzkaczor/typestrict)).
 - `toBeExhausted()` - checks if given mock is exhausted. Works both with strict and loose mocks.
 
 ### Matchers

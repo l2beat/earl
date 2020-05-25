@@ -2,6 +2,7 @@ import { AutofixType } from './autofix'
 import { Mock } from './mocks/common'
 import { Control, ValidationResult } from './validators/common'
 import { toBeExhausted } from './validators/mock'
+import { toBeRejected } from './validators/toBeRejected'
 import { toEqual } from './validators/toEqual'
 import { toLooseEqual } from './validators/toLooseEqual'
 import { toThrow } from './validators/toThrow'
@@ -61,6 +62,10 @@ export class Expectation<T> {
   // support for autofix with toThrow(AUTOFIX)
   toThrow(this: Expectation<() => any>, message?: string) {
     toThrow(this.getControl(), message)
+  }
+
+  toBeRejected(this: Expectation<Promise<any>>, message?: string): Promise<void> {
+    return toBeRejected(this.getControl(), message)
   }
 
   toBeExhausted(this: Expectation<Mock>) {
