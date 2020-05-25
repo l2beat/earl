@@ -70,9 +70,11 @@ expect({
 
 ### 🤖 Type-safe (support for TypeScript) and goes well with static analysis
 
+Validators are typesafe by default ex. when comparing objects with toEqual they have to have same types. Furthermore,
+validators are always functions, not properties like in `chai`. This goes well with `no-unused-expressions` eslint rule.
+
 ```js
 expect(5).toEqual('abc') // 💥 blows up during compile time
-// matchers are always functions, not properties which goes well with `no-unused-expressions` eslint rule
 ```
 
 ### ✍️ AutoFix
@@ -180,6 +182,8 @@ module.exports = {
 - Autofix improvements - support prettier etc.
 
 ## ✨ Contributors
+
+[Our contributing guide](./CONTRIBUTING.md).
 
 Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
 
