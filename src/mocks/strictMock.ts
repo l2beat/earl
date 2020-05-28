@@ -1,35 +1,49 @@
 import { defaultExecutionCtx } from '../ExecutionCtx'
 import { smartEq } from '../validators/toEqual'
 
-export interface StrictMock<A extends any[], T> {
+type Awaited<T> = T extends PromiseLike<infer PT> ? PT : never
+
+export interface StrictMock<ARGS extends any[], RETURN> {
   /** Calls the mock function */
-  (...args: A): T
+  (...args: ARGS): RETURN
   isExhausted(): boolean
 
   /**
    * Specifies a different behavior when other arguments are given
    * @param args arguments to match
    */
-  expectedCall<B extends A>(
-    ...args: B
+  expectedCall(
+    ...args: ARGS
   ): {
     /**
      * Sets the return value of calls to the Mock.
      * @param value value to be returned.
      */
-    returns<U>(value: U): StrictMock<A, T | U>
+    returns(value: RETURN): StrictMock<ARGS, RETURN>
+
+    /**
+     * Sets the return value wrapped in Promise.resolve of calls to the Mock.
+     * @param value value to be returned.
+     */
+    resolvesTo(value: Awaited<RETURN>): StrictMock<ARGS, RETURN>
 
     /**
      * Sets the error thrown by calls to the Mock.
      * @param error error to be thrown.
      */
-    throws(error: any): StrictMock<A, T>
+    throws(error: any): StrictMock<ARGS, RETURN>
+
+    /**
+     * Sets the error rejected by calls to the Mock.
+     * @param error error to be thrown.
+     */
+    rejectsWith(error: any): StrictMock<ARGS, RETURN>
 
     /**
      * Sets the underlying implementation of the Mock.
      * @param implementation function to execute.
      */
-    executes<U>(implementation: (...args: B) => U): StrictMock<A, T | U>
+    executes(implementation: (...args: ARGS) => RETURN): StrictMock<ARGS, RETURN>
   }
 }
 
@@ -53,6 +67,8 @@ interface ExecSpec {
 
 type Spec = ReturnSpec | ThrowSpec | ExecSpec
 
+export function strictMockFn<FN extends (...args: any) => any>(): StrictMock<Parameters<FN>, ReturnType<FN>>
+export function strictMockFn<ARGS extends any[], RETURN>(): StrictMock<ARGS, RETURN>
 export function strictMockFn<ARGS extends any[], RETURN>(): StrictMock<ARGS, RETURN> {
   const queue: Spec[] = []
 
@@ -97,8 +113,19 @@ export function strictMockFn<ARGS extends any[], RETURN>(): StrictMock<ARGS, RET
         return mock
       },
 
+      resolvesTo(value: any) {
+        queue.push({ args, type: 'return', value: Promise.resolve(value) })
+        return mock
+      },
+
       throws(error: any) {
         queue.push({ args, type: 'throw', error })
+        return mock
+      },
+
+      rejectsWith(error: any) {
+        // @todo this results in an ugly warning about unhandled rejected promise...
+        queue.push({ args, type: 'return', value: Promise.reject(error) })
         return mock
       },
 
