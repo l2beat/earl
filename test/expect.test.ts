@@ -14,7 +14,7 @@ describe('Expectation', () => {
 
     expect(data).toEqual({
       number: expect.numberCloseTo(10, 2),
-      string: expect.stringContaining('John'),
+      string: expect.stringMatching('John'),
       complexData: expect.a(Object),
       reallyAnything: expect.anything(),
     })

@@ -20,7 +20,7 @@ const response = {
 expect(response).toEqual({
   trimmed: true,
   timestamp: expect.anything(),
-  name: expect.stringContaining('Duck'),
+  name: expect.stringMatching('Duck'),
   age: expect.a(Number),
   nested: {
     b: expect.a(Person),

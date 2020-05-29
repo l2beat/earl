@@ -30,4 +30,11 @@ describe('NumberCloseTo matcher', () => {
     expect(m.check(44)).to.be.false
     expect(m.check(40)).to.be.false
   })
+
+  it('doesnt match non-numbers', () => {
+    const m = new NumberCloseTo(42, 1)
+
+    expect(m.check('a')).to.be.false
+    expect(m.check(undefined)).to.be.false
+  })
 })
