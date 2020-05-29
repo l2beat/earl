@@ -35,7 +35,7 @@ export class AMatcher<T> extends Matcher {
     super()
   }
 
-  check(v: any) {
+  check(v: unknown) {
     if (this.clazz === (String as any)) {
       return typeof v === 'string' || v instanceof String
     }
