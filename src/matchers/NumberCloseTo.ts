@@ -8,7 +8,7 @@ export class NumberCloseTo extends Matcher {
     super()
   }
 
-  check(v: number): boolean {
+  check(v: any): boolean {
     const max = this.actual + this.delta
     const min = this.actual - this.delta
     return v >= min && v <= max

@@ -122,7 +122,7 @@ Matchers are used to match range of values. These should be combined with valida
 - `a(class)` - matches any instance of a class. Works as expected with primitives like String, Number etc. Use
   `a(Object)` to match any object (won't match null). Note: it doesn't work with TypeScript types because they are
   erased from the output - you need a JS class.
-- `stringContaining(substring)` - matches any string containing given substring
+- `stringMatching(substring | regexp)` - matches any string containing given substring or matching given pattern
 - `numberCloseTo(expected, delta)` - matches any number within proximity of expected number
 
 ### Modifiers
