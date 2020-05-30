@@ -3,7 +3,7 @@ import { Matcher } from './Base'
 /**
  * Matches any number close to the actual number. This range is INCLUSIVE.
  */
-export class NumberCloseTo extends Matcher {
+export class NumberCloseToMatcher extends Matcher {
   constructor(private readonly actual: number, private readonly delta: number) {
     super()
   }
@@ -18,7 +18,11 @@ export class NumberCloseTo extends Matcher {
     return v >= min && v <= max
   }
 
+  toString(): string {
+    return `[NumberCloseTo: ${this.actual}, ${this.delta}]`
+  }
+
   static make(actual: number, delta: number): number {
-    return new NumberCloseTo(actual, delta) as any
+    return new NumberCloseToMatcher(actual, delta) as any
   }
 }
