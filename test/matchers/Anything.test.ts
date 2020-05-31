@@ -4,7 +4,7 @@ import { AnythingMatcher } from '../../src/matchers/Anything'
 
 describe('Anything matcher', () => {
   it('should match anything', () => {
-    const m = AnythingMatcher.make()
+    const m = new AnythingMatcher()
 
     expect(m.check('a')).to.be.true
     expect(m.check(undefined)).to.be.true

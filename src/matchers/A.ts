@@ -64,6 +64,10 @@ export class AMatcher<T> extends Matcher {
     return v instanceof this.clazz
   }
 
+  toString() {
+    return `[A: ${this.clazz.name}]`
+  }
+
   static make<T>(clazz: NewableOrPrimitive<T>): Class2Primitive<T> {
     return new AMatcher(clazz) as any
   }

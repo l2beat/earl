@@ -5,6 +5,10 @@ export class AnythingMatcher extends Matcher {
     return true
   }
 
+  toString() {
+    return `[Anything]`
+  }
+
   static make(): any {
     return new AnythingMatcher()
   }

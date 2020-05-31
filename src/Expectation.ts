@@ -54,18 +54,20 @@ export class Expectation<T> {
     }
   }
 
-  // @todo: overloads like:
-  // .toThrow(/message/)
-  // .toThrow(ErrorClass)
-  // .toThrow(ErrorClass, 'message')
-  // .toThrow(ErrorClass, /message/)
-  // support for autofix with toThrow(AUTOFIX)
-  toThrow(this: Expectation<() => any>, message?: string) {
-    toThrow(this.getControl(), message)
+  toThrow(this: Expectation<() => any>, expected?: any) {
+    if (arguments.length === 0) {
+      toThrow(this.getControl())
+    } else {
+      toThrow(this.getControl(), expected)
+    }
   }
 
-  toBeRejected(this: Expectation<Promise<any>>, message?: string): Promise<void> {
-    return toBeRejected(this.getControl(), message)
+  toBeRejected(this: Expectation<Promise<any>>, expected?: any): Promise<void> {
+    if (arguments.length === 0) {
+      return toBeRejected(this.getControl())
+    } else {
+      return toBeRejected(this.getControl(), expected)
+    }
   }
 
   toBeExhausted(this: Expectation<Mock>) {

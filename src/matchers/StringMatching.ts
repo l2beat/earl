@@ -21,6 +21,10 @@ export class StringMatchingMatcher extends Matcher {
     return typeof v === 'string' && this.pattern.test(v)
   }
 
+  toString(): string {
+    return `[StringMatching: ${this.pattern}]`
+  }
+
   static make(substring: string): string {
     return new StringMatchingMatcher(substring) as any
   }
