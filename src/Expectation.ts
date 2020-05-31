@@ -62,8 +62,12 @@ export class Expectation<T> {
     }
   }
 
-  toBeRejected(this: Expectation<Promise<any>>, message?: string): Promise<void> {
-    return toBeRejected(this.getControl(), message)
+  toBeRejected(this: Expectation<Promise<any>>, expected?: any): Promise<void> {
+    if (arguments.length === 0) {
+      return toBeRejected(this.getControl())
+    } else {
+      return toBeRejected(this.getControl(), expected)
+    }
   }
 
   toBeExhausted(this: Expectation<Mock>) {
