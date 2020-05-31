@@ -1,6 +1,7 @@
+import { assert } from 'ts-essentials'
+
 import { Control } from './common'
 import { smartEq } from './toEqual'
-import { assert } from 'console'
 
 export async function toBeRejected(control: Control<Promise<any>>, expected?: any): Promise<void> {
   let actualRejectedValue: any | undefined

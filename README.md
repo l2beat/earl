@@ -103,11 +103,14 @@ Validators are advanced assertions, most of them work with additional matchers.
 
 ### Validators
 
-- `toEqual(object)` - performs deep equality check, ensures type equality, supports additional matchers
-- `toLooseEqual(object)` - like toEqual but without type checking
-- `toThrow(expectedErrorMsg?: string)` - checks if expected error was throws. Requires checked value to be a
-  parameterless function.
-- `toBeRejected(expectedErrorMsg?: string)` - checks if promise was rejected with a expected error. Note: this validator
+- `toEqual(object)` - performs deep equality check, ensures type equality, supports additional matchers. If no arg is
+  provided it will be autofixed.
+- `toLooseEqual(object)` - like toEqual but without type checking. If no arg is provided it will be autofixed.
+- `toThrow(expected)` - checks if expected error was throws. It uses the same equality logic as toEqual. Use
+  `expect.error()` matcher to quickly match errors. Requires checked value to be a parameterless function. If no arg is
+  provided it will be autofixed.
+- `toBeRejected(expected)` - checks if promise was rejected with a expected value. It uses the same equality logic as
+  toEqual. Use `expect.error()` matcher to quickly match errors. Autofix currently not available. Note: this validator
   returns another promise that needs to be handled properly (awaited or returned from test case). To avoid mistakes use
   [`no-floating-promises`](https://github.com/typescript-eslint/typescript-eslint/blob/master/packages/eslint-plugin/docs/rules/no-floating-promises.md)
   eslint rule (it's part of [TypeSTRICT](https://github.com/krzkaczor/typestrict)).
@@ -124,6 +127,7 @@ Matchers are used to match range of values. These should be combined with valida
   erased from the output - you need a JS class.
 - `stringMatching(substring | regexp)` - matches any string containing given substring or matching given pattern
 - `numberCloseTo(expected, delta)` - matches any number within proximity of expected number
+- `error(msg)` - matches any error with matching error message
 
 ### Modifiers
 
