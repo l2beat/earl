@@ -9,11 +9,6 @@ export function toLooseEqual(control: Control<any>, expected?: any) {
   if (!smartEq(control.actual, expected)) {
     if (arguments.length === 1 && !control.isNegated) {
       control.autofix('toLooseEqual', control.actual)
-      control.assert({
-        success: true,
-        reason,
-        negatedReason,
-      })
     } else {
       control.assert({
         success: false,
