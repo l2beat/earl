@@ -1,5 +1,6 @@
 import { Control } from './common'
 import { smartEq } from './toEqual'
+import { assert } from 'console'
 
 export async function toBeRejected(control: Control<Promise<any>>, expected?: any): Promise<void> {
   let actualRejectedValue: any | undefined
@@ -27,7 +28,9 @@ export async function toBeRejected(control: Control<Promise<any>>, expected?: an
 
   if (!smartEq(actualRejectedValue, expected)) {
     if (shouldAutofix) {
-      control.autofix('toBeRejected', actualRejectedValue)
+      // doesn't work because of problems with async stack traces
+      assert(false, 'Autofix for toBeRejected not available right now')
+      // control.autofix('toBeRejected', actualRejectedValue)
     } else {
       control.assert({
         success: false,
