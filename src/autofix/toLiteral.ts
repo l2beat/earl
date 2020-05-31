@@ -9,12 +9,17 @@ export function toLiteral(value: any): string {
   if (typeof value === 'object' && value !== null) {
     const ctor = value?.constructor?.name
 
+    // note: this could be extracted and made configurable as "autofixSerializers"
     if (Array.isArray(value)) {
       return toArrayLiteral(value)
     }
 
     if (ctor === 'Object') {
       return toObjectLiteral(value)
+    }
+
+    if (value instanceof Error) {
+      return `expect.error(${toLiteral(value.message)})`
     }
 
     // if we don't know how to serialize it just use "a" matcher

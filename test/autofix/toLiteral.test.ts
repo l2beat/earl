@@ -46,5 +46,11 @@ describe('toLiteral', () => {
     expect(toLiteral(input)).to.be.deep.eq('expect.a(DummyClass)')
   })
 
+  it('transforms errors to error matcher', () => {
+    const input = new Error('Goodbye cruel world!')
+
+    expect(toLiteral(input)).to.be.deep.eq('expect.error("Goodbye cruel world!")')
+  })
+
   it.skip('prettifies output')
 })
