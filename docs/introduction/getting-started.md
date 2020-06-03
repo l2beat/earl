@@ -19,7 +19,9 @@ import { expect } from 'earljs'
 
 // ...
 
-expect(response).toEqual({ body: { trimmed: true, timestamp: expect.a(String) } })
+expect(response).toEqual({
+  body: { trimmed: true, timestamp: expect.a(String) },
+})
 ```
 
 We call functions like `toEqual` validators (well because they validate stuff...) and functions like `expect.a`

@@ -19,7 +19,7 @@ const features = [
   },
   {
     title: <>AutoFix</>,
-    emoji: '✍',
+    emoji: '✨',
     description: <>Automatically writes missing assertions for you.</>,
   },
   {

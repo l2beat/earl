@@ -1,12 +1,13 @@
 module.exports = {
-  title: 'earl',
+  title: 'Earl',
   tagline: 'Ergonomic, modern and type-safe assertion library for TypeScript',
-  url: 'https://your-docusaurus-test-site.com',
+  url: 'https://earl.netlify.app/',
   baseUrl: '/',
   favicon: 'img/favicon.ico',
   organizationName: 'krzkaczor', // Usually your GitHub org/user name.
   projectName: 'earl', // Usually your repo name.
   themeConfig: {
+    image: '/img/social.png',
     disableDarkMode: true,
     sidebarCollapsible: false,
     navbar: {
@@ -36,12 +37,12 @@ module.exports = {
           title: 'Docs',
           items: [
             {
-              label: 'Style Guide',
-              to: 'docs/',
+              label: 'Getting started',
+              to: 'docs/introduction/getting-started',
             },
             {
-              label: 'Second Doc',
-              to: 'docs/doc2/',
+              label: 'API Reference',
+              to: 'docs/api/api-reference',
             },
           ],
         },
@@ -76,8 +77,7 @@ module.exports = {
           path: '../docs',
           homePageId: 'introduction/getting-started',
           sidebarPath: require.resolve('./sidebars.js'),
-          editUrl:
-            'https://github.com/krzkaczor/earl/edit/master/website/',
+          editUrl: 'https://github.com/krzkaczor/earl/edit/master/website/',
         },
         theme: {
           customCss: require.resolve('./src/css/custom.css'),
@@ -85,4 +85,4 @@ module.exports = {
       },
     ],
   ],
-};
+}
