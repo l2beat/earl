@@ -1,6 +1,5 @@
 ---
-id: core-concepts
-title: Core Concepts
+title: Core concepts
 ---
 
 ### Validators

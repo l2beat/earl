@@ -1,6 +1,5 @@
 ---
-id: step-by-step-guide
-title: Step by step Guide
+title: Step by step guide
 ---
 
 Let's setup **mocha** with **earl** and write our first assertion. I will assume in this guide that you use TypeScript

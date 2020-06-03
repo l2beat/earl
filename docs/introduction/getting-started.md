@@ -1,6 +1,5 @@
 ---
-id: getting-started
-title: Getting Started
+title: Getting started
 ---
 
 **Earl** is a ergonomic, modern and type-safe assertion library written in TypeScript. You might be familiar with
