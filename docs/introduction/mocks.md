@@ -3,7 +3,7 @@ id: mocks
 title: Mocks (PREVIEW)
 ---
 
-⚠️Mocks API is in PREVIEW and it WILL change but this is what you might expect:
+⚠️ Mocks API is in PREVIEW and API _will_ change but this is what you might expect:
 
 Currently earl features two types of mocks:
 

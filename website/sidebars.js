@@ -8,6 +8,8 @@ module.exports = {
       // 'introduction/async-functions',
       // 'introduction/testing-errors',
       'introduction/mocks',
+      'introduction/test-runner-integration',
+      'introduction/why-not-jest',
     ],
     API: ['api/api-reference'],
   },
