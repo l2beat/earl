@@ -74,7 +74,7 @@ module.exports = {
         docs: {
           // It is recommended to set document id as docs home page (`docs/` path).
           path: '../docs',
-          homePageId: 'doc1',
+          homePageId: 'introduction/getting-started',
           sidebarPath: require.resolve('./sidebars.js'),
           editUrl:
             'https://github.com/krzkaczor/earl/edit/master/website/',
