@@ -8,7 +8,7 @@ jobs:
 
     # we want to run on forks but avoid duplicates inside our own repo
     if: github.event_name == 'push' || github.event.pull_request.head.repo.full_name != 'krzkaczor/earl'
-    
+
     steps:
       - uses: actions/checkout@v1
       - uses: actions/setup-node@v1
@@ -37,6 +37,33 @@ jobs:
 
       - name: Typecheck
         run: yarn typecheck
+
+  deploy-docs:
+    needs:
+      - build
+    runs-on: ubuntu-latest
+
+    # we want to run on forks but avoid duplicates inside our own repo
+    if:
+      (github.event_name == 'push' || github.event.pull_request.head.repo.full_name != 'krzkaczor/earl') && (github.ref
+      == 'refs/heads/master' || contains(github.ref, 'deploy'))
+
+    steps:
+      - uses: actions/checkout@v1
+      - uses: actions/setup-node@v1
+        with:
+          node-version: '14.2.0'
+
+      - name: Install
+        run: cd website && yarn --no-progress --non-interactive --frozen-lockfile
+
+      - name: Deploy to netlify
+        env:
+          NETLIFY_APP_ID: ${{ secrets.NETLIFY_APP_ID }}
+          NETLIFY_API_KEY: ${{ secrets.NETLIFY_API_KEY }}
+        run: |
+          ./website/scripts/build-and-deploy.sh
+
 # Few tips github actions
 # - name: Setup SSH debug session
 #   uses: mxschmitt/action-tmate@v2
