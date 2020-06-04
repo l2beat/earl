@@ -13,7 +13,7 @@ export interface StrictMock<ARGS extends any[], RETURN> {
    * @param args arguments to match
    */
   expectedCall(
-    ...args: ARGS
+    args: ARGS,
   ): {
     /**
      * Sets the return value of calls to the Mock.
@@ -115,7 +115,7 @@ export function strictMockFn<ARGS extends any[] = never, RETURN = never>(): ARGS
     }
   }
 
-  mock.expectedCall = function (...args: any[]) {
+  mock.expectedCall = function (args: any[]) {
     return {
       returns(value: any) {
         queue.push({ args, type: 'return', value })
@@ -146,5 +146,6 @@ export function strictMockFn<ARGS extends any[] = never, RETURN = never>(): ARGS
   }
 
   defaultExecutionCtx.registerMock(mock as any)
+  // @todo get rid of this any
   return mock as any
 }

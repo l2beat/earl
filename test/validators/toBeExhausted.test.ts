@@ -13,7 +13,7 @@ describe('toBeExhausted', () => {
 
     it('throws with exhausted mocks', () => {
       const mock = strictMockFn<[number], number>()
-      mock.expectedCall(1).returns(1)
+      mock.expectedCall([1]).returns(1)
 
       expect(() => earl(mock).toBeExhausted()).to.throw('Mock not exhausted!')
     })
@@ -28,7 +28,7 @@ describe('toBeExhausted', () => {
 
     it('works with exhausted mocks', () => {
       const mock = strictMockFn<[number], number>()
-      mock.expectedCall(1).returns(1)
+      mock.expectedCall([1]).returns(1)
 
       expect(() => earl(mock).not.toBeExhausted()).not.to.throw()
     })

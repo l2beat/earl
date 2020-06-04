@@ -8,9 +8,9 @@ describe('strictMock', () => {
     it('works', () => {
       const mock = strictMockFn<[number], string>()
 
-      mock.expectedCall(1).returns('a')
-      mock.expectedCall(2).returns('b')
-      mock.expectedCall(earl.a(Number)).returns('c')
+      mock.expectedCall([1]).returns('a')
+      mock.expectedCall([2]).returns('b')
+      mock.expectedCall([earl.a(Number)]).returns('c')
 
       expect(mock(1)).to.be.eq('a')
       expect(mock(2)).to.be.eq('b')
@@ -35,7 +35,7 @@ describe('strictMock', () => {
 
   describe('.expectedCall', () => {
     it('supports .returns', () => {
-      const fn = strictMockFn<[number, number], number>().expectedCall(1, 2).returns(3)
+      const fn = strictMockFn<[number, number], number>().expectedCall([1, 2]).returns(3)
 
       expect(() => fn(2, 2)).to.throw('Unexpected call! Expected [1,2] but was called with [2,2]')
       expect(fn(1, 2)).to.equal(3)
@@ -43,7 +43,7 @@ describe('strictMock', () => {
     })
 
     it('supports .throws', () => {
-      const fn = strictMockFn<[number, number], number>().expectedCall(1, 2).throws(new Error('Boom'))
+      const fn = strictMockFn<[number, number], number>().expectedCall([1, 2]).throws(new Error('Boom'))
 
       expect(() => fn(1, 2)).to.throw('Boom')
       expect(() => fn(2, 2)).to.throw('Unexpected call! Called with [2,2]')
@@ -51,7 +51,7 @@ describe('strictMock', () => {
 
     it('supports .executes', () => {
       const fn = strictMockFn<[number, number], number>()
-        .expectedCall(1, 2)
+        .expectedCall([1, 2])
         .executes((a, b) => a + b)
 
       expect(fn(1, 2)).to.equal(3)
@@ -59,7 +59,9 @@ describe('strictMock', () => {
     })
 
     it('supports matchers', () => {
-      const fn = strictMockFn<[number], number>().expectedCall(earl.a(Number)).returns(3)
+      const fn = strictMockFn<[number], number>()
+        .expectedCall([earl.a(Number)])
+        .returns(3)
 
       expect(fn(420)).to.equal(3)
       expect(() => fn(2)).to.throw('Unexpected call! Called with [2]')
@@ -73,7 +75,7 @@ describe('strictMock', () => {
     })
 
     it('returns false if there are queued calls', () => {
-      const fn = strictMockFn<[number], number>().expectedCall(3).returns(0)
+      const fn = strictMockFn<[number], number>().expectedCall([3]).returns(0)
 
       expect(fn.isExhausted()).to.equal(false)
 
