@@ -67,27 +67,36 @@ interface ExecSpec {
 
 type Spec = ReturnSpec | ThrowSpec | ExecSpec
 
-export function strictMockFn<FN extends (...args: any) => any>(): StrictMock<Parameters<FN>, ReturnType<FN>>
-export function strictMockFn<ARGS extends any[], RETURN>(): StrictMock<ARGS, RETURN>
-export function strictMockFn<ARGS extends any[], RETURN>(): StrictMock<ARGS, RETURN> {
+export function strictMockFn<FN extends (...args: any) => any = (...args: never) => never>(): Parameters<
+  FN
+> extends never
+  ? never
+  : StrictMock<Parameters<FN>, ReturnType<FN>>
+export function strictMockFn<ARGS extends any[] = never, RETURN = never>(): ARGS extends never
+  ? never
+  : StrictMock<ARGS, RETURN>
+export function strictMockFn<ARGS extends any[] = never, RETURN = never>(): ARGS extends never
+  ? never
+  : StrictMock<ARGS, RETURN> {
   const queue: Spec[] = []
 
   function mock(...args: any[]) {
-    const current = queue.shift()
-    return runSpec(current, args)
+    const currentSpec = queue[0]
+
+    if (!currentSpec) {
+      throw new Error(`Unexpected call! Called with ${JSON.stringify(args)}`)
+    }
+    verifyArgs(args, currentSpec.args)
+    queue.shift()
+
+    return runSpec(currentSpec, args)
   }
 
   mock.isExhausted = function () {
     return queue.length === 0
   }
 
-  function runSpec(spec: Spec | undefined, args: any[]) {
-    if (!spec) {
-      throw new Error('Unexpected call!')
-    }
-
-    verifyArgs(args, spec.args)
-
+  function runSpec(spec: Spec, args: any[]) {
     switch (spec.type) {
       case 'return':
         return spec.value
@@ -137,5 +146,5 @@ export function strictMockFn<ARGS extends any[], RETURN>(): StrictMock<ARGS, RET
   }
 
   defaultExecutionCtx.registerMock(mock as any)
-  return mock
+  return mock as any
 }

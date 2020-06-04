@@ -1,5 +1,5 @@
 import { AutofixType } from './autofix'
-import { Mock } from './mocks/common'
+import { StrictMock } from './mocks/strictMock'
 import { Control, ValidationResult } from './validators/common'
 import { toBeExhausted } from './validators/mock'
 import { toBeRejected } from './validators/toBeRejected'
@@ -70,7 +70,7 @@ export class Expectation<T> {
     }
   }
 
-  toBeExhausted(this: Expectation<Mock>) {
+  toBeExhausted(this: Expectation<StrictMock<any, any>>) {
     toBeExhausted(this.getControl())
   }
 
