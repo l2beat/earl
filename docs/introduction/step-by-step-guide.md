@@ -31,7 +31,6 @@ Here's a minimal _tsconfig.json_:
   },
   "include": ["src", "test"]
 }
-
 ```
 
 ## Function under tests
