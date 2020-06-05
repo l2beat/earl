@@ -67,15 +67,13 @@ interface ExecSpec {
 
 type Spec = ReturnSpec | ThrowSpec | ExecSpec
 
-export function strictMockFn<FN extends (...args: any) => any = (...args: never) => never>(): Parameters<
-  FN
-> extends never
+export function mockFn<FN extends (...args: any) => any = (...args: never) => never>(): Parameters<FN> extends never
   ? never
   : StrictMock<Parameters<FN>, ReturnType<FN>>
-export function strictMockFn<ARGS extends any[] = never, RETURN = never>(): ARGS extends never
+export function mockFn<ARGS extends any[] = never, RETURN = never>(): ARGS extends never
   ? never
   : StrictMock<ARGS, RETURN>
-export function strictMockFn<ARGS extends any[] = never, RETURN = never>(): ARGS extends never
+export function mockFn<ARGS extends any[] = never, RETURN = never>(): ARGS extends never
   ? never
   : StrictMock<ARGS, RETURN> {
   const queue: Spec[] = []
