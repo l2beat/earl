@@ -15,6 +15,12 @@
   --ifm-color-primary-lighter: #d97062;
   --ifm-color-primary-lightest: #e18e83;
   --ifm-code-font-size: 95%;
+  --color-border-menu: rgb(230, 235, 240);
+
+  --ifm-font-family-base: Roboto, sans-serif;
+  --ifm-menu-color-background-active: #fff;
+  --ifm-menu-link-padding-horizontal: 0;
+  --ifm-heading-font-weight: 500;
 }
 
 .docusaurus-highlight-code-line {
@@ -32,4 +38,59 @@
 .navbar__brand > .navbar__logo {
   height: 110%;
   margin-top: -10px;
+}
+
+.menu__list-category {
+  margin-top: 40px;
+}
+
+.menu__link__header {
+  padding: 7px 24px 7px 16px;
+  font-size: 0.75rem;
+  color: #9daab6;
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+}
+
+.menu__list-item > a {
+  padding: 7px 24px 7px 16px;
+  font-weight: 500;
+  font-size: 0.9rem;
+  border-radius: 0;
+  border-width: 1px;
+  border-style: solid;
+  border-color: transparent !important;
+}
+@media (min-width: 997px) {
+  .menu__list-item > a {
+    border-right: 0px;
+  }
+}
+
+.menu__link.menu__link--active {
+  border-color: var(--color-border-menu) !important;
+}
+
+.docTitle_node_modules-\@docusaurus-theme-classic-src-theme-DocItem- {
+  font-size: 2.5rem !important;
+}
+
+.docSidebarContainer_node_modules-\@docusaurus-theme-classic-src-theme-DocPage- {
+  border-color: var(--color-border-menu) !important;
+}
+
+.footer {
+  border-width: 1px;
+  border-style: solid;
+  border-color: var(--color-border-menu) !important;
+}
+
+.navbar__item {
+  display: block !important;
+}
+
+.navbar__toggle {
+  display: none !important;
 }
