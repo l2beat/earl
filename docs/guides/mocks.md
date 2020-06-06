@@ -59,7 +59,7 @@ mockTransformer.expectedCall(['b']).returns(3)
 
 You should see an error saying that the mock was not exhausted.
 
-Similiary, if you would change `data` array you would get: an error about unexpected call. It's important to realize
+Similarly, if you would change `data` array you would get: an error about unexpected call. It's important to realize
 that this error is thrown right when call happens NOT at the end of the test. This can help you write more strict tests.
 
 ### Typing mocks
@@ -72,41 +72,44 @@ type StringTransformer = (something: string): string;
 mockFn<StringTransformer>()
 ```
 
-Due to a small TypeScript limitations, we cannot force you to provide these type arguments but if you forget to specify
-types you won't be able to use mock as it will be turned into `never` type.
+Due to TypeScript limitations, we cannot force you to provide these type arguments right now, but if you forget to
+specify types you won't be able to use mock as it will be turned into `never` type.
 
 ### Defining expectations
 
-### Loose Mocks
-
-## Object mocks
-
-<!--
-⚠️ Mocks API is in PREVIEW and API _will_ change but this is what you might expect:
-
-Currently earl features two types of mocks:
-
-- `strictMocks` are well defined mocks with expected calls and responses defined up front
-- `looseMocks` are more traditional mocks similar to sinon/jest.
-
-Both types of mocks are automatically verified (`isExhausted` check) if test runner integration is enabled.
+Mocks API is quite handy when it comes to describing mock behaviour.
 
 ```typescript
-import { expect, strictMockFn } from 'earljs'
+const m = mockFn<[], number>()
 
-// create mock function expecting number as arg and returning string
-const mock = strictMockFn<[number], string>()
+// just return given value
+m.expectedCall([]).returns(5)
 
-mock.expectedCall(1).returns('a')
-mock.expectedCall(2).returns('b')
-mock.expectedCall(expect.a(Number)).returns('c')
+// executes executes arbitrary function
+let counter = 0
+m.expectedCall([]).executes(() => counter++)
 
-expect(mock(1)).toEqual('a')
-expect(mock(2)).toEqual('b')
-expect(mock(5)).toEqual('c')
-// unexpected call
-expect(mock(1)).toThrow()
+// throws an error
+m.expectedCall([]).throws(() => new Error('Simulated error!'))
 
-// note: use test runner integration to auto verify mocks and avoid writing this check by hand
-expect(mock).toBeExhausted()
-``` -->
+// simplify async mocks
+const m = mockFn<[], Promise<number>>()
+m.expectedCall([]).resolvesTo(5)
+m.expectedCall([]).rejectsWith(new Error('Simulated error!'))
+```
+
+### Integrating with a test runner
+
+By [integrating with a test runner](./test-runner-integration.md) you don't have to remember to assert if mocks were
+exhausted by the end of the test.
+
+### Loose Mocks
+
+Loose mocks are alternative way to define function mocks with **earl**. They are more similiar to sinon's Spy or Jest's
+fn.
+
+```typescript
+const m = looseMockFn(() => 5)
+```
+
+## Object mocks
