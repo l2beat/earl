@@ -25,7 +25,7 @@ function transform<T, K>(data: Array<T>, transformer: (item: T) => K) {
 `transform` takes an array and function `transformer` and applies `transformer` function to every item of the input
 array to construct return array.
 
-We would like to write a test asserting this description. Let's create a mock transformer and pass it to `transform`.
+Simple enough, now let's test it! Let's create a mock transformer and pass it to `transform`.
 
 ```typescript
 import { expect, mockFn } from 'earljs'
@@ -34,7 +34,7 @@ const data = ['a', 'b']
 
 // create a mock expecting a single string as argument and not returning anything
 const mockTransformer = mockFn<[string], number>()
-// setup expectations BEFORE
+// setup mock behaviour BEFORE
 mockTransformer.expectedCall(['a']).returns(1)
 mockTransformer.expectedCall(['b']).returns(2)
 
@@ -46,10 +46,10 @@ expect(newArray).toEqual([1, 2])
 expect(mockTransformer).toBeExhausted()
 ```
 
-Mocks are typed and expected calls are defined upfront. Any unexpected call will result in an error right away. Also,
-any expected call that wasn't executed will make last assertion (`toBeExhausted) fail. As you can probably tell by now,
-the default way of creating mocks with **earl** is pretty strict, that's why we sometime call them _StrictMocks_ (later
-you will learn about loose mocks).
+Mocks are typed and a sequence of expected calls is defined upfront. Any unexpected call will result in an error right
+away. Also, any expected call that wasn't executed will make last assertion (`toBeExhausted`) fail. As you can probably
+tell by now, the default way of creating mocks with **earl** is pretty strict, that's why we call them sometimes _Strict
+Mocks_ (later you will learn about _Loose Mocks_).
 
 Let's have a little bit of fun and experiment with this. Lets try to add another expected call like this:
 
@@ -59,8 +59,8 @@ mockTransformer.expectedCall(['b']).returns(3)
 
 You should see an error saying that the mock was not exhausted.
 
-Similarly, if you would change `data` array you would get: an error about unexpected call. It's important to realize
-that this error is thrown right when call happens NOT at the end of the test. This can help you write more strict tests.
+Similarly, if you would change `data` array you would get an error about unexpected call. It's important to realize that
+this error is thrown right when call happens NOT at the end of the test. This can help you write more strict tests.
 
 ### Typing mocks
 
@@ -77,9 +77,11 @@ specify types you won't be able to use mock as it will be turned into `never` ty
 
 ### Defining expectations
 
-Mocks API is quite handy when it comes to describing mock behaviour.
+Mocks API is quite handy when it comes to describing mock behaviour and it supports all of **earl**'s matchers.
 
 ```typescript
+import { mockFn } from 'earljs'
+
 const m = mockFn<[], number>()
 
 // just return given value
@@ -96,6 +98,15 @@ m.expectedCall([]).throws(() => new Error('Simulated error!'))
 const m = mockFn<[], Promise<number>>()
 m.expectedCall([]).resolvesTo(5)
 m.expectedCall([]).rejectsWith(new Error('Simulated error!'))
+
+// supports matchers
+const m = mockFn<[number | string], number>()
+
+// just return given value on ANY call
+m.expectedCall(expect.anything()).returns(5)
+
+// next expect a Number
+m.expectedCall([expect.a(Number)]).returns(6)
 ```
 
 ### Integrating with a test runner
@@ -105,11 +116,15 @@ exhausted by the end of the test.
 
 ### Loose Mocks
 
-Loose mocks are alternative way to define function mocks with **earl**. They are more similiar to sinon's Spy or Jest's
+Loose mocks are alternative way to define function mocks with **earl**. They are quote similar to Sinon's Spy or Jest's
 fn.
 
 ```typescript
 const m = looseMockFn(() => 5)
-```
 
-## Object mocks
+m(1, 2, 3) // returns 5
+
+expect(m).toHaveBeenCalledWith([1, 2, 3])
+// you can assert mock.calls as well
+expect(m.calls).toEqual([[1, 2, 3]])
+```

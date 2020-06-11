@@ -1,14 +1,9 @@
 import { assert } from 'console'
 
-export interface MockCall {
-  args: any[]
-  result: { type: 'return'; value: any } | { type: 'throw'; error: any }
-}
-
 export interface LooseMock<ARGS extends any[], RETURN> {
   /** Calls the mock function */
   (...args: ARGS): RETURN
-  calls: MockCall[]
+  calls: ARGS[]
 }
 
 export function looseMockFn<RETURN = any>(defaultImplementation: (...args: any[]) => RETURN): LooseMock<any, RETURN> {
@@ -17,14 +12,14 @@ export function looseMockFn<RETURN = any>(defaultImplementation: (...args: any[]
   function mock(...args: any[]): RETURN {
     try {
       const returnValue = defaultImplementation(...args)
-      mock.calls.push({ args, result: { type: 'return', value: returnValue } })
+      mock.calls.push(args)
       return returnValue
     } catch (e) {
-      mock.calls.push({ args, result: { type: 'throw', error: e } })
+      mock.calls.push(args)
       throw e
     }
   }
-  mock.calls = [] as MockCall[]
+  mock.calls = [] as any[]
 
   return mock
 }

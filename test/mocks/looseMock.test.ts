@@ -11,11 +11,7 @@ describe('looseMock', () => {
       expect(mock(2)).to.be.eq(42)
       expect(mock()).to.be.eq(42)
 
-      expect(mock.calls).to.be.deep.eq([
-        { args: [1], result: { type: 'return', value: 42 } },
-        { args: [2], result: { type: 'return', value: 42 } },
-        { args: [], result: { type: 'return', value: 42 } },
-      ])
+      expect(mock.calls).to.be.deep.eq([[1], [2], []])
     })
   })
 
@@ -41,7 +37,7 @@ describe('looseMock', () => {
     it('stores a single call', () => {
       const fn = looseMockFn(() => {})
       fn()
-      expect(fn.calls).to.deep.equal([{ args: [], result: { type: 'return', value: undefined } }])
+      expect(fn.calls).to.deep.equal([[]])
     })
 
     it('stores multiple calls', () => {
@@ -49,11 +45,7 @@ describe('looseMock', () => {
       fn()
       fn(1)
       fn(5, 'yo')
-      expect(fn.calls).to.deep.equal([
-        { args: [], result: { type: 'return', value: undefined } },
-        { args: [1], result: { type: 'return', value: undefined } },
-        { args: [5, 'yo'], result: { type: 'return', value: undefined } },
-      ])
+      expect(fn.calls).to.deep.equal([[], [1], [5, 'yo']])
     })
 
     it('respects .throws', () => {
@@ -64,7 +56,7 @@ describe('looseMock', () => {
       try {
         fn()
       } catch {}
-      expect(fn.calls).to.deep.equal([{ args: [], result: { type: 'throw', error } }])
+      expect(fn.calls).to.deep.equal([[]])
     })
   })
 })

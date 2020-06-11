@@ -1,7 +1,8 @@
 import { AutofixType } from './autofix'
+import { LooseMock } from './mocks/looseMock'
 import { StrictMock } from './mocks/strictMock'
 import { Control, ValidationResult } from './validators/common'
-import { toBeExhausted } from './validators/mock'
+import { toBeExhausted, toHaveBeenCalledWith } from './validators/mocks'
 import { toBeRejected } from './validators/toBeRejected'
 import { toEqual } from './validators/toEqual'
 import { toLooseEqual } from './validators/toLooseEqual'
@@ -70,8 +71,14 @@ export class Expectation<T> {
     }
   }
 
+  // mocks
+
   toBeExhausted(this: Expectation<StrictMock<any, any>>) {
-    toBeExhausted(this.getControl())
+    return toBeExhausted(this.getControl())
+  }
+
+  toHaveBeenCalledWith(this: Expectation<LooseMock<any[], any>>, expectedCall: any[]) {
+    return toHaveBeenCalledWith(this.getControl(), expectedCall)
   }
 
   // utils

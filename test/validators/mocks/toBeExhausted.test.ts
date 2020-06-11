@@ -1,7 +1,7 @@
 import { expect } from 'chai'
 
-import { expect as earl } from '../../src'
-import { mockFn } from '../../src/mocks/strictMock'
+import { expect as earl } from '../../../src'
+import { mockFn } from '../../../src/mocks/strictMock'
 
 describe('toBeExhausted', () => {
   describe('not negated', () => {
