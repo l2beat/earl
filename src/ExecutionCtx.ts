@@ -1,7 +1,7 @@
 import debug from 'debug'
 
 import { expect } from './expect'
-import { Mock } from './mocks/common'
+import { StrictMock } from './mocks/strictMock'
 
 const d = debug('earl:ExecutionCtx')
 
@@ -10,9 +10,9 @@ const d = debug('earl:ExecutionCtx')
  * @todo: this has to be slightly more complicated to support cases like mocks defined outside single test body. Probably it should support layers of entities
  */
 export class ExecutionCtx {
-  private mocks: Mock[] = []
+  private mocks: StrictMock<any, any>[] = []
 
-  registerMock(mock: Mock): void {
+  registerMock(mock: StrictMock<any, any>): void {
     d('Registering new mock')
 
     this.mocks.push(mock)
