@@ -4,7 +4,7 @@ title: Core concepts
 
 ### Validators
 
-Validators are basically assertions for example `toEqual` or `toThrow`.
+Validators are basically more powerful assertions for example `toEqual` or `toThrow`.
 
 ### Matchers
 
