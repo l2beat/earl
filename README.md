@@ -31,7 +31,9 @@ import { expect } from 'earljs'
 
 // ...
 
-expect(response).toEqual({ body: { trimmed: true, timestamp: expect.a(String) } })
+expect(response).toEqual({
+  body: { trimmed: true, timestamp: expect.a(String) },
+})
 ```
 
 ## 🛣️ Roadmap
@@ -40,8 +42,8 @@ To help us prioritize future work you can vote with GH reactions 👍
 
 - [🔌 Plugin system ](https://github.com/krzkaczor/earl/issues/30)
 - [📸 Snapshots](https://github.com/krzkaczor/earl/issues/31)
-- [Mocks](https://github.com/krzkaczor/earl/issues/12) - Current implementation is minimal and supports only function
-  mocks
+- [Mocks](https://github.com/krzkaczor/earl/issues/12) - Current implementation
+  is minimal and supports only function mocks
 - [Improve diff readability](https://github.com/krzkaczor/earl/issues/15)
 - More standard validators and matchers
 - Autofix improvements - support prettier etc.
@@ -50,7 +52,8 @@ To help us prioritize future work you can vote with GH reactions 👍
 
 [Our contributing guide](./CONTRIBUTING.md).
 
-Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
+Thanks goes to these wonderful people
+([emoji key](https://allcontributors.org/docs/en/emoji-key)):
 
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
 <!-- prettier-ignore -->
