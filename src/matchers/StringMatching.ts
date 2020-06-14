@@ -25,7 +25,9 @@ export class StringMatchingMatcher extends Matcher {
     return `[StringMatching: ${this.pattern}]`
   }
 
-  static make(substring: string): string {
-    return new StringMatchingMatcher(substring) as any
+  static make(substring: string): string
+  static make(pattern: RegExp): string
+  static make(patternOrSubString: string | RegExp): string {
+    return new StringMatchingMatcher(patternOrSubString as any) as any
   }
 }

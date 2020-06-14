@@ -2,7 +2,7 @@ import { Exact } from 'ts-essentials'
 
 import { Matcher } from './Base'
 
-interface Newable<T> {
+export interface Newable<T> {
   new (...args: any[]): T
 }
 

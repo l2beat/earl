@@ -31,7 +31,7 @@ import { expect } from 'earljs'
 expect('John Doe').toEqual(expect.stringMatching('Doe'))
 
 // match any string containing Doe or doe
-expect('John Doe').toEqual(expect.stringMatching(/[Dd]oe/)) 
+expect('John Doe').toEqual(expect.stringMatching(/[Dd]oe/))
 ```
 
 ## Composing matchers
@@ -55,8 +55,9 @@ If you're familiar with pattern matching from languages like Scala or OCaml,
 Few other examples:
 
 ```typescript
-// use error matcher to simplify matching of errors
+// use error matcher combined with string matcher
+// to only match errors containing "unexpected" word in their message
 expect(() => {
   throw new Error('Totally unexpected error! :(')
-}).toThrow(expect.error('Totally unexpected error! :('))
+}).toThrow(expect.error(expect.stringMatching('unexpected')))
 ```

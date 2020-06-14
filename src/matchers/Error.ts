@@ -1,22 +1,40 @@
+import { smartEq } from '../validators/toEqual'
+import { Newable } from './A'
 import { Matcher } from './Base'
 
 /**
  * Matches any error with matching string
  */
 export class ErrorMatcher extends Matcher {
-  constructor(private readonly expectedMsg: string) {
+  constructor(private readonly errorCls: Newable<Error> = Error, private readonly expectedMsg?: string) {
     super()
   }
 
   check(v: unknown) {
-    return v instanceof Error && v.message === this.expectedMsg
+    if (!(v instanceof this.errorCls)) {
+      return false
+    }
+
+    if (this.expectedMsg !== undefined) {
+      return smartEq(v.message, this.expectedMsg)
+    }
+
+    return true
   }
 
   toString() {
-    return `Error: ${this.expectedMsg}`
+    if (this.expectedMsg === undefined) {
+      return `${this.errorCls.name}`
+    }
+    return `${this.errorCls.name}: ${this.expectedMsg}`
   }
 
-  static make(msg: string): Error {
-    return new ErrorMatcher(msg) as any
+  static make(expectedMsg: string): Error
+  static make(errorCls: Newable<Error>, expectedMsg?: string): Error
+  static make(errorClsOrExpectedMsg: string | Newable<Error>, expectedMsg?: string): Error {
+    if (typeof errorClsOrExpectedMsg === 'string' || errorClsOrExpectedMsg instanceof Matcher) {
+      return new ErrorMatcher(Error, errorClsOrExpectedMsg as any) as any
+    }
+    return new ErrorMatcher(errorClsOrExpectedMsg as any, expectedMsg) as any
   }
 }

@@ -3,8 +3,6 @@ id: api-reference
 title: API reference
 ---
 
-## API
-
 ### Validators
 
 - `toEqual(object)` - performs deep equality check, ensures type equality,
@@ -38,9 +36,12 @@ validators like `toEqual` or strictMocks's `expectedCall`.
   erased from the output - you need a JS class.
 - `stringMatching(substring | regexp)` - matches any string containing given
   substring or matching given pattern
-- `numberCloseTo(expected, delta)` - matches any number within proximity of
-  expected number
-- `error(msg)` - matches any error with matching error message
+- `numberCloseTo(expected: number, delta: number)` - matches any number within
+  proximity of expected number
+- `error(msg: string)` - matches any error with matching error message. Msg can
+  be a matcher
+- `error(errorCls, msg?: string)` - matches any error which is instance of
+  errorCls with matching error message
 
 ### Modifiers
 
