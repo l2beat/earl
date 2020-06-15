@@ -21,7 +21,7 @@ async function main() {
   expect(response).toEqual({
     trimmed: true,
     timestamp: expect.anything(),
-    name: expect.stringMatching('Duck'),
+    name: expect.stringMatching(/[Dd]uck/),
     age: expect.a(Number),
     nested: {
       b: expect.a(Person),

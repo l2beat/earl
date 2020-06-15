@@ -2,13 +2,13 @@
 title: Mocks
 ---
 
-Mocks are dummy objects simulating behaviour of more complicated real world objects. **Earl** supports both function and
-objects mocking.
+Mocks are dummy objects simulating behaviour of more complicated real world
+objects. **Earl** supports both function and objects mocking.
 
 ## Function mocks
 
-Imagine that we want to test simple function that transforms every single item in an array to something else (you might
-be familiar with name `map`):
+Imagine that we want to test simple function that transforms every single item
+in an array to something else (you might be familiar with name `map`):
 
 ```typescript
 function transform<T, K>(data: Array<T>, transformer: (item: T) => K) {
@@ -22,10 +22,11 @@ function transform<T, K>(data: Array<T>, transformer: (item: T) => K) {
 }
 ```
 
-`transform` takes an array and function `transformer` and applies `transformer` function to every item of the input
-array to construct return array.
+`transform` takes an array and function `transformer` and applies `transformer`
+function to every item of the input array to construct return array.
 
-Simple enough, now let's test it! Let's create a mock transformer and pass it to `transform`.
+Simple enough, now let's test it! Let's create a mock transformer and pass it to
+`transform`.
 
 ```typescript
 import { expect, mockFn } from 'earljs'
@@ -46,12 +47,15 @@ expect(newArray).toEqual([1, 2])
 expect(mockTransformer).toBeExhausted()
 ```
 
-Mocks are typed and a sequence of expected calls is defined upfront. Any unexpected call will result in an error right
-away. Also, any expected call that wasn't executed will make last assertion (`toBeExhausted`) fail. As you can probably
-tell by now, the default way of creating mocks with **earl** is pretty strict, that's why we call them sometimes _Strict
-Mocks_ (later you will learn about _Loose Mocks_).
+Mocks are typed and a sequence of expected calls is defined upfront. Any
+unexpected call will result in an error right away. Also, any expected call that
+wasn't executed will make last assertion (`toBeExhausted`) fail. As you can
+probably tell by now, the default way of creating mocks with **earl** is pretty
+strict, that's why we call them sometimes _Strict Mocks_ (later you will learn
+about _Loose Mocks_).
 
-Let's have a little bit of fun and experiment with this. Lets try to add another expected call like this:
+Let's have a little bit of fun and experiment with this. Lets try to add another
+expected call like this:
 
 ```typescript
 mockTransformer.expectedCall(['b']).returns(3)
@@ -59,25 +63,30 @@ mockTransformer.expectedCall(['b']).returns(3)
 
 You should see an error saying that the mock was not exhausted.
 
-Similarly, if you would change `data` array you would get an error about unexpected call. It's important to realize that
-this error is thrown right when call happens NOT at the end of the test. This can help you write more strict tests.
+Similarly, if you would change `data` array you would get an error about
+unexpected call. It's important to realize that this error is thrown right when
+call happens NOT at the end of the test. This can help you write more strict
+tests.
 
 ### Typing mocks
 
-Important thing is that you **always** need to properly type your mocks. Use `mockFn<[ARGS], RETURN>()` if you want to
-provide types by hand, or if you already have a function type do:
+Important thing is that you **always** need to properly type your mocks. Use
+`mockFn<[ARGS], RETURN>()` if you want to provide types by hand, or if you
+already have a function type do:
 
 ```typescript
 type StringTransformer = (something: string): string;
 mockFn<StringTransformer>()
 ```
 
-Due to TypeScript limitations, we cannot force you to provide these type arguments right now, but if you forget to
-specify types you won't be able to use mock as it will be turned into `never` type.
+Due to TypeScript limitations, we cannot force you to provide these type
+arguments right now, but if you forget to specify types you won't be able to use
+mock as it will be turned into `never` type.
 
 ### Defining expectations
 
-Mocks API is quite handy when it comes to describing mock behaviour and it supports all of **earl**'s matchers.
+Mocks API is quite handy when it comes to describing mock behaviour and it
+supports all of **earl**'s matchers.
 
 ```typescript
 import { mockFn } from 'earljs'
@@ -111,13 +120,13 @@ m.expectedCall([expect.a(Number)]).returns(6)
 
 ### Integrating with a test runner
 
-By [integrating with a test runner](./test-runner-integration.md) you don't have to remember to assert if mocks were
-exhausted by the end of the test.
+By [integrating with a test runner](./test-runner-integration.md) you don't have
+to remember to assert if mocks were exhausted by the end of the test.
 
 ### Loose Mocks
 
-Loose mocks are alternative way to define function mocks with **earl**. They are quote similar to Sinon's Spy or Jest's
-fn.
+Loose mocks are alternative way to define function mocks with **earl**. They are
+quote similar to Sinon's Spy or Jest's fn.
 
 ```typescript
 const m = looseMockFn(() => 5)

@@ -7,10 +7,10 @@ module.exports = {
       'introduction/motivation',
     ],
     Guides: [
-      // 'introduction/using-matchers',
-      // 'introduction/async-functions',
-      // 'introduction/testing-errors',
-      // 'introduction/autofix', // add autofix to core concepts
+      'guides/using-matchers',
+      // 'guides/async-functions',
+      // 'guides/testing-errors',
+      // 'guides/autofix', // add autofix to core concepts
       'guides/mocks',
       'guides/test-runner-integration',
     ],
