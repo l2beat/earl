@@ -15,12 +15,7 @@ title: API reference
   provided it will be autofixed.
 - `toBeRejected(expected)` - checks if promise was rejected with a expected
   value. It uses the same equality logic as toEqual. Use `expect.error()`
-  matcher to quickly match errors. Autofix currently not available. Note: this
-  validator returns another promise that needs to be handled properly (awaited
-  or returned from test case). To avoid mistakes use
-  [`no-floating-promises`](https://github.com/typescript-eslint/typescript-eslint/blob/master/packages/eslint-plugin/docs/rules/no-floating-promises.md)
-  eslint rule (it's part of
-  [TypeSTRICT](https://github.com/krzkaczor/typestrict)).
+  matcher to quickly match errors. Autofix currently not available.
 - `toBeExhausted()` - checks if given mock is exhausted. Works both with strict
   and loose mocks.
 
