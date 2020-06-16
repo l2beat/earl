@@ -7,6 +7,11 @@ title: Core concepts
 Validators are basically more powerful assertions for example `toEqual` or
 `toThrow`.
 
+### Autofix
+
+Autofix is a ability of (almost) all validators to write missing assertion for
+you. When expected value is omitted, earl will fill it out with actual value.
+
 ### Matchers
 
 Matchers are used with validators to match more than single value. They are

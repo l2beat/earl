@@ -10,7 +10,7 @@ module.exports = {
       'guides/using-matchers',
       'guides/testing-errors',
       'guides/async-functions',
-      // 'guides/autofix', // add autofix to core concepts
+      'guides/autofix',
       'guides/mocks',
       'guides/test-runner-integration',
     ],
