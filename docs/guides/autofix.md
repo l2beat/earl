@@ -2,8 +2,9 @@
 title: Autofix
 ---
 
-Autofix is a ability of (almost) all validators to write missing assertion for
-you. When expected value is omitted, earl will fill it out with actual value.
+Autofix is the ability of (almost) all validators to write missing assertions
+for you. When expected value is omitted, **earl** will fill it out with actual
+value.
 
 Let's take a look at example:
 
@@ -62,8 +63,8 @@ expect(response).toEqual({
 })
 ```
 
-You see? Expected value was written for us. If you have any problems ensure that
-you have source maps enabled. Take a look at
+Expected value was written for us! If you have any problems ensure that you have
+source maps enabled. Take a look at
 [step by step guide](../introduction/step-by-step-guide) when in doubt.
 
 It's important to note that **earl** currently don't know how to serialize
@@ -83,7 +84,7 @@ already existing ones.
 ## Autofix on CI
 
 Autofix won't run on CI so you shouldn't be worried that your unfinished tests
-will pass.
+will pass when they shouldn't.
 
 ## Limitations
 

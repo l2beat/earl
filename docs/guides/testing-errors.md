@@ -2,9 +2,9 @@
 title: Testing errors
 ---
 
-Often you want to assert that given operation results in error being thrown. In
-**earl** you will use `toThrow` validator to catch an error and `expect.error`
-matcher to easily match exact error shape.
+Often you want to assert that given operation results in an error being thrown.
+In **earl** you will use `toThrow` validator to catch an error and
+`expect.error` matcher to easily match exact error shape.
 
 ```typescript
 import { expect } from 'earljs'

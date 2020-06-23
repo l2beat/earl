@@ -2,13 +2,13 @@
 title: Async functions
 ---
 
-In JavaScript you very frequently work with promises and async code in general.
-Here's how to deal with them in **earl**.
+In JavaScript you very frequently work with promises and async code. Here's how
+to deal with them in **earl**.
 
 ### Successful promises
 
-We don't expose any helpers to work with promises that should resolve. We
-encourage to use `async/await` syntax to deal with it:
+We don't expose any helpers to work with promises that should successfully
+resolve. Instead, we encourage to use `async/await` syntax:
 
 ```typescript
 function delay(n: number): Promise<void> {
@@ -25,7 +25,8 @@ async function longTermTask(): Promise<number> {
 expect(await longTermTask()).toEqual(42)
 ```
 
-Note that if you forget `await` TypeScript will warn you about types mismatch.
+Note that if you forget `await` TypeScript will warn you about types mismatch
+because `toEqual` actual/expected values won't match.
 
 ## Rejected promises
 
@@ -39,8 +40,8 @@ async function longTermTask(): Promise<number> {
 await expect(longTermTask()).toBeRejected(expect.error('Unexpected error'))
 ```
 
-Note that in this case we need `await` before `expect` because whole assertion
-becomes async. To avoid mistakes use
+In this case we need `await` before `expect` because whole assertion becomes
+async. To avoid mistakes use
 [`no-floating-promises`](https://github.com/typescript-eslint/typescript-eslint/blob/master/packages/eslint-plugin/docs/rules/no-floating-promises.md)
 eslint rule (it's part of
 [TypeSTRICT](https://github.com/krzkaczor/typestrict)).
