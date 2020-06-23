@@ -36,17 +36,11 @@ expect(response).toEqual({
 })
 ```
 
-## 🛣️ Roadmap
+## Docs
 
-To help us prioritize future work you can vote with GH reactions 👍
-
-- [🔌 Plugin system ](https://github.com/krzkaczor/earl/issues/30)
-- [📸 Snapshots](https://github.com/krzkaczor/earl/issues/31)
-- [Mocks](https://github.com/krzkaczor/earl/issues/12) - Current implementation
-  is minimal and supports only function mocks
-- [Improve diff readability](https://github.com/krzkaczor/earl/issues/15)
-- More standard validators and matchers
-- Autofix improvements - support prettier etc.
+- [Getting started](https://earljs.dev/docs/introduction/getting-started)
+- [Step by step guide](https://earljs.dev/docs/introduction/step-by-step-guide)
+- [API reference](https://earljs.dev/docs/api/api-reference)
 
 ## ✨ Contributors
 
