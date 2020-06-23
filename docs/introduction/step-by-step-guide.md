@@ -12,8 +12,7 @@ First install dependencies:
 npm install --save-dev typescript ts-node mocha @types/mocha earljs
 ```
 
-Note: it's `earljs` not `earl`. Also we don't have to install external typings
-for **earl** because it's written in TypeScript.
+**Note**: it's `earljs` not `earl`.
 
 ## Setup TypeScript
 
@@ -73,7 +72,7 @@ _test/sum.test.ts_:
 
 ```typescript
 import { expect } from 'earljs'
-import { sum } from '../src/sum.ts'
+import { sum } from '../src/sum'
 
 describe('sum', () => {
   it('sums numbers', () => {
@@ -93,11 +92,26 @@ scripts: {
 }
 ```
 
-Run `npm test` and _voilà_! You just wrote your first test case using **earl**!.
+Run `npm test` and _voilà_! You just wrote your first test case using **earl**!
 
-Now let's try doing something fun. Autofix is unique **earl**'s feature which
-helps you to write tedious assertions for you. In our test case lets remove
-expected value 4 like this:
+Make it fail by change expected value to `5`. You should see error message
+clearly explaining problem: `Error: 4 not equal to 5`.
+
+Sometimes you might want to match not exact number but rather whole range of
+values - that's what matchers are for. Rewrite your assertion to:
+
+```typescript
+expect(actual).toEqual(expect.numberCloseTo(4, 2))
+```
+
+This assertion will match every number "close to" `4` in radius of `2`. In this
+case it doesn't really make sense since addition will always give us accurate
+results but **earl** comes with many different matchers which can be very
+helpful.
+
+Now let's try doing something fun. Autofix is a unique feature which helps you
+to write tedious assertions for you. In our test case lets remove expected value
+`4` like this:
 
 ```typescript
 expect(actual).toEqual()

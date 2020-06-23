@@ -2,14 +2,14 @@
 title: Using matchers
 ---
 
-Matchers allow matching whole ranges of values rather, they can be combined with
-other validators and used with mocks. Let's take a look at few different
-examples.
+Matchers allow matching whole ranges of values rather than just one literal,
+they can be combined with other validators or used with mocks. Let's take a look
+at few different examples.
 
 ## String related matchers
 
-Imagine that we deal we want to match any string in our test case. We can use a
-generic `a(Class)` matcher, matching any instance of a given class.
+Imagine that we want to match any string in our test case. We can use a generic
+`a(Class)` matcher, matching any instance of a given class.
 
 ```typescript
 import { expect } from 'earljs'

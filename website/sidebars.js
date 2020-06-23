@@ -8,9 +8,9 @@ module.exports = {
     ],
     Guides: [
       'guides/using-matchers',
-      // 'guides/async-functions',
-      // 'guides/testing-errors',
-      // 'guides/autofix', // add autofix to core concepts
+      'guides/testing-errors',
+      'guides/async-functions',
+      'guides/autofix',
       'guides/mocks',
       'guides/test-runner-integration',
     ],

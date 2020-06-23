@@ -2,6 +2,8 @@
 title: Mocks
 ---
 
+**Note**: mocks API is still in PREVIEW state and can change in future.
+
 Mocks are dummy objects simulating behaviour of more complicated real world
 objects. **Earl** supports both function and objects mocking.
 

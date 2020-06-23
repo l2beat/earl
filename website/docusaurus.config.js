@@ -1,7 +1,7 @@
 module.exports = {
   title: 'Earl',
   tagline: 'Ergonomic, modern and type-safe assertion library for TypeScript',
-  url: 'https://earl.netlify.app/',
+  url: 'https://earljs.dev/',
   baseUrl: '/',
   favicon: 'img/favicon.ico',
   organizationName: 'krzkaczor', // Usually your GitHub org/user name.
