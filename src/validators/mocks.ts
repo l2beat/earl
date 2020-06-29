@@ -1,6 +1,6 @@
 import { LooseMock } from '../mocks/looseMock'
 import { StrictMock } from '../mocks/strictMock'
-import { Control } from './common'
+import { Control, formatValue } from './common'
 import { smartEq } from './toEqual'
 
 export function toBeExhausted(control: Control<StrictMock<any, any>>) {
@@ -17,14 +17,14 @@ export function toHaveBeenCalledWith<ARGS extends any[]>(control: Control<LooseM
       return control.assert({
         success: true,
         reason: '-',
-        negatedReason: `Mock was called with ${JSON.stringify(expectedArgs)} but wasn't expected to`,
+        negatedReason: `Mock was called with ${formatValue(expectedArgs)} but wasn't expected to`,
       })
     }
   }
 
   return control.assert({
     success: false,
-    reason: `Mock was not called with ${JSON.stringify(expectedArgs)} but was expected to`,
+    reason: `Mock was not called with ${formatValue(expectedArgs)} but was expected to`,
     negatedReason: '-',
   })
 }

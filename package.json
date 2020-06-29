@@ -37,6 +37,7 @@
     "debug": "^4.1.1",
     "lines-and-columns": "^1.1.6",
     "lodash": "^4.17.15",
+    "pretty-format": "^26.1.0",
     "stacktracey": "^1.2.127",
     "ts-essentials": "^6.0.5"
   },

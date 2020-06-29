@@ -37,16 +37,16 @@ describe('strictMock', () => {
     it('supports .returns', () => {
       const fn = mockFn<[number, number], number>().expectedCall([1, 2]).returns(3)
 
-      expect(() => fn(2, 2)).to.throw('Unexpected call! Expected [1,2] but was called with [2,2]')
+      expect(() => fn(2, 2)).to.throw('Unexpected call! Expected [1, 2] but was called with [2, 2]')
       expect(fn(1, 2)).to.equal(3)
-      expect(() => fn(2, 2)).to.throw('Unexpected call! Called with [2,2]')
+      expect(() => fn(2, 2)).to.throw('Unexpected call! Called with [2, 2]')
     })
 
     it('supports .throws', () => {
       const fn = mockFn<[number, number], number>().expectedCall([1, 2]).throws(new Error('Boom'))
 
       expect(() => fn(1, 2)).to.throw('Boom')
-      expect(() => fn(2, 2)).to.throw('Unexpected call! Called with [2,2]')
+      expect(() => fn(2, 2)).to.throw('Unexpected call! Called with [2, 2]')
     })
 
     it('supports .executes', () => {
@@ -55,7 +55,7 @@ describe('strictMock', () => {
         .executes((a, b) => a + b)
 
       expect(fn(1, 2)).to.equal(3)
-      expect(() => fn(2, 2)).to.throw('Unexpected call! Called with [2,2]')
+      expect(() => fn(2, 2)).to.throw('Unexpected call! Called with [2, 2]')
     })
 
     it('supports matchers', () => {

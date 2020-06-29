@@ -1,3 +1,5 @@
+import prettyFormat from 'pretty-format'
+
 import { AutofixType } from '../autofix'
 
 export interface Control<T> {
@@ -11,4 +13,8 @@ export interface ValidationResult {
   success: boolean
   reason: string
   negatedReason: string
+}
+
+export function formatValue(value: any) {
+  return prettyFormat(value, { min: true })
 }

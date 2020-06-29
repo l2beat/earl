@@ -60,6 +60,17 @@ describe('toEqual', () => {
     it('throws on mismatch', () => {
       expect(() => earl(42).toEqual(420)).to.throw('42 not equal to 420')
     })
+
+    describe('error messages', () => {
+      it('throws on mismatch', () => {
+        expect(() =>
+          earl({
+            a: undefined,
+            b: true,
+          }).toEqual({ b: false } as any),
+        ).to.throw('{"a": undefined, "b": true} not equal to {"b": false}')
+      })
+    })
   })
 
   describe('negated', () => {

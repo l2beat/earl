@@ -1,11 +1,11 @@
 import { isEqualWith } from 'lodash'
 
 import { Matcher } from '../matchers/Base'
-import { Control } from './common'
+import { Control, formatValue } from './common'
 
 export function toEqual<T>(control: Control<T>, expected?: T) {
-  const reason = `${JSON.stringify(control.actual)} not equal to ${JSON.stringify(expected)}`
-  const negatedReason = `${JSON.stringify(control.actual)} equal to ${JSON.stringify(expected)}`
+  const reason = `${formatValue(control.actual)} not equal to ${formatValue(expected)}`
+  const negatedReason = `${formatValue(control.actual)} equal to ${formatValue(expected)}`
 
   if (!smartEq(control.actual, expected)) {
     if (arguments.length === 1 && !control.isNegated) {
