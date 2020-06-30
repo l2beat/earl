@@ -1,3 +1,5 @@
+import { AssertionError } from 'assert'
+
 import { AutofixType } from './autofix'
 import { LooseMock } from './mocks/looseMock'
 import { StrictMock } from './mocks/strictMock'
@@ -95,11 +97,11 @@ export class Expectation<T> {
   private assert(result: ValidationResult) {
     if (this.isNegated) {
       if (result.success) {
-        throw new Error(result.negatedReason)
+        throw new AssertionError({ message: result.negatedReason, actual: result.actual, expected: result.expected })
       }
     } else {
       if (!result.success) {
-        throw new Error(result.reason)
+        throw new AssertionError({ message: result.reason, actual: result.actual, expected: result.expected })
       }
     }
   }

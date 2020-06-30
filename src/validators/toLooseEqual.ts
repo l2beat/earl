@@ -1,5 +1,4 @@
-import { Control, formatValue } from './common'
-import { smartEq } from './toEqual'
+import { Control, formatValue, replaceMatchersWithMatchedValues, smartEq } from './common'
 
 // @todo: follow design of jest's loose equal
 export function toLooseEqual(control: Control<any>, expected?: any) {
@@ -14,6 +13,8 @@ export function toLooseEqual(control: Control<any>, expected?: any) {
         success: false,
         reason,
         negatedReason,
+        actual: control.actual,
+        expected: replaceMatchersWithMatchedValues(control.actual, expected),
       })
     }
   } else {
@@ -21,6 +22,8 @@ export function toLooseEqual(control: Control<any>, expected?: any) {
       success: true,
       reason,
       negatedReason,
+      actual: control.actual,
+      expected: replaceMatchersWithMatchedValues(control.actual, expected),
     })
   }
 }

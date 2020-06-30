@@ -1,7 +1,6 @@
 import { assert } from 'ts-essentials'
 
-import { Control } from './common'
-import { smartEq } from './toEqual'
+import { Control, replaceMatchersWithMatchedValues, smartEq } from './common'
 
 export async function toBeRejected(control: Control<Promise<any>>, expected?: any): Promise<void> {
   let actualRejectedValue: any | undefined
@@ -37,6 +36,8 @@ export async function toBeRejected(control: Control<Promise<any>>, expected?: an
         success: false,
         reason,
         negatedReason,
+        actual: actualRejectedValue,
+        expected: replaceMatchersWithMatchedValues(actualRejectedValue, expected),
       })
     }
   } else {
@@ -44,6 +45,8 @@ export async function toBeRejected(control: Control<Promise<any>>, expected?: an
       success: true,
       reason,
       negatedReason,
+      actual: actualRejectedValue,
+      expected: replaceMatchersWithMatchedValues(actualRejectedValue, expected),
     })
   }
 }

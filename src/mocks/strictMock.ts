@@ -1,6 +1,5 @@
 import { defaultExecutionCtx } from '../ExecutionCtx'
-import { formatValue } from '../validators/common'
-import { smartEq } from '../validators/toEqual'
+import { formatValue, smartEq } from '../validators/common'
 
 type Awaited<T> = T extends PromiseLike<infer PT> ? PT : never
 

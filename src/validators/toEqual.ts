@@ -1,7 +1,4 @@
-import { isEqualWith } from 'lodash'
-
-import { Matcher } from '../matchers/Base'
-import { Control, formatValue } from './common'
+import { Control, formatValue, replaceMatchersWithMatchedValues, smartEq } from './common'
 
 export function toEqual<T>(control: Control<T>, expected?: T) {
   const reason = `${formatValue(control.actual)} not equal to ${formatValue(expected)}`
@@ -15,6 +12,8 @@ export function toEqual<T>(control: Control<T>, expected?: T) {
         success: false,
         reason,
         negatedReason,
+        actual: control.actual,
+        expected: replaceMatchersWithMatchedValues(control.actual, expected),
       })
     }
   } else {
@@ -22,14 +21,8 @@ export function toEqual<T>(control: Control<T>, expected?: T) {
       success: true,
       reason,
       negatedReason,
+      actual: control.actual,
+      expected: replaceMatchersWithMatchedValues(control.actual, expected),
     })
   }
-}
-
-export function smartEq(actual: any, expected: any): boolean {
-  return isEqualWith(actual, expected, (a: any, b: any) => {
-    if (b instanceof Matcher) {
-      return b.check(a)
-    }
-  })
 }

@@ -1,4 +1,4 @@
-import { smartEq } from '../validators/toEqual'
+import { smartEq } from '../validators/common'
 import { Newable } from './A'
 import { Matcher } from './Base'
 

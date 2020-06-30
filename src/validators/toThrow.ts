@@ -1,7 +1,6 @@
 import { assert } from 'ts-essentials'
 
-import { Control } from './common'
-import { smartEq } from './toEqual'
+import { Control, replaceMatchersWithMatchedValues, smartEq } from './common'
 
 export function toThrow(control: Control<() => any>, expected?: any) {
   assert(control.actual instanceof Function, 'Actual has to be a function to check if threw')
@@ -37,6 +36,8 @@ export function toThrow(control: Control<() => any>, expected?: any) {
         success: false,
         reason,
         negatedReason,
+        actual: actualThrownValue,
+        expected: replaceMatchersWithMatchedValues(actualThrownValue, expected),
       })
     }
   } else {
