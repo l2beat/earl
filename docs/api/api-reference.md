@@ -3,6 +3,10 @@ id: api-reference
 title: API reference
 ---
 
+### Core
+
+- [`expect(any, options?)`](#expectany-options)
+
 ### Validators
 
 - [`toEqual(object)`](#toequalobject)
@@ -35,6 +39,13 @@ title: API reference
     - [`rejectsWith(error)`](#rejectswitherror)
 
 ## Reference
+
+### Core
+
+#### expect(any, options?)
+
+`options.extraMessage` - provide extra message to make it easier to understand
+when your assertion fails
 
 ### Validators
 
