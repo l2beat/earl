@@ -1,5 +1,3 @@
-import { AssertionError } from 'assert'
-
 import { AutofixType } from './autofix'
 import { LooseMock } from './mocks/looseMock'
 import { StrictMock } from './mocks/strictMock'
@@ -9,6 +7,7 @@ import { toBeRejected } from './validators/toBeRejected'
 import { toEqual } from './validators/toEqual'
 import { toLooseEqual } from './validators/toLooseEqual'
 import { toThrow } from './validators/toThrow'
+import { AssertionError } from './AssertionError'
 
 // used by validators to access private fields for Expectation cls
 export interface InternalExpectation<T> {
@@ -106,3 +105,4 @@ export class Expectation<T> {
     }
   }
 }
+
