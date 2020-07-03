@@ -1,4 +1,6 @@
-import { expect } from '../src/expect'
+import { expect } from 'chai'
+
+import { expect as earl } from '../src/expect'
 
 describe('Expectation', () => {
   // used for integration tests for all matchers
@@ -12,11 +14,18 @@ describe('Expectation', () => {
       reallyAnything: undefined,
     }
 
-    expect(data).toEqual({
-      number: expect.numberCloseTo(10, 2),
-      string: expect.stringMatching('John'),
-      complexData: expect.a(Object),
-      reallyAnything: expect.anything(),
+    earl(data).toEqual({
+      number: earl.numberCloseTo(10, 2),
+      string: earl.stringMatching('John'),
+      complexData: earl.a(Object),
+      reallyAnything: earl.anything(),
     })
+  })
+
+  it('works with extraMessage', () => {
+    expect(() => earl(1, { extraMessage: 'test assertion' }).toEqual(2)).to.throw(
+      `1 not equal to 2
+Extra message: test assertion`,
+    )
   })
 })
