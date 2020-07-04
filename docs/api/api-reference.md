@@ -117,7 +117,7 @@ Create mock conforming to a given signature.
 
 ##### Example:
 
-```
+```typescript
 const mock = mockFn<[string], number>()
 ```
 
