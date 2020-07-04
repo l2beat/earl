@@ -1,5 +1,5 @@
 import { defaultExecutionCtx } from '../ExecutionCtx'
-import { smartEq } from '../validators/toEqual'
+import { formatValue, smartEq } from '../validators/common'
 
 type Awaited<T> = T extends PromiseLike<infer PT> ? PT : never
 
@@ -82,7 +82,7 @@ export function mockFn<ARGS extends any[] = never, RETURN = never>(): ARGS exten
     const currentSpec = queue[0]
 
     if (!currentSpec) {
-      throw new Error(`Unexpected call! Called with ${JSON.stringify(args)}`)
+      throw new Error(`Unexpected call! Called with ${formatValue(args)}`)
     }
     verifyArgs(args, currentSpec.args)
     queue.shift()
@@ -107,9 +107,7 @@ export function mockFn<ARGS extends any[] = never, RETURN = never>(): ARGS exten
 
   function verifyArgs(actual: any[], expected: any[]) {
     if (!smartEq(actual, expected)) {
-      throw new Error(
-        `Unexpected call! Expected ${JSON.stringify(expected)} but was called with ${JSON.stringify(actual)}`,
-      )
+      throw new Error(`Unexpected call! Expected ${formatValue(expected)} but was called with ${formatValue(actual)}`)
     }
   }
 

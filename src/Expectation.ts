@@ -1,3 +1,4 @@
+import { AssertionError } from './AssertionError'
 import { AutofixType } from './autofix'
 import { LooseMock } from './mocks/looseMock'
 import { StrictMock } from './mocks/strictMock'
@@ -8,15 +9,17 @@ import { toEqual } from './validators/toEqual'
 import { toLooseEqual } from './validators/toLooseEqual'
 import { toThrow } from './validators/toThrow'
 
-// used by validators to access private fields for Expectation cls
-export interface InternalExpectation<T> {
-  readonly autofix: AutofixType
-  readonly actual: T
-  isNegated: boolean
+export interface ExpectationOptions {
+  extraMessage?: string
 }
 
 export class Expectation<T> {
-  constructor(private readonly autofix: AutofixType, private readonly actual: T, private isNegated: boolean = false) {}
+  constructor(
+    private readonly autofix: AutofixType,
+    private readonly actual: T,
+    private isNegated: boolean = false,
+    private options: ExpectationOptions = {},
+  ) {}
 
   // modifiers
   get not(): this {
@@ -86,8 +89,8 @@ export class Expectation<T> {
   private getControl(): Control<T> {
     return {
       actual: this.actual,
-      assert: this.assert,
-      autofix: this.autofix,
+      assert: this.assert.bind(this),
+      autofix: this.autofix.bind(this),
       isNegated: this.isNegated,
     }
   }
@@ -95,11 +98,21 @@ export class Expectation<T> {
   private assert(result: ValidationResult) {
     if (this.isNegated) {
       if (result.success) {
-        throw new Error(result.negatedReason)
+        throw new AssertionError({
+          message: result.negatedReason,
+          actual: result.actual,
+          expected: result.expected,
+          extraMessage: this.options.extraMessage,
+        })
       }
     } else {
       if (!result.success) {
-        throw new Error(result.reason)
+        throw new AssertionError({
+          message: result.reason,
+          actual: result.actual,
+          expected: result.expected,
+          extraMessage: this.options.extraMessage,
+        })
       }
     }
   }

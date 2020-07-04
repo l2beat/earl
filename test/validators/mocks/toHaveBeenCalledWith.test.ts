@@ -27,7 +27,7 @@ describe('toHaveBeenCalledWith', () => {
       mock(1, 2, 3)
 
       expect(() => earl(mock).toHaveBeenCalledWith([1, 2])).to.throw(
-        'Mock was not called with [1,2] but was expected to',
+        'Mock was not called with [1, 2] but was expected to',
       )
     })
 
@@ -45,7 +45,7 @@ describe('toHaveBeenCalledWith', () => {
       mock(1, 2, 3)
 
       expect(() => earl(mock).not.toHaveBeenCalledWith([1, 2, 3])).to.throw(
-        "Mock was called with [1,2,3] but wasn't expected to",
+        "Mock was called with [1, 2, 3] but wasn't expected to",
       )
     })
 

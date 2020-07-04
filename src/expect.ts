@@ -1,5 +1,5 @@
 import { autofix } from './autofix'
-import { Expectation } from './Expectation'
+import { Expectation, ExpectationOptions } from './Expectation'
 import { AMatcher } from './matchers/A'
 import { AnythingMatcher } from './matchers/Anything'
 import { ErrorMatcher } from './matchers/Error'
@@ -7,8 +7,7 @@ import { NumberCloseToMatcher } from './matchers/NumberCloseTo'
 import { StringMatchingMatcher } from './matchers/StringMatching'
 
 interface expectInterface {
-  <T>(actual: T): Expectation<T>
-  <T>(actual: T): Expectation<T>
+  <T>(actual: T, options?: ExpectationOptions): Expectation<T>
 
   // matchers
   anything: typeof AnythingMatcher.make
@@ -18,8 +17,8 @@ interface expectInterface {
   error: typeof ErrorMatcher.make
 }
 
-export const expect: expectInterface = <T>(actual: T): Expectation<T> => {
-  return new Expectation(autofix(), actual)
+export const expect: expectInterface = <T>(actual: T, options: ExpectationOptions = {}): Expectation<T> => {
+  return new Expectation(autofix(), actual, false, options)
 }
 expect.anything = AnythingMatcher.make
 expect.a = AMatcher.make
