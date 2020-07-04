@@ -40,6 +40,15 @@
       "contributions": [
         "ideas"
       ]
+    },
+    {
+      "login": "LogvinovLeon",
+      "name": "Leonid Logvinov",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/6204356?v=4",
+      "profile": "https://github.com/LogvinovLeon",
+      "contributions": [
+        "doc"
+      ]
     }
   ],
   "contributorsPerLine": 7
