@@ -140,8 +140,8 @@ Throw value on expected call
 
 #### resolvesTo(value)
 
-Syntactic sugar to `returns(Promise.resolve(value))
+Syntactic sugar to `returns(Promise.resolve(value))`
 
 #### rejectsWith(error)
 
-Syntactic sugar to `returns(Promise.reject(error))
+Syntactic sugar to `returns(Promise.reject(error))`
