@@ -1,6 +1,6 @@
 import { expect } from 'chai'
 
-import { expect as earl } from '../../../src'
+import { expect as earl, expect as expectEarl } from '../../../src'
 import { looseMockFn } from '../../../src/mocks/looseMock'
 
 describe('toHaveBeenCalledWith', () => {
@@ -10,7 +10,7 @@ describe('toHaveBeenCalledWith', () => {
 
       mock(1, 2, 3)
 
-      expect(() => earl(mock).toHaveBeenCalledWith([1, 2, 3])).not.to.throw()
+      expectEarl(() => earl(mock).toHaveBeenCalledWith([1, 2, 3])).not.toThrow()
     })
 
     it('works with matchers', () => {
@@ -18,7 +18,7 @@ describe('toHaveBeenCalledWith', () => {
 
       mock(1, 2, 3)
 
-      expect(() => earl(mock).toHaveBeenCalledWith([1, 2, earl.a(Number)])).not.to.throw()
+      expectEarl(() => earl(mock).toHaveBeenCalledWith([1, 2, earl.a(Number)])).not.toThrow()
     })
 
     it('throws on partial matches', () => {
@@ -34,7 +34,9 @@ describe('toHaveBeenCalledWith', () => {
     it('throws with empty mocks', () => {
       const mock = looseMockFn(() => {})
 
-      expect(() => earl(mock).toHaveBeenCalledWith([])).to.throw('Mock was not called with [] but was expected to')
+      expectEarl(() => earl(mock).toHaveBeenCalledWith([])).toThrow(
+        expectEarl.error('Mock was not called with [] but was expected to'),
+      )
     })
   })
 
@@ -54,13 +56,13 @@ describe('toHaveBeenCalledWith', () => {
 
       mock(1, 2, 3)
 
-      expect(() => earl(mock).not.toHaveBeenCalledWith([1, 2])).not.to.throw()
+      expectEarl(() => earl(mock).not.toHaveBeenCalledWith([1, 2])).not.toThrow()
     })
 
     it('works with empty mocks', () => {
       const mock = looseMockFn(() => {})
 
-      expect(() => earl(mock).not.toHaveBeenCalledWith([])).not.to.throw()
+      expectEarl(() => earl(mock).not.toHaveBeenCalledWith([])).not.toThrow()
     })
   })
 })

@@ -1,14 +1,13 @@
-import { expect } from 'chai'
-
+import { expect as expectEarl } from '../../src'
 import { toLiteral } from '../../src/autofix/toLiteral'
 
 describe('toLiteral', () => {
   it('transforms primitive values', () => {
-    expect(toLiteral('abc')).to.be.deep.eq('"abc"')
-    expect(toLiteral(5)).to.be.deep.eq('5')
-    expect(toLiteral(true)).to.be.deep.eq('true')
-    expect(toLiteral(null)).to.be.deep.eq('null')
-    expect(toLiteral(undefined)).to.be.deep.eq('undefined')
+    expectEarl(toLiteral('abc')).toEqual('"abc"')
+    expectEarl(toLiteral(5)).toEqual('5')
+    expectEarl(toLiteral(true)).toEqual('true')
+    expectEarl(toLiteral(null)).toEqual('null')
+    expectEarl(toLiteral(undefined)).toEqual('undefined')
   })
 
   it('transforms objects', () => {
@@ -20,7 +19,7 @@ describe('toLiteral', () => {
       },
     }
 
-    expect(toLiteral(input)).to.be.deep.eq('{"abc":5,"nested":{"a":null,"c":5,},}')
+    expectEarl(toLiteral(input)).toEqual('{"abc":5,"nested":{"a":null,"c":5,},}')
   })
 
   it('transforms arrays', () => {
@@ -34,7 +33,7 @@ describe('toLiteral', () => {
       'a string',
     ]
 
-    expect(toLiteral(input)).to.be.deep.eq('[{"abc":5,"nested":{"a":null,},},"a string"]')
+    expectEarl(toLiteral(input)).toEqual('[{"abc":5,"nested":{"a":null,},},"a string"]')
   })
 
   it('transforms custom classes', () => {
@@ -43,13 +42,13 @@ describe('toLiteral', () => {
     }
     const input = new DummyClass(5)
 
-    expect(toLiteral(input)).to.be.deep.eq('expect.a(DummyClass)')
+    expectEarl(toLiteral(input)).toEqual('expect.a(DummyClass)')
   })
 
   it('transforms errors to error matcher', () => {
     const input = new Error('Goodbye cruel world!')
 
-    expect(toLiteral(input)).to.be.deep.eq('expect.error("Goodbye cruel world!")')
+    expectEarl(toLiteral(input)).toEqual('expect.error("Goodbye cruel world!")')
   })
 
   it.skip('prettifies output')
