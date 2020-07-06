@@ -21,6 +21,8 @@ export type Class2Primitive<T> = T extends String
   ? bigint
   : T extends Symbol
   ? symbol
+  : T extends Function
+  ? any
   : T extends Exact<Object, T>
   ? any
   : T
