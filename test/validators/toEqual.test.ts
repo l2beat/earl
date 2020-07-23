@@ -1,7 +1,7 @@
 import { expect } from 'chai'
 import sinon from 'sinon'
 
-import { expect as earl } from '../../src'
+import { expect as earl, expect as expectEarl } from '../../src'
 import { Expectation } from '../../src/Expectation'
 
 describe('toEqual', () => {
@@ -10,7 +10,7 @@ describe('toEqual', () => {
       const dummyAutofix = sinon.spy()
       const e = new Expectation(dummyAutofix, 'abc')
 
-      expect(() => e.toEqual(undefined as any)).to.throw()
+      expectEarl(() => e.toEqual(undefined as any)).toThrow(expectEarl.error('"abc" not equal to undefined'))
       expect(dummyAutofix).not.to.be.called
     })
 
@@ -56,7 +56,7 @@ describe('toEqual', () => {
     })
 
     it('throws on mismatch', () => {
-      expect(() => earl(42).toEqual(420)).to.throw('42 not equal to 420')
+      expectEarl(() => earl(42).toEqual(420)).toThrow(expectEarl.error('42 not equal to 420'))
     })
 
     describe('error messages', () => {
@@ -77,7 +77,7 @@ describe('toEqual', () => {
     })
 
     it('throws', () => {
-      expect(() => earl(5).not.toEqual(5)).to.throw('5 equal to 5')
+      expectEarl(() => earl(5).not.toEqual(5)).toThrow(expectEarl.error('5 equal to 5'))
     })
   })
 })

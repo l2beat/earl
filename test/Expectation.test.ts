@@ -1,6 +1,6 @@
-import { expect } from 'chai'
 import sinon from 'sinon'
 
+import { expect as expectEarl } from '../src'
 import { Expectation } from '../src/Expectation'
 
 describe('assert', () => {
@@ -11,11 +11,11 @@ describe('assert', () => {
     const expectation = new Expectation(sinon.spy(), undefined)
 
     it('doesnt throw when validation was successful', () => {
-      expect(() => expectation['assert'](success)).not.to.throw()
+      expectEarl(() => expectation['assert'](success)).not.toThrow()
     })
 
     it('throws when validation was unsuccessful', () => {
-      expect(() => expectation['assert'](failure)).to.throw('Failure')
+      expectEarl(() => expectation['assert'](failure)).toThrow(expectEarl.error('Failure'))
     })
   })
 
@@ -23,11 +23,11 @@ describe('assert', () => {
     const expectation = new Expectation(sinon.spy(), undefined).not
 
     it('throws when validation was successful', () => {
-      expect(() => expectation['assert'](success)).to.throw('Negated failure')
+      expectEarl(() => expectation['assert'](success)).toThrow(expectEarl.error('Negated failure'))
     })
 
     it('doesnt throw when validation was unsuccessful', () => {
-      expect(() => expectation['assert'](failure)).not.to.throw()
+      expectEarl(() => expectation['assert'](failure)).not.toThrow()
     })
   })
 })

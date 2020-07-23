@@ -1,6 +1,7 @@
 import { expect } from 'chai'
 import sinon from 'sinon'
 
+import { expect as expectEarl } from '../src'
 import { ExecutionCtx } from '../src/ExecutionCtx'
 
 describe('ExecutionCtx', () => {
@@ -12,7 +13,7 @@ describe('ExecutionCtx', () => {
     const executionCtx = new ExecutionCtx()
     executionCtx.registerMock(mockMock as any)
 
-    expect(() => executionCtx.verifyAllMocks()).not.to.throw()
+    expectEarl(() => executionCtx.verifyAllMocks()).not.toThrow()
     expect(mockMock.isExhausted).to.be.calledOnceWithExactly()
   })
 
@@ -25,7 +26,7 @@ describe('ExecutionCtx', () => {
     executionCtx.registerMock(mockMock as any)
     executionCtx.reset()
 
-    expect(() => executionCtx.verifyAllMocks()).not.to.throw()
+    expectEarl(() => executionCtx.verifyAllMocks()).not.toThrow()
     expect(mockMock.isExhausted).not.to.be.called
   })
 })

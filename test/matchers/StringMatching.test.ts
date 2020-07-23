@@ -1,5 +1,4 @@
-import { expect } from 'chai'
-
+import { expect as expectEarl } from '../../src'
 import { StringMatchingMatcher } from '../../src/matchers/StringMatching'
 
 describe('StringContaining matcher', () => {
@@ -7,25 +6,25 @@ describe('StringContaining matcher', () => {
     it('matches strings containing substring', () => {
       const m = new StringMatchingMatcher('test')
 
-      expect(m.check('abc test cde')).to.be.true
-      expect(m.check('testtesttest')).to.be.true
+      expectEarl(m.check('abc test cde')).toEqual(true)
+      expectEarl(m.check('testtesttest')).toEqual(true)
     })
 
     it('doesnt match non-strings', () => {
       const m = new StringMatchingMatcher('test')
 
-      expect(m.check(undefined)).to.be.false
-      expect(m.check(1)).to.be.false
-      expect(m.check({})).to.be.false
-      expect(m.check([])).to.be.false
+      expectEarl(m.check(undefined)).toEqual(false)
+      expectEarl(m.check(1)).toEqual(false)
+      expectEarl(m.check({})).toEqual(false)
+      expectEarl(m.check([])).toEqual(false)
     })
 
     it('doesnt match strings not containing substring', () => {
       const m = new StringMatchingMatcher('test')
 
-      expect(m.check('')).to.be.false
-      expect(m.check('tes')).to.be.false
-      expect(m.check('abc-acbc')).to.be.false
+      expectEarl(m.check('')).toEqual(false)
+      expectEarl(m.check('tes')).toEqual(false)
+      expectEarl(m.check('abc-acbc')).toEqual(false)
     })
   })
 
@@ -33,25 +32,25 @@ describe('StringContaining matcher', () => {
     it('matches strings matching pattern', () => {
       const m = new StringMatchingMatcher(new RegExp('^[0-9]+$'))
 
-      expect(m.check('1323')).to.be.true
-      expect(m.check('1')).to.be.true
+      expectEarl(m.check('1323')).toEqual(true)
+      expectEarl(m.check('1')).toEqual(true)
     })
 
     it('doesnt match non-strings', () => {
       const m = new StringMatchingMatcher(new RegExp('^[0-9]+$'))
 
-      expect(m.check(undefined)).to.be.false
-      expect(m.check(1)).to.be.false
-      expect(m.check({})).to.be.false
-      expect(m.check([])).to.be.false
+      expectEarl(m.check(undefined)).toEqual(false)
+      expectEarl(m.check(1)).toEqual(false)
+      expectEarl(m.check({})).toEqual(false)
+      expectEarl(m.check([])).toEqual(false)
     })
 
     it('doesnt match strings not matching pattern', () => {
       const m = new StringMatchingMatcher(new RegExp('^[0-9]+$'))
 
-      expect(m.check('')).to.be.false
-      expect(m.check('tes')).to.be.false
-      expect(m.check('123a')).to.be.false
+      expectEarl(m.check('')).toEqual(false)
+      expectEarl(m.check('tes')).toEqual(false)
+      expectEarl(m.check('123a')).toEqual(false)
     })
   })
 })

@@ -1,5 +1,4 @@
-import { expect } from 'chai'
-
+import { expect as expectEarl } from '../../src'
 import { shouldPreventAutofix } from '../../src/autofix/predicates'
 
 describe('autofix > shouldPreventAutofix', () => {
@@ -7,12 +6,12 @@ describe('autofix > shouldPreventAutofix', () => {
     const dummyEnv = {
       CI: '1',
     }
-    expect(shouldPreventAutofix(dummyEnv)()).to.be.true
+    expectEarl(shouldPreventAutofix(dummyEnv)()).toEqual(true)
   })
 
   it(`doesn't prevent in normal situation`, () => {
     const dummyEnv = {}
 
-    expect(shouldPreventAutofix(dummyEnv)()).to.be.false
+    expectEarl(shouldPreventAutofix(dummyEnv)()).toEqual(false)
   })
 })
