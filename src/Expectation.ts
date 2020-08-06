@@ -80,6 +80,7 @@ export class Expectation<T> {
     return toBeExhausted(this.getControl())
   }
 
+  // @TODO: TS4.0 will easily make this typesafe
   toHaveBeenCalledWith(this: Expectation<LooseMock<any[], any>>, expectedCall: any[]) {
     return toHaveBeenCalledWith(this.getControl(), expectedCall)
   }

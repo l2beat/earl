@@ -1,6 +1,5 @@
 const d = require('debug')('earl:mocha')
 
-const { defaultExecutionCtx } = require('./dist/ExecutionCtx')
 /**
  * Integrate earl with mocha
  */
@@ -11,12 +10,10 @@ async function main() {
 
   beforeEach(function () {
     d('Running beforeEach')
-    defaultExecutionCtx.reset()
   })
 
   afterEach(function () {
     d('Running afterEach')
-    defaultExecutionCtx.verifyAllMocks()
   })
 }
 
