@@ -5,47 +5,65 @@ export interface MockCall {
   result: { type: 'return'; value: any } | { type: 'throw'; error: any }
 }
 
+type Awaited<T> = T extends PromiseLike<infer PT> ? PT : never
+
 export interface Mock<ARGS extends any[], RETURN> {
   /** Calls the mock function */
   (...args: ARGS): RETURN
   calls: MockCall[]
   isExhausted(): boolean
+
   /**
    * Sets the return value of calls to the Mock.
    * Overrides any previous configuration.
    * @param value value to be returned.
    */
-  returns<U>(value: U): Mock<any[], U>
+  returns(value: RETURN): Mock<ARGS, RETURN>
   /**
    * Schedules the mock to return a value the next time it's called.
    * If anything is already scheduled it will be used first.
    * @param value value to be returned.
    */
-  returnsOnce<U>(value: U): Mock<ARGS, RETURN | U>
+  returnsOnce(value: RETURN): Mock<ARGS, RETURN>
+
   /**
    * Sets the error thrown by calls to the Mock.
    * Overrides any previous configuration.
    * @param error error to be thrown.
    */
-  throws(error: any): Mock<any[], never>
+  throws(error: any): Mock<ARGS, RETURN>
   /**
    * Schedules the mock to throw an error the next time it's called.
    * If anything is already scheduled it will be used first.
    * @param error error to be thrown.
    */
   throwsOnce(error: any): Mock<ARGS, RETURN>
+
   /**
    * Sets the underlying implementation of the Mock.
    * Overrides any previous configuration.
    * @param implementation function to execute.
    */
-  executes<B extends any[], U>(implementation: (...args: B) => U): Mock<B, U>
+  executes(implementation: (...args: ARGS) => RETURN): Mock<ARGS, RETURN>
   /**
-   * Schedules the mock use the provided implementation the next time it's called.
+   * Schedules the mock to use the provided implementation the next time it's called.
    * If anything is already scheduled it will be used first.
    * @param implementation function to execute.
    */
-  executesOnce<B extends ARGS, U>(implementation: (...args: B) => U): Mock<B, RETURN | U>
+  executesOnce(implementation: (...args: ARGS) => RETURN): Mock<ARGS, RETURN>
+
+  /**
+   * Sets the return value wrapped in Promise.resolve of calls to the Mock.
+   * @param value value to be returned.
+   */
+  resolvesTo(value: Awaited<RETURN>): Mock<ARGS, RETURN>
+  /**
+   * Schedules the mock to return value wrapped in Promise.resolve the next time it's called.
+   * If anything is already scheduled it will be used first.
+   * @param value value to be returned.
+   */
+  resolvesToOnce(value: Awaited<RETURN>): Mock<ARGS, RETURN>
+
   /**
    * Specifies a different behavior when other arguments are given
    * @param args arguments to match
@@ -57,17 +75,18 @@ export interface Mock<ARGS extends any[], RETURN> {
      * Sets the return value of calls to the Mock.
      * @param value value to be returned.
      */
-    returns<U>(value: U): Mock<ARGS, RETURN | U>
+    returns(value: RETURN): Mock<ARGS, RETURN>
     /**
      * Schedules the mock to return a value the next time it's called.
      * If anything is already scheduled it will be used first.
      * @param value value to be returned.
      */
-    returnsOnce<U>(value: U): Mock<ARGS, RETURN | U>
+    returnsOnce(value: RETURN): Mock<ARGS, RETURN>
     /**
      * Sets the error thrown by calls to the Mock.
      * @param error error to be thrown.
      */
+
     throws(error: any): Mock<ARGS, RETURN>
     /**
      * Schedules the mock to throw an error the next time it's called.
@@ -75,17 +94,30 @@ export interface Mock<ARGS extends any[], RETURN> {
      * @param error error to be thrown.
      */
     throwsOnce(error: any): Mock<ARGS, RETURN>
+
     /**
      * Sets the underlying implementation of the Mock.
      * @param implementation function to execute.
      */
-    executes<U>(implementation: (...args: B) => U): Mock<ARGS, RETURN | U>
+    executes(implementation: (...args: B) => RETURN): Mock<ARGS, RETURN>
     /**
      * Schedules the mock use the provided implementation the next time it's called.
      * If anything is already scheduled it will be used first.
      * @param implementation function to execute.
      */
-    executesOnce<U>(implementation: (...args: B) => U): Mock<ARGS, RETURN | U>
+    executesOnce(implementation: (...args: B) => RETURN): Mock<ARGS, RETURN>
+
+    /**
+     * Sets the return value wrapped in Promise.resolve of calls to the Mock.
+     * @param value value to be returned.
+     */
+    resolvesTo(value: Awaited<RETURN>): Mock<ARGS, RETURN>
+    /**
+     * Schedules the mock to return value wrapped in Promise.resolve the next time it's called.
+     * If anything is already scheduled it will be used first.
+     * @param value value to be returned.
+     */
+    resolvesToOnce(value: Awaited<RETURN>): Mock<ARGS, RETURN>
   }
 }
 
@@ -172,7 +204,6 @@ export function mockFn<RETURN = any>(defaultImpl?: (...args: any[]) => RETURN): 
     reset({ type: 'return', value })
     return mock
   }
-
   mock.returnsOnce = function (value: any) {
     queue.push({ type: 'return', value })
     return mock
@@ -182,7 +213,6 @@ export function mockFn<RETURN = any>(defaultImpl?: (...args: any[]) => RETURN): 
     reset({ type: 'throw', error })
     return mock
   }
-
   mock.throwsOnce = function (error: any) {
     queue.push({ type: 'throw', error })
     return mock
@@ -192,9 +222,17 @@ export function mockFn<RETURN = any>(defaultImpl?: (...args: any[]) => RETURN): 
     reset({ type: 'exec', implementation })
     return mock
   }
-
   mock.executesOnce = function (implementation: (...args: any[]) => any) {
     queue.push({ type: 'exec', implementation })
+    return mock
+  }
+
+  mock.resolvesTo = function (value: any) {
+    reset({ type: 'return', value: Promise.resolve(value) })
+    return mock
+  }
+  mock.resolvesToOnce = function (value: any) {
+    queue.push({ type: 'return', value: Promise.resolve(value) })
     return mock
   }
 
@@ -230,6 +268,16 @@ export function mockFn<RETURN = any>(defaultImpl?: (...args: any[]) => RETURN): 
 
       executesOnce(implementation: (...args: any[]) => any) {
         oneTimeOverrides.push({ args, spec: { type: 'exec', implementation } })
+        return mock
+      },
+
+      resolvesTo(value: any) {
+        recurringOverrides.push({ args, spec: { type: 'return', value: Promise.resolve(value) } })
+        return mock
+      },
+
+      resolvesToOnce(value: any) {
+        oneTimeOverrides.push({ args, spec: { type: 'return', value: Promise.resolve(value) } })
         return mock
       },
     }

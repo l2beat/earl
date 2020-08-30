@@ -155,6 +155,37 @@ describe('Mock', () => {
     })
   })
 
+  describe('.resolvesTo', () => {
+    it('sets function return value', async () => {
+      const fn = mockFn().resolvesTo(3)
+      expect(await fn()).to.equal(3)
+    })
+  })
+
+  describe('.resolvesToOnce', () => {
+    it('queues function return value', async () => {
+      const fn = mockFn().resolvesToOnce(3)
+      expect(await fn()).to.equal(3)
+      expect(fn()).to.equal(undefined)
+    })
+
+    it('can queue multiple values', async () => {
+      const fn = mockFn().resolvesToOnce(3).resolvesToOnce(4).resolvesToOnce('hello')
+      expect(await fn()).to.equal(3)
+      expect(await fn()).to.equal(4)
+      expect(await fn()).to.equal('hello')
+      expect(fn()).to.equal(undefined)
+    })
+
+    it('respects previous configuration', async () => {
+      const fn = mockFn()
+        .executes((x: number) => x + 1)
+        .resolvesToOnce(3)
+      expect(await fn(1)).to.equal(3)
+      expect(fn(1)).to.equal(2)
+    })
+  })
+
   describe('.given', () => {
     it('supports .returns', () => {
       const fn = mockFn().given(1, 2).returns(3)
@@ -234,6 +265,22 @@ describe('Mock', () => {
       expect(fn(1, 2)).to.equal(5)
       expect(fn(1, 2)).to.equal(undefined)
       expect(fn(3, 4)).to.equal(undefined)
+    })
+
+    it('supports .resolvesTo', async () => {
+      const fn = mockFn().given(1, 2).resolvesTo(3)
+      expect(await fn(1, 2)).to.equal(3)
+      expect(await fn(1, 2)).to.equal(3)
+      expect(fn(3, 4)).to.equal(undefined)
+      expect(fn()).to.equal(undefined)
+    })
+
+    it('supports .resolvesToOnce', async () => {
+      const fn = mockFn().given(1, 2).resolvesToOnce(3)
+      expect(await fn(1, 2)).to.equal(3)
+      expect(fn(1, 2)).to.equal(undefined)
+      expect(fn(3, 4)).to.equal(undefined)
+      expect(fn()).to.equal(undefined)
     })
 
     it('supports asymmetric matchers', () => {
