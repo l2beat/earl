@@ -121,6 +121,13 @@ describe('Mock', () => {
     })
   })
 
+  describe('default implementation', () => {
+    it('sets function to execute implementation', () => {
+      const fn = mockFn((x: number) => x + 1)
+      expect(fn(4)).to.equal(5)
+    })
+  })
+
   describe('.executesOnce', () => {
     it('queues function to execute implementation', () => {
       const fn = mockFn().executesOnce((x: number) => x + 1)

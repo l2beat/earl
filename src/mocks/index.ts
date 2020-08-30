@@ -111,7 +111,7 @@ interface Override {
   spec: Spec
 }
 
-export function mockFn<RETURN = any>(defaultImpl?: (args: any[]) => RETURN): Mock<any[], RETURN> {
+export function mockFn<RETURN = any>(defaultImpl?: (...args: any[]) => RETURN): Mock<any[], RETURN> {
   let spec: Spec = {
     type: 'return',
     value: undefined,
