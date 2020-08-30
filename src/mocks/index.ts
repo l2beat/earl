@@ -5,9 +5,9 @@ export interface MockCall {
   result: { type: 'return'; value: any } | { type: 'throw'; error: any }
 }
 
-export interface Mock<A extends any[], T> {
+export interface Mock<ARGS extends any[], RETURN> {
   /** Calls the mock function */
-  (...args: A): T
+  (...args: ARGS): RETURN
   calls: MockCall[]
   isExhausted(): boolean
   /**
@@ -21,7 +21,7 @@ export interface Mock<A extends any[], T> {
    * If anything is already scheduled it will be used first.
    * @param value value to be returned.
    */
-  returnsOnce<U>(value: U): Mock<A, T | U>
+  returnsOnce<U>(value: U): Mock<ARGS, RETURN | U>
   /**
    * Sets the error thrown by calls to the Mock.
    * Overrides any previous configuration.
@@ -33,7 +33,7 @@ export interface Mock<A extends any[], T> {
    * If anything is already scheduled it will be used first.
    * @param error error to be thrown.
    */
-  throwsOnce(error: any): Mock<A, T>
+  throwsOnce(error: any): Mock<ARGS, RETURN>
   /**
    * Sets the underlying implementation of the Mock.
    * Overrides any previous configuration.
@@ -45,47 +45,47 @@ export interface Mock<A extends any[], T> {
    * If anything is already scheduled it will be used first.
    * @param implementation function to execute.
    */
-  executesOnce<B extends A, U>(implementation: (...args: B) => U): Mock<B, T | U>
+  executesOnce<B extends ARGS, U>(implementation: (...args: B) => U): Mock<B, RETURN | U>
   /**
    * Specifies a different behavior when other arguments are given
    * @param args arguments to match
    */
-  given<B extends A>(
+  given<B extends ARGS>(
     ...args: B
   ): {
     /**
      * Sets the return value of calls to the Mock.
      * @param value value to be returned.
      */
-    returns<U>(value: U): Mock<A, T | U>
+    returns<U>(value: U): Mock<ARGS, RETURN | U>
     /**
      * Schedules the mock to return a value the next time it's called.
      * If anything is already scheduled it will be used first.
      * @param value value to be returned.
      */
-    returnsOnce<U>(value: U): Mock<A, T | U>
+    returnsOnce<U>(value: U): Mock<ARGS, RETURN | U>
     /**
      * Sets the error thrown by calls to the Mock.
      * @param error error to be thrown.
      */
-    throws(error: any): Mock<A, T>
+    throws(error: any): Mock<ARGS, RETURN>
     /**
      * Schedules the mock to throw an error the next time it's called.
      * If anything is already scheduled it will be used first.
      * @param error error to be thrown.
      */
-    throwsOnce(error: any): Mock<A, T>
+    throwsOnce(error: any): Mock<ARGS, RETURN>
     /**
      * Sets the underlying implementation of the Mock.
      * @param implementation function to execute.
      */
-    executes<U>(implementation: (...args: B) => U): Mock<A, T | U>
+    executes<U>(implementation: (...args: B) => U): Mock<ARGS, RETURN | U>
     /**
      * Schedules the mock use the provided implementation the next time it's called.
      * If anything is already scheduled it will be used first.
      * @param implementation function to execute.
      */
-    executesOnce<U>(implementation: (...args: B) => U): Mock<A, T | U>
+    executesOnce<U>(implementation: (...args: B) => U): Mock<ARGS, RETURN | U>
   }
 }
 
@@ -111,7 +111,7 @@ interface Override {
   spec: Spec
 }
 
-export function mockFn(): Mock<any[], undefined> {
+export function mockFn<RETURN = any>(defaultImpl?: (args: any[]) => RETURN): Mock<any[], RETURN> {
   let spec: Spec = {
     type: 'return',
     value: undefined,
@@ -233,6 +233,11 @@ export function mockFn(): Mock<any[], undefined> {
         return mock
       },
     }
+  }
+
+  if (defaultImpl) {
+    // @todo fix
+    mock.executes(defaultImpl as any)
   }
 
   return mock
