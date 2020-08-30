@@ -72,22 +72,12 @@ export interface Mock<ARGS extends any[], RETURN> {
     ...args: B
   ): {
     /**
-     * Sets the return value of calls to the Mock.
-     * @param value value to be returned.
-     */
-    returns(value: RETURN): Mock<ARGS, RETURN>
-    /**
      * Schedules the mock to return a value the next time it's called.
      * If anything is already scheduled it will be used first.
      * @param value value to be returned.
      */
     returnsOnce(value: RETURN): Mock<ARGS, RETURN>
-    /**
-     * Sets the error thrown by calls to the Mock.
-     * @param error error to be thrown.
-     */
 
-    throws(error: any): Mock<ARGS, RETURN>
     /**
      * Schedules the mock to throw an error the next time it's called.
      * If anything is already scheduled it will be used first.
@@ -96,22 +86,12 @@ export interface Mock<ARGS extends any[], RETURN> {
     throwsOnce(error: any): Mock<ARGS, RETURN>
 
     /**
-     * Sets the underlying implementation of the Mock.
-     * @param implementation function to execute.
-     */
-    executes(implementation: (...args: B) => RETURN): Mock<ARGS, RETURN>
-    /**
      * Schedules the mock use the provided implementation the next time it's called.
      * If anything is already scheduled it will be used first.
      * @param implementation function to execute.
      */
     executesOnce(implementation: (...args: B) => RETURN): Mock<ARGS, RETURN>
 
-    /**
-     * Sets the return value wrapped in Promise.resolve of calls to the Mock.
-     * @param value value to be returned.
-     */
-    resolvesTo(value: Awaited<RETURN>): Mock<ARGS, RETURN>
     /**
      * Schedules the mock to return value wrapped in Promise.resolve the next time it's called.
      * If anything is already scheduled it will be used first.
@@ -238,18 +218,8 @@ export function mockFn<RETURN = any>(defaultImpl?: (...args: any[]) => RETURN): 
 
   mock.given = function (...args: any[]) {
     return {
-      returns(value: any) {
-        recurringOverrides.push({ args, spec: { type: 'return', value } })
-        return mock
-      },
-
       returnsOnce(value: any) {
         oneTimeOverrides.push({ args, spec: { type: 'return', value } })
-        return mock
-      },
-
-      throws(error: any) {
-        recurringOverrides.push({ args, spec: { type: 'throw', error } })
         return mock
       },
 
@@ -258,21 +228,8 @@ export function mockFn<RETURN = any>(defaultImpl?: (...args: any[]) => RETURN): 
         return mock
       },
 
-      executes(implementation: (...args: any[]) => any) {
-        recurringOverrides.push({
-          args,
-          spec: { type: 'exec', implementation },
-        })
-        return mock
-      },
-
       executesOnce(implementation: (...args: any[]) => any) {
         oneTimeOverrides.push({ args, spec: { type: 'exec', implementation } })
-        return mock
-      },
-
-      resolvesTo(value: any) {
-        recurringOverrides.push({ args, spec: { type: 'return', value: Promise.resolve(value) } })
         return mock
       },
 

@@ -26,7 +26,7 @@ describe('Mock', () => {
       const fn = mockFn()
         .throws(new Error('Boom'))
         .given(1, 2)
-        .executes((a, b) => a + b)
+        .executesOnce((a, b) => a + b)
         .returnsOnce(55)
         .returns(3)
 
@@ -69,7 +69,7 @@ describe('Mock', () => {
       const fn = mockFn()
         .returns(3)
         .given(1, 2)
-        .executes((a, b) => a + b)
+        .executesOnce((a, b) => a + b)
         .returnsOnce(55)
         .throws(new Error('Boom'))
 
@@ -112,7 +112,7 @@ describe('Mock', () => {
       const fn = mockFn()
         .returns(3)
         .given('foo')
-        .returns(5)
+        .returnsOnce(5)
         .returnsOnce(55)
         .executes((x: string) => 'Hey ' + x)
 
@@ -187,14 +187,6 @@ describe('Mock', () => {
   })
 
   describe('.given', () => {
-    it('supports .returns', () => {
-      const fn = mockFn().given(1, 2).returns(3)
-      expect(fn(1, 2)).to.equal(3)
-      expect(fn(1, 2)).to.equal(3)
-      expect(fn(3, 4)).to.equal(undefined)
-      expect(fn()).to.equal(undefined)
-    })
-
     it('supports .returnsOnce', () => {
       const fn = mockFn().given(1, 2).returnsOnce(3)
       expect(fn(1, 2)).to.equal(3)
@@ -208,14 +200,6 @@ describe('Mock', () => {
       expect(fn(1, 2)).to.equal(3)
       expect(fn(1, 2)).to.equal(4)
       expect(fn(1, 2)).to.equal(undefined)
-      expect(fn(3, 4)).to.equal(undefined)
-      expect(fn()).to.equal(undefined)
-    })
-
-    it('supports .throws', () => {
-      const fn = mockFn().given(1, 2).throws(new Error('Boom'))
-      expect(() => fn(1, 2)).to.throw('Boom')
-      expect(() => fn(1, 2)).to.throw('Boom')
       expect(fn(3, 4)).to.equal(undefined)
       expect(fn()).to.equal(undefined)
     })
@@ -235,15 +219,6 @@ describe('Mock', () => {
       expect(fn(1, 2)).to.equal(undefined)
       expect(fn(3, 4)).to.equal(undefined)
       expect(fn()).to.equal(undefined)
-    })
-
-    it('supports .executes', () => {
-      const fn = mockFn()
-        .given(1, 2)
-        .executes((a, b) => a + b)
-      expect(fn(1, 2)).to.equal(3)
-      expect(fn(1, 2)).to.equal(3)
-      expect(fn(3, 4)).to.equal(undefined)
     })
 
     it('supports .executesOnce', () => {
@@ -267,14 +242,6 @@ describe('Mock', () => {
       expect(fn(3, 4)).to.equal(undefined)
     })
 
-    it('supports .resolvesTo', async () => {
-      const fn = mockFn().given(1, 2).resolvesTo(3)
-      expect(await fn(1, 2)).to.equal(3)
-      expect(await fn(1, 2)).to.equal(3)
-      expect(fn(3, 4)).to.equal(undefined)
-      expect(fn()).to.equal(undefined)
-    })
-
     it('supports .resolvesToOnce', async () => {
       const fn = mockFn().given(1, 2).resolvesToOnce(3)
       expect(await fn(1, 2)).to.equal(3)
@@ -284,7 +251,7 @@ describe('Mock', () => {
     })
 
     it('supports asymmetric matchers', () => {
-      const fn = mockFn().returns(null).given(earl.a(Number)).returns(3).given(earl.a(String)).returns('yes')
+      const fn = mockFn().returns(null).given(earl.a(Number)).returnsOnce(3).given(earl.a(String)).returnsOnce('yes')
 
       expect(fn(false)).to.equal(null)
       expect(fn(1)).to.equal(3)
