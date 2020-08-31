@@ -186,6 +186,31 @@ describe('Mock', () => {
     })
   })
 
+  describe('.rejectsWith', () => {
+    it('sets function return value', async () => {
+      const fn = mockFn().rejectsWith(3)
+      try {
+        await fn()
+        expect.fail()
+      } catch (e) {
+        expect(e).to.eq(3)
+      }
+    })
+  })
+
+  describe('.rejectsWithOnce', () => {
+    it('queues function return value', async () => {
+      const fn = mockFn().rejectsWithOnce(3)
+      try {
+        await fn()
+        expect.fail()
+      } catch (e) {
+        expect(e).to.eq(3)
+      }
+      expect(fn()).to.equal(undefined)
+    })
+  })
+
   describe('.given', () => {
     it('supports .returnsOnce', () => {
       const fn = mockFn().given(1, 2).returnsOnce(3)
@@ -245,6 +270,19 @@ describe('Mock', () => {
     it('supports .resolvesToOnce', async () => {
       const fn = mockFn().given(1, 2).resolvesToOnce(3)
       expect(await fn(1, 2)).to.equal(3)
+      expect(fn(1, 2)).to.equal(undefined)
+      expect(fn(3, 4)).to.equal(undefined)
+      expect(fn()).to.equal(undefined)
+    })
+
+    it('supports .rejectsWithOnce', async () => {
+      const fn = mockFn().given(1, 2).rejectsWithOnce(3)
+      try {
+        await fn(1, 2)
+        expect.fail()
+      } catch (e) {
+        expect(e).to.eq(3)
+      }
       expect(fn(1, 2)).to.equal(undefined)
       expect(fn(3, 4)).to.equal(undefined)
       expect(fn()).to.equal(undefined)

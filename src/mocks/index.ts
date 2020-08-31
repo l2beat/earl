@@ -65,6 +65,18 @@ export interface Mock<ARGS extends any[], RETURN> {
   resolvesToOnce(value: Awaited<RETURN>): Mock<ARGS, RETURN>
 
   /**
+   * Sets the error rejected by calls to the Mock.
+   * @param error error to be thrown.
+   */
+  rejectsWith(error: any): Mock<ARGS, RETURN>
+  /**
+   * Schedules the mock to reject with value the next time it's called.
+   * If anything is already scheduled it will be used first.
+   * @param value value to be returned.
+   */
+  rejectsWithOnce(value: Awaited<RETURN>): Mock<ARGS, RETURN>
+
+  /**
    * Specifies a different behavior when other arguments are given
    * @param args arguments to match
    */
@@ -98,6 +110,13 @@ export interface Mock<ARGS extends any[], RETURN> {
      * @param value value to be returned.
      */
     resolvesToOnce(value: Awaited<RETURN>): Mock<ARGS, RETURN>
+
+    /**
+     * Schedules the mock to reject with value the next time it's called.
+     * If anything is already scheduled it will be used first.
+     * @param value value to be returned.
+     */
+    rejectsWithOnce(value: Awaited<RETURN>): Mock<ARGS, RETURN>
   }
 }
 
@@ -216,6 +235,15 @@ export function mockFn<RETURN = any>(defaultImpl?: (...args: any[]) => RETURN): 
     return mock
   }
 
+  mock.rejectsWith = function (value: any) {
+    reset({ type: 'return', value: Promise.reject(value) })
+    return mock
+  }
+  mock.rejectsWithOnce = function (value: any) {
+    queue.push({ type: 'return', value: Promise.reject(value) })
+    return mock
+  }
+
   mock.given = function (...args: any[]) {
     return {
       returnsOnce(value: any) {
@@ -235,6 +263,11 @@ export function mockFn<RETURN = any>(defaultImpl?: (...args: any[]) => RETURN): 
 
       resolvesToOnce(value: any) {
         oneTimeOverrides.push({ args, spec: { type: 'return', value: Promise.resolve(value) } })
+        return mock
+      },
+
+      rejectsWithOnce(value: any) {
+        oneTimeOverrides.push({ args, spec: { type: 'return', value: Promise.reject(value) } })
         return mock
       },
     }
