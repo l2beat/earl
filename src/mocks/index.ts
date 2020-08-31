@@ -142,6 +142,7 @@ interface Override {
   spec: Spec
 }
 
+// @todo: ARGS can be added here easily with TS 4.0
 export function mockFn<RETURN = any>(defaultImpl?: (...args: any[]) => RETURN): Mock<any[], RETURN> {
   let spec: Spec = {
     type: 'return',
@@ -274,8 +275,7 @@ export function mockFn<RETURN = any>(defaultImpl?: (...args: any[]) => RETURN): 
   }
 
   if (defaultImpl) {
-    // @todo fix
-    mock.executes(defaultImpl as any)
+    mock.executes(defaultImpl)
   }
 
   return mock
