@@ -1,8 +1,6 @@
 import { expect } from 'chai'
-import { spy } from 'sinon'
 
 import { expect as earl } from '../../src'
-import { Expectation } from '../../src/Expectation'
 
 describe('toBeRejected', () => {
   describe('with msg string', () => {
@@ -60,37 +58,6 @@ describe('toBeRejected', () => {
       const run = earl(Promise.resolve()).toBeRejected(earl.anything())
 
       await expect(run).to.be.eventually.rejectedWith("Expected to be rejected but didn't")
-    })
-  })
-
-  // disabled due to a problems with async stacktraces
-  describe.skip('autofix', () => {
-    it('calls autofix on missing values', async () => {
-      const dummyAutofix = spy()
-      const e = new Expectation(dummyAutofix, Promise.reject(new Error('Goodbye cruel world!')))
-
-      await e.toBeRejected()
-
-      expect(dummyAutofix).to.be.calledOnce
-      // grrr this is ugly, I hope we will rewrite these tests to earl soon :->
-      expect(dummyAutofix.args[0][0]).to.be.eq('toBeRejected')
-      expect(dummyAutofix.args[0][1].message).to.be.eq('Goodbye cruel world!')
-    })
-
-    it('does not call autofix when expectation was provided', async () => {
-      const dummyAutofix = spy()
-      const e = new Expectation(dummyAutofix, Promise.resolve())
-
-      await expect(e.toBeRejected(earl.anything())).to.be.rejected
-      expect(dummyAutofix).not.to.be.called
-    })
-
-    it('does not call autofix when expectation wasnt provided but it didnt throw', async () => {
-      const dummyAutofix = spy()
-      const e = new Expectation(dummyAutofix, Promise.resolve())
-
-      await expect(e.toBeRejected()).to.be.rejectedWith("Expected to be rejected but didn't")
-      expect(dummyAutofix).not.to.be.called
     })
   })
 })

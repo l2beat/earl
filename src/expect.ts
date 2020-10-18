@@ -1,4 +1,3 @@
-import { autofix } from './autofix'
 import { Expectation, ExpectationOptions } from './Expectation'
 import { AMatcher } from './matchers/A'
 import { AnythingMatcher } from './matchers/Anything'
@@ -18,7 +17,7 @@ interface expectInterface {
 }
 
 export const expect: expectInterface = <T>(actual: T, options: ExpectationOptions = {}): Expectation<T> => {
-  return new Expectation(autofix(), actual, false, options)
+  return new Expectation(actual, false, options)
 }
 expect.anything = AnythingMatcher.make
 expect.a = AMatcher.make

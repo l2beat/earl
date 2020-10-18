@@ -1,5 +1,4 @@
 import { AssertionError } from './AssertionError'
-import { AutofixType } from './autofix'
 import { LooseMock } from './mocks/looseMock'
 import { StrictMock } from './mocks/strictMock'
 import { Control, ValidationResult } from './validators/common'
@@ -15,7 +14,6 @@ export interface ExpectationOptions {
 
 export class Expectation<T> {
   constructor(
-    private readonly autofix: AutofixType,
     private readonly actual: T,
     private isNegated: boolean = false,
     private options: ExpectationOptions = {},
@@ -34,44 +32,22 @@ export class Expectation<T> {
 
   // validators
 
-  /** Does deep "smart" equality check. **Autofixes the argument**. */
-  toEqual(): void
   /** Does deep "smart" equality check. */
-  toEqual(value: T): void
-  toEqual(value?: T) {
-    if (arguments.length === 0) {
-      toEqual(this.getControl())
-    } else {
-      toEqual(this.getControl(), value)
-    }
+  toEqual(value: T): void {
+    toEqual(this.getControl(), value)
   }
 
-  /** Like toEqual but without type checking. **Autofixes the argument**. */
-  toLooseEqual(): void
   /** Like toEqual but without type checking. */
-  toLooseEqual(value: any): void
-  toLooseEqual(value?: any) {
-    if (arguments.length === 0) {
-      toLooseEqual(this.getControl())
-    } else {
-      toLooseEqual(this.getControl(), value)
-    }
+  toLooseEqual(value: any) {
+    toLooseEqual(this.getControl(), value)
   }
 
-  toThrow(this: Expectation<() => any>, expected?: any) {
-    if (arguments.length === 0) {
-      toThrow(this.getControl())
-    } else {
-      toThrow(this.getControl(), expected)
-    }
+  toThrow(this: Expectation<() => any>, expected: any) {
+    toThrow(this.getControl(), expected)
   }
 
-  toBeRejected(this: Expectation<Promise<any>>, expected?: any): Promise<void> {
-    if (arguments.length === 0) {
-      return toBeRejected(this.getControl())
-    } else {
-      return toBeRejected(this.getControl(), expected)
-    }
+  toBeRejected(this: Expectation<Promise<any>>, expected: any): Promise<void> {
+    return toBeRejected(this.getControl(), expected)
   }
 
   // mocks
@@ -90,7 +66,6 @@ export class Expectation<T> {
     return {
       actual: this.actual,
       assert: this.assert.bind(this),
-      autofix: this.autofix.bind(this),
       isNegated: this.isNegated,
     }
   }

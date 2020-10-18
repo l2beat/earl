@@ -1,12 +1,10 @@
 import { isEqualWith, mapValues } from 'lodash'
 import prettyFormat from 'pretty-format'
 
-import { AutofixType } from '../autofix'
 import { Matcher } from '../matchers/Base'
 
 export interface Control<T> {
   actual: T
-  autofix: AutofixType
   isNegated: boolean
   assert: (result: ValidationResult) => void
 }
