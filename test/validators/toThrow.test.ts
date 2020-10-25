@@ -17,7 +17,7 @@ class HttpError extends Error {
 describe('toThrow', () => {
   describe('not negated', () => {
     it('catches desired exception', () => {
-      earl(() => functionThatThrows()).toThrow(earl.error('Horrible error!'))
+      earl(() => functionThatThrows()).toThrow('Horrible error!')
     })
 
     it('catches any exception when arg omitted', () => {
@@ -25,13 +25,13 @@ describe('toThrow', () => {
     })
 
     it('fails when unexpected exception was thrown', () => {
-      const test = () => earl(() => functionThatDoesntThrow()).toThrow() // error message mismatch
+      const test = () => earl(() => functionThatDoesntThrow()).toThrow()
 
       expect(test).to.throw("Expected to throw but didn't")
     })
 
     it('fails when exception with different error message was thrown', () => {
-      const test = () => earl(() => functionThatThrows()).toThrow(earl.error('Critical error!')) // error message mismatch
+      const test = () => earl(() => functionThatThrows()).toThrow('Critical error!') // error message mismatch
 
       expect(test).to.throw('Expected to throw "Error: Critical error!" but threw "Error: Horrible error!"')
     })
@@ -39,7 +39,7 @@ describe('toThrow', () => {
 
   describe('negated', () => {
     it('catches desired exception', () => {
-      earl(() => functionThatThrows()).not.toThrow(earl.error('Critical error!'))
+      earl(() => functionThatThrows()).not.toThrow('Critical error!')
     })
 
     it('catches any exception when arg omitted', () => {
@@ -52,7 +52,7 @@ describe('toThrow', () => {
     })
 
     it('fails when exception with different error message was thrown', () => {
-      const test = () => earl(() => functionThatThrows()).not.toThrow(earl.error('Horrible error!')) // error message mismatch
+      const test = () => earl(() => functionThatThrows()).not.toThrow('Horrible error!') // error message mismatch
 
       expect(test).to.throw('Expected not to throw "Error: Horrible error!" but threw "Error: Horrible error!"')
     })
@@ -63,7 +63,7 @@ describe('toThrow', () => {
       const test = () =>
         earl(() => {
           throw new Error('Test msg')
-        }).toThrow(earl.error(earl.stringMatching('Test')))
+        }).toThrow(earl.stringMatching('Test'))
 
       expect(test).not.to.throw()
     })
@@ -72,7 +72,7 @@ describe('toThrow', () => {
       const test = () =>
         earl(() => {
           throw new HttpError(500)
-        }).toThrow(earl.error(HttpError))
+        }).toThrow(HttpError)
 
       expect(test).not.to.throw()
     })
@@ -81,7 +81,7 @@ describe('toThrow', () => {
       const test = () =>
         earl(() => {
           throw new HttpError(500)
-        }).toThrow(earl.error(HttpError, earl.stringMatching('Http Error')))
+        }).toThrow(HttpError, earl.stringMatching('Http Error'))
 
       expect(test).not.to.throw()
     })
@@ -90,15 +90,9 @@ describe('toThrow', () => {
       const test = () =>
         earl(() => {
           throw new Error('500')
-        }).toThrow(earl.error(HttpError))
+        }).toThrow(HttpError)
 
       expect(test).to.throw('Expected to throw "HttpError" but threw "Error: 500"')
     })
-  })
-
-  it('is not confused with undefined', () => {
-    const test = () => earl(() => {}).toThrow(undefined)
-
-    expect(test).to.throw("Expected to throw but didn't")
   })
 })

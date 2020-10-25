@@ -1,5 +1,5 @@
+import { Newable } from '../types'
 import { smartEq } from '../validators/common'
-import { Newable } from './A'
 import { Matcher } from './Base'
 
 /**

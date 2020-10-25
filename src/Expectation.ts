@@ -1,7 +1,9 @@
 import { AssertionError } from './AssertionError'
 import { AnythingMatcher } from './matchers/Anything'
+import { ErrorMatcher } from './matchers/Error'
 import { LooseMock } from './mocks/looseMock'
 import { StrictMock } from './mocks/strictMock'
+import { Newable } from './types'
 import { Control, ValidationResult } from './validators/common'
 import { toBeExhausted, toHaveBeenCalledWith } from './validators/mocks'
 import { toBeRejected } from './validators/toBeRejected'
@@ -43,8 +45,15 @@ export class Expectation<T> {
     toLooseEqual(this.getControl(), value)
   }
 
-  toThrow(this: Expectation<() => any>, expected: any = AnythingMatcher.make()): void {
-    toThrow(this.getControl(), expected)
+  toThrow(this: Expectation<() => any>): void
+  toThrow(this: Expectation<() => any>, expectedMsg: string): void
+  toThrow(this: Expectation<() => any>, errorCls: Newable<Error>, expectedMsg?: string): void
+  toThrow(this: Expectation<() => any>, errorClsOrExpectedMsg?: string | Newable<Error>, expectedMsg?: string): void {
+    if (arguments.length === 0) {
+      toThrow(this.getControl(), AnythingMatcher.make())
+    } else {
+      toThrow(this.getControl(), ErrorMatcher.make(errorClsOrExpectedMsg as any, expectedMsg))
+    }
   }
 
   toBeRejected(this: Expectation<Promise<any>>, expected: any): Promise<void> {

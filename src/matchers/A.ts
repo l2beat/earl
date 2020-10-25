@@ -1,15 +1,7 @@
 import { Exact } from 'ts-essentials'
 
+import { BigIntLike, NewableOrPrimitive } from '../types'
 import { Matcher } from './Base'
-
-export interface Newable<T> {
-  new (...args: any[]): T
-}
-
-// @note: don't use BigIntConstructor here to avoid relying on modern node typings being installed
-type BigIntLike = { asIntN: Function; asUintN: Function; (value?: any): any }
-
-export type NewableOrPrimitive<T = any> = Newable<T> | SymbolConstructor | BigIntLike
 
 export type Class2Primitive<T> = T extends String
   ? string
