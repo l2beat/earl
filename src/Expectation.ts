@@ -1,4 +1,5 @@
 import { AssertionError } from './AssertionError'
+import { AnythingMatcher } from './matchers/Anything'
 import { LooseMock } from './mocks/looseMock'
 import { StrictMock } from './mocks/strictMock'
 import { Control, ValidationResult } from './validators/common'
@@ -38,11 +39,11 @@ export class Expectation<T> {
   }
 
   /** Like toEqual but without type checking. */
-  toLooseEqual(value: any) {
+  toLooseEqual(value: any): void {
     toLooseEqual(this.getControl(), value)
   }
 
-  toThrow(this: Expectation<() => any>, expected: any) {
+  toThrow(this: Expectation<() => any>, expected: any = AnythingMatcher.make()): void {
     toThrow(this.getControl(), expected)
   }
 
