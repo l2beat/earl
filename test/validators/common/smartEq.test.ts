@@ -58,4 +58,29 @@ describe('smartEq', () => {
     expect(smartEq([1, 2, 3], [1, 2])).to.be.false
     expect(smartEq([1, 2, 3], [1, 2, 3])).to.be.true
   })
+
+  it('compares objects with digits', () => {
+    expect(smartEq({ 0: '1', 1: '2' }, { 0: '1', 1: '2' })).to.be.true
+  })
+
+  it('compares prototypes', () => {
+    class Test {
+      constructor(public readonly property: boolean) {}
+    }
+
+    expect(smartEq(new Test(true), { property: true })).to.be.false
+  })
+
+  it('compares builtins', () => {
+    expect(smartEq(new Date(1, 2, 3), new Date(1, 2, 3))).to.be.true
+    expect(smartEq(new Date(1, 2, 3), new Date(1, 2, 4))).to.be.false
+
+    expect(smartEq(new Set([1, 2, 3]), new Set([1, 2, 3]))).to.be.true
+    expect(smartEq(new Set([1, 2, 3]), new Set([1, 2, 4]))).to.be.false
+  })
+
+  it('compares edge cases', () => {
+    expect(smartEq(NaN, NaN)).to.be.true
+    expect(smartEq(-0, +0)).to.be.false
+  })
 })
