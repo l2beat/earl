@@ -11,6 +11,7 @@ export interface Control<T> {
 
 export interface ValidationResult {
   success: boolean
+  hint?: string
   reason: string
   negatedReason: string
   actual?: any
@@ -20,7 +21,6 @@ export interface ValidationResult {
 export function formatValue(value: any) {
   return prettyFormat(value, { min: true })
 }
-
 
 export function replaceMatchersWithMatchedValues(actual: any, expected: any): any {
   if (expected instanceof Matcher) {

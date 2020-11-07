@@ -1,5 +1,6 @@
 import { defaultExecutionCtx } from '../ExecutionCtx'
-import { formatValue, smartEq } from '../validators/common'
+import { formatValue } from '../validators/common'
+import { smartEq } from '../validators/smartEq'
 
 type Awaited<T> = T extends PromiseLike<infer PT> ? PT : never
 
@@ -106,7 +107,7 @@ export function mockFn<ARGS extends any[] = never, RETURN = never>(): ARGS exten
   }
 
   function verifyArgs(actual: any[], expected: any[]) {
-    if (!smartEq(actual, expected)) {
+    if (smartEq(actual, expected).result === 'error') {
       throw new Error(`Unexpected call! Expected ${formatValue(expected)} but was called with ${formatValue(actual)}`)
     }
   }

@@ -1,6 +1,7 @@
 import { LooseMock } from '../mocks/looseMock'
 import { StrictMock } from '../mocks/strictMock'
-import { Control, formatValue, replaceMatchersWithMatchedValues, smartEq } from './common'
+import { Control, formatValue, replaceMatchersWithMatchedValues } from './common'
+import { smartEq } from './smartEq'
 
 export function toBeExhausted(control: Control<StrictMock<any, any>>) {
   return control.assert({
@@ -12,7 +13,7 @@ export function toBeExhausted(control: Control<StrictMock<any, any>>) {
 
 export function toHaveBeenCalledWith<ARGS extends any[]>(control: Control<LooseMock<ARGS, any>>, expectedArgs: ARGS) {
   for (const call of control.actual.calls) {
-    if (smartEq(call, expectedArgs)) {
+    if (smartEq(call, expectedArgs).result === 'success') {
       return control.assert({
         success: true,
         reason: '-',

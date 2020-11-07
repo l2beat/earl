@@ -44,7 +44,8 @@ describe('toEqual', () => {
       }
 
       expect(() => earl(new Test(true)).toEqual({ property: true })).to.throw(
-        '{"property": true} not equal to {"property": true} - Prototype mismatch',
+        `{"property": true} not equal to {"property": true}
+Hint: prototype mismatch`,
       )
     })
 

@@ -3,7 +3,7 @@ import { expect } from 'chai'
 import { AnythingMatcher } from '../../src/matchers/Anything'
 import { smartEq } from '../../src/validators/smartEq'
 
-describe.only('smartEq', () => {
+describe('smartEq', () => {
   it('compares primitive values', () => {
     expect(smartEq(1, 1)).to.be.deep.eq({ result: 'success' })
     expect(smartEq('abc', 'abc')).to.be.deep.eq({ result: 'success' })

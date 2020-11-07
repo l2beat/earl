@@ -88,6 +88,7 @@ export class Expectation<T> {
           actual: result.actual,
           expected: result.expected,
           extraMessage: this.options.extraMessage,
+          hint: result.hint,
         })
       }
     } else {
@@ -97,6 +98,7 @@ export class Expectation<T> {
           actual: result.actual,
           expected: result.expected,
           extraMessage: this.options.extraMessage,
+          hint: result.hint,
         })
       }
     }
