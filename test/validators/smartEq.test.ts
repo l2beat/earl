@@ -143,4 +143,14 @@ describe('smartEq', () => {
     expect(smartEq(NaN, NaN)).to.be.deep.eq({ result: 'success' })
     expect(smartEq(-0, +0)).to.be.deep.eq({ result: 'error', reason: 'value mismatch' })
   })
+
+  describe('non-strict', () => {
+    it('doesnt compare prototypes', () => {
+      class Test {
+        constructor(public readonly property: boolean) {}
+      }
+
+      expect(smartEq(new Test(true), { property: true }, false)).to.be.deep.eq({ result: 'success' })
+    })
+  })
 })

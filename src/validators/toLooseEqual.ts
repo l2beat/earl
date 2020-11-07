@@ -6,7 +6,7 @@ export function toLooseEqual(control: Control<any>, expected: any) {
   const reason = `${formatValue(control.actual)} not loose equal to ${formatValue(expected)}`
   const negatedReason = `${formatValue(control.actual)} loose equal to ${formatValue(expected)}`
 
-  const comparisonResult = smartEq(control.actual, expected)
+  const comparisonResult = smartEq(control.actual, expected, false)
 
   if (comparisonResult.result === 'error') {
     control.assert({

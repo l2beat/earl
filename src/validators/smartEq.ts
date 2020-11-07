@@ -15,7 +15,8 @@ function isIterableAndNotString(value: any): value is IterableIterator<any> {
   return Symbol.iterator in Object(value) && typeof value !== 'string'
 }
 
-export function smartEq(actual: any, expected: any): SmartEqResult {
+// strict skips prototype check
+export function smartEq(actual: any, expected: any, strict: boolean = true): SmartEqResult {
   if (expected instanceof Matcher) {
     return buildSmartEqResult(expected.check(actual))
   }
@@ -53,7 +54,7 @@ export function smartEq(actual: any, expected: any): SmartEqResult {
       return buildSmartEqResult(false, 'prototype mismatch')
     }
 
-    if (Object.getPrototypeOf(actual) !== Object.getPrototypeOf(expected)) {
+    if (strict && Object.getPrototypeOf(actual) !== Object.getPrototypeOf(expected)) {
       return buildSmartEqResult(false, 'prototype mismatch')
     }
 
