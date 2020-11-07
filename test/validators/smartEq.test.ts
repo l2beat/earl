@@ -1,7 +1,7 @@
 import { expect } from 'chai'
 
-import { AnythingMatcher } from '../../../src/matchers/Anything'
-import { smartEq } from '../../../src/validators/common'
+import { AnythingMatcher } from '../../src/matchers/Anything'
+import { smartEq } from '../../src/validators/smartEq'
 
 describe.only('smartEq', () => {
   it('compares primitive values', () => {
@@ -109,6 +109,12 @@ describe.only('smartEq', () => {
     })
     expect(
       smartEq(new Map(Object.entries({ a: '1', b: 2, c: 3 })), new Map(Object.entries({ a: '1', b: 2, d: 3 }))),
+    ).to.be.deep.eq({
+      result: 'error',
+      reason: 'value mismatch',
+    })
+    expect(
+      smartEq(new Map(Object.entries({ a: '1', b: 2, c: 3 })), new Map(Object.entries({ a: '1', b: 2, c: 6 }))),
     ).to.be.deep.eq({
       result: 'error',
       reason: 'value mismatch',
