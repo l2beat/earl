@@ -17,7 +17,6 @@
     "@typescript-eslint/no-useless-constructor": "error",
     "accessor-pairs": "error",
     "constructor-super": "error",
-    "@typescript-eslint/no-unnecessary-condition": ["error", { "allowConstantLoopConditions": true }],
     "eqeqeq": [
       "error",
       "always",
