@@ -42,7 +42,11 @@ export function smartEq(actual: any, expected: any, strict: boolean = true): Sma
       const actualArray = Array.from(actual)
       const expectedArray = Array.from(expected)
 
-      const equality = actualArray.map((v, i) => smartEq(v, expectedArray?.[i]))
+      if (actualArray.length !== expectedArray.length) {
+        return buildSmartEqResult(false)
+      }
+
+      const equality = actualArray.map((v, i) => smartEq(v, expectedArray[i]))
       return buildSmartEqResult(!equality.some((eq) => eq.result === 'error'))
     } else {
       return buildSmartEqResult(false, 'prototype mismatch')

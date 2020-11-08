@@ -61,6 +61,7 @@ describe('smartEq', () => {
   it('compares arrays', () => {
     expect(smartEq([], {})).to.be.deep.eq({ result: 'error', reason: 'prototype mismatch' })
     expect(smartEq([1, 2, 3], [1, 2])).to.be.deep.eq({ result: 'error', reason: 'value mismatch' })
+    expect(smartEq([1, 2], [1, 2, 3])).to.be.deep.eq({ result: 'error', reason: 'value mismatch' })
     expect(smartEq([1, 2, 3], [1, 2, 3])).to.be.deep.eq({ result: 'success' })
   })
 
