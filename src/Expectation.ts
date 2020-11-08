@@ -56,8 +56,19 @@ export class Expectation<T> {
     }
   }
 
-  toBeRejected(this: Expectation<Promise<any>>, expected: any): Promise<void> {
-    return toBeRejected(this.getControl(), expected)
+  toBeRejected(this: Expectation<Promise<any>>): void
+  toBeRejected(this: Expectation<Promise<any>>, expectedMsg: string): void
+  toBeRejected(this: Expectation<Promise<any>>, errorCls: Newable<Error>, expectedMsg?: string): void
+  toBeRejected(
+    this: Expectation<Promise<any>>,
+    errorClsOrExpectedMsg?: string | Newable<Error>,
+    expectedMsg?: string,
+  ): Promise<void> {
+    if (arguments.length === 0) {
+      return toBeRejected(this.getControl(), AnythingMatcher.make())
+    } else {
+      return toBeRejected(this.getControl(), ErrorMatcher.make(errorClsOrExpectedMsg as any, expectedMsg))
+    }
   }
 
   // mocks
