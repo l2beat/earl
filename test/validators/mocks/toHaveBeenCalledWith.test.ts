@@ -3,10 +3,12 @@ import { expect } from 'chai'
 import { expect as earl } from '../../../src'
 import { mockFn } from '../../../src/mocks'
 
+const noop = (..._args: any[]) => {}
+
 describe('toHaveBeenCalledWith', () => {
   describe('not negated', () => {
     it('works when was called with a given args', () => {
-      const mock = mockFn(() => {})
+      const mock = mockFn(noop)
 
       mock(1, 2, 3)
 
@@ -14,7 +16,7 @@ describe('toHaveBeenCalledWith', () => {
     })
 
     it('works with matchers', () => {
-      const mock = mockFn(() => {})
+      const mock = mockFn(noop)
 
       mock(1, 2, 3)
 
@@ -22,7 +24,7 @@ describe('toHaveBeenCalledWith', () => {
     })
 
     it('throws on partial matches', () => {
-      const mock = mockFn(() => {})
+      const mock = mockFn(noop)
 
       mock(1, 2, 3)
 
@@ -32,7 +34,7 @@ describe('toHaveBeenCalledWith', () => {
     })
 
     it('throws with empty mocks', () => {
-      const mock = mockFn(() => {})
+      const mock = mockFn(noop)
 
       expect(() => earl(mock).toHaveBeenCalledWith([])).to.throw('Mock was not called with [] but was expected to')
     })
@@ -40,7 +42,7 @@ describe('toHaveBeenCalledWith', () => {
 
   describe('negated', () => {
     it('throws when was called with a given args', () => {
-      const mock = mockFn(() => {})
+      const mock = mockFn(noop)
 
       mock(1, 2, 3)
 
@@ -50,7 +52,7 @@ describe('toHaveBeenCalledWith', () => {
     })
 
     it('works when wasnt called with expected args', () => {
-      const mock = mockFn(() => {})
+      const mock = mockFn(noop)
 
       mock(1, 2, 3)
 
@@ -58,7 +60,7 @@ describe('toHaveBeenCalledWith', () => {
     })
 
     it('works with empty mocks', () => {
-      const mock = mockFn(() => {})
+      const mock = mockFn(noop)
 
       expect(() => earl(mock).not.toHaveBeenCalledWith([])).not.to.throw()
     })

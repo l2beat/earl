@@ -1,4 +1,4 @@
-import { Mock } from '../mocks'
+import { Mock } from '../mocks/types'
 import { Control, formatValue, replaceMatchersWithMatchedValues } from './common'
 import { smartEq } from './smartEq'
 
