@@ -1,7 +1,7 @@
 import { AssertionError } from './AssertionError'
 import { AnythingMatcher } from './matchers/Anything'
 import { ErrorMatcher } from './matchers/Error'
-import { Mock } from './mocks/types'
+import { Mock } from './mocks'
 import { Newable } from './types'
 import { Control, ValidationResult } from './validators/common'
 import { toBeExhausted, toHaveBeenCalledWith } from './validators/mocks'
