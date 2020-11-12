@@ -1,7 +1,7 @@
 import { AssertionError } from './AssertionError'
 import { AnythingMatcher } from './matchers/Anything'
 import { ErrorMatcher } from './matchers/Error'
-import { Mock } from './mocks'
+import { Mock, MockArgs } from './mocks'
 import { Newable } from './types'
 import { Control, ValidationResult } from './validators/common'
 import { toBeExhausted, toHaveBeenCalledWith } from './validators/mocks'
@@ -76,7 +76,7 @@ export class Expectation<T> {
     return toBeExhausted(this.getControl())
   }
 
-  toHaveBeenCalledWith(this: Expectation<Mock<any[], any>>, expectedCall: any[]) {
+  toHaveBeenCalledWith(this: Expectation<Mock<any[], any>>, expectedCall: MockArgs<T>) {
     return toHaveBeenCalledWith(this.getControl(), expectedCall)
   }
 

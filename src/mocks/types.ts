@@ -117,3 +117,5 @@ export interface Mock<ARGS extends any[], RETURN> {
     rejectsWithOnce(value: Awaited<RETURN>): Mock<ARGS, RETURN>
   }
 }
+
+export type MockArgs<T> = T extends Mock<infer ARGS, any> ? ARGS : never

@@ -1,2 +1,2 @@
 export { mockFn } from './mockFn'
-export { Mock } from './types'
+export { Mock, MockArgs } from './types'
