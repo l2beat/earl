@@ -2,8 +2,7 @@ import { expect } from 'chai'
 
 import { expect as earl } from '../../../src'
 import { mockFn } from '../../../src/mocks'
-
-const noop = (..._args: any[]) => {}
+import { noop } from '../../common'
 
 describe('toHaveBeenCalledWith', () => {
   describe('not negated', () => {

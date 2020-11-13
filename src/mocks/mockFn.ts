@@ -1,4 +1,7 @@
+import { UnreachableCaseError } from 'ts-essentials'
+
 import { smartEq } from '../validators/smartEq'
+import { MockNotConfiguredError } from './errors'
 import { Mock, MockCall } from './types'
 
 interface ReturnSpec {
@@ -16,7 +19,11 @@ interface ExecSpec {
   implementation: (...args: any[]) => any
 }
 
-type Spec = ReturnSpec | ThrowSpec | ExecSpec
+interface NotReadySpec {
+  type: 'not-ready'
+}
+
+type Spec = ReturnSpec | ThrowSpec | ExecSpec | NotReadySpec
 
 interface Override {
   args: any[]
@@ -31,8 +38,7 @@ export function mockFn<ARGS extends any[], RETURN = any>(
   defaultImpl?: (...args: ARGS[]) => RETURN,
 ): Mock<ARGS, RETURN> {
   let spec: Spec = {
-    type: 'return',
-    value: undefined,
+    type: 'not-ready',
   }
   let queue: Spec[] = []
   let oneTimeOverrides: Override[] = []
@@ -76,6 +82,10 @@ export function mockFn<ARGS extends any[], RETURN = any>(
           mock.calls.push({ args, result: { type: 'throw', error } })
           throw error
         }
+      case 'not-ready':
+        throw new MockNotConfiguredError()
+      default:
+        throw new UnreachableCaseError(spec)
     }
   }
 

@@ -1,7 +1,10 @@
 import { expect } from 'chai'
 
 import { expect as earl } from '../../src'
-import { mockFn } from '../../src/mocks'
+import { mockFn, MockNotConfiguredError } from '../../src/mocks'
+import { noop } from '../common'
+
+const sum = (a: number, b: number) => a + b
 
 describe('Mock', () => {
   describe('mockFn()', () => {
@@ -10,9 +13,9 @@ describe('Mock', () => {
       expect(fn).to.be.instanceOf(Function)
     })
 
-    it('function returns undefined by default', () => {
+    it('function throws an error when not configured', () => {
       const fn = mockFn()
-      expect(fn()).to.equal(undefined)
+      expect(() => fn()).to.throw(MockNotConfiguredError)
     })
   })
 
@@ -39,7 +42,7 @@ describe('Mock', () => {
     it('queues function return value', () => {
       const fn = mockFn().returnsOnce(3)
       expect(fn()).to.equal(3)
-      expect(fn()).to.equal(undefined)
+      expect(() => fn()).to.throw(MockNotConfiguredError)
     })
 
     it('can queue multiple values', () => {
@@ -47,7 +50,7 @@ describe('Mock', () => {
       expect(fn()).to.equal(3)
       expect(fn()).to.equal(4)
       expect(fn()).to.equal('hello')
-      expect(fn()).to.equal(undefined)
+      expect(() => fn()).to.throw(MockNotConfiguredError)
     })
 
     it('respects previous configuration', () => {
@@ -82,7 +85,7 @@ describe('Mock', () => {
     it('queues function to throw', () => {
       const fn = mockFn().throwsOnce(new Error('Boom'))
       expect(fn).to.throw('Boom')
-      expect(fn()).to.equal(undefined)
+      expect(() => fn()).to.throw(MockNotConfiguredError)
     })
 
     it('can queue multiple values', () => {
@@ -90,7 +93,7 @@ describe('Mock', () => {
       expect(fn).to.throw(Error, 'Boom')
       expect(fn).to.throw(Error, 'Bam')
       expect(fn).to.throw(TypeError, 'BANG')
-      expect(fn()).to.equal(undefined)
+      expect(() => fn()).to.throw(MockNotConfiguredError)
     })
 
     it('respects previous configuration', () => {
@@ -132,7 +135,7 @@ describe('Mock', () => {
     it('queues function to execute implementation', () => {
       const fn = mockFn().executesOnce((x: number) => x + 1)
       expect(fn(4)).to.equal(5)
-      expect(fn(4)).to.equal(undefined)
+      expect(() => fn(4)).to.throw(MockNotConfiguredError)
     })
 
     it('can queue multiple values', () => {
@@ -143,7 +146,7 @@ describe('Mock', () => {
       expect(fn(4)).to.equal(5)
       expect(fn(4)).to.equal(2)
       expect(fn(4)).to.equal(15)
-      expect(fn(4)).to.equal(undefined)
+      expect(() => fn(4)).to.throw(MockNotConfiguredError)
     })
 
     it('respects previous configuration', () => {
@@ -166,7 +169,7 @@ describe('Mock', () => {
     it('queues function return value', async () => {
       const fn = mockFn().resolvesToOnce(3)
       expect(await fn()).to.equal(3)
-      expect(fn()).to.equal(undefined)
+      expect(() => fn()).to.throw(MockNotConfiguredError)
     })
 
     it('can queue multiple values', async () => {
@@ -174,7 +177,7 @@ describe('Mock', () => {
       expect(await fn()).to.equal(3)
       expect(await fn()).to.equal(4)
       expect(await fn()).to.equal('hello')
-      expect(fn()).to.equal(undefined)
+      expect(() => fn()).to.throw(MockNotConfiguredError)
     })
 
     it('respects previous configuration', async () => {
@@ -207,7 +210,7 @@ describe('Mock', () => {
       } catch (e) {
         expect(e).to.eq(3)
       }
-      expect(fn()).to.equal(undefined)
+      expect(() => fn()).to.throw(MockNotConfiguredError)
     })
   })
 
@@ -215,35 +218,35 @@ describe('Mock', () => {
     it('supports .returnsOnce', () => {
       const fn = mockFn().given(1, 2).returnsOnce(3)
       expect(fn(1, 2)).to.equal(3)
-      expect(fn(1, 2)).to.equal(undefined)
-      expect(fn(3, 4)).to.equal(undefined)
-      expect(fn()).to.equal(undefined)
+      expect(() => fn(1, 2)).to.throw(MockNotConfiguredError)
+      expect(() => fn(3, 4)).to.throw(MockNotConfiguredError)
+      expect(() => fn()).to.throw(MockNotConfiguredError)
     })
 
     it('supports multiple .returnsOnce', () => {
       const fn = mockFn().given(1, 2).returnsOnce(3).given(1, 2).returnsOnce(4)
       expect(fn(1, 2)).to.equal(3)
       expect(fn(1, 2)).to.equal(4)
-      expect(fn(1, 2)).to.equal(undefined)
-      expect(fn(3, 4)).to.equal(undefined)
-      expect(fn()).to.equal(undefined)
+      expect(() => fn(1, 2)).to.throw(MockNotConfiguredError)
+      expect(() => fn(3, 4)).to.throw(MockNotConfiguredError)
+      expect(() => fn()).to.throw(MockNotConfiguredError)
     })
 
     it('supports .throwsOnce', () => {
       const fn = mockFn().given(1, 2).throwsOnce(new Error('Boom'))
       expect(() => fn(1, 2)).to.throw('Boom')
-      expect(fn(1, 2)).to.equal(undefined)
-      expect(fn(3, 4)).to.equal(undefined)
-      expect(fn()).to.equal(undefined)
+      expect(() => fn(1, 2)).to.throw(MockNotConfiguredError)
+      expect(() => fn(3, 4)).to.throw(MockNotConfiguredError)
+      expect(() => fn()).to.throw(MockNotConfiguredError)
     })
 
     it('supports multiple .throwsOnce', () => {
       const fn = mockFn().given(1, 2).throwsOnce(new Error('Boom')).given(1, 2).throwsOnce(new Error('Bam'))
       expect(() => fn(1, 2)).to.throw('Boom')
       expect(() => fn(1, 2)).to.throw('Bam')
-      expect(fn(1, 2)).to.equal(undefined)
-      expect(fn(3, 4)).to.equal(undefined)
-      expect(fn()).to.equal(undefined)
+      expect(() => fn(1, 2)).to.throw(MockNotConfiguredError)
+      expect(() => fn(3, 4)).to.throw(MockNotConfiguredError)
+      expect(() => fn()).to.throw(MockNotConfiguredError)
     })
 
     it('supports .executesOnce', () => {
@@ -251,28 +254,28 @@ describe('Mock', () => {
         .given(1, 2)
         .executesOnce((a, b) => a + b)
       expect(fn(1, 2)).to.equal(3)
-      expect(fn(1, 2)).to.equal(undefined)
-      expect(fn(3, 4)).to.equal(undefined)
+      expect(() => fn(1, 2)).to.throw(MockNotConfiguredError)
+      expect(() => fn(3, 4)).to.throw(MockNotConfiguredError)
     })
 
     it('supports multiple .executesOnce', () => {
-      const fn = mockFn()
+      const fn = mockFn<[number, number], number>()
         .given(1, 2)
         .executesOnce((a, b) => a + b)
         .given(1, 2)
         .executesOnce((a, b) => a + b * 2)
       expect(fn(1, 2)).to.equal(3)
       expect(fn(1, 2)).to.equal(5)
-      expect(fn(1, 2)).to.equal(undefined)
-      expect(fn(3, 4)).to.equal(undefined)
+      expect(() => fn(1, 2)).to.throw(MockNotConfiguredError)
+      expect(() => fn(3, 4)).to.throw(MockNotConfiguredError)
     })
 
     it('supports .resolvesToOnce', async () => {
-      const fn = mockFn().given(1, 2).resolvesToOnce(3)
+      const fn = mockFn<[number, number], Promise<number>>().given(1, 2).resolvesToOnce(3)
       expect(await fn(1, 2)).to.equal(3)
-      expect(fn(1, 2)).to.equal(undefined)
-      expect(fn(3, 4)).to.equal(undefined)
-      expect(fn()).to.equal(undefined)
+      expect(() => fn(1, 2)).to.throw(MockNotConfiguredError)
+      expect(() => fn(3, 4)).to.throw(MockNotConfiguredError)
+      expect(() => (fn as any)()).to.throw(MockNotConfiguredError)
     })
 
     it('supports .rejectsWithOnce', async () => {
@@ -283,9 +286,9 @@ describe('Mock', () => {
       } catch (e) {
         expect(e).to.eq(3)
       }
-      expect(fn(1, 2)).to.equal(undefined)
-      expect(fn(3, 4)).to.equal(undefined)
-      expect(fn()).to.equal(undefined)
+      expect(() => fn(1, 2)).to.throw(MockNotConfiguredError)
+      expect(() => fn(3, 4)).to.throw(MockNotConfiguredError)
+      expect(() => fn()).to.throw(MockNotConfiguredError)
     })
 
     it('supports asymmetric matchers', () => {
@@ -297,22 +300,28 @@ describe('Mock', () => {
       expect(fn(1)).to.equal(3)
       expect(fn('foo')).to.equal('yes')
     })
+
+    it('is typesafe', () => {
+      const fn = mockFn(sum)
+
+      fn.given(2, 2).returnsOnce(5)
+    })
   })
 
   describe('.calls', () => {
     it('is empty at first', () => {
-      const fn = mockFn()
+      const fn = mockFn(noop)
       expect(fn.calls).to.deep.equal([])
     })
 
     it('stores a single call', () => {
-      const fn = mockFn()
+      const fn = mockFn(noop)
       fn()
       expect(fn.calls).to.deep.equal([{ args: [], result: { type: 'return', value: undefined } }])
     })
 
     it('stores multiple calls', () => {
-      const fn = mockFn()
+      const fn = mockFn(noop)
       fn()
       fn(1)
       fn(5, 'yo')
@@ -367,8 +376,6 @@ describe('Mock', () => {
 
     it('returns false if there are queued calls with argument matching', () => {
       const fn = mockFn().given(1).returnsOnce(3)
-      expect(fn.isExhausted()).to.equal(false)
-      fn()
       expect(fn.isExhausted()).to.equal(false)
       fn(1)
       expect(fn.isExhausted()).to.equal(true)

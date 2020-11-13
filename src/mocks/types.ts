@@ -79,7 +79,7 @@ export interface Mock<ARGS extends any[], RETURN> {
    * @param args arguments to match
    */
   given<B extends ARGS>(
-    ...args: B[]
+    ...args: B
   ): {
     /**
      * Schedules the mock to return a value the next time it's called.
@@ -100,7 +100,7 @@ export interface Mock<ARGS extends any[], RETURN> {
      * If anything is already scheduled it will be used first.
      * @param implementation function to execute.
      */
-    executesOnce(implementation: (...args: B[]) => RETURN): Mock<ARGS, RETURN>
+    executesOnce(implementation: (...args: B) => RETURN): Mock<ARGS, RETURN>
 
     /**
      * Schedules the mock to return value wrapped in Promise.resolve the next time it's called.
