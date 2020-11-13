@@ -60,7 +60,7 @@ export function mockFn<ARGS extends any[], RETURN = any>(
     return runSpec(current, args)
   }
 
-  mock.calls = [] as MockCall[]
+  mock.calls = [] as MockCall<any, any>[]
   mock.isExhausted = function () {
     return queue.length === 0 && oneTimeOverrides.length === 0
   }

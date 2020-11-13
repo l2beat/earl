@@ -4,7 +4,7 @@ import { ErrorMatcher } from './matchers/Error'
 import { Mock, MockArgs } from './mocks'
 import { Newable } from './types'
 import { Control, ValidationResult } from './validators/common'
-import { toBeExhausted, toHaveBeenCalledWith } from './validators/mocks'
+import { toBeExhausted, toHaveBeenCalledExactlyWith, toHaveBeenCalledWith } from './validators/mocks'
 import { toBeRejected } from './validators/toBeRejected'
 import { toEqual } from './validators/toEqual'
 import { toLooseEqual } from './validators/toLooseEqual'
@@ -78,6 +78,10 @@ export class Expectation<T> {
 
   toHaveBeenCalledWith(this: Expectation<Mock<any[], any>>, expectedCall: MockArgs<T>) {
     return toHaveBeenCalledWith(this.getControl(), expectedCall)
+  }
+
+  toHaveBeenCalledExactlyWith(this: Expectation<Mock<any[], any>>, expectedCalls: MockArgs<T>[]) {
+    return toHaveBeenCalledExactlyWith(this.getControl(), expectedCalls)
   }
 
   // utils

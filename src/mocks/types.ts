@@ -1,6 +1,6 @@
-export interface MockCall {
-  args: any[]
-  result: { type: 'return'; value: any } | { type: 'throw'; error: any }
+export interface MockCall<ARGS, RETURN> {
+  args: ARGS
+  result: { type: 'return'; value: RETURN } | { type: 'throw'; error: any }
 }
 
 export type Awaited<T> = T extends PromiseLike<infer PT> ? PT : never
@@ -8,7 +8,7 @@ export type Awaited<T> = T extends PromiseLike<infer PT> ? PT : never
 export interface Mock<ARGS extends any[], RETURN> {
   /** Calls the mock function */
   (...args: ARGS): RETURN
-  calls: MockCall[]
+  calls: MockCall<ARGS, RETURN>[]
   isExhausted(): boolean
 
   /**
