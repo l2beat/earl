@@ -12,7 +12,7 @@ const features = [
   {
     title: <>Powerful</>,
     emoji: '💪',
-    description: <>Validators are advanced assertions that are able to match whole ranges of values.</>,
+    description: <>Use advanced assertions that are able to match whole ranges of values.</>,
   },
   {
     title: <>Type-safe</>,
@@ -20,19 +20,14 @@ const features = [
     description: <>Written in TypeScript with type-safety in mind.</>,
   },
   {
-    title: <>AutoFix</>,
-    emoji: '✨',
-    description: <>Automatically writes missing assertions for you.</>,
-  },
-  {
     title: <>Mocks</>,
     emoji: '🎭',
     description: <>Type-safe, fully integrated mocks included!</>,
   },
   {
-    title: <>Test runner integration</>,
-    emoji: '🏃‍♂️',
-    description: <>Integrate with Mocha for best experience.</>,
+    title: <>Works great with Mocha</>,
+    emoji: '☕',
+    description: <>Finally a modern assertion library for Mocha.</>,
   },
 ]
 

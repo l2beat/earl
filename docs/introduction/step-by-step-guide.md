@@ -47,7 +47,7 @@ export function sum(a: number, b: number): number {
 
 ## Configure mocha
 
-First, lets deal with mocha setup. Create config file in the root of the
+First, we should deal with mocha setup. Create config file in the root of the
 project:
 
 _.mocharc.js_:
@@ -97,6 +97,8 @@ Run `npm test` and _voilà_! You just wrote your first test case using **earl**!
 Make it fail by change expected value to `5`. You should see error message
 clearly explaining problem: `Error: 4 not equal to 5`.
 
+Now it's time for some fun.
+
 Sometimes you might want to match not exact number but rather whole range of
 values - that's what matchers are for. Rewrite your assertion to:
 
@@ -109,18 +111,14 @@ case it doesn't really make sense since addition will always give us accurate
 results but **earl** comes with many different matchers which can be very
 helpful.
 
-Now let's try doing something fun. Autofix is a unique feature which helps you
-to write tedious assertions for you. In our test case lets remove expected value
-`4` like this:
+Another thing that you might want to try is changing asserted value to a value
+of a different type, for example:
 
 ```typescript
-expect(actual).toEqual()
+expect(actual).toEqual('4')
 ```
 
-and rerun tests. You should see that expected value was written automatically
-for us! **Earl** was able to insert missing value during test execution. For
-this to happen we need source maps and that's why we enabled them in
-`tsconfig.json`.
+Right away, you will get a compile time error saying that you want to assert
+values of a different type (which for sure will be different).
 
-Autofix is powerful feature but remember to always manually review written
-values to avoid surprises. And don't worry, autofix won't run on CI.
+Now, as you gained a basic knowledge of **earl**, let's dive deeper.

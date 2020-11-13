@@ -2,7 +2,7 @@ import _ from 'lodash'
 import { EOL } from 'os'
 
 /**
- * Assertion error containing optional info about actual / expected value which can be used by test runners like mocha to pretty print error
+ * Assertion error containing optional info about actual / expected value which can be used by test runners like Mocha to pretty print error
  */
 export class AssertionError extends Error {
   private readonly actual: any

@@ -8,7 +8,7 @@ to deal with them in **earl**.
 ### Successful promises
 
 We don't expose any helpers to work with promises that should successfully
-resolve. Instead, we encourage to use `async/await` syntax:
+resolve. Instead, we encourage you to use `async/await` syntax:
 
 ```typescript
 function delay(n: number): Promise<void> {
@@ -37,11 +37,11 @@ async function longTermTask(): Promise<number> {
   throw new Error('Unexpected error')
 }
 
-await expect(longTermTask()).toBeRejected(expect.error('Unexpected error'))
+await expect(longTermTask()).toBeRejected('Unexpected error')
 ```
 
 In this case we need `await` before `expect` because whole assertion becomes
-async. To avoid mistakes use
+async. To avoid mistakes enable
 [`no-floating-promises`](https://github.com/typescript-eslint/typescript-eslint/blob/master/packages/eslint-plugin/docs/rules/no-floating-promises.md)
 eslint rule (it's part of
 [TypeSTRICT](https://github.com/krzkaczor/typestrict)).

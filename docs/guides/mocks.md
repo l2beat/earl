@@ -2,15 +2,13 @@
 title: Mocks
 ---
 
-**Note**: mocks API is still in PREVIEW state and can change in future.
-
 Mocks are dummy objects simulating behaviour of more complicated real world
-objects. **Earl** supports both function and objects mocking.
+objects. **Earl** supports only function mocks for now.
 
 ## Function mocks
 
-Imagine that we want to test simple function that transforms every single item
-in an array to something else (you might be familiar with name `map`):
+Imagine that we want to test a function that transforms every single item in an
+array to something else (you might be familiar with name `map`):
 
 ```typescript
 function transform<T, K>(data: Array<T>, transformer: (item: T) => K) {
@@ -24,118 +22,80 @@ function transform<T, K>(data: Array<T>, transformer: (item: T) => K) {
 }
 ```
 
-`transform` takes an array and function `transformer` and applies `transformer`
-function to every item of the input array to construct return array.
+`transform` takes an array and a function `transformer` and applies
+`transformer` function to every item of the input array to construct a return
+array.
 
-Simple enough, now let's test it! Let's create a mock transformer and pass it to
-`transform`.
+Simple enough, now let's test it! First, let's familize with a basic usage of
+mocks in **earl**.
 
-```typescript
-import { expect, mockFn } from 'earljs'
+## Creating typesafe mocks
 
-const data = ['a', 'b']
+Mocks are basically a dummy functions witch are easy to control and their usage
+can be inspected later.
 
-// create a mock expecting a single string as argument and not returning anything
-const mockTransformer = mockFn<[string], number>()
-// setup mock behaviour BEFORE
-mockTransformer.expectedCall(['a']).returns(1)
-mockTransformer.expectedCall(['b']).returns(2)
-
-const newArray = transform(data, mockTransformer)
-
-expect(newArray).toEqual([1, 2])
-// assert that all expected calls are exhausted
-// this can be automated by integrating with a test runner
-expect(mockTransformer).toBeExhausted()
-```
-
-Mocks are typed and a sequence of expected calls is defined upfront. Any
-unexpected call will result in an error right away. Also, any expected call that
-wasn't executed will make last assertion (`toBeExhausted`) fail. As you can
-probably tell by now, the default way of creating mocks with **earl** is pretty
-strict, that's why we call them sometimes _Strict Mocks_ (later you will learn
-about _Loose Mocks_).
-
-Let's have a little bit of fun and experiment with this. Lets try to add another
-expected call like this:
-
-```typescript
-mockTransformer.expectedCall(['b']).returns(3)
-```
-
-You should see an error saying that the mock was not exhausted.
-
-Similarly, if you would change `data` array you would get an error about
-unexpected call. It's important to realize that this error is thrown right when
-call happens NOT at the end of the test. This can help you write more strict
-tests.
-
-### Typing mocks
-
-Important thing is that you **always** need to properly type your mocks. Use
-`mockFn<[ARGS], RETURN>()` if you want to provide types by hand, or if you
-already have a function type do:
-
-```typescript
-type StringTransformer = (something: string): string;
-mockFn<StringTransformer>()
-```
-
-Due to TypeScript limitations, we cannot force you to provide these type
-arguments right now, but if you forget to specify types you won't be able to use
-mock as it will be turned into `never` type.
-
-### Defining expectations
-
-Mocks API is quite handy when it comes to describing mock behaviour and it
-supports all of **earl**'s matchers.
+To create a mock do:
 
 ```typescript
 import { mockFn } from 'earljs'
 
-const m = mockFn<[], number>()
-
-// just return given value
-m.expectedCall([]).returns(5)
-
-// executes executes arbitrary function
-let counter = 0
-m.expectedCall([]).executes(() => counter++)
-
-// throws an error
-m.expectedCall([]).throws(() => new Error('Simulated error!'))
-
-// simplify async mocks
-const m = mockFn<[], Promise<number>>()
-m.expectedCall([]).resolvesTo(5)
-m.expectedCall([]).rejectsWith(new Error('Simulated error!'))
-
-// supports matchers
-const m = mockFn<[number | string], number>()
-
-// just return given value on ANY call
-m.expectedCall(expect.anything()).returns(5)
-
-// next expect a Number
-m.expectedCall([expect.a(Number)]).returns(6)
+const mock = mockFn<[number, number], number>()
 ```
 
-### Integrating with a test runner
+This creates a mock function expecting two numbers as an input and returning
+another number. As with everything in **earl**, we try to be fully typesafe,
+that's why you need to pass type arguments between angle brackets `<`, `>`.
 
-By [integrating with a test runner](./test-runner-integration.md) you don't have
-to remember to assert if mocks were exhausted by the end of the test.
-
-### Loose Mocks
-
-Loose mocks are alternative way to define function mocks with **earl**. They are
-quote similar to Sinon's Spy or Jest's fn.
+Alternatively, you can use syntax when you pass function type as a type
+argument:
 
 ```typescript
-const m = looseMockFn(() => 5)
-
-m(1, 2, 3) // returns 5
-
-expect(m).toHaveBeenCalledWith([1, 2, 3])
-// you can assert mock.calls as well
-expect(m.calls).toEqual([[1, 2, 3]])
+const mock = mockFn<(a: number, b: number) => number>()
 ```
+
+If you leave out type arguments both input and output of the mock will be typed
+as `any`.
+
+## Configuring mocks
+
+Mocks in earl needs to be configured first, if you call this mock now you will
+get `MockNotConfigured` Error.
+
+```typescript
+import { mockFn } from 'earljs'
+
+const mock = mockFn<[number, number], number>()
+mock.returns(42) // make it always return 42
+
+console.log(mock(2, 2)) // 42
+console.log(mock(2, 2)) // 42
+console.log(mock(2, 2)) // 42
+
+// when called with args 2 and 2 return 4
+mock.given(2, 2).returnsOnce(4)
+
+console.log(mock(2, 2))
+```
+
+There are various ways of configuring mocks, explore all of them in
+[API reference](api/api-reference#mocks). Also, as you can use matchers when
+configuring mocks using `given`.
+
+## Asserting mocks
+
+**earl** provides a couple of validators to work with mocks:
+
+```typescript
+const mock = mockFn<[number, number], number>()
+mock.returns(42) // make it always return 42
+
+mock(2, 2)
+
+// expect that it was called with 2 and 2
+expect(mock).toHaveBeenCalledWith([2, 2])
+
+// expect that it was exactly once with 2 and 2
+expect(mock).toHaveBeenCalledExactlyWith([[2, 2]])
+```
+
+Learn more from [API reference](api/api-reference#mocks).

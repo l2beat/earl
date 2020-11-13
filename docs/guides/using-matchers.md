@@ -55,9 +55,9 @@ If you're familiar with pattern matching from languages like Scala or OCaml,
 Few other examples:
 
 ```typescript
-// use error matcher combined with string matcher
-// to only match errors containing "unexpected" word in their message
+// use error matcher combined with string matcher to only match
+// errors containing "unexpected" word in their message
 expect(() => {
   throw new Error('Totally unexpected error! :(')
-}).toThrow(expect.error(expect.stringMatching('unexpected')))
+}).toThrow(expect.stringMatching('unexpected'))
 ```

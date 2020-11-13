@@ -16,9 +16,8 @@
 
 - 💪 Powerful validators and matchers
 - 🤖 Type-safe - written in TypeScript and goes well with static analysis
-- ✍ AutoFix - magically writes missing assertions for you
 - 🎭 Builtin support for mocks
-- 🏃‍♂️ Integration with test runners (mocha)
+- ☕ Works great with Mocha
 
 ## Installation
 

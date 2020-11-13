@@ -30,16 +30,6 @@ async function main() {
   })
   expect(true).toEqual(true)
 
-  // test autofix
-
-  expect(response).toEqual()
-
-  expect(() => {
-    throw new Error('Goodbye cruel world!')
-  }).toThrow()
-
-  await expect(Promise.reject(new Error('BB'))).toBeRejected()
-
   console.log('Done!')
 }
 

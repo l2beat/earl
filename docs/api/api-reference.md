@@ -11,9 +11,11 @@ title: API reference
 
 - [`toEqual(object)`](#toequalobject)
 - [`toLooseEqual(object)`](#tolooseequalobject)
-- [`toThrow(object)`](#tothrowobject)
-- [`toBeRejected(object)`](#toberejectedobject)
+- [`toThrow()`](#tothrow)
+- [`toBeRejected()`](#toberejectedobject)
 - [`toBeExhausted()`](#tobeexhausted)
+- [`toHaveBeenCalledWith(args)`](#tohavebeencalledwithargs)
+- [`toHaveBeenCalledExactlyWith(args)`](#tohavebeencalledexactlywithargs)
 
 ### Matchers
 
@@ -32,11 +34,17 @@ title: API reference
 
 - [`mockFn<Args, Return>()`](#mockfnargs-return)
   - [`expectedCall(...args)`](#expectedcallargs)
+    - [`returnsOnce(value)`](#executesoncefn)
     - [`returns(value)`](#returnsvalue)
+    - [`executesOnce(fn)`](#executesoncefn)
     - [`executes(fn)`](#executesfn)
+    - [`throwsOnce(error)`](#throwsonceerror)
     - [`throws(error)`](#throwserror)
+    - [`resolvesToOnce(value)`](#resolvestooncevalue)
     - [`resolvesTo(value)`](#resolvestovalue)
+    - [`rejectsWithOnce(error)`](#rejectswithonceerror)
     - [`rejectsWith(error)`](#rejectswitherror)
+    - [`given(args)`](#givenargs)
 
 ## Reference
 
@@ -51,31 +59,65 @@ when your assertion fails
 
 #### toEqual(object)
 
-Performs deep equality check, ensures type equality, supports matchers. If no
-arg is provided it will be autofixed.
+Performs deep equality check, ensures type equality, supports matchers.
 
 #### toLooseEqual(object)
 
-Like `toEqual` but without type checking. If no arg is provided it will be
-autofixed.
+Using less strict equality algorithm then `toEqual`: when two object values have
+same fields and values but different prototype they will be considered equal
+with `toLooseEqual`. Further more it lacks type safety as expected and actual
+value types doesn't have to match.
 
-#### toThrow(object)
+#### toThrow()
 
-Checks if expected error was throws. It uses the same equality logic as
-`toEqual`. Use `expect.error()` matcher to quickly match errors. Requires
-checked value to be a parameterless function. If no arg is provided it will be
-autofixed.
+Checks if any error was thrown. Requires checked value to be a parameterless
+function.
 
-#### toBeRejected(object)
+#### toThrow(errorString)
 
-Checks if promise was rejected with a expected value. It uses the same equality
-logic as `toEqual`. Use `expect.error()` matcher to quickly match errors.
-Autofix currently not available.
+Checks if error with a matching message was thrown. Requires checked value to be
+a parameterless function. `errorString` can be a matcher (for example
+[stringMatcher](/api/api-reference#expectstringmatchingsubstring--regexp))
+
+#### toThrow(errorClass, errorString?)
+
+Checks if error matching errorClass and optionally errorString was thrown.
+Requires checked value to be a parameterless function. `errorString` can be a
+matcher (for example
+[stringMatcher](/api/api-reference#expectstringmatchingsubstring--regexp))
+
+#### toBeRejected()
+
+Checks if a promise was rejected with any error. It returns a promise so you
+need to await whole expectation.
+
+#### toBeRejected(errorString)
+
+Checks if a promise was rejected with error with a matching error string. It
+returns a promise so you need to await whole expectation. `errorString` can be a
+matcher (for example
+[stringMatcher](/api/api-reference#expectstringmatchingsubstring--regexp))
+
+#### toBeRejected(errorClass, errorString)
+
+Checks if a promise was rejected with error matching error class and optionally
+error string. It returns a promise so you need to await whole expectation.
+`errorString` can be a matcher (for example
+[stringMatcher](/api/api-reference#expectstringmatchingsubstring--regexp))
 
 #### toBeExhausted()
 
-Checks if given mock is exhausted. It's not needed when
-[Test runner integration](../guides/test-runner-integration.md) is enabled.
+Checks if a given mock is exhausted (has next value).
+
+#### toHaveBeenCalledWith(args)
+
+Checks if mock was called with a given arguments. Order of calls doesn't matter.
+`args` is an array of arguments, argument can be a matcher.
+
+#### toHaveBeenCalledExactlyWith(args)
+
+Checks if mock was called with all given arguments. Order of calls matter.
+`args` is an array of array of arguments, argument can be a matcher.
 
 ### Matchers
 
@@ -120,11 +162,13 @@ Matches any error which is instance of `errorCls` with matching error message.
 
 Makes expectation fail when it should succeed and succeed when it should fail.
 
-### Mocks (preview)
+### Mocks
 
-#### mockFn<Args, Return>()
+#### mockFn<ARGS, RETURN>()
 
-Create mock conforming to a given signature.
+#### mockFn<FUNCTION_SIGNATURE>()
+
+Create a mock conforming to a given signature.
 
 ##### Example:
 
@@ -132,27 +176,49 @@ Create mock conforming to a given signature.
 const mock = mockFn<[string], number>()
 ```
 
-#### expectedCall(...args)
+#### returnsOnce(value)
 
-Configure expected call, any unexpected call will throw. Args can include
-matchers.
+Return a given value once.
 
 #### returns(value)
 
-Return value on expected call
+Return a given value indefinitely.
+
+#### executesOnce(fn)
+
+Execute a given code one.
 
 #### executes(fn)
 
-Execute any code on expected call
+Execute a given code indefinitely.
+
+#### throwsOnce(error)
+
+Throw a given error once.
 
 #### throws(error)
 
-Throw value on expected call
+Throw a given error indefinitely.
+
+#### resolvesToOnce(value)
+
+Same as `returnsOnce(Promise.resolve(value))`
 
 #### resolvesTo(value)
 
-Syntactic sugar to `returns(Promise.resolve(value))`
+Same as `returns(Promise.resolve(value))`
+
+#### rejectsWithOnce(error)
+
+Same as `returnsOnce(Promise.reject(error))`
 
 #### rejectsWith(error)
 
-Syntactic sugar to `returns(Promise.reject(error))`
+Same as `returns(Promise.reject(error))`
+
+#### given(args)
+
+Specify a different behavior when called with given arguments. Given returns an
+object that allows to customize behaviour with any of the following methods:
+`returnsOnce`, `executesOnce`, `throwsOnce`, `resolvesToOnce`,
+`rejectsWithOnce`.
