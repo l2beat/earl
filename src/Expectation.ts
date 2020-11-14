@@ -80,7 +80,7 @@ export class Expectation<T> {
     return toHaveBeenCalledWith(this.getControl(), expectedCall)
   }
 
-  toHaveBeenCalledExactlyWith(this: Expectation<Mock<any[], any>>, expectedCalls: MockArgs<T>[]) {
+  toHaveBeenCalledExactlyWith(this: Expectation<Mock<any[], any>>, expectedCalls: MockArgs<T>) {
     return toHaveBeenCalledExactlyWith(this.getControl(), expectedCalls)
   }
 

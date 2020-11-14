@@ -22,7 +22,7 @@ export class NumberCloseToMatcher extends Matcher {
     return `[NumberCloseTo: ${this.actual}, ${this.delta}]`
   }
 
-  static make(actual: number, delta: number): number {
+  static make(actual: number, { delta }: { delta: number }): number {
     return new NumberCloseToMatcher(actual, delta) as any
   }
 }

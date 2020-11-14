@@ -22,9 +22,7 @@ title: API reference
 - [`expect.anything()`](#expectanything)
 - [`expect.a(class)`](#expectaclass)
 - [`stringMatching(substring | regexp)`](#expectstringmatchingsubstring--regexp)
-- [`numberCloseTo(expected: number, delta: number)`](#expectnumberclosetoexpected-number-delta-number)
-- [`error(msg: string)`](#expecterrormsg-string)
-- [`error(errorCls, msg?: string)`](#expecterrorerrorcls-msg-string)
+- [`numberCloseTo(expected: number, { delta: number })`](#expectnumberclosetoexpected-number--delta-number-)
 
 ### Modifiers
 
@@ -144,17 +142,11 @@ expect(something).toEqual(expect.a(Object)) // matches any object (not null)
 
 Matches any string containing given substring or matching given pattern.
 
-#### expect.numberCloseTo(expected: number, delta: number)
+#### expect.numberCloseTo(expected: number, { delta: number })
 
 Matches any number within proximity of expected number.
 
-#### expect.error(msg: string)
-
-Matches any error with matching error message. `msg` can be a matcher.
-
-#### expect.error(errorCls, msg?: string)
-
-Matches any error which is instance of `errorCls` with matching error message.
+The range is <expected - delta, expected + delta> (inclusive).
 
 ### Modifiers
 
