@@ -1,10 +1,10 @@
-![Earl](https://raw.githubusercontent.com/krzkaczor/earl/master/docs/images/gh-cover.png)
+![Earl](https://raw.githubusercontent.com/earl-js/earl/master/docs/images/gh-cover.png)
 
 <p align="center">
   <p align="center">Ergonomic, modern and type-safe assertion library for TypeScript</p>
   <p align="center">Brings good parts of <b>Jest</b> back to good ol' <b>Mocha</b></p>
   <p align="center">
-    <img alt="Build status" src="https://github.com/krzkaczor/earl/workflows/Build%20and%20test/badge.svg">
+    <img alt="Build status" src="https://github.com/earl-js/earl/workflows/ci/badge.svg">
     <a href="/package.json"><img alt="Software License" src="https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square"></a>
     <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
     <img alt="All contributors" src="https://img.shields.io/badge/all_contributors-4-orange.svg?style=flat-square">
