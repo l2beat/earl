@@ -1,13 +1,14 @@
 name: Build and test
 
-on: [push, pull_request]
+on:
+  pull_request:
+  push:
+    branches:
+      - main
 
 jobs:
   build:
     runs-on: ubuntu-latest
-
-    # we want to run on forks but avoid duplicates inside our own repo
-    if: github.event_name == 'push' || github.event.pull_request.head.repo.full_name != 'krzkaczor/earl'
 
     steps:
       - uses: actions/checkout@v1
@@ -43,9 +44,10 @@ jobs:
       - build
     runs-on: ubuntu-latest
 
-    # we want to run on forks but avoid duplicates inside our own repo
+    # run only on pushes or PRs from within a repo (not forks)
+    # AND only on master or branches with name deploy
     if:
-      (github.event_name == 'push' || github.event.pull_request.head.repo.full_name != 'krzkaczor/earl') && (github.ref
+      (github.event_name == 'push' || github.event.pull_request.head.repo.full_name != 'earl-js/earl') && (github.ref
       == 'refs/heads/master' || contains(github.ref, 'deploy'))
 
     steps:
