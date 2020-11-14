@@ -1,7 +1,8 @@
+import _ from 'lodash'
 import { EOL } from 'os'
 
 /**
- * Assertion error containing optional info about actual / expected value which can be used by test runners like mocha to pretty print error
+ * Assertion error containing optional info about actual / expected value which can be used by test runners like Mocha to pretty print error
  */
 export class AssertionError extends Error {
   private readonly actual: any
@@ -12,13 +13,20 @@ export class AssertionError extends Error {
     actual,
     expected,
     extraMessage,
+    hint,
   }: {
     message: string
     actual: any
     expected: any
     extraMessage?: string
+    hint?: string
   }) {
-    const finalMessage = message + (extraMessage ? EOL + 'Extra message: ' + extraMessage : '')
+    const finalMessage = _.compact([
+      message,
+      extraMessage && 'Extra message: ' + extraMessage,
+      hint && 'Hint: ' + hint,
+    ]).join(EOL)
+
     super(finalMessage)
     this.name = 'AssertionError'
     this.actual = actual

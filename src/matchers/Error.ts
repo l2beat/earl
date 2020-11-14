@@ -1,5 +1,5 @@
-import { smartEq } from '../validators/common'
-import { Newable } from './A'
+import { Newable } from '../types'
+import { smartEq } from '../validators/smartEq'
 import { Matcher } from './Base'
 
 /**
@@ -16,7 +16,7 @@ export class ErrorMatcher extends Matcher {
     }
 
     if (this.expectedMsg !== undefined) {
-      return smartEq(v.message, this.expectedMsg)
+      return smartEq(v.message, this.expectedMsg).result === 'success'
     }
 
     return true

@@ -1,9 +1,10 @@
 import { AssertionError } from './AssertionError'
-import { AutofixType } from './autofix'
-import { LooseMock } from './mocks/looseMock'
-import { StrictMock } from './mocks/strictMock'
+import { AnythingMatcher } from './matchers/Anything'
+import { ErrorMatcher } from './matchers/Error'
+import { Mock, MockArgs } from './mocks'
+import { Newable } from './types'
 import { Control, ValidationResult } from './validators/common'
-import { toBeExhausted, toHaveBeenCalledWith } from './validators/mocks'
+import { toBeExhausted, toHaveBeenCalledExactlyWith, toHaveBeenCalledWith } from './validators/mocks'
 import { toBeRejected } from './validators/toBeRejected'
 import { toEqual } from './validators/toEqual'
 import { toLooseEqual } from './validators/toLooseEqual'
@@ -15,7 +16,6 @@ export interface ExpectationOptions {
 
 export class Expectation<T> {
   constructor(
-    private readonly autofix: AutofixType,
     private readonly actual: T,
     private isNegated: boolean = false,
     private options: ExpectationOptions = {},
@@ -34,54 +34,54 @@ export class Expectation<T> {
 
   // validators
 
-  /** Does deep "smart" equality check. **Autofixes the argument**. */
-  toEqual(): void
   /** Does deep "smart" equality check. */
-  toEqual(value: T): void
-  toEqual(value?: T) {
-    if (arguments.length === 0) {
-      toEqual(this.getControl())
-    } else {
-      toEqual(this.getControl(), value)
-    }
+  toEqual(value: T): void {
+    toEqual(this.getControl(), value)
   }
 
-  /** Like toEqual but without type checking. **Autofixes the argument**. */
-  toLooseEqual(): void
   /** Like toEqual but without type checking. */
-  toLooseEqual(value: any): void
-  toLooseEqual(value?: any) {
+  toLooseEqual(value: any): void {
+    toLooseEqual(this.getControl(), value)
+  }
+
+  toThrow(this: Expectation<() => any>): void
+  toThrow(this: Expectation<() => any>, expectedMsg: string): void
+  toThrow(this: Expectation<() => any>, errorCls: Newable<Error>, expectedMsg?: string): void
+  toThrow(this: Expectation<() => any>, errorClsOrExpectedMsg?: string | Newable<Error>, expectedMsg?: string): void {
     if (arguments.length === 0) {
-      toLooseEqual(this.getControl())
+      toThrow(this.getControl(), AnythingMatcher.make())
     } else {
-      toLooseEqual(this.getControl(), value)
+      toThrow(this.getControl(), ErrorMatcher.make(errorClsOrExpectedMsg as any, expectedMsg))
     }
   }
 
-  toThrow(this: Expectation<() => any>, expected?: any) {
+  toBeRejected(this: Expectation<Promise<any>>): void
+  toBeRejected(this: Expectation<Promise<any>>, expectedMsg: string): void
+  toBeRejected(this: Expectation<Promise<any>>, errorCls: Newable<Error>, expectedMsg?: string): void
+  toBeRejected(
+    this: Expectation<Promise<any>>,
+    errorClsOrExpectedMsg?: string | Newable<Error>,
+    expectedMsg?: string,
+  ): Promise<void> {
     if (arguments.length === 0) {
-      toThrow(this.getControl())
+      return toBeRejected(this.getControl(), AnythingMatcher.make())
     } else {
-      toThrow(this.getControl(), expected)
-    }
-  }
-
-  toBeRejected(this: Expectation<Promise<any>>, expected?: any): Promise<void> {
-    if (arguments.length === 0) {
-      return toBeRejected(this.getControl())
-    } else {
-      return toBeRejected(this.getControl(), expected)
+      return toBeRejected(this.getControl(), ErrorMatcher.make(errorClsOrExpectedMsg as any, expectedMsg))
     }
   }
 
   // mocks
 
-  toBeExhausted(this: Expectation<StrictMock<any, any>>) {
+  toBeExhausted(this: Expectation<Mock<any, any>>) {
     return toBeExhausted(this.getControl())
   }
 
-  toHaveBeenCalledWith(this: Expectation<LooseMock<any[], any>>, expectedCall: any[]) {
+  toHaveBeenCalledWith(this: Expectation<Mock<any[], any>>, expectedCall: MockArgs<T>) {
     return toHaveBeenCalledWith(this.getControl(), expectedCall)
+  }
+
+  toHaveBeenCalledExactlyWith(this: Expectation<Mock<any[], any>>, expectedCalls: MockArgs<T>) {
+    return toHaveBeenCalledExactlyWith(this.getControl(), expectedCalls)
   }
 
   // utils
@@ -90,7 +90,6 @@ export class Expectation<T> {
     return {
       actual: this.actual,
       assert: this.assert.bind(this),
-      autofix: this.autofix.bind(this),
       isNegated: this.isNegated,
     }
   }
@@ -103,6 +102,7 @@ export class Expectation<T> {
           actual: result.actual,
           expected: result.expected,
           extraMessage: this.options.extraMessage,
+          hint: result.hint,
         })
       }
     } else {
@@ -112,6 +112,7 @@ export class Expectation<T> {
           actual: result.actual,
           expected: result.expected,
           extraMessage: this.options.extraMessage,
+          hint: result.hint,
         })
       }
     }

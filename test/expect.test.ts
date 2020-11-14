@@ -15,7 +15,7 @@ describe('Expectation', () => {
     }
 
     earl(data).toEqual({
-      number: earl.numberCloseTo(10, 2),
+      number: earl.numberCloseTo(10, { delta: 2 }),
       string: earl.stringMatching('John'),
       complexData: earl.a(Object),
       reallyAnything: earl.anything(),

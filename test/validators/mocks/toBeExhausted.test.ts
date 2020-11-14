@@ -1,7 +1,7 @@
 import { expect } from 'chai'
 
 import { expect as earl } from '../../../src'
-import { mockFn } from '../../../src/mocks/strictMock'
+import { mockFn } from '../../../src/mocks'
 
 describe('toBeExhausted', () => {
   describe('not negated', () => {
@@ -13,7 +13,7 @@ describe('toBeExhausted', () => {
 
     it('throws with exhausted mocks', () => {
       const mock = mockFn<[number], number>()
-      mock.expectedCall([1]).returns(1)
+      mock.given(1).returnsOnce(1)
 
       expect(() => earl(mock).toBeExhausted()).to.throw('Mock not exhausted!')
     })
@@ -28,7 +28,7 @@ describe('toBeExhausted', () => {
 
     it('works with exhausted mocks', () => {
       const mock = mockFn<[number], number>()
-      mock.expectedCall([1]).returns(1)
+      mock.given(1).returnsOnce(1)
 
       expect(() => earl(mock).not.toBeExhausted()).not.to.throw()
     })

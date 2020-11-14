@@ -1,29 +1,8 @@
 import { expect } from 'chai'
-import sinon from 'sinon'
 
 import { expect as earl } from '../../src'
-import { Expectation } from '../../src/Expectation'
 
 describe('toEqual', () => {
-  describe('autofix', () => {
-    it('does not call autofix when not needed', () => {
-      const dummyAutofix = sinon.spy()
-      const e = new Expectation(dummyAutofix, 'abc')
-
-      expect(() => e.toEqual(undefined as any)).to.throw()
-      expect(dummyAutofix).not.to.be.called
-    })
-
-    it('calls autofix on missing values', () => {
-      const dummyAutofix = sinon.spy()
-      const e = new Expectation(dummyAutofix, 'abc')
-
-      e.toEqual()
-
-      expect(dummyAutofix).to.be.calledOnceWithExactly('toEqual', 'abc')
-    })
-  })
-
   describe('not negated', () => {
     it('works with complex object', () => {
       class B {
@@ -57,6 +36,17 @@ describe('toEqual', () => {
 
     it('throws on mismatch', () => {
       expect(() => earl(42).toEqual(420)).to.throw('42 not equal to 420')
+    })
+
+    it('throws on prototype mismatch with a reasonable error message', () => {
+      class Test {
+        constructor(public readonly property: boolean) {}
+      }
+
+      expect(() => earl(new Test(true)).toEqual({ property: true })).to.throw(
+        `{"property": true} not equal to {"property": true}
+Hint: prototype mismatch`,
+      )
     })
 
     describe('error messages', () => {

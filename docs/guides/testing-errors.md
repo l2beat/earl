@@ -2,9 +2,8 @@
 title: Testing errors
 ---
 
-Often you want to assert that given operation results in an error being thrown.
-In **earl** you will use `toThrow` validator to catch an error and
-`expect.error` matcher to easily match exact error shape.
+Often you want to assert that a given operation results in an error being
+thrown. That's what `toThrow` validator is useful in **earl**:
 
 ```typescript
 import { expect } from 'earljs'
@@ -13,34 +12,30 @@ function somethingThatCanThrow() {
   throw new Error('Unexpected error!')
 }
 
-expect(() => somethingThatCanThrow()).toThrow(expect.error('Unexpected error!'))
+expect(() => somethingThatCanThrow()).toThrow('Unexpected error!')
 ```
 
-When using `toThrow` we require you to pass parameterless function that will be
-executed and error will be caught.
+When using `toThrow` we require you to pass parameterless function `() => ...`
+that will be executed and error will be caught. It's one of the limitation of
+JavaScript but don't worry! As long as you use TypeScript you will get a compile
+time error if you forget to do so.
 
-Note that toThrow also works great with autofix.
-`expect(() => somethingThatCanThrow()).toThrow()` will be autofixed to use
-`expect.error` with a proper error message.
+## Matching only part of an error message
 
-## Matching only part of error message
-
-You can combine `expect.error` matcher with other matchers for example to check
-if error message matches another string:
+You can combine `toThrow` with string matcher to for example to check if error
+message matches another string:
 
 ```typescript
-expect(() => somethingThatCanThrow()).toThrow(
-  expect.error(expect.stringMatching('Unexpected')),
-)
+expect(() => somethingThatCanThrow()).toThrow(expect.stringMatching('Unexpected')
 ```
 
 ## Expecting any error
 
 ```typescript
-expect(() => somethingThatCanThrow()).toThrow(expect.anything())
+expect(() => somethingThatCanThrow()).toThrow()
 ```
 
-## Expect custom error
+## Expect a custom error
 
 ```typescript
 import { expect } from 'earljs'
@@ -56,6 +51,7 @@ function somethingThatCanThrow() {
 }
 
 expect(() => somethingThatCanThrow()).toThrow(
-  expect.error(HttpError, 'Http error with code: 500'),
+  HttpError,
+  'Http error with code: 500',
 )
 ```

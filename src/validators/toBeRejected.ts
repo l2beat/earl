@@ -1,8 +1,7 @@
-import { assert } from 'ts-essentials'
+import { Control, replaceMatchersWithMatchedValues } from './common'
+import { smartEq } from './smartEq'
 
-import { Control, replaceMatchersWithMatchedValues, smartEq } from './common'
-
-export async function toBeRejected(control: Control<Promise<any>>, expected?: any): Promise<void> {
+export async function toBeRejected(control: Control<Promise<any>>, expected: any): Promise<void> {
   let actualRejectedValue: any | undefined
   let rejectedAnything = false
   try {
@@ -24,22 +23,17 @@ export async function toBeRejected(control: Control<Promise<any>>, expected?: an
   const reason = `Expected to be rejected with "${expected}" but got "${actualRejectedValue}"`
   const negatedReason = `Expected not to be rejected with "${expected}" but was rejected with ${actualRejectedValue}`
 
-  const shouldAutofix = arguments.length === 1 && !control.isNegated
+  const comparisonResult = smartEq(actualRejectedValue, expected)
 
-  if (!smartEq(actualRejectedValue, expected)) {
-    if (shouldAutofix) {
-      // doesn't work because of problems with async stack traces
-      assert(false, 'Autofix for toBeRejected not available right now')
-      // control.autofix('toBeRejected', actualRejectedValue)
-    } else {
-      control.assert({
-        success: false,
-        reason,
-        negatedReason,
-        actual: actualRejectedValue,
-        expected: replaceMatchersWithMatchedValues(actualRejectedValue, expected),
-      })
-    }
+  if (comparisonResult.result === 'error') {
+    control.assert({
+      success: false,
+      hint: comparisonResult.result,
+      reason,
+      negatedReason,
+      actual: actualRejectedValue,
+      expected: replaceMatchersWithMatchedValues(actualRejectedValue, expected),
+    })
   } else {
     control.assert({
       success: true,

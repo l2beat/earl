@@ -1,18 +1,17 @@
-import { isEqualWith, mapValues } from 'lodash'
+import { mapValues } from 'lodash'
 import prettyFormat from 'pretty-format'
 
-import { AutofixType } from '../autofix'
 import { Matcher } from '../matchers/Base'
 
 export interface Control<T> {
   actual: T
-  autofix: AutofixType
   isNegated: boolean
   assert: (result: ValidationResult) => void
 }
 
 export interface ValidationResult {
   success: boolean
+  hint?: string
   reason: string
   negatedReason: string
   actual?: any
@@ -21,14 +20,6 @@ export interface ValidationResult {
 
 export function formatValue(value: any) {
   return prettyFormat(value, { min: true })
-}
-
-export function smartEq(actual: any, expected: any): boolean {
-  return isEqualWith(actual, expected, (a: any, b: any) => {
-    if (b instanceof Matcher) {
-      return b.check(a)
-    }
-  })
 }
 
 export function replaceMatchersWithMatchedValues(actual: any, expected: any): any {
