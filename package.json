@@ -18,10 +18,10 @@
     "expect",
     "exception"
   ],
-  "repository": "git@github.com:krzkaczor/earl.git",
+  "repository": "git@github.com:earl-js/earl.git",
   "author": "Kris Kaczor <chris@kaczor.io>",
   "license": "MIT",
-  "version": "0.0.13",
+  "version": "0.1.0",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "files": [
