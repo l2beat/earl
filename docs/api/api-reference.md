@@ -148,6 +148,10 @@ Matches any number within proximity of expected number.
 
 The range is <expected - delta, expected + delta> (inclusive).
 
+#### expect.containerWith(value: T)
+
+Matches a iterable (array / set etc.) containing value
+
 ### Modifiers
 
 #### not

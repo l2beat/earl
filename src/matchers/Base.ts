@@ -3,4 +3,8 @@ export abstract class Matcher {
   abstract check(v: unknown): boolean
 
   abstract toString(): string
+
+  valueOf() {
+    return this.toString()
+  }
 }

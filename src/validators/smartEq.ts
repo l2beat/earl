@@ -1,4 +1,5 @@
 import { Matcher } from '../matchers/Base'
+import { isIterableAndNotString } from './common'
 
 type ErrorReasons = 'value mismatch' | 'prototype mismatch'
 export type SmartEqResult = { result: 'success' } | { result: 'error'; reason: ErrorReasons }
@@ -9,10 +10,6 @@ function buildSmartEqResult(success: boolean, reason: ErrorReasons = 'value mism
   } else {
     return { result: 'error', reason }
   }
-}
-
-function isIterableAndNotString(value: any): value is IterableIterator<any> {
-  return Symbol.iterator in Object(value) && typeof value !== 'string'
 }
 
 // strict skips prototype check

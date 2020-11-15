@@ -45,3 +45,7 @@ export function replaceMatchersWithMatchedValues(actual: any, expected: any): an
 
   return expected
 }
+
+export function isIterableAndNotString(value: any): value is IterableIterator<any> {
+  return Symbol.iterator in Object(value) && typeof value !== 'string'
+}
