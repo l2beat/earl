@@ -4,10 +4,10 @@
   <p align="center">Ergonomic, modern and type-safe assertion library for TypeScript</p>
   <p align="center">Brings good parts of <b>Jest</b> back to good ol' <b>Mocha</b></p>
   <p align="center">
-    <img alt="Build status" src="https://github.com/earl-js/earl/workflows/ci/badge.svg">
+    <img alt="Build status" src="https://github.com/earl-js/earl/workflows/CI/badge.svg">
     <a href="/package.json"><img alt="Software License" src="https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square"></a>
     <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-    <img alt="All contributors" src="https://img.shields.io/badge/all_contributors-4-orange.svg?style=flat-square">
+    <img alt="All contributors" src="https://img.shields.io/badge/all_contributors-5-orange.svg?style=flat-square">
     <!-- ALL-CONTRIBUTORS-BADGE:END --> 
   </p>
 </p>
