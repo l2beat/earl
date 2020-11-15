@@ -1,11 +1,11 @@
 import { expect } from 'chai'
 
-import { expect as earlExpect } from '../../src/'
-import { ArrayContainingMatcher } from '../../src/matchers/ArrayContaining'
+import { expect as earlExpect } from '../../src'
+import { ContainerWithMatcher } from '../../src/matchers/ContainerWith'
 
-describe('ArrayContaining matcher', () => {
+describe('ContainerWith matcher', () => {
   it('matches array', () => {
-    const m = new ArrayContainingMatcher(1)
+    const m = new ContainerWithMatcher(1)
 
     expect(m.check([1])).to.be.true
     expect(m.check([3, 2, 1])).to.be.true
@@ -15,7 +15,7 @@ describe('ArrayContaining matcher', () => {
   })
 
   it('matches sets', () => {
-    const m = new ArrayContainingMatcher(1)
+    const m = new ContainerWithMatcher(1)
 
     expect(m.check(new Set().add(1))).to.be.true
     expect(m.check(new Set().add(3).add(2).add(1))).to.be.true
@@ -25,7 +25,7 @@ describe('ArrayContaining matcher', () => {
   })
 
   it("doesn't match non iterables", () => {
-    const m = new ArrayContainingMatcher(1)
+    const m = new ContainerWithMatcher(1)
 
     expect(m.check({ something: 1 })).to.be.false
     expect(m.check(null)).to.be.false
@@ -35,21 +35,21 @@ describe('ArrayContaining matcher', () => {
 
   describe('in expectation', () => {
     it('works', () => {
-      earlExpect([1, 2, 3]).toEqual(earlExpect.arrayContaining(3))
+      earlExpect([1, 2, 3]).toEqual(earlExpect.containerWith(3))
     })
 
     it('works with nested matchers', () => {
       earlExpect({ arr: [1, 5, 10] }).toEqual({
-        arr: earlExpect.arrayContaining(earlExpect.numberCloseTo(6, { delta: 1 })),
+        arr: earlExpect.containerWith(earlExpect.numberCloseTo(6, { delta: 1 })),
       })
     })
 
     it('throws understandable error messages', () => {
       expect(() =>
         earlExpect({ arr: [1, 2, 3] }).toEqual({
-          arr: earlExpect.arrayContaining(earlExpect.numberCloseTo(6, { delta: 1 })),
+          arr: earlExpect.containerWith(earlExpect.numberCloseTo(6, { delta: 1 })),
         }),
-      ).to.throw(`{"arr": [1, 2, 3]} not equal to {"arr": "[ArrayContaining: [NumberCloseTo: 6, delta=1]]"}
+      ).to.throw(`{"arr": [1, 2, 3]} not equal to {"arr": "[ContainerWith: [NumberCloseTo: 6, delta=1]]"}
 Hint: value mismatch`)
     })
   })
