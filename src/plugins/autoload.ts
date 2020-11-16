@@ -7,9 +7,9 @@ import { PluginLoader } from './load'
 
 const EARL_PLUGIN_NAME_REGEXP = /^earljs-plugin-(.*)$/
 
-const logger = debug('earl:autoload')
+const logger = debug('earl:plugins:autoload')
 
-export function autoloadPlugins({
+export async function autoloadPlugins({
   envInfo,
   fs,
   loadPlugin,
@@ -17,19 +17,22 @@ export function autoloadPlugins({
   envInfo: EnvInfo
   fs: Fs
   loadPlugin: PluginLoader
-}): void {
+}): Promise<void> {
   const nodeModulesPaths = envInfo.findNodeModules()
 
-  autoloadPluginsFromDir({ fs, loadPlugin }, nodeModulesPaths)
+  await autoloadPluginsFromDir({ fs, loadPlugin }, nodeModulesPaths)
 }
 
-export function autoloadPluginsFromDir({ fs, loadPlugin }: { fs: Fs; loadPlugin: PluginLoader }, dir: string): void {
+export async function autoloadPluginsFromDir(
+  { fs, loadPlugin }: { fs: Fs; loadPlugin: PluginLoader },
+  dir: string,
+): Promise<void> {
   logger(`Loading plugins from: ${dir}`)
   const plugins = findPluginsInDir({ fs }, dir)
   logger(`Loading plugins from: ${dir}. Found ${plugins.length} plugins`)
 
   for (const plugin of plugins) {
-    loadPlugin(plugin)
+    await loadPlugin(plugin)
   }
 }
 

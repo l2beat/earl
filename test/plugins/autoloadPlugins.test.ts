@@ -25,7 +25,7 @@ describe('findPluginsInDir', () => {
 })
 
 describe('autoloadPluginsFromDir', () => {
-  it('works', () => {
+  it('works', async () => {
     const dummyFs: Fs = {
       readFile: spy(),
       writeFile: spy(),
@@ -39,7 +39,7 @@ describe('autoloadPluginsFromDir', () => {
 
     const dummyPluginLoader = spy()
 
-    autoloadPluginsFromDir({ fs: dummyFs, loadPlugin: dummyPluginLoader }, '/')
+    await autoloadPluginsFromDir({ fs: dummyFs, loadPlugin: dummyPluginLoader }, '/')
 
     expect(dummyPluginLoader).to.have.been.calledTwice
     expect(dummyPluginLoader).to.have.been.calledWith('/node_modules/earljs-plugin-test1')
