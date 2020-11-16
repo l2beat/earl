@@ -1,7 +1,7 @@
 import { expect } from 'chai'
 import { spy } from 'sinon'
 
-import { autoloadPluginsFromDir, findPluginsInDir } from '../../src/plugins'
+import { autoloadPluginsFromDir, findPluginsInDir } from '../../src/plugins/autoload'
 import { Fs } from '../../src/plugins/io/fs'
 
 describe('findPluginsInDir', () => {

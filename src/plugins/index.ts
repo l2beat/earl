@@ -1,1 +1,1 @@
-export * from './autoload'
+export { autoloadPlugins } from './autoload'

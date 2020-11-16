@@ -1,4 +1,5 @@
 import { readdirSync, readFileSync, writeFileSync } from 'fs'
+import { join } from 'path'
 
 export interface Fs {
   readFile(path: string): string
@@ -6,7 +7,7 @@ export interface Fs {
   listDir(path: string): string[]
 }
 
-export const RealFs: Fs = {
+export const realFs: Fs = {
   readFile(path) {
     return readFileSync(path, 'utf-8')
   },
@@ -16,6 +17,6 @@ export const RealFs: Fs = {
   },
 
   listDir(path) {
-    return readdirSync(path)
+    return readdirSync(path).map((relPath) => join(path, relPath))
   },
 }
