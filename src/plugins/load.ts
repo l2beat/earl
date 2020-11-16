@@ -1,10 +1,12 @@
 import { assert } from 'console'
 import debug from 'debug'
+
+import { PluginConfig } from './injectedConfig'
 const logger = debug('earl:plugins:load')
 
-export type PluginLoader = (path: string) => Promise<void>
+export type PluginLoader = (path: string) => Promise<PluginConfig>
 
-export const loadPlugin: PluginLoader = async (pluginPath) => {
+export const loadPluginFromPath: PluginLoader = async (pluginPath) => {
   logger(`Loading earl plugin from ${pluginPath}`)
   const module = require(pluginPath)
 
@@ -13,10 +15,13 @@ export const loadPlugin: PluginLoader = async (pluginPath) => {
 
   const pluginSetupFn = module.default
 
-  await pluginSetupFn()
+  return loadPlugin(pluginSetupFn)
 }
 
-export interface PluginCtx {
-  addValidator(name: string, validator: (...args: any[]) => any): void
-  addMatcher(name: string, matcher: (...args: any[]) => any): void
+export async function loadPlugin(setupFn: Function): Promise<PluginConfig> {
+  const pluginConfig = await setupFn()
+
+  // TODO: some sanity version
+
+  return pluginConfig
 }

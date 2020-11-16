@@ -1,20 +1,12 @@
 const d = require('debug')('earl:mocha')
+const { autoload } = require('./dist/plugins')
+const { default: defaultExecutionCtx } = require('./dist/ExecutionCtx')
 
-/**
- * Integrate earl with mocha
- */
-async function main() {
+exports.mochaGlobalSetup = async function () {
   d('Integrating with mocha...')
 
-  await Promise.resolve()
-
-  beforeEach(function () {
-    d('Running beforeEach')
-  })
-
-  afterEach(function () {
-    d('Running afterEach')
-  })
+  const pluginConfig = await autoload()
+  defaultExecutionCtx.pluginConfig = pluginConfig
+  d(`Loaded validators: ${pluginConfig.validators.length}`)
+  d(`Loaded matchers: ${pluginConfig.matchers.length}`)
 }
-
-main()

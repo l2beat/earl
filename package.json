@@ -36,11 +36,11 @@
     "lint:fix": "yarn lint --fix",
     "typecheck": "tsc --noEmit",
     "clean": "rm -rf dist",
-    "build": "tsc -p ./tsconfig.prod.json",
-    "build:watch": "tsc -p ./tsconfig.json --watch",
+    "build": "yarn clean && tsc -p ./tsconfig.prod.json",
+    "build:watch": "yarn clean && tsc -p ./tsconfig.json --watch",
     "test": "mocha --config ./test/.mocharc.js",
-    "test:fix": "yarn lint:fix && yarn format:fix && yarn test && yarn typecheck",
-    "prepublishOnly": "yarn lint && yarn format && yarn test && yarn typecheck && yarn build"
+    "test:fix": "yarn lint:fix && yarn format:fix && yarn typecheck && yarn test",
+    "prepublishOnly": "yarn lint && yarn format && yarn typecheck && yarn test && yarn build"
   },
   "dependencies": {
     "debug": "^4.1.1",

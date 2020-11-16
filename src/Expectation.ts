@@ -1,7 +1,9 @@
 import { AssertionError } from './AssertionError'
+import { ExecutionCtx } from './ExecutionCtx'
 import { AnythingMatcher } from './matchers/Anything'
 import { ErrorMatcher } from './matchers/Error'
 import { Mock, MockArgs } from './mocks'
+import { PluginConfig } from './plugins/injectedConfig'
 import { Newable } from './types'
 import { Control, ValidationResult } from './validators/common'
 import { toBeExhausted, toHaveBeenCalledExactlyWith, toHaveBeenCalledWith } from './validators/mocks'
@@ -19,7 +21,18 @@ export class Expectation<T> {
     private readonly actual: T,
     private isNegated: boolean = false,
     private options: ExpectationOptions = {},
-  ) {}
+    private readonly executionCtx: ExecutionCtx,
+  ) {
+    if (executionCtx.pluginConfig) {
+      this.extendFromPlugins(executionCtx.pluginConfig)
+    }
+  }
+
+  private extendFromPlugins(pluginConfig: PluginConfig) {
+    for (const validator of pluginConfig.validators) {
+      ;(this as any)[validator.name] = validator.value
+    }
+  }
 
   // modifiers
   get not(): this {

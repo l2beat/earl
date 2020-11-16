@@ -1,6 +1,7 @@
 import debug from 'debug'
 import { basename } from 'path'
 
+import { mergeConfigs, PluginConfig } from './injectedConfig'
 import { EnvInfo } from './io/envInfo'
 import { Fs } from './io/fs'
 import { PluginLoader } from './load'
@@ -17,23 +18,28 @@ export async function autoloadPlugins({
   envInfo: EnvInfo
   fs: Fs
   loadPlugin: PluginLoader
-}): Promise<void> {
+}): Promise<PluginConfig> {
   const nodeModulesPaths = envInfo.findNodeModules()
 
-  await autoloadPluginsFromDir({ fs, loadPlugin }, nodeModulesPaths)
+  const pluginInjectedConfigs = await autoloadPluginsFromDir({ fs, loadPlugin }, nodeModulesPaths)
+
+  return mergeConfigs(pluginInjectedConfigs)
 }
 
 export async function autoloadPluginsFromDir(
   { fs, loadPlugin }: { fs: Fs; loadPlugin: PluginLoader },
   dir: string,
-): Promise<void> {
+): Promise<PluginConfig[]> {
   logger(`Loading plugins from: ${dir}`)
   const plugins = findPluginsInDir({ fs }, dir)
   logger(`Loading plugins from: ${dir}. Found ${plugins.length} plugins`)
 
+  const pluginInjectedConfigs = []
   for (const plugin of plugins) {
-    await loadPlugin(plugin)
+    pluginInjectedConfigs.push(await loadPlugin(plugin))
   }
+
+  return pluginInjectedConfigs
 }
 
 export function findPluginsInDir({ fs }: { fs: Fs }, dir: string): string[] {
