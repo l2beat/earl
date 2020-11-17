@@ -47,7 +47,9 @@ describe('A matcher', () => {
   it('should match bigint', () => {
     const m = new AMatcher(BigInt)
 
-    expect(m.check(5n)).to.be.true
+    // We eval here because of typescript compilation target being <ES2020
+    // eslint-disable-next-line no-eval
+    expect(m.check(eval('5n'))).to.be.true
     expect(m.check(BigInt(5))).to.be.true
 
     expect(m.check(5)).to.be.false
