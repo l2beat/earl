@@ -5,20 +5,9 @@ const logger = debug('earl:plugins:load')
 
 import { loadMatchers } from '../expect'
 import { Expectation } from '../Expectation'
+import { loadSmartEqRules } from '../validators/smartEq'
 
 export type PluginLoader = (path: string) => Promise<PluginConfig>
-
-// export const loadPluginFromPath: PluginLoader = async (pluginPath) => {
-//   logger(`Loading earl plugin from ${pluginPath}`)
-//   const module = require(pluginPath)
-
-//   assert(module, `Plugin ${pluginPath} can't be loaded (missing main in package.json?)`)
-//   assert(module.default instanceof Function, `Plugin ${pluginPath} doesn't expose default export`)
-
-//   const pluginSetupFn = module.default
-
-//   return loadPlugin(pluginSetupFn)
-// }
 
 export function loadPlugin(setupFn: Function): void {
   logger(`Loading plugin: ${setupFn}`)
@@ -32,5 +21,10 @@ export function loadPlugin(setupFn: Function): void {
   if (pluginConfig.validators && pluginConfig.validators instanceof Array) {
     logger(`Loading validators: ${pluginConfig.validators.length}`)
     Expectation.loadValidators(pluginConfig.validators)
+  }
+
+  if (pluginConfig.smartEqRules && pluginConfig.smartEqRules instanceof Array) {
+    logger(`Loading smart eq rules: ${pluginConfig.smartEqRules.length}`)
+    loadSmartEqRules(pluginConfig.smartEqRules)
   }
 }

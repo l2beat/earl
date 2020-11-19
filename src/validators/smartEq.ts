@@ -1,4 +1,5 @@
 import { Matcher } from '../matchers/Base'
+import { AnyFunc } from '../types'
 import { isIterableAndNotString } from './common'
 
 type ErrorReasons = 'value mismatch' | 'prototype mismatch'
@@ -16,6 +17,14 @@ function buildSmartEqResult(success: boolean, reason: ErrorReasons = 'value mism
 export function smartEq(actual: any, expected: any, strict: boolean = true): SmartEqResult {
   if (expected instanceof Matcher) {
     return buildSmartEqResult(expected.check(actual))
+  }
+
+  for (const rule of dynamicRules) {
+    const ruleResult = rule(actual, expected, strict)
+
+    if (ruleResult) {
+      return ruleResult
+    }
   }
 
   if (actual instanceof Date) {
@@ -74,4 +83,11 @@ export function smartEq(actual: any, expected: any, strict: boolean = true): Sma
   }
 
   return buildSmartEqResult(Object.is(actual, expected), 'value mismatch')
+}
+
+// dynamicRules are used by plugin system
+export type SmartEqRule = (actual: any, expected: any, strict: boolean) => SmartEqResult | undefined
+const dynamicRules: SmartEqRule[] = []
+export function loadSmartEqRules(rules: AnyFunc[]): void {
+  dynamicRules.push(...rules)
 }
