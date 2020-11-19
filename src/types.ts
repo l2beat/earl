@@ -6,3 +6,7 @@ export interface Newable<T> {
 export type BigIntLike = { asIntN: Function; asUintN: Function; (value?: any): any }
 
 export type NewableOrPrimitive<T = any> = Newable<T> | SymbolConstructor | BigIntLike
+
+export type WrapWithName<T> = { name: string; value: T }
+
+export type AnyFunc = (...args: any[]) => any

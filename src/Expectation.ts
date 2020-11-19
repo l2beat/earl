@@ -1,10 +1,8 @@
 import { AssertionError } from './AssertionError'
-import { ExecutionCtx } from './ExecutionCtx'
 import { AnythingMatcher } from './matchers/Anything'
 import { ErrorMatcher } from './matchers/Error'
 import { Mock, MockArgs } from './mocks'
-import { PluginConfig } from './plugins/injectedConfig'
-import { Newable } from './types'
+import { AnyFunc, Newable, WrapWithName } from './types'
 import { Control, ValidationResult } from './validators/common'
 import { toBeExhausted, toHaveBeenCalledExactlyWith, toHaveBeenCalledWith } from './validators/mocks'
 import { toBeRejected } from './validators/toBeRejected'
@@ -21,17 +19,15 @@ export class Expectation<T> {
     private readonly actual: T,
     private isNegated: boolean = false,
     private options: ExpectationOptions = {},
-    private readonly executionCtx: ExecutionCtx,
   ) {
-    if (executionCtx.pluginConfig) {
-      this.extendFromPlugins(executionCtx.pluginConfig)
+    for (const validator of Expectation.dynamicValidators) {
+      ;(this as any)[validator.name] = validator.value
     }
   }
 
-  private extendFromPlugins(pluginConfig: PluginConfig) {
-    for (const validator of pluginConfig.validators) {
-      ;(this as any)[validator.name] = validator.value
-    }
+  private static readonly dynamicValidators: WrapWithName<AnyFunc>[] = []
+  static loadValidators(validators: WrapWithName<AnyFunc>[]) {
+    this.dynamicValidators.push(...validators)
   }
 
   // modifiers

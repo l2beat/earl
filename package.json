@@ -37,7 +37,8 @@
     "typecheck": "tsc --noEmit",
     "clean": "rm -rf dist",
     "build": "yarn clean && tsc -p ./tsconfig.prod.json",
-    "build:watch": "yarn clean && tsc -p ./tsconfig.json --watch",
+    "build:watch": "yarn clean && tsc -p ./tsconfig.prod.json --watch",
+    "build:watch:test": "yarn clean && tsc -p ./tsconfig.json --watch",
     "test": "mocha --config ./test/.mocharc.js",
     "test:fix": "yarn lint:fix && yarn format:fix && yarn typecheck && yarn test",
     "prepublishOnly": "yarn lint && yarn format && yarn typecheck && yarn test && yarn build"

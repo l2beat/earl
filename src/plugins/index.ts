@@ -1,1 +1,2 @@
-export { autoloadPlugins } from './autoload'
+export { loadPlugin } from './load'
+export { PluginConfig } from './types'

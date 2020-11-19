@@ -8,7 +8,7 @@ describe('assert', () => {
   const failure = { success: false, reason: 'Failure', negatedReason: 'Negated failure' }
 
   describe('when not negated', () => {
-    const expectation = new Expectation(sinon.spy(), undefined, undefined, { pluginConfig: undefined })
+    const expectation = new Expectation(sinon.spy(), undefined, undefined)
 
     it('doesnt throw when validation was successful', () => {
       expect(() => expectation['assert'](success)).not.to.throw()
@@ -20,7 +20,7 @@ describe('assert', () => {
   })
 
   describe('when negated', () => {
-    const expectation = new Expectation(sinon.spy(), undefined, undefined, { pluginConfig: undefined }).not
+    const expectation = new Expectation(sinon.spy(), undefined, undefined).not
 
     it('throws when validation was successful', () => {
       expect(() => expectation['assert'](success)).to.throw('Negated failure')
