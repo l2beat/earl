@@ -55,9 +55,9 @@ export class Expectation<T> {
     }
   }
 
-  toBeRejected(this: Expectation<Promise<any>>): void
-  toBeRejected(this: Expectation<Promise<any>>, expectedMsg: string): void
-  toBeRejected(this: Expectation<Promise<any>>, errorCls: Newable<Error>, expectedMsg?: string): void
+  toBeRejected(this: Expectation<Promise<any>>): Promise<void>
+  toBeRejected(this: Expectation<Promise<any>>, expectedMsg: string): Promise<void>
+  toBeRejected(this: Expectation<Promise<any>>, errorCls: Newable<Error>, expectedMsg?: string): Promise<void>
   toBeRejected(
     this: Expectation<Promise<any>>,
     errorClsOrExpectedMsg?: string | Newable<Error>,

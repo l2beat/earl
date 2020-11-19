@@ -5,9 +5,9 @@ import { expect as earl } from '../../src'
 describe('toBeRejected', () => {
   describe('with msg string', () => {
     it('works', async () => {
-      const run = earl(Promise.reject(new Error('Test msg'))).toBeRejected('Test msg')
+      const result = await earl(Promise.reject(new Error('Test msg'))).toBeRejected('Test msg')
 
-      await expect(run).to.be.eventually.undefined
+      expect(result).to.be.undefined
     })
 
     it('throws on msg mismatch', async () => {
