@@ -26,7 +26,8 @@
   "types": "./dist/index.d.ts",
   "files": [
     "mocha.js",
-    "dist/**/*"
+    "dist/**/*",
+    "internals/package.json"
   ],
   "scripts": {
     "start": "ts-node -T ./src/index.ts",

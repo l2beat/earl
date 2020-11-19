@@ -1,10 +1,13 @@
 import { Expectation, ExpectationOptions } from './Expectation'
-import { AMatcher } from './matchers/A'
-import { AnythingMatcher } from './matchers/Anything'
-import { ContainerWithMatcher } from './matchers/ContainerWith'
-import { NumberCloseToMatcher } from './matchers/NumberCloseTo'
-import { StringMatchingMatcher } from './matchers/StringMatching'
-import { AnyFunc, WrapWithName } from './types'
+import {
+  AMatcher,
+  AnythingMatcher,
+  ContainerWithMatcher,
+  NumberCloseToMatcher,
+  StringMatchingMatcher,
+} from './matchers'
+import { DynamicMatcher } from './plugins/types'
+import { WrapWithName } from './types'
 
 export interface ExpectInterface {
   <T>(actual: T, options?: ExpectationOptions): Expectation<T>
@@ -28,7 +31,7 @@ expect.containerWith = ContainerWithMatcher.make
 
 // dynamically load new matchers and attach to expect object
 // used by plugin loader
-export function loadMatchers(matchers: WrapWithName<AnyFunc>[]) {
+export function loadMatchers(matchers: WrapWithName<DynamicMatcher>[]) {
   for (const matcher of matchers) {
     ;(expect as any)[matcher.name] = matcher.value
   }

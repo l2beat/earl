@@ -1,11 +1,11 @@
 import { Matcher } from '../matchers/Base'
-import { AnyFunc } from '../types'
+import { SmartEqRule } from '../plugins/types'
 import { isIterableAndNotString } from './common'
 
 type ErrorReasons = 'value mismatch' | 'prototype mismatch'
 export type SmartEqResult = { result: 'success' } | { result: 'error'; reason: ErrorReasons }
 
-function buildSmartEqResult(success: boolean, reason: ErrorReasons = 'value mismatch'): SmartEqResult {
+export function buildSmartEqResult(success: boolean, reason: ErrorReasons = 'value mismatch'): SmartEqResult {
   if (success) {
     return { result: 'success' }
   } else {
@@ -86,8 +86,7 @@ export function smartEq(actual: any, expected: any, strict: boolean = true): Sma
 }
 
 // dynamicRules are used by plugin system
-export type SmartEqRule = (actual: any, expected: any, strict: boolean) => SmartEqResult | undefined
 const dynamicRules: SmartEqRule[] = []
-export function loadSmartEqRules(rules: AnyFunc[]): void {
+export function loadSmartEqRules(rules: SmartEqRule[]): void {
   dynamicRules.push(...rules)
 }

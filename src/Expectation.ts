@@ -2,7 +2,8 @@ import { AssertionError } from './AssertionError'
 import { AnythingMatcher } from './matchers/Anything'
 import { ErrorMatcher } from './matchers/Error'
 import { Mock, MockArgs } from './mocks'
-import { AnyFunc, Newable, WrapWithName } from './types'
+import { DynamicValidator } from './plugins/types'
+import { Newable, WrapWithName } from './types'
 import { Control, ValidationResult } from './validators/common'
 import { toBeExhausted, toHaveBeenCalledExactlyWith, toHaveBeenCalledWith } from './validators/mocks'
 import { toBeRejected } from './validators/toBeRejected'
@@ -25,9 +26,9 @@ export class Expectation<T> {
     }
   }
 
-  private static readonly dynamicValidators: WrapWithName<AnyFunc>[] = []
-  static loadValidators(validators: WrapWithName<AnyFunc>[]) {
-    this.dynamicValidators.push(...validators)
+  private static readonly dynamicValidators: WrapWithName<DynamicValidator<any>>[] = []
+  static loadValidators(validators: WrapWithName<DynamicValidator<any>>[]) {
+    Expectation.dynamicValidators.push(...validators)
   }
 
   // modifiers
