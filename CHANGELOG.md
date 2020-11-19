@@ -1,5 +1,12 @@
 # earljs
 
+## 0.1.2
+
+### Patch Changes
+
+- 0f490bd: Tweak `toBeRejected` validator signature to be properly async (return
+  `Promise<void>`). This was a bug in typings not in behaviour.
+
 ## 0.1.1
 
 ### Patch Changes
