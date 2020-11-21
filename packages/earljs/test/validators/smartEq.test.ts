@@ -1,7 +1,7 @@
 import { expect } from 'chai'
 
 import { AnythingMatcher } from '../../src/matchers/Anything'
-import { smartEq } from '../../src/validators/smartEq'
+import { buildSmartEqResult, loadSmartEqRules, smartEq } from '../../src/validators/smartEq'
 
 describe('smartEq', () => {
   it('compares primitive values', () => {
@@ -154,4 +154,38 @@ describe('smartEq', () => {
       expect(smartEq(new Test(true), { property: true }, false)).to.be.deep.eq({ result: 'success' })
     })
   })
+
+  type SmartEqType = typeof smartEq
+  type LoadSmartEqRulesType = typeof loadSmartEqRules
+  describe('plugin', () => {
+    let smartEq: SmartEqType
+    let loadSmartEqRules: LoadSmartEqRulesType
+    beforeEach(() => {
+      clearModuleCache()
+      ;({ smartEq, loadSmartEqRules } = require('../../src/validators/smartEq'))
+    })
+
+    afterEach(clearModuleCache)
+
+    it('adds new smartEq rules', () => {
+      const breakMathEqRule = (a: any, e: any) => {
+        if (a === 2 && e === 2) {
+          return buildSmartEqResult(false)
+        }
+      }
+      loadSmartEqRules([breakMathEqRule])
+
+      expect(smartEq(2, 2)).to.be.deep.eq({ result: 'error', reason: 'value mismatch' })
+    })
+
+    it('clears cache correctly', () => {
+      expect(smartEq(2, 2)).to.be.deep.eq({ result: 'success' })
+    })
+  })
 })
+
+function clearModuleCache() {
+  Object.keys(require.cache).forEach(function (key) {
+    delete require.cache[key]
+  })
+}
