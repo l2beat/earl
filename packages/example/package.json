@@ -1,5 +1,6 @@
 {
   "name": "example",
+  "version": "0.1.0",
   "private": true,
   "scripts": {
     "start": "ts-node -T ./src/index.ts",
