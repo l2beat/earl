@@ -1,7 +1,7 @@
 import debug from 'debug'
 
 import { PluginConfig } from './types'
-const logger = debug('earl:plugins:load')
+const logger = debug('earljs:plugins:load')
 
 import { loadMatchers } from '../expect'
 import { Expectation } from '../Expectation'
