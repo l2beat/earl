@@ -13,17 +13,17 @@ export function loadPlugin(setupFn: Function): void {
   logger(`Loading plugin: ${setupFn}`)
   const pluginConfig = setupFn() as Partial<PluginConfig>
 
-  if (pluginConfig.matchers && pluginConfig.matchers instanceof Array) {
+  if (pluginConfig.matchers) {
     logger(`Loading matchers: ${pluginConfig.matchers.length}`)
     loadMatchers(pluginConfig.matchers)
   }
 
-  if (pluginConfig.validators && pluginConfig.validators instanceof Array) {
+  if (pluginConfig.validators) {
     logger(`Loading validators: ${pluginConfig.validators.length}`)
     Expectation.loadValidators(pluginConfig.validators)
   }
 
-  if (pluginConfig.smartEqRules && pluginConfig.smartEqRules instanceof Array) {
+  if (pluginConfig.smartEqRules) {
     logger(`Loading smart eq rules: ${pluginConfig.smartEqRules.length}`)
     loadSmartEqRules(pluginConfig.smartEqRules)
   }

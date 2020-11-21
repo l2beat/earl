@@ -7,7 +7,6 @@ import {
   StringMatchingMatcher,
 } from './matchers'
 import { DynamicMatcher } from './plugins/types'
-import { WrapWithName } from './types'
 
 export interface ExpectInterface {
   <T>(actual: T, options?: ExpectationOptions): Expectation<T>
@@ -31,8 +30,8 @@ expect.containerWith = ContainerWithMatcher.make
 
 // dynamically load new matchers and attach to expect object
 // used by plugin loader
-export function loadMatchers(matchers: WrapWithName<DynamicMatcher>[]) {
-  for (const matcher of matchers) {
-    ;(expect as any)[matcher.name] = matcher.value
+export function loadMatchers(matchers: Record<string, DynamicMatcher>) {
+  for (const [name, matcher] of Object.entries(matchers)) {
+    ;(expect as any)[name] = matcher
   }
 }

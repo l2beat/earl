@@ -3,7 +3,7 @@ import { AnythingMatcher } from './matchers/Anything'
 import { ErrorMatcher } from './matchers/Error'
 import { Mock, MockArgs } from './mocks'
 import { DynamicValidator } from './plugins/types'
-import { Newable, WrapWithName } from './types'
+import { Newable } from './types'
 import { Control, ValidationResult } from './validators/common'
 import { toBeExhausted, toHaveBeenCalledExactlyWith, toHaveBeenCalledWith } from './validators/mocks'
 import { toBeRejected } from './validators/toBeRejected'
@@ -21,14 +21,16 @@ export class Expectation<T> {
     private isNegated: boolean = false,
     private options: ExpectationOptions = {},
   ) {
-    for (const validator of Expectation.dynamicValidators) {
-      ;(this as any)[validator.name] = validator.value
+    for (const [name, validator] of Object.entries(Expectation.dynamicValidators)) {
+      ;(this as any)[name] = validator
     }
   }
 
-  private static readonly dynamicValidators: WrapWithName<DynamicValidator<any>>[] = []
-  static loadValidators(validators: WrapWithName<DynamicValidator<any>>[]) {
-    Expectation.dynamicValidators.push(...validators)
+  private static readonly dynamicValidators: Record<string, DynamicValidator<any>> = {}
+  static loadValidators(validators: Record<string, DynamicValidator<any>>) {
+    for (const [name, validator] of Object.entries(validators)) {
+      Expectation.dynamicValidators[name] = validator
+    }
   }
 
   // modifiers

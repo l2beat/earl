@@ -3,8 +3,8 @@ import { AMatcher, buildSmartEqResult, Control, Expectation, Matcher, PluginConf
 
 export function numberUtilsPlugin(): PluginConfig {
   return {
-    matchers: [{ name: 'evenNumber', value: EvenNumberMatcher.make }],
-    validators: [{ name: 'toBeEven', value: toBeEven }],
+    matchers: { evenNumber: EvenNumberMatcher.make },
+    validators: { toBeEven },
     smartEqRules: [evilSmartEqRule],
   }
 }
