@@ -7,8 +7,8 @@
   "types": "./types.d.ts",
   "scripts": {
     "start": "ts-node -T ./src/index.ts",
-    "format": "prettier --check \"./**/*.ts\"",
-    "format:fix": "prettier --write \"./**/*.ts\"",
+    "format": "prettier --ignore-path ../../.prettierignore --check \"./**/*.ts\"",
+    "format:fix": "prettier --ignore-path ../../.prettierignore --write \"./**/*.ts\"",
     "lint": "eslint --ext .ts src",
     "lint:fix": "yarn lint --fix",
     "typecheck": "tsc --noEmit",

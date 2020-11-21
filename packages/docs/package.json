@@ -2,7 +2,7 @@
   "name": "docs",
   "private": true,
   "scripts": {
-    "format": "prettier './**/*.md' --check",
-    "format:fix": "prettier './**/*.md' --write"
+    "format": "prettier --ignore-path ../../.prettierignore './**/*.md' --check",
+    "format:fix": "prettier --ignore-path ../../.prettierignore './**/*.md' --write"
   }
 }
