@@ -4,7 +4,7 @@ module.exports = {
   url: 'https://earljs.dev/',
   baseUrl: '/',
   favicon: 'img/favicon.ico',
-  organizationName: 'krzkaczor', // Usually your GitHub org/user name.
+  organizationName: 'earljs', // Usually your GitHub org/user name.
   projectName: 'earl', // Usually your repo name.
   themeConfig: {
     image: '/img/social.png',
@@ -24,7 +24,7 @@ module.exports = {
           position: 'left',
         },
         {
-          href: 'https://github.com/krzkaczor/earl',
+          href: 'https://github.com/earljs/earl',
           label: 'GitHub',
           position: 'right',
         },
@@ -60,7 +60,7 @@ module.exports = {
           items: [
             {
               label: 'GitHub',
-              href: 'https://github.com/krzkaczor/earl',
+              href: 'https://github.com/earljs/earl',
             },
           ],
         },
@@ -77,7 +77,7 @@ module.exports = {
           path: '../docs',
           homePageId: 'introduction/getting-started',
           sidebarPath: require.resolve('./sidebars.js'),
-          editUrl: 'https://github.com/krzkaczor/earl/edit/master/website/',
+          editUrl: 'https://github.com/earljs/earl/edit/master/website/',
         },
         theme: {
           customCss: require.resolve('./src/css/custom.css'),
