@@ -152,6 +152,9 @@ The range is <expected - delta, expected + delta> (inclusive).
 
 Matches a iterable (array / set etc.) containing value
 
+#### expect.arrayWith(values: ReadonlyArray<T>)
+Matches an array containing expected value or values.
+
 ### Modifiers
 
 #### not
