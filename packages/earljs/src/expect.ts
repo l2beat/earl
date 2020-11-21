@@ -1,8 +1,8 @@
 import { Expectation, ExpectationOptions } from './Expectation'
 import {
   AMatcher,
-  ArrayWithMatcher,
   AnythingMatcher,
+  ArrayWithMatcher,
   ContainerWithMatcher,
   NumberCloseToMatcher,
   StringMatchingMatcher,
