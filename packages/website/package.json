@@ -15,6 +15,9 @@
     "react": "^16.8.4",
     "react-dom": "^16.8.4"
   },
+  "devDependencies": {
+    "netlify-cli": "^2.53.0"
+  },
   "browserslist": {
     "production": [
       ">0.2%",
@@ -26,8 +29,5 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  },
-  "devDependencies": {
-    "netlify-cli": "^2.53.0"
   }
 }
