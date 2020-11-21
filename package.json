@@ -1,59 +1,30 @@
 {
-  "name": "earljs",
-  "description": "Ergonomic, modern and type-safe assertion library",
-  "keywords": [
-    "assert",
-    "assertion",
-    "assertions",
-    "modern",
-    "mocha",
-    "chai",
-    "jest",
-    "typescript",
-    "test",
-    "testing",
-    "unit",
-    "tdd",
-    "bdd",
-    "expect",
-    "exception"
-  ],
-  "repository": "git@github.com:earl-js/earl.git",
-  "author": "Kris Kaczor <chris@kaczor.io>",
-  "license": "MIT",
-  "version": "0.1.2",
-  "main": "./dist/index.js",
-  "types": "./dist/index.d.ts",
-  "files": [
-    "mocha.js",
-    "dist/**/*"
-  ],
-  "scripts": {
-    "start": "ts-node -T ./src/index.ts",
-    "format": "prettier --check \"./**/*.{ts,md}\"",
-    "format:fix": "prettier --write \"./**/*.{ts,md}\"",
-    "lint": "eslint --ext .ts src test",
-    "lint:fix": "yarn lint --fix",
-    "typecheck": "tsc --noEmit",
-    "clean": "rm -rf dist",
-    "build": "tsc -p ./tsconfig.prod.json",
-    "build:watch": "tsc -p ./tsconfig.json --watch",
-    "test": "mocha --config ./test/.mocharc.js",
-    "test:fix": "yarn lint:fix && yarn format:fix && yarn test && yarn typecheck",
-    "prepublishOnly": "yarn lint && yarn format && yarn test && yarn typecheck && yarn build"
+  "name": "earl-monorepo",
+  "private": true,
+  "engines": {
+    "node": ">=10",
+    "yarn": "^1.17.3"
   },
-  "dependencies": {
-    "debug": "^4.1.1",
-    "lodash": "^4.17.15",
-    "pretty-format": "^26.1.0",
-    "ts-essentials": "^6.0.5"
+  "workspaces": {
+    "packages": [
+      "packages/*"
+    ]
+  },
+  "scripts": {
+    "lint": "wsrun -mc lint",
+    "format": "wsrun -mc format",
+    "format:fix": "wsrun -mc format:fix",
+    "typecheck": "wsrun -mc typecheck",
+    "clean": "wsrun -emc clean",
+    "build": "wsrun -temc build",
+    "build:noweb": "wsrun -x website -temc build",
+    "test": "wsrun -emc test",
+    "test:fix": "wsrun -emc test:fix"
   },
   "devDependencies": {
     "@changesets/cli": "^2.11.2",
     "@types/chai": "^4.2.7",
     "@types/chai-as-promised": "^7.1.2",
-    "@types/debug": "^4.1.5",
-    "@types/lodash": "^4.14.150",
     "@types/mocha": "^8.0.3",
     "@types/node": "^13.13.0",
     "@types/sinon-chai": "^3.2.4",
@@ -69,10 +40,11 @@
     "eslint-plugin-sonarjs": "^0.5.0",
     "eslint-plugin-unused-imports": "^0.1.2",
     "mocha": "^8.2.1",
-    "prettier": "^2.0.5",
+    "prettier": "^2.2.0",
     "sinon": "^8.0.1",
-    "sinon-chai": "^3.3.0",
+    "sinon-chai": "^3.5.0",
     "ts-node": "^8.5.4",
-    "typescript": "^3.8.3"
+    "typescript": "^3.8.3",
+    "wsrun": "^5.2.1"
   }
 }

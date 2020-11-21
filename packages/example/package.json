@@ -1,0 +1,19 @@
+{
+  "name": "example",
+  "private": true,
+  "version": "0.0.0",
+  "scripts": {
+    "start": "ts-node -T ./src/index.ts",
+    "format": "prettier --ignore-path ../../.prettierignore './**/*.ts' --check",
+    "format:fix": "prettier --ignore-path ../../.prettierignore './**/*.ts' --write",
+    "lint": "eslint --ext .ts .",
+    "lint:fix": "yarn lint --fix",
+    "typecheck": "tsc --noEmit",
+    "test": "mocha --config .mocharc.js",
+    "test:fix": "yarn lint:fix && yarn format:fix && yarn test && yarn typecheck"
+  },
+  "dependencies": {
+    "earljs": "*",
+    "example-plugin": "*"
+  }
+}
