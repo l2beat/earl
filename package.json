@@ -13,6 +13,7 @@
     "format": "wsrun -mc format",
     "typecheck": "wsrun -mc typecheck",
     "build": "wsrun -emc build",
+    "build:noweb": "wsrun -x website -emc build",
     "test": "wsrun -emc test"
   },
   "dependencies": {

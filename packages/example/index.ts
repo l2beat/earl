@@ -1,4 +1,4 @@
-import { expect } from '../src'
+import { expect } from 'earljs'
 
 async function main() {
   class Person {

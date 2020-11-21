@@ -31,8 +31,8 @@
   ],
   "scripts": {
     "start": "ts-node -T ./src/index.ts",
-    "format": "prettier --check \"./**/*.{ts,md}\"",
-    "format:fix": "prettier --write \"./**/*.{ts,md}\"",
+    "format": "prettier './**/*.{ts,md}' --check",
+    "format:fix": "prettier './**/*.{ts,md}' --write",
     "lint": "eslint --ext .ts src test",
     "lint:fix": "yarn lint --fix",
     "typecheck": "tsc --noEmit",
