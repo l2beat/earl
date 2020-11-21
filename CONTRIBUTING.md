@@ -1,21 +1,27 @@
 # Contributing
 
-We welcome all kinds of contributions! Feel free to create issues when in doubt
+We welcome all kinds of contributions! Feel free to create a issue when in doubt
 and take part in RFCs discussions.
 
 ## Developing
 
-Setup is fairly easy at this point. The only twist is that we require pretty new
-nodejs version to run tests as we test some of the modern features like
-`bignumbers`. We recommend using `14.2.0`. Note that production build doesnt
-require such modern environment.
+First run `yarn` and `yarn build` to install all deps and build project. If you
+run into any problems while installing dependencies consider using the node
+version specified in `.nvmrc` file. Personally, I use `fnm` with shell
+integration to automatically pick up `.nvmrc` file and install correct version
+but simple `nvm` also will do.
 
-Personally, I use `nvm` with shell integration to automatically pick up `.nvmrc`
-file and install correct version - it's great!
+### Project structure
+
+We use monorepo with yarn workspaces. Main package is placed under
+`packages/earljs`, and this is where probably you will spend most time.
 
 ### Running tests
 
-```
+```sh
+yarn format
+yarn lint
+yarn typecheck
 yarn test
 ```
 
@@ -28,3 +34,15 @@ auto-fixable problems:
 ```
 yarn test:fix
 ```
+
+If you need to rebuild **earl** try `yarn build:noweb` for faster builds,
+skipping building docs.
+
+### Watch mode
+
+While inside `packages/earljs` you might run `yarn build:watch` to build project
+in watch mode.
+
+`yarn build:watch:test` will watch tests too. _WARNING_: this will create broken
+build (containing tests) in `dist` so you need to run `yarn build` when done
+with watching.
