@@ -13,8 +13,8 @@ export class ArrayWithMatcher<T> extends Matcher {
     if (!Array.isArray(v)) {
       return false
     }
-    
-    return v.some((i) => this.items.some(item => smartEq(i, item).result === 'success'))
+
+    return v.some((i) => this.items.some((item) => smartEq(i, item).result === 'success'))
   }
 
   toString() {
