@@ -21,7 +21,7 @@ export class ArrayWithMatcher<T> extends Matcher {
     return `[ArrayWith: ${this.items}]`
   }
 
-  static make(...items: any[]): any {
+  static make<T>(...items: T[]): T[] {
     return new ArrayWithMatcher(items) as any
   }
 }
