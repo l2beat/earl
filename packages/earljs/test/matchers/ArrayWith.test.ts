@@ -35,6 +35,8 @@ describe('ArrayWith matcher', () => {
   describe('in expectation', () => {
     it('works', () => {
       earlExpect([1, 2, 3]).toEqual(earlExpect.arrayWith(3))
+      earlExpect([1, 2, 3]).toEqual(earlExpect.arrayWith(1, 2, 3))
+      earlExpect([1, 2, 3]).toEqual(earlExpect.arrayWith(1, 2, 3, 4, 5, 6))
     })
 
     it('works with nested matchers', () => {
