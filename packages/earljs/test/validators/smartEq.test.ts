@@ -2,6 +2,7 @@ import { expect } from 'chai'
 
 import { AnythingMatcher } from '../../src/matchers/Anything'
 import { buildSmartEqResult, loadSmartEqRules, smartEq } from '../../src/validators/smartEq'
+import { clearModuleCache } from '../common'
 
 describe('smartEq', () => {
   it('compares primitive values', () => {
@@ -176,6 +177,7 @@ describe('smartEq', () => {
       loadSmartEqRules([breakMathEqRule])
 
       expect(smartEq(2, 2)).to.be.deep.eq({ result: 'error', reason: 'value mismatch' })
+      expect(smartEq(3, 3)).to.be.deep.eq({ result: 'success' })
     })
 
     it('clears cache correctly', () => {
@@ -183,9 +185,3 @@ describe('smartEq', () => {
     })
   })
 })
-
-function clearModuleCache() {
-  Object.keys(require.cache).forEach(function (key) {
-    delete require.cache[key]
-  })
-}

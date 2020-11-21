@@ -1,6 +1,8 @@
 import { expect } from 'chai'
 
-import { expect as earl } from '../src/expect'
+import { expect as earl, loadMatchers } from '../src/expect'
+import { AnythingMatcher } from '../src/matchers'
+import { clearModuleCache } from './common'
 
 describe('Expectation', () => {
   // used for integration tests for all matchers
@@ -27,5 +29,28 @@ describe('Expectation', () => {
       `1 not equal to 2
 Extra message: test assertion`,
     )
+  })
+
+  type expectType = typeof expect
+  type loadMatchersType = typeof loadMatchers
+  describe('plugin', () => {
+    let earl: expectType
+    let loadMatchers: loadMatchersType
+    beforeEach(() => {
+      clearModuleCache()
+      ;({ expect: earl, loadMatchers } = require('../src/expect'))
+    })
+
+    afterEach(clearModuleCache)
+
+    it('adds new matcher', () => {
+      loadMatchers({ totallyNewMatcher: () => new AnythingMatcher() })
+
+      expect((earl as any).totallyNewMatcher).to.be.instanceOf(Function)
+    })
+
+    it('clears cache correctly', () => {
+      expect((earl as any).totallyNewMatcher).to.be.undefined
+    })
   })
 })
