@@ -11,7 +11,9 @@ module.exports = {
       'guides/testing-errors',
       'guides/async-functions',
       'guides/mocks',
+      'guides/using-plugins',
     ],
     API: ['api/api-reference'],
+    Advanced: ['advanced/plugin-development'],
   },
 }
