@@ -37,8 +37,8 @@ jobs:
       - name: Prettier
         run: yarn format
 
-      - name: Build (excluding website)
-        run: yarn build:noweb
+      - name: Build
+        run: yarn build
 
       - name: Test
         run: CI=true yarn test
