@@ -4,8 +4,5 @@
   "scripts": {
     "format": "prettier './**/*.md' --check",
     "format:fix": "prettier './**/*.md' --write"
-  },
-  "devDependencies": {
-    "prettier": "^2.0.5"
   }
 }
