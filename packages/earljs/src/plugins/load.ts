@@ -4,7 +4,7 @@ import { PluginConfig } from './types'
 const logger = debug('earljs:plugins:load')
 
 import { loadMatchers } from '../expect'
-import { Expectation } from '../Expectation'
+import { loadValidators } from '../Expectation'
 import { loadSmartEqRules } from '../validators/smartEq'
 
 export type PluginLoader = (path: string) => Promise<PluginConfig>
@@ -20,7 +20,7 @@ export function loadPlugin(setupFn: Function): void {
 
   if (pluginConfig.validators) {
     logger(`Loading validators: ${pluginConfig.validators.length}`)
-    Expectation.loadValidators(pluginConfig.validators)
+    loadValidators(pluginConfig.validators)
   }
 
   if (pluginConfig.smartEqRules) {

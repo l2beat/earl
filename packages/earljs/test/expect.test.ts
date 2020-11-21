@@ -43,7 +43,7 @@ Extra message: test assertion`,
 
     afterEach(clearModuleCache)
 
-    it('adds new matcher', () => {
+    it('adds new matchers', () => {
       loadMatchers({ totallyNewMatcher: () => new AnythingMatcher() })
 
       expect((earl as any).totallyNewMatcher).to.be.instanceOf(Function)

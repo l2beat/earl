@@ -21,15 +21,8 @@ export class Expectation<T> {
     private isNegated: boolean = false,
     private options: ExpectationOptions = {},
   ) {
-    for (const [name, validator] of Object.entries(Expectation.dynamicValidators)) {
+    for (const [name, validator] of Object.entries(dynamicValidators)) {
       ;(this as any)[name] = validator
-    }
-  }
-
-  private static readonly dynamicValidators: Record<string, DynamicValidator<any>> = {}
-  static loadValidators(validators: Record<string, DynamicValidator<any>>) {
-    for (const [name, validator] of Object.entries(validators)) {
-      Expectation.dynamicValidators[name] = validator
     }
   }
 
@@ -128,5 +121,12 @@ export class Expectation<T> {
         })
       }
     }
+  }
+}
+
+const dynamicValidators: Record<string, DynamicValidator<any>> = {}
+export function loadValidators(validators: Record<string, DynamicValidator<any>>) {
+  for (const [name, validator] of Object.entries(validators)) {
+    dynamicValidators[name] = validator
   }
 }
