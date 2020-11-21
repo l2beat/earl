@@ -1,13 +1,4 @@
-import { SmartEqRule } from 'earljs/dist/plugins/types'
-import { AMatcher, buildSmartEqResult, Control, Expectation, Matcher, PluginConfig } from 'earljs/internals'
-
-export function numberUtilsPlugin(): PluginConfig {
-  return {
-    matchers: { evenNumber: EvenNumberMatcher.make },
-    validators: { toBeEven },
-    smartEqRules: [evilSmartEqRule],
-  }
-}
+import { AMatcher, buildSmartEqResult, Control, Expectation, Matcher, SmartEqRule } from 'earljs/internals'
 
 export class EvenNumberMatcher extends Matcher {
   toString() {
@@ -19,8 +10,8 @@ export class EvenNumberMatcher extends Matcher {
     return aMatcher.check(value) && (value as number) % 2 === 0
   }
 
-  static make(): any {
-    return new EvenNumberMatcher()
+  static make(): number {
+    return new EvenNumberMatcher() as any
   }
 }
 
@@ -39,4 +30,10 @@ const evilSmartEqRule: SmartEqRule = (actual, expected) => {
   if (actual === 2 && expected === 2) {
     return buildSmartEqResult(false)
   }
+}
+
+export const numberUtilsPlugin = {
+  matchers: { evenNumber: EvenNumberMatcher.make },
+  validators: { toBeEven },
+  smartEqRules: [evilSmartEqRule],
 }

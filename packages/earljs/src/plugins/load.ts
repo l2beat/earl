@@ -9,9 +9,8 @@ import { loadSmartEqRules } from '../validators/smartEq'
 
 export type PluginLoader = (path: string) => Promise<PluginConfig>
 
-export function loadPlugin(setupFn: Function): void {
-  logger(`Loading plugin: ${setupFn}`)
-  const pluginConfig = setupFn() as Partial<PluginConfig>
+export function loadPlugin(pluginConfig: Partial<PluginConfig>): void {
+  logger(`Loading plugin: ${JSON.stringify(pluginConfig)}`)
 
   if (pluginConfig.matchers) {
     logger(`Loading matchers: ${pluginConfig.matchers.length}`)

@@ -1,4 +1,5 @@
 export * from './plugins'
+export * from './plugins/types'
 export * from './matchers'
 export * from './validators/smartEq'
 export * from './validators/common'
