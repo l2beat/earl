@@ -54,8 +54,8 @@ jobs:
     # run only on pushes or PRs from within a repo (not forks)
     # AND only on master or branches with name deploy
     if:
-      (github.event_name == 'push' || github.event.pull_request.head.repo.full_name != 'earl-js/earl') && (github.ref
-      == 'refs/heads/master' || contains(github.ref, 'deploy'))
+      (github.event_name == 'push' || github.event.pull_request.head.repo.full_name != 'earl-js/earl') && (github.ref ==
+      'refs/heads/master' || contains(github.ref, 'deploy'))
 
     steps:
       - uses: actions/checkout@v1
@@ -63,15 +63,23 @@ jobs:
         with:
           node-version: '14.2.0'
 
+      - name: Cache YARN dependencies
+        uses: actions/cache@v1
+        with:
+          path: node_modules
+          key: ${{ runner.OS }}-yarn-cache-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.OS }}-yarn-cache-
+
       - name: Install
-        run: cd website && yarn --no-progress --non-interactive --frozen-lockfile
+        run: yarn --no-progress --non-interactive --frozen-lockfile
 
       - name: Deploy to netlify
         env:
           NETLIFY_APP_ID: ${{ secrets.NETLIFY_APP_ID }}
           NETLIFY_API_KEY: ${{ secrets.NETLIFY_API_KEY }}
         run: |
-          ./website/scripts/build-and-deploy.sh
+          ./packages/website/scripts/build-and-deploy.sh
 
 # Few tips github actions
 # - name: Setup SSH debug session
