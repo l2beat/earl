@@ -28,7 +28,7 @@ describe('ObjectWith matcher', () => {
     const m = new ObjectWithMatcher({ a: 1 })
 
     expect(m.check({ a: 1 })).to.be.true
-    expect(m.check({ a: "1" })).to.be.false
+    expect(m.check({ a: '1' })).to.be.false
     expect(m.check({ b: 2 })).to.be.false
 
     expect(m.check({ a: 1, b: 2 })).to.be.true
