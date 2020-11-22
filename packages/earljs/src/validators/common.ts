@@ -18,8 +18,19 @@ export interface ValidationResult {
   expected?: any
 }
 
+const serializeMatchers = {
+  test: (v: unknown) => {
+    return v instanceof Matcher
+  },
+  serialize: (v: Matcher) => v.toString(),
+}
+
 export function formatValue(value: any) {
-  return prettyFormat(value, { min: true })
+  return prettyFormat(value, {
+    min: true,
+    escapeString: false,
+    plugins: [serializeMatchers],
+  })
 }
 
 export function replaceMatchersWithMatchedValues(actual: any, expected: any): any {
