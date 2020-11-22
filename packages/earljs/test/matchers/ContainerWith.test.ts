@@ -34,10 +34,16 @@ describe('ContainerWith matcher', () => {
   })
 
   describe('in expectation', () => {
-    it('works', () => {
+    it('works with array', () => {
       earlExpect([1, 2, 3]).toEqual(earlExpect.containerWith(3))
       earlExpect([1, 2, 3]).toEqual(earlExpect.containerWith(1, 2, 3))
       earlExpect([1, 2, 3]).not.toEqual(earlExpect.containerWith(1, 2, 3, 4, 5, 6))
+    })
+
+    it('works with sets', () => {
+      earlExpect(new Set([1, 2, 3])).toEqual(earlExpect.containerWith(3))
+      earlExpect(new Set([1, 2, 3])).toEqual(earlExpect.containerWith(1, 2, 3))
+      earlExpect(new Set([1, 2, 3])).not.toEqual(earlExpect.containerWith(1, 2, 3, 4, 5, 6))
     })
 
     it('works with nested matchers', () => {
