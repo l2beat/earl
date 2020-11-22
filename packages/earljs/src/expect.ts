@@ -7,6 +7,7 @@ import {
   NumberCloseToMatcher,
   StringMatchingMatcher,
 } from './matchers'
+import { ObjectWithMatcher } from './matchers/ObjectWith'
 import { DynamicMatcher } from './plugins/types'
 
 export interface ExpectInterface {
@@ -19,6 +20,7 @@ export interface ExpectInterface {
   numberCloseTo: typeof NumberCloseToMatcher.make
   containerWith: typeof ContainerWithMatcher.make
   arrayWith: typeof ArrayWithMatcher.make
+  objectWith: typeof ObjectWithMatcher.make
 }
 
 export const expect: ExpectInterface = <T>(actual: T, options: ExpectationOptions = {}): Expectation<T> => {
@@ -30,6 +32,7 @@ expect.stringMatching = StringMatchingMatcher.make
 expect.numberCloseTo = NumberCloseToMatcher.make
 expect.containerWith = ContainerWithMatcher.make
 expect.arrayWith = ArrayWithMatcher.make
+expect.objectWith = ObjectWithMatcher.make
 
 // dynamically load new matchers and attach to expect object
 // used by plugin loader
