@@ -87,6 +87,6 @@ export function smartEq(actual: any, expected: any, strict: boolean = true): Sma
 
 // dynamicRules are used by plugin system
 const dynamicRules: SmartEqRule[] = []
-export function loadSmartEqRules(rules: SmartEqRule[]): void {
+export function loadSmartEqRules(rules: ReadonlyArray<SmartEqRule>): void {
   dynamicRules.push(...rules)
 }

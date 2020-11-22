@@ -1,13 +1,12 @@
-import { EvenNumberMatcher, toBeEven } from './src/NumberUtilsPlugin'
+import { numberUtilsPlugin } from './src/NumberUtilsPlugin'
+
+type Config = typeof numberUtilsPlugin
+type Matchers = Config['matchers']
+type Validators = Config['validators']
 
 declare module 'earljs' {
-  interface ExpectInterface {
-    evenNumber: typeof EvenNumberMatcher.make
-  }
-
-  interface Expectation<T> {
-    toBeEven: typeof toBeEven
-  }
+  interface ExpectInterface extends Matchers {}
+  interface Expectation<T> extends Validators {}
 }
 
 export {}

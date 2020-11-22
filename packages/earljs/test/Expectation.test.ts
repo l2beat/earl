@@ -1,7 +1,8 @@
 import { expect } from 'chai'
 import sinon from 'sinon'
 
-import { Expectation } from '../src/Expectation'
+import { Expectation, loadValidators } from '../src/Expectation'
+import { clearModuleCache } from './common'
 
 describe('assert', () => {
   const success = { success: true, reason: 'Failure', negatedReason: 'Negated failure' }
@@ -28,6 +29,38 @@ describe('assert', () => {
 
     it('doesnt throw when validation was unsuccessful', () => {
       expect(() => expectation['assert'](failure)).not.to.throw()
+    })
+  })
+
+  type ExpectationType = typeof Expectation
+  type loadValidatorsType = typeof loadValidators
+  describe('plugin', () => {
+    let Expectation: ExpectationType
+    let loadValidators: loadValidatorsType
+    beforeEach(() => {
+      clearModuleCache()
+      ;({ Expectation, loadValidators } = require('../src/Expectation'))
+    })
+
+    afterEach(clearModuleCache)
+
+    it('adds new validators', () => {
+      function totallyNewValidator(this: any) {
+        const ctrl = this.getControl()
+        ctrl.assert({ success: false, reason: 'fail', negatedReason: 'fail' })
+      }
+      loadValidators({ totallyNewValidator })
+
+      const expectation = new Expectation(undefined, undefined, undefined)
+
+      expect((expectation as any).totallyNewValidator).to.be.instanceOf(Function)
+      expect(() => (expectation as any).totallyNewValidator()).to.throw('fail')
+    })
+
+    it('clears cache correctly', () => {
+      const expectation = new Expectation(undefined, undefined, undefined)
+
+      expect((expectation as any).totallyNewValidator).to.be.undefined
     })
   })
 })
