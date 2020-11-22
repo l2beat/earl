@@ -1,6 +1,6 @@
 {
-  "projectName": "y",
-  "projectOwner": "y",
+  "projectName": "earl",
+  "projectOwner": "earl-js",
   "repoType": "github",
   "repoHost": "https://github.com",
   "files": [
@@ -58,6 +58,15 @@
       "profile": "https://pantas.net",
       "contributions": [
         "doc"
+      ]
+    },
+    {
+      "login": "grzpab",
+      "name": "grzpab",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/35925521?v=4",
+      "profile": "https://github.com/grzpab",
+      "contributions": [
+        "code"
       ]
     }
   ],
