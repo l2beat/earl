@@ -13,15 +13,15 @@ describe('ObjectWith matcher', () => {
     expect(m.check('')).to.be.false
     expect(m.check(false)).to.be.false
     expect(m.check(() => 0)).to.be.false
+    expect(m.check(new Set())).to.be.false
+    expect(m.check(new Map())).to.be.false
+    expect(m.check([])).to.be.false
   })
 
   it('matches objects', () => {
     const m = new ObjectWithMatcher({})
 
     expect(m.check({})).to.be.true
-    expect(m.check(new Set())).to.be.true
-    expect(m.check(new Map())).to.be.true
-    expect(m.check([])).to.be.true
   })
 
   it('matches objects with a single key-value pair', () => {
