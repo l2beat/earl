@@ -6,22 +6,24 @@ import { Matcher } from './Base'
  * Matches an iterable containing a given item.
  */
 export class ContainerWithMatcher<T> extends Matcher {
-  constructor(private readonly item: T) {
+  constructor(private readonly expectedItems: ReadonlyArray<T>) {
     super()
   }
 
-  check(v: unknown): boolean {
-    if (!isIterableAndNotString(v)) {
+  check(actualItems: unknown): boolean {
+    if (!isIterableAndNotString(actualItems)) {
       return false
     }
 
-    const items = Array.from(v)
+    const items = Array.from(actualItems)
 
-    return items.some((i) => smartEq(i, this.item).result === 'success')
+    return this.expectedItems.every((expectedItem) =>
+      items.some((actualItem) => smartEq(actualItem, expectedItem).result === 'success'),
+    )
   }
 
   toString() {
-    return `[ContainerWith: ${this.item}]`
+    return `[ContainerWith: ${this.expectedItems}]`
   }
 
   // TODO: for now this has to be typed as any. Otherwise types won't match ie.
@@ -30,7 +32,7 @@ export class ContainerWithMatcher<T> extends Matcher {
   // if we type it as T[] it's fine but then it won't work with iterators
   // if we type is as IterableIterator<T> then it is not assignable to T[] anymore :/
   // this is a problem for all polymorphic matchers
-  static make(item: any): any {
-    return new ContainerWithMatcher(item) as any
+  static make(...items: any[]): any {
+    return new ContainerWithMatcher(items) as any
   }
 }
