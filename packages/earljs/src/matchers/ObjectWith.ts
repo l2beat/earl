@@ -27,7 +27,7 @@ export class ObjectWithMatcher<T> extends Matcher {
     return `[ObjectWith: ${this.expectedItem}]`
   }
 
-  static make<T>(expectedItem: T): T {
+  static make<T>(expectedItem: T): any {
     return new ObjectWithMatcher(expectedItem) as any
   }
 }

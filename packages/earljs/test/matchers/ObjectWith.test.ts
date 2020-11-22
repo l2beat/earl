@@ -58,13 +58,9 @@ describe('ObjectWith matcher', () => {
 
       earlExpect({}).not.toEqual(earlExpect.objectWith({ a: 1 }))
 
-      // @ts-expect-error
       earlExpect({ a: 1 }).not.toEqual(earlExpect.objectWith({ a: '2' }))
-      // @ts-expect-error
       earlExpect({ a: 1 }).not.toEqual(earlExpect.objectWith({ b: 1 }))
-      // @ts-expect-error
       earlExpect({ a: 1 as const }).not.toEqual(earlExpect.objectWith({ a: 2 as const }))
-      // @ts-expect-error
       earlExpect({ a: 1, b: '2' }).toEqual(earlExpect.objectWith({ a: 1 }))
     })
 
