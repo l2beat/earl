@@ -1,3 +1,5 @@
+import { isPlainObject } from 'lodash'
+
 import { smartEq } from '../validators/smartEq'
 import { Matcher } from './Base'
 
@@ -14,7 +16,7 @@ export class ObjectWithMatcher<T extends Object> extends Matcher {
       return false
     }
 
-    if ([Set.prototype, Map.prototype, Array.prototype].includes(Object.getPrototypeOf(actualItem))) {
+    if (!isPlainObject(actualItem)) {
       return false
     }
 
@@ -31,7 +33,7 @@ export class ObjectWithMatcher<T extends Object> extends Matcher {
     return `[ObjectWith: ${this.expectedItem}]`
   }
 
-  static make<T extends Object>(expectedItem: T): any {
-    return new ObjectWithMatcher(expectedItem) as any
+  static make(expectedItem: Object): any {
+    return new ObjectWithMatcher(expectedItem)
   }
 }
