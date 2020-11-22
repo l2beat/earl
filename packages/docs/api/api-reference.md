@@ -23,6 +23,8 @@ title: API reference
 - [`expect.a(class)`](#expectaclass)
 - [`stringMatching(substring | regexp)`](#expectstringmatchingsubstring--regexp)
 - [`numberCloseTo(expected: number, { delta: number })`](#expectnumberclosetoexpected-number--delta-number-)
+- [`expect.containerWith<T>(...items: T[])`](#expectcontainerwithvalue-t)
+- [`expect.arrayWith<T>(...items: T[])`](#expectarraywithvalues-t)
 
 ### Modifiers
 
@@ -151,6 +153,10 @@ The range is <expected - delta, expected + delta> (inclusive).
 #### expect.containerWith(value: T)
 
 Matches a iterable (array / set etc.) containing value
+
+#### expect.arrayWith(...values: T)
+
+Matches an array containing expected value or values.
 
 ### Modifiers
 
