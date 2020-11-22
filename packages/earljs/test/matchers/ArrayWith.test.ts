@@ -18,7 +18,7 @@ describe('ArrayWith matcher', () => {
 
     expect(m.check([])).to.be.false
     expect(m.check(['a'])).to.be.false
-    expect(m.check([1])).to.be.true
+    expect(m.check([1])).to.be.false
     expect(m.check([1, 2, 3])).to.be.true
     expect(m.check([1, 2, 3, 4, 5, 6])).to.be.true
   })
@@ -36,11 +36,11 @@ describe('ArrayWith matcher', () => {
     it('works', () => {
       earlExpect([1, 2, 3]).toEqual(earlExpect.arrayWith(3))
       earlExpect([1, 2, 3]).toEqual(earlExpect.arrayWith(1, 2, 3))
-      earlExpect([1, 2, 3]).toEqual(earlExpect.arrayWith(1, 2, 3, 4, 5, 6))
+      earlExpect([1, 2, 3]).not.toEqual(earlExpect.arrayWith(1, 2, 3, 4, 5, 6))
     })
 
     it('works with nested matchers', () => {
-      earlExpect({ arr: [1, 5, 10] }).toEqual({
+      earlExpect({ arr: [5] }).toEqual({
         arr: earlExpect.arrayWith(earlExpect.numberCloseTo(6, { delta: 1 })),
       })
     })

@@ -5,20 +5,22 @@ import { Matcher } from './Base'
  * Matches an array containing the given item.
  */
 export class ArrayWithMatcher<T> extends Matcher {
-  constructor(private readonly items: ReadonlyArray<T>) {
+  constructor(private readonly expectedItems: ReadonlyArray<T>) {
     super()
   }
 
-  check(v: unknown): boolean {
-    if (!Array.isArray(v)) {
+  check(actualItems: unknown): boolean {
+    if (!Array.isArray(actualItems)) {
       return false
     }
 
-    return v.some((i) => this.items.some((item) => smartEq(i, item).result === 'success'))
+    return this.expectedItems.every((expectedItem) =>
+      actualItems.some((actualItem) => smartEq(actualItem, expectedItem).result === 'success'),
+    )
   }
 
   toString() {
-    return `[ArrayWith: ${this.items}]`
+    return `[ArrayWith: ${this.expectedItems}]`
   }
 
   static make<T>(...items: T[]): T[] {
