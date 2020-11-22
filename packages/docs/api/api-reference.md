@@ -25,6 +25,7 @@ title: API reference
 - [`numberCloseTo(expected: number, { delta: number })`](#expectnumberclosetoexpected-number--delta-number-)
 - [`expect.containerWith<T>(...items: T[])`](#expectcontainerwithvalue-t)
 - [`expect.arrayWith<T>(...items: T[])`](#expectarraywithvalues-t)
+- [`expect.objectWith<T>(item: T)`](#expectobjectwith)
 
 ### Modifiers
 
@@ -157,6 +158,10 @@ Matches a iterable (array / set etc.) containing value
 #### expect.arrayWith(...values: T)
 
 Matches an array containing expected value or values.
+
+#### expect.objectWith(value: T)
+
+Matches an object containing given key-value pairs.
 
 ### Modifiers
 
