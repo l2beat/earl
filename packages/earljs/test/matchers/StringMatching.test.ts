@@ -27,6 +27,12 @@ describe('StringContaining matcher', () => {
       expect(m.check('tes')).to.be.false
       expect(m.check('abc-acbc')).to.be.false
     })
+
+    it('matches strings with special characters', () => {
+      const m = new StringMatchingMatcher('"[test]"')
+
+      expect(m.check('abc "[test]" abc')).to.be.true
+    })
   })
 
   describe('with regex', () => {

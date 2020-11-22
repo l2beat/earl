@@ -3,9 +3,14 @@ import { expect } from 'earljs'
 describe('NumberUtilsPlugin', () => {
   it('EvenNumberMatcher works', () => {
     expect(2).toEqual(expect.evenNumber())
+  })
 
+  it('EvenNumberMatchers is typesafe', () => {
     // it's typesafe! this is a compile time error
-    // expect('2').toEqual(expect.evenNumber())
+    // @ts-expect-error
+    expect(() => expect('2').toEqual(expect.evenNumber())).toThrow(
+      expect.stringMatching('"2" not equal to "[EvenNumberMatcher]"'),
+    )
   })
 
   it('toBeEven works', () => {

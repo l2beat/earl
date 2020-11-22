@@ -4,25 +4,26 @@ import { Matcher } from './Base'
  * Matches any string that contains another string
  */
 export class StringMatchingMatcher extends Matcher {
-  private readonly pattern: RegExp
   constructor(substring: string)
   constructor(pattern: RegExp)
-  constructor(patternOrSubString: string | RegExp) {
+  constructor(private readonly patternOrSubString: string | RegExp) {
     super()
-
-    if (typeof patternOrSubString === 'string') {
-      this.pattern = new RegExp(patternOrSubString)
-    } else {
-      this.pattern = patternOrSubString
-    }
   }
 
   check(v: unknown) {
-    return typeof v === 'string' && this.pattern.test(v)
+    if (typeof v !== 'string') {
+      return false
+    }
+
+    if (typeof this.patternOrSubString === 'string') {
+      return v.indexOf(this.patternOrSubString) !== -1
+    } else {
+      return this.patternOrSubString.test(v)
+    }
   }
 
   toString(): string {
-    return `[StringMatching: ${this.pattern}]`
+    return `[StringMatching: ${this.patternOrSubString}]`
   }
 
   static make(substring: string): string

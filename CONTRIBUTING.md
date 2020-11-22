@@ -1,20 +1,20 @@
 # Contributing
 
-We welcome all kinds of contributions! Feel free to create a issue when in doubt
-and take part in RFCs discussions.
+We welcome all kinds of contributions! Feel free to create an issue when in
+doubt and take part in RFCs discussions.
 
 ## Developing
 
-First run `yarn` and `yarn build` to install all deps and build project. If you
-run into any problems while installing dependencies consider using the node
+First run `yarn` and `yarn build` to install all deps and build a project. If
+you run into any problems while installing dependencies consider using the node
 version specified in `.nvmrc` file. Personally, I use `fnm` with shell
-integration to automatically pick up `.nvmrc` file and install correct version
-but simple `nvm` also will do.
+integration to automatically pick up `.nvmrc` file and install the correct
+version but simple `nvm` also will do.
 
 ### Project structure
 
-We use monorepo with yarn workspaces. Main package is placed under
-`packages/earljs`, and this is where probably you will spend most time.
+We use monorepo with yarn workspaces. The main package is placed under
+`packages/earljs`, and this is where probably you will spend the most time.
 
 ### Running tests
 
