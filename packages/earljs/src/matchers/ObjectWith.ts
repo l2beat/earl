@@ -1,5 +1,6 @@
 import { isPlainObject } from 'lodash'
 
+import { formatValue } from '../validators/common'
 import { smartEq } from '../validators/smartEq'
 import { Matcher } from './Base'
 
@@ -12,10 +13,6 @@ export class ObjectWithMatcher<T extends Object> extends Matcher {
   }
 
   check(actualItem: unknown): boolean {
-    if (typeof actualItem !== 'object' || actualItem === null) {
-      return false
-    }
-
     if (!isPlainObject(actualItem)) {
       return false
     }
@@ -30,7 +27,7 @@ export class ObjectWithMatcher<T extends Object> extends Matcher {
   }
 
   toString() {
-    return `[ObjectWith: ${this.expectedItem}]`
+    return `[ObjectWith: ${formatValue(this.expectedItem)}]`
   }
 
   static make(expectedItem: Object): any {
