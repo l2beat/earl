@@ -1,5 +1,11 @@
 # earljs
 
+## 0.1.4
+
+### Patch Changes
+
+- 591dccc: Add readme to the final npm package
+
 ## 0.1.3
 
 ### Patch Changes
