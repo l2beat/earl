@@ -4,7 +4,7 @@ import Layout from '@theme/Layout'
 import Link from '@docusaurus/Link'
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext'
 import useBaseUrl from '@docusaurus/useBaseUrl'
-import Head from '@docusaurus/Head';
+import Head from '@docusaurus/Head'
 
 import styles from './styles.module.css'
 
@@ -12,22 +12,27 @@ const features = [
   {
     title: <>Powerful</>,
     emoji: '💪',
-    description: <>Use advanced assertions that are able to match whole ranges of values.</>,
+    description: <>Use advanced assertions that are able to match whole ranges of values</>,
   },
   {
     title: <>Type-safe</>,
     emoji: '🤖',
-    description: <>Written in TypeScript with type-safety in mind.</>,
+    description: <>Written in TypeScript with type-safety in mind</>,
   },
   {
     title: <>Mocks</>,
     emoji: '🎭',
-    description: <>Type-safe, fully integrated mocks included!</>,
+    description: <>Type-safe, fully integrated mocks included</>,
   },
   {
     title: <>Works great with Mocha</>,
     emoji: '☕',
-    description: <>Finally a modern assertion library for Mocha.</>,
+    description: <>Finally a modern assertion library for Mocha</>,
+  },
+  {
+    title: <>Extensible</>,
+    emoji: '🔌',
+    description: <>Tweak to your needs with plugins</>,
   },
 ]
 

@@ -37,7 +37,7 @@
     "lint:fix": "yarn lint --fix",
     "typecheck": "tsc --noEmit",
     "clean": "rm -rf dist",
-    "build": "yarn clean && tsc -p ./tsconfig.prod.json",
+    "build": "yarn clean && tsc -p ./tsconfig.prod.json && cp ../../README.md .",
     "build:watch": "yarn clean && tsc -p ./tsconfig.prod.json --watch",
     "build:watch:test": "yarn clean && tsc -p ./tsconfig.json --watch",
     "test": "mocha",
