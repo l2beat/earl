@@ -45,7 +45,6 @@
     "prepublishOnly": "yarn lint && yarn format && yarn typecheck && yarn test && yarn build"
   },
   "dependencies": {
-    "@babel/traverse": "^7.12.9",
     "debug": "^4.1.1",
     "jest-snapshot": "^26.6.2",
     "lodash": "^4.17.15",

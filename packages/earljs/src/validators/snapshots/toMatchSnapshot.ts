@@ -1,7 +1,8 @@
 import { EarlConfigurationError } from '../../errors'
 import { Control } from '../common'
-import { CompareSnapshot, compareSnapshotUsingJest } from './compareSnapshot'
+import { CompareSnapshot } from './compareSnapshot'
 import { Env, getSnapshotFilePath, getSnapshotFullName, getUpdateSnapshotMode } from './helpers'
+import { compareSnapshotUsingJest } from './jestCompareSnapshot'
 
 export function toMatchSnapshot(
   ctrl: Control<any>,
