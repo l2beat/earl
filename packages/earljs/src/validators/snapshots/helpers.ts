@@ -2,6 +2,7 @@ import { basename, dirname, extname, join } from 'path'
 
 import { TestInfo } from '../../test-runners'
 
+export type ShouldUpdateSnapshots = () => boolean
 export function shouldUpdateSnapshots(): boolean {
   return process.env.EARLJS_UPDATE_SNAPSHOTS === 'true'
 }

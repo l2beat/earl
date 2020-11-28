@@ -1,9 +1,15 @@
 import { EarlConfigurationError } from '../../errors'
 import { Control } from '../common'
 import { CompareSnapshot, compareSnapshotUsingJest } from './compareSnapshot'
-import { getSnapshotFilePath, getSnapshotFullName, shouldUpdateSnapshots } from './helpers'
+import { getSnapshotFilePath, getSnapshotFullName, ShouldUpdateSnapshots, shouldUpdateSnapshots } from './helpers'
 
-export function toMatchSnapshot(ctrl: Control<any>, compareSnapshot: CompareSnapshot = compareSnapshotUsingJest): void {
+export function toMatchSnapshot(
+  ctrl: Control<any>,
+  { compareSnapshot }: { compareSnapshot: CompareSnapshot; shouldUpdateSnapshots: ShouldUpdateSnapshots } = {
+    compareSnapshot: compareSnapshotUsingJest,
+    shouldUpdateSnapshots,
+  },
+): void {
   if (ctrl.isNegated) {
     throw new EarlConfigurationError("toMatchSnapshot can't be negated")
   }
@@ -29,7 +35,7 @@ export function toMatchSnapshot(ctrl: Control<any>, compareSnapshot: CompareSnap
   } else {
     ctrl.assert({
       success: result.success,
-      reason: 'Snapshot not matched',
+      reason: "Snapshot doesn't match",
       negatedReason: '-',
       actual: result.actual,
       expected: result.expected,
