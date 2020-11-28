@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`snapshots works 1`] = `
+Object {
+  "very": Object {
+    "nested": Object {
+      "wow": "wow",
+    },
+  },
+}
+`;

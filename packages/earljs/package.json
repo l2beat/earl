@@ -25,9 +25,9 @@
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "files": [
-    "mocha.js",
     "dist/**/*",
-    "internals/package.json"
+    "internals/package.json",
+    "mocha/package.json"
   ],
   "scripts": {
     "start": "ts-node -T ./src/index.ts",
@@ -45,13 +45,16 @@
     "prepublishOnly": "yarn lint && yarn format && yarn typecheck && yarn test && yarn build"
   },
   "dependencies": {
+    "@babel/traverse": "^7.12.9",
     "debug": "^4.1.1",
+    "jest-snapshot": "^26.6.2",
     "lodash": "^4.17.15",
-    "pretty-format": "^26.1.0",
+    "pretty-format": "^26.6.2",
     "ts-essentials": "^6.0.5"
   },
   "devDependencies": {
     "@types/debug": "^4.1.5",
-    "@types/lodash": "^4.14.150"
+    "@types/lodash": "^4.14.150",
+    "prettier": "^2.2.0"
   }
 }

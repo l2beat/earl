@@ -1,11 +1,13 @@
-import { AssertionError } from './AssertionError'
+import { AssertionError } from './errors'
 import { AnythingMatcher } from './matchers/Anything'
 import { ErrorMatcher } from './matchers/Error'
 import { Mock, MockArgs } from './mocks'
 import { DynamicValidator } from './plugins/types'
+import { TestRunnerCtx } from './test-runners/TestRunnerCtx'
 import { Newable } from './types'
 import { Control, ValidationResult } from './validators/common'
 import { toBeExhausted, toHaveBeenCalledExactlyWith, toHaveBeenCalledWith } from './validators/mocks'
+import { toMatchSnapshot } from './validators/snapshots/toMatchSnapshot'
 import { toBeRejected } from './validators/toBeRejected'
 import { toEqual } from './validators/toEqual'
 import { toLooseEqual } from './validators/toLooseEqual'
@@ -89,6 +91,10 @@ export class Expectation<T> {
     return toHaveBeenCalledExactlyWith(this.getControl(), expectedCalls)
   }
 
+  toMatchSnapshot(this: Expectation<any>): void {
+    toMatchSnapshot(this.getControl())
+  }
+
   // utils
 
   private getControl(): Control<T> {
@@ -96,6 +102,7 @@ export class Expectation<T> {
       actual: this.actual,
       assert: this.assert.bind(this),
       isNegated: this.isNegated,
+      testRunnerCtx,
     }
   }
 
@@ -129,4 +136,9 @@ export function loadValidators(validators: Record<string, DynamicValidator<any>>
   for (const [name, validator] of Object.entries(validators)) {
     dynamicValidators[name] = validator
   }
+}
+
+let testRunnerCtx: TestRunnerCtx | undefined
+export function setTestRunnerIntegration(_testRunnerCtx: TestRunnerCtx) {
+  testRunnerCtx = _testRunnerCtx
 }
