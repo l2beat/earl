@@ -30,12 +30,12 @@ describe('toMatchSnapshot', () => {
       return { success: true } as any
     })
 
-    toMatchSnapshot(dummyCtrl, { compareSnapshot: dummyCompareSnapshot, shouldUpdateSnapshots: () => false })
+    toMatchSnapshot(dummyCtrl, { compareSnapshot: dummyCompareSnapshot, env: {} })
 
     expect(dummyCompareSnapshot).to.have.been.calledOnceWithExactly({
       actual: 'test123',
       name: 'Dummy suit works',
-      shouldUpdateSnapshots: false,
+      updateSnapshotMode: 'new',
       snapshotFilePath: '/tests/__snapshots__/dummy.test.snap',
     })
 
@@ -48,12 +48,12 @@ describe('toMatchSnapshot', () => {
       return { success: false, actual: 'test123', expected: 'abc' } as any
     })
 
-    toMatchSnapshot(dummyCtrl, { compareSnapshot: dummyCompareSnapshot, shouldUpdateSnapshots: () => false })
+    toMatchSnapshot(dummyCtrl, { compareSnapshot: dummyCompareSnapshot, env: {} })
 
     expect(dummyCompareSnapshot).to.have.been.calledOnceWithExactly({
       actual: 'test123',
       name: 'Dummy suit works',
-      shouldUpdateSnapshots: false,
+      updateSnapshotMode: 'new',
       snapshotFilePath: '/tests/__snapshots__/dummy.test.snap',
     })
     expect(dummyCtrl.assert).to.have.been.calledOnceWithExactly({

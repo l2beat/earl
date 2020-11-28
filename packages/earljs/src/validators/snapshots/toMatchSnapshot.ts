@@ -1,13 +1,13 @@
 import { EarlConfigurationError } from '../../errors'
 import { Control } from '../common'
 import { CompareSnapshot, compareSnapshotUsingJest } from './compareSnapshot'
-import { getSnapshotFilePath, getSnapshotFullName, ShouldUpdateSnapshots, shouldUpdateSnapshots } from './helpers'
+import { Env, getSnapshotFilePath, getSnapshotFullName, getUpdateSnapshotMode } from './helpers'
 
 export function toMatchSnapshot(
   ctrl: Control<any>,
-  { compareSnapshot }: { compareSnapshot: CompareSnapshot; shouldUpdateSnapshots: ShouldUpdateSnapshots } = {
+  { compareSnapshot, env }: { compareSnapshot: CompareSnapshot; env: Env } = {
     compareSnapshot: compareSnapshotUsingJest,
-    shouldUpdateSnapshots,
+    env: process.env,
   },
 ): void {
   if (ctrl.isNegated) {
@@ -26,7 +26,7 @@ export function toMatchSnapshot(
     actual: ctrl.actual,
     name: fullName,
     snapshotFilePath: snapshotFilePath,
-    shouldUpdateSnapshots: shouldUpdateSnapshots(),
+    updateSnapshotMode: getUpdateSnapshotMode(env),
   })
 
   if (result.success) {

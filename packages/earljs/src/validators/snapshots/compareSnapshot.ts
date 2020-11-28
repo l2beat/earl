@@ -1,8 +1,13 @@
 import { SnapshotState, toMatchSnapshot as toMatchSnapshotJest } from 'jest-snapshot'
 
+export type UpdateSnapshotMode =
+  | 'all' // when used with UPDATE_SNAPSHOTS env
+  | 'new' // default mode
+  | 'none' // when running on CI
+
 export type CompareSnapshot = (options: {
   actual: any
-  shouldUpdateSnapshots: boolean
+  updateSnapshotMode: UpdateSnapshotMode
   snapshotFilePath: string
   name: string
 }) => SnapshotComparisonResult
@@ -13,14 +18,9 @@ type SnapshotComparisonResult =
     }
   | { success: false; actual: any; expected: any }
 
-export const compareSnapshotUsingJest: CompareSnapshot = ({
-  actual,
-  shouldUpdateSnapshots,
-  snapshotFilePath,
-  name,
-}) => {
+export const compareSnapshotUsingJest: CompareSnapshot = ({ actual, updateSnapshotMode, snapshotFilePath, name }) => {
   const snapshotState = new SnapshotState(snapshotFilePath, {
-    updateSnapshot: shouldUpdateSnapshots ? 'all' : 'new',
+    updateSnapshot: updateSnapshotMode,
     getBabelTraverse: () => require('@babel/traverse').default,
     getPrettier: () => null, // @todo get prettier config
   })
