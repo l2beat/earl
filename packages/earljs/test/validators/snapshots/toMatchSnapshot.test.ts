@@ -7,22 +7,25 @@ import { toMatchSnapshot } from '../../../src/validators/snapshots'
 import { CompareSnapshot } from '../../../src/validators/snapshots/compareSnapshot'
 
 describe('toMatchSnapshot', () => {
+  const makeDummyTestRunnerCtx = (): TestRunnerCtx => ({
+    afterTestCase: spy(),
+    beforeTestCase: spy(),
+    testInfo: {
+      suitName: ['Dummy suit'],
+      testName: 'works',
+      testFilePath: '/tests/dummy.test.ts',
+    },
+  })
+
+  const makeDummyCtrl = (): Control<any> => ({
+    actual: 'test123',
+    isNegated: false,
+    assert: spy(),
+    testRunnerCtx: makeDummyTestRunnerCtx(),
+  })
+
   it('creates new snapshots', () => {
-    const dummyTestRunnerCtx: TestRunnerCtx = {
-      afterTestCase: spy(),
-      beforeTestCase: spy(),
-      testInfo: {
-        suitName: ['Dummy suit'],
-        testName: 'works',
-        testFilePath: '/tests/dummy.test.ts',
-      },
-    }
-    const dummyCtrl: Control<any> = {
-      actual: 'test123',
-      isNegated: false,
-      assert: spy(),
-      testRunnerCtx: dummyTestRunnerCtx,
-    }
+    const dummyCtrl = makeDummyCtrl()
     const dummyCompareSnapshot: CompareSnapshot = spy(() => {
       return { success: true } as any
     })
@@ -40,21 +43,7 @@ describe('toMatchSnapshot', () => {
   })
 
   it('matches existing snapshots', () => {
-    const dummyTestRunnerCtx: TestRunnerCtx = {
-      afterTestCase: spy(),
-      beforeTestCase: spy(),
-      testInfo: {
-        suitName: ['Dummy suit'],
-        testName: 'works',
-        testFilePath: '/tests/dummy.test.ts',
-      },
-    }
-    const dummyCtrl: Control<any> = {
-      actual: 'test123',
-      isNegated: false,
-      assert: spy(),
-      testRunnerCtx: dummyTestRunnerCtx,
-    }
+    const dummyCtrl = makeDummyCtrl()
     const dummyCompareSnapshot: CompareSnapshot = spy(() => {
       return { success: false, actual: 'test123', expected: 'abc' } as any
     })
@@ -67,7 +56,6 @@ describe('toMatchSnapshot', () => {
       shouldUpdateSnapshots: false,
       snapshotFilePath: '/tests/__snapshots__/dummy.test.snap',
     })
-
     expect(dummyCtrl.assert).to.have.been.calledOnceWithExactly({
       success: false,
       actual: 'test123',

@@ -20,7 +20,6 @@ export function toMatchSnapshot(
   }
 
   const snapshotFilePath = getSnapshotFilePath(ctrl.testRunnerCtx.testInfo.testFilePath)
-
   const fullName = getSnapshotFullName(ctrl.testRunnerCtx.testInfo)
 
   const result = compareSnapshot({
