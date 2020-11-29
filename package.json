@@ -20,7 +20,7 @@
     "build:noweb": "wsrun -x website -temc build",
     "test": "wsrun -emc test",
     "test:fix": "wsrun -emc test:fix",
-    "release": "wsrun -smec release"
+    "release": "wsrun -smec release && yarn changeset publish"
   },
   "devDependencies": {
     "@changesets/cli": "^2.11.2",
