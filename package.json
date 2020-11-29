@@ -19,7 +19,8 @@
     "build": "wsrun -temc build",
     "build:noweb": "wsrun -x website -temc build",
     "test": "wsrun -emc test",
-    "test:fix": "wsrun -emc test:fix"
+    "test:fix": "wsrun -emc test:fix",
+    "release": "wsrun -smec release"
   },
   "devDependencies": {
     "@changesets/cli": "^2.11.2",
