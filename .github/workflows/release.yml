@@ -30,15 +30,10 @@ jobs:
       - name: Install
         run: yarn --no-progress --non-interactive --frozen-lockfile
 
-      - name: Setup SSH debug session
-        uses: mxschmitt/action-tmate@v2
-        env:
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-
       - name: Create Release Pull Request or Publish to npm
         uses: changesets/action@master
         with:
           publish: yarn release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN2 }}
