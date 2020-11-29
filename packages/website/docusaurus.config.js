@@ -24,7 +24,7 @@ module.exports = {
           position: 'left',
         },
         {
-          href: 'https://github.com/earljs/earl',
+          href: 'https://github.com/earl-js/earl',
           label: 'GitHub',
           position: 'right',
         },
@@ -60,7 +60,7 @@ module.exports = {
           items: [
             {
               label: 'GitHub',
-              href: 'https://github.com/earljs/earl',
+              href: 'https://github.com/earl-js/earl',
             },
           ],
         },
@@ -77,7 +77,7 @@ module.exports = {
           path: '../docs',
           homePageId: 'introduction/getting-started',
           sidebarPath: require.resolve('./sidebars.js'),
-          editUrl: 'https://github.com/earljs/earl/edit/master/website/',
+          editUrl: 'https://github.com/earl-js/earl/edit/master/website/',
         },
         theme: {
           customCss: require.resolve('./src/css/custom.css'),

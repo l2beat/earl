@@ -18,6 +18,7 @@
 - 🤖 Type-safe - written in TypeScript and goes well with static analysis
 - 🎭 Builtin support for mocks
 - ☕ Works great with Mocha
+- 📸 Snapshot testing
 - 🔌 Extensible with plugins
 
 ## Installation
