@@ -1,5 +1,11 @@
 # earljs
 
+## 0.1.5
+
+### Patch Changes
+
+- 1eac490: Add `toMatchSnapshot` validator
+
 ## 0.1.4
 
 ### Patch Changes
