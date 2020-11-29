@@ -4,8 +4,8 @@ export type TestRunnerHook = () => AsyncOrSync<void>
 
 export interface TestRunnerCtx {
   testInfo: TestInfo
-  beforeTestCase(fn: Function): void
-  afterTestCase(fn: Function): void
+  beforeTestCase(fn: TestRunnerHook): void
+  afterTestCase(fn: TestRunnerHook): void
 }
 
 export interface TestInfo {
