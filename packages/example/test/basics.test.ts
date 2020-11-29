@@ -29,6 +29,9 @@ describe('basics', () => {
         deep: expect.a(Object),
       },
     })
+
     expect(true).toEqual(true)
+
+    expect(response).toMatchSnapshot()
   })
 })

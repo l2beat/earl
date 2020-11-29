@@ -16,6 +16,7 @@ title: API reference
 - [`toBeExhausted()`](#tobeexhausted)
 - [`toHaveBeenCalledWith(args)`](#tohavebeencalledwithargs)
 - [`toHaveBeenCalledExactlyWith(args)`](#tohavebeencalledexactlywithargs)
+- [`toMatchSnapshot()`](#tomatchsnapshot)
 
 ### Matchers
 
@@ -119,6 +120,16 @@ Checks if mock was called with a given arguments. Order of calls doesn't matter.
 
 Checks if mock was called with all given arguments. Order of calls matter.
 `args` is an array of array of arguments, argument can be a matcher.
+
+#### toMatchSnapshot()
+
+Match actual value to a snapshot. The name of the snapshot is derived from the
+suite and test case names. A snapshot will be created under `__snapshot__`
+folder.
+
+Set `UPDATE_SNAPSHOTS=true` environment variable to update snapshots.
+
+Requires [test runner integration](/guides/test-runner-integration.md).
 
 ### Matchers
 

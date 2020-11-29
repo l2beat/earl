@@ -30,6 +30,11 @@ const features = [
     description: <>Finally a modern assertion library for Mocha</>,
   },
   {
+    title: <>Snapshot testing</>,
+    emoji: '📸',
+    description: <>Snapshots can be easily created and updated with Earl</>,
+  },
+  {
     title: <>Extensible</>,
     emoji: '🔌',
     description: <>Tweak to your needs with plugins</>,
