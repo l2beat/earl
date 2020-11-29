@@ -16,8 +16,9 @@ export function toMatchSnapshot(
   }
 
   if (!ctrl.testRunnerCtx) {
-    // @todo add docs url to improve error messages
-    throw new EarlConfigurationError('Test runner integration is required for snapshot support')
+    throw new EarlConfigurationError(
+      'Test runner integration is required for snapshot support. Read more: https://earljs.dev/docs/guides/test-runner-integration',
+    )
   }
 
   const snapshotFilePath = getSnapshotFilePath(ctrl.testRunnerCtx.testInfo.testFilePath)
