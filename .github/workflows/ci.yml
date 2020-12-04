@@ -47,6 +47,9 @@ jobs:
       - name: Typecheck
         run: yarn typecheck
 
+      - name: Setup SSH debug session
+        uses: mxschmitt/action-tmate@v2
+
   deploy-docs:
     needs:
       - build
