@@ -3,7 +3,7 @@ import { expect } from 'chai'
 import { expect as earl } from '../../../src'
 import { mockFn } from '../../../src/mocks'
 
-const sum = (a: number, b: number) => a + b
+const sum = (a: number, b: number = 0) => a + b
 
 describe('toHaveBeenCalledExactlyWith', () => {
   describe('not negated', () => {
@@ -26,13 +26,13 @@ describe('toHaveBeenCalledExactlyWith', () => {
 
       mock(1, 2)
 
-      expect(() => earl(mock).toHaveBeenCalledExactlyWith([[1, 2, earl.a(Number)]])).not.to.throw()
+      expect(() => earl(mock).toHaveBeenCalledExactlyWith([[1, earl.a(Number)]])).not.to.throw()
     })
 
     it('throws on partial matches', () => {
       const mock = mockFn(sum)
 
-      mock(1, 2)
+      mock(1)
 
       expect(() => earl(mock).toHaveBeenCalledExactlyWith([[1, 2]])).to.throw(
         'Mock was not called exactly with [[1, 2]] but was expected to',
@@ -46,8 +46,8 @@ describe('toHaveBeenCalledExactlyWith', () => {
 
       mock(1, 2)
 
-      expect(() => earl(mock).not.toHaveBeenCalledExactlyWith([[1, 2, 3]])).to.throw(
-        "Mock was called exactly with [[1, 2, 3]] but wasn't expected to",
+      expect(() => earl(mock).not.toHaveBeenCalledExactlyWith([[1, 2]])).to.throw(
+        "Mock was called exactly with [[1, 2]] but wasn't expected to",
       )
     })
 
@@ -56,7 +56,7 @@ describe('toHaveBeenCalledExactlyWith', () => {
 
       mock(1, 2)
 
-      expect(() => earl(mock).not.toHaveBeenCalledExactlyWith([[1, 2]])).not.to.throw()
+      expect(() => earl(mock).not.toHaveBeenCalledExactlyWith([[1, 3]])).not.to.throw()
     })
 
     it('works with empty mocks', () => {
