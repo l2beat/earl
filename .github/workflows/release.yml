@@ -31,10 +31,12 @@ jobs:
       - name: Install
         run: yarn --no-progress --non-interactive --frozen-lockfile
 
-      - name: Create Release Pull Request or Publish to npm
+      - name: Either creates release PR or releases everything (packages to npm, documentation do netlify)
         uses: changesets/action@master
         with:
           publish: yarn release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN2 }}
+          NETLIFY_APP_ID: ${{ secrets.NETLIFY_APP_ID }}
+          NETLIFY_API_KEY: ${{ secrets.NETLIFY_API_KEY }}
