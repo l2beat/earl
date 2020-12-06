@@ -1,5 +1,12 @@
 # earljs
 
+## 0.1.6
+
+### Patch Changes
+
+- 125c29b: Tweak `toHaveBeenCalledExactlyWith` input type to properly support arrays
+- 923847b: Made `expect.a(Array)` return type be `any[]` not `unknown[]` which works well with `toEqual`.
+
 ## 0.1.5
 
 ### Patch Changes
