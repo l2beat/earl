@@ -15,6 +15,8 @@ export type Class2Primitive<T> = T extends String
   ? symbol
   : T extends Exact<Object, T>
   ? any
+  : T extends Array<any>
+  ? any[]
   : T
 
 /**

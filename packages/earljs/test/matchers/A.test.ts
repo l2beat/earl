@@ -1,5 +1,6 @@
 import { expect } from 'chai'
 
+import { expect as earlExpect } from '../../src'
 import { AMatcher } from '../../src/matchers/A'
 
 describe('A matcher', () => {
@@ -104,5 +105,11 @@ describe('A matcher', () => {
     expect(m.check(undefined)).to.be.false
     expect(m.check(null)).to.be.false
     expect(m.check({})).to.be.false
+  })
+
+  describe('in expectation', () => {
+    it('works with arrays', () => {
+      earlExpect([1, 2, 3]).toEqual(earlExpect.a(Array))
+    })
   })
 })
