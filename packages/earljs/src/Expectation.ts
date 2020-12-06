@@ -8,6 +8,7 @@ import { Newable } from './types'
 import { Control, ValidationResult } from './validators/common'
 import { toBeExhausted, toHaveBeenCalledExactlyWith, toHaveBeenCalledWith } from './validators/mocks'
 import { toMatchSnapshot } from './validators/snapshots/toMatchSnapshot'
+import { toBe } from './validators/toBe'
 import { toBeRejected } from './validators/toBeRejected'
 import { toEqual } from './validators/toEqual'
 import { toLooseEqual } from './validators/toLooseEqual'
@@ -49,6 +50,11 @@ export class Expectation<T> {
   /** Like toEqual but without type checking. */
   toLooseEqual(value: any): void {
     toLooseEqual(this.getControl(), value)
+  }
+
+  /** Shallow compare values */
+  toBe(this: Expectation<object>, value: T): void {
+    toBe(this.getControl(), value as any)
   }
 
   toThrow(this: Expectation<() => any>): void
