@@ -53,7 +53,7 @@ export class Expectation<T> {
   }
 
   /** Shallow compare values */
-  toBe(this: Expectation<object>, value: T): void {
+  toBe(this: Expectation<T>, value: T): void {
     toBe(this.getControl(), value as any)
   }
 

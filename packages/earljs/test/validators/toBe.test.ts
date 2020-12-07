@@ -19,6 +19,20 @@ describe('toBe', () => {
       )
       expect(() => earl({ test: true }).toBe({ test: false })).to.throw('{"test": true} is not {"test": false}')
     })
+
+    it('works with symbols', () => {
+      const s = Symbol('abc')
+      const s2 = Symbol('abc')
+      earl(s).toBe(s)
+      earl(s).not.toBe(s2 as any)
+    })
+
+    it('works with primitives', () => {
+      earl(1).toBe(1)
+      earl('a').not.toBe('ab')
+      earl(NaN).toBe(NaN)
+      earl(+0).not.toBe(-0)
+    })
   })
 
   describe('negated', () => {
@@ -34,22 +48,9 @@ describe('toBe', () => {
   })
 
   describe('types', () => {
-    it('work with objects', () => {
-      const o = { n: 1 }
-      earl(o).toBe(o)
-    })
-
     it('errors with incompatible objects', () => {
       //@ts-expect-error
       expect(() => earl({ n: 1 }).toBe({ x: 1 })).to.throw()
-    })
-
-    it('errors with primitive values', () => {
-      //@ts-expect-error
-      earl(1).toBe(1)
-
-      //@ts-expect-error
-      expect(() => earl(true).toBe(false)).to.throw()
     })
   })
 })

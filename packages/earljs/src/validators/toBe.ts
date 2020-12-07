@@ -3,7 +3,7 @@ import { smartEq } from './smartEq'
 
 export function toBe<T>(control: Control<T>, expected: T) {
   const smartEqComparisonResult = smartEq(control.actual, expected).result === 'success'
-  const strictComparisonResult = control.actual === expected
+  const strictComparisonResult = Object.is(control.actual, expected)
 
   const additionalInfo =
     !strictComparisonResult && smartEqComparisonResult ? '. Did you mean to use `toEqual` instead?' : ''
