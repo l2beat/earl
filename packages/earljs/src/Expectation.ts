@@ -142,3 +142,7 @@ let testRunnerCtx: TestRunnerCtx | undefined
 export function setTestRunnerIntegration(_testRunnerCtx: TestRunnerCtx) {
   testRunnerCtx = _testRunnerCtx
 }
+
+export function getControl<T>(expectation: Expectation<T>): Control<T> {
+  return expectation['getControl']()
+}
