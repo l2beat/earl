@@ -14,11 +14,14 @@ describe('toReferentiallyEqual', () => {
     })
 
     it('throws on mismatch', () => {
-      expect(() => earl({ test: true }).toReferentiallyEqual({ test: true })).to.throw(
-        '{"test": true} is not {"test": true}. Did you mean to use `toEqual` instead?',
-      )
       expect(() => earl({ test: true }).toReferentiallyEqual({ test: false })).to.throw(
         '{"test": true} is not {"test": false}',
+      )
+    })
+
+    it('throws with informative message deep equality would work', () => {
+      expect(() => earl({ test: true }).toReferentiallyEqual({ test: true })).to.throw(
+        '{"test": true} is not {"test": true}. Did you mean to use `toEqual` instead?',
       )
     })
 
