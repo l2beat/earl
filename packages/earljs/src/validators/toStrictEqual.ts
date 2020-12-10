@@ -1,7 +1,7 @@
 import { Control, formatValue } from './common'
 import { smartEq } from './smartEq'
 
-export function toBe<T>(control: Control<T>, expected: T) {
+export function toStrictEqual<T>(control: Control<T>, expected: T) {
   const smartEqComparisonResult = smartEq(control.actual, expected).result === 'success'
   const strictComparisonResult = Object.is(control.actual, expected)
 
