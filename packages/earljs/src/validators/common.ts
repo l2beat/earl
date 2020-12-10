@@ -7,7 +7,7 @@ import { TestRunnerCtx } from '../test-runners'
 export interface Control<T> {
   actual: T
   isNegated: boolean
-  assert: (result: ValidationResult) => void
+  assert: (result: ValidationResult) => never
   testRunnerCtx?: TestRunnerCtx
 }
 

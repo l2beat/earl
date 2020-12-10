@@ -26,7 +26,7 @@ export class ErrorMatcher extends Matcher {
     if (this.expectedMsg === undefined) {
       return `${this.errorCls.name}`
     }
-    return `${this.errorCls.name}: ${this.expectedMsg}`
+    return `[${this.errorCls.name}: ${this.expectedMsg}]`
   }
 
   static make(expectedMsg: string): Error

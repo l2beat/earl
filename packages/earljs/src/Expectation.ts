@@ -100,7 +100,7 @@ export class Expectation<T> {
   private getControl(): Control<T> {
     return {
       actual: this.actual,
-      assert: this.assert.bind(this),
+      assert: this.assert.bind(this) as any,
       isNegated: this.isNegated,
       testRunnerCtx,
     }

@@ -20,7 +20,7 @@ describe('toMatchSnapshot', () => {
   const makeDummyCtrl = (): Control<any> => ({
     actual: 'test123',
     isNegated: false,
-    assert: spy(),
+    assert: spy() as any,
     testRunnerCtx: makeDummyTestRunnerCtx(),
   })
 

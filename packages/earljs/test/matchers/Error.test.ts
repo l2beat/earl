@@ -65,4 +65,10 @@ describe('Error matcher', () => {
       expect(m.check(new HttpError(500))).to.be.false
     })
   })
+
+  it('describes itself', () => {
+    const m = new ErrorMatcher(Error, StringMatchingMatcher.make('world'))
+
+    expect(m.toString()).to.eq('[Error: [StringMatching: world]]')
+  })
 })

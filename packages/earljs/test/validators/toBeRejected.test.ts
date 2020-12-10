@@ -14,7 +14,7 @@ describe('toBeRejected', () => {
       const run = earl(Promise.reject(new Error('Test msg'))).toBeRejected('Dummy msg')
 
       await expect(run).to.be.eventually.rejectedWith(
-        'Expected to be rejected with "Error: Dummy msg" but got "Error: Test msg"',
+        'Expected to be rejected with "[Error: Dummy msg]" but got "Error: Test msg"',
       )
     })
 
@@ -28,7 +28,7 @@ describe('toBeRejected', () => {
       const run = earl(Promise.reject(new Error('Test msg'))).not.toBeRejected('Test msg')
 
       await expect(run).to.be.eventually.rejectedWith(
-        'Expected not to be rejected with "Error: Test msg" but was rejected with Error: Test msg',
+        'Expected not to be rejected with "[Error: Test msg]" but was rejected with Error: Test msg',
       )
     })
   })
