@@ -1,5 +1,13 @@
 # earljs
 
+## 0.1.8
+
+### Patch Changes
+
+- 69c6af3: Add `toReferentiallyEqual` validator performing referential equality
+- 3f2ebc2: Improve `ErrorMatcher` description in error strings
+- 3f2ebc2: [Plugin devs] Make `control.assert` return `never` not `void`.
+
 ## 0.1.7
 
 ### Patch Changes
