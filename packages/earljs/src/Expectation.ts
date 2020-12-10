@@ -11,7 +11,7 @@ import { toMatchSnapshot } from './validators/snapshots/toMatchSnapshot'
 import { toBeRejected } from './validators/toBeRejected'
 import { toEqual } from './validators/toEqual'
 import { toLooseEqual } from './validators/toLooseEqual'
-import { toStrictEqual } from './validators/toStrictEqual'
+import { toReferentiallyEqual } from './validators/toReferentiallyEqual'
 import { toThrow } from './validators/toThrow'
 
 export interface ExpectationOptions {
@@ -53,8 +53,8 @@ export class Expectation<T> {
   }
 
   /** Checks referential equality */
-  toStrictEqual(this: Expectation<T>, value: T): void {
-    toStrictEqual(this.getControl(), value as any)
+  toReferentiallyEqual(this: Expectation<T>, value: T): void {
+    toReferentiallyEqual(this.getControl(), value as any)
   }
 
   toThrow(this: Expectation<() => any>): void

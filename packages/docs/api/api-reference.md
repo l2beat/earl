@@ -11,7 +11,7 @@ title: API reference
 
 - [`toEqual(any)`](#toequalany)
 - [`toLooseEqual(any)`](#tolooseequalany)
-- [`toStrictEqual(any)`](#tostrictequalany)
+- [`toReferentiallyEqual(any)`](#tostrictequalany)
 - [`toThrow()`](#tothrow)
 - [`toBeRejected()`](#toberejectedobject)
 - [`toBeExhausted()`](#tobeexhausted)
@@ -71,7 +71,7 @@ same fields and values but different prototype they will be considered equal
 with `toLooseEqual`. Further more it lacks type safety as expected and actual
 value types doesn't have to match.
 
-#### toStrictEqual(any)
+#### toReferentiallyEqual(any)
 
 Checks referential equality, uses `Object.is` under the hood. Does not support
 matchers.
