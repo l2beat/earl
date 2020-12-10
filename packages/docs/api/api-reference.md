@@ -9,8 +9,9 @@ title: API reference
 
 ### Validators
 
-- [`toEqual(object)`](#toequalobject)
-- [`toLooseEqual(object)`](#tolooseequalobject)
+- [`toEqual(any)`](#toequalany)
+- [`toLooseEqual(any)`](#tolooseequalany)
+- [`toReferentiallyEqual(any)`](#tostrictequalany)
 - [`toThrow()`](#tothrow)
 - [`toBeRejected()`](#toberejectedobject)
 - [`toBeExhausted()`](#tobeexhausted)
@@ -59,16 +60,26 @@ when your assertion fails
 
 ### Validators
 
-#### toEqual(object)
+#### toEqual(any)
 
 Performs deep equality check, ensures type equality, supports matchers.
 
-#### toLooseEqual(object)
+#### toLooseEqual(any)
 
 Using less strict equality algorithm then `toEqual`: when two object values have
 same fields and values but different prototype they will be considered equal
 with `toLooseEqual`. Further more it lacks type safety as expected and actual
 value types doesn't have to match.
+
+#### toReferentiallyEqual(any)
+
+Checks referential equality, uses `Object.is` under the hood. Does not support
+matchers.
+
+We recommend it for checking if objects are really the same objects ( not
+objects that are deeply equal). For primitive values you should always prefer
+`toEqual` unless you really care for about benefits of `Object.is` (checking
+against symbols, or `+0`, `-0`).
 
 #### toThrow()
 
