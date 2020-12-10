@@ -47,7 +47,8 @@ expect(response).toEqual({
 
 ## ✨ Contributors
 
-[Our contributing guide](./CONTRIBUTING.md).
+We welcome all kinds of contributions!
+[Read our contributing guide](./CONTRIBUTING.md).
 
 Thanks goes to these wonderful people
 ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
@@ -57,8 +58,6 @@ Thanks goes to these wonderful people
 <table><tr><td align="center"><a href="https://twitter.com/krzkaczor"><img src="https://avatars2.githubusercontent.com/u/1814312?v=4" width="100px;" alt="Kris Kaczor"/><br /><sub><b>Kris Kaczor</b></sub></a><br /><a href="https://github.com/earl-js/earl/commits?author=krzkaczor" title="Code">💻</a> <a href="https://github.com/earl-js/earl/commits?author=krzkaczor" title="Documentation">📖</a> <a href="#ideas-krzkaczor" title="Ideas, Planning, & Feedback">🤔</a></td><td align="center"><a href="https://github.com/sz-piotr"><img src="https://avatars2.githubusercontent.com/u/17070569?v=4" width="100px;" alt="Piotr Szlachciak"/><br /><sub><b>Piotr Szlachciak</b></sub></a><br /><a href="https://github.com/earl-js/earl/commits?author=sz-piotr" title="Code">💻</a> <a href="#ideas-sz-piotr" title="Ideas, Planning, & Feedback">🤔</a> <a href="#design-sz-piotr" title="Design">🎨</a></td><td align="center"><a href="http://twitter.com/quezak2"><img src="https://avatars0.githubusercontent.com/u/666206?v=4" width="100px;" alt="Artur Kozak"/><br /><sub><b>Artur Kozak</b></sub></a><br /><a href="#ideas-quezak" title="Ideas, Planning, & Feedback">🤔</a></td><td align="center"><a href="https://github.com/LogvinovLeon"><img src="https://avatars1.githubusercontent.com/u/6204356?v=4" width="100px;" alt="Leonid Logvinov"/><br /><sub><b>Leonid Logvinov</b></sub></a><br /><a href="https://github.com/earl-js/earl/commits?author=LogvinovLeon" title="Documentation">📖</a> <a href="https://github.com/earl-js/earl/commits?author=LogvinovLeon" title="Code">💻</a></td><td align="center"><a href="https://pantas.net"><img src="https://avatars3.githubusercontent.com/u/4291324?v=4" width="100px;" alt="Ivan Pantic"/><br /><sub><b>Ivan Pantic</b></sub></a><br /><a href="https://github.com/earl-js/earl/commits?author=panta82" title="Documentation">📖</a></td><td align="center"><a href="https://github.com/grzpab"><img src="https://avatars2.githubusercontent.com/u/35925521?v=4" width="100px;" alt="grzpab"/><br /><sub><b>grzpab</b></sub></a><br /><a href="https://github.com/earl-js/earl/commits?author=grzpab" title="Code">💻</a></td></tr></table>
 
 <!-- ALL-CONTRIBUTORS-LIST:END -->
-
-Contributions of any kind welcome!
 
 Earl logo by [@sz-piotr](https://github.com/sz-piotr)
 
