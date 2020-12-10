@@ -1,5 +1,11 @@
 # earljs
 
+## 0.1.7
+
+### Patch Changes
+
+- 1ef1ad2: Adds the getControl function which is intended to be used by plugins.
+
 ## 0.1.6
 
 ### Patch Changes
