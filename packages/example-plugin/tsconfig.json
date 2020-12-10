@@ -9,5 +9,7 @@
     "esModuleInterop": true,
     "outDir": "dist"
   },
-  "include": ["src", "types.d.ts"]
+  "include": [
+    "src"
+  ]
 }
