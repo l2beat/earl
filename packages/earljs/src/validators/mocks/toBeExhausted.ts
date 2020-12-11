@@ -1,5 +1,5 @@
+import { Control } from '../../Control'
 import { Mock } from '../../mocks'
-import { Control } from '../common'
 
 export function toBeExhausted(control: Control<Mock<any, any>>) {
   return control.assert({

@@ -1,5 +1,5 @@
+import { Control } from '../../Control'
 import { EarlConfigurationError } from '../../errors'
-import { Control } from '../common'
 import { CompareSnapshot } from './compareSnapshot'
 import { Env, getSnapshotFilePath, getSnapshotFullName, getUpdateSnapshotMode } from './helpers'
 import { compareSnapshotUsingJest } from './jestCompareSnapshot'

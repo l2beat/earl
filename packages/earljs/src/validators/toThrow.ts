@@ -1,6 +1,7 @@
 import { assert } from 'ts-essentials'
 
-import { Control, replaceMatchersWithMatchedValues } from './common'
+import { Control } from '../Control'
+import { replaceMatchersWithMatchedValues } from './common'
 import { smartEq } from './smartEq'
 
 export function toThrow(control: Control<() => any>, expected: any) {

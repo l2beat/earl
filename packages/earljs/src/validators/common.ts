@@ -2,14 +2,6 @@ import { mapValues } from 'lodash'
 import prettyFormat from 'pretty-format'
 
 import { Matcher } from '../matchers/Base'
-import { TestRunnerCtx } from '../test-runners'
-
-export interface Control<T> {
-  actual: T
-  isNegated: boolean
-  assert: (result: ValidationResult) => never
-  testRunnerCtx?: TestRunnerCtx
-}
 
 export interface ValidationResult {
   success: boolean

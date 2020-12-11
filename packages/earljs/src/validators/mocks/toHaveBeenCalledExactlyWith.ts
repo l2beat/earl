@@ -1,5 +1,6 @@
+import { Control } from '../../Control'
 import { Mock } from '../../mocks'
-import { Control, formatValue, replaceMatchersWithMatchedValues } from '../common'
+import { formatValue, replaceMatchersWithMatchedValues } from '../common'
 import { smartEq } from '../smartEq'
 
 function getCallsArgs<ARGS extends any[]>(mock: Mock<ARGS, any>): ARGS[] {
