@@ -1,3 +1,3 @@
-export * from './expect'
-export { Expectation } from './Expectation'
-export { mockFn } from './mocks'
+export { expect, ExpectInterface } from './expect'
+export { Expectation, ExpectationOptions } from './Expectation'
+export { mockFn, Mock } from './mocks'
