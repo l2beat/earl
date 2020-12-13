@@ -15,6 +15,10 @@ title: API reference
 - [`toThrow()`](#tothrow)
 - [`toBeRejected()`](#toberejectedobject)
 - [`toBeExhausted()`](#tobeexhausted)
+- [`toBeGreaterThan(number)`](#tobegreaterthannumber)
+- [`toBeGreaterThanOrEqualTo(number)`](#tobegreaterthanorequaltonumber)
+- [`toBeLessThan(number)`](#tobelessthannumber)
+- [`toBeLessThanOrEqualTo(number)`](#tobelessthanorequaltonumber)
 - [`toHaveBeenCalledWith(args)`](#tohavebeencalledwithargs)
 - [`toHaveBeenCalledExactlyWith(args)`](#tohavebeencalledexactlywithargs)
 - [`toMatchSnapshot()`](#tomatchsnapshot)
@@ -117,6 +121,54 @@ Checks if a promise was rejected with error matching error class and optionally
 error string. It returns a promise so you need to await whole expectation.
 `errorString` can be a matcher (for example
 [stringMatcher](/api/api-reference#expectstringmatchingsubstring--regexp))
+
+#### toBeGreaterThan(number)
+
+Checks if the value is greater than the provided target.
+
+Examples:
+
+```ts
+expect(2).toBeGreaterThan(1)
+expect(1).not.toBeGreaterThan(1)
+expect(-3).not.toBeGreaterThan(1)
+```
+
+#### toBeGreaterThanOrEqualTo(number)
+
+Checks if the value is greater than or equal to the provided target.
+
+Examples:
+
+```ts
+expect(2).toBeGreaterThanOrEqualTo(1)
+expect(1).toBeGreaterThanOrEqualTo(1)
+expect(-3).not.toBeGreaterThanOrEqualTo(1)
+```
+
+#### toBeLessThan(number)
+
+Checks if the value is less than the provided target.
+
+Examples:
+
+```ts
+expect(-3).toBeLessThan(1)
+expect(1).not.toBeLessThan(1)
+expect(2).not.toBeLessThan(1)
+```
+
+#### toBeLessThanOrEqualTo(number)
+
+Checks if the value is less than or equal the provided target.
+
+Examples:
+
+```ts
+expect(-3).toBeLessThanOrEqualTo(1)
+expect(1).toBeLessThanOrEqualTo(1)
+expect(2).not.toBeLessThanOrEqualTo(1)
+```
 
 #### toBeExhausted()
 
