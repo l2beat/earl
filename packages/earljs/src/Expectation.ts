@@ -47,10 +47,10 @@ export class Expectation<T> {
   /**
    * Performs a recursive equality check. Objects are equal if their fields
    * are equal and they share the same prototype.
-   * 
+   *
    * You can use matchers in place of a value. When a matcher is encountered its
    * internal rules are used instead of the usual checks.
-   * 
+   *
    * @param value value to check against.
    */
   toEqual(value: T): void {
@@ -60,10 +60,10 @@ export class Expectation<T> {
   /**
    * Performs a recursive equality check. Objects are equal if their fields
    * are equal. Object prototypes are ignored.
-   * 
+   *
    * You can use matchers in place of a value. When a matcher is encountered its
    * internal rules are used instead of the usual checks.
-   * 
+   *
    * @param value value to check against.
    */
   toLooseEqual(value: any): void {
@@ -79,7 +79,7 @@ export class Expectation<T> {
    *
    * This function should be used if you care about object identity rather than
    * deep equality.
-   * 
+   *
    * @param value value to check against.
    */
   toReferentiallyEqual(this: Expectation<T>, value: T): void {
@@ -93,14 +93,14 @@ export class Expectation<T> {
   /**
    * Calls the provided function and expects an error to be thrown. The message
    * of the error is also checked.
-   * 
+   *
    * @param message string or matcher to check the message against.
    */
   toThrow(this: Expectation<() => any>, message: string): void
   /**
    * Calls the provided function and expects an error to be thrown. The error's
    * class and message are also checked.
-   * 
+   *
    * @param errorClass expected class of the thrown error.
    * @param message string or matcher to check the message against.
    */
@@ -120,14 +120,14 @@ export class Expectation<T> {
   /**
    * Awaits the provided promise and expects it to be rejected. The message
    * of the error is also checked.
-   * 
+   *
    * @param message string or matcher to check the message against.
    */
   toBeRejected(this: Expectation<Promise<any>>, message: string): Promise<void>
   /**
    * Awaits the provided promise and expects it to be rejected. The error's
    * class and message are also checked.
-   * 
+   *
    * @param errorClass expected class of the thrown error.
    * @param message string or matcher to check the message against.
    */
@@ -153,10 +153,10 @@ export class Expectation<T> {
 
   /**
    * Check if the mock has been called with the provided arguments.
-   * 
+   *
    * You can use matchers in place of a value. When a matcher is encountered its
    * internal rules are used instead of the usual checks.
-   * 
+   *
    * @param args an array of values or matchers to check the mock calls against.
    */
   toHaveBeenCalledWith(this: Expectation<Mock<any[], any>>, args: MockArgs<T>) {
@@ -165,10 +165,10 @@ export class Expectation<T> {
 
   /**
    * Checks the entire history of mock calls.
-   * 
+   *
    * You can use matchers in place of a value. When a matcher is encountered its
    * internal rules are used instead of the usual checks.
-   * 
+   *
    * @param args an array where each item is an array of values or matchers to check the mock call against.
    */
   toHaveBeenCalledExactlyWith(this: Expectation<Mock<any[], any>>, args: MockArgs<T>[]) {
