@@ -31,6 +31,8 @@ describe('number matchers', () => {
     [1, 2],
     [-1, 2],
     [100, 200],
+    [5, 5],
+    [-7, -7],
   ]
 
   for (const [key, { message, compare, operator }] of Object.entries(config)) {
