@@ -28,9 +28,13 @@ export class Expectation<T> {
   }
 
   // modifiers
+
+  /**
+   * Inverts the behaviour of the validator that follows.
+   */
   get not(): this {
     if (this.isNegated) {
-      throw new Error('Tried negating already negated expectation')
+      throw new Error('Tried negating an already negated expectation')
     }
 
     this.isNegated = true
@@ -40,64 +44,124 @@ export class Expectation<T> {
 
   // validators
 
-  /** Does deep "smart" equality check. */
+  /**
+   * Performs a recursive equality check. Objects are equal if their fields
+   * are equal and they share the same prototype.
+   * @param value value to check against.
+   */
   toEqual(value: T): void {
     toEqual(this.getControl(), value)
   }
 
-  /** Like toEqual but without type checking. */
+  /**
+   * Performs a recursive equality check. Objects are equal if their fields
+   * are equal. Object prototypes are ignored.
+   * @param value value to check against.
+   */
   toLooseEqual(value: any): void {
     toLooseEqual(this.getControl(), value)
   }
 
-  /** Checks referential equality */
+  /**
+   * Performs a referential equality check using `Object.is`. It is similar to
+   * `===`, with two differences:
+   *
+   * 1. `Object.is(-0, +0)` returns `false`
+   * 2. `Object.is(NaN, NaN)` returns `true`
+   *
+   * This function should be used if you care about object identity rather than
+   * deep equality.
+   * @param value value to check against.
+   */
   toReferentiallyEqual(this: Expectation<T>, value: T): void {
     toReferentiallyEqual(this.getControl(), value as any)
   }
 
+  /**
+   * Calls the provided function and expects an error to be thrown.
+   */
   toThrow(this: Expectation<() => any>): void
-  toThrow(this: Expectation<() => any>, expectedMsg: string): void
-  toThrow(this: Expectation<() => any>, errorCls: Newable<Error>, expectedMsg?: string): void
-  toThrow(this: Expectation<() => any>, errorClsOrExpectedMsg?: string | Newable<Error>, expectedMsg?: string): void {
+  /**
+   * Calls the provided function and expects an error to be thrown. The message
+   * of the error is also checked.
+   * @param message string or matcher to check the message against.
+   */
+  toThrow(this: Expectation<() => any>, message: string): void
+  /**
+   * Calls the provided function and expects an error to be thrown. The error's
+   * class and message are also checked.
+   * @param errorClass expected class of the thrown error.
+   * @param message string or matcher to check the message against.
+   */
+  toThrow(this: Expectation<() => any>, errorClass: Newable<Error>, message?: string): void
+  toThrow(this: Expectation<() => any>, classOrMessage?: string | Newable<Error>, message?: string): void {
     if (arguments.length === 0) {
       toThrow(this.getControl(), AnythingMatcher.make())
     } else {
-      toThrow(this.getControl(), ErrorMatcher.make(errorClsOrExpectedMsg as any, expectedMsg))
+      toThrow(this.getControl(), ErrorMatcher.make(classOrMessage as any, message))
     }
   }
 
+  /**
+   * Awaits the provided function and expects it to be rejected.
+   */
   toBeRejected(this: Expectation<Promise<any>>): Promise<void>
-  toBeRejected(this: Expectation<Promise<any>>, expectedMsg: string): Promise<void>
-  toBeRejected(this: Expectation<Promise<any>>, errorCls: Newable<Error>, expectedMsg?: string): Promise<void>
+  /**
+   * Awaits the provided function and expects it to be rejected. The message
+   * of the error is also checked.
+   * @param message string or matcher to check the message against.
+   */
+  toBeRejected(this: Expectation<Promise<any>>, message: string): Promise<void>
+  /**
+   * Awaits the provided function and expects it to be rejected. The error's
+   * class and message are also checked.
+   * @param errorClass expected class of the thrown error.
+   * @param message string or matcher to check the message against.
+   */
+  toBeRejected(this: Expectation<Promise<any>>, errorClass: Newable<Error>, message?: string): Promise<void>
   toBeRejected(
     this: Expectation<Promise<any>>,
-    errorClsOrExpectedMsg?: string | Newable<Error>,
-    expectedMsg?: string,
+    classOrMessage?: string | Newable<Error>,
+    message?: string,
   ): Promise<void> {
     if (arguments.length === 0) {
       return toBeRejected(this.getControl(), AnythingMatcher.make())
     } else {
-      return toBeRejected(this.getControl(), ErrorMatcher.make(errorClsOrExpectedMsg as any, expectedMsg))
+      return toBeRejected(this.getControl(), ErrorMatcher.make(classOrMessage as any, message))
     }
   }
 
-  // mocks
-
+  /**
+   * Checks if all the expected calls to the mock have been performed.
+   */
   toBeExhausted(this: Expectation<Mock<any, any>>) {
     return toBeExhausted(this.getControl())
   }
 
-  toHaveBeenCalledWith(this: Expectation<Mock<any[], any>>, expectedCall: MockArgs<T>) {
-    return toHaveBeenCalledWith(this.getControl(), expectedCall)
+  /**
+   * Check if the mock has been called with the specified arguments.
+   * @param args an array of values or matchers to check the mock calls against.
+   */
+  toHaveBeenCalledWith(this: Expectation<Mock<any[], any>>, args: MockArgs<T>) {
+    return toHaveBeenCalledWith(this.getControl(), args)
   }
 
-  toHaveBeenCalledExactlyWith(this: Expectation<Mock<any[], any>>, expectedCalls: MockArgs<T>[]) {
-    return toHaveBeenCalledExactlyWith(this.getControl(), expectedCalls)
+  /**
+   * Checks the entire history of mock calls.
+   * @param args an array where each item is an array of values or matchers to check the mock call against.
+   */
+  toHaveBeenCalledExactlyWith(this: Expectation<Mock<any[], any>>, args: MockArgs<T>[]) {
+    return toHaveBeenCalledExactlyWith(this.getControl(), args)
   }
 
+  /**
+   * Checks that the value is the same as in the previous test execution.
+   */
   toMatchSnapshot(this: Expectation<any>): void {
     toMatchSnapshot(this.getControl())
   }
+
+  // utilities
 
   private getControl(): Control<T> {
     return new Control(this.actual, this.isNegated, this.options.extraMessage)
