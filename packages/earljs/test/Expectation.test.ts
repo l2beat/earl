@@ -1,7 +1,7 @@
 import { expect } from 'chai'
 import sinon from 'sinon'
 
-import { Expectation, loadValidators } from '../src/Expectation'
+import { Expectation, getControl, loadValidators } from '../src/Expectation'
 import { clearModuleCache } from './common'
 
 describe('assert', () => {
@@ -12,11 +12,11 @@ describe('assert', () => {
     const expectation = new Expectation(sinon.spy(), undefined, undefined)
 
     it('doesnt throw when validation was successful', () => {
-      expect(() => expectation['assert'](success)).not.to.throw()
+      expect(() => getControl(expectation).assert(success)).not.to.throw()
     })
 
     it('throws when validation was unsuccessful', () => {
-      expect(() => expectation['assert'](failure)).to.throw('Failure')
+      expect(() => getControl(expectation).assert(failure)).to.throw('Failure')
     })
   })
 
@@ -24,11 +24,23 @@ describe('assert', () => {
     const expectation = new Expectation(sinon.spy(), undefined, undefined).not
 
     it('throws when validation was successful', () => {
-      expect(() => expectation['assert'](success)).to.throw('Negated failure')
+      expect(() => getControl(expectation).assert(success)).to.throw('Negated failure')
     })
 
-    it('doesnt throw when validation was unsuccessful', () => {
-      expect(() => expectation['assert'](failure)).not.to.throw()
+    it('does not throw when validation was unsuccessful', () => {
+      expect(() => getControl(expectation).assert(failure)).not.to.throw()
+    })
+  })
+
+  describe('fail', () => {
+    it('throws when not negated', () => {
+      const expectation = new Expectation(sinon.spy(), undefined, undefined)
+      expect(() => getControl(expectation).fail({ reason: 'foo' })).to.throw('foo')
+    })
+
+    it('throws when negated', () => {
+      const expectation = new Expectation(sinon.spy(), undefined, undefined).not
+      expect(() => getControl(expectation).fail({ reason: 'foo' })).to.throw('foo')
     })
   })
 

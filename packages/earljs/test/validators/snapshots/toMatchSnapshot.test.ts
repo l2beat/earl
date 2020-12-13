@@ -21,6 +21,7 @@ describe('toMatchSnapshot', () => {
     actual: 'test123',
     isNegated: false,
     assert: spy() as any,
+    fail: spy() as any,
     testRunnerCtx: makeDummyTestRunnerCtx(),
   })
 

@@ -1,7 +1,7 @@
 import debug from 'debug'
 import { assert } from 'ts-essentials'
 
-import { setTestRunnerIntegration } from '../Expectation'
+import { setTestRunnerIntegration } from '../testRunnerCtx'
 import { TestInfo, TestRunnerCtx, TestRunnerHook } from './TestRunnerCtx'
 
 const d = debug('earljs:mocha')

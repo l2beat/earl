@@ -1,4 +1,5 @@
-import { Control, formatValue, replaceMatchersWithMatchedValues } from './common'
+import { Control } from '../Control'
+import { formatValue, replaceMatchersWithMatchedValues } from './common'
 import { smartEq } from './smartEq'
 
 export function toEqual<T>(control: Control<T>, expected: T) {

@@ -1,4 +1,5 @@
-import { Control, replaceMatchersWithMatchedValues } from './common'
+import { Control } from '../Control'
+import { replaceMatchersWithMatchedValues } from './common'
 import { smartEq } from './smartEq'
 
 export async function toBeRejected(control: Control<Promise<any>>, expected: any): Promise<void> {

@@ -1,4 +1,5 @@
-import { Control, formatValue } from './common'
+import { Control } from '../Control'
+import { formatValue } from './common'
 import { smartEq } from './smartEq'
 
 export function toReferentiallyEqual<T>(control: Control<T>, expected: T) {

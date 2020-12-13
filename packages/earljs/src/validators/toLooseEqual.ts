@@ -1,4 +1,5 @@
-import { Control, formatValue, replaceMatchersWithMatchedValues } from './common'
+import { Control } from '../Control'
+import { formatValue, replaceMatchersWithMatchedValues } from './common'
 import { smartEq } from './smartEq'
 
 // @todo: follow design of jest's loose equal

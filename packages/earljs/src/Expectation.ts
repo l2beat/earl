@@ -1,11 +1,9 @@
-import { AssertionError } from './errors'
+import { Control } from './Control'
 import { AnythingMatcher } from './matchers/Anything'
 import { ErrorMatcher } from './matchers/Error'
 import { Mock, MockArgs } from './mocks'
 import { DynamicValidator } from './plugins/types'
-import { TestRunnerCtx } from './test-runners/TestRunnerCtx'
 import { Newable } from './types'
-import { Control, ValidationResult } from './validators/common'
 import { toBeExhausted, toHaveBeenCalledExactlyWith, toHaveBeenCalledWith } from './validators/mocks'
 import { toMatchSnapshot } from './validators/snapshots/toMatchSnapshot'
 import { toBeRejected } from './validators/toBeRejected'
@@ -101,39 +99,8 @@ export class Expectation<T> {
     toMatchSnapshot(this.getControl())
   }
 
-  // utils
-
   private getControl(): Control<T> {
-    return {
-      actual: this.actual,
-      assert: this.assert.bind(this) as any,
-      isNegated: this.isNegated,
-      testRunnerCtx,
-    }
-  }
-
-  private assert(result: ValidationResult) {
-    if (this.isNegated) {
-      if (result.success) {
-        throw new AssertionError({
-          message: result.negatedReason,
-          actual: result.actual,
-          expected: result.expected,
-          extraMessage: this.options.extraMessage,
-          hint: result.hint,
-        })
-      }
-    } else {
-      if (!result.success) {
-        throw new AssertionError({
-          message: result.reason,
-          actual: result.actual,
-          expected: result.expected,
-          extraMessage: this.options.extraMessage,
-          hint: result.hint,
-        })
-      }
-    }
+    return new Control(this.actual, this.isNegated, this.options.extraMessage)
   }
 }
 
@@ -142,11 +109,6 @@ export function loadValidators(validators: Record<string, DynamicValidator<any>>
   for (const [name, validator] of Object.entries(validators)) {
     dynamicValidators[name] = validator
   }
-}
-
-let testRunnerCtx: TestRunnerCtx | undefined
-export function setTestRunnerIntegration(_testRunnerCtx: TestRunnerCtx) {
-  testRunnerCtx = _testRunnerCtx
 }
 
 export function getControl<T>(expectation: Expectation<T>): Control<T> {

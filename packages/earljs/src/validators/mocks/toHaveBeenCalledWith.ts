@@ -1,5 +1,6 @@
+import { Control } from '../../Control'
 import { Mock } from '../../mocks'
-import { Control, formatValue, replaceMatchersWithMatchedValues } from '../common'
+import { formatValue, replaceMatchersWithMatchedValues } from '../common'
 import { smartEq } from '../smartEq'
 
 export function toHaveBeenCalledWith<ARGS extends any[]>(control: Control<Mock<ARGS, any>>, expectedArgs: ARGS) {
