@@ -3,7 +3,7 @@
 ---
 
 Add new number validators:
-  - `toBeGreaterThanOrEqualTo`
-  - `toBeLessThan`
-  - `toBeLessThanOrEqualTo`
-  - `toBeExhausted` 
+  - `toBeGreaterThanOrEqualTo(number)`
+  - `toBeLessThan(number)`
+  - `toBeLessThanOrEqualTo(number)`
+  - `toBeExhausted(number)` 
