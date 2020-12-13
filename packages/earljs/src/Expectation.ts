@@ -139,7 +139,7 @@ export class Expectation<T> {
   }
 
   /**
-   * Check if the mock has been called with the specified arguments.
+   * Check if the mock has been called with the provided arguments.
    * @param args an array of values or matchers to check the mock calls against.
    */
   toHaveBeenCalledWith(this: Expectation<Mock<any[], any>>, args: MockArgs<T>) {

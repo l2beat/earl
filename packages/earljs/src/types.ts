@@ -1,3 +1,5 @@
+import { Exact } from 'ts-essentials'
+
 export interface Newable<T> {
   new (...args: any[]): T
 }
@@ -6,3 +8,19 @@ export interface Newable<T> {
 export type BigIntLike = { asIntN: Function; asUintN: Function; (value?: any): any }
 
 export type NewableOrPrimitive<T = any> = Newable<T> | SymbolConstructor | BigIntLike
+
+export type Class2Primitive<T> = T extends String
+  ? string
+  : T extends Number
+  ? number
+  : T extends Boolean
+  ? boolean
+  : T extends BigIntLike
+  ? bigint
+  : T extends Symbol
+  ? symbol
+  : T extends Exact<Object, T>
+  ? any
+  : T extends Array<any>
+  ? any[]
+  : T

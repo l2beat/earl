@@ -1,10 +1,7 @@
 import { Matcher } from './Base'
 
-/**
- * Matches any number close to the actual number. This range is INCLUSIVE.
- */
 export class NumberCloseToMatcher extends Matcher {
-  constructor(private readonly actual: number, private readonly delta: number) {
+  constructor(private readonly target: number, private readonly delta: number) {
     super()
   }
 
@@ -13,16 +10,16 @@ export class NumberCloseToMatcher extends Matcher {
       return false
     }
 
-    const max = this.actual + this.delta
-    const min = this.actual - this.delta
+    const max = this.target + this.delta
+    const min = this.target - this.delta
     return v >= min && v <= max
   }
 
   toString(): string {
-    return `[NumberCloseTo: ${this.actual}, delta=${this.delta}]`
+    return `[NumberCloseTo: ${this.target}, delta=${this.delta}]`
   }
 
-  static make(actual: number, { delta }: { delta: number }): number {
-    return new NumberCloseToMatcher(actual, delta) as any
+  static make(target: number, { delta }: { delta: number }): number {
+    return new NumberCloseToMatcher(target, delta) as any
   }
 }

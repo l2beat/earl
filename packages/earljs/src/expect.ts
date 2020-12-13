@@ -9,18 +9,63 @@ import {
 } from './matchers'
 import { ObjectWithMatcher } from './matchers/ObjectWith'
 import { DynamicMatcher } from './plugins/types'
+import { Class2Primitive, NewableOrPrimitive } from './types'
 
 export interface ExpectInterface {
   <T>(actual: T, options?: ExpectationOptions): Expectation<T>
 
-  // matchers
-  anything: typeof AnythingMatcher.make
-  a: typeof AMatcher.make
-  stringMatching: typeof StringMatchingMatcher.make
-  numberCloseTo: typeof NumberCloseToMatcher.make
-  containerWith: typeof ContainerWithMatcher.make
-  arrayWith: typeof ArrayWithMatcher.make
-  objectWith: typeof ObjectWithMatcher.make
+  /**
+   * Matches any value.
+   */
+  anything(): any
+
+  /**
+   * Matches an instance of the provided class or primitive type. Examples:
+   *
+   * 1. `expect.a(MyClass)` - matches `new MyClass`, but not `new Other()`
+   * 2. `expect.a(String)` - matches `"foo"`, but not `123`
+   *
+   * @param type class or primitive constructor to match against.
+   */
+  a<T>(type: NewableOrPrimitive<T>): Class2Primitive<T>
+
+  /**
+   * Matches strings that contain the provided substring.
+   * @param substring a string to look for in the matched values.
+   */
+  stringMatching(substring: string): string
+
+  /**
+   * Matches strings that conform to the provided pattern..
+   * @param pattern a regexp to test the matched values.
+   */
+  stringMatching(pattern: RegExp): string
+
+  /**
+   * Matches numbers that are close to the target value. The options are used
+   * to specify the maximum difference.
+   * @param target a number to aim for.
+   * @param options an object with the delta parameter, denoting the maximum difference between the values.
+   */
+  numberCloseTo(target: number, options: { delta: number }): number
+
+  /**
+   * Matches an iterable containing the provided items.
+   * @param items values or matchers to look for in the matched iterable.
+   */
+  containerWith(...items: any[]): any
+
+  /**
+   * Matches an array containing the provided items.
+   * @param items values or matchers to look for in the matched array.
+   */
+  arrayWith<T>(...items: T[]): T[]
+
+  /**
+   * Matches an object containing given key-value pairs.
+   * @param subset an object to match against.
+   */
+  objectWith(subset: Object): any
 }
 
 export const expect: ExpectInterface = <T>(actual: T, options: ExpectationOptions = {}): Expectation<T> => {
