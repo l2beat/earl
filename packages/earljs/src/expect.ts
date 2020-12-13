@@ -31,12 +31,14 @@ export interface ExpectInterface {
 
   /**
    * Matches strings that contain the provided substring.
+   * 
    * @param substring a string to look for in the matched values.
    */
   stringMatching(substring: string): string
 
   /**
-   * Matches strings that conform to the provided pattern..
+   * Matches strings that conform to the provided pattern.
+   * 
    * @param pattern a regexp to test the matched values.
    */
   stringMatching(pattern: RegExp): string
@@ -44,6 +46,9 @@ export interface ExpectInterface {
   /**
    * Matches numbers that are close to the target value. The options are used
    * to specify the maximum difference.
+   * 
+   * The range is [expected - delta, expected + delta] (inclusive).
+   * 
    * @param target a number to aim for.
    * @param options an object with the delta parameter, denoting the maximum difference between the values.
    */
@@ -51,18 +56,21 @@ export interface ExpectInterface {
 
   /**
    * Matches an iterable containing the provided items.
+   * 
    * @param items values or matchers to look for in the matched iterable.
    */
   containerWith(...items: any[]): any
 
   /**
    * Matches an array containing the provided items.
+   * 
    * @param items values or matchers to look for in the matched array.
    */
   arrayWith<T>(...items: T[]): T[]
 
   /**
    * Matches an object containing given key-value pairs.
+   * 
    * @param subset an object to match against.
    */
   objectWith(subset: Object): any
