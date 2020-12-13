@@ -6,9 +6,19 @@ export interface MockCall<ARGS, RETURN> {
 export type Awaited<T> = T extends PromiseLike<infer PT> ? PT : never
 
 export interface Mock<ARGS extends any[], RETURN> {
-  /** Calls the mock function */
+  /**
+   * Calls the mock function.
+   */
   (...args: ARGS): RETURN
+
+  /**
+   * An array containing all the performed calls.
+   */
   calls: MockCall<ARGS, RETURN>[]
+
+  /**
+   * Checks if all the expected calls to the mock have been performed.
+   */
   isExhausted(): boolean
 
   /**
