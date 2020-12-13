@@ -42,17 +42,11 @@ export function mockFn<ARGS extends any[], RETURN = any>(
   }
   let queue: Spec[] = []
   let oneTimeOverrides: Override[] = []
-  let recurringOverrides: Override[] = []
 
   function mock(...args: any[]) {
     for (const override of oneTimeOverrides) {
       if (smartEq(args, override.args).result === 'success') {
         oneTimeOverrides.splice(oneTimeOverrides.indexOf(override), 1)
-        return runSpec(override.spec, args)
-      }
-    }
-    for (const override of recurringOverrides) {
-      if (smartEq(args, override.args).result === 'success') {
         return runSpec(override.spec, args)
       }
     }
@@ -93,7 +87,6 @@ export function mockFn<ARGS extends any[], RETURN = any>(
     spec = newSpec
     queue = []
     oneTimeOverrides = []
-    recurringOverrides = []
   }
 
   mock.returns = function (value: any) {

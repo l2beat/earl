@@ -12,20 +12,11 @@ export function toHaveBeenCalledExactlyWith<ARGS extends any[]>(
   expectedArgs: ARGS[],
 ) {
   const callsArgs = getCallsArgs(control.actual)
-  if (smartEq(callsArgs, expectedArgs).result === 'success') {
-    return control.assert({
-      success: true,
-      reason: '-',
-      negatedReason: `Mock was called exactly with ${formatValue(expectedArgs)} but wasn't expected to`,
-      actual: callsArgs,
-      expected: replaceMatchersWithMatchedValues(callsArgs, expectedArgs),
-    })
-  }
-
+  const formatted = formatValue(expectedArgs)
   return control.assert({
-    success: false,
-    reason: `Mock was not called exactly with ${formatValue(expectedArgs)} but was expected to`,
-    negatedReason: '-',
+    success: smartEq(callsArgs, expectedArgs).result === 'success',
+    reason: `Mock was not called exactly with ${formatted} but was expected to`,
+    negatedReason: `Mock was called exactly with ${formatted} but wasn't expected to`,
     actual: callsArgs,
     expected: replaceMatchersWithMatchedValues(callsArgs, expectedArgs),
   })
