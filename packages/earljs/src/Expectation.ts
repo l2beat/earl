@@ -147,9 +147,12 @@ export class Expectation<T> {
   }
 
   /**
-   * Checks if the value extends given class or primitive constructor.
+   * Checks if the value is an instance of the provided class or primitive type. Examples:
    *
-   * @param class to check against. Works as expected with primitives like String or Number.
+   * 1. `expect(object).toBeA(MyClass)` - checks if object is instance of `MyClass`, but not `Other`
+   * 2. `expect(foo).toBeA(String)` - checks if foo is instance of string
+   *
+   * @param type class or primitive constructor to match against.
    */
   toBeA(this: Expectation<T>, clazz: any) {
     return toBeA(this.getControl(), clazz)
