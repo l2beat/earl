@@ -15,6 +15,10 @@ title: API reference
 - [`toThrow()`](#tothrow)
 - [`toBeRejected()`](#toberejectedobject)
 - [`toBeExhausted()`](#tobeexhausted)
+- [`toBeGreaterThan(number)`](#tobegreaterthannumber)
+- [`toBeGreaterThanOrEqualTo(number)`](#tobegreaterthanorequaltonumber)
+- [`toBeLessThan(number)`](#tobelessthannumber)
+- [`toBeLessThanOrEqualTo(number)`](#tobelessthanorequaltonumber)
 - [`toHaveBeenCalledWith(args)`](#tohavebeencalledwithargs)
 - [`toHaveBeenCalledExactlyWith(args)`](#tohavebeencalledexactlywithargs)
 - [`toMatchSnapshot()`](#tomatchsnapshot)
@@ -28,6 +32,10 @@ title: API reference
 - [`expect.containerWith<T>(...items: T[])`](#expectcontainerwithvalue-t)
 - [`expect.arrayWith<T>(...items: T[])`](#expectarraywithvalues-t)
 - [`expect.objectWith<T>(item: T)`](#expectobjectwith)
+- [`expect.numberGreaterThan(number)`](#expectnumbergreaterthannumber)
+- [`expect.numberGreaterThanOrEqualTo(number)`](#expectnumbergreaterthanorequaltonumber)
+- [`expect.numberLessThan(number)`](#expectnumberlessthannumber)
+- [`expect.numberLessThanOrEqualTo(number)`](#expectnumberlessthanorequaltonumber)
 
 ### Modifiers
 
@@ -118,6 +126,54 @@ error string. It returns a promise so you need to await whole expectation.
 `errorString` can be a matcher (for example
 [stringMatcher](/api/api-reference#expectstringmatchingsubstring--regexp))
 
+#### toBeGreaterThan(number)
+
+Checks if the value is greater than the provided target.
+
+Examples:
+
+```ts
+expect(2).toBeGreaterThan(1)
+expect(1).not.toBeGreaterThan(1)
+expect(-3).not.toBeGreaterThan(1)
+```
+
+#### toBeGreaterThanOrEqualTo(number)
+
+Checks if the value is greater than or equal to the provided target.
+
+Examples:
+
+```ts
+expect(2).toBeGreaterThanOrEqualTo(1)
+expect(1).toBeGreaterThanOrEqualTo(1)
+expect(-3).not.toBeGreaterThanOrEqualTo(1)
+```
+
+#### toBeLessThan(number)
+
+Checks if the value is less than the provided target.
+
+Examples:
+
+```ts
+expect(-3).toBeLessThan(1)
+expect(1).not.toBeLessThan(1)
+expect(2).not.toBeLessThan(1)
+```
+
+#### toBeLessThanOrEqualTo(number)
+
+Checks if the value is less than or equal the provided target.
+
+Examples:
+
+```ts
+expect(-3).toBeLessThanOrEqualTo(1)
+expect(1).toBeLessThanOrEqualTo(1)
+expect(2).not.toBeLessThanOrEqualTo(1)
+```
+
 #### toBeExhausted()
 
 Checks if a given mock is exhausted (has next value).
@@ -184,6 +240,86 @@ Matches an array containing expected value or values.
 #### expect.objectWith(value: T)
 
 Matches an object containing given key-value pairs.
+
+#### expect.numberGreaterThan(number)
+
+Matches a number greater than target.
+
+Examples:
+
+```ts
+expect({ a: 2 }).toEqual({
+  a: expect.numberGreaterThan(1),
+})
+
+expect({ b: 2 }).not.toEqual({
+  b: expect.numberGreaterThan(2),
+})
+
+expect({ c: 2 }).not.toEqual({
+  c: expect.numberGreaterThan(3),
+})
+```
+
+#### expect.numberGreaterThanOrEqualTo(number)
+
+Matches a number greater than or equal to target.
+
+Examples:
+
+```ts
+expect({ a: 2 }).toEqual({
+  a: expect.numberGreaterThanOrEqualTo(1),
+})
+
+expect({ b: 2 }).toEqual({
+  b: expect.numberGreaterThanOrEqualTo(2),
+})
+
+expect({ c: 2 }).not.toEqual({
+  c: expect.numberGreaterThanOrEqualTo(3),
+})
+```
+
+#### expect.numberLessThan(number)
+
+Matches a number less than target.
+
+Examples:
+
+```ts
+expect({ a: 2 }).toEqual({
+  a: expect.numberLessThan(3),
+})
+
+expect({ b: 2 }).not.toEqual({
+  b: expect.numberLessThan(2),
+})
+
+expect({ c: 2 }).not.toEqual({
+  c: expect.numberLessThan(1),
+})
+```
+
+#### expect.numberLessThanOrEqualTo(number)
+
+Matches a number less than or equal to target.
+
+Examples:
+
+```ts
+expect({ a: 2 }).toEqual({
+  a: expect.numberLessThanOrEqualTo(3),
+})
+
+expect({ b: 2 }).toEqual({
+  b: expect.numberLessThanOrEqualTo(2),
+})
+
+expect({ c: 2 }).not.toEqual({
+  c: expect.numberLessThanOrEqualTo(1),
+})
+```
 
 ### Modifiers
 

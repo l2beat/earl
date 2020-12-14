@@ -5,6 +5,10 @@ import {
   ArrayWithMatcher,
   ContainerWithMatcher,
   NumberCloseToMatcher,
+  NumberGreaterThanMatcher,
+  NumberGreaterThanOrEqualToMatcher,
+  NumberLessThanMatcher,
+  NumberLessThanOrEqualToMatcher,
   StringMatchingMatcher,
 } from './matchers'
 import { ObjectWithMatcher } from './matchers/ObjectWith'
@@ -21,6 +25,30 @@ export interface ExpectInterface {
   containerWith: typeof ContainerWithMatcher.make
   arrayWith: typeof ArrayWithMatcher.make
   objectWith: typeof ObjectWithMatcher.make
+
+  /**
+   * Matches a number greater than target.
+   * @param items number to compare to.
+   */
+  numberGreaterThan(target: number): number
+
+  /**
+   * Matches a number greater than or equal to target.
+   * @param items number to compare to.
+   */
+  numberGreaterThanOrEqualTo(target: number): number
+
+  /**
+   * Matches a number less than target.
+   * @param items number to compare to.
+   */
+  numberLessThan(target: number): number
+
+  /**
+   * Matches a number less than or equal to target.
+   * @param items number to compare to.
+   */
+  numberLessThanOrEqualTo(target: number): number
 }
 
 export const expect: ExpectInterface = <T>(actual: T, options: ExpectationOptions = {}): Expectation<T> => {
@@ -33,6 +61,10 @@ expect.numberCloseTo = NumberCloseToMatcher.make
 expect.containerWith = ContainerWithMatcher.make
 expect.arrayWith = ArrayWithMatcher.make
 expect.objectWith = ObjectWithMatcher.make
+expect.numberGreaterThan = NumberGreaterThanMatcher.make
+expect.numberGreaterThanOrEqualTo = NumberGreaterThanOrEqualToMatcher.make
+expect.numberLessThan = NumberLessThanMatcher.make
+expect.numberLessThanOrEqualTo = NumberLessThanOrEqualToMatcher.make
 
 // dynamically load new matchers and attach to expect object
 // used by plugin loader
