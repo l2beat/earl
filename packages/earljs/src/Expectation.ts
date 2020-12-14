@@ -7,6 +7,7 @@ import { Newable } from './types'
 import { toBeExhausted, toHaveBeenCalledExactlyWith, toHaveBeenCalledWith } from './validators/mocks'
 import { toBeGreaterThan, toBeGreaterThanOrEqualTo, toBeLessThan, toBeLessThanOrEqualTo } from './validators/numbers'
 import { toMatchSnapshot } from './validators/snapshots/toMatchSnapshot'
+import { toBeA } from './validators/toBeA'
 import { toBeRejected } from './validators/toBeRejected'
 import { toEqual } from './validators/toEqual'
 import { toLooseEqual } from './validators/toLooseEqual'
@@ -143,6 +144,15 @@ export class Expectation<T> {
     } else {
       return toBeRejected(this.getControl(), ErrorMatcher.make(classOrMessage as any, message))
     }
+  }
+
+  /**
+   * Checks if the value extends given class or primitive constructor.
+   *
+   * @param class to check against. Works as expected with primitives like String or Number.
+   */
+  toBeA(this: Expectation<T>, clazz: any) {
+    return toBeA(this.getControl(), clazz)
   }
 
   /**
