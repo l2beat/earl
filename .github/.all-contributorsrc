@@ -4,7 +4,7 @@
   "repoType": "github",
   "repoHost": "https://github.com",
   "files": [
-    "README.md"
+    "../README.md"
   ],
   "imageSize": 100,
   "commit": true,
@@ -17,8 +17,10 @@
       "profile": "https://twitter.com/krzkaczor",
       "contributions": [
         "code",
+        "ideas",
+        "design",
         "doc",
-        "ideas"
+        "maintenance"
       ]
     },
     {
@@ -29,7 +31,9 @@
       "contributions": [
         "code",
         "ideas",
-        "design"
+        "design",
+        "doc",
+        "maintenance"
       ]
     },
     {
@@ -66,7 +70,8 @@
       "avatar_url": "https://avatars2.githubusercontent.com/u/35925521?v=4",
       "profile": "https://github.com/grzpab",
       "contributions": [
-        "code"
+        "code",
+        "doc"
       ]
     }
   ],
