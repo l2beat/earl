@@ -2,9 +2,6 @@ import { isIterableAndNotString } from '../validators/common'
 import { smartEq } from '../validators/smartEq'
 import { Matcher } from './Base'
 
-/**
- * Matches an iterable containing a given item.
- */
 export class ContainerWithMatcher<T> extends Matcher {
   constructor(private readonly expectedItems: ReadonlyArray<T>) {
     super()

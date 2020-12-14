@@ -29,6 +29,15 @@ describe('toHaveBeenCalledExactlyWith', () => {
       expect(() => earl(mock).toHaveBeenCalledExactlyWith([[1, earl.a(Number)]])).not.to.throw()
     })
 
+    it('works with multiple calls', () => {
+      const mock = mockFn(sum)
+
+      mock(1, 2)
+      mock(3)
+
+      expect(() => earl(mock).toHaveBeenCalledExactlyWith([[1, 2], [3]])).not.to.throw()
+    })
+
     it('throws on partial matches', () => {
       const mock = mockFn(sum)
 

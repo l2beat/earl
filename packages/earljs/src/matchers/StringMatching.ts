@@ -1,8 +1,5 @@
 import { Matcher } from './Base'
 
-/**
- * Matches any string that contains another string
- */
 export class StringMatchingMatcher extends Matcher {
   constructor(substring: string)
   constructor(pattern: RegExp)
@@ -26,8 +23,6 @@ export class StringMatchingMatcher extends Matcher {
     return `[StringMatching: ${this.patternOrSubString}]`
   }
 
-  static make(substring: string): string
-  static make(pattern: RegExp): string
   static make(patternOrSubString: string | RegExp): string {
     return new StringMatchingMatcher(patternOrSubString as any) as any
   }

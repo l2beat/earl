@@ -26,12 +26,12 @@ title: API reference
 ### Matchers
 
 - [`expect.anything()`](#expectanything)
-- [`expect.a(class)`](#expectaclass)
+- [`expect.a(type)`](#expectatype)
 - [`stringMatching(substring | regexp)`](#expectstringmatchingsubstring--regexp)
 - [`numberCloseTo(expected: number, { delta: number })`](#expectnumberclosetoexpected-number--delta-number-)
-- [`expect.containerWith<T>(...items: T[])`](#expectcontainerwithvalue-t)
-- [`expect.arrayWith<T>(...items: T[])`](#expectarraywithvalues-t)
-- [`expect.objectWith<T>(item: T)`](#expectobjectwith)
+- [`expect.containerWith<T>(...items: T[])`](#expectcontainerwithitems-t)
+- [`expect.arrayWith<T>(...items: T[])`](#expectarraywithitems-t)
+- [`expect.objectWith(subset)`](#expectobjectwithsubset)
 - [`expect.numberGreaterThan(number)`](#expectnumbergreaterthannumber)
 - [`expect.numberGreaterThanOrEqualTo(number)`](#expectnumbergreaterthanorequaltonumber)
 - [`expect.numberLessThan(number)`](#expectnumberlessthannumber)
@@ -70,61 +70,184 @@ when your assertion fails
 
 #### toEqual(any)
 
-Performs deep equality check, ensures type equality, supports matchers.
+Performs a recursive equality check. Objects are equal if their fields are equal
+and they share the same prototype.
+
+You can use matchers in place of a value. When a matcher is encountered its
+internal rules are used instead of the usual checks.
+
+Arguments:
+
+- `value` - value to check against.
+
+Examples:
+
+```ts
+expect('foo').toEqual('foo')
+expect([1, { a: 2 }]).toEqual([1, { a: expect.a(Number) }])
+expect({ a: 2, b: 2 }).not.toEqual({ a: 2 })
+```
 
 #### toLooseEqual(any)
 
-Using less strict equality algorithm then `toEqual`: when two object values have
-same fields and values but different prototype they will be considered equal
-with `toLooseEqual`. Further more it lacks type safety as expected and actual
-value types doesn't have to match.
+Performs a recursive equality check. Objects are equal if their fields are
+equal. Object prototypes are ignored.
+
+You can use matchers in place of a value. When a matcher is encountered its
+internal rules are used instead of the usual checks.
+
+Arguments:
+
+- `value` - value to check against.
+
+Examples:
+
+```ts
+class A {
+  a = 1
+}
+
+// using toEqual requires matching prototypes
+expect(new A()).not.toEqual({ a: 1 })
+// toLooseEqual ignores prototypes and focuses only on the value
+expect(new A()).toLooseEqual({ a: 1 })
+```
 
 #### toReferentiallyEqual(any)
 
-Checks referential equality, uses `Object.is` under the hood. Does not support
-matchers.
+Performs a referential equality check using `Object.is`. It is similar to `===`,
+with two differences:
 
-We recommend it for checking if objects are really the same objects ( not
-objects that are deeply equal). For primitive values you should always prefer
-`toEqual` unless you really care for about benefits of `Object.is` (checking
-against symbols, or `+0`, `-0`).
+1. `Object.is(-0, +0)` returns `false`
+2. `Object.is(NaN, NaN)` returns `true`
+
+This function should be used if you care about object identity rather than deep
+equality.
+
+Arguments:
+
+- `value` - value to check against.
+
+Examples:
+
+```ts
+const x = {}
+
+expect(x).toReferentiallyEqual(x)
+expect({}).not.toReferentiallyEqual(x)
+expect(NaN).toReferentiallyEqual(NaN)
+expect(-0).not.toReferentiallyEqual(+0)
+```
 
 #### toThrow()
 
-Checks if any error was thrown. Requires checked value to be a parameterless
-function.
+Calls the provided function and expects an error to be thrown.
 
-#### toThrow(errorString)
+Examples:
 
-Checks if error with a matching message was thrown. Requires checked value to be
-a parameterless function. `errorString` can be a matcher (for example
-[stringMatcher](/api/api-reference#expectstringmatchingsubstring--regexp))
+```ts
+const doThrow = () => {
+  throw new Error('oops, sorry')
+}
 
-#### toThrow(errorClass, errorString?)
+expect(() => doThrow()).toThrow()
+expect(() => {}).not.toThrow()
+```
 
-Checks if error matching errorClass and optionally errorString was thrown.
-Requires checked value to be a parameterless function. `errorString` can be a
-matcher (for example
-[stringMatcher](/api/api-reference#expectstringmatchingsubstring--regexp))
+#### toThrow(message)
+
+Calls the provided function and expects an error to be thrown. The message of
+the error is also checked.
+
+Arguments:
+
+- `message` - string or matcher to check the message against (for example
+  [stringMatcher](/api/api-reference#expectstringmatchingsubstring--regexp)).
+
+Examples:
+
+```ts
+const doThrow = () => {
+  throw new Error('oops, sorry')
+}
+
+expect(() => doThrow()).toThrow('oops')
+expect(() => doThrow()).not.toThrow(expect.stringMatching(/end$/))
+```
+
+#### toThrow(errorClass, message?)
+
+Calls the provided function and expects an error to be thrown. The error's class
+and message are also checked.
+
+Arguments:
+
+- `errorClass` - expected class of the thrown error.
+- `message` - string or matcher to check the message against (for example
+  [stringMatcher](/api/api-reference#expectstringmatchingsubstring--regexp)).
+
+Examples:
+
+```ts
+const doThrow = () => {
+  throw new Error('oops, sorry')
+}
+
+expect(() => doThrow()).toThrow(Error, 'oops')
+expect(() => doThrow()).not.toThrow(TypeError)
+```
 
 #### toBeRejected()
 
-Checks if a promise was rejected with any error. It returns a promise so you
-need to await whole expectation.
+Awaits the provided promise and expects it to be rejected.
 
-#### toBeRejected(errorString)
+Examples:
 
-Checks if a promise was rejected with error with a matching error string. It
-returns a promise so you need to await whole expectation. `errorString` can be a
-matcher (for example
-[stringMatcher](/api/api-reference#expectstringmatchingsubstring--regexp))
+```ts
+const promise = Promise.reject(new Error('oops, sorry'))
 
-#### toBeRejected(errorClass, errorString)
+await expect(promise).toBeRejected()
+await expect(Promise.resolve()).not.toBeRejected()
+```
 
-Checks if a promise was rejected with error matching error class and optionally
-error string. It returns a promise so you need to await whole expectation.
-`errorString` can be a matcher (for example
-[stringMatcher](/api/api-reference#expectstringmatchingsubstring--regexp))
+#### toBeRejected(message)
+
+Awaits the provided promise and expects it to be rejected. The error's class and
+message are also checked.
+
+Arguments:
+
+- `message` - string or matcher to check the message against (for example
+  [stringMatcher](/api/api-reference#expectstringmatchingsubstring--regexp)).
+
+Examples:
+
+```ts
+const promise = Promise.reject(new Error('oops, sorry'))
+
+await expect(promise).toBeRejected('oops')
+await expect(promise).not.toBeRejected(expect.stringMatching(/end$/))
+```
+
+#### toBeRejected(errorClass, message?)
+
+Awaits the provided promise and expects it to be rejected. The error's class and
+message are also checked.
+
+Arguments:
+
+- `errorClass` - expected class of the thrown error.
+- `message` - string or matcher to check the message against (for example
+  [stringMatcher](/api/api-reference#expectstringmatchingsubstring--regexp)).
+
+Examples:
+
+```ts
+const promise = Promise.reject(new Error('oops, sorry'))
+
+await expect(promise).toBeRejected(Error, 'oops')
+await expect(promise).not.toBeRejected(TypeError)
+```
 
 #### toBeGreaterThan(number)
 
@@ -176,23 +299,37 @@ expect(2).not.toBeLessThanOrEqualTo(1)
 
 #### toBeExhausted()
 
-Checks if a given mock is exhausted (has next value).
+Checks if all the expected calls to the mock have been performed.
 
 #### toHaveBeenCalledWith(args)
 
-Checks if mock was called with a given arguments. Order of calls doesn't matter.
-`args` is an array of arguments, argument can be a matcher.
+Check if the mock has been called with the provided arguments.
+
+You can use matchers in place of a value. When a matcher is encountered its
+internal rules are used instead of the usual checks.
+
+Arguments:
+
+- `args` - an array of values or matchers to check the mock calls against.
 
 #### toHaveBeenCalledExactlyWith(args)
 
-Checks if mock was called with all given arguments. Order of calls matter.
-`args` is an array of array of arguments, argument can be a matcher.
+Checks the entire history of mock calls.
+
+You can use matchers in place of a value. When a matcher is encountered its
+internal rules are used instead of the usual checks.
+
+Arguments:
+
+- `args` - an array where each item is an array of values or matchers to check
+  the mock call against.
 
 #### toMatchSnapshot()
 
-Match actual value to a snapshot. The name of the snapshot is derived from the
-suite and test case names. A snapshot will be created under `__snapshot__`
-folder.
+Checks that the value is the same as in the previous test execution.
+
+The name of the snapshot is derived from the suite and test case names. A
+snapshot will be created under `__snapshot__` folder.
 
 Set `UPDATE_SNAPSHOTS=true` environment variable to update snapshots.
 
@@ -202,44 +339,72 @@ Requires [test runner integration](/guides/test-runner-integration.md).
 
 #### expect.anything()
 
-Matches anything.
+Matches any value.
 
-#### expect.a(class)
+#### expect.a(type)
 
-Matches any instance of a class. Works as expected with primitives like String,
-Number etc.
+Matches an instance of the provided class or primitive type. Examples:
+
+1. `expect.a(MyClass)` - matches `new MyClass`, but not `new Other()`
+2. `expect.a(String)` - matches `"foo"`, but not `123`
+
+Arguments:
+
+- `type` class or primitive constructor to match against.
 
 **Note**: it doesn't work with TypeScript types because they are erased from the
 output - you need a JS class.
 
-##### Examples
+Examples:
 
-```typescript
+```ts
 expect(something).toEqual(expect.a(String)) // matches any string
 expect(something).toEqual(expect.a(Object)) // matches any object (not null)
 ```
 
 #### expect.stringMatching(substring | regexp)
 
-Matches any string containing given substring or matching given pattern.
+Matches strings that contain the provided substring.
+
+Arguments:
+
+- `value` - a string to look for in the matched values or a regexp to test the
+  matched values.
 
 #### expect.numberCloseTo(expected: number, { delta: number })
 
-Matches any number within proximity of expected number.
+Matches numbers that are close to the target value. The options are used to
+specify the maximum difference.
 
-The range is <expected - delta, expected + delta> (inclusive).
+Arguments:
 
-#### expect.containerWith(value: T)
+- `target` - a number to aim for.
+- `options` - an object with the delta parameter, denoting the maximum
+  difference between the values.
 
-Matches a iterable (array / set etc.) containing value
+#### expect.containerWith(...items: T[])
 
-#### expect.arrayWith(...values: T)
+Matches an iterable containing the provided items.
 
-Matches an array containing expected value or values.
+Arguments:
 
-#### expect.objectWith(value: T)
+- `items` - values or matchers to look for in the matched iterable.
+
+#### expect.arrayWith(...items: T[])
+
+Matches an array containing the provided items.
+
+Arguments:
+
+- `items` - values or matchers to look for in the matched iterable.
+
+#### expect.objectWith(subset)
 
 Matches an object containing given key-value pairs.
+
+Arguments:
+
+- `subset` - an object to match against.
 
 #### expect.numberGreaterThan(number)
 
@@ -325,7 +490,14 @@ expect({ c: 2 }).not.toEqual({
 
 #### not
 
-Makes expectation fail when it should succeed and succeed when it should fail.
+Inverts the behaviour of the validator that follows.
+
+Examples:
+
+```ts
+expect(3).toEqual(4) // fails
+expect(3).not.toEqual(4) // succeeds
+```
 
 ### Mocks
 

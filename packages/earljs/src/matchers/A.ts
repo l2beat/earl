@@ -1,29 +1,6 @@
-import { Exact } from 'ts-essentials'
-
-import { BigIntLike, NewableOrPrimitive } from '../types'
+import { Class2Primitive, NewableOrPrimitive } from '../types'
 import { Matcher } from './Base'
 
-export type Class2Primitive<T> = T extends String
-  ? string
-  : T extends Number
-  ? number
-  : T extends Boolean
-  ? boolean
-  : T extends BigIntLike
-  ? bigint
-  : T extends Symbol
-  ? symbol
-  : T extends Exact<Object, T>
-  ? any
-  : T extends Array<any>
-  ? any[]
-  : T
-
-/**
- * Matches a instance of a class.
- * It's works with primitives as expected (uses typeof).
- * When matching Object won't match nulls.
- */
 export class AMatcher<T> extends Matcher {
   constructor(private readonly clazz: NewableOrPrimitive<T>) {
     super()

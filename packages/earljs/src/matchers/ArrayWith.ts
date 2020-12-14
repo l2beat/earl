@@ -1,9 +1,6 @@
 import { smartEq } from '../validators/smartEq'
 import { Matcher } from './Base'
 
-/**
- * Matches an array containing the given item.
- */
 export class ArrayWithMatcher<T> extends Matcher {
   constructor(private readonly expectedItems: ReadonlyArray<T>) {
     super()

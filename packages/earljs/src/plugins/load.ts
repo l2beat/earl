@@ -9,7 +9,7 @@ import { loadSmartEqRules } from '../validators/smartEq'
 
 export type PluginLoader = (path: string) => Promise<PluginConfig>
 
-export function loadPlugin(pluginConfig: Partial<PluginConfig>): void {
+export function loadPlugin(pluginConfig: PluginConfig): void {
   logger(`Loading plugin: ${getPluginSummary(pluginConfig)}`)
 
   if (pluginConfig.matchers) {
@@ -28,7 +28,7 @@ export function loadPlugin(pluginConfig: Partial<PluginConfig>): void {
   }
 }
 
-function getPluginSummary(pluginConfig: Partial<PluginConfig>): string {
+function getPluginSummary(pluginConfig: PluginConfig): string {
   let out = ''
   out += `Matchers: #${pluginConfig.matchers ? Object.keys(pluginConfig.matchers).length : 0} `
   out += `Validators: #${pluginConfig.validators ? Object.keys(pluginConfig.validators).length : 0} `

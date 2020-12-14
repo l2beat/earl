@@ -4,11 +4,8 @@ import { formatValue } from '../validators/common'
 import { smartEq } from '../validators/smartEq'
 import { Matcher } from './Base'
 
-/**
- * Matches an object containing given key-value pairs.
- */
 export class ObjectWithMatcher<T extends Object> extends Matcher {
-  constructor(private readonly expectedItem: T) {
+  constructor(private readonly subset: T) {
     super()
   }
 
@@ -17,7 +14,7 @@ export class ObjectWithMatcher<T extends Object> extends Matcher {
       return false
     }
 
-    const expectedEntries = Object.entries(this.expectedItem)
+    const expectedEntries = Object.entries(this.subset)
 
     return expectedEntries.every(([expectedKey, expectedValue]) => {
       const actualValue = (actualItem as any)[expectedKey]
@@ -27,10 +24,10 @@ export class ObjectWithMatcher<T extends Object> extends Matcher {
   }
 
   toString() {
-    return `[ObjectWith: ${formatValue(this.expectedItem)}]`
+    return `[ObjectWith: ${formatValue(this.subset)}]`
   }
 
-  static make(expectedItem: Object): any {
-    return new ObjectWithMatcher(expectedItem)
+  static make(subset: Object): any {
+    return new ObjectWithMatcher(subset)
   }
 }
