@@ -5,6 +5,7 @@ import { Mock, MockArgs } from './mocks'
 import { DynamicValidator } from './plugins/types'
 import { Newable } from './types'
 import { toBeExhausted, toHaveBeenCalledExactlyWith, toHaveBeenCalledWith } from './validators/mocks'
+import { toBeGreaterThan, toBeGreaterThanOrEqualTo, toBeLessThan, toBeLessThanOrEqualTo } from './validators/numbers'
 import { toMatchSnapshot } from './validators/snapshots/toMatchSnapshot'
 import { toBeRejected } from './validators/toBeRejected'
 import { toEqual } from './validators/toEqual'
@@ -142,6 +143,38 @@ export class Expectation<T> {
     } else {
       return toBeRejected(this.getControl(), ErrorMatcher.make(classOrMessage as any, message))
     }
+  }
+
+  /**
+   * Checks if the value is greater than the provided target.
+   * @param target number to check against.
+   */
+  toBeGreaterThan(this: Expectation<number>, target: number) {
+    return toBeGreaterThan(this.getControl(), target)
+  }
+
+  /**
+   * Checks if the value is greater than or equal to the provided target.
+   * @param target number to check against.
+   */
+  toBeGreaterThanOrEqualTo(this: Expectation<number>, target: number) {
+    return toBeGreaterThanOrEqualTo(this.getControl(), target)
+  }
+
+  /**
+   * Checks if the value is less than the provided target.
+   * @param target number to check against.
+   */
+  toBeLessThan(this: Expectation<number>, target: number) {
+    return toBeLessThan(this.getControl(), target)
+  }
+
+  /**
+   * Checks if the value is less than or equal the provided target.
+   * @param target number to check against.
+   */
+  toBeLessThanOrEqualTo(this: Expectation<number>, target: number) {
+    return toBeLessThanOrEqualTo(this.getControl(), target)
   }
 
   /**
