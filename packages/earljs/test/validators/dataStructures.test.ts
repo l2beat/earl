@@ -31,6 +31,7 @@ describe('dataStructures', () => {
     describe('normal', () => {
       it('works', () => {
         earl([1, 2, 3]).toBeAnArrayOfLength(3)
+        earl([1, 2, 3]).toBeAnArrayOfLength(earl.numberGreaterThanOrEqualTo(3))
       })
 
       it('throws', () => {

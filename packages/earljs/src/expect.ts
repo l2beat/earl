@@ -69,7 +69,7 @@ export interface ExpectInterface {
   /**
    * Matches an array containing exactly given number of items.
    *
-   * @param length expected array length
+   * @param length expected array length. Can be a matcher.
    */
   arrayOfLength<T>(length: number): T[]
 
