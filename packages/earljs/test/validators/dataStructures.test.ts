@@ -26,6 +26,7 @@ describe('dataStructures', () => {
       })
     })
   })
+
   describe('toBeAnArrayWith', () => {
     describe('normal', () => {
       it('works', () => {
@@ -51,6 +52,32 @@ describe('dataStructures', () => {
       it('is typesafe', () => {
         // @ts-expect-error
         expect(() => earl(new Set([1, 2, 3])).toBeAnArrayWith(1)).to.throw('Set {1, 2, 3} does not contain array [1]')
+      })
+    })
+  })
+
+  describe('toBeAnObjectWith', () => {
+    describe('normal', () => {
+      it('works', () => {
+        earl({ a: 1, b: 2 }).toBeAnObjectWith({ a: 1 })
+      })
+
+      it('throws', () => {
+        expect(() => earl({ a: 1, b: 2 }).toBeAnObjectWith({ c: 1 })).to.throw(
+          '{"a": 1, "b": 2} is not a subset of object {"c": 1}',
+        )
+      })
+    })
+
+    describe('negated', () => {
+      it('works', () => {
+        earl({ a: 1, b: 2 }).not.toBeAnObjectWith({ c: 1 })
+      })
+
+      it('throws', () => {
+        expect(() => earl({ a: 1, b: 2 }).not.toBeAnObjectWith({ a: 1 })).to.throw(
+          '{"a": 1, "b": 2} is a subset of object {"a": 1}',
+        )
       })
     })
   })
