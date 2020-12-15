@@ -1,5 +1,32 @@
 # earljs
 
+## 0.1.9
+
+### Patch Changes
+
+- c4c75c8: `Control.assert` type changed from never to void.
+- ceb7d92: Added new validators:
+
+  - `toBeA`
+  - `toBeAContainerWith`
+  - `toBeAnArrayOfLength`
+  - `toBeAnArrayWith`
+  - `toBeAnObjectWith`
+
+  Added new matchers:
+
+  - `expect.arrayOfLength`
+
+- 3335eca: Stop exporting `loadMatchers` from the main entry point.
+- d99dcee: Add new number validators:
+  - `toBeGreaterThanOrEqualTo(number)`
+  - `toBeLessThan(number)`
+  - `toBeLessThanOrEqualTo(number)`
+  - `toBeExhausted(number)`
+- 3335eca: Replace `Partial<PluginConfig>` instances with the equivalent `PluginConfig`.
+- c4c75c8: Added `Control.fail`.
+- 3335eca: Improve doc comments and function parameter names for the public library exports.
+
 ## 0.1.8
 
 ### Patch Changes
