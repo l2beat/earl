@@ -15,6 +15,11 @@ title: API reference
 - [`toThrow()`](#tothrow)
 - [`toBeRejected()`](#toberejectedobject)
 - [`toBeExhausted()`](#tobeexhausted)
+- [`toBeA(class)`](#tobeaclass)
+- [`toBeAContainerWith(...expectedItems)`](#tobeacontainerwithexpecteditems)
+- [`toBeAnArrayOfLength(length)`](#tobeanarrayoflengthlength)
+- [`toBeAnArrayWith(...expectedItems)`](#tobeanarraywithexpecteditems)
+- [`toBeAnObjectWith(subset)`](#tobeanobjectwithsubset)
 - [`toBeGreaterThan(number)`](#tobegreaterthannumber)
 - [`toBeGreaterThanOrEqualTo(number)`](#tobegreaterthanorequaltonumber)
 - [`toBeLessThan(number)`](#tobelessthannumber)
@@ -30,6 +35,7 @@ title: API reference
 - [`stringMatching(substring | regexp)`](#expectstringmatchingsubstring--regexp)
 - [`numberCloseTo(expected: number, { delta: number })`](#expectnumberclosetoexpected-number--delta-number-)
 - [`expect.containerWith<T>(...items: T[])`](#expectcontainerwithitems-t)
+- [`expect.arrayOfLength(length: number)`](#expectarrayoflengthlength-number)
 - [`expect.arrayWith<T>(...items: T[])`](#expectarraywithitems-t)
 - [`expect.objectWith(subset)`](#expectobjectwithsubset)
 - [`expect.numberGreaterThan(number)`](#expectnumbergreaterthannumber)
@@ -249,6 +255,58 @@ await expect(promise).toBeRejected(Error, 'oops')
 await expect(promise).not.toBeRejected(TypeError)
 ```
 
+#### toBeA(class)
+
+Checks if the value is an instance of the provided class or primitive type.
+
+Examples:
+
+```ts
+expect(object).toBeA(MyClass) // checks if object is instance of `MyClass`, but not `Other`
+expect(foo).toBeA(String) // checks if foo is instance of string
+```
+
+#### toBeAContainerWith(...expectedItems)
+
+Checks if the value is an iterable containing all of the provided items.
+
+Examples:
+
+```ts
+expect([1, 2, 3]).toBeAContainerWith(1, 2)
+```
+
+#### toBeAnArrayOfLength(length)
+
+Checks if the values is an array containing exactly given number of items.
+
+Examples:
+
+```ts
+expect([1, 2, 3]).toBeAnArrayOfLength(3)
+expect([1, 2, 3]).toBeAnArrayOfLength(expect.numberGreaterThanOrEqualTo(3)))
+```
+
+#### toBeAnArrayWith(...expectedItems)
+
+Checks if the value is an array containing all of the provided items.
+
+Examples:
+
+```ts
+expect([1, 2, 3]).toBeAnArrayWith(1)
+```
+
+#### toBeAnObjectWith(subset)
+
+Checks if the value is an object containing given key-value pairs.
+
+Examples:
+
+```ts
+expect({ a: 1, b: 2, c: 3 }).toBeAnArrayWith({ b: 2, a: 1 })
+```
+
 #### toBeGreaterThan(number)
 
 Checks if the value is greater than the provided target.
@@ -389,6 +447,14 @@ Matches an iterable containing the provided items.
 Arguments:
 
 - `items` - values or matchers to look for in the matched iterable.
+
+#### expect.arrayOfLength(length: number)
+
+Matches an array containing exactly given number of items.
+
+Arguments:
+
+- `length` - expected array length. Can be a matcher.
 
 #### expect.arrayWith(...items: T[])
 

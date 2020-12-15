@@ -11,6 +11,7 @@ import {
   NumberLessThanOrEqualToMatcher,
   StringMatchingMatcher,
 } from './matchers'
+import { ArrayOfLengthMatcher } from './matchers/ArrayOfLength'
 import { ObjectWithMatcher } from './matchers/ObjectWith'
 import { DynamicMatcher } from './plugins/types'
 import { Class2Primitive, NewableOrPrimitive } from './types'
@@ -66,6 +67,13 @@ export interface ExpectInterface {
   containerWith(...items: any[]): any
 
   /**
+   * Matches an array containing exactly given number of items.
+   *
+   * @param length expected array length. Can be a matcher.
+   */
+  arrayOfLength<T>(length: number): T[]
+
+  /**
    * Matches an array containing the provided items.
    *
    * @param items values or matchers to look for in the matched array.
@@ -112,6 +120,7 @@ expect.a = AMatcher.make
 expect.stringMatching = StringMatchingMatcher.make
 expect.numberCloseTo = NumberCloseToMatcher.make
 expect.containerWith = ContainerWithMatcher.make
+expect.arrayOfLength = ArrayOfLengthMatcher.make
 expect.arrayWith = ArrayWithMatcher.make
 expect.objectWith = ObjectWithMatcher.make
 expect.numberGreaterThan = NumberGreaterThanMatcher.make

@@ -4,9 +4,11 @@ import { ErrorMatcher } from './matchers/Error'
 import { Mock, MockArgs } from './mocks'
 import { DynamicValidator } from './plugins/types'
 import { Newable } from './types'
+import { toBeAContainerWith, toBeAnArrayOfLength, toBeAnArrayWith, toBeAnObjectWith } from './validators/dataStructures'
 import { toBeExhausted, toHaveBeenCalledExactlyWith, toHaveBeenCalledWith } from './validators/mocks'
 import { toBeGreaterThan, toBeGreaterThanOrEqualTo, toBeLessThan, toBeLessThanOrEqualTo } from './validators/numbers'
 import { toMatchSnapshot } from './validators/snapshots/toMatchSnapshot'
+import { toBeA } from './validators/toBeA'
 import { toBeRejected } from './validators/toBeRejected'
 import { toEqual } from './validators/toEqual'
 import { toLooseEqual } from './validators/toLooseEqual'
@@ -143,6 +145,54 @@ export class Expectation<T> {
     } else {
       return toBeRejected(this.getControl(), ErrorMatcher.make(classOrMessage as any, message))
     }
+  }
+
+  /**
+   * Checks if the value is an instance of the provided class or primitive type. Examples:
+   *
+   * 1. `expect(object).toBeA(MyClass)` - checks if object is instance of `MyClass`, but not `Other`
+   * 2. `expect(foo).toBeA(String)` - checks if foo is instance of string
+   *
+   * @param clazz type class or primitive constructor to match against.
+   */
+  toBeA(this: Expectation<T>, clazz: any) {
+    return toBeA(this.getControl(), clazz)
+  }
+
+  /**
+   * Checks if the value is an iterable containing all of the provided items.
+   *
+   * @param expectedItems values or matchers to look for in the matched iterable. Order of the items doesn't matter.
+   */
+  toBeAContainerWith(this: Expectation<any>, ...expectedItems: any[]) {
+    return toBeAContainerWith(this.getControl(), expectedItems)
+  }
+
+  /**
+   * Checks if the values is an array containing exactly given number of items.
+   *
+   * @param length expected array length. Can be a matcher.
+   */
+  toBeAnArrayOfLength(this: Expectation<ReadonlyArray<any>>, length: number) {
+    return toBeAnArrayOfLength(this.getControl(), length)
+  }
+
+  /**
+   * Checks if the value is an array containing all of the provided items.
+   *
+   * @param expectedItems values or matchers to look for in the matched array. Order of the items doesn't matter.
+   */
+  toBeAnArrayWith(this: Expectation<ReadonlyArray<any>>, ...expectedItems: ReadonlyArray<any>) {
+    return toBeAnArrayWith(this.getControl(), expectedItems)
+  }
+
+  /**
+   * Checks if the value is an object containing given key-value pairs.
+   *
+   * @param subset an object to match against.
+   */
+  toBeAnObjectWith(this: Expectation<Object>, subset: Object) {
+    return toBeAnObjectWith(this.getControl(), subset)
   }
 
   /**
