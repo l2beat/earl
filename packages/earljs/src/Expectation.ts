@@ -4,6 +4,7 @@ import { ErrorMatcher } from './matchers/Error'
 import { Mock, MockArgs } from './mocks'
 import { DynamicValidator } from './plugins/types'
 import { Newable } from './types'
+import { toBeAContainerWith } from './validators/dataStructures'
 import { toBeExhausted, toHaveBeenCalledExactlyWith, toHaveBeenCalledWith } from './validators/mocks'
 import { toBeGreaterThan, toBeGreaterThanOrEqualTo, toBeLessThan, toBeLessThanOrEqualTo } from './validators/numbers'
 import { toMatchSnapshot } from './validators/snapshots/toMatchSnapshot'
@@ -152,10 +153,19 @@ export class Expectation<T> {
    * 1. `expect(object).toBeA(MyClass)` - checks if object is instance of `MyClass`, but not `Other`
    * 2. `expect(foo).toBeA(String)` - checks if foo is instance of string
    *
-   * @param type class or primitive constructor to match against.
+   * @param clazz type class or primitive constructor to match against.
    */
   toBeA(this: Expectation<T>, clazz: any) {
     return toBeA(this.getControl(), clazz)
+  }
+
+  /**
+   * Checks if the value is an iterable containing the provided items.
+   *
+   * @param expectedItems values or matchers to look for in the matched iterable.
+   */
+  toBeAContainerWith(this: Expectation<T>, ...expectedItems: any[]) {
+    return toBeAContainerWith(this.getControl(), expectedItems)
   }
 
   /**
