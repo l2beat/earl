@@ -4,7 +4,7 @@ import { ErrorMatcher } from './matchers/Error'
 import { Mock, MockArgs } from './mocks'
 import { DynamicValidator } from './plugins/types'
 import { Newable } from './types'
-import { toBeAContainerWith, toBeAnArrayWith, toBeAnObjectWith } from './validators/dataStructures'
+import { toBeAContainerWith, toBeAnArrayOfLength, toBeAnArrayWith, toBeAnObjectWith } from './validators/dataStructures'
 import { toBeExhausted, toHaveBeenCalledExactlyWith, toHaveBeenCalledWith } from './validators/mocks'
 import { toBeGreaterThan, toBeGreaterThanOrEqualTo, toBeLessThan, toBeLessThanOrEqualTo } from './validators/numbers'
 import { toMatchSnapshot } from './validators/snapshots/toMatchSnapshot'
@@ -166,6 +166,15 @@ export class Expectation<T> {
    */
   toBeAContainerWith(this: Expectation<T>, ...expectedItems: any[]) {
     return toBeAContainerWith(this.getControl(), expectedItems)
+  }
+
+  /**
+   * Checks if the values is an array containing exactly given number of items.
+   *
+   * @param length expected array length. Can be a matcher.
+   */
+  toBeAnArrayOfLength(this: Expectation<ReadonlyArray<any>>, length: number) {
+    return toBeAnArrayOfLength(this.getControl(), length)
   }
 
   /**

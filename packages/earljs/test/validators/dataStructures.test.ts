@@ -27,6 +27,28 @@ describe('dataStructures', () => {
     })
   })
 
+  describe('toBeAnArrayOfLength', () => {
+    describe('normal', () => {
+      it('works', () => {
+        earl([1, 2, 3]).toBeAnArrayOfLength(3)
+      })
+
+      it('throws', () => {
+        expect(() => earl([1, 2, 3]).toBeAnArrayOfLength(4)).to.throw('[1, 2, 3] does not have length 4')
+      })
+    })
+
+    describe('negated', () => {
+      it('works', () => {
+        earl([1, 2, 3]).not.toBeAnArrayOfLength(2)
+      })
+
+      it('throws', () => {
+        expect(() => earl([1, 2, 3]).not.toBeAnArrayOfLength(3)).to.throw('[1, 2, 3] does have length 3')
+      })
+    })
+  })
+
   describe('toBeAnArrayWith', () => {
     describe('normal', () => {
       it('works', () => {

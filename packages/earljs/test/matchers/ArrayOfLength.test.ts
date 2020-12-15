@@ -11,6 +11,7 @@ describe('ArrayOfLength matcher', () => {
     expect(m.check([1])).to.be.false
     expect(m.check([1, 2, 3])).to.be.false
     expect(m.check([1, 5])).to.be.true
+    expect(m.check([1, 5])).to.be.true
   })
 
   it('doesnt match non arrays', () => {
@@ -24,6 +25,7 @@ describe('ArrayOfLength matcher', () => {
   describe('in expectation', () => {
     it('works', () => {
       earlExpect([1, 2, 3]).toEqual(earlExpect.arrayOfLength(3))
+      earlExpect([1, 2, 3] as ReadonlyArray<number>).toEqual(earlExpect.arrayOfLength(3))
     })
 
     it('works with nested matchers', () => {

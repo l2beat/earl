@@ -1,5 +1,6 @@
 import { Control } from '../Control'
 import { ArrayWithMatcher, ContainerWithMatcher } from '../matchers'
+import { ArrayOfLengthMatcher } from '../matchers/ArrayOfLength'
 import { ObjectWithMatcher } from '../matchers/ObjectWith'
 import { formatValue } from './common'
 
@@ -10,6 +11,16 @@ export function toBeAContainerWith(control: Control<any>, expectedItems: any[]) 
     success: m.check(control.actual),
     reason: `${formatValue(control.actual)} does not contain ${formatValue(expectedItems)}`,
     negatedReason: `${formatValue(control.actual)} contains ${formatValue(expectedItems)}`,
+  })
+}
+
+export function toBeAnArrayOfLength(control: Control<ReadonlyArray<any>>, length: number) {
+  const m = new ArrayOfLengthMatcher(length)
+
+  control.assert({
+    success: m.check(control.actual),
+    reason: `${formatValue(control.actual)} does not have length ${formatValue(length)}`,
+    negatedReason: `${formatValue(control.actual)} does have length ${formatValue(length)}`,
   })
 }
 
