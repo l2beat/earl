@@ -164,7 +164,7 @@ export class Expectation<T> {
    *
    * @param expectedItems values or matchers to look for in the matched iterable. Order of the items doesn't matter.
    */
-  toBeAContainerWith(this: Expectation<T>, ...expectedItems: any[]) {
+  toBeAContainerWith(this: Expectation<any>, ...expectedItems: any[]) {
     return toBeAContainerWith(this.getControl(), expectedItems)
   }
 
