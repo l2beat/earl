@@ -73,6 +73,15 @@
         "code",
         "doc"
       ]
+    },
+    {
+      "login": "krzysztof-jelski",
+      "name": "Krzysztof Jelski",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/430616?v=4",
+      "profile": "https://github.com/krzysztof-jelski",
+      "contributions": [
+        "ideas"
+      ]
     }
   ],
   "contributorsPerLine": 7
