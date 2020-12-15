@@ -4,7 +4,7 @@ import { ErrorMatcher } from './matchers/Error'
 import { Mock, MockArgs } from './mocks'
 import { DynamicValidator } from './plugins/types'
 import { Newable } from './types'
-import { toBeAContainerWith } from './validators/dataStructures'
+import { toBeAContainerWith, toBeAnArrayWith } from './validators/dataStructures'
 import { toBeExhausted, toHaveBeenCalledExactlyWith, toHaveBeenCalledWith } from './validators/mocks'
 import { toBeGreaterThan, toBeGreaterThanOrEqualTo, toBeLessThan, toBeLessThanOrEqualTo } from './validators/numbers'
 import { toMatchSnapshot } from './validators/snapshots/toMatchSnapshot'
@@ -160,12 +160,21 @@ export class Expectation<T> {
   }
 
   /**
-   * Checks if the value is an iterable containing the provided items.
+   * Checks if the value is an iterable containing all of the provided items.
    *
    * @param expectedItems values or matchers to look for in the matched iterable.
    */
   toBeAContainerWith(this: Expectation<T>, ...expectedItems: any[]) {
     return toBeAContainerWith(this.getControl(), expectedItems)
+  }
+
+  /**
+   * Checks if the value is an array containing all of the provided items.
+   *
+   * @param expectedItems values or matchers to look for in the matched array. Order of the items doesn't matter.
+   */
+  toBeAnArrayWith(this: Expectation<ReadonlyArray<any>>, ...expectedItems: ReadonlyArray<any>) {
+    return toBeAnArrayWith(this.getControl(), expectedItems)
   }
 
   /**

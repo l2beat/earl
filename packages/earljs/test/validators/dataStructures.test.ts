@@ -2,7 +2,7 @@ import { expect } from 'chai'
 
 import { expect as earl } from '../../src'
 
-describe.only('dataStructures', () => {
+describe('dataStructures', () => {
   describe('toBeAContainerWith', () => {
     describe('normal', () => {
       it('works', () => {
@@ -23,6 +23,34 @@ describe.only('dataStructures', () => {
 
       it('throws', () => {
         expect(() => earl(new Set([1, 2, 3])).not.toBeAContainerWith(3)).to.throw('Set {1, 2, 3} contains [3]')
+      })
+    })
+  })
+  describe('toBeAnArrayWith', () => {
+    describe('normal', () => {
+      it('works', () => {
+        earl([1, 2, 3]).toBeAnArrayWith(2, 1)
+      })
+
+      it('throws', () => {
+        expect(() => earl([1, 2, 3]).toBeAnArrayWith(4, 5)).to.throw('[1, 2, 3] does not contain array [4, 5]')
+      })
+    })
+
+    describe('negated', () => {
+      it('works', () => {
+        earl([1, 2, 3]).not.toBeAnArrayWith(4)
+      })
+
+      it('throws', () => {
+        expect(() => earl([1, 2, 3]).not.toBeAnArrayWith(3)).to.throw('[1, 2, 3] contains array [3]')
+      })
+    })
+
+    describe('types', () => {
+      it('is typesafe', () => {
+        // @ts-expect-error
+        expect(() => earl(new Set([1, 2, 3])).toBeAnArrayWith(1)).to.throw('Set {1, 2, 3} does not contain array [1]')
       })
     })
   })
