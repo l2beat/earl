@@ -6,9 +6,7 @@
   <p align="center">
     <img alt="Build status" src="https://github.com/earl-js/earl/workflows/CI/badge.svg">
     <a href="/package.json"><img alt="Software License" src="https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square"></a>
-    <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-7-orange.svg?style=flat-square)](#contributors-)
-<!-- ALL-CONTRIBUTORS-BADGE:END --> 
+    <img alt="All contributors" src="https://img.shields.io/badge/all_contributors-7-orange.svg?style=flat-square">
   </p>
 </p>
 
