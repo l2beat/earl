@@ -1,5 +1,12 @@
 # earljs
 
+## 0.1.10
+
+### Patch Changes
+
+- f37f7fa: Improve types for `rejectsWithOnce` and ensure that no unhandled rejection error can be thrown.
+- f37f7fa: Make `objectWith` work with all kinds of objects, not only with plain objects. This is a breaking change.
+
 ## 0.1.9
 
 ### Patch Changes
