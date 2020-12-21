@@ -12,10 +12,6 @@ describe('ObjectWith matcher', () => {
     expect(m.check(0)).to.be.false
     expect(m.check('')).to.be.false
     expect(m.check(false)).to.be.false
-    expect(m.check(() => 0)).to.be.false
-    expect(m.check(new Set())).to.be.false
-    expect(m.check(new Map())).to.be.false
-    expect(m.check([])).to.be.false
   })
 
   it('matches objects', () => {
@@ -49,6 +45,16 @@ describe('ObjectWith matcher', () => {
 
     expect(m.check({ a: 1, b: '2', c: 3 })).to.be.true
     expect(m.check({ c: 3, b: '2', a: 1 })).to.be.true
+  })
+
+  it('matches classes instances', () => {
+    class DummyClass {
+      constructor(public a: number, public b: number) {}
+    }
+
+    const m = new ObjectWithMatcher({ a: 1 })
+
+    expect(m.check(new DummyClass(1, 2))).to.be.true
   })
 
   describe('in expectation', () => {

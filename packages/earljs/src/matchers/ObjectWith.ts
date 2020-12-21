@@ -1,4 +1,4 @@
-import { isPlainObject } from 'lodash'
+import { isObject } from 'lodash'
 
 import { formatValue } from '../validators/common'
 import { smartEq } from '../validators/smartEq'
@@ -10,7 +10,7 @@ export class ObjectWithMatcher<T extends Object> extends Matcher {
   }
 
   check(actualItem: unknown): boolean {
-    if (!isPlainObject(actualItem)) {
+    if (!isObject(actualItem)) {
       return false
     }
 
