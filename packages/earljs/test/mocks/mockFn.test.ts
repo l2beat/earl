@@ -202,15 +202,24 @@ describe('Mock', () => {
   })
 
   describe('.rejectsWithOnce', () => {
+    // note: this test should not throw unhandled rejections
     it('queues function return value', async () => {
-      const fn = mockFn().rejectsWithOnce(3)
+      const fn = mockFn<[number], void>().rejectsWithOnce(new Error('some scary error'))
+      fn.given(2).rejectsWithOnce(new Error('different error'))
+
       try {
-        await fn()
+        await fn(1)
         expect.fail()
       } catch (e) {
-        expect(e).to.eq(3)
+        expect(e.message).to.eq('some scary error')
       }
-      expect(() => fn()).to.throw(MockNotConfiguredError)
+
+      try {
+        await fn(2)
+        expect.fail()
+      } catch (e) {
+        expect(e.message).to.eq('different error')
+      }
     })
   })
 

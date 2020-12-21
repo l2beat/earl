@@ -80,9 +80,9 @@ export interface Mock<ARGS extends any[], RETURN> {
   /**
    * Schedules the mock to reject with value the next time it's called.
    * If anything is already scheduled it will be used first.
-   * @param value value to be returned.
+   * @param error error to be thrown.
    */
-  rejectsWithOnce(value: Awaited<RETURN>): Mock<ARGS, RETURN>
+  rejectsWithOnce(error: any): Mock<ARGS, any>
 
   /**
    * Specifies a different behavior when other arguments are given
@@ -122,9 +122,9 @@ export interface Mock<ARGS extends any[], RETURN> {
     /**
      * Schedules the mock to reject with value the next time it's called.
      * If anything is already scheduled it will be used first.
-     * @param value value to be returned.
+     * @param error error to be thrown.
      */
-    rejectsWithOnce(value: Awaited<RETURN>): Mock<ARGS, RETURN>
+    rejectsWithOnce(error: any): Mock<ARGS, RETURN>
   }
 }
 

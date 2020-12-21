@@ -9,6 +9,14 @@ interface ReturnSpec {
   value: any
 }
 
+/**
+ * Used to lazily evaluate rejected promises so node doesn't think they are unhandled
+ */
+interface LazyReturnSpec {
+  type: 'lazy-return'
+  value: () => any
+}
+
 interface ThrowSpec {
   type: 'throw'
   error: any
@@ -23,7 +31,7 @@ interface NotReadySpec {
   type: 'not-ready'
 }
 
-type Spec = ReturnSpec | ThrowSpec | ExecSpec | NotReadySpec
+type Spec = ReturnSpec | LazyReturnSpec | ThrowSpec | ExecSpec | NotReadySpec
 
 interface Override {
   args: any[]
@@ -64,6 +72,10 @@ export function mockFn<ARGS extends any[], RETURN = any>(
       case 'return':
         mock.calls.push({ args, result: { type: 'return', value: spec.value } })
         return spec.value
+      case 'lazy-return':
+        const value = spec.value()
+        mock.calls.push({ args, result: { type: 'return', value } })
+        return value
       case 'throw':
         mock.calls.push({ args, result: { type: 'throw', error: spec.error } })
         throw spec.error
@@ -125,12 +137,12 @@ export function mockFn<ARGS extends any[], RETURN = any>(
     return mock
   }
 
-  mock.rejectsWith = function (value: any) {
-    reset({ type: 'return', value: Promise.reject(value) })
+  mock.rejectsWith = function (error: any) {
+    reset({ type: 'lazy-return', value: () => Promise.reject(error) })
     return mock
   }
-  mock.rejectsWithOnce = function (value: any) {
-    queue.push({ type: 'return', value: Promise.reject(value) })
+  mock.rejectsWithOnce = function (error: any) {
+    queue.push({ type: 'lazy-return', value: () => Promise.reject(error) })
     return mock
   }
 
@@ -156,8 +168,8 @@ export function mockFn<ARGS extends any[], RETURN = any>(
         return mock
       },
 
-      rejectsWithOnce(value: any) {
-        oneTimeOverrides.push({ args, spec: { type: 'return', value: Promise.reject(value) } })
+      rejectsWithOnce(error: any) {
+        oneTimeOverrides.push({ args, spec: { type: 'lazy-return', value: () => Promise.reject(error) } })
         return mock
       },
     }
