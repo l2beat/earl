@@ -129,6 +129,12 @@ describe('Mock', () => {
       const fn = mockFn((x: number) => x + 1)
       expect(fn(4)).to.equal(5)
     })
+
+    it('infers types correctly', () => {
+      const fn = mockFn<[number, number], number>((a, b) => a + b)
+
+      expect(fn(2, 2)).to.eq(4)
+    })
   })
 
   describe('.executesOnce', () => {
