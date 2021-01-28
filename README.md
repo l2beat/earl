@@ -6,7 +6,7 @@
   <p align="center">
     <img alt="Build status" src="https://github.com/earl-js/earl/workflows/CI/badge.svg">
     <a href="/package.json"><img alt="Software License" src="https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square"></a>
-    <img alt="All contributors" src="https://img.shields.io/badge/all_contributors-7-orange.svg?style=flat-square">
+    <img alt="All contributors" src="https://img.shields.io/badge/all_contributors-8-orange.svg?style=flat-square">
   </p>
 </p>
 
@@ -63,6 +63,9 @@ Thanks goes to these wonderful people
     <td align="center"><a href="https://pantas.net"><img src="https://avatars3.githubusercontent.com/u/4291324?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Ivan Pantic</b></sub></a><br /><a href="https://github.com/earl-js/earl/commits?author=panta82" title="Documentation">📖</a></td>
     <td align="center"><a href="https://github.com/grzpab"><img src="https://avatars2.githubusercontent.com/u/35925521?v=4?s=100" width="100px;" alt=""/><br /><sub><b>grzpab</b></sub></a><br /><a href="https://github.com/earl-js/earl/commits?author=grzpab" title="Code">💻</a> <a href="https://github.com/earl-js/earl/commits?author=grzpab" title="Documentation">📖</a></td>
     <td align="center"><a href="https://github.com/krzysztof-jelski"><img src="https://avatars3.githubusercontent.com/u/430616?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Krzysztof Jelski</b></sub></a><br /><a href="#ideas-krzysztof-jelski" title="Ideas, Planning, & Feedback">🤔</a></td>
+  </tr>
+  <tr>
+    <td align="center"><a href="https://github.com/rkrupinski"><img src="https://avatars.githubusercontent.com/u/775177?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Rafał Krupiński</b></sub></a><br /><a href="https://github.com/earl-js/earl/issues?q=author%3Arkrupinski" title="Bug reports">🐛</a></td>
   </tr>
 </table>
 
