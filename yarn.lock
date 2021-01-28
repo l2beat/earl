@@ -1470,10 +1470,6 @@
     lodash.camelcase "^4.3.0"
     lodash.kebabcase "^4.1.1"
 
-"@earljs/local@link:packages/earljs":
-  version "0.0.0"
-  uid ""
-
 "@earljs/published@npm:earljs@latest":
   version "0.1.10"
   resolved "https://registry.yarnpkg.com/earljs/-/earljs-0.1.10.tgz#4d587885c8e13cbd3a298ea40796ea580daece69"
@@ -1632,6 +1628,21 @@
   version "1.6.5"
   resolved "https://registry.yarnpkg.com/@mdx-js/util/-/util-1.6.5.tgz#d3bf891748dcf49a148a4591ef6c16caae4b32ed"
   integrity sha512-ljr9hGQYW3kZY1NmQbmSe4yXvgq3KDRt0FMBOB5OaDWqi4X2WzEsp6SZ02KmVrieNW1cjWlj13pgvcf0towZPw==
+
+"@microsoft/tsdoc-config@0.14.0":
+  version "0.14.0"
+  resolved "https://registry.yarnpkg.com/@microsoft/tsdoc-config/-/tsdoc-config-0.14.0.tgz#fbad7dd69edabc3623a5ee3b99c9b832aa78c5c2"
+  integrity sha512-KSj15FwyaxMCGJkC320rvNXxuJNCOVO02pNqIEdf5cbLakvHK8afoHTmcjdBEWl0cfBFZlMu/1DhL4VCzZq0rQ==
+  dependencies:
+    "@microsoft/tsdoc" "0.13.0"
+    ajv "~6.12.6"
+    jju "~1.4.0"
+    resolve "~1.19.0"
+
+"@microsoft/tsdoc@0.13.0":
+  version "0.13.0"
+  resolved "https://registry.yarnpkg.com/@microsoft/tsdoc/-/tsdoc-0.13.0.tgz#f05c6315bc3dfd18cdca70f28cd40d28da643249"
+  integrity sha512-/8J+4DdvexBH1Qh1yR8VZ6bPay2DL/TDdmSIypAa3dAghJzsdaiZG8COvzpYIML6HV2UVN0g4qbuqzjG4YKgWg==
 
 "@mrmlnc/readdir-enhanced@^2.2.1":
   version "2.2.1"
@@ -2841,7 +2852,7 @@ ajv@^6.10.0:
     json-schema-traverse "^0.4.1"
     uri-js "^4.2.2"
 
-ajv@^6.12.4:
+ajv@^6.12.4, ajv@~6.12.6:
   version "6.12.6"
   resolved "https://registry.yarnpkg.com/ajv/-/ajv-6.12.6.tgz#baf5a62e802b07d977034586f8c3baf5adf26df4"
   integrity sha512-j3fVLgvTo527anyYyJOGTYJbG+vnnQYvE0m5mmkc1TK+nxAppkCLMIL0aZ4dblVCNoGShhm+kzE4ZUykBoMg4g==
@@ -5774,6 +5785,15 @@ duplexify@^3.4.2, duplexify@^3.6.0:
     readable-stream "^2.0.0"
     stream-shift "^1.0.0"
 
+"earljs@link:packages/earljs":
+  version "0.1.10"
+  dependencies:
+    debug "^4.1.1"
+    jest-snapshot "^26.6.2"
+    lodash "^4.17.15"
+    pretty-format "^26.6.2"
+    ts-essentials "^6.0.5"
+
 ecc-jsbn@~0.1.1:
   version "0.1.2"
   resolved "https://registry.yarnpkg.com/ecc-jsbn/-/ecc-jsbn-0.1.2.tgz#3a83a904e54353287874c564b7549386849a98c9"
@@ -6078,6 +6098,14 @@ eslint-plugin-sonarjs@^0.8.0-125:
   version "0.8.0-125"
   resolved "https://registry.yarnpkg.com/eslint-plugin-sonarjs/-/eslint-plugin-sonarjs-0.8.0-125.tgz#d19fc8a579bb3b2a16879b6375516c9c3c12e60c"
   integrity sha512-/nl3Yzy8cHxCj5ohQL8dEqK2AhQqjTM/oXz5K3bU/7XbsBTz0BgyEsDvdz7gdtRlAe0Hzrf2v3qLVHA506Qheg==
+
+eslint-plugin-tsdoc@^0.2.11:
+  version "0.2.11"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-tsdoc/-/eslint-plugin-tsdoc-0.2.11.tgz#dda92e69d88fd7f9f0a604438dca837a3341aaee"
+  integrity sha512-vEjGANpmBfrvpKj9rwePGhA+gIe1mp+dhDZsrkxlHqPVOZvzVdFSV9fxu/o3eppmxhybI8brD88jOrLEAIB9Gw==
+  dependencies:
+    "@microsoft/tsdoc" "0.13.0"
+    "@microsoft/tsdoc-config" "0.14.0"
 
 eslint-plugin-unused-imports@^1.1.1:
   version "1.1.5"
@@ -8945,6 +8973,11 @@ jest-worker@^26.6.2:
     "@types/node" "*"
     merge-stream "^2.0.0"
     supports-color "^7.0.0"
+
+jju@~1.4.0:
+  version "1.4.0"
+  resolved "https://registry.yarnpkg.com/jju/-/jju-1.4.0.tgz#a3abe2718af241a2b2904f84a625970f389ae32a"
+  integrity sha1-o6vicYryQaKykE+EpiWXDzia4yo=
 
 jmespath@0.15.0:
   version "0.15.0"
@@ -12959,7 +12992,7 @@ resolve@^1.1.6, resolve@^1.10.0, resolve@^1.12.0, resolve@^1.3.2, resolve@^1.8.1
   dependencies:
     path-parse "^1.0.6"
 
-resolve@^1.18.1:
+resolve@^1.18.1, resolve@~1.19.0:
   version "1.19.0"
   resolved "https://registry.yarnpkg.com/resolve/-/resolve-1.19.0.tgz#1af5bf630409734a067cae29318aac7fa29a267c"
   integrity sha512-rArEXAgsBG4UgRGcynxWIWKFvh/XZCcS8UJdHhwy91zwAvCZIbcs+vAbflgBnNjYMs/i/i+/Ux6IZhML1yPvxg==
