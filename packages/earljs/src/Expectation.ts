@@ -52,7 +52,25 @@ export class Expectation<T> {
    * You can use matchers in place of a value. When a matcher is encountered its
    * internal rules are used instead of the usual checks.
    *
-   * @param value value to check against.
+   * @param value - value to check against.
+   *
+   * @example
+   * Equality check against primitive value
+   * ```
+   * expect('foo').toEqual('foo')
+   * ```
+   *
+   * @example
+   * Usage with "a" matcher
+   * ```
+   * expect([1, { a: 2 }]).toEqual([1, { a: expect.a(Number) }])
+   * ```
+   *
+   * @example
+   * Negated equality check
+   * ```
+   * expect({ a: 2, b: 2 }).not.toEqual({ a: 2 })
+   * ```
    */
   toEqual(value: T): void {
     toEqual(this.getControl(), value)
