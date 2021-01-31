@@ -8,16 +8,11 @@ interface Param {
   description: string
 }
 
-interface Example {
-  description: string
-  source: string
-}
-
 interface MethodDocumentation {
   signature: string
   description: string
   params: Param[]
-  examples: Example[]
+  examples: string[]
 }
 
 export function parseComment(methodComment: MethodComment): MethodDocumentation {
@@ -32,16 +27,28 @@ export function parseComment(methodComment: MethodComment): MethodDocumentation 
   const docComment = parserContext.docComment
 
   const description = Formatter.renderDocNode(docComment.summarySection)
+
   const params: Param[] = []
   for (const param of docComment.params.blocks) {
     params.push({ name: param.parameterName, description: Formatter.renderDocNode(param.content).trim() })
+  }
+
+  const examples: string[] = []
+
+  for (const customBlock of docComment.customBlocks) {
+    if (customBlock.blockTag.tagName !== '@example') {
+      continue
+    }
+
+    const contents = Formatter.renderDocNode(customBlock.content).trim()
+    examples.push(contents)
   }
 
   return {
     signature: methodComment.signature,
     description,
     params,
-    examples: [],
+    examples,
   }
 }
 

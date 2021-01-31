@@ -1,7 +1,7 @@
 import { extractTsDocCommentsFromString, MethodComment, parseComment } from '../generate-docs'
 import { expect } from '../src'
 
-describe('extractTsDocCommentsFromString', () => {
+describe.only('extractTsDocCommentsFromString', () => {
   it('extracts single method comment', () => {
     const input = `
     /** test */
@@ -44,7 +44,7 @@ describe('extractTsDocCommentsFromString', () => {
 })
 
 describe.only('parseComment', () => {
-  it.only('works', () => {
+  it('parses a comment with params and examples', () => {
     const input: MethodComment = {
       signature: 'someMethod(x: number, y: number): void',
       comment: `/**
@@ -54,6 +54,13 @@ describe.only('parseComment', () => {
       * 
       * @param x - The first input number
       * @param y - The second input number
+      * 
+      * @example
+      * Random example
+      * \`\`\`ts
+      * someMethod(1, 2)
+      * \`\`\`
+      *
       */`,
     }
     const result = parseComment(input)
@@ -65,7 +72,12 @@ describe.only('parseComment', () => {
         { name: 'x', description: 'The first input number' },
         { name: 'y', description: 'The second input number' },
       ],
-      examples: [],
+      examples: [
+        `Random example
+\`\`\`ts
+someMethod(1, 2)
+\`\`\``,
+      ],
     })
   })
 })
