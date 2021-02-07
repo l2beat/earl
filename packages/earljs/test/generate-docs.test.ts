@@ -1,7 +1,12 @@
-import { extractTsDocCommentsFromString, MethodComment, parseComment } from '../generate-docs'
+import {
+  extractTsDocCommentsFromString,
+  generateMarkdownForMethodDocumentation,
+  MethodComment,
+  parseComment,
+} from '../generate-docs'
 import { expect } from '../src'
 
-describe.only('extractTsDocCommentsFromString', () => {
+describe('extractTsDocCommentsFromString', () => {
   it('extracts single method comment', () => {
     const input = `
     /** test */
@@ -43,31 +48,32 @@ describe.only('extractTsDocCommentsFromString', () => {
   })
 })
 
-describe.only('parseComment', () => {
+const sampleMethodComment: MethodComment = {
+  signature: 'someMethod(x: number, y: number): void',
+  comment: `/**
+  * Returns the average of two numbers.
+  *
+  * Some other note
+  * 
+  * @param x - The first input number
+  * @param y - The second input number
+  * 
+  * @example
+  * Random example
+  * \`\`\`ts
+  * someMethod(1, 2)
+  * \`\`\`
+  *
+  */`,
+}
+
+describe('parseComment', () => {
   it('parses a comment with params and examples', () => {
-    const input: MethodComment = {
-      signature: 'someMethod(x: number, y: number): void',
-      comment: `/**
-      * Returns the average of two numbers.
-      *
-      * Some other note
-      * 
-      * @param x - The first input number
-      * @param y - The second input number
-      * 
-      * @example
-      * Random example
-      * \`\`\`ts
-      * someMethod(1, 2)
-      * \`\`\`
-      *
-      */`,
-    }
-    const result = parseComment(input)
+    const result = parseComment(sampleMethodComment)
 
     expect(result).toEqual({
       signature: 'someMethod(x: number, y: number): void',
-      description: 'Returns the average of two numbers.\n\nSome other note\n\n',
+      description: 'Returns the average of two numbers.\n\nSome other note',
       params: [
         { name: 'x', description: 'The first input number' },
         { name: 'y', description: 'The second input number' },
@@ -79,5 +85,13 @@ someMethod(1, 2)
 \`\`\``,
       ],
     })
+  })
+})
+
+describe('generateMarkdownForMethodDocumentation', () => {
+  it('generates markdown for a comment with params and examples', async () => {
+    const result = generateMarkdownForMethodDocumentation(parseComment(sampleMethodComment))
+
+    expect(result).toMatchSnapshot()
   })
 })
