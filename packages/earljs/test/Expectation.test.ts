@@ -32,6 +32,43 @@ describe('assert', () => {
     })
   })
 
+  describe('when negated "aside"', () => {
+    const expectation = new Expectation(sinon.spy(), undefined, undefined)
+    expectation.not
+
+    it('doesnt throw when validation was successful', () => {
+      expect(() => getControl(expectation).assert(success)).not.to.throw()
+    })
+
+    it('throws when validation was unsuccessful', () => {
+      expect(() => getControl(expectation).assert(failure)).to.throw('Failure')
+    })
+  })
+
+  describe('when negated multiple times (even number)', () => {
+    const expectation = new Expectation(sinon.spy(), undefined, undefined).not.not
+
+    it('does not throw when validation was successful', () => {
+      expect(() => getControl(expectation).assert(success)).not.to.throw()
+    })
+
+    it('throws when validation was unsuccessful', () => {
+      expect(() => getControl(expectation).assert(failure)).to.throw('Failure')
+    })
+  })
+
+  describe('when negated multiple times (odd number)', () => {
+    const expectation = new Expectation(sinon.spy(), undefined, undefined).not.not.not
+
+    it('throws when validation was successful', () => {
+      expect(() => getControl(expectation).assert(success)).to.throw('Negated failure')
+    })
+
+    it('does not throw when validation was unsuccessful', () => {
+      expect(() => getControl(expectation).assert(failure)).not.to.throw('Failure')
+    })
+  })
+
   describe('fail', () => {
     it('throws when not negated', () => {
       const expectation = new Expectation(sinon.spy(), undefined, undefined)
