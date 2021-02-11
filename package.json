@@ -47,6 +47,5 @@
     "ts-node": "^8.5.4",
     "typescript": "^3.8.3",
     "wsrun": "^5.2.1"
-  },
-  "dependencies": {}
+  }
 }
