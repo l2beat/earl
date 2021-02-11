@@ -5,12 +5,9 @@ import { ValidationResult } from './validators/common'
 export class Control<T> {
   public testRunnerCtx = getTestRunnerIntegration()
 
-  constructor(public actual: T, public isNegated: boolean, private extraMessage?: string) {
-    this.assert = this.assert.bind(this)
-    this.fail = this.fail.bind(this)
-  }
+  constructor(public actual: T, public isNegated: boolean, private extraMessage?: string) {}
 
-  assert(result: ValidationResult) {
+  assert = (result: ValidationResult) => {
     if (this.isNegated === result.success) {
       throw new AssertionError({
         message: result.success ? result.negatedReason : result.reason,
@@ -22,7 +19,7 @@ export class Control<T> {
     }
   }
 
-  fail(result: Omit<ValidationResult, 'success' | 'negatedReason'>): never {
+  fail = (result: Omit<ValidationResult, 'success' | 'negatedReason'>): never => {
     throw new AssertionError({
       message: result.reason,
       actual: result.actual,
