@@ -65,7 +65,7 @@ describe('assert', () => {
     })
 
     it('does not throw when validation was unsuccessful', () => {
-      expect(() => getControl(expectation).assert(failure)).not.to.throw('Failure')
+      expect(() => getControl(expectation).assert(failure)).not.to.throw()
     })
   })
 
