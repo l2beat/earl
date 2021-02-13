@@ -36,7 +36,11 @@ export class Expectation<T> {
    * Inverts the behaviour of the validator that follows.
    */
   get not(): Expectation<T> {
-    return new Expectation(this.actual, !this.isNegated, this.options)
+    if (this.isNegated) {
+      throw new Error('Tried negating an already negated expectation')
+    }
+
+    return new Expectation(this.actual, true, this.options)
   }
 
   // validators
