@@ -1,31 +1,8 @@
 import { DocExcerpt, DocNode, TSDocParser } from '@microsoft/tsdoc'
-import { assert } from 'ts-essentials'
 
-interface Param {
-  name: string
-  description: string
-}
+import { MethodComment, MethodDocumentation, Param } from '../types'
 
-export function generateMarkdownForMethodDocumentation(doc: MethodDocumentation): string {
-  return `#### ${doc.signature}
-
-${doc.description}
-
-*Parameters:*
-${doc.params.map((p) => `- \`${p.name}\` - ${p.description}`).join('\n')}
-
-*Examples:*
-${doc.examples.join('\n')}`
-}
-
-interface MethodDocumentation {
-  signature: string
-  description: string
-  params: Param[]
-  examples: string[]
-}
-
-export function parseComment(methodComment: MethodComment): MethodDocumentation {
+export function parseTsDocComment(methodComment: MethodComment): MethodDocumentation {
   const tsdocParser: TSDocParser = new TSDocParser()
 
   const parserContext = tsdocParser.parseString(methodComment.comment)
@@ -62,31 +39,7 @@ export function parseComment(methodComment: MethodComment): MethodDocumentation 
   }
 }
 
-export interface MethodComment {
-  signature: string
-  comment: string
-}
-
-export function extractTsDocCommentsFromString(source: string): MethodComment[] {
-  const BLOCK_COMMENT_REGEX = /\/\*\*(.*?)\*\/\n(.*?)[{|\n]/gms
-
-  const methodComments: MethodComment[] = []
-
-  let rawMethodComment = BLOCK_COMMENT_REGEX.exec(source)
-  assert(rawMethodComment, `Couldn't find any block comments in ${source}`)
-  while (rawMethodComment != null) {
-    const comment = `/** ${rawMethodComment[1].trim()} */`
-    const signature = rawMethodComment[2].trim()
-
-    methodComments.push({ signature, comment })
-
-    rawMethodComment = BLOCK_COMMENT_REGEX.exec(source)
-  }
-
-  return methodComments
-}
-
-export class Formatter {
+class Formatter {
   public static renderDocNode(docNode: DocNode): string {
     let result: string = ''
 

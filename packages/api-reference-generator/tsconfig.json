@@ -10,5 +10,5 @@
     "outDir": "dist",
     "allowUnreachableCode": false
   },
-  "include": ["src", "test", "src/generate-docs.ts"]
+  "include": ["src", "test", "src/generate.ts"]
 }
