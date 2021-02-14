@@ -1,0 +1,29 @@
+{
+  "name": "api-reference-generator",
+  "private": "true",
+  "version": "0.0.1",
+  "main": "./dist/index.js",
+  "scripts": {
+    "format": "prettier --ignore-path ../../.prettierignore './**/*.{ts,md}' --check",
+    "format:fix": "prettier --ignore-path ../../.prettierignore './**/*.{ts,md}' --write",
+    "lint": "eslint --ext .ts src test",
+    "lint:fix": "yarn lint --fix",
+    "typecheck": "tsc --noEmit",
+    "clean": "rm -rf dist",
+    "build": "yarn clean && tsc -p ./tsconfig.prod.json && cp ../../README.md .",
+    "build:watch": "yarn clean && tsc -p ./tsconfig.prod.json --watch",
+    "build:watch:test": "yarn clean && tsc -p ./tsconfig.json --watch",
+    "test": "mocha",
+    "test:fix": "yarn lint:fix && yarn format:fix && yarn typecheck && yarn test"
+  },
+  "dependencies": {
+    "earljs": "*"
+  },
+  "devDependencies": {
+    "@microsoft/tsdoc": "^0.13.0",
+    "@types/debug": "^4.1.5",
+    "@types/lodash": "^4.14.150",
+    "eslint-plugin-tsdoc": "^0.2.11",
+    "prettier": "^2.2.0"
+  }
+}

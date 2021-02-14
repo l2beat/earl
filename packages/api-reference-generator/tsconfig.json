@@ -1,0 +1,14 @@
+{
+  "compilerOptions": {
+    "declaration": true,
+    "lib": ["ES2015"],
+    "module": "CommonJS",
+    "moduleResolution": "node",
+    "strict": true,
+    "target": "ES2015",
+    "esModuleInterop": true,
+    "outDir": "dist",
+    "allowUnreachableCode": false
+  },
+  "include": ["src", "test", "src/generate-docs.ts"]
+}

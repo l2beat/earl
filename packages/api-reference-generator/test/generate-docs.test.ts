@@ -1,10 +1,11 @@
+import { expect } from 'earljs'
+
 import {
   extractTsDocCommentsFromString,
   generateMarkdownForMethodDocumentation,
   MethodComment,
   parseComment,
-} from '../generate-docs'
-import { expect } from '../src'
+} from '../src/generate-docs'
 
 describe('extractTsDocCommentsFromString', () => {
   it('extracts single method comment', () => {

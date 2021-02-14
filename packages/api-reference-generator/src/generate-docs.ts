@@ -1,6 +1,4 @@
-import { TSDocParser, ParserContext, DocNode, DocExcerpt } from '@microsoft/tsdoc'
-import { readFileSync } from 'fs'
-import { join } from 'path'
+import { DocExcerpt, DocNode, TSDocParser } from '@microsoft/tsdoc'
 import { assert } from 'ts-essentials'
 
 interface Param {
@@ -70,14 +68,13 @@ export interface MethodComment {
 }
 
 export function extractTsDocCommentsFromString(source: string): MethodComment[] {
-  const BLOCK_COMMENT_REGEX = /\/\*\*(.*?)\*\/\n(.*?)[\{|\n]/gms
+  const BLOCK_COMMENT_REGEX = /\/\*\*(.*?)\*\/\n(.*?)[{|\n]/gms
 
   const methodComments: MethodComment[] = []
 
   let rawMethodComment = BLOCK_COMMENT_REGEX.exec(source)
   assert(rawMethodComment, `Couldn't find any block comments in ${source}`)
   while (rawMethodComment != null) {
-    debugger
     const comment = `/** ${rawMethodComment[1].trim()} */`
     const signature = rawMethodComment[2].trim()
 
@@ -92,14 +89,14 @@ export function extractTsDocCommentsFromString(source: string): MethodComment[] 
 export class Formatter {
   public static renderDocNode(docNode: DocNode): string {
     let result: string = ''
-    if (docNode) {
-      if (docNode instanceof DocExcerpt) {
-        result += docNode.content.toString()
-      }
-      for (const childNode of docNode.getChildNodes()) {
-        result += Formatter.renderDocNode(childNode)
-      }
+
+    if (docNode instanceof DocExcerpt) {
+      result += docNode.content.toString()
     }
+    for (const childNode of docNode.getChildNodes()) {
+      result += Formatter.renderDocNode(childNode)
+    }
+
     return result
   }
 
