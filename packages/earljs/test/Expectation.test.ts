@@ -32,6 +32,27 @@ describe('assert', () => {
     })
   })
 
+  describe('when negated "aside"', () => {
+    const expectation = new Expectation(sinon.spy(), undefined, undefined)
+    expectation.not
+
+    it('doesnt throw when validation was successful', () => {
+      expect(() => getControl(expectation).assert(success)).not.to.throw()
+    })
+
+    it('throws when validation was unsuccessful', () => {
+      expect(() => getControl(expectation).assert(failure)).to.throw('Failure')
+    })
+  })
+
+  describe('when negated multiple times', () => {
+    it('throws when negated more than once', () => {
+      expect(() => new Expectation(sinon.spy(), undefined, undefined).not.not).to.throw(
+        'Tried negating an already negated expectation',
+      )
+    })
+  })
+
   describe('fail', () => {
     it('throws when not negated', () => {
       const expectation = new Expectation(sinon.spy(), undefined, undefined)

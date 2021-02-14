@@ -22,8 +22,8 @@ export interface ExpectationOptions {
 export class Expectation<T> {
   constructor(
     private readonly actual: T,
-    private isNegated: boolean = false,
-    private options: ExpectationOptions = {},
+    private readonly isNegated: boolean = false,
+    private readonly options: ExpectationOptions = {},
   ) {
     for (const [name, validator] of Object.entries(dynamicValidators)) {
       ;(this as any)[name] = validator
@@ -35,14 +35,12 @@ export class Expectation<T> {
   /**
    * Inverts the behaviour of the validator that follows.
    */
-  get not(): this {
+  get not(): Expectation<T> {
     if (this.isNegated) {
       throw new Error('Tried negating an already negated expectation')
     }
 
-    this.isNegated = true
-
-    return this
+    return new Expectation(this.actual, true, this.options)
   }
 
   // validators
