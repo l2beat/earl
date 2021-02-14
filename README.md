@@ -65,7 +65,7 @@ Thanks goes to these wonderful people
     <td align="center"><a href="https://github.com/krzysztof-jelski"><img src="https://avatars3.githubusercontent.com/u/430616?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Krzysztof Jelski</b></sub></a><br /><a href="#ideas-krzysztof-jelski" title="Ideas, Planning, & Feedback">🤔</a></td>
   </tr>
   <tr>
-    <td align="center"><a href="https://github.com/rkrupinski"><img src="https://avatars.githubusercontent.com/u/775177?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Rafał Krupiński</b></sub></a><br /><a href="https://github.com/earl-js/earl/issues?q=author%3Arkrupinski" title="Bug reports">🐛</a></td>
+    <td align="center"><a href="https://github.com/rkrupinski"><img src="https://avatars.githubusercontent.com/u/775177?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Rafał Krupiński</b></sub></a><br /><a href="https://github.com/earl-js/earl/issues?q=author%3Arkrupinski" title="Bug reports">🐛</a> <a href="https://github.com/earl-js/earl/commits?author=rkrupinski" title="Code">💻</a></td>
   </tr>
 </table>
 
