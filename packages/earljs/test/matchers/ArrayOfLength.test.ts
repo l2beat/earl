@@ -1,4 +1,5 @@
 import { expect } from 'chai'
+import { EOL } from 'os'
 
 import { expect as earlExpect } from '../../src'
 import { ArrayOfLengthMatcher } from '../../src/matchers/ArrayOfLength'
@@ -39,8 +40,12 @@ describe('ArrayOfLength matcher', () => {
         earlExpect({ arr: [1, 2, 3] }).toEqual({
           arr: earlExpect.arrayOfLength(earlExpect.numberCloseTo(6, { delta: 1 })),
         }),
-      ).to.throw(`{"arr": [1, 2, 3]} not equal to {"arr": "[ArrayOfLength: [NumberCloseTo: 6, delta=1]]"}
-Hint: value mismatch`)
+      ).to.throw(
+        [
+          '{"arr": [1, 2, 3]} not equal to {"arr": "[ArrayOfLength: [NumberCloseTo: 6, delta=1]]"}',
+          'Hint: value mismatch',
+        ].join(EOL),
+      )
     })
   })
 })

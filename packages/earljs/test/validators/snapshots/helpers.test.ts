@@ -1,4 +1,5 @@
 import { expect } from 'chai'
+import path from 'path'
 
 import { TestInfo } from '../../../src/test-runners'
 import {
@@ -24,8 +25,8 @@ describe('getSnapshotFullName', () => {
 describe('getSnapshotFilePath', () => {
   it('works', () => {
     const filePath = getSnapshotFilePath(testInfo.testFilePath)
-
-    expect(filePath).to.be.eq('/tests/__snapshots__/ClassA.test.snap')
+    const expected = path.normalize('/tests/__snapshots__/ClassA.test.snap')
+    expect(filePath).to.be.eq(expected)
   })
 })
 

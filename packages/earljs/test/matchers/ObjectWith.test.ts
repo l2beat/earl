@@ -1,4 +1,5 @@
 import { expect } from 'chai'
+import { EOL } from 'os'
 
 import { expect as earlExpect } from '../../src'
 import { ObjectWithMatcher } from '../../src/matchers/ObjectWith'
@@ -85,7 +86,9 @@ describe('ObjectWith matcher', () => {
     it('throws understandable error messages', () => {
       expect(() =>
         earlExpect({ a: 1 }).toEqual(earlExpect.objectWith({ a: earlExpect.numberCloseTo(3, { delta: 1 }) })),
-      ).to.throw(`{"a": 1} not equal to "[ObjectWith: {"a": [NumberCloseTo: 3, delta=1]}]"\nHint: value mismatch`)
+      ).to.throw(
+        ['{"a": 1} not equal to "[ObjectWith: {"a": [NumberCloseTo: 3, delta=1]}]"', 'Hint: value mismatch'].join(EOL),
+      )
     })
   })
 })
