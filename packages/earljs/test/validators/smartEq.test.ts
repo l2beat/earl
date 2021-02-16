@@ -161,7 +161,8 @@ describe('smartEq', () => {
   describe('plugin', () => {
     let smartEq: SmartEqType
     let loadSmartEqRules: LoadSmartEqRulesType
-    beforeEach(() => {
+    beforeEach(function () {
+      this.timeout(5_000)
       clearModuleCache()
       ;({ smartEq, loadSmartEqRules } = require('../../src/validators/smartEq'))
     })
