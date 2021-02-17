@@ -4,8 +4,8 @@
   "version": "0.0.0",
   "scripts": {
     "start": "ts-node -T ./src/index.ts",
-    "format": "prettier --ignore-path ../../.prettierignore './**/*.ts' --check",
-    "format:fix": "prettier --ignore-path ../../.prettierignore './**/*.ts' --write",
+    "format": "prettier --ignore-path ../../.prettierignore --check .",
+    "format:fix": "prettier --ignore-path ../../.prettierignore --write .",
     "lint": "eslint --ext .ts .",
     "lint:fix": "yarn lint --fix",
     "typecheck": "tsc --noEmit",

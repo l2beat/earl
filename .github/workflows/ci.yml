@@ -11,8 +11,10 @@ jobs:
     strategy:
       matrix:
         node: ['10.x', '12.x', '14.x']
-        os: [ubuntu-latest]
+        os: [ubuntu-latest, windows-latest, macos-latest]
     runs-on: ${{ matrix.os }}
+    env:
+      CI: true
 
     steps:
       - uses: actions/checkout@v1
@@ -42,7 +44,7 @@ jobs:
         run: yarn build:noweb
 
       - name: Test
-        run: CI=true yarn test
+        run: yarn test
 
       - name: Typecheck
         run: yarn typecheck

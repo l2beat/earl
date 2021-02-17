@@ -8,14 +8,13 @@
   "types": "./types.d.ts",
   "scripts": {
     "start": "ts-node -T ./src/index.ts",
-    "format": "prettier --ignore-path ../../.prettierignore --check \"./**/*.ts\"",
-    "format:fix": "prettier --ignore-path ../../.prettierignore --write \"./**/*.ts\"",
+    "format": "prettier --ignore-path ../../.prettierignore --check .",
+    "format:fix": "prettier --ignore-path ../../.prettierignore --write .",
     "lint": "eslint --ext .ts src",
     "lint:fix": "yarn lint --fix",
     "typecheck": "tsc --noEmit",
-    "clean": "rm -rf dist",
+    "clean": "rimraf dist",
     "build": "yarn clean && tsc -p ./tsconfig.json",
-    "test": "true",
     "test:fix": "yarn lint:fix && yarn format:fix && yarn test && yarn typecheck"
   },
   "devDependencies": {

@@ -1,4 +1,5 @@
 import { expect } from 'chai'
+import { EOL } from 'os'
 
 import { expect as earl, loadMatchers } from '../src/expect'
 import { AnythingMatcher } from '../src/matchers'
@@ -26,8 +27,7 @@ describe('Expectation', () => {
 
   it('works with extraMessage', () => {
     expect(() => earl(1, { extraMessage: 'test assertion' }).toEqual(2)).to.throw(
-      `1 not equal to 2
-Extra message: test assertion`,
+      ['1 not equal to 2', 'Extra message: test assertion'].join(EOL),
     )
   })
 
@@ -36,7 +36,8 @@ Extra message: test assertion`,
   describe('plugin', () => {
     let earl: expectType
     let loadMatchers: loadMatchersType
-    beforeEach(() => {
+    beforeEach(function () {
+      this.timeout(5_000)
       clearModuleCache()
       ;({ expect: earl, loadMatchers } = require('../src/expect'))
     })

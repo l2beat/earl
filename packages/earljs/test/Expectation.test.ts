@@ -70,7 +70,8 @@ describe('assert', () => {
   describe('plugin', () => {
     let Expectation: ExpectationType
     let loadValidators: loadValidatorsType
-    beforeEach(() => {
+    beforeEach(function () {
+      this.timeout(5_000)
       clearModuleCache()
       ;({ Expectation, loadValidators } = require('../src/Expectation'))
     })

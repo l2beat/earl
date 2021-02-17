@@ -1,4 +1,5 @@
 import { expect } from 'chai'
+import path from 'path'
 import { spy } from 'sinon'
 
 import { Control } from '../../../src/internals'
@@ -37,7 +38,7 @@ describe('toMatchSnapshot', () => {
       actual: 'test123',
       name: 'Dummy suit works',
       updateSnapshotMode: 'new',
-      snapshotFilePath: '/tests/__snapshots__/dummy.test.snap',
+      snapshotFilePath: path.normalize('/tests/__snapshots__/dummy.test.snap'),
     })
 
     expect(dummyCtrl.assert).to.have.been.calledOnceWithExactly({ success: true, negatedReason: '-', reason: '-' })
@@ -55,7 +56,7 @@ describe('toMatchSnapshot', () => {
       actual: 'test123',
       name: 'Dummy suit works',
       updateSnapshotMode: 'new',
-      snapshotFilePath: '/tests/__snapshots__/dummy.test.snap',
+      snapshotFilePath: path.normalize('/tests/__snapshots__/dummy.test.snap'),
     })
     expect(dummyCtrl.assert).to.have.been.calledOnceWithExactly({
       success: false,
