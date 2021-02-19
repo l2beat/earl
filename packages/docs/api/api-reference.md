@@ -67,10 +67,10 @@ title: API reference
 
 ### Core
 
-#### expect(any, options?)
+#### expect(value: any, options?: Options)
 
-`options.extraMessage` - provide extra message to make it easier to understand
-when your assertion fails
+`options.extraMessage` - provide an extra message to make it easier to
+understand when an assertion fails
 
 ### Validators
 

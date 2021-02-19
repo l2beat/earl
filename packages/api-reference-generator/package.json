@@ -17,7 +17,9 @@
     "test:fix": "yarn lint:fix && yarn format:fix && yarn typecheck && yarn test"
   },
   "dependencies": {
+    "@types/lodash": "^4.14.168",
     "earljs": "*",
+    "lodash": "^4.17.20",
     "ts-essentials": "^7.0.1"
   },
   "devDependencies": {

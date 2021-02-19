@@ -17,3 +17,13 @@ Random example
 someMethod(1, 2)
 \`\`\`"
 `;
+
+exports[`generateTableOfContents generates 1`] = `
+"- [expect(value: any, options: Options)](#expectvalue-any-options-options)
+- [sample()](#sample)"
+`;
+
+exports[`generateTableOfContents generates valid TOC 1`] = `
+"- [expect(value: any, options: Options)](#expectvalue-any-options-options)
+- [sample()](#sample)"
+`;
