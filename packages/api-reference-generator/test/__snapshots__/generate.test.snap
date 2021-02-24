@@ -8,22 +8,22 @@ Returns the average of two numbers.
 Some other note
 
 *Parameters:*
+
 - \`x\` - The first input number
 - \`y\` - The second input number
 
 *Examples:*
+
 Random example
 \`\`\`ts
 someMethod(1, 2)
 \`\`\`"
 `;
 
-exports[`generateTableOfContents generates 1`] = `
-"- [expect(value: any, options: Options)](#expectvalue-any-options-options)
-- [sample()](#sample)"
-`;
-
 exports[`generateTableOfContents generates valid TOC 1`] = `
-"- [expect(value: any, options: Options)](#expectvalue-any-options-options)
-- [sample()](#sample)"
+"- [sample()](#sample)
+
+- [expect(value: any, options: Options)](#expectvalue-any-options-options)
+
+- [expect\\\\<TYPE>(value: any, options: Options)](#expect<type>value-any-options-options)"
 `;

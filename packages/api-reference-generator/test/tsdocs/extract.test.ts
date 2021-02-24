@@ -13,6 +13,16 @@ describe('extractTsDocCommentsFromString', () => {
     expect(comments).toEqual([{ signature: 'someMethod(): void', comment: '/** test */' }])
   })
 
+  it('extracts single getter comment', () => {
+    const input = `
+    /** test */
+    get someMethod(): void {}
+    `
+    const comments = extractTsDocCommentsFromString(input)
+
+    expect(comments).toEqual([{ signature: 'someMethod(): void', comment: '/** test */' }])
+  })
+
   it('extracts multiple method comments', () => {
     const input = `
     /** test */

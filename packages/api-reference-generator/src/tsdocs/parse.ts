@@ -8,8 +8,14 @@ export function parseTsDocComment(methodComment: MethodComment): MethodDocumenta
   const parserContext = tsdocParser.parseString(methodComment.comment)
 
   if (parserContext.log.messages.length > 0) {
-    throw new Error('Syntax error: ' + parserContext.log.messages[0].text)
+    throw new Error(
+      `Syntax error: \n ${parserContext.log.messages[0].text}\nwhile parsing: \n${methodComment.signature}`,
+    )
   }
+
+  // TODO: throw error:
+  // when param has dot at the end
+  // name is not consistent with signature
 
   const docComment = parserContext.docComment
 

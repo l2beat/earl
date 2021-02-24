@@ -28,6 +28,12 @@ describe('generateTableOfContents', () => {
         examples: [],
         params: [],
       },
+      {
+        signature: 'expect<TYPE>(value: any, options: Options)',
+        description: '',
+        examples: [],
+        params: [],
+      },
     ]
 
     const result = generateTableOfContents(docs)

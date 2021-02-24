@@ -11,7 +11,7 @@ export function extractTsDocCommentsFromString(source: string): MethodComment[] 
   assert(rawMethodComment, `Couldn't find any block comments in ${source}`)
   while (rawMethodComment != null) {
     const comment = `/** ${rawMethodComment[1].trim()} */`
-    const signature = rawMethodComment[2].trim()
+    const signature = removeGetterKeyword(rawMethodComment[2].trim())
 
     methodComments.push({ signature, comment })
 
@@ -19,4 +19,11 @@ export function extractTsDocCommentsFromString(source: string): MethodComment[] 
   }
 
   return methodComments
+}
+
+function removeGetterKeyword(signature: string): string {
+  if (signature.startsWith('get ')) {
+    return signature.substring('get '.length)
+  }
+  return signature
 }
