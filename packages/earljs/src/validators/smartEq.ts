@@ -13,8 +13,15 @@ export function buildSmartEqResult(success: boolean, reason: ErrorReasons = 'val
   }
 }
 
-// strict skips prototype check
-export function smartEq(actual: any, expected: any, strict: boolean = true): SmartEqResult {
+// strict=false skips prototype check
+export function smartEq(actual: any, expected: any, strict: boolean = true, seen: Set<any> = new Set()): SmartEqResult {
+  // handles recursive objects
+  if (seen.has(actual) && seen.has(expected)) {
+    return buildSmartEqResult(true)
+  }
+  seen.add(actual)
+  seen.add(expected)
+
   if (expected instanceof Matcher) {
     return buildSmartEqResult(expected.check(actual))
   }
@@ -37,7 +44,7 @@ export function smartEq(actual: any, expected: any, strict: boolean = true): Sma
 
   if (typeof actual === 'symbol') {
     if (typeof expected === 'symbol') {
-      return smartEq(actual.toString(), expected.toString())
+      return smartEq(actual.toString(), expected.toString(), strict, seen)
     } else {
       return buildSmartEqResult(false, 'prototype mismatch')
     }
@@ -52,7 +59,7 @@ export function smartEq(actual: any, expected: any, strict: boolean = true): Sma
         return buildSmartEqResult(false)
       }
 
-      const equality = actualArray.map((v, i) => smartEq(v, expectedArray[i]))
+      const equality = actualArray.map((v, i) => smartEq(v, expectedArray[i], strict, seen))
       return buildSmartEqResult(!equality.some((eq) => eq.result === 'error'))
     } else {
       return buildSmartEqResult(false, 'prototype mismatch')
@@ -75,7 +82,7 @@ export function smartEq(actual: any, expected: any, strict: boolean = true): Sma
           return buildSmartEqResult(false)
         }
 
-        return smartEq(actual[k], expected[k])
+        return smartEq(actual[k], expected[k], strict, seen)
       })
 
       return buildSmartEqResult(!equality.some((eq) => eq.result === 'error'))
