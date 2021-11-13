@@ -216,14 +216,14 @@ describe('Mock', () => {
       try {
         await fn(1)
         expect.fail()
-      } catch (e) {
+      } catch (e: any) {
         expect(e.message).to.eq('some scary error')
       }
 
       try {
         await fn(2)
         expect.fail()
-      } catch (e) {
+      } catch (e: any) {
         expect(e.message).to.eq('different error')
       }
     })
