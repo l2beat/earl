@@ -1,1 +1,1 @@
-export { TestRunnerCtx, TestInfo, TestRunnerHook } from './TestRunnerCtx'
+export { TestInfo, TestRunnerCtx, TestRunnerHook } from './TestRunnerCtx'
