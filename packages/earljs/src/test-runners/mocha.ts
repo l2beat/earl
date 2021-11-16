@@ -1,31 +1,76 @@
 import debug from 'debug'
 import { assert } from 'ts-essentials'
+import mocha, { Context, Runner, Suite } from 'mocha'
 
 import { setTestRunnerIntegration } from '../testRunnerCtx'
 import { TestInfo, TestRunnerCtx, TestRunnerHook } from './TestRunnerCtx'
 
 const d = debug('earljs:mocha')
 
-exports.mochaGlobalSetup = async function () {
+/**
+ * Needed in Mocha --watch mode. Mocha doesn't export hooks before mocha.ui() is called.
+ */
+function main() {
+  for (const module of findMochaInstances()) {
+    if (!module || (module as any).__earljs_integrated) {
+      continue
+    }
+    ;(module as any).__earljs_integrated = true
+
+    d('Monkey-patching Mocha.prototype.rootHooks')
+    const { rootHooks } = module.prototype
+    module.prototype.rootHooks = function (...args) {
+      setTestRunnerIntegration(new MochaCtx(this.suite))
+      return rootHooks.apply(this, args)
+    }
+  }
+}
+
+/**
+ * In mocha run mode, we use the suite with hooks already assigned to Mocha's exports.
+ */
+exports.mochaGlobalSetup = function (this: Runner) {
   d('Integrating earl with mocha...')
 
-  setTestRunnerIntegration(new MochaCtx())
+  if ((mocha as Partial<MochaHooks>).beforeEach) {
+    setTestRunnerIntegration(new MochaCtx(mocha))
+  }
+}
+
+function findMochaInstances(): typeof mocha[] {
+  const mochaFromWindow = (globalThis as any).window?.Mocha
+  if (mochaFromWindow) {
+    return [mochaFromWindow]
+  }
+
+  if (typeof require === 'function') {
+    const cache = require.cache || {}
+    return Object.keys(cache)
+      .filter(function (child) {
+        var val = cache[child]?.exports
+        return typeof val === 'function' && val.name === 'Mocha'
+      })
+      .map(function (child) {
+        return cache[child]?.exports
+      })
+  }
+  return []
 }
 
 export class MochaCtx implements TestRunnerCtx {
   testInfo!: TestInfo
 
-  constructor() {
+  constructor(private readonly _hooks: MochaHooks) {
     const self = this
 
     d('Installing beforeEach hook to get testInfo before each test')
-    globalThis.beforeEach(function () {
+    _hooks.beforeEach(function () {
       assert(this.currentTest, "Current test not set by mocha. This shouldn't happen.")
       assert(this.currentTest.file, "Current test file path not set by mocha. This shouldn't happen.")
       assert(this.currentTest.parent, "Current test has no parent set by mocha. This shouldn't happen.")
 
       self.testInfo = {
-        suitName: makeSuitName(this.currentTest.parent),
+        suitName: makeSuiteName(this.currentTest.parent),
         testName: this.currentTest.title,
         testFilePath: this.currentTest.file,
       }
@@ -33,20 +78,27 @@ export class MochaCtx implements TestRunnerCtx {
   }
 
   afterTestCase(fn: TestRunnerHook) {
-    globalThis.beforeEach(fn)
+    this._hooks.afterEach(fn)
   }
 
   beforeTestCase(fn: TestRunnerHook) {
-    globalThis.afterEach(fn)
+    this._hooks.beforeEach(fn)
   }
 }
 
-function makeSuitName(testCtx: Mocha.Suite): string[] {
+interface MochaHooks {
+  beforeEach(fn: (this: Context) => void): void
+  afterEach(fn: (this: Context) => void): void
+}
+
+function makeSuiteName(testCtx: Suite): string[] {
   if (testCtx.parent) {
-    return [...makeSuitName(testCtx.parent), testCtx.title]
+    return [...makeSuiteName(testCtx.parent), testCtx.title]
   }
   if (testCtx.title) {
     return [testCtx.title]
   }
   return []
 }
+
+main()
