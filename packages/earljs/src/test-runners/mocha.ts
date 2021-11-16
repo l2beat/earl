@@ -1,6 +1,6 @@
 import debug from 'debug'
-import { assert } from 'ts-essentials'
 import mocha, { Context, Runner, Suite } from 'mocha'
+import { assert } from 'ts-essentials'
 
 import { setTestRunnerIntegration } from '../testRunnerCtx'
 import { TestInfo, TestRunnerCtx, TestRunnerHook } from './TestRunnerCtx'
@@ -8,7 +8,7 @@ import { TestInfo, TestRunnerCtx, TestRunnerHook } from './TestRunnerCtx'
 const d = debug('earljs:mocha')
 
 /**
- * Needed in Mocha --watch mode. Mocha doesn't export hooks before mocha.ui() is called.
+ * Needed in Mocha --watch mode. Mocha doesn't export hooks before mocha.ui() is called
  */
 function main() {
   for (const module of findMochaInstances()) {
@@ -37,14 +37,17 @@ exports.mochaGlobalSetup = function (this: Runner) {
   }
 }
 
-function findMochaInstances(): typeof mocha[] {
+function findMochaInstances(): (typeof mocha | undefined)[] {
   const mochaFromWindow = (globalThis as any).window?.Mocha
   if (mochaFromWindow) {
     return [mochaFromWindow]
   }
 
-  if (typeof require === 'function') {
-    const cache = require.cache || {}
+  const req = require as typeof require | undefined
+  if (typeof req === 'function') {
+    // require can be undefined in Node ESM and browser contexts
+    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+    const cache = req.cache || {}
     return Object.keys(cache)
       .filter(function (child) {
         var val = cache[child]?.exports
@@ -54,6 +57,7 @@ function findMochaInstances(): typeof mocha[] {
         return cache[child]?.exports
       })
   }
+
   return []
 }
 

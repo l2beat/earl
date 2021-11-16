@@ -1,0 +1,53 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`earljs/mocha failing test 1`] = `0.5506113757632223`;
+
+exports[`earljs/mocha failing test 2`] = `0.6554106565389253`;
+
+exports[`earljs/mocha failing test 3`] = `0.1794920777450828`;
+
+exports[`earljs/mocha failing test 4`] = `0.18139369523734383`;
+
+exports[`earljs/mocha failing test 5`] = `0.5575046137232706`;
+
+exports[`earljs/mocha failing test 6`] = `0.9517831336482709`;
+
+exports[`earljs/mocha failing test 7`] = `0.9007501305802494`;
+
+exports[`earljs/mocha failing test 8`] = `0.9570616377620222`;
+
+exports[`earljs/mocha failing test 9`] = `0.8602380107100129`;
+
+exports[`earljs/mocha failing test 10`] = `0.4421442115508365`;
+
+exports[`earljs/mocha failing test 11`] = `0.6803489827286553`;
+
+exports[`earljs/mocha failing test 12`] = `0.7169182110712202`;
+
+exports[`earljs/mocha failing test 13`] = `0.6620858316086671`;
+
+exports[`earljs/mocha successful test 1`] = `2`;
+
+exports[`earljs/mocha successful test 2`] = `2`;
+
+exports[`earljs/mocha successful test 3`] = `2`;
+
+exports[`earljs/mocha successful test 4`] = `2`;
+
+exports[`earljs/mocha successful test 5`] = `2`;
+
+exports[`earljs/mocha successful test 6`] = `2`;
+
+exports[`earljs/mocha successful test 7`] = `2`;
+
+exports[`earljs/mocha successful test 8`] = `2`;
+
+exports[`earljs/mocha successful test 9`] = `2`;
+
+exports[`earljs/mocha successful test 10`] = `2`;
+
+exports[`earljs/mocha successful test 11`] = `2`;
+
+exports[`earljs/mocha successful test 12`] = `2`;
+
+exports[`earljs/mocha successful test 13`] = `2`;

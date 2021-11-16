@@ -33,6 +33,7 @@
     "@typescript-eslint/parser": "4.15.1",
     "chai": "^4.2.0",
     "chai-as-promised": "^7.1.1",
+    "cross-spawn-with-kill": "^1.0.0",
     "eslint": "^7.29.0",
     "eslint-config-typestrict": "^1.0.2",
     "eslint-plugin-import": "^2.23.4",
