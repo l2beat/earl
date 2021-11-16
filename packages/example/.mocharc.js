@@ -16,7 +16,8 @@ process.on('unhandledRejection', (reason, promise) => {
 })
 
 module.exports = {
-  require: ['ts-node/register/transpile-only', 'earljs/mocha'],
+  require: ['ts-node/register/transpile-only'],
+  file: ['./node_modules/earljs/mocha'],
   extension: ['ts'],
   watchExtensions: ['ts'],
   spec: ['test/**/*.test.ts'],
