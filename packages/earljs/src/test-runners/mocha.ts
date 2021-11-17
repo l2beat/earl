@@ -17,11 +17,11 @@ function main() {
     }
     ;(module as any).__earljs_integrated = true
 
-    d('Monkey-patching Mocha.prototype.rootHooks')
-    const { rootHooks } = module.prototype
-    module.prototype.rootHooks = function (...args) {
+    d('Monkey-patching Mocha.prototype.ui')
+    const { ui } = module.prototype
+    module.prototype.ui = function (...args) {
       setTestRunnerIntegration(new MochaCtx(this.suite))
-      return rootHooks.apply(this, args)
+      return ui.apply(this, args)
     }
   }
 }

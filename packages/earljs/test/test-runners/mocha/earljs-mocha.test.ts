@@ -1,6 +1,9 @@
 import { expect } from 'chai'
+import { execSync } from 'child_process'
 // @ts-expect-error missing typings, but they match child_process.spawn
 import _spawn from 'cross-spawn-with-kill'
+import { existsSync } from 'fs'
+import path from 'path'
 
 const spawn = _spawn as typeof import('child_process').spawn
 
@@ -10,16 +13,37 @@ const FAILING_TESTS = 1
 const expected = { passing: PASSING_TESTS, failing: FAILING_TESTS }
 
 describe('earljs/mocha end-to-end tests', () => {
-  it('works in watch mode', async () => {
-    const results = await runMocha({ watch: true })
-
-    expect({ passing: results.passing, failing: results.failing }).to.deep.equal(expected, errorMessage(results))
+  before(() => {
+    // These tests require earl to be built.
+    const packageJson = require('../../../mocha/package.json')
+    const builtModulePath = path.resolve(__dirname, '../../../mocha/', packageJson.main)
+    if (!existsSync(builtModulePath)) {
+      execSync('yarn build', { cwd: path.resolve(__dirname, '../../..') })
+    }
   })
 
-  it.only('works in parallel watch mode', async () => {
-    const results = await runMocha({ watch: true, parallel: true })
+  it('works in run mode', async () => {
+    const res = await runMocha({})
 
-    expect({ passing: results.passing, failing: results.failing }).to.deep.equal(expected, errorMessage(results))
+    expect({ passing: res.passing, failing: res.failing }).to.deep.equal(expected, errorMessage(res))
+  })
+
+  it('works in parallel run mode', async () => {
+    const res = await runMocha({ parallel: true })
+
+    expect({ passing: res.passing, failing: res.failing }).to.deep.equal(expected, errorMessage(res))
+  })
+
+  it('works in watch mode', async () => {
+    const res = await runMocha({ watch: true })
+
+    expect({ passing: res.passing, failing: res.failing }).to.deep.equal(expected, errorMessage(res))
+  })
+
+  it('works in parallel watch mode', async () => {
+    const res = await runMocha({ parallel: true, watch: true })
+
+    expect({ passing: res.passing, failing: res.failing }).to.deep.equal(expected, errorMessage(res))
   })
 })
 
@@ -38,11 +62,11 @@ interface TestResults {
   stderr: string
 }
 
-function runMocha(opts: { watch?: boolean; parallel?: boolean }) {
+function runMocha(modes: { watch?: boolean; parallel?: boolean }) {
   return new Promise<TestResults>((resolve) => {
     const child = spawn(
       'mocha',
-      ['--config', './mocha.config.js', opts.watch && '--watch', opts.parallel && '--parallel'].filter(
+      ['--config', './mocha.config.js', modes.watch && '--watch', modes.parallel && '--parallel'].filter(
         (x): x is string => !!x,
       ),
       { env: process.env, cwd: __dirname },
@@ -56,9 +80,11 @@ function runMocha(opts: { watch?: boolean; parallel?: boolean }) {
       const str = String(data)
       result.stderr += str
 
-      if (str.includes('[mocha] waiting for changes...')) {
-        child.kill('SIGINT')
-        resolve(result)
+      if (modes.watch) {
+        if (str.includes('[mocha] waiting for changes...')) {
+          child.kill('SIGINT')
+          resolve(result)
+        }
       }
     })
     child.stdout.on('data', (data) => {
@@ -72,6 +98,10 @@ function runMocha(opts: { watch?: boolean; parallel?: boolean }) {
       const failing = str.match(/(\d+) failing/)
       if (failing) {
         result.failing = parseInt(failing[1])
+        if (!modes.watch) {
+          child.kill('SIGINT')
+          resolve(result)
+        }
       }
     })
   })
