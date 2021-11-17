@@ -43,6 +43,9 @@ jobs:
       - name: Build (excluding website)
         run: yarn build:noweb
 
+      - name: Setup SSH debug session
+        uses: mxschmitt/action-tmate@v2
+
       - name: Test
         run: yarn test
 
