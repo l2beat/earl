@@ -4,32 +4,49 @@ import _spawn from 'cross-spawn-with-kill'
 
 const spawn = _spawn as typeof import('child_process').spawn
 
+// There might be a way to handle it in a more elegant manner...
+const PASSING_TESTS = 1
+const FAILING_TESTS = 1
+const expected = { passing: PASSING_TESTS, failing: FAILING_TESTS }
+
 describe('earljs/mocha end-to-end tests', () => {
   it('works in watch mode', async () => {
-    // There might be a way to handle it in a more elegant manner...
-    const PASSING_TESTS = 1
-    const FAILING_TESTS = 1
+    const results = await runMocha({ watch: true })
 
-    const results = await runMochaWatch()
+    expect({ passing: results.passing, failing: results.failing }).to.deep.equal(expected, errorMessage(results))
+  })
 
-    expect({ passing: results.passing, failing: results.failing }).to.deep.equal(
-      {
-        passing: PASSING_TESTS,
-        failing: FAILING_TESTS,
-      },
-      `Expected to pass ${PASSING_TESTS} instead of ${results.passing} and fail ${FAILING_TESTS} instead of ${results.failing}.\n` +
-        `\nSTDOUT:\n\`${results.stdout}\`` +
-        `\nSTDERR:\n\`${results.stderr}\`\n\n`,
-    )
+  it.only('works in parallel watch mode', async () => {
+    const results = await runMocha({ watch: true, parallel: true })
+
+    expect({ passing: results.passing, failing: results.failing }).to.deep.equal(expected, errorMessage(results))
   })
 })
 
-function runMochaWatch() {
-  return new Promise<{ passing: number; failing: number; stdout: string; stderr: string }>((resolve) => {
-    const child = spawn('mocha', ['--config', './mocha.config.js', '--watch'], {
-      env: process.env,
-      cwd: __dirname,
-    }).on('error', (err) => {
+function errorMessage(results: TestResults) {
+  return (
+    `Expected to pass ${PASSING_TESTS} instead of ${results.passing} and fail ${FAILING_TESTS} instead of ${results.failing}.\n` +
+    `\nSTDOUT:\n\`${results.stdout}\`` +
+    `\nSTDERR:\n\`${results.stderr}\`\n\n`
+  )
+}
+
+interface TestResults {
+  passing: number
+  failing: number
+  stdout: string
+  stderr: string
+}
+
+function runMocha(opts: { watch?: boolean; parallel?: boolean }) {
+  return new Promise<TestResults>((resolve) => {
+    const child = spawn(
+      'mocha',
+      ['--config', './mocha.config.js', opts.watch && '--watch', opts.parallel && '--parallel'].filter(
+        (x): x is string => !!x,
+      ),
+      { env: process.env, cwd: __dirname },
+    ).on('error', (err) => {
       throw err
     })
 
