@@ -18,6 +18,8 @@ if (1 + 1 === 2) {
  * Needed in Mocha --watch mode. Mocha doesn't export hooks before mocha.ui() is called
  */
 function main() {
+  d('earljs/mocha integration is being registered...')
+
   for (const module of findMochaInstances()) {
     if (!module || (module as any).__earljs_integrated) {
       continue
