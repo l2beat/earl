@@ -12,7 +12,9 @@ const PASSING_TESTS = 1
 const FAILING_TESTS = 1
 const expected = { passing: PASSING_TESTS, failing: FAILING_TESTS }
 
-describe.only('earljs/mocha end-to-end tests', () => {
+describe.only('earljs/mocha end-to-end tests', function () {
+  this.timeout(10000)
+
   before(function () {
     // These tests require earl to be built.
     this.timeout(7000)
