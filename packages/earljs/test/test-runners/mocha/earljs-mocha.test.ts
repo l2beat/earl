@@ -12,9 +12,10 @@ const PASSING_TESTS = 1
 const FAILING_TESTS = 1
 const expected = { passing: PASSING_TESTS, failing: FAILING_TESTS }
 
-describe('earljs/mocha end-to-end tests', () => {
-  before(() => {
+describe.only('earljs/mocha end-to-end tests', () => {
+  before(function () {
     // These tests require earl to be built.
+    this.timeout(7000)
     const packageJson = require('../../../mocha/package.json')
     const builtModulePath = path.resolve(__dirname, '../../../mocha/', packageJson.main)
     if (!existsSync(builtModulePath)) {
@@ -80,6 +81,8 @@ function runMocha(modes: { watch?: boolean; parallel?: boolean }) {
       const str = String(data)
       result.stderr += str
 
+      console.log('stderr', str)
+
       if (modes.watch) {
         if (str.includes('[mocha] waiting for changes...')) {
           child.kill('SIGINT')
@@ -90,6 +93,8 @@ function runMocha(modes: { watch?: boolean; parallel?: boolean }) {
     child.stdout.on('data', (data) => {
       const str = String(data)
       result.stdout += str
+
+      console.log('stdout', str)
 
       const passing = str.match(/(\d+) passing/)
       if (passing) {
