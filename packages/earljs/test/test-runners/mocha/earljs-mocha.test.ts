@@ -87,7 +87,7 @@ function runMocha(modes: { watch?: boolean; parallel?: boolean }) {
 
       // @todo for CI
       // eslint-disable-next-line no-console
-      console.log('stderr', str)
+      // console.log('stderr', str)
 
       if (modes.watch) {
         if (str.includes('[mocha] waiting for changes...')) {
@@ -102,7 +102,7 @@ function runMocha(modes: { watch?: boolean; parallel?: boolean }) {
 
       // @todo for CI
       // eslint-disable-next-line no-console
-      console.log('stdout', str)
+      // console.log('stdout', str)
 
       const passing = str.match(/(\d+) passing/)
       if (passing) {
