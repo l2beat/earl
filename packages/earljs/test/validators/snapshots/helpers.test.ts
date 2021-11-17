@@ -43,6 +43,7 @@ describe('getUpdateSnapshotMode', () => {
 
   it('should update all snapshots when requested', () => {
     expect(getUpdateSnapshotMode({ UPDATE_SNAPSHOTS: 'true' })).to.eq('all')
+    expect(getUpdateSnapshotMode({ UPDATE_SNAPSHOTS: '1' })).to.eq('all')
   })
 
   it('should update only new snapshots by default', () => {
