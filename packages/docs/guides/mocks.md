@@ -49,12 +49,11 @@ console.log(mock(2, 2)) // 42
 // when called with args 2 and 2 return 4
 mock.given(2, 2).returnsOnce(4)
 
-console.log(mock(2, 2))
+console.log(mock(2, 2)) // 4
 ```
 
 There are various ways of configuring mocks, explore all of them in
-[API reference](api/api-reference#mocks). Also, as you can use matchers when
-configuring mocks using `given`.
+[API reference](api/api-reference#mocks).
 
 ## Asserting mocks
 
@@ -71,6 +70,20 @@ expect(mock).toHaveBeenCalledWith([2, 2])
 
 // expect that it was exactly once with 2 and 2
 expect(mock).toHaveBeenCalledExactlyWith([[2, 2]])
+```
+
+Alternatively to `toHaveBeenCalledExactlyWith` and `toHaveBeenCalledWith`, you
+can define all expected arguments using `given` and assert they were passed with
+`toBeExhausted`.
+
+```ts
+const mock = mockFn<(_: number) => number>()
+  .given(2)
+  .returnsOnce(4)
+  .given(3)
+  .returnsOnce(9)
+
+expect(mock).toBeExhausted()
 ```
 
 Learn more from [API reference](api/api-reference#mocks).
