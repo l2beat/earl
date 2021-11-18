@@ -3,7 +3,7 @@ import fc from 'fast-check'
 
 import { AnythingMatcher } from '../../src/matchers/Anything'
 import { buildSmartEqResult, loadSmartEqRules, smartEq } from '../../src/validators/smartEq'
-import { anythingSettings } from '../arbitraries'
+import { arbitraries } from '../arbitraries'
 import { clearModuleCache } from '../common'
 
 describe('smartEq', () => {
@@ -16,6 +16,16 @@ describe('smartEq', () => {
     expect(smartEq('abc', ' def')).to.be.deep.eq({ result: 'error', reason: 'value mismatch' })
     expect(smartEq(true, false)).to.be.deep.eq({ result: 'error', reason: 'value mismatch' })
     expect(smartEq(undefined, null)).to.be.deep.eq({ result: 'error', reason: 'value mismatch' })
+  })
+
+  it('given two primitives, smartEq(a, b) succeeds only if a === b', () => {
+    fc.assert(
+      fc.property(
+        arbitraries.primitive,
+        arbitraries.primitive,
+        (a, b) => (a === b) === (smartEq(a, b).result === 'success'),
+      ),
+    )
   })
 
   it('compares objects', () => {
@@ -97,6 +107,15 @@ describe('smartEq', () => {
     expect(smartEq(new Date(1, 2, 3), new Date(1, 2, 3))).to.be.deep.eq({ result: 'success' })
     expect(smartEq(new Date(1, 2, 3), new Date(1, 2, 4))).to.be.deep.eq({ result: 'error', reason: 'value mismatch' })
     expect(smartEq(new Date(1, 2, 3), undefined)).to.be.deep.eq({ result: 'error', reason: 'prototype mismatch' })
+  })
+
+  it('given two dates, smartEq(a, b) succeeds only if their unix timestamps equal', () => {
+    fc.assert(
+      fc.property(fc.date(), fc.date(), (a, b) => {
+        return (smartEq(a, b).result === 'success') === (a.getTime() === b.getTime())
+      }),
+      { examples: [[new Date(0), new Date(0)]] },
+    )
   })
 
   it('compares sets', () => {
@@ -262,12 +281,12 @@ describe('smartEq', () => {
    * Based on Jest's property tests
    * @see https://github.com/facebook/jest/blob/e0b33b74b5afd738edc183858b5c34053cfc26dd/packages/expect/src/__tests__/matchers-toEqual.property.test.ts
    */
-  describe.only('properties', () => {
+  describe('properties', () => {
     const equals = <T>(a: T, b: T) => smartEq(a, b).result === 'success'
 
     it('should be reflexive', () => {
       fc.assert(
-        fc.property(fc.dedup(fc.anything(anythingSettings), 2), ([a, b]) => equals(a, b)),
+        fc.property(fc.dedup(arbitraries.anything, 2), ([a, b]) => equals(a, b)),
         {},
       )
     })
@@ -275,8 +294,8 @@ describe('smartEq', () => {
     it('should be symmetric', () => {
       fc.assert(
         fc.property(
-          fc.anything(anythingSettings),
-          fc.anything(anythingSettings),
+          arbitraries.anything,
+          arbitraries.anything,
           (a, b) =>
             // Given:  a and b values
             // Assert: We expect `expect(a).toEqual(b)`
