@@ -8,7 +8,8 @@
     "target": "ES2019",
     "sourceMap": true,
     "composite": true,
-    "incremental": true
+    "incremental": true,
+    "esModuleInterop": true
   },
   "include": ["**/*.ts", "**/*.tsx", "**/*.js", "**/*.mjs", "**/*.cjs", "**/.*.js"],
   "exclude": ["**/node_modules"]

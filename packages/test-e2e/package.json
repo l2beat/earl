@@ -1,0 +1,22 @@
+{
+  "name": "test-e2e",
+  "private": true,
+  "license": "MIT",
+  "version": "9.9.9",
+  "scripts": {
+    "format": "prettier --ignore-path ../../.prettierignore --check .",
+    "format:fix": "prettier --ignore-path ../../.prettierignore --write .",
+    "lint": "eslint --ext .ts test",
+    "lint:fix": "yarn lint --fix",
+    "typecheck": "tsc --noEmit",
+    "test": "mocha",
+    "test:fix": "yarn lint:fix && yarn format:fix && yarn typecheck && yarn test"
+  },
+  "dependencies": {
+    "earljs": "link:../earljs",
+    "@earljs/published": "npm:earljs@latest"
+  },
+  "peerDependencies": {
+    "debug": "^4"
+  }
+}

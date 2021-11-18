@@ -46,9 +46,9 @@ jobs:
       - name: Test
         run: yarn test
 
-      - name: Setup SSH debug session
-        uses: mxschmitt/action-tmate@v2
-        if: ${{ failure() }}
+      # - name: Setup SSH debug session
+      #   uses: mxschmitt/action-tmate@v2
+      #   if: ${{ failure() }}
 
       - name: Typecheck
         run: yarn typecheck

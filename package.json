@@ -18,7 +18,7 @@
     "clean": "wsrun -emc clean",
     "build": "wsrun -temc build",
     "build:noweb": "wsrun -x website -temc build",
-    "test": "wsrun -emc test",
+    "test": "wsrun -x earljs -x example -emc test",
     "test:fix": "wsrun -emc test:fix",
     "release": "wsrun -smec release && yarn changeset publish"
   },

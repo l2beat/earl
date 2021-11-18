@@ -1,5 +1,5 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`earljs/mocha failing test 1`] = `0.47284087307614997`;
+exports[`earljs/mocha failing test 1`] = `0.685109454492407`;
 
 exports[`earljs/mocha successful test 1`] = `2`;

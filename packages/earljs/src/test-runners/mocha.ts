@@ -7,13 +7,6 @@ import { TestInfo, TestRunnerCtx, TestRunnerHook } from './TestRunnerCtx'
 
 const d = debug('earljs:mocha')
 
-// @todo just for debugging CI
-// eslint-disable-next-line no-constant-condition
-if (1 + 1 === 2) {
-  // eslint-disable-next-line no-console
-  // d = ((message: string) => console.log(`[[[ ${message} ]]]`)) as any
-}
-
 /**
  * Needed in Mocha --watch mode. Mocha doesn't export hooks before mocha.ui() is called
  */
@@ -28,7 +21,7 @@ function main() {
 
     d('Monkey-patching Mocha.prototype.ui')
     const { ui } = module.prototype
-    module.prototype.ui = function (...args) {
+    module.prototype.ui = function (...args: Parameters<typeof module.prototype.ui>) {
       setTestRunnerIntegration(new MochaCtx(this.suite))
       return ui.apply(this, args)
     }

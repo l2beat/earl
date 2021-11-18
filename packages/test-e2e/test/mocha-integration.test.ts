@@ -1,9 +1,10 @@
-import { expect } from 'chai'
-import { execSync } from 'child_process'
+import { expect } from '@earljs/published'
 // @ts-expect-error missing typings, but they match child_process.spawn
 import _spawn from 'cross-spawn-with-kill'
-import { existsSync } from 'fs'
-import path from 'path'
+import debug from 'debug'
+import { stderr } from 'process'
+
+const d = debug('test:mocha-integration')
 
 const spawn = _spawn as typeof import('child_process').spawn
 
@@ -12,52 +13,41 @@ const PASSING_TESTS = 1
 const FAILING_TESTS = 1
 const expected = { passing: PASSING_TESTS, failing: FAILING_TESTS }
 
-// @todo just until CI passes
-// eslint-disable-next-line no-only-tests/no-only-tests
-describe.only('earljs/mocha end-to-end tests', function () {
+describe('earljs/mocha end-to-end tests', function () {
   this.timeout(10000)
-
-  before(function () {
-    // These tests require earl to be built.
-    this.timeout(7000)
-    const packageJson = require('../../../mocha/package.json')
-    const builtModulePath = path.resolve(__dirname, '../../../mocha/', packageJson.main)
-    if (!existsSync(builtModulePath)) {
-      execSync('yarn build', { cwd: path.resolve(__dirname, '../../..') })
-    }
-  })
 
   it('works in run mode', async () => {
     const res = await runMocha({})
 
-    expect({ passing: res.passing, failing: res.failing }).to.deep.equal(expected, errorMessage(res))
+    expect({ passing: res.passing, failing: res.failing }, errorMessage(res)).toEqual(expected)
   })
 
   it('works in parallel run mode', async () => {
     const res = await runMocha({ parallel: true })
 
-    expect({ passing: res.passing, failing: res.failing }).to.deep.equal(expected, errorMessage(res))
+    expect({ passing: res.passing, failing: res.failing }, errorMessage(res)).toEqual(expected)
   })
 
   it('works in watch mode', async () => {
     const res = await runMocha({ watch: true })
 
-    expect({ passing: res.passing, failing: res.failing }).to.deep.equal(expected, errorMessage(res))
+    expect({ passing: res.passing, failing: res.failing }, errorMessage(res)).toEqual(expected)
   })
 
   it('works in parallel watch mode', async () => {
     const res = await runMocha({ parallel: true, watch: true })
 
-    expect({ passing: res.passing, failing: res.failing }).to.deep.equal(expected, errorMessage(res))
+    expect({ passing: res.passing, failing: res.failing }, errorMessage(res)).toEqual(expected)
   })
 })
 
 function errorMessage(results: TestResults) {
-  return (
-    `Expected to pass ${PASSING_TESTS} instead of ${results.passing} and fail ${FAILING_TESTS} instead of ${results.failing}.\n` +
-    `\nSTDOUT:\n\`${results.stdout}\`` +
-    `\nSTDERR:\n\`${results.stderr}\`\n\n`
-  )
+  return {
+    extraMessage:
+      `Expected to pass ${PASSING_TESTS} instead of ${results.passing} and fail ${FAILING_TESTS} instead of ${results.failing}.\n` +
+      `\nSTDOUT:\n\`${results.stdout}\`` +
+      `\nSTDERR:\n\`${results.stderr}\`\n\n`,
+  }
 }
 
 interface TestResults {
@@ -68,16 +58,14 @@ interface TestResults {
 }
 
 function runMocha(modes: { watch?: boolean; parallel?: boolean }) {
-  return new Promise<TestResults>((resolve) => {
+  return new Promise<TestResults>((resolve, reject) => {
     const child = spawn(
       'mocha',
-      ['--config', './mocha.config.js', modes.watch && '--watch', modes.parallel && '--parallel'].filter(
+      ['--config', './mocha-config.tested.js', modes.watch && '--watch', modes.parallel && '--parallel'].filter(
         (x): x is string => !!x,
       ),
       { env: process.env, cwd: __dirname },
-    ).on('error', (err) => {
-      throw err
-    })
+    )
 
     const result = { passing: NaN, failing: NaN, stdout: '', stderr: '' }
 
@@ -85,9 +73,13 @@ function runMocha(modes: { watch?: boolean; parallel?: boolean }) {
       const str = String(data)
       result.stderr += str
 
-      // @todo for CI
-      // eslint-disable-next-line no-console
-      // console.log('stderr', str)
+      const ERROR_PREFIX = '\n× \x1B[31mERROR:\x1B[39m Error:'
+      if (str.startsWith(ERROR_PREFIX)) {
+        child.kill('SIGINT')
+        reject(new Error('Process crashed.' + str))
+      }
+
+      d(`stderr: ${str}`)
 
       if (modes.watch) {
         if (str.includes('[mocha] waiting for changes...')) {
@@ -100,9 +92,7 @@ function runMocha(modes: { watch?: boolean; parallel?: boolean }) {
       const str = String(data)
       result.stdout += str
 
-      // @todo for CI
-      // eslint-disable-next-line no-console
-      // console.log('stdout', str)
+      d(`stdout: ${str}`)
 
       const passing = str.match(/(\d+) passing/)
       if (passing) {
@@ -116,6 +106,12 @@ function runMocha(modes: { watch?: boolean; parallel?: boolean }) {
           resolve(result)
         }
       }
+    })
+    child.on('error', (err) => {
+      // eslint-disable-next-line no-console
+      console.error({ stderr })
+      child.kill('SIGINT')
+      reject(err)
     })
   })
 }
