@@ -69,22 +69,29 @@ function runMocha(modes: { watch?: boolean; parallel?: boolean }) {
 
     const result = { passing: NaN, failing: NaN, stdout: '', stderr: '' }
 
+    const fail = (err: string | Error) => {
+      child.kill('SIGKILL')
+      reject(typeof err === 'string' ? new Error(err) : err)
+    }
+    const succeed = () => {
+      child.kill('SIGKILL')
+      resolve(result)
+    }
+
     child.stderr.on('data', (data) => {
       const str = String(data)
       result.stderr += str
 
       const ERROR_PREFIX = '\n× \x1B[31mERROR:\x1B[39m Error:'
       if (str.startsWith(ERROR_PREFIX)) {
-        child.kill('SIGINT')
-        reject(new Error('Process crashed.' + str))
+        fail('Process crashed.' + str)
       }
 
       d(`stderr: ${str}`)
 
       if (modes.watch) {
         if (str.includes('[mocha] waiting for changes...')) {
-          child.kill('SIGINT')
-          resolve(result)
+          succeed()
         }
       }
     })
@@ -102,16 +109,14 @@ function runMocha(modes: { watch?: boolean; parallel?: boolean }) {
       if (failing) {
         result.failing = parseInt(failing[1])
         if (!modes.watch) {
-          child.kill('SIGINT')
-          resolve(result)
+          succeed()
         }
       }
     })
     child.on('error', (err) => {
       // eslint-disable-next-line no-console
       console.error({ stderr })
-      child.kill('SIGINT')
-      reject(err)
+      fail(err)
     })
   })
 }
