@@ -1,7 +1,9 @@
 import { expect } from 'chai'
+import fc from 'fast-check'
 
 import { AnythingMatcher } from '../../src/matchers/Anything'
 import { buildSmartEqResult, loadSmartEqRules, smartEq } from '../../src/validators/smartEq'
+import { anythingSettings } from '../arbitraries'
 import { clearModuleCache } from '../common'
 
 describe('smartEq', () => {
@@ -206,8 +208,6 @@ describe('smartEq', () => {
     expect(smartEq(magicBean, makeMagicBean())).to.be.deep.eq({ result: 'error', reason: 'object possibly infinite' })
   })
 
-  // @todo use fast-check
-
   describe('non-strict', () => {
     it('doesnt compare prototypes', () => {
       class Test {
@@ -255,6 +255,42 @@ describe('smartEq', () => {
 
     it('clears cache correctly', () => {
       expect(smartEq(2, 2)).to.be.deep.eq({ result: 'success' })
+    })
+  })
+
+  /**
+   * Based on Jest's property tests
+   * @see https://github.com/facebook/jest/blob/e0b33b74b5afd738edc183858b5c34053cfc26dd/packages/expect/src/__tests__/matchers-toEqual.property.test.ts
+   */
+  describe.only('properties', () => {
+    const equals = <T>(a: T, b: T) => smartEq(a, b).result === 'success'
+
+    it('should be reflexive', () => {
+      fc.assert(
+        fc.property(fc.dedup(fc.anything(anythingSettings), 2), ([a, b]) => equals(a, b)),
+        {},
+      )
+    })
+
+    it('should be symmetric', () => {
+      fc.assert(
+        fc.property(
+          fc.anything(anythingSettings),
+          fc.anything(anythingSettings),
+          (a, b) =>
+            // Given:  a and b values
+            // Assert: We expect `expect(a).toEqual(b)`
+            //         to be equivalent to `expect(b).toEqual(a)`
+            equals(a, b) === equals(b, a),
+        ),
+        {
+          examples: [
+            [0, 5e-324],
+            // eslint-disable-next-line no-new-wrappers
+            [new Set([false, true]), new Set([new Boolean(true), new Boolean(true)])],
+          ],
+        },
+      )
     })
   })
 })
