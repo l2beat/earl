@@ -8,7 +8,7 @@ export type Env = typeof process.env
 
 export type ShouldUpdateSnapshots = () => boolean
 export function shouldUpdateSnapshots(env: Env): boolean {
-  return env.UPDATE_SNAPSHOTS === 'true'
+  return env.UPDATE_SNAPSHOTS === 'true' || env.UPDATE_SNAPSHOTS === '1'
 }
 
 const SNAPSHOTS_DIR = '__snapshots__'
