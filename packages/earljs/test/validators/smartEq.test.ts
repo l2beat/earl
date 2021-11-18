@@ -146,7 +146,7 @@ describe('smartEq', () => {
     expect(smartEq(-0, +0)).to.be.deep.eq({ result: 'error', reason: 'value mismatch' })
   })
 
-  it('compares recursive objects', () => {
+  it('compares recursive objects #1', () => {
     interface Node {
       prev?: Node
       next?: Node
@@ -168,7 +168,7 @@ describe('smartEq', () => {
     expect(smartEq(a, c)).to.be.deep.eq({ result: 'error', reason: 'value mismatch' })
   })
 
-  it('compares recursive objects2', () => {
+  it('compares recursive objects #2', () => {
     const a: any = { v: 1 }
     a.foo = a
     const b: any = { v: 2, foo: { v: 2, foo: { v: 2 } } }
@@ -176,6 +176,37 @@ describe('smartEq', () => {
 
     expect(smartEq(a, b)).to.be.deep.eq({ result: 'error', reason: 'value mismatch' })
   })
+
+  it('compares recursive objects #3 (nasty counter)', () => {
+    let _value = 0
+
+    const nastyCounter = {
+      // Don't do this in your projects.
+      get value() {
+        return _value++
+      },
+    }
+
+    expect(smartEq(nastyCounter, nastyCounter)).to.be.deep.eq({ result: 'error', reason: 'value mismatch' })
+  })
+
+  it('does not crash on infinite object', () => {
+    type MagicBean = { readonly grow: string; next: MagicBean | null }
+    const makeMagicBean = (): MagicBean => ({
+      get grow() {
+        this.next = { ...this }
+        return 'ok'
+      },
+      next: null,
+    })
+
+    const magicBean = makeMagicBean()
+
+    expect(smartEq(magicBean, magicBean)).to.be.deep.eq({ result: 'error', reason: 'object possibly infinite' })
+    expect(smartEq(magicBean, makeMagicBean())).to.be.deep.eq({ result: 'error', reason: 'object possibly infinite' })
+  })
+
+  // @todo use fast-check
 
   describe('non-strict', () => {
     it('doesnt compare prototypes', () => {

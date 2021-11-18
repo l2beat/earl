@@ -2,7 +2,7 @@ import { Matcher } from '../matchers/Base'
 import { SmartEqRule } from '../plugins/types'
 import { isIterableAndNotString } from './common'
 
-type ErrorReasons = 'value mismatch' | 'prototype mismatch'
+type ErrorReasons = 'value mismatch' | 'prototype mismatch' | 'object possibly infinite'
 export type SmartEqResult = { result: 'success' } | { result: 'error'; reason: ErrorReasons }
 
 export function buildSmartEqResult(success: boolean, reason: ErrorReasons = 'value mismatch'): SmartEqResult {
@@ -60,7 +60,7 @@ export function smartEq(actual: any, expected: any, strict: boolean = true, seen
       }
 
       const equality = actualArray.map((v, i) => smartEq(v, expectedArray[i], strict, seen))
-      return buildSmartEqResult(!equality.some((eq) => eq.result === 'error'))
+      return buildSmartEqResult(!equality.some(eq => eq.result === 'error'))
     } else {
       return buildSmartEqResult(false, 'prototype mismatch')
     }
@@ -75,17 +75,24 @@ export function smartEq(actual: any, expected: any, strict: boolean = true, seen
       return buildSmartEqResult(false, 'prototype mismatch')
     }
 
-    if (typeof expected === 'object') {
-      const allKeys = Object.keys(actual).concat(Object.keys(expected))
-      const equality = allKeys.map((k) => {
-        if (!(k in expected && k in actual)) {
-          return buildSmartEqResult(false)
-        }
+    try {
+      if (typeof expected === 'object') {
+        const allKeys = Object.keys(actual).concat(Object.keys(expected))
+        const equality = allKeys.map(k => {
+          if (!(k in expected && k in actual)) {
+            return buildSmartEqResult(false)
+          }
 
-        return smartEq(actual[k], expected[k], strict, seen)
-      })
+          return smartEq(actual[k], expected[k], strict, seen)
+        })
 
-      return buildSmartEqResult(!equality.some((eq) => eq.result === 'error'))
+        return buildSmartEqResult(!equality.some(eq => eq.result === 'error'))
+      }
+    } catch (err) {
+      if (err instanceof Error && err.name === 'RangeError' && err.message === 'Maximum call stack size exceeded') {
+        return buildSmartEqResult(false, 'object possibly infinite')
+      }
+      throw err
     }
   }
 
