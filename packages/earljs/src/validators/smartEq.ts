@@ -60,7 +60,7 @@ export function smartEq(actual: any, expected: any, strict: boolean = true, seen
       }
 
       const equality = actualArray.map((v, i) => smartEq(v, expectedArray[i], strict, seen))
-      return buildSmartEqResult(!equality.some(eq => eq.result === 'error'))
+      return buildSmartEqResult(!equality.some((eq) => eq.result === 'error'))
     } else {
       return buildSmartEqResult(false, 'prototype mismatch')
     }
@@ -78,7 +78,7 @@ export function smartEq(actual: any, expected: any, strict: boolean = true, seen
     try {
       if (typeof expected === 'object') {
         const allKeys = Object.keys(actual).concat(Object.keys(expected))
-        const equality = allKeys.map(k => {
+        const equality = allKeys.map((k) => {
           if (!(k in expected && k in actual)) {
             return buildSmartEqResult(false)
           }
@@ -86,7 +86,7 @@ export function smartEq(actual: any, expected: any, strict: boolean = true, seen
           return smartEq(actual[k], expected[k], strict, seen)
         })
 
-        return buildSmartEqResult(!equality.some(eq => eq.result === 'error'))
+        return buildSmartEqResult(!equality.some((eq) => eq.result === 'error'))
       }
     } catch (err) {
       if (err instanceof Error && err.name === 'RangeError' && err.message === 'Maximum call stack size exceeded') {
