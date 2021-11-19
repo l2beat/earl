@@ -1,3 +1,4 @@
 node_modules
 dist
 packages/earljs/README.md
+**/tsconfig.tsbuildinfo
