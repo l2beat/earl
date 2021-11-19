@@ -1,7 +1,8 @@
 import { expect } from 'chai'
+import { AssertTrue, IsExact } from 'conditional-type-checks'
 
 import { expect as earl } from '../../src'
-import { mockFn, MockNotConfiguredError } from '../../src/mocks'
+import { Mock, mockFn, MockNotConfiguredError } from '../../src/mocks'
 import { noop } from '../common'
 
 const sum = (a: number, b: number) => a + b
@@ -134,6 +135,15 @@ describe('Mock', () => {
       const fn = mockFn<[number, number], number>((a, b) => a + b)
 
       expect(fn(2, 2)).to.eq(4)
+    })
+
+    it('infers types correctly with functional generic parameter', () => {
+      type Operation = (a: number, b: number) => number
+      const fn = mockFn<Operation>((a, b) => a + b)
+
+      expect(fn(2, 2)).to.eq(4)
+
+      type _ = AssertTrue<IsExact<Mock<[number, number], number>, Mock.Of<Operation>>>
     })
   })
 
