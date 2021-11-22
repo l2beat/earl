@@ -1,5 +1,11 @@
 # earljs
 
+## 0.1.12
+
+### Patch Changes
+
+- afbd34b: Ensure that package is published with the readme. Readme updates.
+
 ## 0.1.11
 
 ### Patch Changes
