@@ -1,5 +1,15 @@
 # earljs
 
+## 0.1.11
+
+### Patch Changes
+
+- d69576f: Fix types for mockFn's default implementation
+- 00cae63: Function mocks can now be typed as Mock.Of<TFunctionType>
+- a0f7b98: Improve support for comparing recursive objects
+- 3651e17: Earl no longer crashes in mocha --watch mode
+- d02b7d6: process.env.UPDATE_SNAPSHOTS set to "1" is now treated the same as when set to "true"
+
 ## 0.1.10
 
 ### Patch Changes
