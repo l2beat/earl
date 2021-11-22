@@ -15,6 +15,7 @@ To create a mock do:
 ```typescript
 import { mockFn } from 'earljs'
 
+// mock: Mock<[number, number], number>
 const mock = mockFn<[number, number], number>()
 ```
 
@@ -25,6 +26,7 @@ that's why you need to pass type arguments between angle brackets `<`, `>`.
 Alternatively, you can pass function type as a type argument:
 
 ```typescript
+// mock: Mock.Of<(a: number, b: number) => number>
 const mock = mockFn<(a: number, b: number) => number>()
 ```
 

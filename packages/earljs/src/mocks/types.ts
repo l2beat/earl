@@ -1,20 +1,20 @@
-export interface MockCall<ARGS, RETURN> {
-  args: ARGS
-  result: { type: 'return'; value: RETURN } | { type: 'throw'; error: any }
+export interface MockCall<TArgs, TReturn> {
+  args: TArgs
+  result: { type: 'return'; value: TReturn } | { type: 'throw'; error: any }
 }
 
 export type Awaited<T> = T extends PromiseLike<infer PT> ? PT : never
 
-export interface Mock<ARGS extends any[], RETURN> {
+export interface Mock<TArgs extends any[], TReturn> {
   /**
    * Calls the mock function.
    */
-  (...args: ARGS): RETURN
+  (...args: TArgs): TReturn
 
   /**
    * An array containing all the performed calls.
    */
-  calls: MockCall<ARGS, RETURN>[]
+  calls: MockCall<TArgs, TReturn>[]
 
   /**
    * Checks if all the expected calls to the mock have been performed.
@@ -26,69 +26,69 @@ export interface Mock<ARGS extends any[], RETURN> {
    * Overrides any previous configuration.
    * @param value value to be returned.
    */
-  returns(value: RETURN): Mock<ARGS, RETURN>
+  returns(value: TReturn): Mock<TArgs, TReturn>
   /**
    * Schedules the mock to return a value the next time it's called.
    * If anything is already scheduled it will be used first.
    * @param value value to be returned.
    */
-  returnsOnce(value: RETURN): Mock<ARGS, RETURN>
+  returnsOnce(value: TReturn): Mock<TArgs, TReturn>
 
   /**
    * Sets the error thrown by calls to the Mock.
    * Overrides any previous configuration.
    * @param error error to be thrown.
    */
-  throws(error: any): Mock<ARGS, RETURN>
+  throws(error: any): Mock<TArgs, TReturn>
   /**
    * Schedules the mock to throw an error the next time it's called.
    * If anything is already scheduled it will be used first.
    * @param error error to be thrown.
    */
-  throwsOnce(error: any): Mock<ARGS, RETURN>
+  throwsOnce(error: any): Mock<TArgs, TReturn>
 
   /**
    * Sets the underlying implementation of the Mock.
    * Overrides any previous configuration.
    * @param implementation function to execute.
    */
-  executes(implementation: (...args: ARGS[]) => RETURN): Mock<ARGS, RETURN>
+  executes(implementation: (...args: TArgs[]) => TReturn): Mock<TArgs, TReturn>
   /**
    * Schedules the mock to use the provided implementation the next time it's called.
    * If anything is already scheduled it will be used first.
    * @param implementation function to execute.
    */
-  executesOnce(implementation: (...args: ARGS[]) => RETURN): Mock<ARGS, RETURN>
+  executesOnce(implementation: (...args: TArgs[]) => TReturn): Mock<TArgs, TReturn>
 
   /**
    * Sets the return value wrapped in Promise.resolve of calls to the Mock.
    * @param value value to be returned.
    */
-  resolvesTo(value: Awaited<RETURN>): Mock<ARGS, RETURN>
+  resolvesTo(value: Awaited<TReturn>): Mock<TArgs, TReturn>
   /**
    * Schedules the mock to return value wrapped in Promise.resolve the next time it's called.
    * If anything is already scheduled it will be used first.
    * @param value value to be returned.
    */
-  resolvesToOnce(value: Awaited<RETURN>): Mock<ARGS, RETURN>
+  resolvesToOnce(value: Awaited<TReturn>): Mock<TArgs, TReturn>
 
   /**
    * Sets the error rejected by calls to the Mock.
    * @param error error to be thrown.
    */
-  rejectsWith(error: any): Mock<ARGS, RETURN>
+  rejectsWith(error: any): Mock<TArgs, TReturn>
   /**
    * Schedules the mock to reject with value the next time it's called.
    * If anything is already scheduled it will be used first.
    * @param error error to be thrown.
    */
-  rejectsWithOnce(error: any): Mock<ARGS, any>
+  rejectsWithOnce(error: any): Mock<TArgs, any>
 
   /**
    * Specifies a different behavior when other arguments are given
    * @param args arguments to match
    */
-  given<B extends ARGS>(
+  given<B extends TArgs>(
     ...args: B
   ): {
     /**
@@ -96,36 +96,40 @@ export interface Mock<ARGS extends any[], RETURN> {
      * If anything is already scheduled it will be used first.
      * @param value value to be returned.
      */
-    returnsOnce(value: RETURN): Mock<ARGS, RETURN>
+    returnsOnce(value: TReturn): Mock<TArgs, TReturn>
 
     /**
      * Schedules the mock to throw an error the next time it's called.
      * If anything is already scheduled it will be used first.
      * @param error error to be thrown.
      */
-    throwsOnce(error: any): Mock<ARGS, RETURN>
+    throwsOnce(error: any): Mock<TArgs, TReturn>
 
     /**
      * Schedules the mock use the provided implementation the next time it's called.
      * If anything is already scheduled it will be used first.
      * @param implementation function to execute.
      */
-    executesOnce(implementation: (...args: B) => RETURN): Mock<ARGS, RETURN>
+    executesOnce(implementation: (...args: B) => TReturn): Mock<TArgs, TReturn>
 
     /**
      * Schedules the mock to return value wrapped in Promise.resolve the next time it's called.
      * If anything is already scheduled it will be used first.
      * @param value value to be returned.
      */
-    resolvesToOnce(value: Awaited<RETURN>): Mock<ARGS, RETURN>
+    resolvesToOnce(value: Awaited<TReturn>): Mock<TArgs, TReturn>
 
     /**
      * Schedules the mock to reject with value the next time it's called.
      * If anything is already scheduled it will be used first.
      * @param error error to be thrown.
      */
-    rejectsWithOnce(error: any): Mock<ARGS, RETURN>
+    rejectsWithOnce(error: any): Mock<TArgs, TReturn>
   }
 }
 
-export type MockArgs<T> = T extends Mock<infer ARGS, any> ? ARGS : never
+export type MockArgs<T> = T extends Mock<infer Args, any> ? Args : never
+
+export declare namespace Mock {
+  export type Of<T extends (...args: any[]) => any> = Mock<Parameters<T>, ReturnType<T>>
+}
