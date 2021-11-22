@@ -6,7 +6,7 @@
   <p align="center">
     <img alt="Build status" src="https://github.com/dethcrypto/earl/workflows/CI/badge.svg">
     <a href="/package.json"><img alt="Software License" src="https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square"></a>
-    <img alt="All contributors" src="https://img.shields.io/badge/all_contributors-8-orange.svg?style=flat-square">
+    <img alt="All contributors" src="https://img.shields.io/badge/all_contributors-9-orange.svg?style=flat-square">
     <a href="https://discord.gg/wQDkeDgzgv"><img alt="Join our discord!" src="https://img.shields.io/discord/895381864922091630.svg?color=7289da&label=deth&logo=discord&style=flat-square"></a>
   </p>
 </p>
@@ -67,6 +67,7 @@ Thanks goes to these wonderful people
   </tr>
   <tr>
     <td align="center"><a href="https://github.com/rkrupinski"><img src="https://avatars.githubusercontent.com/u/775177?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Rafał Krupiński</b></sub></a><br /><a href="https://github.com/earl-js/earl/issues?q=author%3Arkrupinski" title="Bug reports">🐛</a> <a href="https://github.com/earl-js/earl/commits?author=rkrupinski" title="Code">💻</a></td>
+    <td align="center"><a href="https://haspar.us/"><img src="https://avatars.githubusercontent.com/u/15332326?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Piotr Monwid-Olechnowicz</b></sub></a><br /><a href="https://github.com/earl-js/earl/commits?author=hasparus" title="Code">💻</a> <a href="https://github.com/earl-js/earl/commits?author=hasparus" title="Documentation">📖</a> <a href="#maintenance-hasparus" title="Maintenance">🚧</a></td>
   </tr>
 </table>
 
