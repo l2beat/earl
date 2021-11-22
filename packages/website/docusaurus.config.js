@@ -65,7 +65,7 @@ module.exports = {
           ],
         },
       ],
-      copyright: `Copyright © ${new Date().getFullYear()} Kris Kaczor`,
+      copyright: `Copyright © ${new Date().getFullYear()} dΞth`,
     },
   },
   presets: [
