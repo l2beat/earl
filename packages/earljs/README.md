@@ -4,9 +4,10 @@
   <p align="center">Ergonomic, modern and type-safe assertion library for TypeScript</p>
   <p align="center">Brings good parts of <b>Jest</b> back to good ol' <b>Mocha</b></p>
   <p align="center">
-    <img alt="Build status" src="https://github.com/earl-js/earl/workflows/CI/badge.svg">
+    <img alt="Build status" src="https://github.com/dethcrypto/earl/workflows/CI/badge.svg">
     <a href="/package.json"><img alt="Software License" src="https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square"></a>
     <img alt="All contributors" src="https://img.shields.io/badge/all_contributors-8-orange.svg?style=flat-square">
+    <a href="https://discord.gg/wQDkeDgzgv"><img alt="Join our discord!" src="https://img.shields.io/discord/895381864922091630.svg?color=7289da&label=deth&logo=discord&style=flat-square"></a>
   </p>
 </p>
 
@@ -78,4 +79,4 @@ Earl logo by [@sz-piotr](https://github.com/sz-piotr)
 
 # License
 
-Kris Kaczor MIT
+dΞth MIT
