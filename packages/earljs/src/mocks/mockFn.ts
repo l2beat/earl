@@ -38,6 +38,14 @@ interface Override {
   spec: Spec
 }
 
+/**
+ * Creates a mock conforming to a given signature.
+ *
+ * @example
+ *
+ * const mock1 = mockFn<[number, string], number>()
+ * const mock2 = mockFn<(a: number, b: string) => number>()
+ */
 export function mockFn<FUNCTION_SIG extends (...args: any) => any>(defaultImpl?: FUNCTION_SIG): Mock.Of<FUNCTION_SIG>
 export function mockFn<ARGS extends any[], RETURN = any>(defaultImpl?: (...args: ARGS) => RETURN): Mock<ARGS, RETURN>
 export function mockFn<ARGS extends any[], RETURN = any>(defaultImpl?: (...args: ARGS) => RETURN): Mock<ARGS, RETURN> {
@@ -101,6 +109,7 @@ export function mockFn<ARGS extends any[], RETURN = any>(defaultImpl?: (...args:
     reset({ type: 'return', value })
     return mock
   }
+
   mock.returnsOnce = function (value: any) {
     queue.push({ type: 'return', value })
     return mock

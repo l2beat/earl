@@ -5,6 +5,7 @@ export interface MethodComment {
 
 export interface MethodDocumentation {
   signature: string
+  abbreviatedSignature: string
   description: string
   params: Param[]
   examples: string[]

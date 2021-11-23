@@ -1,35 +1,53 @@
-import { readFileSync, writeFileSync } from 'fs'
-import { sortBy } from 'lodash'
-import { join } from 'path'
+/* eslint-disable no-console */
+import glob from 'fast-glob'
+import * as fs from 'fs'
+import { resolve } from 'path'
+import { promisify } from 'util'
 
-import { generateMarkdownForMethodDocumentation, generateTableOfContents } from './generate'
-import { extractTsDocCommentsFromString } from './tsdocs/extract'
-import { parseTsDocComment } from './tsdocs/parse'
+const writeFile = promisify(fs.writeFile)
+const readFile = promisify(fs.readFile)
 
-export function generateApiReference() {
-  const basePath = join(__dirname, '../../earljs/src')
+import { generateSectionReference } from './generate'
 
-  const files = {
-    Validators: join(basePath, './Expectation.ts'),
-  }
-
-  const source = readFileSync(files.Validators, 'utf-8')
-  const comments = extractTsDocCommentsFromString(source)
-  const parsed = comments.map(parseTsDocComment)
-  const sorted = sortBy(parsed, (d) => d.signature)
-
-  const output = `
-## Validators
-${generateTableOfContents(sorted)}
-
-# Reference
-
-## Validators
-${sorted.map(generateMarkdownForMethodDocumentation).join('\n')}
-  `
-
-  writeFileSync(join(__dirname, './out.md'), output, 'utf-8')
-  console.log('DONE!')
+export interface GenerateApiReferenceOptions {
+  out?: string
+  basePath: string
+  files: string[]
 }
 
-generateApiReference()
+export async function generateApiReference(args: GenerateApiReferenceOptions): Promise<string> {
+  const sections = args.files.map((file) => file.split(':') as [string, string])
+
+  const contents = await Promise.all(
+    sections.map(async ([sectionName, filePath]) => {
+      const path = resolve(process.cwd(), args.basePath, filePath).replace(/\\/g, '/')
+      const files = await glob(path)
+
+      const sources = await Promise.all(files.map((file) => readFile(file, 'utf-8')))
+
+      try {
+        return generateSectionReference(sectionName, sources.join('\n\n'))
+      } catch (err) {
+        const msg = `Failed to generate section reference for ${sectionName} for path ${path}`
+        console.error(msg, '\n\n', err)
+        throw new Error(msg)
+      }
+    }),
+  )
+
+  const output =
+    '## Synopsis' +
+    '\n\n' +
+    contents.map((section) => section.tableOfContents).join('\n\n') +
+    '\n\n' +
+    '## Reference' +
+    '\n\n' +
+    contents.map((section) => section.reference).join('\n\n')
+
+  if (args.out) {
+    await writeFile(args.out, output, 'utf-8')
+    return ''
+  } else {
+    return output
+  }
+}

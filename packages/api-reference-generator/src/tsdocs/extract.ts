@@ -3,19 +3,21 @@ import { assert } from 'ts-essentials'
 import { MethodComment } from '../types'
 
 export function extractTsDocCommentsFromString(source: string): MethodComment[] {
-  const BLOCK_COMMENT_REGEX = /\/\*\*(.*?)\*\/\n(.*?)[{|\n]/gms
+  const DOC_COMMENT_REGEX = /\/\*\*([\s\S]*?)\*\/[\n\r]+([\s\S]*?)[{|\n\r]+/gm
 
   const methodComments: MethodComment[] = []
 
-  let rawMethodComment = BLOCK_COMMENT_REGEX.exec(source)
-  assert(rawMethodComment, `Couldn't find any block comments in ${source}`)
+  let rawMethodComment = DOC_COMMENT_REGEX.exec(source)
+  assert(rawMethodComment, `Couldn't find any block comments in source:\n\`${source}\``)
   while (rawMethodComment != null) {
     const comment = `/** ${rawMethodComment[1].trim()} */`
-    const signature = removeGetterKeyword(rawMethodComment[2].trim())
+    let signature = removeGetterKeyword(rawMethodComment[2].trim())
+
+    if (signature.endsWith(';')) signature = signature.slice(0, -1)
 
     methodComments.push({ signature, comment })
 
-    rawMethodComment = BLOCK_COMMENT_REGEX.exec(source)
+    rawMethodComment = DOC_COMMENT_REGEX.exec(source)
   }
 
   return methodComments

@@ -11,4 +11,5 @@ export function encodeLabel(input: string): string {
   return input.replace(/</g, '\\<')
 }
 
-znajdz algorytm odpowiedzialny za generarowanie linkow inaczej to lipa
+// @todo
+// znajdz algorytm odpowiedzialny za generarowanie linkow inaczej to lipa

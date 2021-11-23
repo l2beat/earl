@@ -28,6 +28,7 @@ describe('parseTsDocComment', () => {
 
     expect(result).toEqual({
       signature: 'someMethod(x: number, y: number): void',
+      abbreviatedSignature: 'someMethod(x: number, y: number): void',
       description: 'Returns the average of two numbers.\n\nSome other note',
       params: [
         { name: 'x', description: 'The first input number' },
