@@ -19,13 +19,10 @@ export function generateSectionReference(sectionName: string, source: string) {
  * @internal
  */
 export function generateMarkdownForMethodDocumentation(doc: MethodDocumentation): string {
-  const id = encodeAnchor(doc.abbreviatedSignature)
+  // We're generating Docusaurus flavor of Markdown.
+  // https://docusaurus.io/docs/markdown-features/headings#explicit-ids
   const header = `\
-<h4 id=${id}>
-  <a href="#${id}">
-    <code>${encodeHtml(doc.abbreviatedSignature)}</code>
-  </a>
-</h4>
+#### **\`${doc.signature}\`** {#${encodeAnchor(doc.abbreviatedSignature)}}
 
 ${doc.description}
   `
@@ -53,15 +50,7 @@ ${doc.examples.join('\n')}
  * @internal
  */
 export function generateTableOfContents(docs: MethodDocumentation[]) {
-  const links = docs.map(
-    (d) => `\
-<li>
-  <a href="#${encodeAnchor(d.abbreviatedSignature)}">
-    <code>${encodeHtml(d.signature)}</code>
-  </a>
-</li>
-`,
-  )
+  const links = docs.map((d) => `- [\`${d.abbreviatedSignature}\`](#${encodeAnchor(d.abbreviatedSignature)})`)
 
   return links.join('\n')
 }
@@ -71,13 +60,4 @@ function encodeAnchor(input: string): string {
     .toLowerCase()
     .replace(/[(),:><]/g, '')
     .replace(/ /g, '-')
-}
-
-function encodeHtml(str: string) {
-  return str.replace(/[><&]/g, (match) => {
-    if (match === '>') return '&gt;'
-    if (match === '<') return '&lt;'
-    if (match === '&') return '&amp;'
-    throw new Error('encodeHtml: Unexpected match')
-  })
 }

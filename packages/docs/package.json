@@ -4,7 +4,6 @@
   "version": "0.0.0",
   "scripts": {
     "format": "prettier --ignore-path ../../.prettierignore --check .",
-    "format:fix": "prettier --ignore-path ../../.prettierignore --write .",
-    "api-reference": "node ./generate-api-reference.js"
+    "format:fix": "prettier --ignore-path ../../.prettierignore --write ."
   }
 }
