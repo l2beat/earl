@@ -7,7 +7,10 @@
     "build": "docusaurus build",
     "swizzle": "docusaurus swizzle",
     "deploy": "docusaurus deploy",
-    "release": "./scripts/build-and-deploy.sh"
+    "release": "./scripts/build-and-deploy.sh",
+    "api-reference": "node ./generate-api-reference",
+    "prestart": "yarn api-reference",
+    "prebuild": "yarn api-reference"
   },
   "dependencies": {
     "@docusaurus/core": "2.0.0-alpha.56",

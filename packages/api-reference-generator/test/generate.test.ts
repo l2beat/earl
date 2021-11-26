@@ -18,18 +18,21 @@ describe('generateTableOfContents', () => {
     const docs: MethodDocumentation[] = [
       {
         signature: 'sample()',
+        abbreviatedSignature: 'sample()',
         description: '',
         examples: [],
         params: [],
       },
       {
         signature: 'expect(value: any, options: Options)',
+        abbreviatedSignature: 'expect(value: any, options: Options)',
         description: '',
         examples: [],
         params: [],
       },
       {
         signature: 'expect<TYPE>(value: any, options: Options)',
+        abbreviatedSignature: 'expect<TYPE>(value: any, options: Options)',
         description: '',
         examples: [],
         params: [],
