@@ -8,7 +8,7 @@ _Note: plugin APIs is experimental and we welcome any feedback._
 
 - Attach new matchers to `expect`
 - Attach new validators to `Exception` class
-- Add new `smartEq` validation rules that internally is used to compare values
+- Add new `smartEq` validation rules that are used internally to compare values
 
 A plugin is an object conforming to the `PluginConfig` interface:
 
