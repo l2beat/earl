@@ -55,11 +55,15 @@ export function generateTableOfContents(docs: MethodDocumentation[]) {
   return links.join('\n')
 }
 
-function encodeAnchor(input: string): string {
-  return encodeURIComponent(
-    input
-      .toLowerCase()
-      .replace(/[(),:><\\?]/g, '')
-      .replace(/ /g, '-'),
-  )
+/**
+ * @internal
+ */
+export function encodeAnchor(signature: string): string {
+  // @todo All function names should be unique, so we should free to use the identifier as HTML anchor id
+  //       if we add better handling to method overloads.
+
+  return signature
+    .toLowerCase()
+    .replace(/[><\\?.[\]= ]/g, '')
+    .replace(/[(),:]/g, '-')
 }
