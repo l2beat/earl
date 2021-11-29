@@ -46,10 +46,11 @@ export function parseTsDocComment(methodComment: MethodComment): MethodDocumenta
   }
 
   const signature = removeExportDeclareKeywords(methodComment.signature)
+  const abbreviatedSignature = abbreviateSignature(signature, tsProject)
 
   return {
     signature,
-    abbreviatedSignature: abbreviateSignature(signature, tsProject),
+    abbreviatedSignature,
     description,
     params,
     examples,

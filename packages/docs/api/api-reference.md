@@ -7,7 +7,6 @@ title: API Reference
 
 ### Validators
 
-- [`not()`](#not-)
 - [`toBeA(clazz: any)`](#toBeA-clazz-any)
 - [`toBeAContainerWith(...expectedItems: any[])`](#toBeAContainerWith-expectedItems-any)
 - [`toBeAnArrayOfLength(length: number)`](#toBeAnArrayOfLength-length-number)
@@ -33,6 +32,7 @@ title: API Reference
 
 ### Matchers
 
+- [`<T>(actual: T, options?: ExpectationOptions)`](#T-actual-T-options-ExpectationOptions)
 - [`a<T>(type: NewableOrPrimitive<T>)`](#aT-type-NewableOrPrimitiveT)
 - [`anything()`](#anything-)
 - [`arrayOfLength<T>(length: number)`](#arrayOfLengthT-length-number)
@@ -46,6 +46,10 @@ title: API Reference
 - [`objectWith(subset: Object)`](#objectWith-subset-Object)
 - [`stringMatching(pattern: RegExp)`](#stringMatching-pattern-RegExp)
 - [`stringMatching(substring: string)`](#stringMatching-substring-string)
+
+### Modifiers
+
+- [`not()`](#not-)
 
 ### Mocks
 
@@ -74,10 +78,6 @@ title: API Reference
 
 ### Validators
 
-#### **`not(): Expectation<T>`** {#not-}
-
-Inverts the behaviour of the validator that follows.
-  
 #### **`toBeA(this: Expectation<T>, clazz: any): void`** {#toBeA-clazz-any}
 
 Checks if the value is an instance of the provided class or primitive type. Examples:
@@ -281,6 +281,15 @@ of the error is also checked.
 
 ### Matchers
 
+#### **`<T>(actual: T, options?: ExpectationOptions): Expectation<T>`** {#T-actual-T-options-ExpectationOptions}
+
+The `expect` function is used every time you want to test a value.
+  
+*Parameters:*
+
+- `actual` - the value to match against.
+- `options` - optional configuration.
+  
 #### **`a<T>(type: NewableOrPrimitive<T>): Class2Primitive<T>`** {#aT-type-NewableOrPrimitiveT}
 
 Matches an instance of the provided class or primitive type. Examples:
@@ -387,6 +396,13 @@ Matches strings that contain the provided substring.
 *Parameters:*
 
 - `substring` - a string to look for in the matched values.
+  
+
+### Modifiers
+
+#### **`not(): Expectation<T>`** {#not-}
+
+Inverts the behaviour of the validator that follows.
   
 
 ### Mocks

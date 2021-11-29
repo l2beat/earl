@@ -6,7 +6,13 @@ import { MethodDocumentation } from './types'
 
 export function generateSectionReference(sectionName: string, source: string) {
   const comments = extractTsDocCommentsFromString(source)
-  const parsed = comments.map(parseTsDocComment)
+  const parsed = comments
+    .filter(
+      (c) =>
+        // @todo stop assuming functions and emit reference for types and exported values
+        !c.signature.match(/export interface |const /),
+    )
+    .map(parseTsDocComment)
   const sorted = sortBy(parsed, (d) => d.signature)
 
   return {

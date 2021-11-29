@@ -16,7 +16,13 @@ import { ObjectWithMatcher } from './matchers/ObjectWith'
 import { DynamicMatcher } from './plugins/types'
 import { Class2Primitive, NewableOrPrimitive } from './types'
 
-export interface ExpectInterface {
+export interface Expect {
+  /**
+   * The `expect` function is used every time you want to test a value.
+   *
+   * @param actual - the value to match against.
+   * @param options - optional configuration.
+   */
   <T>(actual: T, options?: ExpectationOptions): Expectation<T>
 
   /**
@@ -112,7 +118,13 @@ export interface ExpectInterface {
   numberLessThanOrEqualTo(target: number): number
 }
 
-export const expect: ExpectInterface = <T>(actual: T, options: ExpectationOptions = {}): Expectation<T> => {
+/**
+ * The `expect` function is used every time you want to test a value.
+ *
+ * @param actual - the value to match against.
+ * @param options - optional configuration.
+ */
+export const expect: Expect = <T>(actual: T, options: ExpectationOptions = {}): Expectation<T> => {
   return new Expectation(actual, false, options)
 }
 expect.anything = AnythingMatcher.make
@@ -128,8 +140,7 @@ expect.numberGreaterThanOrEqualTo = NumberGreaterThanOrEqualToMatcher.make
 expect.numberLessThan = NumberLessThanMatcher.make
 expect.numberLessThanOrEqualTo = NumberLessThanOrEqualToMatcher.make
 
-/** */
-export interface NumberCloseToOptions {
+export interface NumberCloseToDelta {
   delta: number
 }
 

@@ -16,7 +16,12 @@ title: API Reference
 async function main() {
   const reference = await generateApiReference({
     basePath: path.resolve(__dirname, '../earljs/dist'),
-    files: ['Validators:Expectation.d.ts', 'Matchers:expect.d.ts', 'Mocks:mocks/*.d.ts'],
+    files: [
+      'Validators:validators/types.d.ts',
+      'Matchers:expect.d.ts',
+      'Modifiers:modifiers.d.ts',
+      'Mocks:mocks/*.d.ts',
+    ],
   })
 
   // We're prepending frontmatter and styles here, because we Docusaurus doesn't show
