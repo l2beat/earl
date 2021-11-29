@@ -56,8 +56,10 @@ export function generateTableOfContents(docs: MethodDocumentation[]) {
 }
 
 function encodeAnchor(input: string): string {
-  return input
-    .toLowerCase()
-    .replace(/[(),:><]/g, '')
-    .replace(/ /g, '-')
+  return encodeURIComponent(
+    input
+      .toLowerCase()
+      .replace(/[(),:><\\?]/g, '')
+      .replace(/ /g, '-'),
+  )
 }

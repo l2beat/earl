@@ -31,8 +31,6 @@
   "devDependencies": {
     "@types/command-line-usage": "^5.0.2",
     "@types/debug": "^4",
-    "@types/lodash": "^4",
-    "eslint-plugin-tsdoc": "^0.2.11",
-    "prettier": "^2.2.0"
+    "@types/lodash": "^4"
   }
 }

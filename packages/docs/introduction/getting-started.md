@@ -1,5 +1,6 @@
 ---
 title: Getting started
+slug: /
 ---
 
 **Earl** is a ergonomic, modern and type-safe assertion library written in
@@ -17,8 +18,6 @@ With **earl** your assertions looks like this:
 
 ```typescript
 import { expect } from 'earljs'
-
-// ...
 
 expect(response).toEqual({
   body: { trimmed: true, timestamp: expect.a(String) },

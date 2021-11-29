@@ -5,37 +5,32 @@
  * LICENSE file in the root directory of this source tree.
  */
 
+:root {
+  --collapse-button-bg-color-dark: #2e333a;
+}
+
 @media (min-width: 997px) {
   .sidebar {
     display: flex;
     flex-direction: column;
-    height: 100vh;
-    overflow-y: auto;
+    max-height: 100vh;
+    height: 100%;
     position: sticky;
     top: 0;
     padding-top: var(--ifm-navbar-height);
+    width: var(--doc-sidebar-width);
+    transition: opacity 50ms ease;
   }
 
   .sidebarWithHideableNavbar {
     padding-top: 0;
   }
 
-  .sidebar::-webkit-scrollbar {
-    width: 7px;
-  }
-
-  .sidebar::-webkit-scrollbar-track {
-    background: #f1f1f1;
-    border-radius: 10px;
-  }
-
-  .sidebar::-webkit-scrollbar-thumb {
-    background: #888;
-    border-radius: 10px;
-  }
-
-  .sidebar::-webkit-scrollbar-thumb:hover {
-    background: #555;
+  .sidebarHidden {
+    opacity: 0;
+    height: 0;
+    overflow: hidden;
+    visibility: hidden;
   }
 
   .sidebarLogo {
@@ -56,16 +51,42 @@
   .menu {
     flex-grow: 1;
     padding: 0.5rem;
-    padding-left: 24px;
-    padding-right: 0;
   }
 
   .menuWithAnnouncementBar {
     margin-bottom: var(--docusaurus-announcement-bar-height);
   }
+
+  .collapseSidebarButton {
+    display: block !important;
+    background-color: var(--ifm-button-background-color);
+    height: 40px;
+    position: sticky;
+    bottom: 0;
+    border-radius: 0;
+    border: 1px solid var(--ifm-toc-border-color);
+  }
+
+  .collapseSidebarButtonIcon {
+    transform: rotate(180deg);
+    margin-top: 4px;
+  }
+  html[dir='rtl'] .collapseSidebarButtonIcon {
+    transform: rotate(0);
+  }
+
+  html[data-theme='dark'] .collapseSidebarButton {
+    background-color: var(--collapse-button-bg-color-dark);
+  }
+
+  html[data-theme='dark'] .collapseSidebarButton:hover,
+  html[data-theme='dark'] .collapseSidebarButton:focus {
+    background-color: var(--ifm-color-emphasis-200);
+  }
 }
 
-.sidebarLogo {
+.sidebarLogo,
+.collapseSidebarButton {
   display: none;
 }
 
@@ -84,6 +105,11 @@
   width: 24px;
 }
 
-.sidebar {
-  background-color: #f6f7f9;
+.earl__sidebarMenu:global(.menu) {
+  padding: 0.5rem 0 0.5rem 24px;
+  border-right: 1px solid var(--ifm-color-emphasis-200);
+}
+
+.earl__sidebar.earl__sidebar {
+  background-color: var(--ifm-footer-background-color);
 }
