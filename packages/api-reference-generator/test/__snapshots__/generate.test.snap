@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`generateMarkdownForMethodDocumentation generates markdown for a comment with params and examples 1`] = `
-"#### **\`someMethod(x: number, y: number): void\`**
+"#### **\`someMethod(x: number, y: number): void\`** {#someMethod-x-number-y-number}
 
 Returns the average of two numbers.
 
@@ -14,15 +14,15 @@ Some other note
   
 *Examples:*
 
+
 Random example
 \`\`\`ts
 someMethod(1, 2)
-\`\`\`
-  "
+\`\`\`"
 `;
 
 exports[`generateTableOfContents generates valid TOC 1`] = `
-"- [\`sample()\`](#sample)
-- [\`expect(value: any, options: Options)\`](#expectvalue-any-options-options)
-- [\`expect<TYPE>(value: any, options: Options)\`](#expect<type>value-any-options-options)"
+"- [\`sample()\`](#sample-)
+- [\`expect(value: any, options: Options)\`](#expect-value-any-options-Options)
+- [\`expect<T>(value: T, options: Options)\`](#expectT-value-T-options-Options)"
 `;

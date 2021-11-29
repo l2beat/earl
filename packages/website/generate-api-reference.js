@@ -18,10 +18,13 @@ async function main() {
     basePath: path.resolve(__dirname, '../earljs/dist'),
     files: ['Validators:Expectation.d.ts', 'Matchers:expect.d.ts', 'Mocks:mocks/*.d.ts'],
   })
-  writeFileSync(path.resolve(__dirname, '../docs/api/api-reference.md'), `${frontmatter}\n${reference}`)
+
+  // We're prepending frontmatter and styles here, because we Docusaurus doesn't show
+  // headings from imported .mdx files in table of contents
+  writeFileSync(path.resolve(__dirname, '../docs/api/api-reference.md'), frontmatter + reference)
 }
 
-void main().catch(err => {
+void main().catch((err) => {
   console.error(err)
   process.exit(1)
 })

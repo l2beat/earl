@@ -81,6 +81,7 @@ const config = {
           sidebarPath: require.resolve('./sidebars.js'),
           editUrl: 'https://github.com/earl-js/earl/edit/master/website/',
           sidebarCollapsible: false,
+          remarkPlugins: [require('./src/remark/code-heading-highlighter')],
         },
         /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
         theme: {

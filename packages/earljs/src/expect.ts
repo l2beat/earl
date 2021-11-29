@@ -57,7 +57,7 @@ export interface ExpectInterface {
    * @param target - a number to aim for.
    * @param options - an object with the delta parameter, denoting the maximum difference between the values.
    */
-  numberCloseTo(target: number, options: { delta: number }): number
+  numberCloseTo(target: number, options: NumberCloseToDelta): number
 
   /**
    * Matches an iterable containing the provided items.
@@ -127,6 +127,11 @@ expect.numberGreaterThan = NumberGreaterThanMatcher.make
 expect.numberGreaterThanOrEqualTo = NumberGreaterThanOrEqualToMatcher.make
 expect.numberLessThan = NumberLessThanMatcher.make
 expect.numberLessThanOrEqualTo = NumberLessThanOrEqualToMatcher.make
+
+/** */
+export interface NumberCloseToOptions {
+  delta: number
+}
 
 // dynamically load new matchers and attach to expect object
 // used by plugin loader

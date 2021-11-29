@@ -52,4 +52,29 @@ describe('extractTsDocCommentsFromString', () => {
       { signature: 'someMethod(arg1: number): void', comment: '/** test2 */' },
     ])
   })
+
+  it.skip('extracts given inline object literal type', () => {
+    const input = `
+      /** boop */
+      method(args: { a: number, b: number }): void
+    `
+
+    expect(extractTsDocCommentsFromString(input)).toEqual([
+      { signature: 'method(args: { a: number, b: number }): void', comment: '/** boop */' },
+    ])
+  })
+
+  it.skip('handles multiline signatures', () => {
+    const input = `
+      /** boop */
+      method(args: {
+        a: number,
+        b: number
+      }): void
+    `
+
+    expect(extractTsDocCommentsFromString(input)).toEqual([
+      { signature: 'method(args: { a: number, b: number }): void', comment: '/** boop */' },
+    ])
+  })
 })

@@ -3,6 +3,8 @@ import { assert } from 'ts-essentials'
 import { MethodComment } from '../types'
 
 export function extractTsDocCommentsFromString(source: string): MethodComment[] {
+  // @todo use TypeScript's parser to extract signatures and comments
+  // We have a few bugs already — see skipped tests in extract.test.ts
   const DOC_COMMENT_REGEX = /\/\*\*([\s\S]*?)\*\/[\n\r]+([\s\S]*?)[{|\n\r]+/gm
 
   const methodComments: MethodComment[] = []

@@ -93,7 +93,7 @@ export interface Mock<TArgs extends any[], TReturn> {
 
 export type MockArgs<T> = T extends Mock<infer Args, any> ? Args : never
 
-export declare namespace Mock {
+export namespace Mock {
   export type Of<T extends (...args: any[]) => any> = Mock<Parameters<T>, ReturnType<T>>
 
   export interface Given<TArgs extends any[], TReturn, TGivenArgs extends TArgs> {

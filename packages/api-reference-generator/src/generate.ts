@@ -40,8 +40,14 @@ ${doc.params.map((p) => `- \`${p.name}\` - ${p.description}`).join('\n')}
     `\
 *Examples:*
 
-${doc.examples.join('\n')}
-  `
+${
+  // Instead of rendering a few consecutive code snippets, we render a single,
+  // examples separated with a blank line.
+  doc.examples.reduce((a, v) => {
+    if (a.endsWith('```')) return a.slice(0, -3) + v.replace(/```\w+\n/, '\n')
+    else return a + '\n' + v
+  }, '')
+}`
 
   return [header, params, examples].filter(Boolean).join('\n')
 }
@@ -62,8 +68,7 @@ export function encodeAnchor(signature: string): string {
   // @todo All function names should be unique, so we should free to use the identifier as HTML anchor id
   //       if we add better handling to method overloads.
 
-  return signature
-    .toLowerCase()
-    .replace(/[><\\?.[\]= ]/g, '')
-    .replace(/[(),:]/g, '-')
+  const res = signature.replace(/[><\\?.[\]= ]/g, '').replace(/[(),:]/g, '-')
+  if (res.endsWith('-')) return res.slice(0, -1)
+  return res
 }

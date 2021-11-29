@@ -79,3 +79,29 @@ html[data-theme='dark'] {
 .navbar__toggle {
   display: none !important;
 }
+
+/* Syntax Highlighting styles for API Reference headings */
+
+.functionName,
+.valueName {
+  font-weight: var(--ifm-font-weight-bold);
+}
+html[data-theme='light'] .functionName,
+html[data-theme='light'] .valueName {
+  color: var(--ifm-color-primary-dark);
+}
+html[data-theme='dark'] .functionName,
+html[data-theme='dark'] .valueName {
+  color: var(--ifm-color-primary-light);
+}
+.paramType,
+.returnType,
+.typeParameter,
+.typeAnnotation {
+  color: var(--ifm-color-emphasis-700);
+  font-style: italic;
+  font-size: 0.9em;
+}
+.punctuation {
+  color: var(--ifm-color-emphasis-600);
+}

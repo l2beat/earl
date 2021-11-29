@@ -4,6 +4,7 @@ process.env.NODE_ENV = 'test'
 // exit test runner on unhandled rejections
 process.on('unhandledRejection', (reason, promise) => {
   console.error('Unhandled Rejection during test execution:', promise, 'reason:', reason)
+  console.log({ 'process.argv': process.argv })
   process.exit(1)
 })
 

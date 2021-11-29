@@ -42,9 +42,10 @@ interface Override {
  * Creates a mock conforming to a given signature.
  *
  * @example
- *
+ * ```ts
  * const mock1 = mockFn<[number, string], number>()
  * const mock2 = mockFn<(a: number, b: string) => number>()
+ * ```
  */
 export function mockFn<F extends (...args: any) => any>(defaultImpl?: F): Mock.Of<F>
 export function mockFn<Args extends any[], Return = any>(defaultImpl?: (...args: Args) => Return): Mock<Args, Return>

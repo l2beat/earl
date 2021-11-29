@@ -3,84 +3,84 @@ id: api-reference
 hide_title: true
 title: API Reference
 ---
-
 ## Synopsis
 
 ### Validators
 
-- [`not(): Expectation<T>`](#not---expectationt)
-- [`toBeA(clazz: any): void`](#tobea-clazz-any--void)
-- [`toBeAContainerWith(...expectedItems: any[]): void`](#tobeacontainerwith-expecteditems-any--void)
-- [`toBeAnArrayOfLength(length: number): void`](#tobeanarrayoflength-length-number--void)
-- [`toBeAnArrayWith(...expectedItems: ReadonlyArray<any>): void`](#tobeanarraywith-expecteditems-readonlyarrayany--void)
-- [`toBeAnObjectWith(subset: Object): void`](#tobeanobjectwith-subset-object--void)
-- [`toBeExhausted(): void`](#tobeexhausted---void)
-- [`toBeGreaterThan(target: number): void`](#tobegreaterthan-target-number--void)
-- [`toBeGreaterThanOrEqualTo(target: number): void`](#tobegreaterthanorequalto-target-number--void)
-- [`toBeLessThan(target: number): void`](#tobelessthan-target-number--void)
-- [`toBeLessThanOrEqualTo(target: number): void`](#tobelessthanorequalto-target-number--void)
-- [`toBeRejected(): Promise<void>`](#toberejected---promisevoid)
-- [`toBeRejected(errorClass: Newable<Error>, message?: string): Promise<void>`](#toberejected-errorclass-newableerror-message-string--promisevoid)
-- [`toBeRejected(message: string): Promise<void>`](#toberejected-message-string--promisevoid)
-- [`toEqual(value: T): void`](#toequal-value-t--void)
-- [`toHaveBeenCalledExactlyWith(args: MockArgs<T>[]): void`](#tohavebeencalledexactlywith-args-mockargst--void)
-- [`toHaveBeenCalledWith(args: MockArgs<T>): void`](#tohavebeencalledwith-args-mockargst--void)
-- [`toLooseEqual(value: any): void`](#tolooseequal-value-any--void)
-- [`toMatchSnapshot(): void`](#tomatchsnapshot---void)
-- [`toReferentiallyEqual(value: T): void`](#toreferentiallyequal-value-t--void)
-- [`toThrow(): void`](#tothrow---void)
-- [`toThrow(errorClass: Newable<Error>, message?: string): void`](#tothrow-errorclass-newableerror-message-string--void)
-- [`toThrow(message: string): void`](#tothrow-message-string--void)
+- [`not()`](#not-)
+- [`toBeA(clazz: any)`](#toBeA-clazz-any)
+- [`toBeAContainerWith(...expectedItems: any[])`](#toBeAContainerWith-expectedItems-any)
+- [`toBeAnArrayOfLength(length: number)`](#toBeAnArrayOfLength-length-number)
+- [`toBeAnArrayWith(...expectedItems: ReadonlyArray<any>)`](#toBeAnArrayWith-expectedItems-ReadonlyArrayany)
+- [`toBeAnObjectWith(subset: Object)`](#toBeAnObjectWith-subset-Object)
+- [`toBeExhausted()`](#toBeExhausted-)
+- [`toBeGreaterThan(target: number)`](#toBeGreaterThan-target-number)
+- [`toBeGreaterThanOrEqualTo(target: number)`](#toBeGreaterThanOrEqualTo-target-number)
+- [`toBeLessThan(target: number)`](#toBeLessThan-target-number)
+- [`toBeLessThanOrEqualTo(target: number)`](#toBeLessThanOrEqualTo-target-number)
+- [`toBeRejected()`](#toBeRejected-)
+- [`toBeRejected(errorClass: Newable<Error>, message?: string)`](#toBeRejected-errorClass-NewableError-message-string)
+- [`toBeRejected(message: string)`](#toBeRejected-message-string)
+- [`toEqual(value: T)`](#toEqual-value-T)
+- [`toHaveBeenCalledExactlyWith(args: MockArgs<T>[])`](#toHaveBeenCalledExactlyWith-args-MockArgsT)
+- [`toHaveBeenCalledWith(args: MockArgs<T>)`](#toHaveBeenCalledWith-args-MockArgsT)
+- [`toLooseEqual(value: any)`](#toLooseEqual-value-any)
+- [`toMatchSnapshot()`](#toMatchSnapshot-)
+- [`toReferentiallyEqual(value: T)`](#toReferentiallyEqual-value-T)
+- [`toThrow()`](#toThrow-)
+- [`toThrow(errorClass: Newable<Error>, message?: string)`](#toThrow-errorClass-NewableError-message-string)
+- [`toThrow(message: string)`](#toThrow-message-string)
 
 ### Matchers
 
-- [`a<T>(type: NewableOrPrimitive<T>): Class2Primitive<T>`](#at-type-newableorprimitivet--class2primitivet)
-- [`anything(): any`](#anything---any)
-- [`arrayOfLength<T>(length: number): T[]`](#arrayoflengtht-length-number--t)
-- [`arrayWith<T>(...items: T[]): T[]`](#arraywitht-items-t--t)
-- [`containerWith(...items: any[]): any`](#containerwith-items-any--any)
-- [`numberCloseTo(target: number, options:`](#numbercloseto-target-number-options-)
-- [`numberGreaterThan(target: number): number`](#numbergreaterthan-target-number--number)
-- [`numberGreaterThanOrEqualTo(target: number): number`](#numbergreaterthanorequalto-target-number--number)
-- [`numberLessThan(target: number): number`](#numberlessthan-target-number--number)
-- [`numberLessThanOrEqualTo(target: number): number`](#numberlessthanorequalto-target-number--number)
-- [`objectWith(subset: Object): any`](#objectwith-subset-object--any)
-- [`stringMatching(pattern: RegExp): string`](#stringmatching-pattern-regexp--string)
-- [`stringMatching(substring: string): string`](#stringmatching-substring-string--string)
+- [`a<T>(type: NewableOrPrimitive<T>)`](#aT-type-NewableOrPrimitiveT)
+- [`anything()`](#anything-)
+- [`arrayOfLength<T>(length: number)`](#arrayOfLengthT-length-number)
+- [`arrayWith<T>(...items: T[])`](#arrayWithT-items-T)
+- [`containerWith(...items: any[])`](#containerWith-items-any)
+- [`numberCloseTo(target: number, options: NumberCloseToDelta)`](#numberCloseTo-target-number-options-NumberCloseToDelta)
+- [`numberGreaterThan(target: number)`](#numberGreaterThan-target-number)
+- [`numberGreaterThanOrEqualTo(target: number)`](#numberGreaterThanOrEqualTo-target-number)
+- [`numberLessThan(target: number)`](#numberLessThan-target-number)
+- [`numberLessThanOrEqualTo(target: number)`](#numberLessThanOrEqualTo-target-number)
+- [`objectWith(subset: Object)`](#objectWith-subset-Object)
+- [`stringMatching(pattern: RegExp)`](#stringMatching-pattern-RegExp)
+- [`stringMatching(substring: string)`](#stringMatching-substring-string)
 
 ### Mocks
 
-- [`(...args: ARGS): RETURN`](#-args-args--return)
-- [`calls: MockCall<ARGS, RETURN>[]`](#calls-mockcallargs-return)
-- [`executes(implementation: (...args: ARGS[]) => RETURN): Mock<ARGS, RETURN>`](#executes-implementation--args-args-return--mockargs-return)
-- [`executesOnce(implementation: (...args: ARGS[]) => RETURN): Mock<ARGS, RETURN>`](#executesonce-implementation--args-args-return--mockargs-return)
-- [`executesOnce(implementation: (...args: B) => RETURN): Mock<ARGS, RETURN>`](#executesonce-implementation--args-b-return--mockargs-return)
-- [`given<B extends ARGS>(...args: B):`](#givenbextendsargs-args-b--)
-- [`isExhausted(): boolean`](#isexhausted---boolean)
-- [`rejectsWith(error: any): Mock<ARGS, RETURN>`](#rejectswith-error-any--mockargs-return)
-- [`rejectsWithOnce(error: any): Mock<ARGS, RETURN>`](#rejectswithonce-error-any--mockargs-return)
-- [`rejectsWithOnce(error: any): Mock<ARGS, any>`](#rejectswithonce-error-any--mockargs-any)
-- [`resolvesTo(value: Awaited<RETURN>): Mock<ARGS, RETURN>`](#resolvesto-value-awaitedreturn--mockargs-return)
-- [`resolvesToOnce(value: Awaited<RETURN>): Mock<ARGS, RETURN>`](#resolvestoonce-value-awaitedreturn--mockargs-return)
-- [`resolvesToOnce(value: Awaited<RETURN>): Mock<ARGS, RETURN>`](#resolvestoonce-value-awaitedreturn--mockargs-return)
-- [`returns(value: RETURN): Mock<ARGS, RETURN>`](#returns-value-return--mockargs-return)
-- [`returnsOnce(value: RETURN): Mock<ARGS, RETURN>`](#returnsonce-value-return--mockargs-return)
-- [`returnsOnce(value: RETURN): Mock<ARGS, RETURN>`](#returnsonce-value-return--mockargs-return)
-- [`throws(error: any): Mock<ARGS, RETURN>`](#throws-error-any--mockargs-return)
-- [`throwsOnce(error: any): Mock<ARGS, RETURN>`](#throwsonce-error-any--mockargs-return)
-- [`throwsOnce(error: any): Mock<ARGS, RETURN>`](#throwsonce-error-any--mockargs-return)
+- [`(...args: TArgs)`](#-args-TArgs)
+- [`calls`](#calls)
+- [`executes(implementation: (...args: TArgs[]) => TReturn)`](#executes-implementation--args-TArgs-TReturn)
+- [`executesOnce(implementation: (...args: TArgs[]) => TReturn)`](#executesOnce-implementation--args-TArgs-TReturn)
+- [`executesOnce(implementation: (...args: TGivenArgs) => TReturn)`](#executesOnce-implementation--args-TGivenArgs-TReturn)
+- [`function mockFn<F extends (...args: any) => any>(defaultImpl?: F)`](#functionmockFnFextends-args-any-any-defaultImpl-F)
+- [`given<TGivenArgs extends TArgs>(...args: TGivenArgs)`](#givenTGivenArgsextendsTArgs-args-TGivenArgs)
+- [`isExhausted()`](#isExhausted-)
+- [`rejectsWith(error: any)`](#rejectsWith-error-any)
+- [`rejectsWithOnce(error: any)`](#rejectsWithOnce-error-any)
+- [`rejectsWithOnce(error: any)`](#rejectsWithOnce-error-any)
+- [`resolvesTo(value: Awaited<TReturn>)`](#resolvesTo-value-AwaitedTReturn)
+- [`resolvesToOnce(value: Awaited<TReturn>)`](#resolvesToOnce-value-AwaitedTReturn)
+- [`resolvesToOnce(value: Awaited<TReturn>)`](#resolvesToOnce-value-AwaitedTReturn)
+- [`returns(value: TReturn)`](#returns-value-TReturn)
+- [`returnsOnce(value: TReturn)`](#returnsOnce-value-TReturn)
+- [`returnsOnce(value: TReturn)`](#returnsOnce-value-TReturn)
+- [`throws(error: any)`](#throws-error-any)
+- [`throwsOnce(error: any)`](#throwsOnce-error-any)
+- [`throwsOnce(error: any)`](#throwsOnce-error-any)
 
 ## Reference
 
 ### Validators
 
-#### **`not(): Expectation<T>`** {#not---expectationt}
+#### **`not(): Expectation<T>`** {#not-}
 
-* Inverts the behaviour of the validator that follows.
+Inverts the behaviour of the validator that follows.
   
-#### **`toBeA(this: Expectation<T>, clazz: any): void`** {#tobea-clazz-any--void}
+#### **`toBeA(this: Expectation<T>, clazz: any): void`** {#toBeA-clazz-any}
 
-* Checks if the value is an instance of the provided class or primitive type. Examples:
+Checks if the value is an instance of the provided class or primitive type. Examples:
 
 1. `expect(object).toBeA(MyClass)` - checks if object is instance of `MyClass`, but not `Other`
 2. `expect(foo).toBeA(String)` - checks if foo is instance of string
@@ -89,81 +89,81 @@ title: API Reference
 
 - `clazz` - type class or primitive constructor to match against.
   
-#### **`toBeAContainerWith(this: Expectation<any>, ...expectedItems: any[]): void`** {#tobeacontainerwith-expecteditems-any--void}
+#### **`toBeAContainerWith(this: Expectation<any>, ...expectedItems: any[]): void`** {#toBeAContainerWith-expectedItems-any}
 
-* Checks if the value is an iterable containing all of the provided items.
+Checks if the value is an iterable containing all of the provided items.
   
 *Parameters:*
 
 - `expectedItems` - values or matchers to look for in the matched iterable. Order of the items doesn't matter.
   
-#### **`toBeAnArrayOfLength(this: Expectation<ReadonlyArray<any>>, length: number): void`** {#tobeanarrayoflength-length-number--void}
+#### **`toBeAnArrayOfLength(this: Expectation<ReadonlyArray<any>>, length: number): void`** {#toBeAnArrayOfLength-length-number}
 
-* Checks if the values is an array containing exactly given number of items.
+Checks if the values is an array containing exactly given number of items.
   
 *Parameters:*
 
 - `length` - expected array length. Can be a matcher.
   
-#### **`toBeAnArrayWith(this: Expectation<ReadonlyArray<any>>, ...expectedItems: ReadonlyArray<any>): void`** {#tobeanarraywith-expecteditems-readonlyarrayany--void}
+#### **`toBeAnArrayWith(this: Expectation<ReadonlyArray<any>>, ...expectedItems: ReadonlyArray<any>): void`** {#toBeAnArrayWith-expectedItems-ReadonlyArrayany}
 
-* Checks if the value is an array containing all of the provided items.
+Checks if the value is an array containing all of the provided items.
   
 *Parameters:*
 
 - `expectedItems` - values or matchers to look for in the matched array. Order of the items doesn't matter.
   
-#### **`toBeAnObjectWith(this: Expectation<Object>, subset: Object): void`** {#tobeanobjectwith-subset-object--void}
+#### **`toBeAnObjectWith(this: Expectation<Object>, subset: Object): void`** {#toBeAnObjectWith-subset-Object}
 
-* Checks if the value is an object containing given key-value pairs.
+Checks if the value is an object containing given key-value pairs.
   
 *Parameters:*
 
 - `subset` - an object to match against.
   
-#### **`toBeExhausted(this: Expectation<Mock<any, any>>): void`** {#tobeexhausted---void}
+#### **`toBeExhausted(this: Expectation<Mock<any, any>>): void`** {#toBeExhausted-}
 
-* Checks if all the expected calls to the mock have been performed.
+Checks if all the expected calls to the mock have been performed.
   
-#### **`toBeGreaterThan(this: Expectation<number>, target: number): void`** {#tobegreaterthan-target-number--void}
+#### **`toBeGreaterThan(this: Expectation<number>, target: number): void`** {#toBeGreaterThan-target-number}
 
-* Checks if the value is greater than the provided target.
-  
-*Parameters:*
-
-- `target` - number to check against.
-  
-#### **`toBeGreaterThanOrEqualTo(this: Expectation<number>, target: number): void`** {#tobegreaterthanorequalto-target-number--void}
-
-* Checks if the value is greater than or equal to the provided target.
+Checks if the value is greater than the provided target.
   
 *Parameters:*
 
 - `target` - number to check against.
   
-#### **`toBeLessThan(this: Expectation<number>, target: number): void`** {#tobelessthan-target-number--void}
+#### **`toBeGreaterThanOrEqualTo(this: Expectation<number>, target: number): void`** {#toBeGreaterThanOrEqualTo-target-number}
 
-* Checks if the value is less than the provided target.
+Checks if the value is greater than or equal to the provided target.
   
 *Parameters:*
 
 - `target` - number to check against.
   
-#### **`toBeLessThanOrEqualTo(this: Expectation<number>, target: number): void`** {#tobelessthanorequalto-target-number--void}
+#### **`toBeLessThan(this: Expectation<number>, target: number): void`** {#toBeLessThan-target-number}
 
-* Checks if the value is less than or equal the provided target.
+Checks if the value is less than the provided target.
   
 *Parameters:*
 
 - `target` - number to check against.
   
-#### **`toBeRejected(this: Expectation<Promise<any>>): Promise<void>`** {#toberejected---promisevoid}
+#### **`toBeLessThanOrEqualTo(this: Expectation<number>, target: number): void`** {#toBeLessThanOrEqualTo-target-number}
 
-* Awaits the provided promise and expects it to be rejected.
+Checks if the value is less than or equal the provided target.
   
-#### **`toBeRejected(this: Expectation<Promise<any>>, errorClass: Newable<Error>, message?: string): Promise<void>`** {#toberejected-errorclass-newableerror-message-string--promisevoid}
+*Parameters:*
 
-* Awaits the provided promise and expects it to be rejected. The error's
+- `target` - number to check against.
+  
+#### **`toBeRejected(this: Expectation<Promise<any>>): Promise<void>`** {#toBeRejected-}
+
+Awaits the provided promise and expects it to be rejected.
+  
+#### **`toBeRejected(this: Expectation<Promise<any>>, errorClass: Newable<Error>, message?: string): Promise<void>`** {#toBeRejected-errorClass-NewableError-message-string}
+
+Awaits the provided promise and expects it to be rejected. The error's
 class and message are also checked.
   
 *Parameters:*
@@ -171,18 +171,18 @@ class and message are also checked.
 - `errorClass` - expected class of the thrown error.
 - `message` - string or matcher to check the message against.
   
-#### **`toBeRejected(this: Expectation<Promise<any>>, message: string): Promise<void>`** {#toberejected-message-string--promisevoid}
+#### **`toBeRejected(this: Expectation<Promise<any>>, message: string): Promise<void>`** {#toBeRejected-message-string}
 
-* Awaits the provided promise and expects it to be rejected. The message
+Awaits the provided promise and expects it to be rejected. The message
 of the error is also checked.
   
 *Parameters:*
 
 - `message` - string or matcher to check the message against.
   
-#### **`toEqual(value: T): void`** {#toequal-value-t--void}
+#### **`toEqual(value: T): void`** {#toEqual-value-T}
 
-* Performs a recursive equality check. Objects are equal if their fields
+Performs a recursive equality check. Objects are equal if their fields
 are equal and they share the same prototype.
 
 You can use matchers in place of a value. When a matcher is encountered its
@@ -194,22 +194,17 @@ internal rules are used instead of the usual checks.
   
 *Examples:*
 
-Equality check against primitive value
-```ts
-expect('foo').toEqual('foo')
-```
-Usage with "a" matcher
-```ts
-expect([1, { a: 2 }]).toEqual([1, { a: expect.a(Number) }])
-```
-Negated equality check
-```ts
-expect({ a: 2, b: 2 }).not.toEqual({ a: 2 })
-```
-  
-#### **`toHaveBeenCalledExactlyWith(this: Expectation<Mock<any[], any>>, args: MockArgs<T>[]): void`** {#tohavebeencalledexactlywith-args-mockargst--void}
 
-* Checks the entire history of mock calls.
+```ts
+expect('foo').toEqual('foo') // Equality check against primitive value
+
+expect([1, { a: 2 }]).toEqual([1, { a: expect.a(Number) }]) // Usage with "a" matcher
+
+expect({ a: 2, b: 2 }).not.toEqual({ a: 2 }) // Negated equality check
+```
+#### **`toHaveBeenCalledExactlyWith(this: Expectation<Mock<any[], any>>, args: MockArgs<T>[]): void`** {#toHaveBeenCalledExactlyWith-args-MockArgsT}
+
+Checks the entire history of mock calls.
 
 You can use matchers in place of a value. When a matcher is encountered its
 internal rules are used instead of the usual checks.
@@ -218,9 +213,9 @@ internal rules are used instead of the usual checks.
 
 - `args` - an array where each item is an array of values or matchers to check the mock call against.
   
-#### **`toHaveBeenCalledWith(this: Expectation<Mock<any[], any>>, args: MockArgs<T>): void`** {#tohavebeencalledwith-args-mockargst--void}
+#### **`toHaveBeenCalledWith(this: Expectation<Mock<any[], any>>, args: MockArgs<T>): void`** {#toHaveBeenCalledWith-args-MockArgsT}
 
-* Check if the mock has been called with the provided arguments.
+Check if the mock has been called with the provided arguments.
 
 You can use matchers in place of a value. When a matcher is encountered its
 internal rules are used instead of the usual checks.
@@ -229,9 +224,9 @@ internal rules are used instead of the usual checks.
 
 - `args` - an array of values or matchers to check the mock calls against.
   
-#### **`toLooseEqual(value: any): void`** {#tolooseequal-value-any--void}
+#### **`toLooseEqual(value: any): void`** {#toLooseEqual-value-any}
 
-* Performs a recursive equality check. Objects are equal if their fields
+Performs a recursive equality check. Objects are equal if their fields
 are equal. Object prototypes are ignored.
 
 You can use matchers in place of a value. When a matcher is encountered its
@@ -241,13 +236,13 @@ internal rules are used instead of the usual checks.
 
 - `value` - value to check against.
   
-#### **`toMatchSnapshot(this: Expectation<any>): void`** {#tomatchsnapshot---void}
+#### **`toMatchSnapshot(this: Expectation<any>): void`** {#toMatchSnapshot-}
 
-* Checks that the value is the same as in the previous test execution.
+Checks that the value is the same as in the previous test execution.
   
-#### **`toReferentiallyEqual(this: Expectation<T>, value: T): void`** {#toreferentiallyequal-value-t--void}
+#### **`toReferentiallyEqual(this: Expectation<T>, value: T): void`** {#toReferentiallyEqual-value-T}
 
-* Performs a referential equality check using `Object.is`. It is similar to
+Performs a referential equality check using `Object.is`. It is similar to
 `===`, with two differences:
 
 1. `Object.is(-0, +0)` returns `false`
@@ -260,13 +255,13 @@ deep equality.
 
 - `value` - value to check against.
   
-#### **`toThrow(this: Expectation<() => any>): void`** {#tothrow---void}
+#### **`toThrow(this: Expectation<() => any>): void`** {#toThrow-}
 
-* Calls the provided function and expects an error to be thrown.
+Calls the provided function and expects an error to be thrown.
   
-#### **`toThrow(this: Expectation<() => any>, errorClass: Newable<Error>, message?: string): void`** {#tothrow-errorclass-newableerror-message-string--void}
+#### **`toThrow(this: Expectation<() => any>, errorClass: Newable<Error>, message?: string): void`** {#toThrow-errorClass-NewableError-message-string}
 
-* Calls the provided function and expects an error to be thrown. The error's
+Calls the provided function and expects an error to be thrown. The error's
 class and message are also checked.
   
 *Parameters:*
@@ -274,9 +269,9 @@ class and message are also checked.
 - `errorClass` - expected class of the thrown error.
 - `message` - string or matcher to check the message against.
   
-#### **`toThrow(this: Expectation<() => any>, message: string): void`** {#tothrow-message-string--void}
+#### **`toThrow(this: Expectation<() => any>, message: string): void`** {#toThrow-message-string}
 
-* Calls the provided function and expects an error to be thrown. The message
+Calls the provided function and expects an error to be thrown. The message
 of the error is also checked.
   
 *Parameters:*
@@ -286,9 +281,9 @@ of the error is also checked.
 
 ### Matchers
 
-#### **`a<T>(type: NewableOrPrimitive<T>): Class2Primitive<T>`** {#at-type-newableorprimitivet--class2primitivet}
+#### **`a<T>(type: NewableOrPrimitive<T>): Class2Primitive<T>`** {#aT-type-NewableOrPrimitiveT}
 
-* Matches an instance of the provided class or primitive type. Examples:
+Matches an instance of the provided class or primitive type. Examples:
 
 1. `expect.a(MyClass)` - matches `new MyClass`, but not `new Other()`
 2. `expect.a(String)` - matches `"foo"`, but not `123`
@@ -297,37 +292,37 @@ of the error is also checked.
 
 - `type` - class or primitive constructor to match against.
   
-#### **`anything(): any`** {#anything---any}
+#### **`anything(): any`** {#anything-}
 
-* Matches any value.
+Matches any value.
   
-#### **`arrayOfLength<T>(length: number): T[]`** {#arrayoflengtht-length-number--t}
+#### **`arrayOfLength<T>(length: number): T[]`** {#arrayOfLengthT-length-number}
 
-* Matches an array containing exactly given number of items.
+Matches an array containing exactly given number of items.
   
 *Parameters:*
 
 - `length` - expected array length. Can be a matcher.
   
-#### **`arrayWith<T>(...items: T[]): T[]`** {#arraywitht-items-t--t}
+#### **`arrayWith<T>(...items: T[]): T[]`** {#arrayWithT-items-T}
 
-* Matches an array containing the provided items.
+Matches an array containing the provided items.
   
 *Parameters:*
 
 - `items` - values or matchers to look for in the matched array.
   
-#### **`containerWith(...items: any[]): any`** {#containerwith-items-any--any}
+#### **`containerWith(...items: any[]): any`** {#containerWith-items-any}
 
-* Matches an iterable containing the provided items.
+Matches an iterable containing the provided items.
   
 *Parameters:*
 
 - `items` - values or matchers to look for in the matched iterable.
   
-#### **`numberCloseTo(target: number, options:`** {#numbercloseto-target-number-options-}
+#### **`numberCloseTo(target: number, options: NumberCloseToDelta): number`** {#numberCloseTo-target-number-options-NumberCloseToDelta}
 
-* Matches numbers that are close to the target value. The options are used
+Matches numbers that are close to the target value. The options are used
 to specify the maximum difference.
 
 The range is [expected - delta, expected + delta] (inclusive).
@@ -337,57 +332,57 @@ The range is [expected - delta, expected + delta] (inclusive).
 - `target` - a number to aim for.
 - `options` - an object with the delta parameter, denoting the maximum difference between the values.
   
-#### **`numberGreaterThan(target: number): number`** {#numbergreaterthan-target-number--number}
+#### **`numberGreaterThan(target: number): number`** {#numberGreaterThan-target-number}
 
-* Matches a number greater than target.
+Matches a number greater than target.
   
 *Parameters:*
 
 - `items` - number to compare to.
   
-#### **`numberGreaterThanOrEqualTo(target: number): number`** {#numbergreaterthanorequalto-target-number--number}
+#### **`numberGreaterThanOrEqualTo(target: number): number`** {#numberGreaterThanOrEqualTo-target-number}
 
-* Matches a number greater than or equal to target.
+Matches a number greater than or equal to target.
   
 *Parameters:*
 
 - `items` - number to compare to.
   
-#### **`numberLessThan(target: number): number`** {#numberlessthan-target-number--number}
+#### **`numberLessThan(target: number): number`** {#numberLessThan-target-number}
 
-* Matches a number less than target.
+Matches a number less than target.
   
 *Parameters:*
 
 - `items` - number to compare to.
   
-#### **`numberLessThanOrEqualTo(target: number): number`** {#numberlessthanorequalto-target-number--number}
+#### **`numberLessThanOrEqualTo(target: number): number`** {#numberLessThanOrEqualTo-target-number}
 
-* Matches a number less than or equal to target.
+Matches a number less than or equal to target.
   
 *Parameters:*
 
 - `items` - number to compare to.
   
-#### **`objectWith(subset: Object): any`** {#objectwith-subset-object--any}
+#### **`objectWith(subset: Object): any`** {#objectWith-subset-Object}
 
-* Matches an object containing given key-value pairs.
+Matches an object containing given key-value pairs.
   
 *Parameters:*
 
 - `subset` - an object to match against.
   
-#### **`stringMatching(pattern: RegExp): string`** {#stringmatching-pattern-regexp--string}
+#### **`stringMatching(pattern: RegExp): string`** {#stringMatching-pattern-RegExp}
 
-* Matches strings that conform to the provided pattern.
+Matches strings that conform to the provided pattern.
   
 *Parameters:*
 
 - `pattern` - a regexp to test the matched values.
   
-#### **`stringMatching(substring: string): string`** {#stringmatching-substring-string--string}
+#### **`stringMatching(substring: string): string`** {#stringMatching-substring-string}
 
-* Matches strings that contain the provided substring.
+Matches strings that contain the provided substring.
   
 *Parameters:*
 
@@ -396,153 +391,164 @@ The range is [expected - delta, expected + delta] (inclusive).
 
 ### Mocks
 
-#### **`(...args: ARGS): RETURN`** {#-args-args--return}
+#### **`(...args: TArgs): TReturn`** {#-args-TArgs}
 
-* Calls the mock function.
+Calls the mock function.
   
-#### **`calls: MockCall<ARGS, RETURN>[]`** {#calls-mockcallargs-return}
+#### **`calls: MockCall<TArgs, TReturn>[]`** {#calls}
 
-* An array containing all the performed calls.
+An array containing all the performed calls.
   
-#### **`executes(implementation: (...args: ARGS[]) => RETURN): Mock<ARGS, RETURN>`** {#executes-implementation--args-args-return--mockargs-return}
+#### **`executes(implementation: (...args: TArgs[]) => TReturn): Mock<TArgs, TReturn>`** {#executes-implementation--args-TArgs-TReturn}
 
-* Sets the underlying implementation of the Mock.
+Sets the underlying implementation of the Mock.
 Overrides any previous configuration.
   
 *Parameters:*
 
 - `implementation` - function to execute.
   
-#### **`executesOnce(implementation: (...args: ARGS[]) => RETURN): Mock<ARGS, RETURN>`** {#executesonce-implementation--args-args-return--mockargs-return}
+#### **`executesOnce(implementation: (...args: TArgs[]) => TReturn): Mock<TArgs, TReturn>`** {#executesOnce-implementation--args-TArgs-TReturn}
 
-* Schedules the mock to use the provided implementation the next time it's called.
+Schedules the mock to use the provided implementation the next time it's called.
 If anything is already scheduled it will be used first.
   
 *Parameters:*
 
 - `implementation` - function to execute.
   
-#### **`executesOnce(implementation: (...args: B) => RETURN): Mock<ARGS, RETURN>`** {#executesonce-implementation--args-b-return--mockargs-return}
+#### **`executesOnce(implementation: (...args: TGivenArgs) => TReturn): Mock<TArgs, TReturn>`** {#executesOnce-implementation--args-TGivenArgs-TReturn}
 
-* Schedules the mock use the provided implementation the next time it's called.
+Schedules the mock use the provided implementation the next time it's called.
 If anything is already scheduled it will be used first.
   
 *Parameters:*
 
 - `implementation` - function to execute.
   
-#### **`given<B extends ARGS>(...args: B):`** {#givenbextendsargs-args-b--}
+#### **`function mockFn<F extends (...args: any) => any>(defaultImpl?: F): Mock.Of<F>`** {#functionmockFnFextends-args-any-any-defaultImpl-F}
 
-* Specifies a different behavior when other arguments are given
+Creates a mock conforming to a given signature.
+  
+*Examples:*
+
+
+```ts
+const mock1 = mockFn<[number, string], number>()
+const mock2 = mockFn<(a: number, b: string) => number>()
+```
+#### **`given<TGivenArgs extends TArgs>(...args: TGivenArgs): Mock.Given<TArgs, TReturn, TGivenArgs>`** {#givenTGivenArgsextendsTArgs-args-TGivenArgs}
+
+Specifies a different behavior when other arguments are given
   
 *Parameters:*
 
 - `args` - arguments to match
   
-#### **`isExhausted(): boolean`** {#isexhausted---boolean}
+#### **`isExhausted(): boolean`** {#isExhausted-}
 
-* Checks if all the expected calls to the mock have been performed.
+Checks if all the expected calls to the mock have been performed.
   
-#### **`rejectsWith(error: any): Mock<ARGS, RETURN>`** {#rejectswith-error-any--mockargs-return}
+#### **`rejectsWith(error: any): Mock<TArgs, TReturn>`** {#rejectsWith-error-any}
 
-* Sets the error rejected by calls to the Mock.
-  
-*Parameters:*
-
-- `error` - error to be thrown.
-  
-#### **`rejectsWithOnce(error: any): Mock<ARGS, RETURN>`** {#rejectswithonce-error-any--mockargs-return}
-
-* Schedules the mock to reject with value the next time it's called.
-If anything is already scheduled it will be used first.
+Sets the error rejected by calls to the Mock.
   
 *Parameters:*
 
 - `error` - error to be thrown.
   
-#### **`rejectsWithOnce(error: any): Mock<ARGS, any>`** {#rejectswithonce-error-any--mockargs-any}
+#### **`rejectsWithOnce(error: any): Mock<TArgs, TReturn>`** {#rejectsWithOnce-error-any}
 
-* Schedules the mock to reject with value the next time it's called.
+Schedules the mock to reject with value the next time it's called.
 If anything is already scheduled it will be used first.
   
 *Parameters:*
 
 - `error` - error to be thrown.
   
-#### **`resolvesTo(value: Awaited<RETURN>): Mock<ARGS, RETURN>`** {#resolvesto-value-awaitedreturn--mockargs-return}
+#### **`rejectsWithOnce(error: any): Mock<TArgs, any>`** {#rejectsWithOnce-error-any}
 
-* Sets the return value wrapped in Promise.resolve of calls to the Mock.
+Schedules the mock to reject with value the next time it's called.
+If anything is already scheduled it will be used first.
+  
+*Parameters:*
+
+- `error` - error to be thrown.
+  
+#### **`resolvesTo(value: Awaited<TReturn>): Mock<TArgs, TReturn>`** {#resolvesTo-value-AwaitedTReturn}
+
+Sets the return value wrapped in Promise.resolve of calls to the Mock.
   
 *Parameters:*
 
 - `value` - value to be returned.
   
-#### **`resolvesToOnce(value: Awaited<RETURN>): Mock<ARGS, RETURN>`** {#resolvestoonce-value-awaitedreturn--mockargs-return}
+#### **`resolvesToOnce(value: Awaited<TReturn>): Mock<TArgs, TReturn>`** {#resolvesToOnce-value-AwaitedTReturn}
 
-* Schedules the mock to return value wrapped in Promise.resolve the next time it's called.
+Schedules the mock to return value wrapped in Promise.resolve the next time it's called.
 If anything is already scheduled it will be used first.
   
 *Parameters:*
 
 - `value` - value to be returned.
   
-#### **`resolvesToOnce(value: Awaited<RETURN>): Mock<ARGS, RETURN>`** {#resolvestoonce-value-awaitedreturn--mockargs-return}
+#### **`resolvesToOnce(value: Awaited<TReturn>): Mock<TArgs, TReturn>`** {#resolvesToOnce-value-AwaitedTReturn}
 
-* Schedules the mock to return value wrapped in Promise.resolve the next time it's called.
+Schedules the mock to return value wrapped in Promise.resolve the next time it's called.
 If anything is already scheduled it will be used first.
   
 *Parameters:*
 
 - `value` - value to be returned.
   
-#### **`returns(value: RETURN): Mock<ARGS, RETURN>`** {#returns-value-return--mockargs-return}
+#### **`returns(value: TReturn): Mock<TArgs, TReturn>`** {#returns-value-TReturn}
 
-* Sets the return value of calls to the Mock.
+Sets the return value of calls to the Mock.
 Overrides any previous configuration.
   
 *Parameters:*
 
 - `value` - value to be returned.
   
-#### **`returnsOnce(value: RETURN): Mock<ARGS, RETURN>`** {#returnsonce-value-return--mockargs-return}
+#### **`returnsOnce(value: TReturn): Mock<TArgs, TReturn>`** {#returnsOnce-value-TReturn}
 
-* Schedules the mock to return a value the next time it's called.
+Schedules the mock to return a value the next time it's called.
 If anything is already scheduled it will be used first.
   
 *Parameters:*
 
 - `value` - value to be returned.
   
-#### **`returnsOnce(value: RETURN): Mock<ARGS, RETURN>`** {#returnsonce-value-return--mockargs-return}
+#### **`returnsOnce(value: TReturn): Mock<TArgs, TReturn>`** {#returnsOnce-value-TReturn}
 
-* Schedules the mock to return a value the next time it's called.
+Schedules the mock to return a value the next time it's called.
 If anything is already scheduled it will be used first.
   
 *Parameters:*
 
 - `value` - value to be returned.
   
-#### **`throws(error: any): Mock<ARGS, RETURN>`** {#throws-error-any--mockargs-return}
+#### **`throws(error: any): Mock<TArgs, TReturn>`** {#throws-error-any}
 
-* Sets the error thrown by calls to the Mock.
+Sets the error thrown by calls to the Mock.
 Overrides any previous configuration.
   
 *Parameters:*
 
 - `error` - error to be thrown.
   
-#### **`throwsOnce(error: any): Mock<ARGS, RETURN>`** {#throwsonce-error-any--mockargs-return}
+#### **`throwsOnce(error: any): Mock<TArgs, TReturn>`** {#throwsOnce-error-any}
 
-* Schedules the mock to throw an error the next time it's called.
+Schedules the mock to throw an error the next time it's called.
 If anything is already scheduled it will be used first.
   
 *Parameters:*
 
 - `error` - error to be thrown.
   
-#### **`throwsOnce(error: any): Mock<ARGS, RETURN>`** {#throwsonce-error-any--mockargs-return}
+#### **`throwsOnce(error: any): Mock<TArgs, TReturn>`** {#throwsOnce-error-any}
 
-* Schedules the mock to throw an error the next time it's called.
+Schedules the mock to throw an error the next time it's called.
 If anything is already scheduled it will be used first.
   
 *Parameters:*

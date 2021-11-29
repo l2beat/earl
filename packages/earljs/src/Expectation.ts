@@ -55,21 +55,20 @@ export class Expectation<T> {
    * @param value - value to check against.
    *
    * @example
-   * Equality check against primitive value
-   * ```
-   * expect('foo').toEqual('foo')
-   * ```
-   *
-   * @example
-   * Usage with "a" matcher
-   * ```
-   * expect([1, { a: 2 }]).toEqual([1, { a: expect.a(Number) }])
+   * ```ts
+   * expect('foo').toEqual('foo') // Equality check against primitive value
    * ```
    *
    * @example
-   * Negated equality check
+   *
+   * ```ts
+   * expect([1, { a: 2 }]).toEqual([1, { a: expect.a(Number) }]) // Usage with "a" matcher
    * ```
-   * expect({ a: 2, b: 2 }).not.toEqual({ a: 2 })
+   *
+   * @example
+   *
+   * ```ts
+   * expect({ a: 2, b: 2 }).not.toEqual({ a: 2 }) // Negated equality check
    * ```
    */
   toEqual(value: T): void {
