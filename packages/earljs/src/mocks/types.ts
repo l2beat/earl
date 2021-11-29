@@ -88,9 +88,15 @@ export interface Mock<TArgs extends any[], TReturn> {
    * Specifies a different behavior when other arguments are given
    * @param args - arguments to match
    */
-  given<B extends TArgs>(
-    ...args: B
-  ): {
+  given<TGivenArgs extends TArgs>(...args: TGivenArgs): Mock.Given<TArgs, TReturn, TGivenArgs>
+}
+
+export type MockArgs<T> = T extends Mock<infer Args, any> ? Args : never
+
+export declare namespace Mock {
+  export type Of<T extends (...args: any[]) => any> = Mock<Parameters<T>, ReturnType<T>>
+
+  export interface Given<TArgs extends any[], TReturn, TGivenArgs extends TArgs> {
     /**
      * Schedules the mock to return a value the next time it's called.
      * If anything is already scheduled it will be used first.
@@ -110,7 +116,7 @@ export interface Mock<TArgs extends any[], TReturn> {
      * If anything is already scheduled it will be used first.
      * @param implementation - function to execute.
      */
-    executesOnce(implementation: (...args: B) => TReturn): Mock<TArgs, TReturn>
+    executesOnce(implementation: (...args: TGivenArgs) => TReturn): Mock<TArgs, TReturn>
 
     /**
      * Schedules the mock to return value wrapped in Promise.resolve the next time it's called.
@@ -126,10 +132,4 @@ export interface Mock<TArgs extends any[], TReturn> {
      */
     rejectsWithOnce(error: any): Mock<TArgs, TReturn>
   }
-}
-
-export type MockArgs<T> = T extends Mock<infer Args, any> ? Args : never
-
-export declare namespace Mock {
-  export type Of<T extends (...args: any[]) => any> = Mock<Parameters<T>, ReturnType<T>>
 }
