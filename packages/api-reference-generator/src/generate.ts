@@ -4,7 +4,7 @@ import { extractTsDocCommentsFromString } from './tsdocs/extract'
 import { parseTsDocComment } from './tsdocs/parse'
 import { MethodDocumentation } from './types'
 
-export function generateSectionReference(sectionName: string, source: string) {
+export function generateSectionReference(sectionName: string, prefix: string, source: string) {
   const comments = extractTsDocCommentsFromString(source)
   const parsed = comments
     .filter(
@@ -13,12 +13,25 @@ export function generateSectionReference(sectionName: string, source: string) {
         !c.signature.match(/export interface |const /),
     )
     .map(parseTsDocComment)
+
   const sorted = sortBy(parsed, (d) => d.signature)
 
+  const prefixed = sorted.map((c) => ({
+    ...c,
+    signature: prefixMethodSignature(prefix, c.signature),
+    abbreviatedSignature: prefixMethodSignature(prefix, c.abbreviatedSignature),
+  }))
+
   return {
-    tableOfContents: `### ${sectionName}\n\n` + generateTableOfContents(sorted),
-    reference: `### ${sectionName}\n\n` + sorted.map(generateMarkdownForMethodDocumentation).join('\n'),
+    tableOfContents: `### ${sectionName}\n\n` + generateTableOfContents(prefixed),
+    reference: `### ${sectionName}\n\n` + prefixed.map(generateMarkdownForMethodDocumentation).join('\n'),
   }
+}
+
+function prefixMethodSignature(prefix: string, signature: string) {
+  if (signature.startsWith('function ')) return signature
+  if (/^[(<]/.exec(signature)) return `function ${prefix}${signature}`
+  return `${prefix}.${signature}`
 }
 
 /**

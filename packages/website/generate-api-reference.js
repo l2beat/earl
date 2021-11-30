@@ -17,10 +17,11 @@ async function main() {
   const reference = await generateApiReference({
     basePath: path.resolve(__dirname, '../earljs/dist'),
     files: [
-      'Validators:validators/types.d.ts',
-      'Matchers:expect.d.ts',
-      'Modifiers:modifiers.d.ts',
-      'Mocks:mocks/*.d.ts',
+      'Core:expect:expect.d.ts',
+      'Validators::validators/types.d.ts',
+      'Modifiers::modifiers.d.ts',
+      'Matchers:expect:matchers/types.d.ts',
+      'Mocks:mock:mocks/mockFn.d.ts,types/index.d.ts',
     ],
   })
 

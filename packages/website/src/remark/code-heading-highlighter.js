@@ -33,11 +33,14 @@ const plugin = (options) => {
 module.exports = plugin
 
 /**
- * @param {string} signature
+ * @param {string} str
  */
-function signatureHeadingHighlighter(signature) {
-  if (!signature.includes('\n') && signature.match(/[()]/)) {
-    const isClassMethod = !signature.includes('function ')
+function signatureHeadingHighlighter(str) {
+  if (!str.includes('\n') && str.match(/[()]/)) {
+    const { prefix, signature } = removePrefix(str)
+
+    const isFunctionDeclaration = signature.includes('function ')
+    const isClassMethod = !isFunctionDeclaration /* simplification */
     const sourceCode = isClassMethod ? `function ${signature} {}` : signature
 
     const sourceFile = tsProject.createSourceFile('temp.ts', sourceCode, { overwrite: true })
@@ -47,6 +50,8 @@ function signatureHeadingHighlighter(signature) {
         <code>
           ${statement.isExported ? 'export ' : ''}
           ${statement.isAsync ? 'async ' : ''}
+          ${prefix && span(prefix.replace(/\.$/, ''), 'methodPrefix') + punctuation('.')}
+          ${isFunctionDeclaration ? keyword('function ') : ''}
           ${span(statement.name, 'functionName')}
           ${
             statement.typeParameters && statement.typeParameters.length
@@ -87,7 +92,7 @@ function signatureHeadingHighlighter(signature) {
       `.replace(/\s\s+/g, '')
     }
   } else {
-    const [name, typeAnnotation] = signature.split(': ')
+    const [name, typeAnnotation] = str.split(': ')
     return `<code>${
       span(name, 'valueName') + (typeAnnotation ? punctuation(': ') + span(typeAnnotation, 'typeAnnotation') : '')
     }</code>`
@@ -95,6 +100,26 @@ function signatureHeadingHighlighter(signature) {
 
   // This is not a function signature, so we do not highlight it.
   return null
+}
+
+// HACK: This won't be needed if we improve parsing to work on ASTs instead of files.
+/**
+ * @param {string} signature
+ */
+function removePrefix(signature) {
+  const indexes = {
+    '.': signature.indexOf('.'),
+    '(': signature.indexOf('('),
+  }
+
+  if (indexes['('] !== -1 && indexes['.'] !== -1 && indexes['.'] < indexes['(']) {
+    return {
+      prefix: signature.slice(0, indexes['.'] + 1),
+      signature: signature.slice(indexes['.'] + 1),
+    }
+  }
+
+  return { prefix: '', signature }
 }
 
 /**
@@ -105,6 +130,13 @@ function punctuation(str) {
 }
 
 /**
+ * @param {string} str
+ */
+function keyword(str) {
+  return span(str, 'keyword')
+}
+
+/**
  *
  * @param {string} child
  * @param {string} className
@@ -112,8 +144,6 @@ function punctuation(str) {
 function span(child, className) {
   return `<span class="${className}">${escapeHtml(child)}</span>`
 }
-
-signatureHeadingHighlighter('calls: MockCall<TArgs, TReturn>[]') //?
 
 /**
  * @param {string} str

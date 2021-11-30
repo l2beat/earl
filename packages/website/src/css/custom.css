@@ -102,6 +102,7 @@ html[data-theme='dark'] .valueName {
   font-style: italic;
   font-size: 0.9em;
 }
-.punctuation {
+.punctuation,
+.keyword {
   color: var(--ifm-color-emphasis-600);
 }

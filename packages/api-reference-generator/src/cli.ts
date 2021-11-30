@@ -14,7 +14,7 @@ const args = cliArgs.parse<GenerateApiReferenceOptions>({
     defaultOption: true,
     // @todo we should use TypeScript AST and traverse to definitions of all exports
     // Right now, when somebody moves an export to another file, we'll have broken references.
-    description: 'files that will become sections in the API Reference, of format <heading>:<file-glob>',
+    description: 'files that will become sections in the API Reference, of format <heading>:<prefix>:<file-patterns>',
   },
 })
 
