@@ -13,6 +13,12 @@ export interface Matchers {
    * 2. `expect.a(String)` - matches `"foo"`, but not `123`
    *
    * @param type - class or primitive constructor to match against.
+   *
+   * @example
+   * ```ts
+   * expect(something).toEqual(expect.a(String)) // matches any string
+   * expect(something).toEqual(expect.a(Object)) // matches any object (not null)
+   * ```
    */
   a<T>(type: NewableOrPrimitive<T>): Class2Primitive<T>
 
@@ -78,18 +84,51 @@ export interface Matchers {
   /**
    * Matches a number greater than or equal to target.
    * @param items - number to compare to.
+   *
+   * @example
+   * ```ts
+   * expect({ a: 2 }).toEqual({
+   *   a: expect.numberGreaterThanOrEqualTo(1),
+   * })
+   * expect({ b: 2 }).toEqual({
+   *   b: expect.numberGreaterThanOrEqualTo(2),
+   * })
+   * expect({ c: 2 }).not.toEqual({
+   *   c: expect.numberGreaterThanOrEqualTo(3),
+   * })
+   * ```
    */
   numberGreaterThanOrEqualTo(target: number): number
 
   /**
    * Matches a number less than target.
    * @param items - number to compare to.
+   *
+   * @example
+   * ```ts
+   * expect({ a: 2 }).toEqual({ a: expect.numberLessThan(3) })
+   * expect({ b: 2 }).not.toEqual({ b: expect.numberLessThan(2) })
+   * expect({ c: 2 }).not.toEqual({ c: expect.numberLessThan(1) })
+   * ```
    */
   numberLessThan(target: number): number
 
   /**
    * Matches a number less than or equal to target.
    * @param items - number to compare to.
+   *
+   * @example
+   * ```ts
+   * expect({ a: 2 }).toEqual({
+   *   a: expect.numberLessThanOrEqualTo(3),
+   * })
+   * expect({ b: 2 }).toEqual({
+   *   b: expect.numberLessThanOrEqualTo(2),
+   * })
+   * expect({ c: 2 }).not.toEqual({
+   *   c: expect.numberLessThanOrEqualTo(1),
+   * })
+   * ```
    */
   numberLessThanOrEqualTo(target: number): number
 }
