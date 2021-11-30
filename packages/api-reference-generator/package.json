@@ -7,8 +7,8 @@
   "bin": "./dist/cli.js",
   "types": "./dist/index.d.ts",
   "scripts": {
-    "format": "prettier --ignore-path ../../.prettierignore './**/*.{ts,md}' --check",
-    "format:fix": "prettier --ignore-path ../../.prettierignore './**/*.{ts,md}' --write",
+    "format": "prettier --ignore-path ../../.prettierignore --check .",
+    "format:fix": "prettier --ignore-path ../../.prettierignore --write .",
     "lint": "eslint --ext .ts src test",
     "lint:fix": "yarn lint --fix",
     "typecheck": "tsc --noEmit",
