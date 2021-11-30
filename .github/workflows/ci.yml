@@ -41,7 +41,7 @@ jobs:
         run: yarn format
 
       - name: Build (excluding website)
-        run: yarn build:noweb
+        run: yarn build
 
       - name: Test
         run: yarn test

@@ -35,9 +35,6 @@ auto-fixable problems:
 yarn test:fix
 ```
 
-If you need to rebuild **earl** try `yarn build:noweb` for faster builds,
-skipping building docs.
-
 ### Watch mode
 
 While inside `packages/earljs` you might run `yarn build:watch` to build project
