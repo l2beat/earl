@@ -13,6 +13,15 @@ title: API Reference
 ---
 `
 
+const pageStyles = `\n
+<style>{\`
+  :not(h3) + h4 {
+    padding-top: 1em;
+    border-top: 1px solid var(--ifm-color-emphasis-200);
+  }\`
+}</style>\n
+`
+
 async function main() {
   const reference = await generateApiReference({
     basePath: path.resolve(__dirname, '../earljs/dist'),
@@ -27,7 +36,7 @@ async function main() {
 
   // We're prepending frontmatter and styles here, because we Docusaurus doesn't show
   // headings from imported .mdx files in table of contents
-  writeFileSync(path.resolve(__dirname, '../docs/api/api-reference.md'), frontmatter + reference)
+  writeFileSync(path.resolve(__dirname, '../docs/api/api-reference.md'), frontmatter + pageStyles + reference)
 }
 
 void main().catch((err) => {
