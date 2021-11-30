@@ -40,7 +40,7 @@ expect(response).toEqual({
 
 ## Docs
 
-- [Getting started](https://earljs.dev/docs/introduction/getting-started)
+- [Getting started](https://earljs.dev/docs)
 - [Step by step guide](https://earljs.dev/docs/introduction/step-by-step-guide)
 - [API reference](https://earljs.dev/docs/api/api-reference)
 

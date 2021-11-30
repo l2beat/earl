@@ -16,8 +16,6 @@ import React, { memo, useEffect } from 'react'
 
 import styles from './styles.module.css'
 
-console.log({ styles })
-
 const isActiveSidebarItem = (item: Props['item'], activePath: string): boolean => {
   switch (item.type) {
     case 'category':
