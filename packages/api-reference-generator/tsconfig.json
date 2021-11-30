@@ -1,0 +1,15 @@
+{
+  "compilerOptions": {
+    "declaration": true,
+    "lib": ["ES2020"],
+    "module": "CommonJS",
+    "moduleResolution": "node",
+    "strict": true,
+    "target": "ES2020",
+    "esModuleInterop": true,
+    "outDir": "dist",
+    "allowUnreachableCode": false,
+    "stripInternal": true
+  },
+  "include": ["src", "test"]
+}

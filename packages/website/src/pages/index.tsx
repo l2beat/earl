@@ -1,10 +1,9 @@
-import React from 'react'
-import classnames from 'classnames'
-import Layout from '@theme/Layout'
 import Link from '@docusaurus/Link'
-import useDocusaurusContext from '@docusaurus/useDocusaurusContext'
 import useBaseUrl from '@docusaurus/useBaseUrl'
-import Head from '@docusaurus/Head'
+import useDocusaurusContext from '@docusaurus/useDocusaurusContext'
+import Layout from '@theme/Layout'
+import classnames from 'classnames'
+import React from 'react'
 
 import styles from './styles.module.css'
 
@@ -54,8 +53,7 @@ function Feature({ emoji, title, description }) {
 }
 
 function Home() {
-  const context = useDocusaurusContext()
-  const { siteConfig = {} } = context
+  const { siteConfig } = useDocusaurusContext()
   return (
     <Layout
       title={`earl - assertion library for TypeScript`}
@@ -76,7 +74,7 @@ function Home() {
         </div>
       </header>
       <main className={classnames('main--primary')}>
-        {features && features.length > 0 && (
+        {features.length > 0 && (
           <section className={styles.features}>
             <div className="container">
               <div className="row">

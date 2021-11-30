@@ -5,19 +5,26 @@
   "scripts": {
     "start": "docusaurus start",
     "build": "docusaurus build",
-    "swizzle": "docusaurus swizzle",
+    "swizzle": "docusaurus swizzle --typescript",
     "deploy": "docusaurus deploy",
-    "release": "./scripts/build-and-deploy.sh"
+    "release": "./scripts/build-and-deploy.sh",
+    "api-reference": "node ./generate-api-reference",
+    "prebuild": "yarn api-reference"
   },
   "dependencies": {
-    "@docusaurus/core": "2.0.0-alpha.56",
-    "@docusaurus/preset-classic": "2.0.0-alpha.56",
     "classnames": "^2.2.6",
     "react": "^16.8.4",
     "react-dom": "^16.8.4"
   },
+  "optionalDependencies": {
+    "@docusaurus/core": "2.0.0-beta.9",
+    "@docusaurus/preset-classic": "2.0.0-beta.9"
+    },
   "devDependencies": {
-    "netlify-cli": "^2.53.0"
+    "@docusaurus/module-type-aliases": "^2.0.0-beta.9",
+    "@tsconfig/docusaurus": "^1.0.4",
+    "netlify-cli": "^2.53.0",
+    "typescript": "^4.5.2"
   },
   "browserslist": {
     "production": [

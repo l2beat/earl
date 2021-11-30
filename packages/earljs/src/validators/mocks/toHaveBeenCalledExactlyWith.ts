@@ -3,13 +3,13 @@ import { Mock } from '../../mocks'
 import { formatValue, replaceMatchersWithMatchedValues } from '../common'
 import { smartEq } from '../smartEq'
 
-function getCallsArgs<ARGS extends any[]>(mock: Mock<ARGS, any>): ARGS[] {
+function getCallsArgs<Args extends any[]>(mock: Mock<Args, any>): Args[] {
   return mock.calls.map((c) => c.args)
 }
 
-export function toHaveBeenCalledExactlyWith<ARGS extends any[]>(
-  control: Control<Mock<ARGS, any>>,
-  expectedArgs: ARGS[],
+export function toHaveBeenCalledExactlyWith<Args extends any[]>(
+  control: Control<Mock<Args, any>>,
+  expectedArgs: Args[],
 ) {
   const callsArgs = getCallsArgs(control.actual)
   const formatted = formatValue(expectedArgs)

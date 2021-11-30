@@ -52,8 +52,8 @@
     "ts-essentials": "^6.0.5"
   },
   "devDependencies": {
+    "@microsoft/tsdoc": "^0.13.0",
     "@types/debug": "^4.1.5",
-    "@types/lodash": "^4.14.150",
-    "prettier": "^2.2.0"
+    "@types/lodash": "^4.14.150"
   }
 }

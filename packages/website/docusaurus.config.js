@@ -1,4 +1,7 @@
-module.exports = {
+// @ts-check
+
+/** @type {import('@docusaurus/types').Config} */
+const config = {
   title: 'Earl',
   tagline: 'Ergonomic, modern and type-safe assertion library for TypeScript',
   url: 'https://earljs.dev/',
@@ -6,17 +9,18 @@ module.exports = {
   favicon: 'img/favicon.ico',
   organizationName: 'earljs', // Usually your GitHub org/user name.
   projectName: 'earl', // Usually your repo name.
+  /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
   themeConfig: {
     image: '/img/social.png',
-    disableDarkMode: true,
-    sidebarCollapsible: false,
     navbar: {
       title: 'earl',
       logo: {
         alt: 'earl',
         src: 'img/logo.svg',
+        height: '32px',
+        width: '32px',
       },
-      links: [
+      items: [
         {
           to: 'docs/',
           activeBasePath: 'docs',
@@ -31,14 +35,13 @@ module.exports = {
       ],
     },
     footer: {
-      style: 'light',
       links: [
         {
           title: 'Docs',
           items: [
             {
               label: 'Getting started',
-              to: 'docs/introduction/getting-started',
+              to: 'docs/',
             },
             {
               label: 'API Reference',
@@ -75,10 +78,12 @@ module.exports = {
         docs: {
           // It is recommended to set document id as docs home page (`docs/` path).
           path: '../docs',
-          homePageId: 'introduction/getting-started',
           sidebarPath: require.resolve('./sidebars.js'),
           editUrl: 'https://github.com/earl-js/earl/edit/master/website/',
+          sidebarCollapsible: false,
+          remarkPlugins: [require('./src/remark/code-heading-highlighter')],
         },
+        /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
         theme: {
           customCss: require.resolve('./src/css/custom.css'),
         },
@@ -86,3 +91,5 @@ module.exports = {
     ],
   ],
 }
+
+module.exports = config

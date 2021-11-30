@@ -3,7 +3,7 @@ import { Mock } from '../../mocks'
 import { formatValue, replaceMatchersWithMatchedValues } from '../common'
 import { smartEq } from '../smartEq'
 
-export function toHaveBeenCalledWith<ARGS extends any[]>(control: Control<Mock<ARGS, any>>, expectedArgs: ARGS) {
+export function toHaveBeenCalledWith<Args extends any[]>(control: Control<Mock<Args, any>>, expectedArgs: Args) {
   for (const call of control.actual.calls) {
     if (smartEq(call.args, expectedArgs).result === 'success') {
       return control.assert({

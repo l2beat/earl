@@ -38,9 +38,18 @@ interface Override {
   spec: Spec
 }
 
-export function mockFn<FUNCTION_SIG extends (...args: any) => any>(defaultImpl?: FUNCTION_SIG): Mock.Of<FUNCTION_SIG>
-export function mockFn<ARGS extends any[], RETURN = any>(defaultImpl?: (...args: ARGS) => RETURN): Mock<ARGS, RETURN>
-export function mockFn<ARGS extends any[], RETURN = any>(defaultImpl?: (...args: ARGS) => RETURN): Mock<ARGS, RETURN> {
+/**
+ * Creates a mock conforming to a given signature.
+ *
+ * @example
+ * ```ts
+ * const mock1 = mockFn<[number, string], number>()
+ * const mock2 = mockFn<(a: number, b: string) => number>()
+ * ```
+ */
+export function mockFn<F extends (...args: any) => any>(defaultImpl?: F): Mock.Of<F>
+export function mockFn<Args extends any[], Return = any>(defaultImpl?: (...args: Args) => Return): Mock<Args, Return>
+export function mockFn<Args extends any[], Return = any>(defaultImpl?: (...args: Args) => Return): Mock<Args, Return> {
   let spec: Spec = {
     type: 'not-ready',
   }
@@ -101,6 +110,7 @@ export function mockFn<ARGS extends any[], RETURN = any>(defaultImpl?: (...args:
     reset({ type: 'return', value })
     return mock
   }
+
   mock.returnsOnce = function (value: any) {
     queue.push({ type: 'return', value })
     return mock

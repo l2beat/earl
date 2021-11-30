@@ -32,7 +32,7 @@ jobs:
           restore-keys: ${{ runner.OS }}-${{ matrix.node }}-yarn-cache-
 
       - name: Install
-        run: yarn --no-progress --non-interactive --frozen-lockfile
+        run: yarn --no-progress --non-interactive --frozen-lockfile --ignore-optional
 
       - name: Lint
         run: yarn lint
@@ -41,7 +41,7 @@ jobs:
         run: yarn format
 
       - name: Build (excluding website)
-        run: yarn build:noweb
+        run: yarn build
 
       - name: Test
         run: yarn test

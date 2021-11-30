@@ -1,4 +1,6 @@
 /* stylelint-disable docusaurus/copyright-header */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,500;0,700;1,400&display=swap');
+
 /**
  * Any CSS included here will be global. The classic template
  * bundles Infima by default. Infima is a CSS framework designed to
@@ -18,9 +20,19 @@
   --color-border-menu: rgb(230, 235, 240);
 
   --ifm-font-family-base: Roboto, sans-serif;
-  --ifm-menu-color-background-active: #fff;
+
   --ifm-menu-link-padding-horizontal: 0;
   --ifm-heading-font-weight: 500;
+
+  /* The lightest shade of gray, responsible for footer and sidebar backgrounds in light mode. */
+  --ifm-color-gray-100: #f6f7f9;
+}
+
+html[data-theme='light'] {
+  --ifm-menu-color-background-active: var(--ifm-color-emphasis-0);
+}
+html[data-theme='dark'] {
+  --ifm-menu-color-background-active: var(--ifm-hover-overlay);
 }
 
 .docusaurus-highlight-code-line {
@@ -40,20 +52,6 @@
   margin-top: -10px;
 }
 
-.menu__list-category {
-  margin-top: 40px;
-}
-
-.menu__link__header {
-  padding: 7px 24px 7px 16px;
-  font-size: 0.75rem;
-  color: #9daab6;
-  font-weight: 700;
-  line-height: 1.2;
-  letter-spacing: 1.2px;
-  text-transform: uppercase;
-}
-
 .menu__list-item > a {
   padding: 7px 24px 7px 16px;
   font-weight: 500;
@@ -69,22 +67,9 @@
   }
 }
 
-.menu__link.menu__link--active {
-  border-color: var(--color-border-menu) !important;
-}
-
-.docTitle_node_modules-\@docusaurus-theme-classic-src-theme-DocItem- {
-  font-size: 2.5rem !important;
-}
-
-.docSidebarContainer_node_modules-\@docusaurus-theme-classic-src-theme-DocPage- {
-  border-color: var(--color-border-menu) !important;
-}
-
 .footer {
   border-width: 1px;
   border-style: solid;
-  border-color: var(--color-border-menu) !important;
 }
 
 .navbar__item {
@@ -93,4 +78,31 @@
 
 .navbar__toggle {
   display: none !important;
+}
+
+/* Syntax Highlighting styles for API Reference headings */
+
+.api__functionName,
+.api__valueName {
+  font-weight: var(--ifm-font-weight-bold);
+}
+html[data-theme='light'] .api__functionName,
+html[data-theme='light'] .api__valueName {
+  color: var(--ifm-color-primary-dark);
+}
+html[data-theme='dark'] .api__functionName,
+html[data-theme='dark'] .api__valueName {
+  color: var(--ifm-color-primary-light);
+}
+.api__paramType,
+.api__returnType,
+.api__typeParameter,
+.api__typeAnnotation {
+  color: var(--ifm-color-emphasis-700);
+  font-style: italic;
+  font-size: 0.9em;
+}
+.api__punctuation,
+.api__keyword {
+  color: var(--ifm-color-emphasis-600);
 }

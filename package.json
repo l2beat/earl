@@ -16,8 +16,8 @@
     "format:fix": "wsrun -mc format:fix",
     "typecheck": "wsrun -mc typecheck",
     "clean": "wsrun -emc clean",
-    "build": "wsrun -temc build",
-    "build:noweb": "wsrun -x website -temc build",
+    "build": "wsrun -x website -temc build",
+    "build:website": "yarn workspace website build",
     "test": "wsrun -emc test",
     "test:fix": "wsrun -emc test:fix",
     "release": "wsrun -smec release && yarn changeset publish"
@@ -42,14 +42,18 @@
     "eslint-plugin-simple-import-sort": "^7.0.0",
     "eslint-plugin-sonarjs": "^0.8.0-125",
     "eslint-plugin-unused-imports": "^1.1.1",
+    "eslint-plugin-tsdoc": "^0.2.11",
     "fast-check": "^2.19.0",
     "mocha": "^8.2.1",
-    "prettier": "^2.4.1",
+    "prettier": "^2.5.0",
     "rimraf": "^3.0.2",
     "sinon": "^8.0.1",
     "sinon-chai": "^3.5.0",
     "ts-node": "^8.5.4",
-    "typescript": "^4.4",
+    "typescript": "^4.5",
     "wsrun": "^5.2.4"
+  },
+  "resolutions": {
+    "prettier": "^2.5.0"
   }
 }

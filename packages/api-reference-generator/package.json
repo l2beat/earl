@@ -1,0 +1,37 @@
+{
+  "name": "@dethcrypto/api-reference-generator",
+  "private": true,
+  "version": "0.0.1",
+  "type": "commonjs",
+  "main": "./dist/index.js",
+  "bin": "./dist/cli.js",
+  "types": "./dist/index.d.ts",
+  "scripts": {
+    "format": "prettier --ignore-path ../../.prettierignore --check .",
+    "format:fix": "prettier --ignore-path ../../.prettierignore --write .",
+    "lint": "eslint --ext .ts src test",
+    "lint:fix": "yarn lint --fix",
+    "typecheck": "tsc --noEmit",
+    "clean": "rimraf dist",
+    "build": "yarn clean && tsc -p ./tsconfig.prod.json",
+    "build:watch": "yarn clean && tsc -p ./tsconfig.prod.json --watch",
+    "build:watch:test": "yarn clean && tsc -p ./tsconfig.json --watch",
+    "test": "mocha",
+    "test:fix": "yarn lint:fix && yarn format:fix && yarn typecheck && yarn test"
+  },
+  "dependencies": {
+    "@microsoft/tsdoc": "^0.13.0",
+    "@ts-morph/bootstrap": "^0.12.2",
+    "fast-glob": "^3.2.7",
+    "lodash": "^4.17.20",
+    "ts-command-line-args": "^2.2.0",
+    "ts-essentials": "^7.0.1",
+    "ts-morph": "^13.0.2"
+  },
+  "devDependencies": {
+    "@types/command-line-usage": "^5.0.2",
+    "@types/debug": "^4",
+    "@types/lodash": "^4",
+    "earljs": "^0.1.12"
+  }
+}
