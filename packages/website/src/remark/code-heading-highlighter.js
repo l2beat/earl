@@ -77,7 +77,6 @@ function signatureHeadingHighlighter(str) {
                 (param) =>
                   span(param.name, 'paramName') +
                   punctuation(`${param.hasQuestionToken ? '?' : ''}: `) +
-                  // `<span class="paramType">${escapeHtml(param.type.toString())}</span>`
                   span(param.type.toString(), 'paramType'),
               )
               .join(', ') +
@@ -85,7 +84,8 @@ function signatureHeadingHighlighter(str) {
           }
           ${
             statement.returnType
-              ? punctuation(': ') + `<span class="returnType">${escapeHtml(statement.returnType.toString())}</span>`
+              ? punctuation(': ') +
+                `<span class="api__returnType">${escapeHtml(statement.returnType.toString())}</span>`
               : ''
           }
         </code>
@@ -142,7 +142,7 @@ function keyword(str) {
  * @param {string} className
  */
 function span(child, className) {
-  return `<span class="${className}">${escapeHtml(child)}</span>`
+  return `<span class="api__${className}">${escapeHtml(child)}</span>`
 }
 
 /**
