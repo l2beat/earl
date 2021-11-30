@@ -14,7 +14,7 @@ export function generateSectionReference(sectionName: string, prefix: string, so
     )
     .map(parseTsDocComment)
 
-  const sorted = sortBy(parsed, (d) => d.signature)
+  const sorted = sortBySignatures(parsed)
 
   const prefixed = sorted.map((c) => ({
     ...c,
@@ -26,6 +26,16 @@ export function generateSectionReference(sectionName: string, prefix: string, so
     tableOfContents: `### ${sectionName}\n\n` + generateTableOfContents(prefixed),
     reference: `### ${sectionName}\n\n` + prefixed.map(generateMarkdownForMethodDocumentation).join('\n'),
   }
+}
+
+function sortBySignatures(xs: MethodDocumentation[]) {
+  const sorted = sortBy(xs, (d) => d.signature)
+
+  // functions are lifted to the top
+  const functions = sorted.filter((d) => d.signature.startsWith('function '))
+  const others = sorted.filter((d) => !d.signature.startsWith('function '))
+
+  return [...functions, ...others]
 }
 
 function prefixMethodSignature(prefix: string, signature: string) {

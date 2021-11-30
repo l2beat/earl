@@ -21,7 +21,7 @@ async function main() {
       'Validators::validators/types.d.ts',
       'Modifiers::Modifiers.d.ts',
       'Matchers:expect:matchers/types.d.ts',
-      'Mocks:mock:mocks/mockFn.d.ts,types/index.d.ts',
+      'Mocks:mock:mocks/mockFn.d.ts,mocks/types/index.d.ts',
     ],
   })
 
