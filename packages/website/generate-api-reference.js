@@ -19,7 +19,7 @@ async function main() {
     files: [
       'Core:expect:expect.d.ts',
       'Validators::validators/types.d.ts',
-      'Modifiers::modifiers.d.ts',
+      'Modifiers::Modifiers.d.ts',
       'Matchers:expect:matchers/types.d.ts',
       'Mocks:mock:mocks/mockFn.d.ts,types/index.d.ts',
     ],
