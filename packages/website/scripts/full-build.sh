@@ -10,4 +10,4 @@ cd ../earljs && yarn build
 echo "Building api-reference-generator..."
 cd ../api-reference-generator && yarn build
 echo "Building website..."
-cd ../website && yarn build
+cd ../website && yarn prebuild && ./node_modules/.bin/docusaurus build
