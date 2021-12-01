@@ -29,7 +29,7 @@ jobs:
           restore-keys: ${{ runner.OS }}-14.x-yarn-cache-
 
       - name: Install
-        run: yarn --no-progress --non-interactive --frozen-lockfile --ignore-optional
+        run: yarn --no-progress --non-interactive --frozen-lockfile
 
       - name: Either creates release PR or releases everything (packages to npm, documentation do netlify)
         uses: changesets/action@master
