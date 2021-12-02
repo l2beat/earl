@@ -5,6 +5,7 @@ import { Mock, MockArgs } from './mocks'
 import { Modifiers } from './Modifiers'
 import { DynamicValidator } from './plugins/types'
 import { Newable } from './types'
+import { toBeFalsy, toBeTruthy } from './validators/booleans'
 import { toBeAContainerWith, toBeAnArrayOfLength, toBeAnArrayWith, toBeAnObjectWith } from './validators/dataStructures'
 import { toBeExhausted, toHaveBeenCalledExactlyWith, toHaveBeenCalledWith } from './validators/mocks'
 import { toBeGreaterThan, toBeGreaterThanOrEqualTo, toBeLessThan, toBeLessThanOrEqualTo } from './validators/numbers'
@@ -114,6 +115,13 @@ export class Expectation<T> implements Modifiers<T>, Validators<T> {
 
   toBeLessThanOrEqualTo(this: Expectation<number>, target: number) {
     return toBeLessThanOrEqualTo(this.getControl(), target)
+  }
+
+  toBeTruthy(this: Expectation<unknown>) {
+    return toBeTruthy(this.getControl())
+  }
+  toBeFalsy(this: Expectation<unknown>) {
+    return toBeFalsy(this.getControl())
   }
 
   toBeExhausted(this: Expectation<Mock<any, any>>) {
