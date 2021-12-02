@@ -8,6 +8,7 @@ import { Newable } from './types'
 import { toBeAContainerWith, toBeAnArrayOfLength, toBeAnArrayWith, toBeAnObjectWith } from './validators/dataStructures'
 import { toBeExhausted, toHaveBeenCalledExactlyWith, toHaveBeenCalledWith } from './validators/mocks'
 import { toBeGreaterThan, toBeGreaterThanOrEqualTo, toBeLessThan, toBeLessThanOrEqualTo } from './validators/numbers'
+import { ExpectedEqual } from './validators/smartEq'
 import { toMatchSnapshot } from './validators/snapshots/toMatchSnapshot'
 import { toBeA } from './validators/toBeA'
 import { toBeRejected } from './validators/toBeRejected'
@@ -42,7 +43,7 @@ export class Expectation<T> implements Modifiers<T>, Validators<T> {
     return new Expectation(this.actual, true, this.options)
   }
 
-  toEqual(value: T): void {
+  toEqual(value: ExpectedEqual<T>): void {
     toEqual(this.getControl(), value)
   }
 

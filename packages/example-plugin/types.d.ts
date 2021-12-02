@@ -1,9 +1,9 @@
+import { createPlugin } from 'earljs/internals'
+
 import { plugin } from './dist'
 
-type Matchers = typeof plugin['matchers']
-type Validators = typeof plugin['validators']
-
 declare module 'earljs' {
-  interface ExpectInterface extends Matchers {}
-  interface Expectation<T> extends Validators {}
+  interface Expect extends createPlugin.MatchersOf<typeof plugin> {}
+  interface Expectation<T> extends createPlugin.ValidatorsOf<typeof plugin> {}
+  interface SmartEqRules extends createPlugin.SmartEqRulesOf<typeof plugin> {}
 }
