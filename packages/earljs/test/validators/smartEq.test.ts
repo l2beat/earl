@@ -3,10 +3,9 @@ import { expect } from 'chai'
 import { AssertFalse, AssertTrue, Has, IsExact } from 'conditional-type-checks'
 import fc from 'fast-check'
 
-import { Expectation } from '../../src'
 import { AnythingMatcher } from '../../src/matchers/Anything'
 import { createPlugin, SmartEqRule } from '../../src/plugins'
-import { buildSmartEqResult, loadSmartEqRules, smartEq } from '../../src/validators/smartEq'
+import { buildSmartEqResult, ExpectedEqual, loadSmartEqRules, smartEq } from '../../src/validators/smartEq'
 import { arbitraries } from '../arbitraries'
 import { clearModuleCache } from '../common'
 
@@ -319,10 +318,6 @@ describe('smartEq', () => {
 })
 
 // #region type-level tests
-
-// should be the same as one defined in validators/smartEq, but this one is
-// derived from public API, so it should cover a bit larger surface area
-type ExpectedEqual<TActual> = Parameters<Expectation<TActual>['toEqual']>[0]
 
 type _ActualTypes = [
   ExpectedEqual<number>,

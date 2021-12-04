@@ -8,7 +8,7 @@ process.on('unhandledRejection', (reason, promise) => {
 })
 
 module.exports = {
-  require: ['ts-node/register/transpile-only', 'earljs/mocha'],
+  require: ['ts-node/register/transpile-only', '@earljs/published/mocha'],
   extension: 'ts',
   watchExtensions: 'ts',
   spec: 'test/**/*.test.ts',
