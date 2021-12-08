@@ -5,3 +5,12 @@ export function clearModuleCache() {
     delete require.cache[key]
   })
 }
+
+export function passes(f: () => void) {
+  try {
+    f()
+    return true
+  } catch {
+    return false
+  }
+}

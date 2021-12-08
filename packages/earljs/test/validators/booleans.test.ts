@@ -3,6 +3,7 @@ import fc from 'fast-check'
 
 import { expect as earl } from '../../src'
 import { arbitraries } from '../arbitraries'
+import { passes } from '../common'
 
 describe('boolean validators', () => {
   describe('toBeTruthy', () => {
@@ -37,12 +38,3 @@ describe('boolean validators', () => {
     })
   })
 })
-
-function passes(f: () => void) {
-  try {
-    f()
-    return true
-  } catch {
-    return false
-  }
-}
