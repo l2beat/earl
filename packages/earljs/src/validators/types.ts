@@ -238,31 +238,51 @@ export interface Validators<T> {
 
   /**
    * Checks if the value is truthy.
-   * 
+   *
    * @example
    * ```ts
    * expect(1).toBeTruthy()
    * expect(false).not.toBeTruthy()
    * ```
-   * 
+   *
    * There are six falsy values in JavaScript: `false`, `0`, `''`, `null`, `undefined`, and `NaN`. \
    * Everything else is truthy.
    */
   toBeTruthy(this: Expectation<unknown>): void
-
   /**
    * Checks if the value is falsy.
-   * 
+   *
    * @example
    * ```ts
    * expect(0).toBeFalsy()
    * expect(true).not.toBeFalsy()
    * ```
-   * 
+   *
    * There are six falsy values in JavaScript: `false`, `0`, `''`, `null`, `undefined`, and `NaN`. \
    * Everything else is truthy.
    */
   toBeFalsy(this: Expectation<unknown>): void
+
+  /**
+   * Checks if the value is different to `undefined` and `null`.
+   *
+   * @example
+   * ```ts
+   * expect(0).toBeDefined()
+   * expect(null).not.toBeDefined()
+   * ```
+   */
+  toBeDefined(this: Expectation<unknown>): void
+  /**
+   * Checks if the value is `undefined` or `null`.
+   *
+   * @example
+   * ```ts
+   * expect(undefined).toBeNullish()
+   * expect(false).not.toBeNullish()
+   * ```
+   */
+  toBeNullish(this: Expectation<unknown>): void
 
   /**
    * Checks if all the expected calls to the mock have been performed.

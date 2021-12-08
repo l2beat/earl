@@ -32,7 +32,7 @@ describe('boolean validators', () => {
       expect(() => earl(0).not.toBeFalsy()).to.throw('0 is falsy')
     })
 
-    it('expect(x).toBeTruthy() passes if and only if Boolean(x) is true', () => {
+    it('expect(x).toBeFalsy() passes if and only if Boolean(x) is true', () => {
       fc.assert(fc.property(arbitraries.anything, (x) => passes(() => earl(x).toBeFalsy()) === !x))
     })
   })

@@ -4,12 +4,16 @@ import {
   AnythingMatcher,
   ArrayWithMatcher,
   ContainerWithMatcher,
+  DefinedMatcher,
+  FalsyMatcher,
+  NullishMatcher,
   NumberCloseToMatcher,
   NumberGreaterThanMatcher,
   NumberGreaterThanOrEqualToMatcher,
   NumberLessThanMatcher,
   NumberLessThanOrEqualToMatcher,
   StringMatchingMatcher,
+  TruthyMatcher,
 } from './matchers'
 import { ArrayOfLengthMatcher } from './matchers/ArrayOfLength'
 import { ObjectWithMatcher } from './matchers/ObjectWith'
@@ -47,6 +51,10 @@ expect.numberGreaterThan = NumberGreaterThanMatcher.make
 expect.numberGreaterThanOrEqualTo = NumberGreaterThanOrEqualToMatcher.make
 expect.numberLessThan = NumberLessThanMatcher.make
 expect.numberLessThanOrEqualTo = NumberLessThanOrEqualToMatcher.make
+expect.truthy = TruthyMatcher.make
+expect.falsy = FalsyMatcher.make
+expect.defined = DefinedMatcher.make
+expect.nullish = NullishMatcher.make
 
 // dynamically load new matchers and attach to expect object
 // used by plugin loader

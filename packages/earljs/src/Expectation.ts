@@ -9,6 +9,7 @@ import { toBeFalsy, toBeTruthy } from './validators/booleans'
 import { toBeAContainerWith, toBeAnArrayOfLength, toBeAnArrayWith, toBeAnObjectWith } from './validators/dataStructures'
 import { toBeExhausted, toHaveBeenCalledExactlyWith, toHaveBeenCalledWith } from './validators/mocks'
 import { toBeGreaterThan, toBeGreaterThanOrEqualTo, toBeLessThan, toBeLessThanOrEqualTo } from './validators/numbers'
+import { toBeDefined, toBeNullish } from './validators/optionals'
 import { toMatchSnapshot } from './validators/snapshots/toMatchSnapshot'
 import { toBeA } from './validators/toBeA'
 import { toBeRejected } from './validators/toBeRejected'
@@ -122,6 +123,13 @@ export class Expectation<T> implements Modifiers<T>, Validators<T> {
   }
   toBeFalsy(this: Expectation<unknown>) {
     return toBeFalsy(this.getControl())
+  }
+
+  toBeDefined(this: Expectation<unknown>) {
+    return toBeDefined(this.getControl())
+  }
+  toBeNullish(this: Expectation<unknown>) {
+    return toBeNullish(this.getControl())
   }
 
   toBeExhausted(this: Expectation<Mock<any, any>>) {
