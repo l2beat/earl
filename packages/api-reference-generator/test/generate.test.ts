@@ -1,4 +1,4 @@
-import { expect } from 'earljs'
+import { expect } from '@earljs/published'
 
 import { encodeAnchor, generateMarkdownForMethodDocumentation, generateTableOfContents } from '../src/generate'
 import { parseTsDocComment } from '../src/tsdocs/parse'
