@@ -25,5 +25,14 @@ describe('example-plugin', () => {
     it('a set can is now equal to array if they contain the same elements', () => {
       expect(new Set([1, 2, 3])).toEqual([1, 2, 3])
     })
+
+    it('nested set is equal to nested array as they contain same elements', () => {
+      const set = new Set([1, 2, 3])
+      const array = [1, 2, 3]
+
+      expect({ nested: set, deeplyNested: set }).toEqual({ nested: array, deeplyNested: array })
+      expect([set, set]).toEqual([array, array])
+      expect([set, [set, { woop: set }]] as const).toEqual([array, [array, { woop: array }]])
+    })
   })
 })

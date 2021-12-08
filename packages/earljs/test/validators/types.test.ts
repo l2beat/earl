@@ -65,7 +65,9 @@ type _MockValidators = ValidatorsFor<Mock.Of<(x: number) => string>>
 type _t19 = AssertTrue<
   IsExact<
     _MockValidators,
-    ObjectValidators & CommonValidators<(x: number) => string> & MockValidators<(x: number) => string>
+    ObjectValidators &
+      CommonValidators<Mock.Of<(x: number) => string>> &
+      MockValidators<Mock.Of<(x: number) => string>> & {}
   >
 >
 

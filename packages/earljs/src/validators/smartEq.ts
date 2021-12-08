@@ -1,5 +1,6 @@
 import { Matcher } from '../matchers/Base'
 import { PluginSmartEqRules, SmartEqRule } from '../plugins/types'
+import { NonEmptyOnly } from '../types'
 import { isIterableAndNotString } from './common'
 
 type ErrorReasons = 'value mismatch' | 'prototype mismatch' | 'object possibly infinite'
@@ -114,3 +115,4 @@ export declare namespace SmartEqRules {
 export type ExpectedEqual<TActual> =
   | TActual
   | SmartEqRules.Expected<Extract<SmartEqRules[keyof SmartEqRules], SmartEqRule<TActual, never>>>
+  | NonEmptyOnly<TActual extends object ? { [K in keyof TActual]: ExpectedEqual<TActual[K]> } : never>
