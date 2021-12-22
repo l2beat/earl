@@ -1,5 +1,6 @@
 import { Matcher } from '../matchers/Base'
-import { SmartEqRule } from '../plugins/types'
+import { PluginSmartEqRules, SmartEqRule } from '../plugins/types'
+import { NonEmptyOnly } from '../types'
 import { isIterableAndNotString } from './common'
 
 type ErrorReasons = 'value mismatch' | 'prototype mismatch' | 'object possibly infinite'
@@ -26,7 +27,7 @@ export function smartEq(actual: any, expected: any, strict: boolean = true, seen
     return buildSmartEqResult(expected.check(actual))
   }
 
-  for (const rule of dynamicRules) {
+  for (const rule of rulesRegisteredByPlugins) {
     const ruleResult = rule(actual, expected, strict)
 
     if (ruleResult) {
@@ -99,8 +100,19 @@ export function smartEq(actual: any, expected: any, strict: boolean = true, seen
   return buildSmartEqResult(Object.is(actual, expected), 'value mismatch')
 }
 
-// dynamicRules are used by plugin system
-const dynamicRules: SmartEqRule[] = []
-export function loadSmartEqRules(rules: ReadonlyArray<SmartEqRule>): void {
-  dynamicRules.push(...rules)
+const rulesRegisteredByPlugins: SmartEqRule<unknown, unknown>[] = []
+export function loadSmartEqRules(rules: PluginSmartEqRules<never>): void {
+  const rulesArray: SmartEqRule<unknown, unknown>[] = Array.isArray(rules) ? rules : Object.values(rules)
+  rulesRegisteredByPlugins.push(...rulesArray)
 }
+
+export interface SmartEqRules {}
+
+export declare namespace SmartEqRules {
+  export type Expected<TEqRule> = TEqRule extends SmartEqRule<any, infer TExpected> ? TExpected : never
+}
+
+export type ExpectedEqual<TActual> =
+  | TActual
+  | SmartEqRules.Expected<Extract<SmartEqRules[keyof SmartEqRules], SmartEqRule<TActual, never>>>
+  | NonEmptyOnly<TActual extends object ? { [K in keyof TActual]: ExpectedEqual<TActual[K]> } : never>

@@ -1,7 +1,7 @@
 import { Control } from './Control'
 import { AnythingMatcher } from './matchers/Anything'
 import { ErrorMatcher } from './matchers/Error'
-import { Mock, MockArgs } from './mocks'
+import { MockArgs } from './mocks'
 import { Modifiers } from './Modifiers'
 import { DynamicValidator } from './plugins/types'
 import { Newable } from './types'
@@ -10,6 +10,7 @@ import { toBeAContainerWith, toBeAnArrayOfLength, toBeAnArrayWith, toBeAnObjectW
 import { toBeExhausted, toHaveBeenCalledExactlyWith, toHaveBeenCalledWith } from './validators/mocks'
 import { toBeGreaterThan, toBeGreaterThanOrEqualTo, toBeLessThan, toBeLessThanOrEqualTo } from './validators/numbers'
 import { toBeDefined, toBeNullish } from './validators/optionals'
+import { ExpectedEqual } from './validators/smartEq'
 import { toMatchSnapshot } from './validators/snapshots/toMatchSnapshot'
 import { toBeA } from './validators/toBeA'
 import { toBeRejected } from './validators/toBeRejected'
@@ -17,14 +18,19 @@ import { toEqual } from './validators/toEqual'
 import { toLooseEqual } from './validators/toLooseEqual'
 import { toReferentiallyEqual } from './validators/toReferentiallyEqual'
 import { toThrow } from './validators/toThrow'
-import { Validators } from './validators/types'
+import { ValidatorsFor } from './validators/types'
 
 export interface ExpectationOptions {
   extraMessage?: string
 }
 
-export class Expectation<T> implements Modifiers<T>, Validators<T> {
-  constructor(
+export type Expectation<T> = Modifiers<T> & ValidatorsFor<T>
+
+/**
+ * @internal
+ */
+export class __ExpectationImplementation<T> implements Modifiers<T> {
+  private constructor(
     private readonly actual: T,
     private readonly isNegated: boolean = false,
     private readonly options: ExpectationOptions = {},
@@ -34,6 +40,11 @@ export class Expectation<T> implements Modifiers<T>, Validators<T> {
     }
   }
 
+  static make<T>(actual: T, isNegated: boolean = false, options: ExpectationOptions = {}): Expectation<T> {
+    const instance = new __ExpectationImplementation(actual, isNegated, options)
+    return instance as unknown as Expectation<T>
+  }
+
   // modifiers
 
   get not(): Expectation<T> {
@@ -41,10 +52,10 @@ export class Expectation<T> implements Modifiers<T>, Validators<T> {
       throw new Error('Tried negating an already negated expectation')
     }
 
-    return new Expectation(this.actual, true, this.options)
+    return new __ExpectationImplementation(this.actual, true, this.options) as unknown as Expectation<T>
   }
 
-  toEqual(value: T): void {
+  toEqual(value: ExpectedEqual<T>): void {
     toEqual(this.getControl(), value)
   }
 
@@ -52,14 +63,14 @@ export class Expectation<T> implements Modifiers<T>, Validators<T> {
     toLooseEqual(this.getControl(), value)
   }
 
-  toReferentiallyEqual(this: Expectation<T>, value: T): void {
+  toReferentiallyEqual(value: number): void {
     toReferentiallyEqual(this.getControl(), value as any)
   }
 
-  toThrow(this: Expectation<() => any>): void
-  toThrow(this: Expectation<() => any>, message: string): void
-  toThrow(this: Expectation<() => any>, errorClass: Newable<Error>, message?: string): void
-  toThrow(this: Expectation<() => any>, classOrMessage?: string | Newable<Error>, message?: string): void {
+  toThrow(): void
+  toThrow(message: string): void
+  toThrow(errorClass: Newable<Error>, message?: string): void
+  toThrow(classOrMessage?: string | Newable<Error>, message?: string): void {
     if (arguments.length === 0) {
       toThrow(this.getControl(), AnythingMatcher.make())
     } else {
@@ -67,14 +78,10 @@ export class Expectation<T> implements Modifiers<T>, Validators<T> {
     }
   }
 
-  toBeRejected(this: Expectation<Promise<any>>): Promise<void>
-  toBeRejected(this: Expectation<Promise<any>>, message: string): Promise<void>
-  toBeRejected(this: Expectation<Promise<any>>, errorClass: Newable<Error>, message?: string): Promise<void>
-  toBeRejected(
-    this: Expectation<Promise<any>>,
-    classOrMessage?: string | Newable<Error>,
-    message?: string,
-  ): Promise<void> {
+  toBeRejected(): Promise<void>
+  toBeRejected(message: string): Promise<void>
+  toBeRejected(errorClass: Newable<Error>, message?: string): Promise<void>
+  toBeRejected(classOrMessage?: string | Newable<Error>, message?: string): Promise<void> {
     if (arguments.length === 0) {
       return toBeRejected(this.getControl(), AnythingMatcher.make())
     } else {
@@ -82,75 +89,75 @@ export class Expectation<T> implements Modifiers<T>, Validators<T> {
     }
   }
 
-  toBeA(this: Expectation<T>, clazz: any) {
+  toBeA(clazz: any) {
     return toBeA(this.getControl(), clazz)
   }
 
-  toBeAContainerWith(this: Expectation<any>, ...expectedItems: any[]) {
+  toBeAContainerWith(...expectedItems: any[]) {
     return toBeAContainerWith(this.getControl(), expectedItems)
   }
 
-  toBeAnArrayOfLength(this: Expectation<ReadonlyArray<any>>, length: number) {
+  toBeAnArrayOfLength(length: number) {
     return toBeAnArrayOfLength(this.getControl(), length)
   }
 
-  toBeAnArrayWith(this: Expectation<ReadonlyArray<any>>, ...expectedItems: ReadonlyArray<any>) {
+  toBeAnArrayWith(...expectedItems: ReadonlyArray<any>) {
     return toBeAnArrayWith(this.getControl(), expectedItems)
   }
 
-  toBeAnObjectWith(this: Expectation<Object>, subset: Object) {
+  toBeAnObjectWith(subset: Object) {
     return toBeAnObjectWith(this.getControl(), subset)
   }
 
-  toBeGreaterThan(this: Expectation<number>, target: number) {
+  toBeGreaterThan(target: number) {
     return toBeGreaterThan(this.getControl(), target)
   }
 
-  toBeGreaterThanOrEqualTo(this: Expectation<number>, target: number) {
+  toBeGreaterThanOrEqualTo(target: number) {
     return toBeGreaterThanOrEqualTo(this.getControl(), target)
   }
 
-  toBeLessThan(this: Expectation<number>, target: number) {
+  toBeLessThan(target: number) {
     return toBeLessThan(this.getControl(), target)
   }
 
-  toBeLessThanOrEqualTo(this: Expectation<number>, target: number) {
+  toBeLessThanOrEqualTo(target: number) {
     return toBeLessThanOrEqualTo(this.getControl(), target)
   }
 
-  toBeTruthy(this: Expectation<unknown>) {
+  toBeTruthy() {
     return toBeTruthy(this.getControl())
   }
-  toBeFalsy(this: Expectation<unknown>) {
+  toBeFalsy() {
     return toBeFalsy(this.getControl())
   }
 
-  toBeDefined(this: Expectation<unknown>) {
+  toBeDefined() {
     return toBeDefined(this.getControl())
   }
-  toBeNullish(this: Expectation<unknown>) {
+  toBeNullish() {
     return toBeNullish(this.getControl())
   }
 
-  toBeExhausted(this: Expectation<Mock<any, any>>) {
+  toBeExhausted() {
     return toBeExhausted(this.getControl())
   }
 
-  toHaveBeenCalledWith(this: Expectation<Mock<any[], any>>, args: MockArgs<T>) {
+  toHaveBeenCalledWith(args: MockArgs<T>) {
     return toHaveBeenCalledWith(this.getControl(), args)
   }
 
-  toHaveBeenCalledExactlyWith(this: Expectation<Mock<any[], any>>, args: MockArgs<T>[]) {
+  toHaveBeenCalledExactlyWith(args: MockArgs<T>[]) {
     return toHaveBeenCalledExactlyWith(this.getControl(), args)
   }
 
-  toMatchSnapshot(this: Expectation<any>): void {
+  toMatchSnapshot(): void {
     toMatchSnapshot(this.getControl())
   }
 
   // utilities
 
-  private getControl(): Control<T> {
+  private getControl(): Control<any> {
     return new Control(this.actual, this.isNegated, this.options.extraMessage)
   }
 }
@@ -163,5 +170,5 @@ export function loadValidators(validators: Record<string, DynamicValidator<any>>
 }
 
 export function getControl<T>(expectation: Expectation<T>): Control<T> {
-  return expectation['getControl']()
+  return (expectation as unknown as __ExpectationImplementation<T>)['getControl']()
 }

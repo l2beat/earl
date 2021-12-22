@@ -4,7 +4,7 @@ import { Control } from '../Control'
 import { replaceMatchersWithMatchedValues } from './common'
 import { smartEq } from './smartEq'
 
-export function toThrow(control: Control<() => any>, expected: any) {
+export function toThrow(control: Control<() => void>, expected: any) {
   assert(control.actual instanceof Function, 'Actual has to be a function to check if threw')
 
   let actualThrownValue: any | undefined
