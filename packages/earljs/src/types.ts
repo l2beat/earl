@@ -24,3 +24,5 @@ export type Class2Primitive<T> = T extends String
   : T extends Array<any>
   ? any[]
   : T
+
+export type NonEmptyOnly<T> = keyof T extends never ? never : T

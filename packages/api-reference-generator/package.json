@@ -32,6 +32,6 @@
     "@types/command-line-usage": "^5.0.2",
     "@types/debug": "^4",
     "@types/lodash": "^4",
-    "earljs": "^0.1.12"
+    "@earljs/published": "npm:earljs@latest"
   }
 }

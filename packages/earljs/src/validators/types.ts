@@ -1,8 +1,55 @@
+import { UnionToIntersection } from 'ts-essentials'
+
 import type { Expectation } from '../Expectation'
 import type { Mock, MockArgs } from '../mocks/types'
 import type { Newable } from '../types'
+import { ExpectedEqual } from './smartEq'
 
-export interface Validators<T> {
+// registry for validators added by plugins
+export interface Validators {
+  // (this: Expectation<number>, expected: number) => void
+}
+
+export type ValidatorsFor<T> = __ValidatorsFor<Values<AllValidators<T>>, T>
+
+// Distributes validators uniob and filters
+export type __ValidatorsFor<TValidators, TActual> = UnionToIntersection<
+  TValidators extends [infer A, infer Matchers]
+    ? TActual extends A
+      ? Matchers
+      : // if TActual is exactly `unknown`, we'll allow all matchers for convenience when user calls `expect()` without argument and tests autocomplete.
+      unknown extends TActual
+      ? Matchers
+      : never
+    : never
+> & {
+  // validators from plugins
+  [P in keyof Validators]: Validators[P] extends (this: Expectation<infer A>, ...args: infer Args) => void
+    ? TActual extends A
+      ? (...args: Args) => void
+      : unknown extends TActual
+      ? (...args: Args) => void
+      : never
+    : never
+}
+
+export type Values<T> = T[keyof T & number]
+export type ItemOfIterable<T> = Extract<T, Iterable<any>> extends Iterable<infer R> ? R : never
+
+// @todo should we extract a type from __Validators of and use it here, turning it into a big intersection type?
+// We could do without UnionToIntersection then I guess...
+export type AllValidators<T> = [
+  [unknown, CommonValidators<T>],
+  [Mock<any[], any>, MockValidators<T>],
+  [number, NumberValidators],
+  [object, ObjectValidators],
+  [any[], ArrayValidators],
+  [Iterable<any>, IterableValidators<ItemOfIterable<T>>],
+  [Promise<unknown>, PromiseValidators],
+  [() => any, FunctionValidators],
+]
+
+export interface CommonValidators<T> {
   /**
    * Performs a recursive equality check. Objects are equal if their fields
    * are equal and they share the same prototype.
@@ -19,7 +66,7 @@ export interface Validators<T> {
    * expect({ a: 2, b: 2 }).not.toEqual({ a: 2 }) // Negated equality check
    * ```
    */
-  toEqual(value: T): void
+  toEqual(value: ExpectedEqual<T>): void
   /**
    * Performs a recursive equality check. Objects are equal if their fields
    * are equal. Object prototypes are ignored.
@@ -62,11 +109,25 @@ export interface Validators<T> {
    * expect(NaN).toReferentiallyEqual(NaN)
    * ```
    */
-  toReferentiallyEqual(this: Expectation<T>, value: T): void
+  toReferentiallyEqual(value: T): void
   /**
-   * Calls the provided function and expects an error to be thrown.
+   * Checks if the value is an instance of the provided class or primitive type. Examples:
+   *
+   * @param clazz - type class or primitive constructor to match against.
+   * @example
+   * ```ts
+   * expect(object).toBeA(MyClass) // checks if object is instance of `MyClass`, but not `Other`
+   * expect(foo).toBeA(String) // checks if foo is instance of string
+   * ```
    */
-  toThrow(this: Expectation<() => any>): void
+  toBeA(clazz: any): void
+  /**
+   * Checks that the value is the same as in the previous test execution.
+   */
+  toMatchSnapshot(): void
+}
+
+export interface FunctionValidators {
   /**
    * Calls the provided function and expects an error to be thrown. The message
    * of the error is also checked.
@@ -81,7 +142,7 @@ export interface Validators<T> {
    * expect(() => doThrow()).not.toThrow(expect.stringMatching(/end$/))
    * ```
    */
-  toThrow(this: Expectation<() => any>, message: string): void
+  toThrow(message?: string): void
   /**
    * Calls the provided function and expects an error to be thrown. The error's
    * class and message are also checked.
@@ -99,19 +160,61 @@ export interface Validators<T> {
    * expect(() => doThrow()).not.toThrow(TypeError)
    * ```
    */
-  toThrow(this: Expectation<() => any>, errorClass: Newable<Error>, message?: string): void
+  toThrow(errorClass: Newable<Error>, message?: string): void
+}
+
+export interface NumberValidators {
   /**
-   * Awaits the provided promise and expects it to be rejected.
+   * Checks if the value is greater than the provided target.
+   * @param target - number to check against.
    *
    * @example
    * ```ts
-   * const promise = Promise.reject(new Error('oops, sorry'))
-   *
-   * await expect(promise).toBeRejected()
-   * await expect(Promise.resolve()).not.toBeRejected()
+   * expect(2).toBeGreaterThan(1)
+   * expect(1).not.toBeGreaterThan(1)
+   * expect(-3).not.toBeGreaterThan(1)
    * ```
    */
-  toBeRejected(this: Expectation<Promise<any>>): Promise<void>
+  toBeGreaterThan(target: number): void
+  /**
+   * Checks if the value is greater than or equal to the provided target.
+   * @param target - number to check against.
+   *
+   * @example
+   * ```ts
+   * expect(2).toBeGreaterThanOrEqualTo(1)
+   * expect(1).toBeGreaterThanOrEqualTo(1)
+   * expect(-3).not.toBeGreaterThanOrEqualTo(1)
+   * ```
+   */
+  toBeGreaterThanOrEqualTo(target: number): void
+  /**
+   * Checks if the value is less than the provided target.
+   * @param target - number to check against.
+   *
+   * @example
+   * ```ts
+   * expect(-3).toBeLessThan(1)
+   * expect(1).not.toBeLessThan(1)
+   * expect(2).not.toBeLessThan(1)
+   * ```
+   */
+  toBeLessThan(target: number): void
+  /**
+   * Checks if the value is less than or equal the provided target.
+   * @param target - number to check against.
+   *
+   * @example
+   * ```ts
+   * expect(-3).toBeLessThanOrEqualTo(1)
+   * expect(1).toBeLessThanOrEqualTo(1)
+   * expect(2).not.toBeLessThanOrEqualTo(1)
+   * ```
+   */
+  toBeLessThanOrEqualTo(target: number): void
+}
+
+export interface PromiseValidators {
   /**
    * Awaits the provided promise and expects it to be rejected. The message
    * of the error is also checked.
@@ -125,7 +228,7 @@ export interface Validators<T> {
    * await expect(promise).not.toBeRejected(TypeError)
    * ```
    */
-  toBeRejected(this: Expectation<Promise<any>>, message: string): Promise<void>
+  toBeRejected(message?: string): Promise<void>
   /**
    * Awaits the provided promise and expects it to be rejected. The error's
    * class and message are also checked.
@@ -133,49 +236,35 @@ export interface Validators<T> {
    * @param errorClass - expected class of the thrown error.
    * @param message - string or matcher to check the message against.
    */
-  toBeRejected(this: Expectation<Promise<any>>, errorClass: Newable<Error>, message?: string): Promise<void>
+  toBeRejected(errorClass: Newable<Error>, message?: string): Promise<void>
+}
+
+export interface MockValidators<T> {
   /**
-   * Checks if the value is an instance of the provided class or primitive type. Examples:
-   *
-   * @param clazz - type class or primitive constructor to match against.
-   * @example
-   * ```ts
-   * expect(object).toBeA(MyClass) // checks if object is instance of `MyClass`, but not `Other`
-   * expect(foo).toBeA(String) // checks if foo is instance of string
-   * ```
+   * Checks if all the expected calls to the mock have been performed.
    */
-  toBeA(this: Expectation<T>, clazz: any): void
+  toBeExhausted(): void
   /**
-   * Checks if the value is an iterable containing all of the provided items.
+   * Check if the mock has been called with the provided arguments.
    *
-   * @param expectedItems - values or matchers to look for in the matched iterable. Order of the items doesn't matter.
-   * @example
-   * ```ts
-   * expect([1, 2, 3]).toBeAContainerWith(1, 2)
-   * ```
+   * You can use matchers in place of a value. When a matcher is encountered its
+   * internal rules are used instead of the usual checks.
+   *
+   * @param args - an array of values or matchers to check the mock calls against.
    */
-  toBeAContainerWith(this: Expectation<any>, ...expectedItems: any[]): void
+  toHaveBeenCalledWith(args: MockArgs<T>): void
   /**
-   * Checks if the values is an array containing exactly given number of items.
+   * Checks the entire history of mock calls.
    *
-   * @param length - expected array length. Can be a matcher.
-   * @example
-   * ```ts
-   * expect([1, 2, 3]).toBeAnArrayOfLength(3)
-   * expect([1, 2, 3]).toBeAnArrayOfLength(expect.numberGreaterThanOrEqualTo(3)))
-   * ```
-   */
-  toBeAnArrayOfLength(this: Expectation<ReadonlyArray<any>>, length: number): void
-  /**
-   * Checks if the value is an array containing all of the provided items.
+   * You can use matchers in place of a value. When a matcher is encountered its
+   * internal rules are used instead of the usual checks.
    *
-   * @param expectedItems - values or matchers to look for in the matched array. Order of the items doesn't matter.
-   * @example
-   * ```ts
-   * expect([1, 2, 3]).toBeAnArrayWith(1)
-   * ```
+   * @param args - an array where each item is an array of values or matchers to check the mock call against.
    */
-  toBeAnArrayWith(this: Expectation<ReadonlyArray<any>>, ...expectedItems: ReadonlyArray<any>): void
+  toHaveBeenCalledExactlyWith(args: MockArgs<T>[]): void
+}
+
+export interface ObjectValidators {
   /**
    * Checks if the value is an object containing given key-value pairs.
    *
@@ -186,79 +275,42 @@ export interface Validators<T> {
    * expect({ a: 1, b: 2, c: 3 }).toBeAnObjectWith({ b: 2, a: 1 })
    * ```
    */
-  toBeAnObjectWith(this: Expectation<Object>, subset: Object): void
+  toBeAnObjectWith(subset: object): void
+}
+
+export interface ArrayValidators {
   /**
-   * Checks if the value is greater than the provided target.
-   * @param target - number to check against.
+   * Checks if the values is an array containing exactly given number of items.
    *
+   * @param length - expected array length. Can be a matcher.
    * @example
    * ```ts
-   * expect(2).toBeGreaterThan(1)
-   * expect(1).not.toBeGreaterThan(1)
-   * expect(-3).not.toBeGreaterThan(1)
+   * expect([1, 2, 3]).toBeAnArrayOfLength(3)
+   * expect([1, 2, 3]).toBeAnArrayOfLength(expect.numberGreaterThanOrEqualTo(3)))
    * ```
    */
-  toBeGreaterThan(this: Expectation<number>, target: number): void
+  toBeAnArrayOfLength(length: number): void
   /**
-   * Checks if the value is greater than or equal to the provided target.
-   * @param target - number to check against.
+   * Checks if the value is an array containing all of the provided items.
    *
+   * @param expectedItems - values or matchers to look for in the matched array. Order of the items doesn't matter.
    * @example
    * ```ts
-   * expect(2).toBeGreaterThanOrEqualTo(1)
-   * expect(1).toBeGreaterThanOrEqualTo(1)
-   * expect(-3).not.toBeGreaterThanOrEqualTo(1)
+   * expect([1, 2, 3]).toBeAnArrayWith(1)
    * ```
    */
-  toBeGreaterThanOrEqualTo(this: Expectation<number>, target: number): void
+  toBeAnArrayWith(...expectedItems: ReadonlyArray<any>): void
+}
+
+export interface IterableValidators<T> {
   /**
-   * Checks if the value is less than the provided target.
-   * @param target - number to check against.
+   * Checks if the value is an iterable containing all of the provided items.
    *
+   * @param expectedItems - values or matchers to look for in the matched iterable. Order of the items doesn't matter.
    * @example
    * ```ts
-   * expect(-3).toBeLessThan(1)
-   * expect(1).not.toBeLessThan(1)
-   * expect(2).not.toBeLessThan(1)
+   * expect([1, 2, 3]).toBeAContainerWith(1, 2)
    * ```
    */
-  toBeLessThan(this: Expectation<number>, target: number): void
-  /**
-   * Checks if the value is less than or equal the provided target.
-   * @param target - number to check against.
-   *
-   * @example
-   * ```ts
-   * expect(-3).toBeLessThanOrEqualTo(1)
-   * expect(1).toBeLessThanOrEqualTo(1)
-   * expect(2).not.toBeLessThanOrEqualTo(1)
-   * ```
-   */
-  toBeLessThanOrEqualTo(this: Expectation<number>, target: number): void
-  /**
-   * Checks if all the expected calls to the mock have been performed.
-   */
-  toBeExhausted(this: Expectation<Mock<any, any>>): void
-  /**
-   * Check if the mock has been called with the provided arguments.
-   *
-   * You can use matchers in place of a value. When a matcher is encountered its
-   * internal rules are used instead of the usual checks.
-   *
-   * @param args - an array of values or matchers to check the mock calls against.
-   */
-  toHaveBeenCalledWith(this: Expectation<Mock<any[], any>>, args: MockArgs<T>): void
-  /**
-   * Checks the entire history of mock calls.
-   *
-   * You can use matchers in place of a value. When a matcher is encountered its
-   * internal rules are used instead of the usual checks.
-   *
-   * @param args - an array where each item is an array of values or matchers to check the mock call against.
-   */
-  toHaveBeenCalledExactlyWith(this: Expectation<Mock<any[], any>>, args: MockArgs<T>[]): void
-  /**
-   * Checks that the value is the same as in the previous test execution.
-   */
-  toMatchSnapshot(this: Expectation<any>): void
+  toBeAContainerWith(...expectedItems: T[]): void
 }
