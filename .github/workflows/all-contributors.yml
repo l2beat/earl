@@ -1,15 +1,18 @@
-name: all-contributors
+# this job started misbehaving...
+# https://github.com/dethcrypto/earl/runs/4627374177?check_suite_focus=true
+# https://github.com/dethcrypto/earl/issues/154
+# name: all-contributors
 
-on:
-  issue_comment:
-    types: [created]
+# on:
+#   issue_comment:
+#     types: [created]
 
-jobs:
-  all-contributors:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v1
+# jobs:
+#   all-contributors:
+#     runs-on: ubuntu-latest
+#     steps:
+#       - uses: actions/checkout@v1
 
-      - uses: actionwareio/all-contributors-action@action
-        with:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+#       - uses: actionwareio/all-contributors-action@action
+#         with:
+#           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
