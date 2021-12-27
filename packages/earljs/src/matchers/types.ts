@@ -131,6 +131,56 @@ export interface Matchers {
    * ```
    */
   numberLessThanOrEqualTo(target: number): number
+
+  /**
+   * Matches any value that is not `null` or `undefined`.
+   *
+   * @example
+   * ```ts
+   * expect({ a: 0 }).toEqual({ a: expect.defined() })
+   * expect({ a: null }).not.toEqual({ a: expect.defined() })
+   * ```
+   */
+  defined(): any
+
+  /**
+   * Matches `null` and `undefined`
+   *
+   * @example
+   * ```ts
+   * expect({ a: undefined }).toEqual({ a: expect.nullish() })
+   * expect([null]).toEqual([expect.nullish()])
+   * ```
+   */
+  nullish(): any
+
+  /**
+   * Matches any truthy value.
+   *
+   * @example
+   * ```ts
+   * expect({ a: 1 }).toEqual({ a: expect.truthy() })
+   * expect([false]).not.toEqual([expect.truthy()])
+   * ```
+   *
+   * There are six falsy values in JavaScript: `false`, `0`, `''`, `null`, `undefined`, and `NaN`. \
+   * Everything else is truthy.
+   */
+  truthy(): any
+
+  /**
+   * Matches any falsy value.
+   *
+   * @example
+   * ```ts
+   * expect({ a: 0 }).toEqual({ a: expect.falsy() })
+   * expect([true]).not.toEqual([expect.falsy()])
+   * ```
+   *
+   * There are six falsy values in JavaScript: `false`, `0`, `''`, `null`, `undefined`, and `NaN`. \
+   * Everything else is truthy.
+   */
+  falsy(): any
 }
 
 export interface NumberCloseToDelta {

@@ -49,7 +49,7 @@ export type AllValidators<T> = [
   [() => any, FunctionValidators],
 ]
 
-export interface CommonValidators<T> {
+export interface CommonValidators<T> extends BooleanValidators, OptionalValidators {
   /**
    * Performs a recursive equality check. Objects are equal if their fields
    * are equal and they share the same prototype.
@@ -212,6 +212,58 @@ export interface NumberValidators {
    * ```
    */
   toBeLessThanOrEqualTo(target: number): void
+}
+
+export interface BooleanValidators {
+  /**
+   * Checks if the value is truthy.
+   *
+   * @example
+   * ```ts
+   * expect(1).toBeTruthy()
+   * expect(false).not.toBeTruthy()
+   * ```
+   *
+   * There are six falsy values in JavaScript: `false`, `0`, `''`, `null`, `undefined`, and `NaN`. \
+   * Everything else is truthy.
+   */
+  toBeTruthy(): void
+  /**
+   * Checks if the value is falsy.
+   *
+   * @example
+   * ```ts
+   * expect(0).toBeFalsy()
+   * expect(true).not.toBeFalsy()
+   * ```
+   *
+   * There are six falsy values in JavaScript: `false`, `0`, `''`, `null`, `undefined`, and `NaN`. \
+   * Everything else is truthy.
+   */
+  toBeFalsy(): void
+}
+
+export interface OptionalValidators {
+  /**
+   * Checks if the value is different to `undefined` and `null`.
+   *
+   * @example
+   * ```ts
+   * expect(0).toBeDefined()
+   * expect(null).not.toBeDefined()
+   * ```
+   */
+  toBeDefined(): void
+  /**
+   * Checks if the value is `undefined` or `null`.
+   *
+   * @example
+   * ```ts
+   * expect(undefined).toBeNullish()
+   * expect(false).not.toBeNullish()
+   * ```
+   */
+  toBeNullish(): void
 }
 
 export interface PromiseValidators {

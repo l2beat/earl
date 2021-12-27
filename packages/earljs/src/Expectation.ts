@@ -5,9 +5,11 @@ import { MockArgs } from './mocks'
 import { Modifiers } from './Modifiers'
 import { DynamicValidator } from './plugins/types'
 import { Newable } from './types'
+import { toBeFalsy, toBeTruthy } from './validators/booleans'
 import { toBeAContainerWith, toBeAnArrayOfLength, toBeAnArrayWith, toBeAnObjectWith } from './validators/dataStructures'
 import { toBeExhausted, toHaveBeenCalledExactlyWith, toHaveBeenCalledWith } from './validators/mocks'
 import { toBeGreaterThan, toBeGreaterThanOrEqualTo, toBeLessThan, toBeLessThanOrEqualTo } from './validators/numbers'
+import { toBeDefined, toBeNullish } from './validators/optionals'
 import { ExpectedEqual } from './validators/smartEq'
 import { toMatchSnapshot } from './validators/snapshots/toMatchSnapshot'
 import { toBeA } from './validators/toBeA'
@@ -121,6 +123,20 @@ export class __ExpectationImplementation<T> implements Modifiers<T> {
 
   toBeLessThanOrEqualTo(target: number) {
     return toBeLessThanOrEqualTo(this.getControl(), target)
+  }
+
+  toBeTruthy() {
+    return toBeTruthy(this.getControl())
+  }
+  toBeFalsy() {
+    return toBeFalsy(this.getControl())
+  }
+
+  toBeDefined() {
+    return toBeDefined(this.getControl())
+  }
+  toBeNullish() {
+    return toBeNullish(this.getControl())
   }
 
   toBeExhausted() {
