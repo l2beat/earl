@@ -253,7 +253,7 @@ export interface OptionalValidators {
    * expect(null).not.toBeDefined()
    * ```
    */
-  toBeDefined(this: Expectation<unknown>): void
+  toBeDefined(): void
   /**
    * Checks if the value is `undefined` or `null`.
    *
@@ -263,7 +263,7 @@ export interface OptionalValidators {
    * expect(false).not.toBeNullish()
    * ```
    */
-  toBeNullish(this: Expectation<unknown>): void
+  toBeNullish(): void
 }
 
 export interface PromiseValidators {
