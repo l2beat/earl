@@ -3,6 +3,12 @@ import { Class2Primitive, NewableOrPrimitive } from '../types'
 export interface Matchers {
   /**
    * Matches any value.
+   *
+   * @example
+   * ```ts
+   * expect(null).toEqual(expect.anything())
+   * expect({ a: 'something' }).toEqual({ a: expect.anything() })
+   * ```
    */
   anything(): any
 
@@ -77,13 +83,13 @@ export interface Matchers {
 
   /**
    * Matches a number greater than target.
-   * @param items - number to compare to.
+   * @param target - number to compare to.
    */
   numberGreaterThan(target: number): number
 
   /**
    * Matches a number greater than or equal to target.
-   * @param items - number to compare to.
+   * @param target - number to compare to.
    *
    * @example
    * ```ts
@@ -102,7 +108,7 @@ export interface Matchers {
 
   /**
    * Matches a number less than target.
-   * @param items - number to compare to.
+   * @param target - number to compare to.
    *
    * @example
    * ```ts
@@ -115,7 +121,7 @@ export interface Matchers {
 
   /**
    * Matches a number less than or equal to target.
-   * @param items - number to compare to.
+   * @param target - number to compare to.
    *
    * @example
    * ```ts

@@ -16,9 +16,6 @@ export function parseTsDocComment(methodComment: MethodComment): MethodDocumenta
     )
   }
 
-  // @todo throw error:
-  // when param has dot at the end
-  // name is not consistent with signature
   const docComment = parserContext.docComment
 
   let description = Formatter.renderDocNode(docComment.summarySection).trimRight()
@@ -28,7 +25,20 @@ export function parseTsDocComment(methodComment: MethodComment): MethodDocumenta
 
   const params: Param[] = []
   for (const param of docComment.params.blocks) {
-    params.push({ name: param.parameterName, description: Formatter.renderDocNode(param.content).trim() })
+    const name = param.parameterName
+    const description = Formatter.renderDocNode(param.content).trim()
+
+    // enforce common formatting for param descriptions
+    if (!description.endsWith('.')) {
+      throw new Error(`Param description for "${name}" of "${methodComment.signature}" doesn't end with a dot (".")!`)
+    }
+
+    // (best effort) enforce that param names are consistent with function signatures
+    if (!methodComment.signature.includes(name)) {
+      throw new Error(`Param "${name}" is not part of signature "${methodComment.signature}"!`)
+    }
+
+    params.push({ name, description })
   }
 
   const examples: string[] = []
