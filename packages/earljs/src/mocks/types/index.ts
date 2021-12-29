@@ -87,7 +87,7 @@ export interface Mock<TArgs extends any[], TReturn> {
 
   /**
    * Specifies a different behavior when other arguments are given
-   * @param args - arguments to match
+   * @param args - arguments to match.
    */
   given<TGivenArgs extends TArgs>(...args: TGivenArgs): MockGiven<TArgs, TReturn, TGivenArgs>
 }
