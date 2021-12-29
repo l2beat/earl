@@ -3,6 +3,12 @@ import { Class2Primitive, NewableOrPrimitive } from '../types'
 export interface Matchers {
   /**
    * Matches any value.
+   *
+   * @example
+   * ```ts
+   * expect(null).toEqual(expect.anything())
+   * expect({ a: 'something' }).toEqual({ a: expect.anything() })
+   * ```
    */
   anything(): any
 
