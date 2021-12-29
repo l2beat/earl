@@ -61,5 +61,6 @@ describe('encodeAnchor', () => {
     expect(
       encodeAnchor('toBeAnArrayWith(this: Expectation<ReadonlyArray<any>>, ...expectedItems: ReadonlyArray<any>)'),
     ).toEqual('toBeAnArrayWith-this-ExpectationReadonlyArrayany-expectedItems-ReadonlyArrayany')
+    expect(encodeAnchor('toMatchSnapshot()')).toEqual('toMatchSnapshot')
   })
 })

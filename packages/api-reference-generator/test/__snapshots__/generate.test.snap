@@ -22,7 +22,7 @@ someMethod(1, 2)
 `;
 
 exports[`generateTableOfContents generates valid TOC 1`] = `
-"- [\`sample()\`](#sample-)
+"- [\`sample()\`](#sample)
 - [\`expect(value: any, options: Options)\`](#expect-value-any-options-Options)
 - [\`expect<T>(value: T, options: Options)\`](#expectT-value-T-options-Options)"
 `;

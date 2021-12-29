@@ -51,4 +51,21 @@ someMethod(1, 2)
 
     expect(actual.abbreviatedSignature).toEqual('function mockFn<F extends (...args: any) => any>(defaultImpl?: F)')
   })
+
+  it('successfuly parses trailing slashes representing newlines', () => {
+    const actual = parseTsDocComment({
+      ...sampleMethodComment,
+      comment: `/**
+        First line \\
+        Second line 
+      */`,
+    })
+
+    expect(actual.description.trim()).toEqual(
+      `
+        First line
+        Second line
+      `.trim(),
+    )
+  })
 })

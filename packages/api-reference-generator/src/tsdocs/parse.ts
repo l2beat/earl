@@ -8,7 +8,7 @@ export function parseTsDocComment(methodComment: MethodComment): MethodDocumenta
   const tsdocParser: TSDocParser = new TSDocParser()
   const tsProject = new TSProject({ useInMemoryFileSystem: true })
 
-  const parserContext = tsdocParser.parseString(methodComment.comment)
+  const parserContext = tsdocParser.parseString(replaceTrailingSlashNewlines(methodComment.comment))
 
   if (parserContext.log.messages.length > 0) {
     throw new Error(
@@ -105,4 +105,20 @@ function abbreviateSignature(signature: string, project: TSProject): string {
 
 function removeExportDeclareKeywords(s: string) {
   return s.startsWith('export declare ') ? s.slice('export declare '.length) : s
+}
+
+/**
+ * Trailing `\` causes tsdoc parser to fail with
+ * > A backslash can only be used to escape a punctuation character
+ *
+ * We replace ` \` at the ends of lines in the comment with 2 spaces which
+ * also represent a line break in markdown.
+ *
+ * @see https://gist.github.com/shaunlebron/746476e6e7a4d698b373
+ */
+function replaceTrailingSlashNewlines(text: string) {
+  return text
+    .split('\n')
+    .map((line) => line.replace(/ \\$/, '  '))
+    .join('\n')
 }
