@@ -1,3 +1,4 @@
+import { sortSymbols } from '../isEqual/sortSymbols'
 import { FormatOptions } from './FormatOptions'
 import { formatSymbol } from './formatSymbol'
 import { formatUnknown } from './formatUnknown'
@@ -35,11 +36,12 @@ export function getKeys(value: object, sibling: unknown, options: FormatOptions)
   for (const prop of properties) {
     result.push([prop, formatKey(prop)])
   }
-  const symbols = Object.getOwnPropertySymbols(value)
-  if (options.looseSymbolCompare) {
-    symbols.sort((a, b) => a.toString().localeCompare(b.toString()))
+  let symbols = Object.getOwnPropertySymbols(value)
+  let siblingSymbols = Object.getOwnPropertySymbols(sibling ?? {})
+  if (!options.strictObjectKeyOrder) {
+    symbols = sortSymbols(symbols, siblingSymbols)
+    siblingSymbols = sortSymbols(siblingSymbols, [])
   }
-  const siblingSymbols = Object.getOwnPropertySymbols(sibling ?? {})
   for (let i = 0; i < symbols.length; i++) {
     result.push([symbols[i], formatSymbol(symbols[i], siblingSymbols[i], options)])
   }

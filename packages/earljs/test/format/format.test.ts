@@ -111,7 +111,7 @@ describe('format', () => {
         [
           { a: 1, [Symbol('y')]: 2, b: 3, [Symbol('x')]: 4 },
           null,
-          '{\n  a: 1\n  b: 3\n  Symbol(y): 2\n  Symbol(x): 4\n}',
+          '{\n  a: 1\n  b: 3\n  Symbol(x): 4\n  Symbol(y): 2\n}',
         ],
         [
           { a: 1, [Symbol('y')]: 2, b: 3, [Symbol('x')]: 4 },
@@ -137,12 +137,44 @@ describe('format', () => {
         [
           { [Symbol('y')]: 1, [Symbol('x')]: 2 },
           { [Symbol('y')]: 1, [Symbol('x')]: 2 },
-          '{\n  Symbol(y) (different): 1\n  Symbol(x) (different): 2\n}',
+          '{\n  Symbol(x) (different): 2\n  Symbol(y) (different): 1\n}',
         ],
         [
           { [Symbol('y')]: 1, [Symbol('x')]: 2 },
           { [Symbol('x')]: 2, [Symbol('y')]: 1 },
-          '{\n  Symbol(y): 1\n  Symbol(x): 2\n}',
+          '{\n  Symbol(x) (different): 2\n  Symbol(y) (different): 1\n}',
+        ],
+        [
+          { [Symbol.for('y')]: 1, [Symbol.for('x')]: 2 },
+          { [Symbol.for('x')]: 2, [Symbol.for('y')]: 1 },
+          '{\n  Symbol.for("x"): 2\n  Symbol.for("y"): 1\n}',
+        ],
+        [
+          { [Symbol.for('x')]: 2, [Symbol.for('y')]: 1 },
+          { [Symbol.for('y')]: 1, [Symbol.for('x')]: 2 },
+          '{\n  Symbol.for("x"): 2\n  Symbol.for("y"): 1\n}',
+        ],
+        [
+          { [Symbol.for('x')]: 2, [Symbol.for('z')]: 3, [Symbol.for('y')]: 1 },
+          { [Symbol.for('y')]: 1, [Symbol.for('w')]: 4, [Symbol.for('x')]: 2 },
+          '{\n  Symbol.for("x"): 2\n  Symbol.for("y"): 1\n  Symbol.for("z"): 3\n}',
+        ],
+        [
+          { [Symbol.for('y')]: 1, [Symbol.for('w')]: 4, [Symbol.for('x')]: 2 },
+          { [Symbol.for('x')]: 2, [Symbol.for('z')]: 3, [Symbol.for('y')]: 1 },
+          '{\n  Symbol.for("w"): 4\n  Symbol.for("x"): 2\n  Symbol.for("y"): 1\n}',
+        ],
+        [
+          { [Symbol.for('y')]: 1, [Symbol.for('x')]: 2 },
+          { [Symbol.for('x')]: 2, [Symbol.for('y')]: 1 },
+          '{\n  Symbol.for("y"): 1\n  Symbol.for("x"): 2\n}',
+          { strictObjectKeyOrder: true },
+        ],
+        [
+          { [Symbol.for('x')]: 2, [Symbol.for('y')]: 1 },
+          { [Symbol.for('y')]: 1, [Symbol.for('x')]: 2 },
+          '{\n  Symbol.for("x"): 2\n  Symbol.for("y"): 1\n}',
+          { strictObjectKeyOrder: true },
         ],
       ],
     },

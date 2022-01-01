@@ -1,6 +1,7 @@
 import { EqualityOptions } from './EqualityOptions'
 import { isEqualFunction } from './isEqualFunction'
 import { isEqualNumber } from './isEqualNumber'
+import { isEqualObject } from './isEqualObject'
 import { isEqualSymbol } from './isEqualSymbol'
 
 export function isEqual(value: unknown, other: unknown, options: EqualityOptions) {
@@ -12,6 +13,8 @@ export function isEqual(value: unknown, other: unknown, options: EqualityOptions
     return isEqualSymbol(value, other as symbol, options)
   } else if (typeof value === 'function') {
     return isEqualFunction(value, other as Function, options)
+  } else if (typeof value === 'object' && value !== null) {
+    return isEqualObject(value, other as object, options)
   }
   return value === other
 }

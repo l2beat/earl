@@ -10,13 +10,13 @@ describe('isEqual', () => {
     looseSymbolCompare: false,
     minusZero: false,
     uniqueNaNs: false,
-    strictObjectKeyOrder: true,
+    strictObjectKeyOrder: false,
   }
   const FORMAT_OPTIONS: FormatOptions = {
     ...DEFAULTS,
     minusZero: true,
     indentSize: 2,
-    inline: false,
+    inline: true,
   }
 
   interface TestCaseGroup {
@@ -124,6 +124,35 @@ describe('isEqual', () => {
         [class A {}, function A() {}, false, { looseFunctionCompare: true }],
         [Array, Array, true],
         [Array, Error, false],
+      ],
+    },
+    {
+      name: 'objects',
+      testCases: [
+        [{}, {}, true],
+        [{ x: 1 }, { x: 1 }, true],
+        [{ x: 1, y: 2 }, { x: 1, y: 2 }, true],
+        [{ x: 1, y: 2 }, { x: 1, y: 3 }, false],
+        [{ x: 1, y: { a: 'x', b: 'y' } }, { x: 1, y: { a: 'x', b: 'y' } }, true],
+        [{ x: 1, y: 2 }, { y: 2, x: 1 }, true],
+        [{ x: 1, y: 2 }, { y: 2, x: 1 }, false, { strictObjectKeyOrder: true }],
+        [{ x: 1, y: 2 }, { x: 1, y: 2 }, true, { strictObjectKeyOrder: true }],
+        [{ x: 1, [Symbol()]: 1 }, { x: 1, [Symbol()]: 1 }, false],
+        [{ x: 1, [Symbol()]: 1 }, { x: 1, [Symbol()]: 1 }, true, { looseSymbolCompare: true }],
+        [{ [Symbol.for('x')]: 1, [Symbol.for('y')]: 1 }, { [Symbol.for('x')]: 1, [Symbol.for('y')]: 1 }, true],
+        [{ [Symbol.for('x')]: 1, [Symbol.for('y')]: 1 }, { [Symbol.for('y')]: 1, [Symbol.for('x')]: 1 }, true],
+        [
+          { [Symbol.for('x')]: 1, [Symbol.for('y')]: 1 },
+          { [Symbol.for('y')]: 1, [Symbol.for('x')]: 1 },
+          false,
+          { strictObjectKeyOrder: true },
+        ],
+        [
+          { [Symbol.for('x')]: 1, [Symbol.for('y')]: 1 },
+          { [Symbol.for('y')]: 1, [Symbol.for('x')]: 1 },
+          true,
+          { looseSymbolCompare: true },
+        ],
       ],
     },
   ]
