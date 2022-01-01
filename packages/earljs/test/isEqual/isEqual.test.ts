@@ -75,6 +75,25 @@ describe('isEqual', () => {
         [BigInt(1), BigInt(-2), false],
       ],
     },
+    {
+      name: 'other primitives',
+      testCases: [
+        [true, true, true],
+        [true, false, false],
+        [null, null, true],
+        [undefined, undefined, true],
+        [null, undefined, false],
+      ],
+    },
+    {
+      name: 'cross primitive',
+      testCases: [
+        [0, false, false],
+        [0, '', false],
+        [1, '1', false],
+        [123, BigInt(123), false],
+      ],
+    },
   ]
 
   for (const { name, testCases } of groups) {
@@ -84,19 +103,38 @@ describe('isEqual', () => {
         const bFmt = format(b, a, FORMAT_OPTIONS)
         const operator = expected ? '==' : '!='
         const flags = options ? ` [${Object.keys(options).join(' ')}]` : ''
-        it(`${aFmt} ${operator} ${bFmt}${flags}`, () => {
+        describe(`${aFmt} ${operator} ${bFmt}${flags}`, () => {
           const equalityOptions = { ...DEFAULTS, ...options }
-          const result = isEqual(a, b, equalityOptions)
-          expect(result).to.equal(expected)
 
-          // Checks that format is consistent with isEqual
-          const aDiff = format(a, null, equalityOptions)
-          const bDiff = format(b, a, equalityOptions)
-          if (expected) {
-            expect(aDiff).to.equal(bDiff)
-          } else {
-            expect(aDiff).not.to.equal(bDiff)
-          }
+          it('a -> b', () => {
+            const result = isEqual(a, b, equalityOptions)
+            expect(result).to.equal(expected)
+          })
+
+          it('b -> a', () => {
+            const result = isEqual(b, a, equalityOptions)
+            expect(result).to.equal(expected)
+          })
+
+          it('format a -> b', () => {
+            const aDiff = format(a, null, equalityOptions)
+            const bDiff = format(b, a, equalityOptions)
+            if (expected) {
+              expect(aDiff).to.equal(bDiff)
+            } else {
+              expect(aDiff).not.to.equal(bDiff)
+            }
+          })
+
+          it('format b -> a', () => {
+            const aDiff = format(a, b, equalityOptions)
+            const bDiff = format(b, null, equalityOptions)
+            if (expected) {
+              expect(aDiff).to.equal(bDiff)
+            } else {
+              expect(aDiff).not.to.equal(bDiff)
+            }
+          })
         })
       }
     })

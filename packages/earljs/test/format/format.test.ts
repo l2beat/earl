@@ -63,6 +63,15 @@ describe('format', () => {
         [BigInt(-1234), null, '-1234n'],
       ],
     },
+    {
+      name: 'other primitives',
+      testCases: [
+        [true, null, 'true'],
+        [false, null, 'false'],
+        [null, null, 'null'],
+        [undefined, null, 'undefined'],
+      ],
+    },
   ]
 
   for (const { name, testCases } of groups) {
