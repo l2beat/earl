@@ -72,6 +72,24 @@ describe('format', () => {
         [undefined, null, 'undefined'],
       ],
     },
+    {
+      name: 'functions',
+      testCases: [
+        [function a() {}, null, 'function a()'],
+        [function a() {}, function a() {}, 'function a() (different)'],
+        [function a() {}, function a() {}, 'function a()', { looseFunctionCompare: true }],
+        [function () {}, null, 'anonymous function'],
+        [function () {}, function () {}, 'anonymous function (different)'],
+        [function () {}, function () {}, 'anonymous function', { looseFunctionCompare: true }],
+        [Set.prototype.has, null, 'function has() (native)'],
+        [Set.prototype.has, Map.prototype.has, 'function has() (native) (different)'],
+        [Set.prototype.has, Map.prototype.has, 'function has() (native)', { looseFunctionCompare: true }],
+        [class A {}, null, 'class A'],
+        [class A {}, class A {}, 'class A (different)'],
+        [class A {}, class A {}, 'class A', { looseFunctionCompare: true }],
+        [Array, null, 'function Array() (native)'],
+      ],
+    },
   ]
 
   for (const { name, testCases } of groups) {

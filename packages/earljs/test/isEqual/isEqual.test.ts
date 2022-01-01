@@ -94,6 +94,36 @@ describe('isEqual', () => {
         [123, BigInt(123), false],
       ],
     },
+    {
+      name: 'functions',
+      testCases: [
+        [function a() {}, function a() {}, false],
+        [...twice(function a() {}), true],
+        [function a() {}, function a() {}, true, { looseFunctionCompare: true }],
+        [
+          function a() {
+            return 1
+          },
+          function a() {
+            return 2
+          },
+          false,
+          { looseFunctionCompare: true },
+        ],
+        [function () {}, function () {}, false],
+        [...twice(function () {}), true],
+        [function () {}, function () {}, true, { looseFunctionCompare: true }],
+        [Set.prototype.has, Set.prototype.has, true],
+        [Set.prototype.has, Map.prototype.has, false],
+        [Set.prototype.has, Map.prototype.has, true, { looseFunctionCompare: true }],
+        [class A {}, class A {}, false],
+        [...twice(class A {}), true],
+        [class A {}, class A {}, true, { looseFunctionCompare: true }],
+        [class A {}, function A() {}, false, { looseFunctionCompare: true }],
+        [Array, Array, true],
+        [Array, Error, false],
+      ],
+    },
   ]
 
   for (const { name, testCases } of groups) {
