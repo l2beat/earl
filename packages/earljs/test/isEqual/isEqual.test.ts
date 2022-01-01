@@ -21,6 +21,10 @@ describe('isEqual', () => {
   }
   type TestCase = [unknown, unknown, boolean, Partial<EqualityOptions>?]
 
+  function twice<T>(value: T): [T, T] {
+    return [value, value]
+  }
+
   const groups: TestCaseGroup[] = [
     {
       name: 'numbers',
@@ -40,13 +44,30 @@ describe('isEqual', () => {
         [-Infinity, -Infinity, true],
       ],
     },
+    {
+      name: 'symbols',
+      testCases: [
+        /* eslint-disable symbol-description */
+        [Symbol(), Symbol(), false],
+        [Symbol(), Symbol(), true, { looseSymbolCompare: true }],
+        [...twice(Symbol()), true],
+        [Symbol('foo'), Symbol('foo'), false],
+        [...twice(Symbol('foo')), true],
+        [Symbol('foo'), Symbol('foo'), true, { looseSymbolCompare: true }],
+        [Symbol('foo'), Symbol.for('foo'), false, { looseSymbolCompare: true }],
+        [Symbol.for('foo'), Symbol.for('foo'), true],
+        [Symbol.for('foo'), Symbol.for('foo'), true, { looseSymbolCompare: true }],
+        [Symbol.iterator, Symbol.iterator, true],
+        /* eslint-enable symbol-description */
+      ],
+    },
   ]
 
   for (const { name, testCases } of groups) {
     describe(name, () => {
       for (const [a, b, expected, options] of testCases) {
         const aFmt = format(a, null, FORMAT_OPTIONS)
-        const bFmt = format(b, null, FORMAT_OPTIONS)
+        const bFmt = format(b, a, FORMAT_OPTIONS)
         const operator = expected ? '==' : '!='
         const flags = options ? ` [${Object.keys(options).join(' ')}]` : ''
         it(`${aFmt} ${operator} ${bFmt}${flags}`, () => {

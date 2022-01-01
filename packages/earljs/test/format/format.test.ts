@@ -34,6 +34,19 @@ describe('format', () => {
         [-0, null, '-0', { minusZero: true }],
       ],
     },
+    {
+      name: 'symbols',
+      testCases: [
+        /* eslint-disable symbol-description */
+        [Symbol(), null, 'Symbol()'],
+        [Symbol('foo'), null, 'Symbol(foo)'],
+        [Symbol('foo'), Symbol('foo'), 'Symbol(foo) (different)'],
+        [Symbol('foo'), Symbol('foo'), 'Symbol(foo)', { looseSymbolCompare: true }],
+        [Symbol.for('foo'), null, 'Symbol.for("foo")'],
+        [Symbol.iterator, null, 'Symbol.iterator'],
+        /* eslint-enable symbol-description */
+      ],
+    },
   ]
 
   for (const { name, testCases } of groups) {

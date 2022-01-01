@@ -1,6 +1,7 @@
 export interface EqualityOptions {
   /**
-   * Considers two symbols with the same `toString` value equal
+   * Considers two symbols with the same `toString` value equal, with the
+   * exception of `Symbol('foo')` and `Symbol.for('foo')`
    */
   looseSymbolCompare: boolean
   /**
