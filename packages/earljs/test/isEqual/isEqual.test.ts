@@ -71,8 +71,18 @@ describe('isEqual', () => {
         const operator = expected ? '==' : '!='
         const flags = options ? ` [${Object.keys(options).join(' ')}]` : ''
         it(`${aFmt} ${operator} ${bFmt}${flags}`, () => {
-          const result = isEqual(a, b, { ...DEFAULTS, ...options })
+          const equalityOptions = { ...DEFAULTS, ...options }
+          const result = isEqual(a, b, equalityOptions)
           expect(result).to.equal(expected)
+
+          // Checks that format is consistent with isEqual
+          const aDiff = format(a, null, equalityOptions)
+          const bDiff = format(b, a, equalityOptions)
+          if (expected) {
+            expect(aDiff).to.equal(bDiff)
+          } else {
+            expect(aDiff).not.to.equal(bDiff)
+          }
         })
       }
     })
