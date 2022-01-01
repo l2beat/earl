@@ -23,7 +23,7 @@ export function isEqualObject(value: object, other: object, options: EqualityOpt
 }
 
 function getObjectKeys(value: object, options: EqualityOptions, otherSymbols: symbol[] = []) {
-  const properties = Object.getOwnPropertyNames(value)
+  const properties = Object.keys(value)
   let symbols = Object.getOwnPropertySymbols(value)
   if (!options.strictObjectKeyOrder) {
     properties.sort()

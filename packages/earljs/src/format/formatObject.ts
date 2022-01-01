@@ -10,12 +10,18 @@ export function formatObject(value: object, sibling: unknown, options: FormatOpt
   }
   const entries: [number, string][] = []
   for (const [key, keyFormat] of keys) {
-    const valueFormat = formatUnknown((value as any)[key], (sibling as any)?.[key], options)
-    valueFormat[0][1] = `${keyFormat}: ${valueFormat[0][1]}`
-    for (const line of valueFormat) {
-      line[0] += 1
+    try {
+      const valueFormat = formatUnknown((value as any)[key], (sibling as any)?.[key], options)
+      valueFormat[0][1] = `${keyFormat}: ${valueFormat[0][1]}`
+      for (const line of valueFormat) {
+        line[0] += 1
+      }
+      entries.push(...valueFormat)
+    } catch (e: any) {
+      if (e.stack.length > 2000) {
+        throw new Error('foo')
+      }
     }
-    entries.push(...valueFormat)
   }
 
   if (options.inline) {
@@ -29,7 +35,7 @@ export function formatObject(value: object, sibling: unknown, options: FormatOpt
 
 export function getKeys(value: object, sibling: unknown, options: FormatOptions) {
   const result: [string | symbol, string][] = []
-  const properties = Object.getOwnPropertyNames(value)
+  const properties = Object.keys(value)
   if (!options.strictObjectKeyOrder) {
     properties.sort()
   }

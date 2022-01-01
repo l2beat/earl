@@ -14,7 +14,7 @@ export function formatUnknown(value: unknown, sibling: unknown, options: FormatO
   } else if (typeof value === 'bigint') {
     return [[0, `${value}n`]]
   } else if (typeof value === 'function') {
-    return [[0, formatFunction(value, sibling, options)]]
+    return formatFunction(value, sibling, options)
   } else if (typeof value === 'object' && value !== null) {
     return formatObject(value, sibling, options)
   }

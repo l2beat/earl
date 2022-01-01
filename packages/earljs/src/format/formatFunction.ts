@@ -1,6 +1,18 @@
+import { formatObject } from './formatObject'
 import { FormatOptions } from './FormatOptions'
 
-export function formatFunction(value: Function, sibling: unknown, options: FormatOptions): string {
+export function formatFunction(value: Function, sibling: unknown, options: FormatOptions): [number, string][] {
+  const signature = formatFunctionSignature(value, sibling, options)
+  const object = formatObject(value, sibling, options)
+  if (object[0][1] === '{}') {
+    return [[0, signature]]
+  } else {
+    object[0][1] = `${signature} & ${object[0][1]}`
+    return object
+  }
+}
+
+export function formatFunctionSignature(value: Function, sibling: unknown, options: FormatOptions): string {
   const name = value.name
   const isClass = value.toString().startsWith('class')
   const isNative = value.toString().endsWith('{ [native code] }')
@@ -14,7 +26,7 @@ export function formatFunction(value: Function, sibling: unknown, options: Forma
     value !== sibling &&
     (options.looseFunctionCompare
       ? value.toString() !== sibling.toString()
-      : formatFunction(sibling, undefined, options) === formatted)
+      : formatFunctionSignature(sibling, undefined, options) === formatted)
   ) {
     formatted += ' (different)'
   }

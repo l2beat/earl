@@ -155,6 +155,99 @@ describe('isEqual', () => {
         ],
       ],
     },
+    {
+      name: 'function objects',
+      testCases: [
+        [
+          (() => {
+            function x() {}
+            x.a = 1
+            return x
+          })(),
+          (() => {
+            function x() {}
+            x.a = 1
+            return x
+          })(),
+          false,
+        ],
+        [
+          (() => {
+            function x() {}
+            x.a = 1
+            return x
+          })(),
+          (() => {
+            function x() {}
+            x.a = 1
+            return x
+          })(),
+          true,
+          { looseFunctionCompare: true },
+        ],
+        [
+          (() => {
+            function x() {}
+            x.a = 1
+            return x
+          })(),
+          (() => {
+            function x() {}
+            x.a = 2
+            return x
+          })(),
+          false,
+          { looseFunctionCompare: true },
+        ],
+        [
+          ...twice(
+            (() => {
+              function x() {}
+              x.a = 1
+              return x
+            })(),
+          ),
+          true,
+        ],
+        [
+          class X {
+            static a = 1
+          },
+          class X {
+            static a = 1
+          },
+          false,
+        ],
+        [
+          class X {
+            static a = 1
+          },
+          class X {
+            static a = 1
+          },
+          true,
+          { looseFunctionCompare: true },
+        ],
+        [
+          class X {
+            static a = 1
+          },
+          class X {
+            static a = 2
+          },
+          false,
+          { looseFunctionCompare: true },
+        ],
+        [
+          ...twice(
+            class X {
+              static a = 1
+            },
+          ),
+          true,
+        ],
+      ],
+    },
   ]
 
   for (const { name, testCases } of groups) {

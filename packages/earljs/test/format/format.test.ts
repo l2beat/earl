@@ -178,6 +178,45 @@ describe('format', () => {
         ],
       ],
     },
+    {
+      name: 'function objects',
+      testCases: [
+        [
+          (() => {
+            function x() {}
+            x.a = 1
+            return x
+          })(),
+          null,
+          'function x() & {\n  a: 1\n}',
+        ],
+        [
+          (() => {
+            const x = (() => function () {})()
+            ;(x as any).a = 1
+            return x
+          })(),
+          null,
+          'anonymous function & {\n  a: 1\n}',
+        ],
+        [
+          class X {
+            static x = 2
+          },
+          null,
+          'class X & {\n  x: 2\n}',
+        ],
+        [
+          (() => {
+            const x = (() => class {})()
+            ;(x as any).a = 1
+            return x
+          })(),
+          null,
+          'anonymous class & {\n  a: 1\n}',
+        ],
+      ],
+    },
   ]
 
   for (const { name, testCases } of groups) {
