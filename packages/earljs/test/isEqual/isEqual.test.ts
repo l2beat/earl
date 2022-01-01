@@ -61,6 +61,20 @@ describe('isEqual', () => {
         /* eslint-enable symbol-description */
       ],
     },
+    {
+      name: 'strings',
+      testCases: [
+        ['foo', 'foo', true],
+        ['foo', 'bar', false],
+      ],
+    },
+    {
+      name: 'bigints',
+      testCases: [
+        [BigInt(1), BigInt(1), true],
+        [BigInt(1), BigInt(-2), false],
+      ],
+    },
   ]
 
   for (const { name, testCases } of groups) {

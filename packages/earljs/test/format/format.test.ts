@@ -47,6 +47,22 @@ describe('format', () => {
         /* eslint-enable symbol-description */
       ],
     },
+    {
+      name: 'strings',
+      testCases: [
+        ['foo', null, '"foo"'],
+        ['', null, '""'],
+        ['a\nb', null, '"a\\nb"'],
+      ],
+    },
+    {
+      name: 'bigints',
+      testCases: [
+        [BigInt(1), null, '1n'],
+        [BigInt(0), null, '0n'],
+        [BigInt(-1234), null, '-1234n'],
+      ],
+    },
   ]
 
   for (const { name, testCases } of groups) {

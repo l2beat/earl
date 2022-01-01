@@ -10,5 +10,5 @@ export function isEqual(value: unknown, other: unknown, options: EqualityOptions
   } else if (typeof value === 'symbol') {
     return isEqualSymbol(value, other as symbol, options)
   }
-  return false
+  return value === other
 }
