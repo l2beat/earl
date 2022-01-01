@@ -1,6 +1,5 @@
 import { expect } from 'chai'
-import { isEqual } from '../../src/isEqual'
-import { EqualityOptions } from '../../src/isEqual/EqualityOptions'
+import { isEqual, EqualityOptions } from '../../src/isEqual'
 
 describe('isEqual', () => {
   const DEFAULTS: EqualityOptions = {
@@ -14,7 +13,7 @@ describe('isEqual', () => {
     name: string
     testCases: TestCase[]
   }
-  type TestCase = [number, number, boolean, Partial<EqualityOptions>?]
+  type TestCase = [unknown, unknown, boolean, Partial<EqualityOptions>?]
 
   const groups: TestCaseGroup[] = [
     {
