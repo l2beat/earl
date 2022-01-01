@@ -1,5 +1,6 @@
 import { expect } from 'chai'
 
+import { format, FormatOptions } from '../../src/format'
 import { EqualityOptions, isEqual } from '../../src/isEqual'
 
 describe('isEqual', () => {
@@ -8,6 +9,10 @@ describe('isEqual', () => {
     looseSymbolCompare: false,
     minusZero: false,
     uniqueNaNs: false,
+  }
+  const FORMAT_OPTIONS: FormatOptions = {
+    ...DEFAULTS,
+    minusZero: true,
   }
 
   interface TestCaseGroup {
@@ -40,9 +45,11 @@ describe('isEqual', () => {
   for (const { name, testCases } of groups) {
     describe(name, () => {
       for (const [a, b, expected, options] of testCases) {
+        const aFmt = format(a, null, FORMAT_OPTIONS)
+        const bFmt = format(b, null, FORMAT_OPTIONS)
         const operator = expected ? '==' : '!='
         const flags = options ? ` [${Object.keys(options).join(' ')}]` : ''
-        it(`${a} ${operator} ${b}${flags}`, () => {
+        it(`${aFmt} ${operator} ${bFmt}${flags}`, () => {
           const result = isEqual(a, b, { ...DEFAULTS, ...options })
           expect(result).to.equal(expected)
         })
