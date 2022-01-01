@@ -1,3 +1,4 @@
+/* eslint-disable symbol-description */
 import { expect } from 'chai'
 
 import { format, FormatOptions } from '../../src/format'
@@ -9,10 +10,13 @@ describe('isEqual', () => {
     looseSymbolCompare: false,
     minusZero: false,
     uniqueNaNs: false,
+    strictObjectKeyOrder: true,
   }
   const FORMAT_OPTIONS: FormatOptions = {
     ...DEFAULTS,
     minusZero: true,
+    indentSize: 2,
+    inline: false,
   }
 
   interface TestCaseGroup {
@@ -47,7 +51,6 @@ describe('isEqual', () => {
     {
       name: 'symbols',
       testCases: [
-        /* eslint-disable symbol-description */
         [Symbol(), Symbol(), false],
         [Symbol(), Symbol(), true, { looseSymbolCompare: true }],
         [...twice(Symbol()), true],
@@ -58,7 +61,6 @@ describe('isEqual', () => {
         [Symbol.for('foo'), Symbol.for('foo'), true],
         [Symbol.for('foo'), Symbol.for('foo'), true, { looseSymbolCompare: true }],
         [Symbol.iterator, Symbol.iterator, true],
-        /* eslint-enable symbol-description */
       ],
     },
     {
@@ -135,6 +137,7 @@ describe('isEqual', () => {
         const flags = options ? ` [${Object.keys(options).join(' ')}]` : ''
         describe(`${aFmt} ${operator} ${bFmt}${flags}`, () => {
           const equalityOptions = { ...DEFAULTS, ...options }
+          const formatOptions = { ...equalityOptions, indentSize: 2, inline: false }
 
           it('a -> b', () => {
             const result = isEqual(a, b, equalityOptions)
@@ -147,8 +150,8 @@ describe('isEqual', () => {
           })
 
           it('format a -> b', () => {
-            const aDiff = format(a, null, equalityOptions)
-            const bDiff = format(b, a, equalityOptions)
+            const aDiff = format(a, null, formatOptions)
+            const bDiff = format(b, a, formatOptions)
             if (expected) {
               expect(aDiff).to.equal(bDiff)
             } else {
@@ -157,8 +160,8 @@ describe('isEqual', () => {
           })
 
           it('format b -> a', () => {
-            const aDiff = format(a, b, equalityOptions)
-            const bDiff = format(b, null, equalityOptions)
+            const aDiff = format(a, b, formatOptions)
+            const bDiff = format(b, null, formatOptions)
             if (expected) {
               expect(aDiff).to.equal(bDiff)
             } else {

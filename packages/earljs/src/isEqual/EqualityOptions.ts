@@ -16,4 +16,8 @@ export interface EqualityOptions {
    * Considers +0 and -0 unequal
    */
   minusZero: boolean
+  /**
+   * Considers { x: 1, y: 1 } and { y: 1, x: 1 } unequal
+   */
+  strictObjectKeyOrder: boolean
 }

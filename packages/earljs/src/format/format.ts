@@ -1,19 +1,7 @@
-import { formatFunction } from './formatFunction'
-import { formatNumber } from './formatNumber'
 import { FormatOptions } from './FormatOptions'
-import { formatSymbol } from './formatSymbol'
+import { formatUnknown } from './formatUnknown'
 
 export function format(value: unknown, sibling: unknown, options: FormatOptions): string {
-  if (typeof value === 'number') {
-    return formatNumber(value, sibling, options)
-  } else if (typeof value === 'symbol') {
-    return formatSymbol(value, sibling, options)
-  } else if (typeof value === 'string') {
-    return JSON.stringify(value)
-  } else if (typeof value === 'bigint') {
-    return `${value}n`
-  } else if (typeof value === 'function') {
-    return formatFunction(value, sibling, options)
-  }
-  return `${value}`
+  const lines = formatUnknown(value, sibling, options)
+  return lines.map(([n, str]) => ' '.repeat(n * options.indentSize) + str).join('\n')
 }
