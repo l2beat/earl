@@ -1,2 +1,2 @@
-export { isEqual } from './isEqual'
 export { EqualityOptions } from './EqualityOptions'
+export { isEqual } from './isEqual'

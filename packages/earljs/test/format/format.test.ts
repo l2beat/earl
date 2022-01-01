@@ -1,4 +1,5 @@
 import { expect } from 'chai'
+
 import { format, FormatOptions } from '../../src/format'
 
 describe('format', () => {
@@ -38,7 +39,7 @@ describe('format', () => {
   for (const { name, testCases } of groups) {
     describe(name, () => {
       for (const [a, b, expected, options] of testCases) {
-        let flags = options ? ` [${Object.keys(options).join(' ')}]` : ''
+        const flags = options ? ` [${Object.keys(options).join(' ')}]` : ''
         it(`${expected}${flags}`, () => {
           const result = format(a, b, { ...DEFAULTS, ...options })
           expect(result).to.equal(expected)

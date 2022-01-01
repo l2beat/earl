@@ -1,5 +1,6 @@
 import { expect } from 'chai'
-import { isEqual, EqualityOptions } from '../../src/isEqual'
+
+import { EqualityOptions, isEqual } from '../../src/isEqual'
 
 describe('isEqual', () => {
   const DEFAULTS: EqualityOptions = {
@@ -39,8 +40,8 @@ describe('isEqual', () => {
   for (const { name, testCases } of groups) {
     describe(name, () => {
       for (const [a, b, expected, options] of testCases) {
-        let operator = expected ? '==' : '!='
-        let flags = options ? ` [${Object.keys(options).join(' ')}]` : ''
+        const operator = expected ? '==' : '!='
+        const flags = options ? ` [${Object.keys(options).join(' ')}]` : ''
         it(`${a} ${operator} ${b}${flags}`, () => {
           const result = isEqual(a, b, { ...DEFAULTS, ...options })
           expect(result).to.equal(expected)
