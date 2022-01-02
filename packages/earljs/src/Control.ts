@@ -1,6 +1,14 @@
 import { AssertionError } from './errors'
 import { getTestRunnerIntegration } from './testRunnerCtx'
-import { ValidationResult } from './validators/common'
+
+export interface ValidationResult {
+  success: boolean
+  hint?: string
+  reason: string
+  negatedReason: string
+  actual?: string
+  expected?: string
+}
 
 export class Control<T> {
   public testRunnerCtx = getTestRunnerIntegration()

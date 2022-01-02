@@ -1,6 +1,5 @@
 import { formatCompact } from '../format'
 import { isEqual } from '../isEqual'
-import { isIterableAndNotString } from '../validators/common'
 import { Matcher } from './Base'
 
 export class ContainerWithMatcher<T> extends Matcher {
@@ -31,4 +30,8 @@ export class ContainerWithMatcher<T> extends Matcher {
   static make(...items: any[]): any {
     return new ContainerWithMatcher(items) as any
   }
+}
+
+function isIterableAndNotString(value: any): value is IterableIterator<any> {
+  return Symbol.iterator in Object(value) && typeof value !== 'string'
 }

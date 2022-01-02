@@ -1,7 +1,6 @@
 import { Matcher } from '../matchers/Base'
 import { PluginSmartEqRules, SmartEqRule } from '../plugins/types'
 import { NonEmptyOnly } from '../types'
-import { isIterableAndNotString } from './common'
 
 type ErrorReasons = 'value mismatch' | 'prototype mismatch' | 'object possibly infinite'
 export type SmartEqResult = { result: 'success' } | { result: 'error'; reason: ErrorReasons }
@@ -98,6 +97,10 @@ export function smartEq(actual: any, expected: any, strict: boolean = true, seen
   }
 
   return buildSmartEqResult(Object.is(actual, expected), 'value mismatch')
+}
+
+function isIterableAndNotString(value: any): value is IterableIterator<any> {
+  return Symbol.iterator in Object(value) && typeof value !== 'string'
 }
 
 const rulesRegisteredByPlugins: SmartEqRule<unknown, unknown>[] = []
