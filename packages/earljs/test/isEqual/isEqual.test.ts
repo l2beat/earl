@@ -182,6 +182,29 @@ describe('isEqual', () => {
           })(),
           false,
         ],
+        ...(() => {
+          interface Node {
+            prev?: Node
+            next?: Node
+            value: any
+          }
+          const node = (value: any): Node => ({ value })
+          const list = (...values: any[]) =>
+            values.map(node).map((node, index, nodes) => {
+              node.prev = nodes[index - 1]
+              node.next = nodes[index + 1]
+              return node
+            })[0]
+
+          const a = list(1, 2, 3)
+          const b = list(1, 2, 3)
+          const c = list(4, 5)
+
+          return [
+            [a, b, true],
+            [b, c, false],
+          ] as TestCase[]
+        })(),
       ],
     },
     {
