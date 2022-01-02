@@ -11,6 +11,12 @@ export function getType(value: object) {
     return 'Number'
   } else if (value instanceof Boolean) {
     return 'Boolean'
+  } else if (value instanceof Promise) {
+    return 'Promise'
+  } else if (value instanceof WeakMap) {
+    return 'WeakMap'
+  } else if (value instanceof WeakSet) {
+    return 'WeakSet'
   }
   return 'Object'
 }

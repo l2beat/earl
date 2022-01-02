@@ -36,6 +36,10 @@ export function isEqualObject(
     }
   }
 
+  if (type === 'Promise' || type === 'WeakMap' || type === 'WeakSet') {
+    return value === other
+  }
+
   return isEqualObjectWithType(value, valueStack, other, otherStack, options, type)
 }
 

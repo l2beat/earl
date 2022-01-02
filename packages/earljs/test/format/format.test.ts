@@ -249,6 +249,17 @@ describe('format', () => {
         [Object.assign(new String('foo'), { foo: 'bar' }), null, 'String("foo") & {\n  foo: "bar"\n}'],
       ],
     },
+    {
+      name: 'unique instances',
+      testCases: [
+        [Promise.resolve('foo'), null, 'Promise'],
+        [Promise.resolve('foo'), Promise.resolve('foo'), 'Promise (different)'],
+        [new WeakMap(), null, 'WeakMap'],
+        [new WeakMap(), new WeakMap(), 'WeakMap (different)'],
+        [new WeakSet(), null, 'WeakSet'],
+        [new WeakSet(), new WeakSet(), 'WeakSet (different)'],
+      ],
+    },
   ]
 
   for (const { name, testCases } of groups) {

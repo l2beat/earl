@@ -253,6 +253,17 @@ describe('isEqual', () => {
         [Object.assign(new String('foo'), { foo: 'bar' }), Object.assign(new String('foo'), { foo: 'bar' }), true],
       ],
     },
+    {
+      name: 'unique instances',
+      testCases: [
+        [Promise.resolve('foo'), Promise.resolve('foo'), false],
+        [...twice(Promise.resolve('foo')), true],
+        [new WeakMap(), new WeakMap(), false],
+        [...twice(new WeakMap()), true],
+        [new WeakSet(), new WeakSet(), false],
+        [...twice(new WeakSet()), true],
+      ],
+    },
   ]
 
   for (const { name, testCases } of groups) {

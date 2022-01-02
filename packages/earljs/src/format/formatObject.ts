@@ -5,6 +5,7 @@ import { FormatOptions } from './FormatOptions'
 import { formatPlainObject } from './formatPlainObject'
 import { formatPrimitiveInstance } from './formatPrimitiveInstance'
 import { formatRegExp } from './formatRegExp'
+import { formatUniqueInstance } from './formatUniqueInstance'
 
 export function formatObject(
   value: object,
@@ -21,6 +22,8 @@ export function formatObject(
     return formatRegExp(value as RegExp, sibling, options, stack)
   } else if (type === 'String' || type === 'Number' || type === 'Boolean') {
     return formatPrimitiveInstance(type, value, sibling, options, stack)
+  } else if (type === 'Promise' || type === 'WeakMap' || type === 'WeakSet') {
+    return formatUniqueInstance(type, value, sibling)
   }
   return formatPlainObject(type, value, sibling, options, stack)
 }
