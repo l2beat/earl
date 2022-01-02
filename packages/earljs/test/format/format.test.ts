@@ -342,6 +342,40 @@ describe('format', () => {
         [new (class MyWeakSet extends WeakSet {})(), null, 'WeakSet', { ignorePrototypes: true }],
       ],
     },
+    {
+      name: 'errors',
+      testCases: [
+        [new Error('foo'), null, 'Error {\n  message: "foo"\n  name: "Error"\n}'],
+        [new TypeError('foo'), null, 'TypeError {\n  message: "foo"\n  name: "TypeError"\n}'],
+        [new TypeError('foo'), null, 'Error {\n  message: "foo"\n  name: "TypeError"\n}', { ignorePrototypes: true }],
+        [new (class MyError extends Error {})('foo'), null, 'MyError {\n  message: "foo"\n  name: "Error"\n}'],
+        [
+          new (class MyError extends Error {})('foo'),
+          new (class MyError extends Error {})('foo'),
+          'MyError (different prototype) {\n  message: "foo"\n  name: "Error"\n}',
+        ],
+        [
+          new (class MyError extends Error {})('foo'),
+          new (class MyError extends Error {})('foo'),
+          'Error {\n  message: "foo"\n  name: "Error"\n}',
+          { ignorePrototypes: true },
+        ],
+        [
+          new (class MyError extends Error {
+            asd = 3
+          })('foo'),
+          null,
+          'MyError {\n  asd: 3\n  message: "foo"\n  name: "Error"\n}',
+        ],
+        [Object.assign(new Error('foo'), { stack: 'foobar' }), null, 'Error {\n  message: "foo"\n  name: "Error"\n}'],
+        [
+          Object.assign(new Error('foo'), { stack: 'foobar' }),
+          null,
+          'Error {\n  message: "foo"\n  name: "Error"\n  stack: "foobar"\n}',
+          { compareErrorStack: true },
+        ],
+      ],
+    },
   ]
 
   for (const { name, testCases } of groups) {

@@ -350,6 +350,30 @@ describe('isEqual', () => {
         })(),
       ],
     },
+    {
+      name: 'errors',
+      testCases: [
+        [new Error('foo'), new Error('foo'), true],
+        [new Error('foo'), new Error('foo'), false, { compareErrorStack: true }],
+        [
+          Object.assign(new Error('foo'), { stack: 'asd' }),
+          Object.assign(new Error('foo'), { stack: 'asd' }),
+          true,
+          { compareErrorStack: true },
+        ],
+        [new Error('foo'), new Error('bar'), false],
+        [new TypeError('foo'), new TypeError('foo'), true],
+        [new Error('foo'), new TypeError('foo'), false],
+        [new Error('foo'), new TypeError('foo'), false, { ignorePrototypes: true }],
+        [new (class MyError extends Error {})('foo'), new (class MyError extends Error {})('foo'), false],
+        [
+          new (class MyError extends Error {})('foo'),
+          new (class MyError extends Error {})('foo'),
+          true,
+          { ignorePrototypes: true },
+        ],
+      ],
+    },
   ]
 
   for (const { name, testCases } of groups) {

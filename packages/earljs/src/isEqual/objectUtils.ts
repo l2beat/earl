@@ -54,7 +54,7 @@ export function getKeys(value: object, type: ObjectType, options: EqualityOption
 }
 
 function addKey(keys: string[], value: object, key: string) {
-  if (Object.prototype.hasOwnProperty.call(value, key)) {
+  if (key in value) {
     keys.push(key)
   }
 }

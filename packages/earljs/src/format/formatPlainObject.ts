@@ -19,11 +19,13 @@ export function formatPlainObject(
   stack.pop()
 
   let opening = '{'
-  if (!options.ignorePrototypes && type === 'Object') {
+  if (!options.ignorePrototypes && (type === 'Object' || type === 'Error')) {
     const name = getTypeName(value, sibling)
     if (name !== 'Object') {
       opening = `${name} {`
     }
+  } else if (options.ignorePrototypes && type === 'Error') {
+    opening = 'Error {'
   }
 
   if (options.inline) {
