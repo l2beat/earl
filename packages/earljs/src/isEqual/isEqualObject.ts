@@ -24,6 +24,12 @@ export function isEqualObject(
     return false
   }
 
+  if (!options.ignorePrototypes) {
+    if (Object.getPrototypeOf(value) !== Object.getPrototypeOf(other)) {
+      return false
+    }
+  }
+
   if (type === 'Date' || type === 'String' || type === 'Number' || type === 'Boolean') {
     if (value.valueOf() !== other.valueOf()) {
       return false
@@ -51,8 +57,8 @@ function isEqualObjectWithType(
   options: EqualityOptions,
   type: ObjectType,
 ) {
-  const keys = getKeys(value, type)
-  const otherKeys = getKeys(other, type)
+  const keys = getKeys(value, type, options)
+  const otherKeys = getKeys(other, type, options)
   if (keys.length !== otherKeys.length) {
     return false
   }

@@ -1,4 +1,3 @@
-import { formatFunction } from './formatFunction'
 import { formatNumber } from './formatNumber'
 import { formatObject } from './formatObject'
 import { FormatOptions } from './FormatOptions'
@@ -28,9 +27,7 @@ export function formatUnknown(
     return [[0, `<Circular ${dots}>`]]
   }
 
-  if (typeof value === 'function') {
-    return formatFunction(value, sibling, options, stack)
-  } else if (typeof value === 'object') {
+  if (typeof value === 'function' || typeof value === 'object') {
     return formatObject(value, sibling, options, stack)
   }
 

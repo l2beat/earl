@@ -1,6 +1,7 @@
 import { ObjectType } from '../isEqual/objectUtils'
 import { FormatOptions } from './FormatOptions'
 import { formatWithObject } from './formatWithObject'
+import { getTypeName } from './getTypeName'
 
 export function formatPrimitiveInstance(
   type: ObjectType,
@@ -9,6 +10,7 @@ export function formatPrimitiveInstance(
   options: FormatOptions,
   stack: unknown[],
 ): [number, string][] {
-  const formatted = `${type}(${JSON.stringify(value)})`
+  const typeName = options.ignorePrototypes ? type : getTypeName(value, sibling)
+  const formatted = `${typeName} ${JSON.stringify(value)}`
   return formatWithObject(type, formatted, value, sibling, options, stack)
 }

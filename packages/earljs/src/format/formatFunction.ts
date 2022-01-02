@@ -8,7 +8,7 @@ export function formatFunction(
   stack: unknown[],
 ): [number, string][] {
   const signature = formatFunctionSignature(value, sibling, options)
-  return formatWithObject('Object', signature, value, sibling, options, stack)
+  return formatWithObject('Function', signature, value, sibling, options, stack)
 }
 
 export function formatFunctionSignature(value: Function, sibling: unknown, options: FormatOptions): string {

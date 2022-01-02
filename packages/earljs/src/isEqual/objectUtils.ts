@@ -1,5 +1,9 @@
+import { EqualityOptions } from './EqualityOptions'
+
 export function getType(value: object) {
-  if (Array.isArray(value)) {
+  if (typeof value === 'function') {
+    return 'Function'
+  } else if (Array.isArray(value)) {
     return 'Array'
   } else if (value instanceof Date) {
     return 'Date'
@@ -17,6 +21,8 @@ export function getType(value: object) {
     return 'WeakMap'
   } else if (value instanceof WeakSet) {
     return 'WeakSet'
+  } else if (value instanceof Error) {
+    return 'Error'
   }
   return 'Object'
 }
@@ -28,10 +34,19 @@ export function getCommonType(value: object, other: object) {
   return valueType === otherType ? valueType : undefined
 }
 
-export function getKeys(value: object, type: ObjectType) {
+export function getKeys(value: object, type: ObjectType, options: EqualityOptions) {
   let keys = Object.keys(value)
   if (type === 'Array') {
     addKey(keys, value, 'length')
+  } else if (type === 'Error') {
+    addKey(keys, value, 'name')
+    addKey(keys, value, 'message')
+    addKey(keys, value, 'code')
+    if (options.compareErrorStack) {
+      addKey(keys, value, 'stack')
+    } else {
+      keys = keys.filter((key) => key !== 'stack')
+    }
   } else if (type === 'String') {
     keys = keys.filter((key) => !/^\d+$/.test(key))
   }

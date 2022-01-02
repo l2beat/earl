@@ -1,6 +1,7 @@
 import { FormatOptions } from './FormatOptions'
 import { formatProperties } from './formatProperties'
 import { formatUnknown } from './formatUnknown'
+import { getTypeName } from './getTypeName'
 
 export function formatArray(
   value: unknown[],
@@ -19,10 +20,18 @@ export function formatArray(
   ]
   stack.pop()
 
+  let opening = '['
+  if (!options.ignorePrototypes) {
+    const name = getTypeName(value, sibling)
+    if (name !== 'Array') {
+      opening = `${name} [`
+    }
+  }
+
   if (options.inline) {
-    return [[0, `[${entries.map((x) => x[1]).join(', ')}]`]]
+    return [[0, `${opening}${entries.map((x) => x[1]).join(', ')}]`]]
   } else {
-    entries.unshift([0, '['])
+    entries.unshift([0, opening])
     entries.push([0, ']'])
     return entries
   }

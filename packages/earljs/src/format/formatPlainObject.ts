@@ -1,6 +1,7 @@
 import { getKeys, ObjectType } from '../isEqual/objectUtils'
 import { FormatOptions } from './FormatOptions'
 import { formatProperties } from './formatProperties'
+import { getTypeName } from './getTypeName'
 
 export function formatPlainObject(
   type: ObjectType,
@@ -9,7 +10,7 @@ export function formatPlainObject(
   options: FormatOptions,
   stack: unknown[],
 ): [number, string][] {
-  const keys = getKeys(value, type)
+  const keys = getKeys(value, type, options)
   if (keys.length === 0) {
     return [[0, '{}']]
   }
@@ -17,10 +18,18 @@ export function formatPlainObject(
   const entries = formatProperties(keys, value, sibling, options, stack)
   stack.pop()
 
+  let opening = '{'
+  if (!options.ignorePrototypes && type === 'Object') {
+    const name = getTypeName(value, sibling)
+    if (name !== 'Object') {
+      opening = `${name} {`
+    }
+  }
+
   if (options.inline) {
-    return [[0, `{ ${entries.map((x) => x[1]).join(', ')} }`]]
+    return [[0, `${opening} ${entries.map((x) => x[1]).join(', ')} }`]]
   } else {
-    entries.unshift([0, '{'])
+    entries.unshift([0, opening])
     entries.push([0, '}'])
     return entries
   }
