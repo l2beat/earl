@@ -100,10 +100,25 @@ describe('isEqual', () => {
     {
       name: 'functions',
       testCases: [
-        [function a() {}, function a() {}, false],
-        [...twice(function a() {}), true],
-        [function () {}, function () {}, false],
-        [...twice(function () {}), true],
+        ...(() => {
+          const options = [
+            function named() {},
+            function* named() {},
+            async function named() {},
+            async function* named() {},
+            function () {},
+            function* () {},
+            async function () {},
+            async function* () {},
+          ]
+          const testCases: TestCase[] = []
+          for (let i = 0; i < options.length; i++) {
+            for (let j = i; j < options.length; j++) {
+              testCases.push([options[i], options[j], options[i] === options[j]])
+            }
+          }
+          return testCases
+        })(),
         [Set.prototype.has, Set.prototype.has, true],
         [Set.prototype.has, Map.prototype.has, false],
         [class A {}, class A {}, false],

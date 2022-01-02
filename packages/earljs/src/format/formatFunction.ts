@@ -12,11 +12,10 @@ export function formatFunction(
 }
 
 export function formatFunctionSignature(value: Function, sibling: unknown, options: FormatOptions): string {
-  const name = value.name
-  const isClass = value.toString().startsWith('class')
+  const name = value.name || '[anonymous]'
   const isNative = value.toString().endsWith('{ [native code] }')
-  const typeName = isClass ? 'class' : 'function'
-  let formatted = name ? `${typeName} ${name}${isClass ? '' : '()'}` : `anonymous ${typeName}`
+  const typeName = getFunctionTypeName(value)
+  let formatted = `${typeName} ${name}${typeName === 'class' ? '' : '()'}`
   if (isNative) {
     formatted += ' (native)'
   }
@@ -28,4 +27,19 @@ export function formatFunctionSignature(value: Function, sibling: unknown, optio
     formatted += ' (different)'
   }
   return formatted
+}
+
+function getFunctionTypeName(value: Function) {
+  if (value.toString().startsWith('class')) {
+    return 'class'
+  }
+  switch (value.constructor.name) {
+    case 'GeneratorFunction':
+      return 'function*'
+    case 'AsyncGeneratorFunction':
+      return 'async function*'
+    case 'AsyncFunction':
+      return 'async function'
+  }
+  return 'function'
 }

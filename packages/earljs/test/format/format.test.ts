@@ -78,18 +78,35 @@ describe('format', () => {
       testCases: [
         [function a() {}, null, 'function a()'],
         [function a() {}, function a() {}, 'function a() (different)'],
-        [function () {}, null, 'anonymous function'],
-        [function () {}, function () {}, 'anonymous function (different)'],
+        [function () {}, null, 'function [anonymous]()'],
+        [function () {}, function () {}, 'function [anonymous]() (different)'],
+        [function* foo() {}, null, 'function* foo()'],
+        [function* foo() {}, function* foo() {}, 'function* foo() (different)'],
+        [function* () {}, null, 'function* [anonymous]()'],
+        [function* () {}, function* () {}, 'function* [anonymous]() (different)'],
+        // This is eval-ed to avoid typescript transpiling it
+        // With a higher target this wouldn't be necessary
+        // eslint-disable-next-line no-eval
+        ...eval(`[
+          [async function foo() {}, null, 'async function foo()'],
+          [async function foo() {}, async function foo() {}, 'async function foo() (different)'],
+          [async function () {}, null, 'async function [anonymous]()'],
+          [async function () {}, async function () {}, 'async function [anonymous]() (different)'],
+          [async function* foo() {}, null, 'async function* foo()'],
+          [async function* foo() {}, async function* foo() {}, 'async function* foo() (different)'],
+          [async function* () {}, null, 'async function* [anonymous]()'],
+          [async function* () {}, async function* () {}, 'async function* [anonymous]() (different)'],
+        ]`),
         [Set.prototype.has, null, 'function has() (native)'],
         [Set.prototype.has, Map.prototype.has, 'function has() (native) (different)'],
         [class A {}, null, 'class A'],
         [class A {}, class A {}, 'class A (different)'],
-        [class {}, null, 'anonymous class'],
-        [class {}, class {}, 'anonymous class (different)'],
+        [class {}, null, 'class [anonymous]'],
+        [class {}, class {}, 'class [anonymous] (different)'],
         [Array, null, 'function Array() (native)'],
         [Object.assign(function x() {}, { a: 1 }), null, 'function x() & {\n  a: 1\n}'],
         [Object.assign(function x() {}, { a: 1 }), function x() {}, 'function x() (different) & {\n  a: 1\n}'],
-        [Object.assign(function () {}, { a: 1 }), null, 'anonymous function & {\n  a: 1\n}'],
+        [Object.assign(function () {}, { a: 1 }), null, 'function [anonymous]() & {\n  a: 1\n}'],
         [
           class X {
             static x = 2
@@ -97,7 +114,7 @@ describe('format', () => {
           null,
           'class X & {\n  x: 2\n}',
         ],
-        [Object.assign(class {}, { a: 1 }), null, 'anonymous class & {\n  a: 1\n}'],
+        [Object.assign(class {}, { a: 1 }), null, 'class [anonymous] & {\n  a: 1\n}'],
       ],
     },
     {
