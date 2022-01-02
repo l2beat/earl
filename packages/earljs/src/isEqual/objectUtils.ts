@@ -3,6 +3,8 @@ export function getType(value: object) {
     return 'Array'
   } else if (value instanceof Date) {
     return 'Date'
+  } else if (value instanceof RegExp) {
+    return 'RegExp'
   }
   return 'Object'
 }

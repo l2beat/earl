@@ -269,6 +269,35 @@ describe('isEqual', () => {
         ],
       ],
     },
+    {
+      name: 'regexps',
+      testCases: [
+        [/asd/, /asd/, true],
+        [/asd/, /asd/i, false],
+        [
+          (() => {
+            const r = /asd/
+            ;(r as any).foo = 'bar'
+            return r
+          })(),
+          /asd/,
+          false,
+        ],
+        [
+          (() => {
+            const r = /asd/
+            ;(r as any).foo = 'bar'
+            return r
+          })(),
+          (() => {
+            const r = /asd/
+            ;(r as any).foo = 'bar'
+            return r
+          })(),
+          true,
+        ],
+      ],
+    },
   ]
 
   for (const { name, testCases } of groups) {

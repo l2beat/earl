@@ -274,6 +274,22 @@ describe('format', () => {
         ],
       ],
     },
+    {
+      name: 'regexps',
+      testCases: [
+        [/asd/, null, '/asd/'],
+        [/asd/i, null, '/asd/i'],
+        [
+          (() => {
+            const r = /asd/
+            ;(r as any).foo = 'bar'
+            return r
+          })(),
+          null,
+          '/asd/ & {\n  foo: "bar"\n}',
+        ],
+      ],
+    },
   ]
 
   for (const { name, testCases } of groups) {

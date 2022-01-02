@@ -30,6 +30,12 @@ export function isEqualObject(
     }
   }
 
+  if (type === 'RegExp') {
+    if (value.toString() !== other.toString()) {
+      return false
+    }
+  }
+
   return isEqualObjectWithType(value, valueStack, other, otherStack, options, type)
 }
 
