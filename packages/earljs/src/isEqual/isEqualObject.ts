@@ -1,5 +1,6 @@
 import { EqualityOptions } from './EqualityOptions'
 import { isEqualUnknown } from './isEqualUnknown'
+import { getCommonType, getKeys, ObjectType } from './objectUtils'
 
 export function isEqualObject(
   value: object,
@@ -21,6 +22,12 @@ export function isEqualObject(
   const type = getCommonType(value, other)
   if (!type) {
     return false
+  }
+
+  if (type === 'Date') {
+    if (value.valueOf() !== other.valueOf()) {
+      return false
+    }
   }
 
   return isEqualObjectWithType(value, valueStack, other, otherStack, options, type)
@@ -56,33 +63,4 @@ function isEqualObjectWithType(
   valueStack.pop()
   otherStack.pop()
   return result
-}
-
-function getCommonType(value: object, other: object) {
-  const valueType = getType(value)
-  const otherType = getType(other)
-  return valueType === otherType ? valueType : undefined
-}
-
-type ObjectType = ReturnType<typeof getType>
-
-function getType(value: object) {
-  if (Array.isArray(value)) {
-    return 'Array'
-  }
-  return 'Object'
-}
-
-function getKeys(value: object, type: ObjectType) {
-  const keys = Object.keys(value)
-  if (type === 'Array') {
-    addKey(keys, value, 'length')
-  }
-  return keys.sort()
-}
-
-function addKey(keys: string[], value: object, key: string) {
-  if (Object.prototype.hasOwnProperty.call(value, key)) {
-    keys.push(key)
-  }
 }

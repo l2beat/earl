@@ -218,6 +218,34 @@ describe('isEqual', () => {
         [[1, 2, 3], { 0: 1, 1: 2, 2: 3 }, false],
       ],
     },
+    {
+      name: 'dates',
+      testCases: [
+        [new Date('2005-04-02T21:37:00.000+02:00'), new Date('2005-04-02T19:37:00.000Z'), true],
+        [
+          (() => {
+            const d = new Date('2005-04-02T21:37:00.000+02:00')
+            ;(d as any).foo = 'bar'
+            return d
+          })(),
+          new Date('2005-04-02T21:37:00.000+02:00'),
+          false,
+        ],
+        [
+          (() => {
+            const d = new Date('2005-04-02T21:37:00.000+02:00')
+            ;(d as any).foo = 'bar'
+            return d
+          })(),
+          (() => {
+            const d = new Date('2005-04-02T21:37:00.000+02:00')
+            ;(d as any).foo = 'bar'
+            return d
+          })(),
+          true,
+        ],
+      ],
+    },
   ]
 
   for (const { name, testCases } of groups) {

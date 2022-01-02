@@ -1,5 +1,5 @@
-import { formatObject } from './formatObject'
 import { FormatOptions } from './FormatOptions'
+import { formatWithObject } from './formatWithObject'
 
 export function formatFunction(
   value: Function,
@@ -8,13 +8,7 @@ export function formatFunction(
   stack: unknown[],
 ): [number, string][] {
   const signature = formatFunctionSignature(value, sibling, options)
-  const object = formatObject(value, sibling, options, stack)
-  if (object[0][1] === '{}') {
-    return [[0, signature]]
-  } else {
-    object[0][1] = `${signature} & ${object[0][1]}`
-    return object
-  }
+  return formatWithObject(signature, value, sibling, options, stack)
 }
 
 export function formatFunctionSignature(value: Function, sibling: unknown, options: FormatOptions): string {

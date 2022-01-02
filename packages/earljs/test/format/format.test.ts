@@ -259,6 +259,21 @@ describe('format', () => {
         ],
       ],
     },
+    {
+      name: 'date',
+      testCases: [
+        [new Date('2005-04-02T21:37:00.000+02:00'), null, 'Date(2005-04-02T19:37:00.000Z)'],
+        [
+          (() => {
+            const d = new Date('2005-04-02T21:37:00.000+02:00')
+            ;(d as any).foo = 'bar'
+            return d
+          })(),
+          null,
+          'Date(2005-04-02T19:37:00.000Z) & {\n  foo: "bar"\n}',
+        ],
+      ],
+    },
   ]
 
   for (const { name, testCases } of groups) {
