@@ -24,9 +24,7 @@ export function formatFunctionSignature(value: Function, sibling: unknown, optio
   if (
     typeof sibling === 'function' &&
     value !== sibling &&
-    (options.looseFunctionCompare
-      ? value.toString() !== sibling.toString()
-      : formatFunctionSignature(sibling, undefined, options) === formatted)
+    formatFunctionSignature(sibling, undefined, options) === formatted
   ) {
     formatted += ' (different)'
   }

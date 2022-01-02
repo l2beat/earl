@@ -1,16 +1,15 @@
-import { sortSymbols } from '../isEqual/sortSymbols'
 import { FormatOptions } from './FormatOptions'
-import { formatSymbol } from './formatSymbol'
 import { formatUnknown } from './formatUnknown'
 
 export function formatObject(value: object, sibling: unknown, options: FormatOptions): [number, string][] {
-  const keys = getKeys(value, sibling, options)
+  const keys = Object.keys(value).sort()
   if (keys.length === 0) {
     return [[0, '{}']]
   }
   const entries: [number, string][] = []
-  for (const [key, keyFormat] of keys) {
+  for (const key of keys) {
     try {
+      const keyFormat = formatKey(key)
       const valueFormat = formatUnknown((value as any)[key], (sibling as any)?.[key], options)
       valueFormat[0][1] = `${keyFormat}: ${valueFormat[0][1]}`
       for (const line of valueFormat) {
@@ -31,27 +30,6 @@ export function formatObject(value: object, sibling: unknown, options: FormatOpt
     entries.push([0, '}'])
     return entries
   }
-}
-
-export function getKeys(value: object, sibling: unknown, options: FormatOptions) {
-  const result: [string | symbol, string][] = []
-  const properties = Object.keys(value)
-  if (!options.strictObjectKeyOrder) {
-    properties.sort()
-  }
-  for (const prop of properties) {
-    result.push([prop, formatKey(prop)])
-  }
-  let symbols = Object.getOwnPropertySymbols(value)
-  let siblingSymbols = Object.getOwnPropertySymbols(sibling ?? {})
-  if (!options.strictObjectKeyOrder) {
-    symbols = sortSymbols(symbols, siblingSymbols)
-    siblingSymbols = sortSymbols(siblingSymbols, [])
-  }
-  for (let i = 0; i < symbols.length; i++) {
-    result.push([symbols[i], formatSymbol(symbols[i], siblingSymbols[i], options)])
-  }
-  return result
 }
 
 function formatKey(key: string) {

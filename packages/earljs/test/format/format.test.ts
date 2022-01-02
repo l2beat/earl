@@ -5,11 +5,8 @@ import { format, FormatOptions } from '../../src/format'
 
 describe('format', () => {
   const DEFAULTS: FormatOptions = {
-    looseFunctionCompare: false,
-    looseSymbolCompare: false,
     minusZero: false,
     uniqueNaNs: false,
-    strictObjectKeyOrder: false,
     indentSize: 2,
     inline: false,
   }
@@ -45,8 +42,8 @@ describe('format', () => {
         [Symbol('foo'), null, 'Symbol(foo)'],
         [Symbol('foo'), Symbol('foo'), 'Symbol(foo) (different)'],
         [Symbol('foo'), Symbol('bar'), 'Symbol(foo)'],
-        [Symbol('foo'), Symbol('foo'), 'Symbol(foo)', { looseSymbolCompare: true }],
         [Symbol.for('foo'), null, 'Symbol.for("foo")'],
+        [Symbol.for('foo'), Symbol.for('foo'), 'Symbol.for("foo")'],
         [Symbol.iterator, null, 'Symbol.iterator'],
       ],
     },
@@ -80,16 +77,14 @@ describe('format', () => {
       testCases: [
         [function a() {}, null, 'function a()'],
         [function a() {}, function a() {}, 'function a() (different)'],
-        [function a() {}, function a() {}, 'function a()', { looseFunctionCompare: true }],
         [function () {}, null, 'anonymous function'],
         [function () {}, function () {}, 'anonymous function (different)'],
-        [function () {}, function () {}, 'anonymous function', { looseFunctionCompare: true }],
         [Set.prototype.has, null, 'function has() (native)'],
         [Set.prototype.has, Map.prototype.has, 'function has() (native) (different)'],
-        [Set.prototype.has, Map.prototype.has, 'function has() (native)', { looseFunctionCompare: true }],
         [class A {}, null, 'class A'],
         [class A {}, class A {}, 'class A (different)'],
-        [class A {}, class A {}, 'class A', { looseFunctionCompare: true }],
+        [class {}, null, 'anonymous class'],
+        [class {}, class {}, 'anonymous class (different)'],
         [Array, null, 'function Array() (native)'],
       ],
     },
@@ -101,81 +96,11 @@ describe('format', () => {
         [{ x: 1, y: 2 }, null, '{\n    x: 1\n    y: 2\n}', { indentSize: 4 }],
         [{ x: 1, y: 2 }, null, '{ x: 1, y: 2 }', { inline: true }],
         [{ y: 2, x: 1 }, null, '{\n  x: 1\n  y: 2\n}'],
-        [{ y: 2, x: 1 }, null, '{\n  y: 2\n  x: 1\n}', { strictObjectKeyOrder: true }],
         [{ '': 1, y: 2 }, null, '{\n  "": 1\n  y: 2\n}'],
         [{ 'foo\nbar': 1 }, null, '{\n  "foo\\nbar": 1\n}'],
         [{ x: 1, y: { a: 'x', b: 'y' } }, null, '{\n  x: 1\n  y: {\n    a: "x"\n    b: "y"\n  }\n}'],
         [{ x: 1, y: { a: 'x', b: 'y' } }, null, '{\n x: 1\n y: {\n  a: "x"\n  b: "y"\n }\n}', { indentSize: 1 }],
         [{ x: 1, y: { a: 'x', b: 'y' } }, null, '{ x: 1, y: { a: "x", b: "y" } }', { inline: true }],
-        [{ a: 1, b: 2, [Symbol('x')]: 3 }, null, '{\n  a: 1\n  b: 2\n  Symbol(x): 3\n}'],
-        [
-          { a: 1, [Symbol('y')]: 2, b: 3, [Symbol('x')]: 4 },
-          null,
-          '{\n  a: 1\n  b: 3\n  Symbol(x): 4\n  Symbol(y): 2\n}',
-        ],
-        [
-          { a: 1, [Symbol('y')]: 2, b: 3, [Symbol('x')]: 4 },
-          null,
-          '{\n  a: 1\n  b: 3\n  Symbol(x): 4\n  Symbol(y): 2\n}',
-          { looseSymbolCompare: true },
-        ],
-        [{ a: Symbol() }, { a: Symbol() }, '{\n  a: Symbol() (different)\n}'],
-        [{ [Symbol()]: 1 }, { [Symbol()]: 1 }, '{\n  Symbol() (different): 1\n}'],
-        [{ [Symbol()]: 1 }, { [Symbol()]: 1 }, '{\n  Symbol(): 1\n}', { looseSymbolCompare: true }],
-        [
-          { [Symbol('x')]: 1, [Symbol('y')]: 2 },
-          { [Symbol('y')]: 2, [Symbol('x')]: 1 },
-          '{\n  Symbol(x): 1\n  Symbol(y): 2\n}',
-          { looseSymbolCompare: true },
-        ],
-        [
-          { [Symbol('y')]: 1, [Symbol('x')]: 2 },
-          null,
-          '{\n  Symbol(x): 2\n  Symbol(y): 1\n}',
-          { looseSymbolCompare: true },
-        ],
-        [
-          { [Symbol('y')]: 1, [Symbol('x')]: 2 },
-          { [Symbol('y')]: 1, [Symbol('x')]: 2 },
-          '{\n  Symbol(x) (different): 2\n  Symbol(y) (different): 1\n}',
-        ],
-        [
-          { [Symbol('y')]: 1, [Symbol('x')]: 2 },
-          { [Symbol('x')]: 2, [Symbol('y')]: 1 },
-          '{\n  Symbol(x) (different): 2\n  Symbol(y) (different): 1\n}',
-        ],
-        [
-          { [Symbol.for('y')]: 1, [Symbol.for('x')]: 2 },
-          { [Symbol.for('x')]: 2, [Symbol.for('y')]: 1 },
-          '{\n  Symbol.for("x"): 2\n  Symbol.for("y"): 1\n}',
-        ],
-        [
-          { [Symbol.for('x')]: 2, [Symbol.for('y')]: 1 },
-          { [Symbol.for('y')]: 1, [Symbol.for('x')]: 2 },
-          '{\n  Symbol.for("x"): 2\n  Symbol.for("y"): 1\n}',
-        ],
-        [
-          { [Symbol.for('x')]: 2, [Symbol.for('z')]: 3, [Symbol.for('y')]: 1 },
-          { [Symbol.for('y')]: 1, [Symbol.for('w')]: 4, [Symbol.for('x')]: 2 },
-          '{\n  Symbol.for("x"): 2\n  Symbol.for("y"): 1\n  Symbol.for("z"): 3\n}',
-        ],
-        [
-          { [Symbol.for('y')]: 1, [Symbol.for('w')]: 4, [Symbol.for('x')]: 2 },
-          { [Symbol.for('x')]: 2, [Symbol.for('z')]: 3, [Symbol.for('y')]: 1 },
-          '{\n  Symbol.for("w"): 4\n  Symbol.for("x"): 2\n  Symbol.for("y"): 1\n}',
-        ],
-        [
-          { [Symbol.for('y')]: 1, [Symbol.for('x')]: 2 },
-          { [Symbol.for('x')]: 2, [Symbol.for('y')]: 1 },
-          '{\n  Symbol.for("y"): 1\n  Symbol.for("x"): 2\n}',
-          { strictObjectKeyOrder: true },
-        ],
-        [
-          { [Symbol.for('x')]: 2, [Symbol.for('y')]: 1 },
-          { [Symbol.for('y')]: 1, [Symbol.for('x')]: 2 },
-          '{\n  Symbol.for("x"): 2\n  Symbol.for("y"): 1\n}',
-          { strictObjectKeyOrder: true },
-        ],
       ],
     },
     {
@@ -189,6 +114,15 @@ describe('format', () => {
           })(),
           null,
           'function x() & {\n  a: 1\n}',
+        ],
+        [
+          (() => {
+            function x() {}
+            x.a = 1
+            return x
+          })(),
+          function x() {},
+          'function x() (different) & {\n  a: 1\n}',
         ],
         [
           (() => {

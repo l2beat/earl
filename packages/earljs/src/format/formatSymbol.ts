@@ -18,7 +18,6 @@ export function formatSymbol(value: symbol, sibling: unknown, options: FormatOpt
     return wellKnown
   }
   if (
-    !options.looseSymbolCompare &&
     typeof sibling === 'symbol' &&
     value !== sibling &&
     value.toString() === sibling.toString()

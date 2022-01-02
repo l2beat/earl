@@ -6,11 +6,8 @@ import { EqualityOptions, isEqual } from '../../src/isEqual'
 
 describe('isEqual', () => {
   const DEFAULTS: EqualityOptions = {
-    looseFunctionCompare: false,
-    looseSymbolCompare: false,
     minusZero: false,
     uniqueNaNs: false,
-    strictObjectKeyOrder: false,
   }
   const FORMAT_OPTIONS: FormatOptions = {
     ...DEFAULTS,
@@ -52,15 +49,14 @@ describe('isEqual', () => {
       name: 'symbols',
       testCases: [
         [Symbol(), Symbol(), false],
-        [Symbol(), Symbol(), true, { looseSymbolCompare: true }],
         [...twice(Symbol()), true],
         [Symbol('foo'), Symbol('foo'), false],
         [...twice(Symbol('foo')), true],
-        [Symbol('foo'), Symbol('foo'), true, { looseSymbolCompare: true }],
-        [Symbol('foo'), Symbol.for('foo'), false, { looseSymbolCompare: true }],
         [Symbol.for('foo'), Symbol.for('foo'), true],
-        [Symbol.for('foo'), Symbol.for('foo'), true, { looseSymbolCompare: true }],
+        [Symbol.for('foo'), Symbol.for('bar'), false],
+        [Symbol.for('foo'), Symbol('foo'), false],
         [Symbol.iterator, Symbol.iterator, true],
+        [Symbol.iterator, Symbol.asyncIterator, false],
       ],
     },
     {
@@ -68,6 +64,7 @@ describe('isEqual', () => {
       testCases: [
         ['foo', 'foo', true],
         ['foo', 'bar', false],
+        ['', ' ', false],
       ],
     },
     {
@@ -75,6 +72,9 @@ describe('isEqual', () => {
       testCases: [
         [BigInt(1), BigInt(1), true],
         [BigInt(1), BigInt(-2), false],
+        [BigInt(0), BigInt(-0), true],
+        // minus zero does not affect bigint
+        [BigInt(0), BigInt(-0), true, { minusZero: true }],
       ],
     },
     {
@@ -101,27 +101,15 @@ describe('isEqual', () => {
       testCases: [
         [function a() {}, function a() {}, false],
         [...twice(function a() {}), true],
-        [function a() {}, function a() {}, true, { looseFunctionCompare: true }],
-        [
-          function a() {
-            return 1
-          },
-          function a() {
-            return 2
-          },
-          false,
-          { looseFunctionCompare: true },
-        ],
         [function () {}, function () {}, false],
         [...twice(function () {}), true],
-        [function () {}, function () {}, true, { looseFunctionCompare: true }],
         [Set.prototype.has, Set.prototype.has, true],
         [Set.prototype.has, Map.prototype.has, false],
-        [Set.prototype.has, Map.prototype.has, true, { looseFunctionCompare: true }],
         [class A {}, class A {}, false],
         [...twice(class A {}), true],
-        [class A {}, class A {}, true, { looseFunctionCompare: true }],
-        [class A {}, function A() {}, false, { looseFunctionCompare: true }],
+        [class {}, class {}, false],
+        [...twice(class {}), true],
+        [class A {}, function A() {}, false],
         [Array, Array, true],
         [Array, Error, false],
       ],
@@ -135,24 +123,6 @@ describe('isEqual', () => {
         [{ x: 1, y: 2 }, { x: 1, y: 3 }, false],
         [{ x: 1, y: { a: 'x', b: 'y' } }, { x: 1, y: { a: 'x', b: 'y' } }, true],
         [{ x: 1, y: 2 }, { y: 2, x: 1 }, true],
-        [{ x: 1, y: 2 }, { y: 2, x: 1 }, false, { strictObjectKeyOrder: true }],
-        [{ x: 1, y: 2 }, { x: 1, y: 2 }, true, { strictObjectKeyOrder: true }],
-        [{ x: 1, [Symbol()]: 1 }, { x: 1, [Symbol()]: 1 }, false],
-        [{ x: 1, [Symbol()]: 1 }, { x: 1, [Symbol()]: 1 }, true, { looseSymbolCompare: true }],
-        [{ [Symbol.for('x')]: 1, [Symbol.for('y')]: 1 }, { [Symbol.for('x')]: 1, [Symbol.for('y')]: 1 }, true],
-        [{ [Symbol.for('x')]: 1, [Symbol.for('y')]: 1 }, { [Symbol.for('y')]: 1, [Symbol.for('x')]: 1 }, true],
-        [
-          { [Symbol.for('x')]: 1, [Symbol.for('y')]: 1 },
-          { [Symbol.for('y')]: 1, [Symbol.for('x')]: 1 },
-          false,
-          { strictObjectKeyOrder: true },
-        ],
-        [
-          { [Symbol.for('x')]: 1, [Symbol.for('y')]: 1 },
-          { [Symbol.for('y')]: 1, [Symbol.for('x')]: 1 },
-          true,
-          { looseSymbolCompare: true },
-        ],
       ],
     },
     {
@@ -172,77 +142,12 @@ describe('isEqual', () => {
           false,
         ],
         [
-          (() => {
-            function x() {}
-            x.a = 1
-            return x
-          })(),
-          (() => {
-            function x() {}
-            x.a = 1
-            return x
-          })(),
-          true,
-          { looseFunctionCompare: true },
-        ],
-        [
-          (() => {
-            function x() {}
-            x.a = 1
-            return x
-          })(),
-          (() => {
-            function x() {}
-            x.a = 2
-            return x
-          })(),
-          false,
-          { looseFunctionCompare: true },
-        ],
-        [
           ...twice(
             (() => {
               function x() {}
               x.a = 1
               return x
             })(),
-          ),
-          true,
-        ],
-        [
-          class X {
-            static a = 1
-          },
-          class X {
-            static a = 1
-          },
-          false,
-        ],
-        [
-          class X {
-            static a = 1
-          },
-          class X {
-            static a = 1
-          },
-          true,
-          { looseFunctionCompare: true },
-        ],
-        [
-          class X {
-            static a = 1
-          },
-          class X {
-            static a = 2
-          },
-          false,
-          { looseFunctionCompare: true },
-        ],
-        [
-          ...twice(
-            class X {
-              static a = 1
-            },
           ),
           true,
         ],
