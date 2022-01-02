@@ -184,6 +184,40 @@ describe('isEqual', () => {
         ],
       ],
     },
+    {
+      name: 'arrays',
+      testCases: [
+        [[], [], true],
+        [[1, 2, 3], [1, 2, 3], true],
+        [[1, 2, 3], [1, 'boo', 'asd'], false],
+        [new Array(3), [undefined, undefined, undefined], false],
+        [new Array(3), new Array(3), true],
+        [new Array(3), new Array(4), false],
+        [
+          (() => {
+            const x = [1, 2, 3]
+            ;(x as any).foo = 'bar'
+            return x
+          })(),
+          [1, 2, 3],
+          false,
+        ],
+        [
+          (() => {
+            const x = [1, 2, 3]
+            ;(x as any).foo = 'bar'
+            return x
+          })(),
+          (() => {
+            const x = [1, 2, 3]
+            ;(x as any).foo = 'bar'
+            return x
+          })(),
+          true,
+        ],
+        [[1, 2, 3], { 0: 1, 1: 2, 2: 3 }, false],
+      ],
+    },
   ]
 
   for (const { name, testCases } of groups) {

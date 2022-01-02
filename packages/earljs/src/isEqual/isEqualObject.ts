@@ -12,6 +12,10 @@ export function isEqualObject(
     return true
   }
 
+  if (arrayMismatch(value, other)) {
+    return false
+  }
+
   const valueIndex = valueStack.indexOf(value)
   const otherIndex = otherStack.indexOf(other)
   if (valueIndex !== -1 || otherIndex !== -1) {
@@ -40,4 +44,10 @@ export function isEqualObject(
   valueStack.pop()
   otherStack.pop()
   return result
+}
+
+function arrayMismatch(value: unknown, other: unknown) {
+  const a = Array.isArray(value)
+  const b = Array.isArray(other)
+  return (a || b) && (a !== b || (value as unknown[]).length !== (other as unknown[]).length)
 }

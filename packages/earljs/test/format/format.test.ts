@@ -218,6 +218,47 @@ describe('format', () => {
         ],
       ],
     },
+    {
+      name: 'arrays',
+      testCases: [
+        [[], null, '[]'],
+        [[1, 2, 'asd', { x: 1, y: 2 }], null, '[\n  1\n  2\n  "asd"\n  {\n    x: 1\n    y: 2\n  }\n]'],
+        [[1, 2, 'asd', { x: 1, y: 2 }], null, '[1, 2, "asd", { x: 1, y: 2 }]', { inline: true }],
+        [[1, 2, 'asd', { x: 1, y: 2 }], null, '[\n  1\n  2\n  "asd"\n  {\n    x: 1\n    y: 2\n  }\n]'],
+        [
+          (() => {
+            const x = [1, 2, 3]
+            ;(x as any).y = 'asd'
+            ;(x as any).x = 'def'
+            return x
+          })(),
+          null,
+          '[\n  1\n  2\n  3\n  x: "def"\n  y: "asd"\n]',
+        ],
+        [
+          (() => {
+            const x = [1, 2]
+            x[4] = 5
+            x.length = 8
+            return x
+          })(),
+          null,
+          '[\n  1\n  2\n  <2 empty items>\n  5\n  <3 empty items>\n]',
+        ],
+        [new Array(5), null, '[\n  <5 empty items>\n]'],
+        [
+          (() => {
+            const x = [1, 2]
+            x[4] = 5
+            ;(x as any).y = 'foo'
+            ;(x as any).x = 'bar'
+            return x
+          })(),
+          null,
+          '[\n  1\n  2\n  <2 empty items>\n  5\n  x: "bar"\n  y: "foo"\n]',
+        ],
+      ],
+    },
   ]
 
   for (const { name, testCases } of groups) {
