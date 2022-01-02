@@ -144,6 +144,17 @@ describe('isEqual', () => {
         [{ x: 1, y: 2 }, { x: 1, y: 3 }, false],
         [{ x: 1, y: { a: 'x', b: 'y' } }, { x: 1, y: { a: 'x', b: 'y' } }, true],
         [{ x: 1, y: 2 }, { y: 2, x: 1 }, true],
+        ...(() => {
+          class Vector2 {
+            constructor(public x: number, public y: number) {}
+          }
+          return [
+            [new Vector2(1, 2), new Vector2(1, 2), true],
+            [new Vector2(1, 2), new Vector2(3, 4), false],
+            [new Vector2(1, 2), { x: 1, y: 2 }, false],
+            [new Vector2(1, 2), { x: 1, y: 2 }, true, { ignorePrototypes: true }],
+          ] as TestCase[]
+        })(),
       ],
     },
     {
@@ -213,6 +224,15 @@ describe('isEqual', () => {
         [Object.assign([1, 2, 3], { foo: 'bar' }), Object.assign([1, 2, 3], { foo: 'bar' }), true],
         [[1, 2, 3], { 0: 1, 1: 2, 2: 3 }, false],
       ],
+      ...(() => {
+        class MyArray extends Array {}
+        return [
+          [MyArray.from([1, 2]), MyArray.from([1, 2]), true],
+          [MyArray.from([1, 2]), MyArray.from([3, 4]), false],
+          [MyArray.from([1, 2]), [1, 2], false],
+          [MyArray.from([1, 2]), [1, 2], true, { ignorePrototypes: true }],
+        ] as TestCase[]
+      })(),
     },
     {
       name: 'dates',
@@ -228,6 +248,17 @@ describe('isEqual', () => {
           Object.assign(new Date('2005-04-02T21:37:00.000+02:00'), { foo: 'bar' }),
           true,
         ],
+        ...(() => {
+          class MyDate extends Date {}
+          return [
+            [new Date(123), new MyDate(123), false],
+            [new Date(123), new MyDate(123), true, { ignorePrototypes: true }],
+            [new MyDate(123), new MyDate(123), true],
+            [new MyDate(123), new MyDate(456), false],
+            [new MyDate(123), new (class MyDate extends Date {})(123), false],
+            [new MyDate(123), new (class MyDate extends Date {})(123), true, { ignorePrototypes: true }],
+          ] as TestCase[]
+        })(),
       ],
     },
     {
@@ -237,6 +268,17 @@ describe('isEqual', () => {
         [/asd/, /asd/i, false],
         [Object.assign(/asd/, { foo: 'bar' }), /asd/, false],
         [Object.assign(/asd/, { foo: 'bar' }), Object.assign(/asd/, { foo: 'bar' }), true],
+        ...(() => {
+          class MyRegExp extends RegExp {}
+          return [
+            [new RegExp('foo'), new MyRegExp('foo'), false],
+            [new RegExp('foo'), new MyRegExp('foo'), true, { ignorePrototypes: true }],
+            [new MyRegExp('foo'), new MyRegExp('foo'), true],
+            [new MyRegExp('foo'), new MyRegExp('bar'), false],
+            [new MyRegExp('foo'), new (class MyRegExp extends RegExp {})('foo'), false],
+            [new MyRegExp('foo'), new (class MyRegExp extends RegExp {})('foo'), true, { ignorePrototypes: true }],
+          ] as TestCase[]
+        })(),
       ],
     },
     {
@@ -253,6 +295,34 @@ describe('isEqual', () => {
         [new Boolean(true), true, false],
         [Object.assign(new String('foo'), { foo: 'bar' }), new String('foo'), false],
         [Object.assign(new String('foo'), { foo: 'bar' }), Object.assign(new String('foo'), { foo: 'bar' }), true],
+        ...(() => {
+          class MyString extends String {}
+          class MyNumber extends Number {}
+          class MyBoolean extends Boolean {}
+
+          return [
+            [new String('foo'), new MyString('foo'), false],
+            [new String('foo'), new MyString('foo'), true, { ignorePrototypes: true }],
+            [new MyString('foo'), new MyString('foo'), true],
+            [new MyString('foo'), new MyString('bar'), false],
+            [new MyString('foo'), new (class MyString extends String {})('foo'), false],
+            [new MyString('foo'), new (class MyString extends String {})('foo'), true, { ignorePrototypes: true }],
+
+            [new Number(123), new MyNumber(123), false],
+            [new Number(123), new MyNumber(123), true, { ignorePrototypes: true }],
+            [new MyNumber(123), new MyNumber(123), true],
+            [new MyNumber(123), new MyNumber(456), false],
+            [new MyNumber(123), new (class MyNumber extends Number {})(123), false],
+            [new MyNumber(123), new (class MyNumber extends Number {})(123), true, { ignorePrototypes: true }],
+
+            [new Boolean(true), new MyBoolean(true), false],
+            [new Boolean(true), new MyBoolean(true), true, { ignorePrototypes: true }],
+            [new MyBoolean(true), new MyBoolean(true), true],
+            [new MyBoolean(true), new MyBoolean(false), false],
+            [new MyBoolean(true), new (class MyBoolean extends Boolean {})(true), false],
+            [new MyBoolean(true), new (class MyBoolean extends Boolean {})(true), true, { ignorePrototypes: true }],
+          ] as TestCase[]
+        })(),
       ],
     },
     {
@@ -264,79 +334,21 @@ describe('isEqual', () => {
         [...twice(new WeakMap()), true],
         [new WeakSet(), new WeakSet(), false],
         [...twice(new WeakSet()), true],
+        ...(() => {
+          class MyPromise extends Promise<number> {}
+          class MyWeakMap extends WeakMap {}
+          class MyWeakSet extends WeakSet {}
+
+          return [
+            [MyPromise.resolve(1), MyPromise.resolve(1), false],
+            [MyPromise.resolve(1), Promise.resolve(1), false],
+            [new MyWeakMap(), new MyWeakMap(), false],
+            [new MyWeakMap(), new WeakMap(), false],
+            [new MyWeakSet(), new MyWeakSet(), false],
+            [new MyWeakSet(), new WeakSet(), false],
+          ] as TestCase[]
+        })(),
       ],
-    },
-    {
-      name: 'different prototypes',
-      testCases: (() => {
-        class Vector2 {
-          constructor(public x: number, public y: number) {}
-        }
-
-        class MyArray extends Array {}
-        class MyString extends String {}
-        class MyNumber extends Number {}
-        class MyBoolean extends Boolean {}
-        class MyDate extends Date {}
-        class MyRegExp extends RegExp {}
-        class MyPromise extends Promise<number> {}
-        class MyWeakMap extends WeakMap {}
-        class MyWeakSet extends WeakSet {}
-
-        return [
-          [new Vector2(1, 2), new Vector2(1, 2), true],
-          [new Vector2(1, 2), new Vector2(3, 4), false],
-          [new Vector2(1, 2), { x: 1, y: 2 }, false],
-          [new Vector2(1, 2), { x: 1, y: 2 }, true, { ignorePrototypes: true }],
-
-          [MyArray.from([1, 2]), MyArray.from([1, 2]), true],
-          [MyArray.from([1, 2]), MyArray.from([3, 4]), false],
-          [MyArray.from([1, 2]), [1, 2], false],
-          [MyArray.from([1, 2]), [1, 2], true, { ignorePrototypes: true }],
-
-          [new String('foo'), new MyString('foo'), false],
-          [new String('foo'), new MyString('foo'), true, { ignorePrototypes: true }],
-          [new MyString('foo'), new MyString('foo'), true],
-          [new MyString('foo'), new MyString('bar'), false],
-          [new MyString('foo'), new (class MyString extends String {})('foo'), false],
-          [new MyString('foo'), new (class MyString extends String {})('foo'), true, { ignorePrototypes: true }],
-
-          [new Number(123), new MyNumber(123), false],
-          [new Number(123), new MyNumber(123), true, { ignorePrototypes: true }],
-          [new MyNumber(123), new MyNumber(123), true],
-          [new MyNumber(123), new MyNumber(456), false],
-          [new MyNumber(123), new (class MyNumber extends Number {})(123), false],
-          [new MyNumber(123), new (class MyNumber extends Number {})(123), true, { ignorePrototypes: true }],
-
-          [new Boolean(true), new MyBoolean(true), false],
-          [new Boolean(true), new MyBoolean(true), true, { ignorePrototypes: true }],
-          [new MyBoolean(true), new MyBoolean(true), true],
-          [new MyBoolean(true), new MyBoolean(false), false],
-          [new MyBoolean(true), new (class MyBoolean extends Boolean {})(true), false],
-          [new MyBoolean(true), new (class MyBoolean extends Boolean {})(true), true, { ignorePrototypes: true }],
-
-          [new Date(123), new MyDate(123), false],
-          [new Date(123), new MyDate(123), true, { ignorePrototypes: true }],
-          [new MyDate(123), new MyDate(123), true],
-          [new MyDate(123), new MyDate(456), false],
-          [new MyDate(123), new (class MyDate extends Date {})(123), false],
-          [new MyDate(123), new (class MyDate extends Date {})(123), true, { ignorePrototypes: true }],
-
-          [new RegExp('foo'), new MyRegExp('foo'), false],
-          [new RegExp('foo'), new MyRegExp('foo'), true, { ignorePrototypes: true }],
-          [new MyRegExp('foo'), new MyRegExp('foo'), true],
-          [new MyRegExp('foo'), new MyRegExp('bar'), false],
-          [new MyRegExp('foo'), new (class MyRegExp extends RegExp {})('foo'), false],
-          [new MyRegExp('foo'), new (class MyRegExp extends RegExp {})('foo'), true, { ignorePrototypes: true }],
-
-          [MyPromise.resolve(1), MyPromise.resolve(1), false],
-          [MyPromise.resolve(1), Promise.resolve(1), false],
-          [new MyWeakMap(), new MyWeakMap(), false],
-          [new MyWeakMap(), new WeakMap(), false],
-          [new MyWeakSet(), new MyWeakSet(), false],
-          [new MyWeakSet(), new WeakSet(), false],
-        ]
-      })(),
     },
   ]
 

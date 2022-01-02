@@ -132,6 +132,30 @@ describe('format', () => {
         [{ x: 1, y: { a: 'x', b: 'y' } }, null, '{\n  x: 1\n  y: {\n    a: "x"\n    b: "y"\n  }\n}'],
         [{ x: 1, y: { a: 'x', b: 'y' } }, null, '{\n x: 1\n y: {\n  a: "x"\n  b: "y"\n }\n}', { indentSize: 1 }],
         [{ x: 1, y: { a: 'x', b: 'y' } }, null, '{ x: 1, y: { a: "x", b: "y" } }', { inline: true }],
+        [
+          new (class Vector2 {
+            constructor(public x: number, public y: number) {}
+          })(1, 2),
+          null,
+          'Vector2 {\n  x: 1\n  y: 2\n}',
+        ],
+        [
+          new (class Vector2 {
+            constructor(public x: number, public y: number) {}
+          })(1, 2),
+          new (class Vector2 {
+            constructor(public x: number, public y: number) {}
+          })(1, 2),
+          'Vector2 (different prototype) {\n  x: 1\n  y: 2\n}',
+        ],
+        [
+          new (class Vector2 {
+            constructor(public x: number, public y: number) {}
+          })(1, 2),
+          null,
+          '{\n  x: 1\n  y: 2\n}',
+          { ignorePrototypes: true },
+        ],
       ],
     },
     {
@@ -221,6 +245,13 @@ describe('format', () => {
           null,
           '[\n  1\n  2\n  <2 empty items>\n  5\n  x: "bar"\n  y: "foo"\n]',
         ],
+        [class MyArray extends Array {}.from([1, 2]), null, 'MyArray [\n  1\n  2\n]'],
+        [
+          class MyArray extends Array {}.from([1, 2]),
+          class MyArray extends Array {}.from([1, 2]),
+          'MyArray (different prototype) [\n  1\n  2\n]',
+        ],
+        [class MyArray extends Array {}.from([1, 2]), null, '[\n  1\n  2\n]', { ignorePrototypes: true }],
       ],
     },
     {
@@ -232,6 +263,13 @@ describe('format', () => {
           null,
           'Date 2005-04-02T19:37:00.000Z & {\n  foo: "bar"\n}',
         ],
+        [new (class MyDate extends Date {})(0), null, 'MyDate 1970-01-01T00:00:00.000Z'],
+        [
+          new (class MyDate extends Date {})(0),
+          new (class MyDate extends Date {})(0),
+          'MyDate (different prototype) 1970-01-01T00:00:00.000Z',
+        ],
+        [new (class MyDate extends Date {})(0), null, 'Date 1970-01-01T00:00:00.000Z', { ignorePrototypes: true }],
       ],
     },
     {
@@ -240,6 +278,13 @@ describe('format', () => {
         [/asd/, null, '/asd/'],
         [/asd/i, null, '/asd/i'],
         [Object.assign(/asd/, { foo: 'bar' }), null, '/asd/ & {\n  foo: "bar"\n}'],
+        [new (class MyRegExp extends RegExp {})('foo', 'gi'), null, 'MyRegExp /foo/gi'],
+        [
+          new (class MyRegExp extends RegExp {})('foo', 'gi'),
+          new (class MyRegExp extends RegExp {})('foo', 'gi'),
+          'MyRegExp (different prototype) /foo/gi',
+        ],
+        [new (class MyRegExp extends RegExp {})('foo', 'gi'), null, '/foo/gi', { ignorePrototypes: true }],
       ],
     },
     {
@@ -249,22 +294,6 @@ describe('format', () => {
         [new Number(123), null, 'Number 123'],
         [new Boolean(false), null, 'Boolean false'],
         [Object.assign(new String('foo'), { foo: 'bar' }), null, 'String "foo" & {\n  foo: "bar"\n}'],
-      ],
-    },
-    {
-      name: 'unique instances',
-      testCases: [
-        [Promise.resolve('foo'), null, 'Promise'],
-        [Promise.resolve('foo'), Promise.resolve('foo'), 'Promise (different)'],
-        [new WeakMap(), null, 'WeakMap'],
-        [new WeakMap(), new WeakMap(), 'WeakMap (different)'],
-        [new WeakSet(), null, 'WeakSet'],
-        [new WeakSet(), new WeakSet(), 'WeakSet (different)'],
-      ],
-    },
-    {
-      name: 'different prototypes',
-      testCases: [
         [new (class MyString extends String {})('foo'), null, 'MyString "foo"'],
         [
           new (class MyString extends String {})('foo'),
@@ -279,44 +308,17 @@ describe('format', () => {
         ],
         [new (class MyNumber extends Number {})(123), null, 'MyNumber 123'],
         [new (class MyBoolean extends Boolean {})(true), null, 'MyBoolean true'],
-        [
-          new (class Vector2 {
-            constructor(public x: number, public y: number) {}
-          })(1, 2),
-          null,
-          'Vector2 {\n  x: 1\n  y: 2\n}',
-        ],
-        [
-          new (class Vector2 {
-            constructor(public x: number, public y: number) {}
-          })(1, 2),
-          new (class Vector2 {
-            constructor(public x: number, public y: number) {}
-          })(1, 2),
-          'Vector2 (different prototype) {\n  x: 1\n  y: 2\n}',
-        ],
-        [
-          new (class Vector2 {
-            constructor(public x: number, public y: number) {}
-          })(1, 2),
-          null,
-          '{\n  x: 1\n  y: 2\n}',
-          { ignorePrototypes: true },
-        ],
-        [class MyArray extends Array {}.from([1, 2]), null, 'MyArray [\n  1\n  2\n]'],
-        [
-          class MyArray extends Array {}.from([1, 2]),
-          class MyArray extends Array {}.from([1, 2]),
-          'MyArray (different prototype) [\n  1\n  2\n]',
-        ],
-        [class MyArray extends Array {}.from([1, 2]), null, '[\n  1\n  2\n]', { ignorePrototypes: true }],
-        [new (class MyRegExp extends RegExp {})('foo', 'gi'), null, 'MyRegExp /foo/gi'],
-        [
-          new (class MyRegExp extends RegExp {})('foo', 'gi'),
-          new (class MyRegExp extends RegExp {})('foo', 'gi'),
-          'MyRegExp (different prototype) /foo/gi',
-        ],
-        [new (class MyRegExp extends RegExp {})('foo', 'gi'), null, '/foo/gi', { ignorePrototypes: true }],
+      ],
+    },
+    {
+      name: 'unique instances',
+      testCases: [
+        [Promise.resolve('foo'), null, 'Promise'],
+        [Promise.resolve('foo'), Promise.resolve('foo'), 'Promise (different)'],
+        [new WeakMap(), null, 'WeakMap'],
+        [new WeakMap(), new WeakMap(), 'WeakMap (different)'],
+        [new WeakSet(), null, 'WeakSet'],
+        [new WeakSet(), new WeakSet(), 'WeakSet (different)'],
         [class MyPromise extends Promise<number> {}.resolve(1), null, 'MyPromise'],
         [
           class MyPromise extends Promise<number> {}.resolve(1),
@@ -338,13 +340,6 @@ describe('format', () => {
           'MyWeakSet (different)',
         ],
         [new (class MyWeakSet extends WeakSet {})(), null, 'WeakSet', { ignorePrototypes: true }],
-        [new (class MyDate extends Date {})(0), null, 'MyDate 1970-01-01T00:00:00.000Z'],
-        [
-          new (class MyDate extends Date {})(0),
-          new (class MyDate extends Date {})(0),
-          'MyDate (different prototype) 1970-01-01T00:00:00.000Z',
-        ],
-        [new (class MyDate extends Date {})(0), null, 'Date 1970-01-01T00:00:00.000Z', { ignorePrototypes: true }],
       ],
     },
   ]
