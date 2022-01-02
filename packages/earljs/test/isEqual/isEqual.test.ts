@@ -4,13 +4,15 @@ import { expect } from 'chai'
 
 import { format, FormatOptions } from '../../src/format'
 import { EqualityOptions, isEqual } from '../../src/isEqual'
+import { AMatcher } from '../../src/matchers'
 
 describe('isEqual', () => {
-  const DEFAULTS: EqualityOptions = {
+  const DEFAULTS: EqualityOptions & { oneWay: boolean } = {
     minusZero: false,
     uniqueNaNs: false,
     ignorePrototypes: false,
     compareErrorStack: false,
+    oneWay: false,
   }
   const FORMAT_OPTIONS: FormatOptions = {
     ...DEFAULTS,
@@ -23,7 +25,7 @@ describe('isEqual', () => {
     name: string
     testCases: TestCase[]
   }
-  type TestCase = [unknown, unknown, boolean, Partial<EqualityOptions>?]
+  type TestCase = [unknown, unknown, boolean, Partial<EqualityOptions & { oneWay: boolean }>?]
 
   function twice<T>(value: T): [T, T] {
     return [value, value]
@@ -374,6 +376,13 @@ describe('isEqual', () => {
         ],
       ],
     },
+    {
+      name: 'matchers',
+      testCases: [
+        [{ x: 1, y: 2 }, { x: new AMatcher(Number), y: new AMatcher(Number) }, true, { oneWay: true }],
+        [{ x: 1, y: 2 }, { x: new AMatcher(Number), y: new AMatcher(String) }, false, { oneWay: true }],
+      ],
+    },
   ]
 
   for (const { name, testCases } of groups) {
@@ -392,10 +401,12 @@ describe('isEqual', () => {
             expect(result).to.equal(expected)
           })
 
-          it('b -> a', () => {
-            const result = isEqual(b, a, equalityOptions)
-            expect(result).to.equal(expected)
-          })
+          if (!equalityOptions.oneWay) {
+            it('b -> a', () => {
+              const result = isEqual(b, a, equalityOptions)
+              expect(result).to.equal(expected)
+            })
+          }
 
           it('format a -> b', () => {
             const aDiff = format(a, null, formatOptions)
@@ -407,15 +418,17 @@ describe('isEqual', () => {
             }
           })
 
-          it('format b -> a', () => {
-            const aDiff = format(a, b, formatOptions)
-            const bDiff = format(b, null, formatOptions)
-            if (expected) {
-              expect(aDiff).to.equal(bDiff)
-            } else {
-              expect(aDiff).not.to.equal(bDiff)
-            }
-          })
+          if (!equalityOptions.oneWay) {
+            it('format b -> a', () => {
+              const aDiff = format(a, b, formatOptions)
+              const bDiff = format(b, null, formatOptions)
+              if (expected) {
+                expect(aDiff).to.equal(bDiff)
+              } else {
+                expect(aDiff).not.to.equal(bDiff)
+              }
+            })
+          }
         })
       }
     })

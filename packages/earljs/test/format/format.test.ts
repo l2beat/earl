@@ -3,6 +3,7 @@
 import { expect } from 'chai'
 
 import { format, FormatOptions } from '../../src/format'
+import { AMatcher } from '../../src/matchers'
 
 describe('format', () => {
   const DEFAULTS: FormatOptions = {
@@ -374,6 +375,13 @@ describe('format', () => {
           'Error {\n  message: "foo"\n  name: "Error"\n  stack: "foobar"\n}',
           { compareErrorStack: true },
         ],
+      ],
+    },
+    {
+      name: 'matchers',
+      testCases: [
+        [new AMatcher(String), 'foo', '"foo"'],
+        [new AMatcher(String), 123, 'Matcher [A: String]'],
       ],
     },
   ]

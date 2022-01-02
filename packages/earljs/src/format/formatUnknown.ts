@@ -1,3 +1,4 @@
+import { Matcher } from '../matchers'
 import { formatNumber } from './formatNumber'
 import { formatObject } from './formatObject'
 import { FormatOptions } from './FormatOptions'
@@ -19,6 +20,14 @@ export function formatUnknown(
     return [[0, `${value}`]]
   } else if (typeof value === 'symbol') {
     return [[0, formatSymbol(value, sibling)]]
+  }
+
+  if (value instanceof Matcher) {
+    if (value.check(sibling)) {
+      return formatUnknown(sibling, null, options, [])
+    } else {
+      return [[0, `Matcher ${value.toString()}`]]
+    }
   }
 
   const selfIndex = stack.indexOf(value)
