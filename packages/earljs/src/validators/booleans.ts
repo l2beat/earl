@@ -1,17 +1,20 @@
 import { Control } from '../Control'
+import { formatCompact } from '../format'
 
 export function toBeTruthy(control: Control<unknown>) {
+  const fmt = formatCompact(control.actual)
   control.assert({
     success: Boolean(control.actual),
-    reason: `${control.actual} is not truthy`,
-    negatedReason: `${control.actual} is truthy`,
+    reason: `${fmt} is not truthy`,
+    negatedReason: `${fmt} is truthy`,
   })
 }
 
 export function toBeFalsy(control: Control<unknown>) {
+  const fmt = formatCompact(control.actual)
   control.assert({
     success: !control.actual,
-    reason: `${control.actual} is not falsy`,
-    negatedReason: `${control.actual} is falsy`,
+    reason: `${fmt} is not falsy`,
+    negatedReason: `${fmt} is falsy`,
   })
 }

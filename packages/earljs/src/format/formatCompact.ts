@@ -15,8 +15,17 @@ const FORMAT_OPTIONS: FormatOptions = {
 }
 
 export function formatCompact(value: unknown): string {
+  if (value instanceof Matcher) {
+    return `Matcher ${value.toString()}`
+  }
+
+  const full = format(value, null, FORMAT_OPTIONS)
+  if (full.length < 30) {
+    return full
+  }
+
   if (typeof value === 'string') {
-    if (value.length > 10) {
+    if (value.length > 20) {
       return JSON.stringify(value.slice(0, 7) + '...')
     } else {
       return JSON.stringify(value)
@@ -28,9 +37,6 @@ export function formatCompact(value: unknown): string {
   } else if (typeof value === 'function') {
     return formatFunctionSignature(value, null, FORMAT_OPTIONS)
   } else if (typeof value === 'object' && value !== null) {
-    if (value instanceof Matcher) {
-      return `Matcher ${value.toString()}`
-    }
     const type = getType(value)
     const typeName = getTypeName(value, null)
     switch (type) {
@@ -48,6 +54,8 @@ export function formatCompact(value: unknown): string {
         return typeName
       case 'RegExp':
         return formatCompactRegExp(value as RegExp, typeName)
+      case 'Error':
+        return `${typeName}(${formatCompact((value as Error).message)})`
     }
     return formatCompactObject(value, typeName, type)
   }

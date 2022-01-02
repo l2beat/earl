@@ -1,3 +1,4 @@
+import { formatCompact } from '../format'
 import { isEqual } from '../isEqual'
 import { isIterableAndNotString } from '../validators/common'
 import { Matcher } from './Base'
@@ -18,7 +19,7 @@ export class ContainerWithMatcher<T> extends Matcher {
   }
 
   toString() {
-    return `[ContainerWith: ${this.expectedItems}]`
+    return `[ContainerWith: ${formatCompact(this.expectedItems)}]`
   }
 
   // TODO: for now this has to be typed as any. Otherwise types won't match ie.

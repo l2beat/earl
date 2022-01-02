@@ -1,3 +1,4 @@
+import { formatCompact } from '../format'
 import { isEqual } from '../isEqual'
 import { Newable } from '../types'
 import { Matcher } from './Base'
@@ -20,10 +21,14 @@ export class ErrorMatcher extends Matcher {
   }
 
   toString() {
+    return `[Error: ${this.format()}]`
+  }
+
+  format() {
     if (this.message === undefined) {
       return `${this.errorClass.name}`
     }
-    return `[${this.errorClass.name}: ${this.message}]`
+    return `${this.errorClass.name}(${formatCompact(this.message)})`
   }
 
   static make(classOrMessage: string | Newable<Error>, message?: string): Error {

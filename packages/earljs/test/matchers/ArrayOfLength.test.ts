@@ -39,7 +39,7 @@ describe('ArrayOfLength matcher', () => {
         earlExpect({ arr: [1, 2, 3] }).toEqual({
           arr: earlExpect.arrayOfLength(earlExpect.numberCloseTo(6, { delta: 1 })),
         }),
-      ).to.throw('{"arr": [1, 2, 3]} not equal to {"arr": "[ArrayOfLength: [NumberCloseTo: 6, delta=1]]"}')
+      ).to.throw('{ arr: [1, 2, 3] } not equal to { arr }')
     })
   })
 })

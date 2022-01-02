@@ -1,6 +1,7 @@
 import { Control } from '../Control'
+import { format, formatCompact } from '../format'
 import { isEqual } from '../isEqual'
-import { replaceMatchersWithMatchedValues } from './common'
+import { AnythingMatcher, ErrorMatcher } from '../matchers'
 
 export async function toBeRejected(control: Control<Promise<any>>, expected: any): Promise<void> {
   let actualRejectedValue: any | undefined
@@ -21,24 +22,32 @@ export async function toBeRejected(control: Control<Promise<any>>, expected: any
     })
   }
 
-  const reason = `Expected to be rejected with "${expected}" but got "${actualRejectedValue}"`
-  const negatedReason = `Expected not to be rejected with "${expected}" but was rejected with ${actualRejectedValue}`
+  const actualFmt = formatCompact(actualRejectedValue)
+  const expectedFmt =
+    expected instanceof AnythingMatcher
+      ? 'anything'
+      : expected instanceof ErrorMatcher
+      ? expected.format()
+      : formatCompact(expected)
+
+  const reason = `Expected to be rejected with ${expectedFmt} but got ${actualFmt}`
+  const negatedReason = `Expected not to be rejected with ${expectedFmt} but was rejected with ${actualFmt}`
 
   if (!isEqual(actualRejectedValue, expected)) {
     control.assert({
       success: false,
       reason,
       negatedReason,
-      actual: actualRejectedValue,
-      expected: replaceMatchersWithMatchedValues(actualRejectedValue, expected),
+      actual: format(actualRejectedValue, null),
+      expected: format(expected, actualRejectedValue),
     })
   } else {
     control.assert({
       success: true,
       reason,
       negatedReason,
-      actual: actualRejectedValue,
-      expected: replaceMatchersWithMatchedValues(actualRejectedValue, expected),
+      actual: format(actualRejectedValue, null),
+      expected: format(expected, actualRejectedValue),
     })
   }
 }

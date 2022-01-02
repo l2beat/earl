@@ -1,7 +1,7 @@
 import { Control } from '../../Control'
+import { format, formatCompact } from '../../format'
 import { isEqual } from '../../isEqual'
 import { Mock } from '../../mocks'
-import { formatValue, replaceMatchersWithMatchedValues } from '../common'
 
 export function toHaveBeenCalledWith<Args extends any[]>(control: Control<Mock<Args, any>>, expectedArgs: Args) {
   for (const call of control.actual.calls) {
@@ -9,9 +9,9 @@ export function toHaveBeenCalledWith<Args extends any[]>(control: Control<Mock<A
       return control.assert({
         success: true,
         reason: '-',
-        negatedReason: `Mock was called with ${formatValue(expectedArgs)} but wasn't expected to`,
-        actual: call,
-        expected: replaceMatchersWithMatchedValues(call, expectedArgs),
+        negatedReason: `Mock was called with ${formatCompact(expectedArgs)} but wasn't expected to`,
+        actual: format(call.args, null),
+        expected: format(expectedArgs, call.args),
       })
     }
   }
@@ -20,9 +20,9 @@ export function toHaveBeenCalledWith<Args extends any[]>(control: Control<Mock<A
 
   return control.assert({
     success: false,
-    reason: `Mock was not called with ${formatValue(expectedArgs)} but was expected to`,
+    reason: `Mock was not called with ${formatCompact(expectedArgs)} but was expected to`,
     negatedReason: '-',
-    actual: control.actual.calls[0],
-    expected: replaceMatchersWithMatchedValues(control.actual.calls[0], expectedArgs),
+    actual: format(control.actual.calls[0], null),
+    expected: format(expectedArgs, control.actual.calls[0]),
   })
 }

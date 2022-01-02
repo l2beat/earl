@@ -3,7 +3,7 @@
 import { expect } from 'chai'
 
 import { formatCompact } from '../../src/format/formatCompact'
-import { AMatcher } from '../../src/matchers'
+import { AMatcher, AnythingMatcher } from '../../src/matchers'
 
 describe('formatCompact', () => {
   const testCases: [unknown, string][] = [
@@ -24,7 +24,7 @@ describe('formatCompact', () => {
     ['', '""'],
     ['asd', '"asd"'],
     ['0123456789', '"0123456789"'],
-    ['0123456789a', '"0123456..."'],
+    ['0123456789012345678901234567890123456789', '"0123456..."'],
     [Symbol(), 'Symbol()'],
     [Symbol('asd'), 'Symbol(asd)'],
     [Symbol.for('asd'), 'Symbol.for("asd")'],
@@ -46,14 +46,21 @@ describe('formatCompact', () => {
     [new WeakSet(), 'WeakSet'],
     [/asd/i, '/asd/i'],
     [{}, '{}'],
-    [{ a: 'foo' }, '{ a }'],
-    [{ veryLongPropName: 'foo' }, '{ "veryLon..." }'],
-    [{ x: 1, y: 1 }, '{ x, y }'],
-    [{ x: 1, y: 1, z: 1 }, '{ 3 properties }'],
+    [{ a: 'foo' }, '{ a: "foo" }'],
+    [{ a: 'this is a very long string to make it long' }, '{ a }'],
+    [{ veryLongPropNameThatWillSurelyBeTooLong: 'foo' }, '{ "veryLon..." }'],
+    [{ x: 1, y: 1 }, '{ x: 1, y: 1 }'],
+    [{ x: 'long value long value', y: 'long value long value' }, '{ x, y }'],
+    [{ x: 1, y: 1, z: 1 }, '{ x: 1, y: 1, z: 1 }'],
+    [{ x: 'long value', y: 'long value', z: 'long value' }, '{ 3 properties }'],
     [[], '[]'],
-    [[1, 2], '[ length: 2 ]'],
-    [new Error('foo'), 'Error { message, name }'],
+    [[1, 2], '[1, 2]'],
+    [['long value long value', 'long value long value'], '[ length: 2 ]'],
+    [new Error('foo'), 'Error("foo")'],
+    [new TypeError('foo'), 'TypeError("foo")'],
     [new AMatcher(String), 'Matcher [A: String]'],
+    [new AnythingMatcher(), 'Matcher [Anything]'],
+    [new (class Foo {})(), 'Foo {}'],
   ]
 
   for (const [value, expected] of testCases) {

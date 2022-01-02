@@ -11,12 +11,6 @@ export function formatPlainObject(
   stack: unknown[],
 ): [number, string][] {
   const keys = getKeys(value, type, options)
-  if (keys.length === 0) {
-    return [[0, '{}']]
-  }
-  stack.push(value)
-  const entries = formatProperties(keys, value, sibling, options, stack)
-  stack.pop()
 
   let opening = '{'
   if (!options.ignorePrototypes && (type === 'Object' || type === 'Error')) {
@@ -27,6 +21,14 @@ export function formatPlainObject(
   } else if (options.ignorePrototypes && type === 'Error') {
     opening = 'Error {'
   }
+
+  if (keys.length === 0) {
+    return [[0, `${opening}}`]]
+  }
+
+  stack.push(value)
+  const entries = formatProperties(keys, value, sibling, options, stack)
+  stack.pop()
 
   if (options.inline) {
     return [[0, `${opening} ${entries.map((x) => x[1]).join(', ')} }`]]

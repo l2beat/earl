@@ -1,3 +1,4 @@
+import { formatCompact } from '../format'
 import { isEqual } from '../isEqual'
 import { Matcher } from './Base'
 
@@ -15,7 +16,7 @@ export class ArrayOfLengthMatcher extends Matcher {
   }
 
   toString() {
-    return `[ArrayOfLength: ${this.expectedLength}]`
+    return `[ArrayOfLength: ${formatCompact(this.expectedLength)}]`
   }
 
   static make<T>(length: number): T[] {

@@ -8,8 +8,8 @@ export interface ValidationResult {
   hint?: string
   reason: string
   negatedReason: string
-  actual?: any
-  expected?: any
+  actual?: string
+  expected?: string
 }
 
 const serializeMatchers = {

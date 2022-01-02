@@ -1,3 +1,4 @@
+import { formatCompact } from '../format'
 import { isEqual } from '../isEqual'
 import { Matcher } from './Base'
 
@@ -17,7 +18,7 @@ export class ArrayWithMatcher<T> extends Matcher {
   }
 
   toString() {
-    return `[ArrayWith: ${this.expectedItems}]`
+    return `[ArrayWith: ${formatCompact(this.expectedItems)}]`
   }
 
   static make<T>(...items: T[]): T[] {

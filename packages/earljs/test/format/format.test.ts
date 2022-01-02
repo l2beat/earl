@@ -133,6 +133,8 @@ describe('format', () => {
         [{ x: 1, y: { a: 'x', b: 'y' } }, null, '{\n  x: 1\n  y: {\n    a: "x"\n    b: "y"\n  }\n}'],
         [{ x: 1, y: { a: 'x', b: 'y' } }, null, '{\n x: 1\n y: {\n  a: "x"\n  b: "y"\n }\n}', { indentSize: 1 }],
         [{ x: 1, y: { a: 'x', b: 'y' } }, null, '{ x: 1, y: { a: "x", b: "y" } }', { inline: true }],
+        [new (class Foo {})(), null, 'Foo {}'],
+        [new (class Foo {})(), null, 'Foo {}', { inline: true }],
         [
           new (class Vector2 {
             constructor(public x: number, public y: number) {}

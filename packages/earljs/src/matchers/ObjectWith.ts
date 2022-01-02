@@ -1,5 +1,5 @@
+import { formatCompact } from '../format'
 import { isEqual } from '../isEqual'
-import { formatValue } from '../validators/common'
 import { Matcher } from './Base'
 
 function isObject(value: unknown): value is object {
@@ -26,7 +26,7 @@ export class ObjectWithMatcher<T extends Object> extends Matcher {
   }
 
   toString() {
-    return `[ObjectWith: ${formatValue(this.subset)}]`
+    return `[ObjectWith: ${formatCompact(this.subset)}]`
   }
 
   static make(subset: Object): any {
