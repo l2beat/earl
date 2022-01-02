@@ -1,4 +1,3 @@
-import _ from 'lodash'
 import { EOL } from 'os'
 
 /**
@@ -6,27 +5,24 @@ import { EOL } from 'os'
  * can be used by test runners like Mocha to pretty print.
  */
 export class AssertionError extends Error {
-  private readonly actual: any
-  private readonly expected: any
+  readonly actual: any
+  readonly expected: any
 
   constructor({
     message,
     actual,
     expected,
     extraMessage,
-    hint,
   }: {
     message: string
     actual: any
     expected: any
     extraMessage?: string
-    hint?: string
   }) {
-    const finalMessage = _.compact([
-      message,
-      extraMessage && 'Extra message: ' + extraMessage,
-      hint && 'Hint: ' + hint,
-    ]).join(EOL)
+    let finalMessage = message
+    if (extraMessage) {
+      finalMessage += `${EOL}Extra message: ${extraMessage}`
+    }
 
     super(finalMessage)
     this.name = 'AssertionError'

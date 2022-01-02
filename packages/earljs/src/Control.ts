@@ -14,7 +14,6 @@ export class Control<T> {
         actual: result.actual,
         expected: result.expected,
         extraMessage: this.extraMessage,
-        hint: result.hint,
       })
     }
   }
@@ -25,7 +24,6 @@ export class Control<T> {
       actual: result.actual,
       expected: result.expected,
       extraMessage: this.extraMessage,
-      hint: result.hint,
     })
   }
 }

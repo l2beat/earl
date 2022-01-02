@@ -1,5 +1,4 @@
 import { expect } from 'chai'
-import { EOL } from 'os'
 
 import { expect as earl } from '../../src'
 
@@ -45,7 +44,7 @@ describe('toEqual', () => {
       }
 
       expect(() => earl(new Test(true)).toEqual({ property: true })).to.throw(
-        ['{"property": true} not equal to {"property": true}', 'Hint: prototype mismatch'].join(EOL),
+        '{"property": true} not equal to {"property": true}',
       )
     })
 
