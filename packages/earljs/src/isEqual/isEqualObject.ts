@@ -12,18 +12,30 @@ export function isEqualObject(
     return true
   }
 
-  if (arrayMismatch(value, other)) {
-    return false
-  }
-
   const valueIndex = valueStack.indexOf(value)
   const otherIndex = otherStack.indexOf(other)
   if (valueIndex !== -1 || otherIndex !== -1) {
     return valueIndex === otherIndex
   }
 
-  const keys = Object.keys(value).sort()
-  const otherKeys = Object.keys(other).sort()
+  const type = getCommonType(value, other)
+  if (!type) {
+    return false
+  }
+
+  return isEqualObjectWithType(value, valueStack, other, otherStack, options, type)
+}
+
+function isEqualObjectWithType(
+  value: object,
+  valueStack: unknown[],
+  other: object,
+  otherStack: unknown[],
+  options: EqualityOptions,
+  type: ObjectType,
+) {
+  const keys = getKeys(value, type)
+  const otherKeys = getKeys(other, type)
   if (keys.length !== otherKeys.length) {
     return false
   }
@@ -46,8 +58,31 @@ export function isEqualObject(
   return result
 }
 
-function arrayMismatch(value: unknown, other: unknown) {
-  const a = Array.isArray(value)
-  const b = Array.isArray(other)
-  return (a || b) && (a !== b || (value as unknown[]).length !== (other as unknown[]).length)
+function getCommonType(value: object, other: object) {
+  const valueType = getType(value)
+  const otherType = getType(other)
+  return valueType === otherType ? valueType : undefined
+}
+
+type ObjectType = ReturnType<typeof getType>
+
+function getType(value: object) {
+  if (Array.isArray(value)) {
+    return 'Array'
+  }
+  return 'Object'
+}
+
+function getKeys(value: object, type: ObjectType) {
+  const keys = Object.keys(value)
+  if (type === 'Array') {
+    addKey(keys, value, 'length')
+  }
+  return keys.sort()
+}
+
+function addKey(keys: string[], value: object, key: string) {
+  if (Object.prototype.hasOwnProperty.call(value, key)) {
+    keys.push(key)
+  }
 }
