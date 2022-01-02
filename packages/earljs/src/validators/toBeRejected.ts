@@ -1,6 +1,6 @@
 import { Control } from '../Control'
+import { isEqual } from '../isEqual'
 import { replaceMatchersWithMatchedValues } from './common'
-import { smartEq } from './smartEq'
 
 export async function toBeRejected(control: Control<Promise<any>>, expected: any): Promise<void> {
   let actualRejectedValue: any | undefined
@@ -24,12 +24,9 @@ export async function toBeRejected(control: Control<Promise<any>>, expected: any
   const reason = `Expected to be rejected with "${expected}" but got "${actualRejectedValue}"`
   const negatedReason = `Expected not to be rejected with "${expected}" but was rejected with ${actualRejectedValue}`
 
-  const comparisonResult = smartEq(actualRejectedValue, expected)
-
-  if (comparisonResult.result === 'error') {
+  if (!isEqual(actualRejectedValue, expected)) {
     control.assert({
       success: false,
-      hint: comparisonResult.result,
       reason,
       negatedReason,
       actual: actualRejectedValue,

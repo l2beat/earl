@@ -1,4 +1,4 @@
-import { smartEq } from '../validators/smartEq'
+import { isEqual } from '../isEqual'
 import { Matcher } from './Base'
 
 export class ArrayOfLengthMatcher extends Matcher {
@@ -11,7 +11,7 @@ export class ArrayOfLengthMatcher extends Matcher {
       return false
     }
 
-    return smartEq(actualItems.length, this.expectedLength).result === 'success'
+    return isEqual(actualItems.length, this.expectedLength)
   }
 
   toString() {

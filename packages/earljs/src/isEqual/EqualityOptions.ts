@@ -16,3 +16,15 @@ export interface EqualityOptions {
    */
   compareErrorStack: boolean
 }
+
+export const DEFAULT_EQUALITY_OPTIONS: EqualityOptions = {
+  uniqueNaNs: false,
+  minusZero: false,
+  ignorePrototypes: false,
+  compareErrorStack: false,
+}
+
+export const LOOSE_EQUALITY_OPTIONS: EqualityOptions = {
+  ...DEFAULT_EQUALITY_OPTIONS,
+  ignorePrototypes: true,
+}

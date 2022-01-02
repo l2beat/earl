@@ -1,5 +1,5 @@
+import { isEqual } from '../isEqual'
 import { isIterableAndNotString } from '../validators/common'
-import { smartEq } from '../validators/smartEq'
 import { Matcher } from './Base'
 
 export class ContainerWithMatcher<T> extends Matcher {
@@ -14,9 +14,7 @@ export class ContainerWithMatcher<T> extends Matcher {
 
     const items = Array.from(actualItems)
 
-    return this.expectedItems.every((expectedItem) =>
-      items.some((actualItem) => smartEq(actualItem, expectedItem).result === 'success'),
-    )
+    return this.expectedItems.every((expectedItem) => items.some((actualItem) => isEqual(actualItem, expectedItem)))
   }
 
   toString() {

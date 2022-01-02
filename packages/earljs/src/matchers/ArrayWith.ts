@@ -1,4 +1,4 @@
-import { smartEq } from '../validators/smartEq'
+import { isEqual } from '../isEqual'
 import { Matcher } from './Base'
 
 export class ArrayWithMatcher<T> extends Matcher {
@@ -12,7 +12,7 @@ export class ArrayWithMatcher<T> extends Matcher {
     }
 
     return this.expectedItems.every((expectedItem) =>
-      actualItems.some((actualItem) => smartEq(actualItem, expectedItem).result === 'success'),
+      actualItems.some((actualItem) => isEqual(actualItem, expectedItem)),
     )
   }
 

@@ -1,9 +1,9 @@
 import { Control } from '../Control'
+import { isEqual } from '../isEqual'
 import { formatValue } from './common'
-import { smartEq } from './smartEq'
 
 export function toReferentiallyEqual<T>(control: Control<T>, expected: T) {
-  const smartEqComparisonResult = smartEq(control.actual, expected).result === 'success'
+  const smartEqComparisonResult = isEqual(control.actual, expected)
   const strictComparisonResult = Object.is(control.actual, expected)
 
   const additionalInfo =
