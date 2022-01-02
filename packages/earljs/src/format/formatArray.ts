@@ -36,7 +36,7 @@ export function formatArrayEntries(value: unknown[], sibling: unknown, options: 
       empty++
     } else {
       if (empty !== 0) {
-        entries.push([1, `<${empty} empty items>`])
+        entries.push(formatEmpty(empty))
         empty = 0
       }
       const valueFormat = formatUnknown((value as any)[i], (sibling as any)?.[i], options, stack)
@@ -47,9 +47,17 @@ export function formatArrayEntries(value: unknown[], sibling: unknown, options: 
     }
   }
   if (empty !== 0) {
-    entries.push([1, `<${empty} empty items>`])
+    entries.push(formatEmpty(empty))
   }
   return entries
+}
+
+function formatEmpty(empty: number): [number, string] {
+  if (empty === 1) {
+    return [1, '<empty>']
+  } else {
+    return [1, `<${empty} empty items>`]
+  }
 }
 
 export function getNonArrayKeys(value: unknown[]): string[] {

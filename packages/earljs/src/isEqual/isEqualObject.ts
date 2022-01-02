@@ -24,7 +24,7 @@ export function isEqualObject(
     return false
   }
 
-  if (type === 'Date') {
+  if (type === 'Date' || type === 'String' || type === 'Number' || type === 'Boolean') {
     if (value.valueOf() !== other.valueOf()) {
       return false
     }

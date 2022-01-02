@@ -1,13 +1,15 @@
+import { getKeys, ObjectType } from '../isEqual/objectUtils'
 import { FormatOptions } from './FormatOptions'
 import { formatProperties } from './formatProperties'
 
 export function formatPlainObject(
+  type: ObjectType,
   value: object,
   sibling: unknown,
   options: FormatOptions,
   stack: unknown[],
 ): [number, string][] {
-  const keys = Object.keys(value).sort()
+  const keys = getKeys(value, type)
   if (keys.length === 0) {
     return [[0, '{}']]
   }

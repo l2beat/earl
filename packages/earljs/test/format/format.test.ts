@@ -1,4 +1,5 @@
 /* eslint-disable symbol-description */
+/* eslint-disable no-new-wrappers */
 import { expect } from 'chai'
 
 import { format, FormatOptions } from '../../src/format'
@@ -86,6 +87,17 @@ describe('format', () => {
         [class {}, null, 'anonymous class'],
         [class {}, class {}, 'anonymous class (different)'],
         [Array, null, 'function Array() (native)'],
+        [Object.assign(function x() {}, { a: 1 }), null, 'function x() & {\n  a: 1\n}'],
+        [Object.assign(function x() {}, { a: 1 }), function x() {}, 'function x() (different) & {\n  a: 1\n}'],
+        [Object.assign(function () {}, { a: 1 }), null, 'anonymous function & {\n  a: 1\n}'],
+        [
+          class X {
+            static x = 2
+          },
+          null,
+          'class X & {\n  x: 2\n}',
+        ],
+        [Object.assign(class {}, { a: 1 }), null, 'anonymous class & {\n  a: 1\n}'],
       ],
     },
     {
@@ -101,54 +113,6 @@ describe('format', () => {
         [{ x: 1, y: { a: 'x', b: 'y' } }, null, '{\n  x: 1\n  y: {\n    a: "x"\n    b: "y"\n  }\n}'],
         [{ x: 1, y: { a: 'x', b: 'y' } }, null, '{\n x: 1\n y: {\n  a: "x"\n  b: "y"\n }\n}', { indentSize: 1 }],
         [{ x: 1, y: { a: 'x', b: 'y' } }, null, '{ x: 1, y: { a: "x", b: "y" } }', { inline: true }],
-      ],
-    },
-    {
-      name: 'function objects',
-      testCases: [
-        [
-          (() => {
-            function x() {}
-            x.a = 1
-            return x
-          })(),
-          null,
-          'function x() & {\n  a: 1\n}',
-        ],
-        [
-          (() => {
-            function x() {}
-            x.a = 1
-            return x
-          })(),
-          function x() {},
-          'function x() (different) & {\n  a: 1\n}',
-        ],
-        [
-          (() => {
-            const x = (() => function () {})()
-            ;(x as any).a = 1
-            return x
-          })(),
-          null,
-          'anonymous function & {\n  a: 1\n}',
-        ],
-        [
-          class X {
-            static x = 2
-          },
-          null,
-          'class X & {\n  x: 2\n}',
-        ],
-        [
-          (() => {
-            const x = (() => class {})()
-            ;(x as any).a = 1
-            return x
-          })(),
-          null,
-          'anonymous class & {\n  a: 1\n}',
-        ],
       ],
     },
     {
@@ -225,35 +189,16 @@ describe('format', () => {
         [[1, 2, 'asd', { x: 1, y: 2 }], null, '[\n  1\n  2\n  "asd"\n  {\n    x: 1\n    y: 2\n  }\n]'],
         [[1, 2, 'asd', { x: 1, y: 2 }], null, '[1, 2, "asd", { x: 1, y: 2 }]', { inline: true }],
         [[1, 2, 'asd', { x: 1, y: 2 }], null, '[\n  1\n  2\n  "asd"\n  {\n    x: 1\n    y: 2\n  }\n]'],
+        [Object.assign([1, 2, 3], { y: 'foo', x: 'bar' }), null, '[\n  1\n  2\n  3\n  x: "bar"\n  y: "foo"\n]'],
+        [Object.assign([1, 2], { 3: 4 }), null, '[\n  1\n  2\n  <empty>\n  4\n]'],
         [
-          (() => {
-            const x = [1, 2, 3]
-            ;(x as any).y = 'asd'
-            ;(x as any).x = 'def'
-            return x
-          })(),
-          null,
-          '[\n  1\n  2\n  3\n  x: "def"\n  y: "asd"\n]',
-        ],
-        [
-          (() => {
-            const x = [1, 2]
-            x[4] = 5
-            x.length = 8
-            return x
-          })(),
+          Object.assign([1, 2], { 4: 5 }, { length: 8 }),
           null,
           '[\n  1\n  2\n  <2 empty items>\n  5\n  <3 empty items>\n]',
         ],
         [new Array(5), null, '[\n  <5 empty items>\n]'],
         [
-          (() => {
-            const x = [1, 2]
-            x[4] = 5
-            ;(x as any).y = 'foo'
-            ;(x as any).x = 'bar'
-            return x
-          })(),
+          Object.assign([1, 2], { 4: 5 }, { y: 'foo', x: 'bar' }),
           null,
           '[\n  1\n  2\n  <2 empty items>\n  5\n  x: "bar"\n  y: "foo"\n]',
         ],
@@ -264,11 +209,7 @@ describe('format', () => {
       testCases: [
         [new Date('2005-04-02T21:37:00.000+02:00'), null, 'Date(2005-04-02T19:37:00.000Z)'],
         [
-          (() => {
-            const d = new Date('2005-04-02T21:37:00.000+02:00')
-            ;(d as any).foo = 'bar'
-            return d
-          })(),
+          Object.assign(new Date('2005-04-02T21:37:00.000+02:00'), { foo: 'bar' }),
           null,
           'Date(2005-04-02T19:37:00.000Z) & {\n  foo: "bar"\n}',
         ],
@@ -279,15 +220,16 @@ describe('format', () => {
       testCases: [
         [/asd/, null, '/asd/'],
         [/asd/i, null, '/asd/i'],
-        [
-          (() => {
-            const r = /asd/
-            ;(r as any).foo = 'bar'
-            return r
-          })(),
-          null,
-          '/asd/ & {\n  foo: "bar"\n}',
-        ],
+        [Object.assign(/asd/, { foo: 'bar' }), null, '/asd/ & {\n  foo: "bar"\n}'],
+      ],
+    },
+    {
+      name: 'primitive classes',
+      testCases: [
+        [new String('foo'), null, 'String("foo")'],
+        [new Number(123), null, 'Number(123)'],
+        [new Boolean(false), null, 'Boolean(false)'],
+        [Object.assign(new String('foo'), { foo: 'bar' }), null, 'String("foo") & {\n  foo: "bar"\n}'],
       ],
     },
   ]

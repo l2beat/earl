@@ -1,4 +1,5 @@
 /* eslint-disable symbol-description */
+/* eslint-disable no-new-wrappers */
 import { expect } from 'chai'
 
 import { format, FormatOptions } from '../../src/format'
@@ -111,7 +112,10 @@ describe('isEqual', () => {
         [...twice(class {}), true],
         [class A {}, function A() {}, false],
         [Array, Array, true],
-        [Array, Error, false],
+        [Array, Map, false],
+        [function x() {}, Object.assign(function x() {}, { foo: 'bar' }), false],
+        [Object.assign(function x() {}, { foo: 'bar' }), Object.assign(function x() {}, { foo: 'bar' }), false],
+        [...twice(Object.assign(function x() {}, { foo: 'bar' })), true],
       ],
     },
     {
@@ -123,34 +127,6 @@ describe('isEqual', () => {
         [{ x: 1, y: 2 }, { x: 1, y: 3 }, false],
         [{ x: 1, y: { a: 'x', b: 'y' } }, { x: 1, y: { a: 'x', b: 'y' } }, true],
         [{ x: 1, y: 2 }, { y: 2, x: 1 }, true],
-      ],
-    },
-    {
-      name: 'function objects',
-      testCases: [
-        [
-          (() => {
-            function x() {}
-            x.a = 1
-            return x
-          })(),
-          (() => {
-            function x() {}
-            x.a = 1
-            return x
-          })(),
-          false,
-        ],
-        [
-          ...twice(
-            (() => {
-              function x() {}
-              x.a = 1
-              return x
-            })(),
-          ),
-          true,
-        ],
       ],
     },
     {
@@ -216,28 +192,8 @@ describe('isEqual', () => {
         [new Array(3), [undefined, undefined, undefined], false],
         [new Array(3), new Array(3), true],
         [new Array(3), new Array(4), false],
-        [
-          (() => {
-            const x = [1, 2, 3]
-            ;(x as any).foo = 'bar'
-            return x
-          })(),
-          [1, 2, 3],
-          false,
-        ],
-        [
-          (() => {
-            const x = [1, 2, 3]
-            ;(x as any).foo = 'bar'
-            return x
-          })(),
-          (() => {
-            const x = [1, 2, 3]
-            ;(x as any).foo = 'bar'
-            return x
-          })(),
-          true,
-        ],
+        [Object.assign([1, 2, 3], { foo: 'bar' }), [1, 2, 3], false],
+        [Object.assign([1, 2, 3], { foo: 'bar' }), Object.assign([1, 2, 3], { foo: 'bar' }), true],
         [[1, 2, 3], { 0: 1, 1: 2, 2: 3 }, false],
       ],
     },
@@ -246,25 +202,13 @@ describe('isEqual', () => {
       testCases: [
         [new Date('2005-04-02T21:37:00.000+02:00'), new Date('2005-04-02T19:37:00.000Z'), true],
         [
-          (() => {
-            const d = new Date('2005-04-02T21:37:00.000+02:00')
-            ;(d as any).foo = 'bar'
-            return d
-          })(),
+          Object.assign(new Date('2005-04-02T21:37:00.000+02:00'), { foo: 'bar' }),
           new Date('2005-04-02T21:37:00.000+02:00'),
           false,
         ],
         [
-          (() => {
-            const d = new Date('2005-04-02T21:37:00.000+02:00')
-            ;(d as any).foo = 'bar'
-            return d
-          })(),
-          (() => {
-            const d = new Date('2005-04-02T21:37:00.000+02:00')
-            ;(d as any).foo = 'bar'
-            return d
-          })(),
+          Object.assign(new Date('2005-04-02T21:37:00.000+02:00'), { foo: 'bar' }),
+          Object.assign(new Date('2005-04-02T21:37:00.000+02:00'), { foo: 'bar' }),
           true,
         ],
       ],
@@ -274,28 +218,24 @@ describe('isEqual', () => {
       testCases: [
         [/asd/, /asd/, true],
         [/asd/, /asd/i, false],
-        [
-          (() => {
-            const r = /asd/
-            ;(r as any).foo = 'bar'
-            return r
-          })(),
-          /asd/,
-          false,
-        ],
-        [
-          (() => {
-            const r = /asd/
-            ;(r as any).foo = 'bar'
-            return r
-          })(),
-          (() => {
-            const r = /asd/
-            ;(r as any).foo = 'bar'
-            return r
-          })(),
-          true,
-        ],
+        [Object.assign(/asd/, { foo: 'bar' }), /asd/, false],
+        [Object.assign(/asd/, { foo: 'bar' }), Object.assign(/asd/, { foo: 'bar' }), true],
+      ],
+    },
+    {
+      name: 'primitive classes',
+      testCases: [
+        [new String('foo'), new String('foo'), true],
+        [new String('foo'), new String('bar'), false],
+        [new String('foo'), 'foo', false],
+        [new Number(123), new Number(123), true],
+        [new Number(123), new Number(456), false],
+        [new Number(123), 123, false],
+        [new Boolean(true), new Boolean(true), true],
+        [new Boolean(true), new Boolean(false), false],
+        [new Boolean(true), true, false],
+        [Object.assign(new String('foo'), { foo: 'bar' }), new String('foo'), false],
+        [Object.assign(new String('foo'), { foo: 'bar' }), Object.assign(new String('foo'), { foo: 'bar' }), true],
       ],
     },
   ]
