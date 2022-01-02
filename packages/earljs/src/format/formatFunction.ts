@@ -1,9 +1,14 @@
 import { formatObject } from './formatObject'
 import { FormatOptions } from './FormatOptions'
 
-export function formatFunction(value: Function, sibling: unknown, options: FormatOptions): [number, string][] {
+export function formatFunction(
+  value: Function,
+  sibling: unknown,
+  options: FormatOptions,
+  stack: unknown[],
+): [number, string][] {
   const signature = formatFunctionSignature(value, sibling, options)
-  const object = formatObject(value, sibling, options)
+  const object = formatObject(value, sibling, options, stack)
   if (object[0][1] === '{}') {
     return [[0, signature]]
   } else {

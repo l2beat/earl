@@ -151,6 +151,73 @@ describe('format', () => {
         ],
       ],
     },
+    {
+      name: 'self-referencing objects',
+      testCases: [
+        [
+          (() => {
+            const x = { y: 2 }
+            ;(x as any).x = x
+            return x
+          })(),
+          null,
+          '{ x: <Circular .>, y: 2 }',
+          { inline: true },
+        ],
+        [
+          (() => {
+            const a = { x: 1, y: 1 }
+            const x = { a, b: a }
+            return x
+          })(),
+          null,
+          '{ a: { x: 1, y: 1 }, b: { x: 1, y: 1 } }',
+          { inline: true },
+        ],
+        [
+          (() => {
+            const x = { x: { y: { z: {} } } }
+            x.x.y.z = x.x
+            return x
+          })(),
+          null,
+          '{ x: { y: { z: <Circular ..> } } }',
+          { inline: true },
+        ],
+        [
+          (() => {
+            const x = { x: { y: { z: {} } } }
+            x.x.y.z = x
+            return x
+          })(),
+          null,
+          '{ x: { y: { z: <Circular ...> } } }',
+          { inline: true },
+        ],
+        [
+          (() => {
+            const a = { ax: {}, ay: 1 }
+            const b = { bx: {}, by: 1 }
+            a.ax = b
+            b.bx = a
+            return a
+          })(),
+          null,
+          '{ ax: { bx: <Circular ..>, by: 1 }, ay: 1 }',
+          { inline: true },
+        ],
+        [
+          (() => {
+            function foo() {}
+            foo.x = foo
+            return foo
+          })(),
+          null,
+          'function foo() & { x: <Circular .> }',
+          { inline: true },
+        ],
+      ],
+    },
   ]
 
   for (const { name, testCases } of groups) {

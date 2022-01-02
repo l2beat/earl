@@ -153,6 +153,37 @@ describe('isEqual', () => {
         ],
       ],
     },
+    {
+      name: 'self-referencing objects',
+      testCases: [
+        [
+          (() => {
+            const x = { y: 2 }
+            ;(x as any).x = x
+            return x
+          })(),
+          (() => {
+            const x = { y: 2 }
+            ;(x as any).x = x
+            return x
+          })(),
+          true,
+        ],
+        [
+          (() => {
+            const x = { y: 2 }
+            ;(x as any).x = x
+            return x
+          })(),
+          (() => {
+            const x = { x: { y: 2 }, y: 2 }
+            ;(x.x as any).x = x
+            return x
+          })(),
+          false,
+        ],
+      ],
+    },
   ]
 
   for (const { name, testCases } of groups) {

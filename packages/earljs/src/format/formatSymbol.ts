@@ -1,5 +1,3 @@
-import { FormatOptions } from './FormatOptions'
-
 const wellKnownSymbols = new Map<Symbol, string>()
 for (const key of Object.getOwnPropertyNames(Symbol)) {
   const known = (Symbol as any)[key]
@@ -8,7 +6,7 @@ for (const key of Object.getOwnPropertyNames(Symbol)) {
   }
 }
 
-export function formatSymbol(value: symbol, sibling: unknown, options: FormatOptions) {
+export function formatSymbol(value: symbol, sibling: unknown) {
   const key = Symbol.keyFor(value)
   if (key) {
     return `Symbol.for(${JSON.stringify(key)})`
@@ -17,11 +15,7 @@ export function formatSymbol(value: symbol, sibling: unknown, options: FormatOpt
   if (wellKnown) {
     return wellKnown
   }
-  if (
-    typeof sibling === 'symbol' &&
-    value !== sibling &&
-    value.toString() === sibling.toString()
-  ) {
+  if (typeof sibling === 'symbol' && value !== sibling && value.toString() === sibling.toString()) {
     return `${value.toString()} (different)`
   }
   return value.toString()

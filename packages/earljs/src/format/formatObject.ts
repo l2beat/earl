@@ -1,16 +1,22 @@
 import { FormatOptions } from './FormatOptions'
 import { formatUnknown } from './formatUnknown'
 
-export function formatObject(value: object, sibling: unknown, options: FormatOptions): [number, string][] {
+export function formatObject(
+  value: object,
+  sibling: unknown,
+  options: FormatOptions,
+  stack: unknown[],
+): [number, string][] {
   const keys = Object.keys(value).sort()
   if (keys.length === 0) {
     return [[0, '{}']]
   }
   const entries: [number, string][] = []
+  stack.push(value)
   for (const key of keys) {
     try {
       const keyFormat = formatKey(key)
-      const valueFormat = formatUnknown((value as any)[key], (sibling as any)?.[key], options)
+      const valueFormat = formatUnknown((value as any)[key], (sibling as any)?.[key], options, stack)
       valueFormat[0][1] = `${keyFormat}: ${valueFormat[0][1]}`
       for (const line of valueFormat) {
         line[0] += 1
@@ -22,6 +28,7 @@ export function formatObject(value: object, sibling: unknown, options: FormatOpt
       }
     }
   }
+  stack.pop()
 
   if (options.inline) {
     return [[0, `{ ${entries.map((x) => x[1]).join(', ')} }`]]
