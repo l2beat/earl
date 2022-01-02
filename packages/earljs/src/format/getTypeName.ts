@@ -8,6 +8,7 @@ export function getTypeName(value: object, sibling: unknown) {
   }
   return valueTypeName
 }
+
 function getIsolatedTypeName(value: object) {
   const prototype = Object.getPrototypeOf(value)
   if (prototype === Object.prototype) {
