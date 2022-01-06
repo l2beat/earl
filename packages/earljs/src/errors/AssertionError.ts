@@ -1,14 +1,23 @@
 import { EOL } from 'os'
 
+interface AssertionErrorOptions {
+  message: string
+  stack: string
+  actual?: string
+  expected?: string
+  extraMessage?: string
+  hint?: string
+}
+
 /**
  * Assertion error containing optional info about actual / expected value which
  * can be used by test runners like Mocha to pretty print.
  */
 export class AssertionError extends Error {
-  public actual: any
-  public expected: any
+  public actual?: string
+  public expected?: string
 
-  update(options: { message: string; actual: any; expected: any; extraMessage?: string; hint?: string }) {
+  constructor(options: AssertionErrorOptions) {
     let message = options.message
     if (options.extraMessage) {
       message += EOL + 'Extra message: ' + options.extraMessage
@@ -16,36 +25,24 @@ export class AssertionError extends Error {
     if (options.hint) {
       message += EOL + 'Hint: ' + options.hint
     }
-    this.message = message
+    super(message)
+    this.name = 'AssertionError'
     this.actual = options.actual
     this.expected = options.expected
-    this.stack = removeInternalEntries(this.stack)
+    this.stack = `${this.name}: ${this.message}\n${options.stack}`
   }
 
-  constructor() {
-    super('')
-    this.name = 'AssertionError'
-  }
-}
+  static getCleanStack() {
+    // .<validator>, .getControl, new Control, .getCleanStack
+    const entriesToRemove = 4
 
-const STACK_ENTRIES_TO_REMOVE = 3
-// at new Control (src/Control.ts)
-// at __ExpectationImplementation.getControl (src/Expectation.ts)
-// at __ExpectationImplementation.<validator> (src/Expectation.ts)
-
-function removeInternalEntries(stack: string | undefined) {
-  const lines = stack?.split('\n') ?? []
-  let stackEntryCount = 0
-  for (let i = lines.length - 1; i >= 0; i--) {
-    if (/^\s+at\s/.test(lines[i])) {
-      stackEntryCount++
-    } else {
-      break
+    const stack = new Error('message').stack
+    if (stack && stack.startsWith('Error: message\n')) {
+      return stack
+        .split('\n')
+        .slice(entriesToRemove + 1)
+        .join('\n')
     }
+    return stack ?? ''
   }
-  if (stackEntryCount <= STACK_ENTRIES_TO_REMOVE) {
-    return stack
-  }
-  lines.splice(lines.length - stackEntryCount, STACK_ENTRIES_TO_REMOVE)
-  return lines.join('\n')
 }

@@ -4,31 +4,31 @@ import { ValidationResult } from './validators/common'
 
 export class Control<T> {
   public testRunnerCtx = getTestRunnerIntegration()
-  private error = new AssertionError()
+  private stack = AssertionError.getCleanStack()
 
   constructor(public actual: T, public isNegated: boolean, private extraMessage?: string) {}
 
   assert = (result: ValidationResult) => {
     if (this.isNegated === result.success) {
-      this.error.update({
+      throw new AssertionError({
         message: result.success ? result.negatedReason : result.reason,
+        stack: this.stack,
         actual: result.actual,
         expected: result.expected,
         extraMessage: this.extraMessage,
         hint: result.hint,
       })
-      throw this.error
     }
   }
 
   fail = (result: Omit<ValidationResult, 'success' | 'negatedReason'>): never => {
-    this.error.update({
+    throw new AssertionError({
       message: result.reason,
+      stack: this.stack,
       actual: result.actual,
       expected: result.expected,
       extraMessage: this.extraMessage,
       hint: result.hint,
     })
-    throw this.error
   }
 }
