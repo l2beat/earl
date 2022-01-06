@@ -44,6 +44,9 @@
     "test:fix": "yarn lint:fix && yarn format:fix && yarn typecheck && yarn test",
     "release": "yarn lint && yarn format && yarn typecheck && yarn test && yarn build"
   },
+  "peerDependencies": {
+    "typescript": ">=3.7.0"
+  },
   "dependencies": {
     "debug": "^4.1.1",
     "jest-snapshot": "^26.6.2",
