@@ -36,9 +36,7 @@ export function getCommonType(value: object, other: object) {
 
 export function getKeys(value: object, type: ObjectType, options: EqualityOptions) {
   let keys = Object.keys(value)
-  if (type === 'Array') {
-    addKey(keys, value, 'length')
-  } else if (type === 'Error') {
+  if (type === 'Error') {
     addKey(keys, value, 'name')
     addKey(keys, value, 'message')
     addKey(keys, value, 'code')

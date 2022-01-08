@@ -4,6 +4,8 @@ import { expect } from 'chai'
 
 import { format, FormatOptions } from '../../src/format'
 import { EqualityOptions, isEqual } from '../../src/isEqual'
+import { clearSmartEqRules } from '../../src/isEqual/rules'
+import { buildSmartEqResult, loadSmartEqRules } from '../../src/isEqual/rules'
 import { AMatcher } from '../../src/matchers'
 
 describe('isEqual', () => {
@@ -433,4 +435,17 @@ describe('isEqual', () => {
       }
     })
   }
+
+  it('supports rules', () => {
+    const twoNotTwoRule = (actual: unknown, expected: unknown) =>
+      actual === 2 && expected === 2 ? buildSmartEqResult(false) : undefined
+    loadSmartEqRules([twoNotTwoRule])
+
+    expect(isEqual(2, 2, DEFAULTS)).to.equal(false)
+    expect(isEqual(3, 3, DEFAULTS)).to.equal(true)
+    expect(isEqual({ x: 2 }, { x: 2 }, DEFAULTS)).to.equal(false)
+    expect(isEqual({ x: 3 }, { x: 3 }, DEFAULTS)).to.equal(true)
+
+    clearSmartEqRules()
+  })
 })

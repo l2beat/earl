@@ -30,6 +30,12 @@ export function isEqualObject(
     }
   }
 
+  if (type === 'Array') {
+    if ((value as unknown[]).length !== (other as unknown[]).length) {
+      return false
+    }
+  }
+
   if (type === 'Date' || type === 'String' || type === 'Number' || type === 'Boolean') {
     if (value.valueOf() !== other.valueOf()) {
       return false

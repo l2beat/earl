@@ -5,7 +5,7 @@ const logger = debug('earljs:plugins:load')
 
 import { loadMatchers } from '../expect'
 import { loadValidators } from '../Expectation'
-import { loadSmartEqRules } from '../validators/smartEq'
+import { loadSmartEqRules } from '../isEqual/rules'
 
 export type PluginLoader = (path: string) => Promise<PluginConfig>
 
