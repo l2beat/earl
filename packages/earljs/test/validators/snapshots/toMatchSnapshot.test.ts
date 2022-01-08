@@ -18,16 +18,14 @@ describe('toMatchSnapshot', () => {
     },
   })
 
-  const makeDummyCtrl = (): Control<any> => ({
-    actual: 'test123',
-    isNegated: false,
-    assert: spy() as any,
-    fail: spy() as any,
-    testRunnerCtx: makeDummyTestRunnerCtx(),
-  })
+  class DummyControl extends Control<any> {
+    testRunnerCtx = makeDummyTestRunnerCtx()
+    assert = spy() as any
+    fail = spy() as any
+  }
 
   it('creates new snapshots', () => {
-    const dummyCtrl = makeDummyCtrl()
+    const dummyCtrl = new DummyControl('test123', false)
     const dummyCompareSnapshot: CompareSnapshot = spy(() => {
       return { success: true } as any
     })
@@ -45,7 +43,7 @@ describe('toMatchSnapshot', () => {
   })
 
   it('matches existing snapshots', () => {
-    const dummyCtrl = makeDummyCtrl()
+    const dummyCtrl = new DummyControl('test123', false)
     const dummyCompareSnapshot: CompareSnapshot = spy(() => {
       return { success: false, actual: 'test123', expected: 'abc' } as any
     })
