@@ -21,6 +21,7 @@ describe('isEqual', () => {
     minusZero: true,
     indentSize: 2,
     inline: true,
+    skipMatcherReplacement: false,
   }
 
   interface TestCaseGroup {
@@ -396,7 +397,12 @@ describe('isEqual', () => {
         const flags = options ? ` [${Object.keys(options).join(' ')}]` : ''
         describe(`${aFmt} ${operator} ${bFmt}${flags}`, () => {
           const equalityOptions = { ...DEFAULTS, ...options }
-          const formatOptions = { ...equalityOptions, indentSize: 2, inline: false }
+          const formatOptions: FormatOptions = {
+            ...equalityOptions,
+            indentSize: 2,
+            inline: false,
+            skipMatcherReplacement: false,
+          }
 
           it('a -> b', () => {
             const result = isEqual(a, b, equalityOptions)

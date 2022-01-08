@@ -8,9 +8,10 @@ export function formatWithObject(
   value: object,
   sibling: unknown,
   options: FormatOptions,
-  stack: unknown[],
+  valueStack: unknown[],
+  siblingStack: unknown[],
 ): [number, string][] {
-  const object = formatPlainObject(type, value, sibling, options, stack)
+  const object = formatPlainObject(type, value, sibling, options, valueStack, siblingStack)
   if (object[0][1] === '{}') {
     return [[0, formatted]]
   } else {

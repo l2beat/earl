@@ -8,9 +8,10 @@ export function formatPrimitiveInstance(
   value: object,
   sibling: unknown,
   options: FormatOptions,
-  stack: unknown[],
+  valueStack: unknown[],
+  siblingStack: unknown[],
 ): [number, string][] {
   const typeName = options.ignorePrototypes ? type : getTypeName(value, sibling)
   const formatted = `${typeName} ${JSON.stringify(value)}`
-  return formatWithObject(type, formatted, value, sibling, options, stack)
+  return formatWithObject(type, formatted, value, sibling, options, valueStack, siblingStack)
 }

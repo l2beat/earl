@@ -3,7 +3,7 @@
 import { expect } from 'chai'
 
 import { format, FormatOptions } from '../../src/format'
-import { AMatcher } from '../../src/matchers'
+import { AMatcher, AnythingMatcher } from '../../src/matchers'
 
 describe('format', () => {
   const DEFAULTS: FormatOptions = {
@@ -13,6 +13,7 @@ describe('format', () => {
     compareErrorStack: false,
     indentSize: 2,
     inline: false,
+    skipMatcherReplacement: false,
   }
 
   interface TestCaseGroup {
@@ -383,7 +384,32 @@ describe('format', () => {
       name: 'matchers',
       testCases: [
         [new AMatcher(String), 'foo', '"foo"'],
+        [new AMatcher(String), 'foo', 'Matcher [A: String]', { skipMatcherReplacement: true }],
         [new AMatcher(String), 123, 'Matcher [A: String]'],
+        [new AnythingMatcher(), null, 'null'],
+        [new AnythingMatcher(), null, 'Matcher [Anything]', { skipMatcherReplacement: true }],
+        [{ foo: new AnythingMatcher() }, {}, '{\n  foo: Matcher [Anything]\n}'],
+        [[new AnythingMatcher()], [], '[\n  Matcher [Anything]\n]'],
+        [
+          { x: new AnythingMatcher() },
+          (() => {
+            const x = { x: { y: { z: {} } } }
+            x.x.y.z = x
+            return x
+          })(),
+          '{ x: { y: { z: <Circular ...> } } }',
+          { inline: true },
+        ],
+        [
+          [new AnythingMatcher()],
+          (() => {
+            const x = [[[]]]
+            ;(x as any)[0][0][0] = x
+            return x
+          })(),
+          '[[[<Circular ...>]]]',
+          { inline: true },
+        ],
       ],
     },
   ]

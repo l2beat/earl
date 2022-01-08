@@ -60,6 +60,7 @@ describe('formatCompact', () => {
     [new TypeError('foo'), 'TypeError("foo")'],
     [new AMatcher(String), 'Matcher [A: String]'],
     [new AnythingMatcher(), 'Matcher [Anything]'],
+    [[new AnythingMatcher()], '[Matcher [Anything]]'],
     [new (class Foo {})(), 'Foo {}'],
   ]
 

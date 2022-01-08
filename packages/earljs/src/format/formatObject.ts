@@ -12,21 +12,22 @@ export function formatObject(
   value: object,
   sibling: unknown,
   options: FormatOptions,
-  stack: unknown[],
+  valueStack: unknown[],
+  siblingStack: unknown[],
 ): [number, string][] {
   const type = getType(value)
   if (type === 'Function') {
-    return formatFunction(value as Function, sibling, options, stack)
+    return formatFunction(value as Function, sibling, options, valueStack, siblingStack)
   } else if (type === 'Array') {
-    return formatArray(value as unknown[], sibling, options, stack)
+    return formatArray(value as unknown[], sibling, options, valueStack, siblingStack)
   } else if (type === 'Date') {
-    return formatDate(value as Date, sibling, options, stack)
+    return formatDate(value as Date, sibling, options, valueStack, siblingStack)
   } else if (type === 'RegExp') {
-    return formatRegExp(value as RegExp, sibling, options, stack)
+    return formatRegExp(value as RegExp, sibling, options, valueStack, siblingStack)
   } else if (type === 'String' || type === 'Number' || type === 'Boolean') {
-    return formatPrimitiveInstance(type, value, sibling, options, stack)
+    return formatPrimitiveInstance(type, value, sibling, options, valueStack, siblingStack)
   } else if (type === 'Promise' || type === 'WeakMap' || type === 'WeakSet') {
     return formatUniqueInstance(type, value, sibling, options)
   }
-  return formatPlainObject(type, value, sibling, options, stack)
+  return formatPlainObject(type, value, sibling, options, valueStack, siblingStack)
 }

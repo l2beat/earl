@@ -5,10 +5,11 @@ export function formatFunction(
   value: Function,
   sibling: unknown,
   options: FormatOptions,
-  stack: unknown[],
+  valueStack: unknown[],
+  siblingStack: unknown[],
 ): [number, string][] {
   const signature = formatFunctionSignature(value, sibling, options)
-  return formatWithObject('Function', signature, value, sibling, options, stack)
+  return formatWithObject('Function', signature, value, sibling, options, valueStack, siblingStack)
 }
 
 export function formatFunctionSignature(value: Function, sibling: unknown, options: FormatOptions): string {

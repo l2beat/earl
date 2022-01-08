@@ -8,7 +8,8 @@ export function formatPlainObject(
   value: object,
   sibling: unknown,
   options: FormatOptions,
-  stack: unknown[],
+  valueStack: unknown[],
+  siblingStack: unknown[],
 ): [number, string][] {
   const keys = getKeys(value, type, options)
 
@@ -26,9 +27,11 @@ export function formatPlainObject(
     return [[0, `${opening}}`]]
   }
 
-  stack.push(value)
-  const entries = formatProperties(keys, value, sibling, options, stack)
-  stack.pop()
+  valueStack.push(value)
+  siblingStack.push(sibling)
+  const entries = formatProperties(keys, value, sibling, options, valueStack, siblingStack)
+  valueStack.pop()
+  siblingStack.pop()
 
   if (options.inline) {
     return [[0, `${opening} ${entries.map((x) => x[1]).join(', ')} }`]]

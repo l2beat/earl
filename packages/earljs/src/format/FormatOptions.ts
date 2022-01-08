@@ -9,12 +9,17 @@ export interface FormatOptions extends EqualityOptions {
    * Format inline instead of using indentation
    */
   inline: boolean
+  /**
+   * Never replaces matcher with matched contents
+   */
+  skipMatcherReplacement: boolean
 }
 
 export const DEFAULT_FORMAT_OPTIONS: FormatOptions = {
   ...DEFAULT_EQUALITY_OPTIONS,
   indentSize: 2,
   inline: false,
+  skipMatcherReplacement: false,
 }
 
 export const LOOSE_FORMAT_OPTIONS = {

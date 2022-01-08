@@ -8,19 +8,16 @@ import { getTypeName } from './getTypeName'
 const FORMAT_OPTIONS: FormatOptions = {
   compareErrorStack: false,
   ignorePrototypes: false,
-  indentSize: 0,
-  inline: true,
   minusZero: false,
   uniqueNaNs: false,
+  indentSize: 0,
+  inline: true,
+  skipMatcherReplacement: true,
 }
 
 export function formatCompact(value: unknown): string {
-  if (value instanceof Matcher) {
-    return `Matcher ${value.toString()}`
-  }
-
   const full = format(value, null, FORMAT_OPTIONS)
-  if (full.length < 30) {
+  if (full.length < 30 || value instanceof Matcher) {
     return full
   }
 

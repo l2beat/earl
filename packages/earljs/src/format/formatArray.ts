@@ -7,18 +7,21 @@ export function formatArray(
   value: unknown[],
   sibling: unknown,
   options: FormatOptions,
-  stack: unknown[],
+  valueStack: unknown[],
+  siblingStack: unknown[],
 ): [number, string][] {
   const keys = getNonArrayKeys(value)
   if (value.length === 0 && keys.length === 0) {
     return [[0, '[]']]
   }
-  stack.push(value)
+  valueStack.push(value)
+  siblingStack.push(sibling)
   const entries = [
-    ...formatArrayEntries(value, sibling, options, stack),
-    ...formatProperties(keys, value, sibling, options, stack),
+    ...formatArrayEntries(value, sibling, options, valueStack, siblingStack),
+    ...formatProperties(keys, value, sibling, options, valueStack, siblingStack),
   ]
-  stack.pop()
+  valueStack.pop()
+  siblingStack.pop()
 
   let opening = '['
   if (!options.ignorePrototypes) {
@@ -37,7 +40,13 @@ export function formatArray(
   }
 }
 
-export function formatArrayEntries(value: unknown[], sibling: unknown, options: FormatOptions, stack: unknown[]) {
+export function formatArrayEntries(
+  value: unknown[],
+  sibling: unknown,
+  options: FormatOptions,
+  valueStack: unknown[],
+  siblingStack: unknown[],
+) {
   const entries: [number, string][] = []
   let empty = 0
   for (let i = 0; i < value.length; i++) {
@@ -48,7 +57,17 @@ export function formatArrayEntries(value: unknown[], sibling: unknown, options: 
         entries.push(formatEmpty(empty))
         empty = 0
       }
-      const valueFormat = formatUnknown((value as any)[i], (sibling as any)?.[i], options, stack)
+      let nestedOptions = options
+      if (!options.skipMatcherReplacement && sibling && !Object.prototype.hasOwnProperty.call(sibling, i.toString())) {
+        nestedOptions = { ...nestedOptions, skipMatcherReplacement: true }
+      }
+      const valueFormat = formatUnknown(
+        (value as any)[i],
+        (sibling as any)?.[i],
+        nestedOptions,
+        valueStack,
+        siblingStack,
+      )
       for (const line of valueFormat) {
         line[0] += 1
       }

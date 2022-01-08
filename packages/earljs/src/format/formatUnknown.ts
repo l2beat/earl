@@ -8,7 +8,8 @@ export function formatUnknown(
   value: unknown,
   sibling: unknown,
   options: FormatOptions,
-  stack: unknown[],
+  valueStack: unknown[],
+  siblingStack: unknown[],
 ): [number, string][] {
   if (typeof value === 'number') {
     return [[0, formatNumber(value, sibling, options)]]
@@ -23,21 +24,21 @@ export function formatUnknown(
   }
 
   if (value instanceof Matcher) {
-    if (value.check(sibling)) {
-      return formatUnknown(sibling, null, options, [])
+    if (!options.skipMatcherReplacement && value.check(sibling)) {
+      return formatUnknown(sibling, null, options, siblingStack, [])
     } else {
       return [[0, `Matcher ${value.toString()}`]]
     }
   }
 
-  const selfIndex = stack.indexOf(value)
+  const selfIndex = valueStack.indexOf(value)
   if (selfIndex !== -1) {
-    const dots = '.'.repeat(stack.length - selfIndex)
+    const dots = '.'.repeat(valueStack.length - selfIndex)
     return [[0, `<Circular ${dots}>`]]
   }
 
   if (typeof value === 'function' || typeof value === 'object') {
-    return formatObject(value, sibling, options, stack)
+    return formatObject(value, sibling, options, valueStack, siblingStack)
   }
 
   return [[0, `${value}`]]
