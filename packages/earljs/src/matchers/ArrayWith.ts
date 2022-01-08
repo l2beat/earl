@@ -1,3 +1,5 @@
+import { Dictionary } from 'ts-essentials'
+
 import { smartEq } from '../validators/smartEq'
 import { Matcher } from './Base'
 
@@ -11,9 +13,21 @@ export class ArrayWithMatcher<T> extends Matcher {
       return false
     }
 
-    return this.expectedItems.every((expectedItem) =>
-      actualItems.some((actualItem) => smartEq(actualItem, expectedItem).result === 'success'),
-    )
+    const matchedIndexes: Dictionary<boolean, number> = {}
+
+    return this.expectedItems.every((expectedItem) => {
+      const foundIndex = actualItems.findIndex(
+        (actualItem, index) => smartEq(actualItem, expectedItem).result === 'success' && !matchedIndexes[index],
+      )
+
+      if (foundIndex !== -1) {
+        matchedIndexes[foundIndex] = true
+
+        return true
+      } else {
+        return false
+      }
+    })
   }
 
   toString() {
