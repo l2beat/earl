@@ -11,17 +11,6 @@ export function formatArray(
   siblingStack: unknown[],
 ): [number, string][] {
   const keys = getNonArrayKeys(value)
-  if (value.length === 0 && keys.length === 0) {
-    return [[0, '[]']]
-  }
-  valueStack.push(value)
-  siblingStack.push(sibling)
-  const entries = [
-    ...formatArrayEntries(value, sibling, options, valueStack, siblingStack),
-    ...formatProperties(keys, value, sibling, options, valueStack, siblingStack),
-  ]
-  valueStack.pop()
-  siblingStack.pop()
 
   let opening = '['
   if (!options.ignorePrototypes) {
@@ -30,6 +19,19 @@ export function formatArray(
       opening = `${name} [`
     }
   }
+
+  if (value.length === 0 && keys.length === 0) {
+    return [[0, `${opening}]`]]
+  }
+
+  valueStack.push(value)
+  siblingStack.push(sibling)
+  const entries = [
+    ...formatArrayEntries(value, sibling, options, valueStack, siblingStack),
+    ...formatProperties(keys, value, sibling, options, valueStack, siblingStack),
+  ]
+  valueStack.pop()
+  siblingStack.pop()
 
   if (options.inline) {
     return [[0, `${opening}${entries.map((x) => x[1]).join(', ')}]`]]

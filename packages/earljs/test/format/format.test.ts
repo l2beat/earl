@@ -250,6 +250,7 @@ describe('format', () => {
           '[\n  1\n  2\n  <2 empty items>\n  5\n  x: "bar"\n  y: "foo"\n]',
         ],
         [class MyArray extends Array {}.from([1, 2]), null, 'MyArray [\n  1\n  2\n]'],
+        [class MyArray extends Array {}.from([]), null, 'MyArray []'],
         [
           class MyArray extends Array {}.from([1, 2]),
           class MyArray extends Array {}.from([1, 2]),
