@@ -1,10 +1,10 @@
-import { ObjectType } from '../isEqual/objectUtils'
+import { CanonicalType } from '../isEqual'
 import { FormatOptions } from './FormatOptions'
 import { formatWithObject } from './formatWithObject'
 import { getTypeName } from './getTypeName'
 
 export function formatPrimitiveInstance(
-  type: ObjectType,
+  type: CanonicalType,
   value: object,
   sibling: unknown,
   options: FormatOptions,

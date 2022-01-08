@@ -1,4 +1,4 @@
-import { getKeys, getType, ObjectType } from '../isEqual/objectUtils'
+import { CanonicalType, getCanonicalType, getKeys } from '../isEqual'
 import { Matcher } from '../matchers'
 import { format } from './format'
 import { formatFunctionSignature } from './formatFunction'
@@ -34,7 +34,7 @@ export function formatCompact(value: unknown): string {
   } else if (typeof value === 'function') {
     return formatFunctionSignature(value, null, FORMAT_OPTIONS)
   } else if (typeof value === 'object' && value !== null) {
-    const type = getType(value)
+    const type = getCanonicalType(value)
     const typeName = getTypeName(value, null)
     switch (type) {
       case 'Array':
@@ -59,7 +59,7 @@ export function formatCompact(value: unknown): string {
   return `${value}`
 }
 
-function formatCompactObject(value: object, typeName: string, type: ObjectType): string {
+function formatCompactObject(value: object, typeName: string, type: CanonicalType): string {
   const keys = getKeys(value, type, FORMAT_OPTIONS)
   let base = '{}'
   if (keys.length > 0 && keys.length <= 2) {

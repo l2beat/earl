@@ -1,4 +1,4 @@
-import { getType } from '../isEqual/objectUtils'
+import { getCanonicalType } from '../isEqual'
 import { formatArray } from './formatArray'
 import { formatDate } from './formatDate'
 import { formatFunction } from './formatFunction'
@@ -15,7 +15,7 @@ export function formatObject(
   valueStack: unknown[],
   siblingStack: unknown[],
 ): [number, string][] {
-  const type = getType(value)
+  const type = getCanonicalType(value)
   if (type === 'Function') {
     return formatFunction(value as Function, sibling, options, valueStack, siblingStack)
   } else if (type === 'Array') {

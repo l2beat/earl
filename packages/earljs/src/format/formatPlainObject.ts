@@ -1,10 +1,10 @@
-import { getKeys, ObjectType } from '../isEqual/objectUtils'
+import { CanonicalType, getKeys } from '../isEqual'
 import { FormatOptions } from './FormatOptions'
 import { formatProperties } from './formatProperties'
 import { getTypeName } from './getTypeName'
 
 export function formatPlainObject(
-  type: ObjectType,
+  type: CanonicalType,
   value: object,
   sibling: unknown,
   options: FormatOptions,

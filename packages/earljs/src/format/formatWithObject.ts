@@ -1,9 +1,9 @@
-import { ObjectType } from '../isEqual/objectUtils'
+import { CanonicalType } from '../isEqual'
 import { FormatOptions } from './FormatOptions'
 import { formatPlainObject } from './formatPlainObject'
 
 export function formatWithObject(
-  type: ObjectType,
+  type: CanonicalType,
   formatted: string,
   value: object,
   sibling: unknown,
