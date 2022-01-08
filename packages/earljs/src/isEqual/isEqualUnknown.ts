@@ -26,7 +26,7 @@ export function isEqualUnknown(
     return false
   } else if (typeof value === 'number') {
     return isEqualNumber(value, other as number, options)
-  } else if (typeof value === 'object' && value !== null) {
+  } else if (typeof value === 'object' && value !== null && other !== null) {
     return isEqualObject(value, valueStack, other as object, otherStack, options)
   }
   return value === other

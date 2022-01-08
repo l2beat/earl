@@ -144,6 +144,7 @@ describe('isEqual', () => {
       name: 'objects',
       testCases: [
         [{}, {}, true],
+        [{}, null, false],
         [{ x: 1 }, { x: 1 }, true],
         [{ x: 1, y: 2 }, { x: 1, y: 2 }, true],
         [{ x: 1, y: 2 }, { x: 1, y: 3 }, false],
