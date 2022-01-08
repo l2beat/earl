@@ -111,13 +111,17 @@ export interface CommonValidators<T> extends BooleanValidators, OptionalValidato
    */
   toReferentiallyEqual(value: T): void
   /**
-   * Checks if the value is an instance of the provided class or primitive type. Examples:
+   * Checks if the value is an instance of a provided class or a primitive type. Works as expected with builtin types like strings, numbers, dates.
+   *
+   * 1. `expect.a(MyClass)` - matches `new MyClass`, but not `new Other()`
+   * 2. `expect.a(String)` - matches `"foo"`, but not `123`
    *
    * @param clazz - type class or primitive constructor to match against.
    * @example
    * ```ts
    * expect(object).toBeA(MyClass) // checks if object is instance of `MyClass`, but not `Other`
    * expect(foo).toBeA(String) // checks if foo is instance of string
+   * expect(foo).toBeA(Object) // matches any object (not null)
    * ```
    */
   toBeA(clazz: any): void

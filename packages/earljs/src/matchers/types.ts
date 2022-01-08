@@ -13,7 +13,7 @@ export interface Matchers {
   anything(): any
 
   /**
-   * Matches an instance of the provided class or primitive type. Examples:
+   * Matches an instance of a provided class or a primitive type. Works as expected with builtin types like strings, numbers, dates.
    *
    * 1. `expect.a(MyClass)` - matches `new MyClass`, but not `new Other()`
    * 2. `expect.a(String)` - matches `"foo"`, but not `123`
@@ -22,6 +22,7 @@ export interface Matchers {
    *
    * @example
    * ```ts
+   * expect(something).toEqual(expect.a(MyClass)) // matches any object of instance MyClass but not `other`
    * expect(something).toEqual(expect.a(String)) // matches any string
    * expect(something).toEqual(expect.a(Object)) // matches any object (not null)
    * ```
