@@ -1,9 +1,8 @@
 import { CanonicalType, getCanonicalType, getKeys } from '../isEqual'
 import { Matcher } from '../matchers'
 import { format } from './format'
-import { formatFunctionSignature } from './formatFunction'
 import { FormatOptions } from './FormatOptions'
-import { getTypeName } from './getTypeName'
+import { getFunctionTypeName, getTypeName } from './getComparedTypeName'
 
 const FORMAT_OPTIONS: FormatOptions = {
   compareErrorStack: false,
@@ -32,10 +31,10 @@ export function formatCompact(value: unknown): string {
   } else if (typeof value === 'symbol') {
     return format(value, null, FORMAT_OPTIONS)
   } else if (typeof value === 'function') {
-    return formatFunctionSignature(value, null, FORMAT_OPTIONS)
+    return getFunctionTypeName(value as Function)
   } else if (typeof value === 'object' && value !== null) {
     const type = getCanonicalType(value)
-    const typeName = getTypeName(value, null)
+    const typeName = getTypeName(value, false) ?? ''
     switch (type) {
       case 'Array':
         return formatCompactArray(value as unknown[], typeName)

@@ -101,13 +101,13 @@ describe('format', () => {
           [async function* () {}, null, 'async function* [anonymous]()'],
           [async function* () {}, async function* () {}, 'async function* [anonymous]() (different)'],
         ]`),
-        [Set.prototype.has, null, 'function has() (native)'],
-        [Set.prototype.has, Map.prototype.has, 'function has() (native) (different)'],
+        [Set.prototype.has, null, 'function has()'],
+        [Set.prototype.has, Map.prototype.has, 'function has() (different)'],
         [class A {}, null, 'class A'],
         [class A {}, class A {}, 'class A (different)'],
         [class {}, null, 'class [anonymous]'],
         [class {}, class {}, 'class [anonymous] (different)'],
-        [Array, null, 'function Array() (native)'],
+        [Array, null, 'function Array()'],
         [Object.assign(function x() {}, { a: 1 }), null, 'function x() & {\n  a: 1\n}'],
         [Object.assign(function x() {}, { a: 1 }), function x() {}, 'function x() (different) & {\n  a: 1\n}'],
         [Object.assign(function () {}, { a: 1 }), null, 'function [anonymous]() & {\n  a: 1\n}'],
@@ -328,6 +328,19 @@ describe('format', () => {
         [
           class MyPromise extends Promise<number> {}.resolve(1),
           class MyPromise extends Promise<number> {}.resolve(1),
+          'MyPromise (different prototype)',
+        ],
+        [
+          class MyPromise extends Promise<number> {}.resolve(1),
+          class MyPromise extends Promise<number> {}.resolve(1),
+          'Promise (different)',
+          { ignorePrototypes: true },
+        ],
+        [
+          ...(() => {
+            class MyPromise extends Promise<number> {}
+            return [MyPromise.resolve(1), MyPromise.resolve(1)]
+          })(),
           'MyPromise (different)',
         ],
         [class MyPromise extends Promise<number> {}.resolve(1), null, 'Promise', { ignorePrototypes: true }],
@@ -335,6 +348,19 @@ describe('format', () => {
         [
           new (class MyWeakMap extends WeakMap {})(),
           new (class MyWeakMap extends WeakMap {})(),
+          'MyWeakMap (different prototype)',
+        ],
+        [
+          new (class MyWeakMap extends WeakMap {})(),
+          new (class MyWeakMap extends WeakMap {})(),
+          'WeakMap (different)',
+          { ignorePrototypes: true },
+        ],
+        [
+          ...(() => {
+            class MyWeakMap extends WeakMap {}
+            return [new MyWeakMap(), new MyWeakMap()]
+          })(),
           'MyWeakMap (different)',
         ],
         [new (class MyWeakMap extends WeakMap {})(), null, 'WeakMap', { ignorePrototypes: true }],
@@ -342,6 +368,19 @@ describe('format', () => {
         [
           new (class MyWeakSet extends WeakSet {})(),
           new (class MyWeakSet extends WeakSet {})(),
+          'MyWeakSet (different prototype)',
+        ],
+        [
+          new (class MyWeakSet extends WeakSet {})(),
+          new (class MyWeakSet extends WeakSet {})(),
+          'WeakSet (different)',
+          { ignorePrototypes: true },
+        ],
+        [
+          ...(() => {
+            class MyWeakSet extends WeakSet {}
+            return [new MyWeakSet(), new MyWeakSet()]
+          })(),
           'MyWeakSet (different)',
         ],
         [new (class MyWeakSet extends WeakSet {})(), null, 'WeakSet', { ignorePrototypes: true }],
