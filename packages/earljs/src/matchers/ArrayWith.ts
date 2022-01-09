@@ -13,21 +13,7 @@ export class ArrayWithMatcher<T> extends Matcher {
       return false
     }
 
-    const matchedIndexes: Dictionary<boolean, number> = {}
-
-    return this.expectedItems.every((expectedItem) => {
-      const foundIndex = actualItems.findIndex(
-        (actualItem, index) => smartEq(actualItem, expectedItem).result === 'success' && !matchedIndexes[index],
-      )
-
-      if (foundIndex !== -1) {
-        matchedIndexes[foundIndex] = true
-
-        return true
-      } else {
-        return false
-      }
-    })
+    return contains(this.expectedItems, actualItems)
   }
 
   toString() {
@@ -37,4 +23,23 @@ export class ArrayWithMatcher<T> extends Matcher {
   static make<T>(...items: T[]): T[] {
     return new ArrayWithMatcher(items) as any
   }
+}
+
+/** @internal */
+export function contains(expectedItems: ReadonlyArray<any>, actualItems: ReadonlyArray<any>): boolean {
+  const matchedIndexes: Dictionary<boolean, number> = {}
+
+  return expectedItems.every((expectedItem) => {
+    const foundIndex = actualItems.findIndex(
+      (actualItem, index) => smartEq(actualItem, expectedItem).result === 'success' && !matchedIndexes[index],
+    )
+
+    if (foundIndex !== -1) {
+      matchedIndexes[foundIndex] = true
+
+      return true
+    } else {
+      return false
+    }
+  })
 }

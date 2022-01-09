@@ -15,6 +15,15 @@ describe('ContainerWith matcher', () => {
     expect(m.check(['a'])).to.be.false
   })
 
+  it('matches arrays with repeated items', () => {
+    const m = new ContainerWithMatcher([1, 1])
+
+    expect(m.check([1, 1])).to.be.true
+    expect(m.check([1, 1, 1])).to.be.true
+    expect(m.check([1, 0, 1])).to.be.true
+    expect(m.check([1])).to.be.false
+  })
+
   it('matches sets', () => {
     const m = new ContainerWithMatcher([1])
 
