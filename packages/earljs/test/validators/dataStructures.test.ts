@@ -10,7 +10,9 @@ describe('dataStructures', () => {
       })
 
       it('throws', () => {
-        expect(() => earl(new Set([1, 2, 3])).toBeAContainerWith(4, 5)).to.throw('Set {} does not contain [4, 5]')
+        expect(() => earl(new Set([1, 2, 3])).toBeAContainerWith(4, 5)).to.throw(
+          'Set { 1, 2, 3 } does not contain [4, 5]',
+        )
       })
     })
 
@@ -20,7 +22,7 @@ describe('dataStructures', () => {
       })
 
       it('throws', () => {
-        expect(() => earl(new Set([1, 2, 3])).not.toBeAContainerWith(3)).to.throw('Set {} contains [3]')
+        expect(() => earl(new Set([1, 2, 3])).not.toBeAContainerWith(3)).to.throw('Set { 1, 2, 3 } contains [3]')
       })
     })
   })
@@ -72,7 +74,7 @@ describe('dataStructures', () => {
     describe('types', () => {
       it('is typesafe', () => {
         // @ts-expect-error
-        expect(() => earl(new Set([1, 2, 3])).toBeAnArrayWith(1)).to.throw('Set {} does not contain array [1]')
+        expect(() => earl(new Set([1, 2, 3])).toBeAnArrayWith(1)).to.throw('Set { 1, 2, 3 } does not contain array [1]')
       })
     })
   })

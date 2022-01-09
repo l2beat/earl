@@ -4,6 +4,7 @@ import { formatArrayEntries } from './formatArrayEntries'
 import { formatNumber } from './formatNumber'
 import { formatObjectEntries } from './formatObjectEntries'
 import { FormatOptions } from './FormatOptions'
+import { formatSetEntries } from './formatSetEntries'
 import { formatSymbol } from './formatSymbol'
 import { getComparedTypeName } from './getComparedTypeName'
 import { getRepresentation } from './getRepresentation'
@@ -90,6 +91,8 @@ export function formatUnknown(
 
   if (type === 'Array') {
     entries.push(...formatArrayEntries(value as unknown[], sibling, options, valueStack, siblingStack))
+  } else if (type === 'Set') {
+    entries.push(...formatSetEntries(value as Set<unknown>, sibling, options, valueStack, siblingStack))
   }
   entries.push(...formatObjectEntries(value as object, sibling, options, valueStack, siblingStack))
 

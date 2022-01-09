@@ -454,6 +454,21 @@ describe('format', () => {
         ],
       ],
     },
+    {
+      name: 'sets',
+      testCases: [
+        [new Set(), null, 'Set {}'],
+        [new Set([1, 2, 3]), null, 'Set {\n  1\n  2\n  3\n}'],
+        [new Set([1, 2, 3, 4]), new Set([3, 2, 5]), 'Set {\n  3\n  2\n  1\n  4\n}'],
+        [new Set([{ x: 1 }]), new Set([{ x: 1 }]), 'Set {\n  (different) {\n    x: 1\n  }\n}'],
+        [
+          new Set([{ x: { y: 1 } }]),
+          new Set([{ x: { y: 1 } }]),
+          'Set {\n  (different) {\n    x: {\n      y: 1\n    }\n  }\n}',
+        ],
+        [new Set([[[]]]), new Set([[[]]]), 'Set {\n  (different) [\n    []\n  ]\n}'],
+      ],
+    },
   ]
 
   for (const { name, testCases } of groups) {

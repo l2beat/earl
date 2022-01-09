@@ -9,6 +9,12 @@ export function formatArrayEntries(
   siblingStack: unknown[],
 ) {
   const entries: [number, string][] = []
+
+  let passedOptions = options
+  if (options.requireStrictEquality) {
+    passedOptions = { ...passedOptions, requireStrictEquality: false }
+  }
+
   let empty = 0
   for (let i = 0; i < value.length; i++) {
     if (!value.hasOwnProperty(i.toString())) {
@@ -18,7 +24,7 @@ export function formatArrayEntries(
         entries.push(formatEmpty(empty))
         empty = 0
       }
-      let nestedOptions = options
+      let nestedOptions = passedOptions
       if (!options.skipMatcherReplacement && sibling && !Object.prototype.hasOwnProperty.call(sibling, i.toString())) {
         nestedOptions = { ...nestedOptions, skipMatcherReplacement: true }
       }

@@ -10,9 +10,15 @@ export function formatObjectEntries(
 ) {
   const keys = getKeys(value, options)
   const entries: [number, string][] = []
+
+  let passedOptions = options
+  if (options.requireStrictEquality) {
+    passedOptions = { ...passedOptions, requireStrictEquality: false }
+  }
+
   for (const key of keys) {
     const keyFormat = formatKey(key)
-    let nestedOptions = options
+    let nestedOptions = passedOptions
     if (!options.skipMatcherReplacement && sibling && !Object.prototype.hasOwnProperty.call(sibling, key)) {
       nestedOptions = { ...nestedOptions, skipMatcherReplacement: true }
     }
