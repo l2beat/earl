@@ -22,6 +22,7 @@ describe('isEqual', () => {
     indentSize: 2,
     inline: true,
     skipMatcherReplacement: false,
+    requireStrictEquality: false,
   }
 
   interface TestCaseGroup {
@@ -403,6 +404,7 @@ describe('isEqual', () => {
             indentSize: 2,
             inline: false,
             skipMatcherReplacement: false,
+            requireStrictEquality: false,
           }
 
           it('a -> b', () => {

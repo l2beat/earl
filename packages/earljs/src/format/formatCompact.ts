@@ -12,6 +12,7 @@ const FORMAT_OPTIONS: FormatOptions = {
   indentSize: 0,
   inline: true,
   skipMatcherReplacement: true,
+  requireStrictEquality: false,
 }
 
 export function formatCompact(value: unknown): string {

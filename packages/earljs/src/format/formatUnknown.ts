@@ -62,22 +62,25 @@ export function formatUnknown(
     items.push('(different prototype)')
   }
 
-  if (type === 'Promise' || type === 'WeakMap' || type === 'WeakSet') {
+  if (
+    options.requireStrictEquality ||
+    type === 'Promise' ||
+    type === 'WeakMap' ||
+    type === 'WeakSet' ||
+    type === 'Function'
+  ) {
     if (value !== sibling && isSameTypeName && !isDifferentPrototype) {
       items.push('(different)')
     }
+  }
+
+  if (type === 'Promise' || type === 'WeakMap' || type === 'WeakSet') {
     return toLine(items.join(' '))
   }
 
   const representation = getRepresentation(value, type)
   if (representation) {
     items.push(representation)
-  }
-
-  if (type === 'Function') {
-    if (value !== sibling && isSameTypeName) {
-      items.push('(different)')
-    }
   }
 
   const entries: [number, string][] = []

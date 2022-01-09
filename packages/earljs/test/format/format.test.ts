@@ -14,6 +14,7 @@ describe('format', () => {
     indentSize: 2,
     inline: false,
     skipMatcherReplacement: false,
+    requireStrictEquality: false,
   }
 
   interface TestCaseGroup {
@@ -160,6 +161,7 @@ describe('format', () => {
           '{\n  x: 1\n  y: 2\n}',
           { ignorePrototypes: true },
         ],
+        [{ x: 1 }, {}, `(different) {\n  x: 1\n}`, { requireStrictEquality: true }],
       ],
     },
     {

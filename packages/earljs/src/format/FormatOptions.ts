@@ -13,6 +13,10 @@ export interface FormatOptions extends EqualityOptions {
    * Never replaces matcher with matched contents
    */
   skipMatcherReplacement: boolean
+  /**
+   * Mark top-level objects that aren't strictly equal as different
+   */
+  requireStrictEquality: boolean
 }
 
 export const DEFAULT_FORMAT_OPTIONS: FormatOptions = {
@@ -20,6 +24,7 @@ export const DEFAULT_FORMAT_OPTIONS: FormatOptions = {
   indentSize: 2,
   inline: false,
   skipMatcherReplacement: false,
+  requireStrictEquality: false,
 }
 
 export const LOOSE_FORMAT_OPTIONS = {
