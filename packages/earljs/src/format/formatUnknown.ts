@@ -1,6 +1,7 @@
 import { getCanonicalType } from '../isEqual'
 import { Matcher } from '../matchers'
 import { formatArrayEntries } from './formatArrayEntries'
+import { formatMapEntries } from './formatMapEntries'
 import { formatNumber } from './formatNumber'
 import { formatObjectEntries } from './formatObjectEntries'
 import { FormatOptions } from './FormatOptions'
@@ -93,6 +94,8 @@ export function formatUnknown(
     entries.push(...formatArrayEntries(value as unknown[], sibling, options, valueStack, siblingStack))
   } else if (type === 'Set') {
     entries.push(...formatSetEntries(value as Set<unknown>, sibling, options, valueStack, siblingStack))
+  } else if (type === 'Map') {
+    entries.push(...formatMapEntries(value as Map<unknown, unknown>, sibling, options, valueStack, siblingStack))
   }
   entries.push(...formatObjectEntries(value as object, sibling, options, valueStack, siblingStack))
 

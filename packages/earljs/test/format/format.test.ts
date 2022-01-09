@@ -467,6 +467,45 @@ describe('format', () => {
           'Set {\n  (different) {\n    x: {\n      y: 1\n    }\n  }\n}',
         ],
         [new Set([[[]]]), new Set([[[]]]), 'Set {\n  (different) [\n    []\n  ]\n}'],
+        [Object.assign(new Set([1, 2]), { foo: 'bar' }), null, 'Set {\n  1\n  2\n  foo: "bar"\n}'],
+      ],
+    },
+    {
+      name: 'maps',
+      testCases: [
+        [new Map(), null, 'Map {}'],
+        [new Map([[1, 'a']]), null, 'Map {\n  1 => "a"\n}'],
+        [Object.assign(new Map([[1, 'a']]), { foo: 'bar' }), null, 'Map {\n  1 => "a"\n  foo: "bar"\n}'],
+        [
+          new Map([
+            [1, 'a'],
+            [2, 'b'],
+          ]),
+          null,
+          'Map {\n  1 => "a"\n  2 => "b"\n}',
+        ],
+        [
+          new Map([
+            [1, 'a'],
+            [2, 'b'],
+            [3, 'c'],
+            [4, 'd'],
+          ]),
+          new Map([
+            [3, 'x'],
+            [2, 'y'],
+            [5, 'z'],
+          ]),
+          'Map {\n  3 => "c"\n  2 => "b"\n  1 => "a"\n  4 => "d"\n}',
+        ],
+        [new Map([['a', true]]), null, 'Map {\n  "a" => true\n}'],
+        [new Map([[{}, true]]), null, 'Map {\n  {} => true\n}'],
+        [new Map([[{}, true]]), new Map([[{}, true]]), 'Map {\n  (different) {} => true\n}'],
+        [new Map([[{}, {}]]), new Map([[{}, {}]]), 'Map {\n  (different) {} => {}\n}'],
+        [new Map([[1, new AnythingMatcher()]]), new Map([[1, {}]]), 'Map {\n  1 => {}\n}'],
+        [new Map([[1, new AnythingMatcher()]]), new Map([[2, {}]]), 'Map {\n  1 => Matcher [Anything]\n}'],
+        [new Map([[{ x: 1 }, [2]]]), null, 'Map {\n  {\n    x: 1\n  } => [\n    2\n  ]\n}'],
+        [new Map([[{ x: 1 }, [2]]]), null, 'Map { { x: 1 } => [2] }', { inline: true }],
       ],
     },
   ]
