@@ -1,7 +1,9 @@
 import { Matcher } from '../matchers'
 import { EqualityOptions } from './EqualityOptions'
-import { CanonicalType, getCanonicalType } from './getCanonicalType'
+import { getCanonicalType } from './getCanonicalType'
 import { isEqualNumber } from './isEqualNumber'
+import { isEqualObject } from './isEqualObject'
+import { isEqualSet } from './isEqualSet'
 import { smartEqRules } from './rules'
 
 export function isEqualUnknown(
@@ -66,6 +68,10 @@ export function isEqualUnknown(
     if ((value as unknown[]).length !== (other as unknown[]).length) {
       return false
     }
+  } else if (type === 'Set') {
+    if (!isEqualSet(value as Set<unknown>, other as Set<unknown>)) {
+      return false
+    }
   } else if (type === 'Date' || type === 'String' || type === 'Number' || type === 'Boolean') {
     if ((value as object).valueOf() !== (other as object).valueOf()) {
       return false
@@ -77,59 +83,4 @@ export function isEqualUnknown(
   }
 
   return isEqualObject(value as object, valueStack, other as object, otherStack, options, type)
-}
-
-function isEqualObject(
-  value: object,
-  valueStack: unknown[],
-  other: object,
-  otherStack: unknown[],
-  options: EqualityOptions,
-  type: CanonicalType,
-) {
-  const keys = getKeys(value, type, options)
-  const otherKeys = getKeys(other, type, options)
-  if (keys.length !== otherKeys.length) {
-    return false
-  }
-  for (let i = 0; i < keys.length; i++) {
-    if (keys[i] !== otherKeys[i]) {
-      return false
-    }
-  }
-  valueStack.push(value)
-  otherStack.push(other)
-  let result = true
-  for (let i = 0; i < keys.length; i++) {
-    if (!isEqualUnknown((value as any)[keys[i]], valueStack, (other as any)[otherKeys[i]], otherStack, options)) {
-      result = false
-      break
-    }
-  }
-  valueStack.pop()
-  otherStack.pop()
-  return result
-}
-
-export function getKeys(value: object, type: CanonicalType, options: EqualityOptions) {
-  let keys = Object.keys(value)
-  if (type === 'Error') {
-    addKey(keys, value, 'name')
-    addKey(keys, value, 'message')
-    addKey(keys, value, 'code')
-    if (options.compareErrorStack) {
-      addKey(keys, value, 'stack')
-    } else {
-      keys = keys.filter((key) => key !== 'stack')
-    }
-  } else if (type === 'String') {
-    keys = keys.filter((key) => !/^\d+$/.test(key))
-  }
-  return keys.sort()
-}
-
-function addKey(keys: string[], value: object, key: string) {
-  if (key in value) {
-    keys.push(key)
-  }
 }

@@ -388,6 +388,30 @@ describe('isEqual', () => {
         [{ x: 1, y: 2 }, { x: new AMatcher(Number), y: new AMatcher(String) }, false, { oneWay: true }],
       ],
     },
+    {
+      name: 'sets',
+      testCases: [
+        [new Set(), new Set(), true],
+        [new Set([1, 2, 3]), new Set([3, 1, 2]), true],
+        [new Set([1, 2, 3]), new Set([4, 1, 2]), false],
+        [new Set([{}]), new Set([{}]), false],
+        [
+          ...(() => {
+            const a = { x: 1 }
+            const b = { y: 2 }
+            return [new Set([a, b]), new Set([b, a])] as const
+          })(),
+          true,
+        ],
+        [
+          ...(() => {
+            const a = { x: 1 }
+            return [new Set([a, { y: 2 }]), new Set([{ y: 2 }, a])] as const
+          })(),
+          false,
+        ],
+      ],
+    },
   ]
 
   for (const { name, testCases } of groups) {
