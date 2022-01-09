@@ -18,15 +18,15 @@ describe('example-plugin', () => {
   })
 
   describe('smartEq rules', () => {
-    it.skip('smartEq was poisoned with evil comparison — 2 does not equal 2 anymore!', () => {
+    it('smartEq was poisoned with evil comparison — 2 does not equal 2 anymore!', () => {
       expect(() => expect(2).toEqual(2)).toThrow()
     })
 
-    it.skip('a set can is now equal to array if they contain the same elements', () => {
+    it('a set can is now equal to array if they contain the same elements', () => {
       expect(new Set([1, 2, 3])).toEqual([1, 2, 3])
     })
 
-    it.skip('nested set is equal to nested array as they contain same elements', () => {
+    it('nested set is equal to nested array as they contain same elements', () => {
       const set = new Set([1, 2, 3])
       const array = [1, 2, 3]
 
