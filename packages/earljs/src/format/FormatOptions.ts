@@ -10,6 +10,10 @@ export interface FormatOptions extends EqualityOptions {
    */
   inline: boolean
   /**
+   * Tries to keep the line length under a specific value when inline
+   */
+  maxLineLength: number
+  /**
    * Never replaces matcher with matched contents
    */
   skipMatcherReplacement: boolean
@@ -23,6 +27,7 @@ export const DEFAULT_FORMAT_OPTIONS: FormatOptions = {
   ...DEFAULT_EQUALITY_OPTIONS,
   indentSize: 2,
   inline: false,
+  maxLineLength: Infinity,
   skipMatcherReplacement: false,
   requireStrictEquality: false,
 }

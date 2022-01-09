@@ -85,7 +85,7 @@ describe('ObjectWith matcher', () => {
     it('throws understandable error messages', () => {
       expect(() =>
         earlExpect({ a: 1 }).toEqual(earlExpect.objectWith({ a: earlExpect.numberCloseTo(3, { delta: 1 }) })),
-      ).to.throw('{ a: 1 } not equal to Matcher [ObjectWith: { a }]')
+      ).to.throw('{ a: 1 } not equal to Matcher')
     })
   })
 })

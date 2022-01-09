@@ -6,6 +6,7 @@ import { formatNumber } from './formatNumber'
 import { formatObjectEntries } from './formatObjectEntries'
 import { FormatOptions } from './FormatOptions'
 import { formatSetEntries } from './formatSetEntries'
+import { formatString } from './formatString'
 import { formatSymbol } from './formatSymbol'
 import { getComparedTypeName } from './getComparedTypeName'
 import { getRepresentation } from './getRepresentation'
@@ -26,7 +27,7 @@ export function formatUnknown(
     case 'boolean':
       return toLine(`${value}`)
     case 'string':
-      return toLine(JSON.stringify(value))
+      return toLine(formatString(value as string, options))
     case 'bigint':
       return toLine(`${value}n`)
     case 'number':
@@ -39,7 +40,11 @@ export function formatUnknown(
     if (!options.skipMatcherReplacement && value.check(sibling)) {
       return formatUnknown(sibling, null, options, siblingStack, [])
     } else {
-      return toLine(`Matcher ${value.toString()}`)
+      let line = `Matcher ${value.toString()}`
+      if (options.inline && line.length > options.maxLineLength) {
+        line = 'Matcher'
+      }
+      return toLine(line)
     }
   }
 
@@ -80,7 +85,11 @@ export function formatUnknown(
     return toLine(items.join(' '))
   }
 
-  const representation = getRepresentation(value, type)
+  if (type === 'Error' && options.inline && options.maxLineLength !== Infinity) {
+    return toLine(`${typeName}(${formatString((value as Error).message, options)})`)
+  }
+
+  const representation = getRepresentation(value, type, options)
   if (representation) {
     items.push(representation)
   }
@@ -126,7 +135,10 @@ export function formatUnknown(
   const beginning = items.join(' ')
 
   if (options.inline) {
-    const jointEntries = entries.map((x) => x[1]).join(', ')
+    let jointEntries = entries.map((x) => x[1]).join(', ')
+    if (jointEntries.length > options.maxLineLength) {
+      jointEntries = entries.length === 1 ? '1 entry' : `${entries.length} entries`
+    }
     if (type === 'Array') {
       return toLine(`${beginning}${jointEntries}]`)
     } else {

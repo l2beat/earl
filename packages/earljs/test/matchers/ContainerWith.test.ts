@@ -66,7 +66,7 @@ describe('ContainerWith matcher', () => {
         earlExpect({ arr: [1, 2, 3] }).toEqual({
           arr: earlExpect.containerWith(earlExpect.numberCloseTo(6, { delta: 1 })),
         }),
-      ).to.throw('{ arr: [1, 2, 3] } not equal to { arr }')
+      ).to.throw('{ arr: [1, 2, 3] } not equal to { arr: Matcher }')
     })
   })
 })

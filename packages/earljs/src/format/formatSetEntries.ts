@@ -31,6 +31,7 @@ export function formatSetEntries(
   if (!options.requireStrictEquality) {
     passedOptions = { ...passedOptions, requireStrictEquality: true }
   }
+  passedOptions = { ...passedOptions, maxLineLength: options.maxLineLength - 10 }
 
   const entries: [number, string][] = []
 

@@ -21,6 +21,7 @@ describe('isEqual', () => {
     minusZero: true,
     indentSize: 2,
     inline: true,
+    maxLineLength: Infinity,
     skipMatcherReplacement: true,
     requireStrictEquality: false,
   }
@@ -502,6 +503,7 @@ describe('isEqual', () => {
             ...equalityOptions,
             indentSize: 2,
             inline: false,
+            maxLineLength: Infinity,
             skipMatcherReplacement: false,
             requireStrictEquality: false,
           }

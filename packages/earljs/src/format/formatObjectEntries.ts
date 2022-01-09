@@ -15,9 +15,10 @@ export function formatObjectEntries(
   if (options.requireStrictEquality) {
     passedOptions = { ...passedOptions, requireStrictEquality: false }
   }
+  passedOptions = { ...passedOptions, maxLineLength: options.maxLineLength - 10 }
 
   for (const key of keys) {
-    const keyFormat = formatKey(key)
+    const keyFormat = formatKey(key, options)
     let nestedOptions = passedOptions
     if (!options.skipMatcherReplacement && sibling && !Object.prototype.hasOwnProperty.call(sibling, key)) {
       nestedOptions = { ...nestedOptions, skipMatcherReplacement: true }
@@ -38,7 +39,10 @@ export function formatObjectEntries(
   return entries
 }
 
-function formatKey(key: string) {
+function formatKey(key: string, options: FormatOptions) {
+  if (options.inline && key.length > options.maxLineLength - 2) {
+    return JSON.stringify(key.slice(0, 7) + '...')
+  }
   return /^\w+$/.test(key) ? key : JSON.stringify(key)
 }
 

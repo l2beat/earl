@@ -69,6 +69,6 @@ describe('Error matcher', () => {
   it('describes itself', () => {
     const m = new ErrorMatcher(Error, StringMatchingMatcher.make('world'))
 
-    expect(m.toString()).to.eq('[Error: Error(Matcher [StringMatching: world])]')
+    expect(m.toString()).to.eq('[Error: Error(Matcher)]')
   })
 })

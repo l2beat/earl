@@ -33,6 +33,7 @@ export function formatMapEntries(
   if (!options.requireStrictEquality) {
     passedOptions = { ...passedOptions, requireStrictEquality: true }
   }
+  passedOptions = { ...passedOptions, maxLineLength: options.maxLineLength - 10 }
 
   const entries: [number, string][] = []
   for (let i = 0; i < valueItems.length; i++) {
@@ -47,6 +48,7 @@ export function formatMapEntries(
     ) {
       nestedOptions = { ...nestedOptions, skipMatcherReplacement: true }
     }
+    nestedOptions = { ...nestedOptions, maxLineLength: options.maxLineLength - 10 }
     const valueFormat = formatUnknown(valueItems[i][1], siblingItems[i]?.[1], nestedOptions, valueStack, siblingStack)
     for (const line of valueFormat) {
       line[0] += 1

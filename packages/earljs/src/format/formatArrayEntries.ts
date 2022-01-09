@@ -14,6 +14,7 @@ export function formatArrayEntries(
   if (options.requireStrictEquality) {
     passedOptions = { ...passedOptions, requireStrictEquality: false }
   }
+  passedOptions = { ...passedOptions, maxLineLength: options.maxLineLength - 10 }
 
   let empty = 0
   for (let i = 0; i < value.length; i++) {

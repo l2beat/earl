@@ -13,6 +13,7 @@ describe('format', () => {
     compareErrorStack: false,
     indentSize: 2,
     inline: false,
+    maxLineLength: Infinity,
     skipMatcherReplacement: false,
     requireStrictEquality: false,
   }
