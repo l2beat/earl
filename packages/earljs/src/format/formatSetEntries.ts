@@ -1,5 +1,6 @@
 import { FormatOptions } from './FormatOptions'
 import { formatUnknown } from './formatUnknown'
+import { getOptionsWith } from './getOptionsWith'
 
 export function formatSetEntries(
   value: Set<unknown>,
@@ -24,14 +25,11 @@ export function formatSetEntries(
   const valueItems = [...inOrder]
   const siblingItems = sibling instanceof Set ? [...sibling] : []
 
-  let passedOptions = options
-  if (!options.skipMatcherReplacement) {
-    passedOptions = { ...passedOptions, skipMatcherReplacement: true }
-  }
-  if (!options.requireStrictEquality) {
-    passedOptions = { ...passedOptions, requireStrictEquality: true }
-  }
-  passedOptions = { ...passedOptions, maxLineLength: options.maxLineLength - 10 }
+  const passedOptions = getOptionsWith(options, {
+    requireStrictEquality: true,
+    skipMatcherReplacement: true,
+    maxLineLength: options.maxLineLength - 10,
+  })
 
   const entries: [number, string][] = []
 

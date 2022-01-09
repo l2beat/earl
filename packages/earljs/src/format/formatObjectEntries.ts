@@ -1,5 +1,6 @@
 import { FormatOptions } from './FormatOptions'
 import { formatUnknown } from './formatUnknown'
+import { getOptionsWith } from './getOptionsWith'
 
 export function formatObjectEntries(
   value: object,
@@ -11,18 +12,17 @@ export function formatObjectEntries(
   const keys = getKeys(value, options)
   const entries: [number, string][] = []
 
-  let passedOptions = options
-  if (options.requireStrictEquality) {
-    passedOptions = { ...passedOptions, requireStrictEquality: false }
-  }
-  passedOptions = { ...passedOptions, maxLineLength: options.maxLineLength - 10 }
+  const passedOptions = getOptionsWith(options, {
+    requireStrictEquality: false,
+    maxLineLength: options.maxLineLength - 10,
+  })
 
   for (const key of keys) {
-    const keyFormat = formatKey(key, options)
-    let nestedOptions = passedOptions
-    if (!options.skipMatcherReplacement && sibling && !Object.prototype.hasOwnProperty.call(sibling, key)) {
-      nestedOptions = { ...nestedOptions, skipMatcherReplacement: true }
-    }
+    const keyFormat = formatKey(key, passedOptions)
+    const nestedOptions = getOptionsWith(passedOptions, {
+      skipMatcherReplacement:
+        passedOptions.skipMatcherReplacement || (!!sibling && !Object.prototype.hasOwnProperty.call(sibling, key)),
+    })
     const valueFormat = formatUnknown(
       (value as any)[key],
       (sibling as any)?.[key],

@@ -1,5 +1,6 @@
 import { FormatOptions } from './FormatOptions'
 import { formatUnknown } from './formatUnknown'
+import { getOptionsWith } from './getOptionsWith'
 
 export function formatMapEntries(
   value: Map<unknown, unknown>,
@@ -26,30 +27,28 @@ export function formatMapEntries(
   const valueItems = [...inOrder]
   const siblingItems = sibling instanceof Map ? [...sibling] : []
 
-  let passedOptions = options
-  if (!options.skipMatcherReplacement) {
-    passedOptions = { ...passedOptions, skipMatcherReplacement: true }
-  }
-  if (!options.requireStrictEquality) {
-    passedOptions = { ...passedOptions, requireStrictEquality: true }
-  }
-  passedOptions = { ...passedOptions, maxLineLength: options.maxLineLength - 10 }
+  const keyOptions = getOptionsWith(options, {
+    skipMatcherReplacement: true,
+    requireStrictEquality: true,
+    maxLineLength: options.maxLineLength - 10,
+  })
+
+  const passedValueOptions = getOptionsWith(options, {
+    requireStrictEquality: false,
+    maxLineLength: options.maxLineLength - 10,
+  })
 
   const entries: [number, string][] = []
   for (let i = 0; i < valueItems.length; i++) {
-    const keyFormat = formatUnknown(valueItems[i][0], siblingItems[i]?.[0], passedOptions, valueStack, siblingStack)
+    const keyFormat = formatUnknown(valueItems[i][0], siblingItems[i]?.[0], keyOptions, valueStack, siblingStack)
     for (const line of keyFormat) {
       line[0] += 1
     }
-    let nestedOptions = options
-    if (
-      !options.skipMatcherReplacement &&
-      (!siblingItems[i] || (sibling instanceof Map && !sibling.has(valueItems[i][0])))
-    ) {
-      nestedOptions = { ...nestedOptions, skipMatcherReplacement: true }
-    }
-    nestedOptions = { ...nestedOptions, maxLineLength: options.maxLineLength - 10 }
-    const valueFormat = formatUnknown(valueItems[i][1], siblingItems[i]?.[1], nestedOptions, valueStack, siblingStack)
+    const valueOptions = getOptionsWith(passedValueOptions, {
+      skipMatcherReplacement:
+        passedValueOptions.skipMatcherReplacement || (sibling instanceof Map && !sibling.has(valueItems[i][0])),
+    })
+    const valueFormat = formatUnknown(valueItems[i][1], siblingItems[i]?.[1], valueOptions, valueStack, siblingStack)
     for (const line of valueFormat) {
       line[0] += 1
     }
