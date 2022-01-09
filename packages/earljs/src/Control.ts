@@ -12,6 +12,7 @@ export interface ValidationResult {
 
 export class Control<T> {
   public testRunnerCtx = getTestRunnerIntegration()
+  private stack = AssertionError.getCleanStack()
 
   constructor(public actual: T, public isNegated: boolean, private extraMessage?: string) {}
 
@@ -19,6 +20,7 @@ export class Control<T> {
     if (this.isNegated === result.success) {
       throw new AssertionError({
         message: result.success ? result.negatedReason : result.reason,
+        stack: this.stack,
         actual: result.actual,
         expected: result.expected,
         extraMessage: this.extraMessage,
@@ -29,6 +31,7 @@ export class Control<T> {
   fail = (result: Omit<ValidationResult, 'success' | 'negatedReason'>): never => {
     throw new AssertionError({
       message: result.reason,
+      stack: this.stack,
       actual: result.actual,
       expected: result.expected,
       extraMessage: this.extraMessage,

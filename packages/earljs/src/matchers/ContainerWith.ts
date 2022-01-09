@@ -1,5 +1,5 @@
 import { formatCompact } from '../format'
-import { isEqual } from '../isEqual'
+import { contains } from './ArrayWith'
 import { Matcher } from './Base'
 
 export class ContainerWithMatcher<T> extends Matcher {
@@ -14,7 +14,7 @@ export class ContainerWithMatcher<T> extends Matcher {
 
     const items = Array.from(actualItems)
 
-    return this.expectedItems.every((expectedItem) => items.some((actualItem) => isEqual(actualItem, expectedItem)))
+    return contains(this.expectedItems, items)
   }
 
   toString() {

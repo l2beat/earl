@@ -32,6 +32,15 @@ describe('ArrayWith matcher', () => {
     expect(m.check(1)).to.be.false
   })
 
+  it('matches repeated items', () => {
+    const m = new ArrayWithMatcher([1, 1])
+
+    expect(m.check([1, 1])).to.be.true
+    expect(m.check([1, 1, 1])).to.be.true
+    expect(m.check([1, 0, 1])).to.be.true
+    expect(m.check([1])).to.be.false
+  })
+
   describe('in expectation', () => {
     it('works', () => {
       earlExpect([1, 2, 3]).toEqual(earlExpect.arrayWith(3))

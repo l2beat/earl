@@ -1,32 +1,44 @@
 import { EOL } from 'os'
 
+interface AssertionErrorOptions {
+  message: string
+  stack: string
+  actual?: string
+  expected?: string
+  extraMessage?: string
+}
+
 /**
  * Assertion error containing optional info about actual / expected value which
  * can be used by test runners like Mocha to pretty print.
  */
 export class AssertionError extends Error {
-  readonly actual: any
-  readonly expected: any
+  public actual?: string
+  public expected?: string
 
-  constructor({
-    message,
-    actual,
-    expected,
-    extraMessage,
-  }: {
-    message: string
-    actual: any
-    expected: any
-    extraMessage?: string
-  }) {
-    let finalMessage = message
-    if (extraMessage) {
-      finalMessage += `${EOL}Extra message: ${extraMessage}`
+  constructor(options: AssertionErrorOptions) {
+    let message = options.message
+    if (options.extraMessage) {
+      message += EOL + 'Extra message: ' + options.extraMessage
     }
-
-    super(finalMessage)
+    super(message)
     this.name = 'AssertionError'
-    this.actual = actual
-    this.expected = expected
+    this.actual = options.actual
+    this.expected = options.expected
+    this.stack = `${this.name}: ${this.message}\n${options.stack}`
+  }
+
+  static getCleanStack() {
+    // .<validator>, .getControl, new Control, .getCleanStack
+    const entriesToRemove = 4
+
+    const stack = new Error('message').stack
+    if (stack && stack.startsWith('Error: message\n')) {
+      return stack
+        .split('\n')
+        .slice(entriesToRemove + 1)
+        .join('\n')
+    }
+    return stack ?? ''
   }
 }
