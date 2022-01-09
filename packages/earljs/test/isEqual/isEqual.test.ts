@@ -6,7 +6,7 @@ import { format, FormatOptions } from '../../src/format'
 import { EqualityOptions, isEqual } from '../../src/isEqual'
 import { clearSmartEqRules } from '../../src/isEqual/rules'
 import { buildSmartEqResult, loadSmartEqRules } from '../../src/isEqual/rules'
-import { AMatcher } from '../../src/matchers'
+import { AMatcher, AnythingMatcher } from '../../src/matchers'
 
 describe('isEqual', () => {
   const DEFAULTS: EqualityOptions & { oneWay: boolean } = {
@@ -386,6 +386,17 @@ describe('isEqual', () => {
       testCases: [
         [{ x: 1, y: 2 }, { x: new AMatcher(Number), y: new AMatcher(Number) }, true, { oneWay: true }],
         [{ x: 1, y: 2 }, { x: new AMatcher(Number), y: new AMatcher(String) }, false, { oneWay: true }],
+        [[], [new AnythingMatcher()], false, { oneWay: true }],
+        [
+          (() => {
+            const x = { x: { y: { z: {} } } }
+            x.x.y.z = x
+            return x
+          })(),
+          { x: new AnythingMatcher() },
+          true,
+          { oneWay: true },
+        ],
       ],
     },
     {
