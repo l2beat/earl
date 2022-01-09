@@ -1,6 +1,7 @@
 import { Matcher } from '../matchers'
 import { EqualityOptions } from './EqualityOptions'
 import { getCanonicalType } from './getCanonicalType'
+import { isEqualMap } from './isEqualMap'
 import { isEqualNumber } from './isEqualNumber'
 import { isEqualObject } from './isEqualObject'
 import { isEqualSet } from './isEqualSet'
@@ -70,6 +71,10 @@ export function isEqualUnknown(
     }
   } else if (type === 'Set') {
     if (!isEqualSet(value as Set<unknown>, other as Set<unknown>)) {
+      return false
+    }
+  } else if (type === 'Map') {
+    if (!isEqualMap(value as Map<unknown, unknown>, valueStack, other as Map<unknown, unknown>, otherStack, options)) {
       return false
     }
   } else if (type === 'Date' || type === 'String' || type === 'Number' || type === 'Boolean') {

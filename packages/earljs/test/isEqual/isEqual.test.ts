@@ -21,7 +21,7 @@ describe('isEqual', () => {
     minusZero: true,
     indentSize: 2,
     inline: true,
-    skipMatcherReplacement: false,
+    skipMatcherReplacement: true,
     requireStrictEquality: false,
   }
 
@@ -404,6 +404,7 @@ describe('isEqual', () => {
       testCases: [
         [new Set(), new Set(), true],
         [new Set([1, 2, 3]), new Set([3, 1, 2]), true],
+        [new Set([1, 2, 3]), new Set([1, 2]), false],
         [new Set([1, 2, 3]), new Set([4, 1, 2]), false],
         [new Set([{}]), new Set([{}]), false],
         [
@@ -418,6 +419,69 @@ describe('isEqual', () => {
           ...(() => {
             const a = { x: 1 }
             return [new Set([a, { y: 2 }]), new Set([{ y: 2 }, a])] as const
+          })(),
+          false,
+        ],
+      ],
+    },
+    {
+      name: 'maps',
+      testCases: [
+        [new Map(), new Map(), true],
+        [new Map([[1, { x: 1 }]]), new Map([[1, { x: 1 }]]), true],
+        [new Map([[1, { x: 1 }]]), new Map([[1, { x: 2 }]]), false],
+        [new Map([[{}, { x: 1 }]]), new Map([[{}, { x: 1 }]]), false],
+        [
+          new Map([
+            [1, 'a'],
+            [2, 'b'],
+          ]),
+          new Map([
+            [2, 'b'],
+            [1, 'a'],
+          ]),
+          true,
+        ],
+        [
+          new Map([
+            [1, 'a'],
+            [2, 'b'],
+          ]),
+          new Map([[1, 'a']]),
+          false,
+        ],
+        [new Map([[1, 'a']]), new Map([[1, new AnythingMatcher()]]), true, { oneWay: true }],
+        [Object.assign(new Map([[1, 'a']]), { foo: 'bar' }), new Map([[1, 'a']]), false],
+        [
+          ...(() => {
+            const a = { x: 1 }
+            const b = { y: 2 }
+            return [
+              new Map<any, number>([
+                [a, 1],
+                [b, 2],
+              ]),
+              new Map<any, number>([
+                [b, 2],
+                [a, 1],
+              ]),
+            ] as const
+          })(),
+          true,
+        ],
+        [
+          ...(() => {
+            const a = { x: 1 }
+            return [
+              new Map<any, number>([
+                [a, 1],
+                [{ y: 2 }, 2],
+              ]),
+              new Map<any, number>([
+                [{ y: 2 }, 2],
+                [a, 1],
+              ]),
+            ] as const
           })(),
           false,
         ],
