@@ -1,9 +1,12 @@
 export type CanonicalType = ReturnType<typeof getCanonicalType>
 
 export function getCanonicalType(value: unknown) {
-  const primitive = getBasicType(value)
-  if (primitive) {
-    return primitive
+  if (value === null) {
+    return 'null'
+  } else if (typeof value === 'function') {
+    return 'Function'
+  } else if (typeof value !== 'object') {
+    return typeof value
   } else if (Array.isArray(value)) {
     return 'Array'
   } else if (value instanceof Error) {
@@ -30,17 +33,4 @@ export function getCanonicalType(value: unknown) {
     return 'WeakSet'
   }
   return 'Object'
-}
-
-function getBasicType(value: unknown) {
-  if (value === null) {
-    return 'null'
-  }
-  const type = typeof value
-  if (type === 'function') {
-    return 'Function'
-  }
-  if (type !== 'object') {
-    return type
-  }
 }
