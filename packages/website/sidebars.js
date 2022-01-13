@@ -30,12 +30,12 @@ module.exports = {
     {
       type: 'category',
       label: 'API',
-      items: ['api/api-reference', 'api/equality-algorithm'],
+      items: ['api/api-reference'],
     },
     {
       type: 'category',
       label: 'Advanced',
-      items: ['advanced/plugin-development'],
+      items: ['advanced/plugin-development', 'advanced/equality-algorithm'],
     },
   ],
 }

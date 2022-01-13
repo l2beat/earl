@@ -8,12 +8,12 @@ It is used by all functions that check deep equality inside earl.
 
 ## Algorithm
 
-To determine is two values are equal the following checks are executed:
+To determine the equality of two values the following checks are executed:
 
 1. If the second value is a [Matcher](/guides/using-matchers.md) and it...
    1. matches the first value, then the values are considered equal;
    1. doesn't match the first value, then the values are considered unequal.
-1. Every [custom rules](/advanced/plugin-development.md) is checked.
+1. Every [custom equality rule](/advanced/plugin-development.md) is checked.
    1. If it returns undefined the next rule is checked or the algorithm
       advances.
    1. If it returns success, then the values are considered equal.
@@ -23,7 +23,8 @@ To determine is two values are equal the following checks are executed:
    1. If the other value is equal to it's ancestor of the same distance (e.g.
       grandparent and grandparent), then the values are considered equal.
    2. Otherwise they are considered unequal.
-1. A category is determined for each value based on the rules of each category.
+1. A [category](#categories) is determined for each value based on the rules of
+   each category.
    1. If the values have different categories, then they are considered unequal.
    1. If the category is the same the values are compared according to rules of
       that category.
@@ -64,16 +65,12 @@ following way:
 
 ### Function, Promise, WeakMap, WeakSet
 
-A value belongs to the Function category if `typeof value` returns `"function"`.
+A value belongs to the...
 
-A value belongs to the Promise category if `value instanceof Promise` returns
-`true`.
-
-A value belongs to the WeakMap category if `value instanceof WeakMap` returns
-`true`.
-
-A value belongs to the WeakSet category if `value instanceof WeakSet` returns
-`true`.
+- Function category if `typeof value` returns `"function"`.
+- Promise category if `value instanceof Promise` returns `true`.
+- WeakMap category if `value instanceof WeakMap` returns `true`.
+- WeakSet category if `value instanceof WeakSet` returns `true`.
 
 The equality of values belonging to those categories is determined by the `===`
 operator.
@@ -93,13 +90,11 @@ following way:
 
 ### Date, Number, Boolean
 
-A value belongs to the Date category if `value instanceof Date` returns `true`.
+A value belongs to the...
 
-A value belongs to the Number category if `value instanceof Number` returns
-`true`.
-
-A value belongs to the Boolean category if `value instanceof Boolean` returns
-`true`.
+- Date category if `value instanceof Date` returns `true`.
+- Number category if `value instanceof Number` returns `true`.
+- Boolean category if `value instanceof Boolean` returns `true`.
 
 The equality of values belonging to those categories is determined in the
 following way:

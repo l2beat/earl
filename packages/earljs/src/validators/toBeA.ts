@@ -5,15 +5,15 @@ import { AMatcher } from '../matchers'
 export function toBeA<T>(control: Control<T>, clazz: any) {
   const m = new AMatcher(clazz)
   const actualFmt = formatCompact(control.actual)
-  const clazzFormat = formatClazz(clazz)
+  const expectedFmt = formatExpectedType(clazz)
   control.assert({
     success: m.check(control.actual),
-    reason: `${actualFmt} is not ${clazzFormat}`,
-    negatedReason: `${actualFmt} is ${clazzFormat}`,
+    reason: `${actualFmt} is not ${expectedFmt}`,
+    negatedReason: `${actualFmt} is ${expectedFmt}`,
   })
 }
 
-function formatClazz(clazz: any) {
+function formatExpectedType(clazz: any) {
   if (clazz === String) {
     return 'a string'
   } else if (clazz === Boolean) {
