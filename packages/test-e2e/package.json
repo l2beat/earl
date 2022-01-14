@@ -1,8 +1,8 @@
 {
-"name": "test-e2e",
+  "name": "test-e2e",
   "private": true,
   "license": "MIT",
-  "version": "9.9.9",
+  "version": "1.0.0",
   "scripts": {
     "format": "prettier --ignore-path ../../.prettierignore --check .",
     "format:fix": "prettier --ignore-path ../../.prettierignore --write .",

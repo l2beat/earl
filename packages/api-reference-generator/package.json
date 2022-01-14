@@ -1,7 +1,7 @@
 {
   "name": "@dethcrypto/api-reference-generator",
   "private": true,
-  "version": "0.0.1",
+  "version": "1.0.0",
   "type": "commonjs",
   "main": "./dist/index.js",
   "bin": "./dist/cli.js",
