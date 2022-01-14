@@ -1,5 +1,18 @@
 # earljs
 
+## 0.2.0
+
+### Minor Changes
+
+- 7dca1a2: Assertion errors throw with clean (without internal entries) stack traces
+- 3973df6: Redo equality algorithm, improve error diffs
+
+### Patch Changes
+
+- 489321e: Add new validators and matchers: `toBeTruthy`, `toBeFalsy`, `toBeDefined`, `toBeNullish`
+- 05013cd: Make `toBeAnArrayWith` and `toBeAContainerWith` handle repeated items as expected
+- 489321e: Allow to override `toEqual` types via plugins
+
 ## 0.1.12
 
 ### Patch Changes
