@@ -129,6 +129,6 @@ function removeExportDeclareKeywords(s: string) {
 function replaceTrailingSlashNewlines(text: string) {
   return text
     .split('\n')
-    .map((line) => line.replace(/ \\$/, '  '))
+    .map((line) => line.replace(/ \\\r?$/, '  '))
     .join('\n')
 }
