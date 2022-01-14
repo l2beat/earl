@@ -23,7 +23,7 @@
     "release": "wsrun -smec release && yarn changeset publish"
   },
   "devDependencies": {
-    "@changesets/cli": "^2.11.2",
+    "@changesets/cli": "2.19.0",
     "@types/chai": "^4.2.7",
     "@types/chai-as-promised": "^7.1.2",
     "@types/mocha": "^8.0.3",
