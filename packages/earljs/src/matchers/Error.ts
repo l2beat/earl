@@ -1,5 +1,6 @@
+import { formatCompact } from '../format'
+import { isEqual } from '../isEqual'
 import { Newable } from '../types'
-import { smartEq } from '../validators/smartEq'
 import { Matcher } from './Base'
 
 export class ErrorMatcher extends Matcher {
@@ -13,17 +14,21 @@ export class ErrorMatcher extends Matcher {
     }
 
     if (this.message !== undefined) {
-      return smartEq(v.message, this.message).result === 'success'
+      return isEqual(v.message, this.message)
     }
 
     return true
   }
 
   toString() {
+    return `[Error: ${this.format()}]`
+  }
+
+  format() {
     if (this.message === undefined) {
       return `${this.errorClass.name}`
     }
-    return `[${this.errorClass.name}: ${this.message}]`
+    return `${this.errorClass.name}(${formatCompact(this.message)})`
   }
 
   static make(classOrMessage: string | Newable<Error>, message?: string): Error {

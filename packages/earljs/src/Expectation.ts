@@ -1,4 +1,5 @@
 import { Control } from './Control'
+import { ExpectedEqual } from './isEqual/rules'
 import { AnythingMatcher } from './matchers/Anything'
 import { ErrorMatcher } from './matchers/Error'
 import { MockArgs } from './mocks'
@@ -10,7 +11,6 @@ import { toBeAContainerWith, toBeAnArrayOfLength, toBeAnArrayWith, toBeAnObjectW
 import { toBeExhausted, toHaveBeenCalledExactlyWith, toHaveBeenCalledWith } from './validators/mocks'
 import { toBeGreaterThan, toBeGreaterThanOrEqualTo, toBeLessThan, toBeLessThanOrEqualTo } from './validators/numbers'
 import { toBeDefined, toBeNullish } from './validators/optionals'
-import { ExpectedEqual } from './validators/smartEq'
 import { toMatchSnapshot } from './validators/snapshots/toMatchSnapshot'
 import { toBeA } from './validators/toBeA'
 import { toBeRejected } from './validators/toBeRejected'

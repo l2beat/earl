@@ -1,33 +1,28 @@
 import { Control } from '../Control'
-import { formatValue, replaceMatchersWithMatchedValues } from './common'
-import { smartEq } from './smartEq'
+import { format, formatCompact } from '../format'
+import { isEqual } from '../isEqual'
 
 export function toEqual<T>(control: Control<T>, expected: T) {
-  const reason = `${formatValue(control.actual)} not equal to ${formatValue(
-    replaceMatchersWithMatchedValues(control.actual, expected),
-  )}`
-  const negatedReason = `${formatValue(control.actual)} equal to ${formatValue(
-    replaceMatchersWithMatchedValues(control.actual, expected),
-  )}`
+  const actualFmt = formatCompact(control.actual)
+  const expectedFmt = formatCompact(expected)
+  const reason = `${actualFmt} not equal to ${expectedFmt}`
+  const negatedReason = `${actualFmt} equal to ${expectedFmt}`
 
-  const comparisonResult = smartEq(control.actual, expected)
-
-  if (comparisonResult.result === 'error') {
+  if (!isEqual(control.actual, expected)) {
     control.assert({
       success: false,
-      hint: comparisonResult.reason,
       reason,
       negatedReason,
-      actual: control.actual,
-      expected: replaceMatchersWithMatchedValues(control.actual, expected),
+      actual: format(control.actual, null),
+      expected: format(expected, control.actual),
     })
   } else {
     control.assert({
       success: true,
       reason,
       negatedReason,
-      actual: control.actual,
-      expected: replaceMatchersWithMatchedValues(control.actual, expected),
+      actual: format(control.actual, null),
+      expected: format(expected, control.actual),
     })
   }
 }

@@ -35,7 +35,7 @@ module.exports = {
     {
       type: 'category',
       label: 'Advanced',
-      items: ['advanced/plugin-development'],
+      items: ['advanced/plugin-development', 'advanced/equality-algorithm'],
     },
   ],
 }

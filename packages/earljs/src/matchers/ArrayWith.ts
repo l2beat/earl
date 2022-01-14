@@ -1,6 +1,7 @@
 import { Dictionary } from 'ts-essentials'
 
-import { smartEq } from '../validators/smartEq'
+import { formatCompact } from '../format'
+import { isEqual } from '../isEqual'
 import { Matcher } from './Base'
 
 export class ArrayWithMatcher<T> extends Matcher {
@@ -17,7 +18,7 @@ export class ArrayWithMatcher<T> extends Matcher {
   }
 
   toString() {
-    return `[ArrayWith: ${this.expectedItems}]`
+    return `[ArrayWith: ${formatCompact(this.expectedItems)}]`
   }
 
   static make<T>(...items: T[]): T[] {
@@ -31,7 +32,7 @@ export function contains(expectedItems: ReadonlyArray<any>, actualItems: Readonl
 
   return expectedItems.every((expectedItem) => {
     const foundIndex = actualItems.findIndex(
-      (actualItem, index) => smartEq(actualItem, expectedItem).result === 'success' && !matchedIndexes[index],
+      (actualItem, index) => isEqual(actualItem, expectedItem) && !matchedIndexes[index],
     )
 
     if (foundIndex !== -1) {

@@ -1,21 +1,25 @@
 import { Control } from '../Control'
-import { formatValue } from './common'
-import { smartEq } from './smartEq'
+import { format, formatCompact } from '../format'
+import { isEqual } from '../isEqual'
 
 export function toReferentiallyEqual<T>(control: Control<T>, expected: T) {
-  const smartEqComparisonResult = smartEq(control.actual, expected).result === 'success'
+  const smartEqComparisonResult = isEqual(control.actual, expected)
   const strictComparisonResult = Object.is(control.actual, expected)
 
   const additionalInfo =
     !strictComparisonResult && smartEqComparisonResult ? '. Did you mean to use `toEqual` instead?' : ''
-  const reason = `${formatValue(control.actual)} is not ${formatValue(expected)}${additionalInfo}`
-  const negatedReason = `${formatValue(control.actual)} is ${formatValue(expected)}`
+
+  const actualFmt = formatCompact(control.actual)
+  const expectedFmt = formatCompact(expected)
+
+  const reason = `${actualFmt} is not ${expectedFmt}${additionalInfo}`
+  const negatedReason = `${actualFmt} is ${expectedFmt}`
 
   control.assert({
     success: strictComparisonResult,
     reason,
     negatedReason,
-    actual: control.actual,
-    expected,
+    actual: format(control.actual, null),
+    expected: format(expected, control.actual),
   })
 }

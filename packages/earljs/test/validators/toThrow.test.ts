@@ -33,7 +33,7 @@ describe('toThrow', () => {
     it('fails when exception with different error message was thrown', () => {
       const test = () => earl(() => functionThatThrows()).toThrow('Critical error!') // error message mismatch
 
-      expect(test).to.throw('Expected to throw "[Error: Critical error!]" but threw "Error: Horrible error!"')
+      expect(test).to.throw('Expected to throw Error("Critical error!") but threw Error("Horrible error!")')
     })
   })
 
@@ -48,13 +48,13 @@ describe('toThrow', () => {
 
     it('fails when unexpected exception was thrown', () => {
       const test = () => earl(() => functionThatThrows()).not.toThrow()
-      expect(test).to.throw(`Expected not to throw "[Anything]" but threw "Error: Horrible error!"`)
+      expect(test).to.throw(`Expected not to throw anything but threw Error("Horrible error!")`)
     })
 
     it('fails when exception with different error message was thrown', () => {
       const test = () => earl(() => functionThatThrows()).not.toThrow('Horrible error!') // error message match
 
-      expect(test).to.throw('Expected not to throw "[Error: Horrible error!]" but threw "Error: Horrible error!"')
+      expect(test).to.throw('Expected not to throw Error("Horrible error!") but threw Error("Horrible error!")')
     })
   })
 
@@ -92,7 +92,7 @@ describe('toThrow', () => {
           throw new Error('500')
         }).toThrow(HttpError)
 
-      expect(test).to.throw('Expected to throw "HttpError" but threw "Error: 500"')
+      expect(test).to.throw('Expected to throw HttpError but threw Error("500")')
     })
   })
 })

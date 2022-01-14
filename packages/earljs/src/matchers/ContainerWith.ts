@@ -1,4 +1,4 @@
-import { isIterableAndNotString } from '../validators/common'
+import { formatCompact } from '../format'
 import { contains } from './ArrayWith'
 import { Matcher } from './Base'
 
@@ -18,7 +18,7 @@ export class ContainerWithMatcher<T> extends Matcher {
   }
 
   toString() {
-    return `[ContainerWith: ${this.expectedItems}]`
+    return `[ContainerWith: ${formatCompact(this.expectedItems)}]`
   }
 
   // TODO: for now this has to be typed as any. Otherwise types won't match ie.
@@ -30,4 +30,8 @@ export class ContainerWithMatcher<T> extends Matcher {
   static make(...items: any[]): any {
     return new ContainerWithMatcher(items) as any
   }
+}
+
+function isIterableAndNotString(value: any): value is IterableIterator<any> {
+  return Symbol.iterator in Object(value) && typeof value !== 'string'
 }

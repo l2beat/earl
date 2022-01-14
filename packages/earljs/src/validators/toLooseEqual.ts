@@ -1,30 +1,30 @@
 import { Control } from '../Control'
-import { formatValue, replaceMatchersWithMatchedValues } from './common'
-import { smartEq } from './smartEq'
+import { format, formatCompact } from '../format'
+import { LOOSE_FORMAT_OPTIONS } from '../format/FormatOptions'
+import { isEqual, LOOSE_EQUALITY_OPTIONS } from '../isEqual'
 
 // @todo: follow design of jest's loose equal
 export function toLooseEqual(control: Control<any>, expected: any) {
-  const reason = `${formatValue(control.actual)} not loose equal to ${formatValue(expected)}`
-  const negatedReason = `${formatValue(control.actual)} loose equal to ${formatValue(expected)}`
+  const actualFmt = formatCompact(control.actual)
+  const expectedFmt = formatCompact(expected)
+  const reason = `${actualFmt} not loose equal to ${expectedFmt}`
+  const negatedReason = `${actualFmt} loose equal to ${expectedFmt}`
 
-  const comparisonResult = smartEq(control.actual, expected, false)
-
-  if (comparisonResult.result === 'error') {
+  if (!isEqual(control.actual, expected, LOOSE_EQUALITY_OPTIONS)) {
     control.assert({
       success: false,
-      hint: comparisonResult.reason,
       reason,
       negatedReason,
-      actual: control.actual,
-      expected: replaceMatchersWithMatchedValues(control.actual, expected),
+      actual: format(control.actual, null, LOOSE_FORMAT_OPTIONS),
+      expected: format(expected, control.actual, LOOSE_FORMAT_OPTIONS),
     })
   } else {
     control.assert({
       success: true,
       reason,
       negatedReason,
-      actual: control.actual,
-      expected: replaceMatchersWithMatchedValues(control.actual, expected),
+      actual: format(control.actual, null, LOOSE_FORMAT_OPTIONS),
+      expected: format(expected, control.actual, LOOSE_FORMAT_OPTIONS),
     })
   }
 }

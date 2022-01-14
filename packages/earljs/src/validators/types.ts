@@ -1,9 +1,9 @@
 import { UnionToIntersection } from 'ts-essentials'
 
 import type { Expectation } from '../Expectation'
+import { ExpectedEqual } from '../isEqual/rules'
 import type { Mock, MockArgs } from '../mocks/types'
 import type { Newable } from '../types'
-import { ExpectedEqual } from './smartEq'
 
 // registry for validators added by plugins
 export interface Validators {

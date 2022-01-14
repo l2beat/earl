@@ -8,8 +8,12 @@ describe('toBeA validator', () => {
       earl('abc').toBeA(String)
     })
 
-    it('throws', () => {
-      expect(() => earl(1).toBeA(String)).to.throw('1 is not a instance of [Function String]')
+    it('throws primitive', () => {
+      expect(() => earl(1).toBeA(String)).to.throw('1 is not a string')
+    })
+
+    it('throws class', () => {
+      expect(() => earl(1).toBeA(class Foo {})).to.throw('1 is not an instance of class Foo')
     })
   })
 
@@ -19,7 +23,12 @@ describe('toBeA validator', () => {
     })
 
     it('throws', () => {
-      expect(() => earl(1).not.toBeA(Number)).to.throw('1 is a instance of [Function Number]')
+      expect(() => earl(1).not.toBeA(Number)).to.throw('1 is a number')
+    })
+
+    it('throws', () => {
+      class Foo {}
+      expect(() => earl(new Foo()).not.toBeA(Foo)).to.throw('{} is an instance of class Foo')
     })
   })
 })

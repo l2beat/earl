@@ -1,6 +1,6 @@
 import { UnreachableCaseError } from 'ts-essentials'
 
-import { smartEq } from '../validators/smartEq'
+import { isEqual } from '../isEqual'
 import { MockNotConfiguredError } from './errors'
 import { Mock, MockCall } from './types'
 
@@ -58,7 +58,7 @@ export function mockFn<Args extends any[], Return = any>(defaultImpl?: (...args:
 
   function mock(...args: any[]) {
     for (const override of oneTimeOverrides) {
-      if (smartEq(args, override.args).result === 'success') {
+      if (isEqual(args, override.args)) {
         oneTimeOverrides.splice(oneTimeOverrides.indexOf(override), 1)
         return runSpec(override.spec, args)
       }

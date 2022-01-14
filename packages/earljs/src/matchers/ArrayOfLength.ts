@@ -1,4 +1,5 @@
-import { smartEq } from '../validators/smartEq'
+import { formatCompact } from '../format'
+import { isEqual } from '../isEqual'
 import { Matcher } from './Base'
 
 export class ArrayOfLengthMatcher extends Matcher {
@@ -11,11 +12,11 @@ export class ArrayOfLengthMatcher extends Matcher {
       return false
     }
 
-    return smartEq(actualItems.length, this.expectedLength).result === 'success'
+    return isEqual(actualItems.length, this.expectedLength)
   }
 
   toString() {
-    return `[ArrayOfLength: ${this.expectedLength}]`
+    return `[ArrayOfLength: ${formatCompact(this.expectedLength)}]`
   }
 
   static make<T>(length: number): T[] {

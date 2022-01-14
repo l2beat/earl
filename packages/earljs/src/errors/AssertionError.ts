@@ -6,7 +6,6 @@ interface AssertionErrorOptions {
   actual?: string
   expected?: string
   extraMessage?: string
-  hint?: string
 }
 
 /**
@@ -21,9 +20,6 @@ export class AssertionError extends Error {
     let message = options.message
     if (options.extraMessage) {
       message += EOL + 'Extra message: ' + options.extraMessage
-    }
-    if (options.hint) {
-      message += EOL + 'Hint: ' + options.hint
     }
     super(message)
     this.name = 'AssertionError'
