@@ -33,7 +33,7 @@ function getPrototypeName(value: object) {
     return 'Object'
   }
   const constructor = value.constructor
-  if (constructor.prototype === prototype) {
+  if (constructor?.prototype === prototype && constructor.name) {
     return constructor.name
   }
   return '[custom prototype]'
