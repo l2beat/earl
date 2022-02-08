@@ -32,8 +32,8 @@ function getPrototypeName(value: object) {
   if (prototype === Object.prototype) {
     return 'Object'
   }
-  const constructor = value.constructor
-  if (constructor?.prototype === prototype && constructor.name) {
+  const constructor = value.constructor as unknown
+  if (typeof constructor === 'function' && constructor.prototype === prototype && constructor.name) {
     return constructor.name
   }
   return '[custom prototype]'
