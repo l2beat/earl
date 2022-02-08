@@ -163,6 +163,11 @@ describe('format', () => {
           { ignorePrototypes: true },
         ],
         [{ x: 1 }, {}, `(different) {\n  x: 1\n}`, { requireStrictEquality: true }],
+        [
+          Object.assign(Object.create({}), { constructor: undefined }),
+          null,
+          '[custom prototype] {\n  constructor: undefined\n}',
+        ],
       ],
     },
     {
