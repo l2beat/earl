@@ -1,0 +1,18 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`works 1`] = `
+Object {
+  "age": 15,
+  "name": "Alice Duck",
+  "nested": Object {
+    "b": Person {
+      "name": "Jack",
+    },
+    "deep": Object {
+      "nested": true,
+    },
+  },
+  "timestamp": "12345",
+  "trimmed": true,
+}
+`;
