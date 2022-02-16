@@ -27,7 +27,8 @@
   "files": [
     "dist/**/*",
     "internals/package.json",
-    "mocha/package.json"
+    "mocha/package.json",
+    "uvu/package.json"
   ],
   "scripts": {
     "start": "ts-node -T ./src/index.ts",
