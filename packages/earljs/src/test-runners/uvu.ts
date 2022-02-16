@@ -49,17 +49,23 @@ function patchTest(test: Test) {
 }
 
 function parseFilePathFromStackTrace(ctor: Function) {
-  const err = { stack: '' }
-  Error.captureStackTrace(err, ctor)
-  const stack = err.stack
+  // Override the prepareStackTrace function to get access to the unformatted
+  // CallSite objects
+  // https://v8.dev/docs/stack-trace-api
+  const { prepareStackTrace } = Error
+  Error.prepareStackTrace = (_err, stack) => stack
 
-  // Adapted from https://github.com/felixge/node-stack-trace/blob/4c41a45/index.js#L40
-  const match = stack.match(/^\s*at (?:.+?\s+\()?(?:(.+?):\d+(?::\d+)?|[^)]+)\)?$/m);
-  if (!match || !match[1]) {
-    throw new Error('Error parsing file path from stack trace')
+  const err: { stack: NodeJS.CallSite[] } = { stack: [] }
+  Error.captureStackTrace(err, ctor)
+  const filename = err.stack[0]?.getFileName()
+
+  Error.prepareStackTrace = prepareStackTrace
+
+  if (!filename) {
+    throw new Error('Unable to determine test file path')
   }
 
-  return match[1]
+  return filename
 }
 
 main()
