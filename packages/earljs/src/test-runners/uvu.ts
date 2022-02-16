@@ -8,7 +8,7 @@ const d = debug('earljs:uvu')
 
 function main() {
   if (typeof require !== 'function') {
-    return;
+    return
   }
 
   d('earljs/uvu integration is being registered...')
