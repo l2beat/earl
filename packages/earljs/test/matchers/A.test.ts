@@ -111,5 +111,10 @@ describe('A matcher', () => {
     it('works with arrays', () => {
       earlExpect([1, 2, 3]).toEqual(earlExpect.a(Array))
     })
+
+    it('works with functions', () => {
+      // repro for #178
+      earlExpect((v: number) => v + 1).toEqual(earlExpect.a(Function))
+    })
   })
 })
