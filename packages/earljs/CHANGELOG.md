@@ -1,5 +1,11 @@
 # earljs
 
+## 0.2.2
+
+### Patch Changes
+
+- fde9d67: Fixed "a" matcher for functions
+
 ## 0.2.1
 
 ### Patch Changes
