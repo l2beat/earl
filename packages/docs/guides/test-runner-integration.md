@@ -2,23 +2,33 @@
 title: Test runner integration
 ---
 
-By integrating with a test runner you get:
+Basic capabilities of Earl should work in all test runners. If you're not using
+snapshot tests, feel free to skip this.
 
-- snapshot testing support
+Currently, we support integrations with [`mocha`][mocha] and [`uvu`][uvu].
 
-Currently integration with [`mocha`](https://mochajs.org/) or
-[`uvu`](https://github.com/lukeed/uvu) is supported.
+[mocha]: https://mochajs.org/
+[uvu]: https://github.com/lukeed/uvu
 
-To enable with mocha, simply require `earljs/mocha` in `.mocharc.js`:
+## earljs/mocha
+
+Add `'earljs/mocha'` to `require` array in your `.mocharc.js`:
 
 ```js
 module.exports = {
   require: ['earljs/mocha'],
-  // ...
 }
 ```
 
-To enable with uvu, require `earljs/uvu` in your test command:
+Alternatively, you can require `earljs/mocha` in your test command:
+
+```sh
+$ mocha -r earljs/mocha
+```
+
+## earljs/uvu
+
+Require `earljs/uvu` in your test command:
 
 ```sh
 # using the uvu cli
