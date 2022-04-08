@@ -3,7 +3,7 @@ import { execSync, ExecSyncOptions } from 'child_process'
 import { pathExists } from 'fs-extra'
 import { resolve } from 'path'
 
-before(async function() {
+before(async function () {
   const SKIP_EARL_BUILD = process.env.SKIP_EARL_BUILD as string
   const isCI = !!process.env.CI && process.env.CI !== 'false'
   const alreadyBuilt = await pathExists(require.resolve('../../earljs/dist/internals'))
