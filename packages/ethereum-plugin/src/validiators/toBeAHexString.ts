@@ -1,9 +1,9 @@
-import { Expectation, getControl } from 'earljs/internals'
+import { Control, Expectation, getControl } from 'earljs/internals'
 
 import { isHexString } from '../utils'
 
-export function toBeAHexString(this: Expectation<string>, length?: number): void {
-  const ctrl = getControl(this)
+export function toBeAHexString(this: Expectation<any>, length?: number): void {
+  const ctrl = getControl(this) as Control<string>
 
   if (length !== undefined) {
     ctrl.assert({

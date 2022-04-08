@@ -1,9 +1,9 @@
-import { Expectation, getControl } from 'earljs/internals'
+import { Control, Expectation, getControl } from 'earljs/internals'
 
 import { isAddress } from '../utils'
 
-export function toBeAnAddress(this: Expectation<string>): void {
-  const ctrl = getControl(this)
+export function toBeAnAddress(this: Expectation<any>): void {
+  const ctrl = getControl(this) as Control<string>
 
   ctrl.assert({
     success: isAddress(ctrl.actual),

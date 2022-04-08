@@ -1,18 +1,13 @@
-import { Expectation, getControl, isEqual } from 'earljs/internals'
+import { Control, Expectation, getControl, isEqual } from 'earljs/internals'
 import { Contract, providers } from 'ethers'
 import { LogDescription } from 'ethers/lib/utils'
 
-export async function toEmit(
-  this: Expectation<
+export async function toEmit(this: Expectation<any>, contract: Contract, event: string, args?: any[]): Promise<void> {
+  const ctrl = getControl(this) as Control<
     | providers.TransactionResponse
     | providers.TransactionReceipt
     | Promise<providers.TransactionResponse | providers.TransactionReceipt>
-  >,
-  contract: Contract,
-  event: string,
-  args?: any[],
-): Promise<void> {
-  const ctrl = getControl(this)
+  >
 
   let hasEvent = false
   try {
@@ -43,13 +38,13 @@ export async function toEmit(
 
   if (!args) {
     ctrl.assert({
-      success: events.some((x) => x.name === event),
+      success: events.some(x => x.name === event),
       reason: `Event ${event} was not emitted by the provided contract.`,
       negatedReason: `Event ${event} was emitted by the provided contract.`,
     })
   } else {
-    const relevant = events.filter((x) => x.name === event).map((x) => [...x.args])
-    const success = relevant.some((x) => isEqual(x, args))
+    const relevant = events.filter(x => x.name === event).map(x => [...x.args])
+    const success = relevant.some(x => isEqual(x, args))
     ctrl.assert({
       success: success,
       reason: `Event ${event} was not emitted by the provided contract TODO: ARGS.`,
