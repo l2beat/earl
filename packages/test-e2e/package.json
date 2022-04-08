@@ -18,5 +18,8 @@
   },
   "peerDependencies": {
     "debug": "^4"
+  },
+  "devDependencies": {
+    "fs-extra": "^10.0.0"
   }
 }

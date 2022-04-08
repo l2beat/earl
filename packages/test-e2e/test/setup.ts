@@ -1,10 +1,17 @@
 /* eslint-disable no-console */
 import { execSync, ExecSyncOptions } from 'child_process'
+import { pathExists } from 'fs-extra'
 import { resolve } from 'path'
 
-before(function () {
+before(async function() {
+  const SKIP_EARL_BUILD = process.env.SKIP_EARL_BUILD as string
   const isCI = !!process.env.CI && process.env.CI !== 'false'
-  const skipBuild = isCI || ['1', 'true'].includes(process.env.SKIP_EARL_BUILD as string)
+  const alreadyBuilt = await pathExists(require.resolve('../../earljs/dist/internals'))
+
+  let skipBuild = isCI || alreadyBuilt
+
+  if (['1', 'true'].includes(SKIP_EARL_BUILD)) skipBuild = true
+  else if (['0', 'false'].includes(SKIP_EARL_BUILD)) skipBuild = false
 
   if (!skipBuild) {
     // These are end-to-end tests, so we need local EarlJS to be built and present
