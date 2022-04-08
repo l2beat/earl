@@ -1,6 +1,7 @@
 import { createPlugin } from 'earljs/internals'
 
 import { plugin } from './dist'
+export { plugin }
 
 declare module 'earljs' {
   interface Expect extends createPlugin.MatchersOf<typeof plugin> {}
