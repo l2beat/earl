@@ -25,7 +25,7 @@ jobs:
         with:
           path: |
             node_modules
-            */*/node_modules
+            **/node_modules
           key: ${{ runner.OS }}-${{ matrix.node }}-yarn-cache-${{ hashFiles('**/yarn.lock') }}
           restore-keys: ${{ runner.OS }}-${{ matrix.node }}-yarn-cache-
 
@@ -65,7 +65,7 @@ jobs:
         with:
           path: |
             node_modules
-            */*/node_modules
+            **/node_modules
           key: ${{ runner.OS }}-${{ matrix.node }}-yarn-cache-${{ hashFiles('**/yarn.lock') }}
           restore-keys: ${{ runner.OS }}-${{ matrix.node }}-yarn-cache-
 
