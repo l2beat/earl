@@ -5,7 +5,8 @@ import { BigNumber, Contract, ContractFactory, Wallet } from 'ethers'
 describe('toEmit', () => {
   let events: Contract
 
-  before(async () => {
+  before(async function () {
+    this.timeout(10000)
     const [wallet] = new MockProvider().getWallets()
     events = await deployFactory(wallet)
   })
