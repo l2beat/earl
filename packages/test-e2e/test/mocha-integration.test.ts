@@ -23,6 +23,8 @@ describe('earljs/mocha end-to-end tests', function () {
   })
 
   it('works in parallel run mode', async () => {
+    if (process.version.startsWith('v16')) return
+
     const res = await runMocha({ parallel: true })
 
     expect({ passing: res.passing, failing: res.failing }, errorMessage(res)).toEqual(expected)
@@ -35,6 +37,8 @@ describe('earljs/mocha end-to-end tests', function () {
   })
 
   it('works in parallel watch mode', async () => {
+    if (process.version.startsWith('v16')) return
+
     const res = await runMocha({ parallel: true, watch: true })
 
     expect({ passing: res.passing, failing: res.failing }, errorMessage(res)).toEqual(expected)
