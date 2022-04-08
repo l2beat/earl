@@ -26,9 +26,9 @@ export type __ValidatorsFor<TValidators, TActual> = UnionToIntersection<
   // validators from plugins
   [P in keyof Validators]: Validators[P] extends (this: Expectation<infer A>, ...args: infer Args) => void
     ? TActual extends A
-      ? (...args: Args) => void
+      ? (...args: Args) => ReturnType<Validators[P]>
       : unknown extends TActual
-      ? (...args: Args) => void
+      ? (...args: Args) => ReturnType<Validators[P]>
       : never
     : never
 }

@@ -1,6 +1,3 @@
-// @todo Earl plugins don't inform the main package that the resolver is async
-/* eslint-disable @typescript-eslint/await-thenable */
-
 import { MockProvider } from '@ethereum-waffle/provider'
 import { expect } from 'earljs'
 import { BigNumber, Contract, ContractFactory, Wallet } from 'ethers'
