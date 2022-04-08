@@ -5,6 +5,10 @@
   "main": "./dist/index.js",
   "module": "./dist/index.js",
   "types": "./types.d.ts",
+  "files": [
+    "dist",
+    "./types.d.ts"
+  ],
   "scripts": {
     "start": "ts-node -T ./src/index.ts",
     "format": "prettier --ignore-path ../../.prettierignore --check .",
@@ -19,7 +23,8 @@
   },
   "devDependencies": {
     "earljs": "*",
-    "ethers": "^5.6.1"
+    "ethers": "^5.6.1",
+    "typescript": "^4.5"
   },
   "peerDependencies": {
     "earljs": "^0.2.2",
