@@ -26,8 +26,8 @@ jobs:
           path: |
             node_modules
             **/node_modules
-          key: ${{ runner.OS }}-${{ matrix.node }}-yarn-cache-${{ hashFiles('**/yarn.lock') }}
-          restore-keys: ${{ runner.OS }}-${{ matrix.node }}-yarn-cache-
+          key: ${{ runner.OS }}-${{ matrix.node }}-yarn-cache-1-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: ${{ runner.OS }}-${{ matrix.node }}-yarn-cache-1-
 
       - name: Install
         run: yarn --no-progress --non-interactive --frozen-lockfile --ignore-optional
@@ -66,8 +66,8 @@ jobs:
           path: |
             node_modules
             **/node_modules
-          key: ${{ runner.OS }}-${{ matrix.node }}-yarn-cache-${{ hashFiles('**/yarn.lock') }}
-          restore-keys: ${{ runner.OS }}-${{ matrix.node }}-yarn-cache-
+          key: ${{ runner.OS }}-${{ matrix.node }}-yarn-cache-1-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: ${{ runner.OS }}-${{ matrix.node }}-yarn-cache-1-
 
       - name: Install
         run: yarn --no-progress --non-interactive --frozen-lockfile --ignore-optional
