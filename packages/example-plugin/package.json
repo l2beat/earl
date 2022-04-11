@@ -11,11 +11,11 @@
     "format": "prettier --ignore-path ../../.prettierignore --check .",
     "format:fix": "prettier --ignore-path ../../.prettierignore --write .",
     "lint": "eslint --ext .ts src",
-    "lint:fix": "yarn lint --fix",
+    "lint:fix": "pnpm lint --fix",
     "typecheck": "tsc --noEmit",
     "clean": "rimraf dist",
-    "build": "yarn clean && tsc -p ./tsconfig.json",
-    "test:fix": "yarn lint:fix && yarn format:fix && yarn typecheck"
+    "build": "pnpm clean && tsc -p ./tsconfig.json",
+    "test:fix": "pnpm lint:fix && pnpm format:fix && pnpm typecheck"
   },
   "devDependencies": {
     "earljs": "*"

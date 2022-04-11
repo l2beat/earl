@@ -9,7 +9,7 @@
     "deploy": "docusaurus deploy",
     "release": "./scripts/build-and-deploy.sh",
     "api-reference": "node ./generate-api-reference",
-    "prebuild": "yarn api-reference"
+    "prebuild": "pnpm api-reference"
   },
   "dependencies": {
     "classnames": "^2.2.6",

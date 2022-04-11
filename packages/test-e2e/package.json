@@ -7,10 +7,10 @@
     "format": "prettier --ignore-path ../../.prettierignore --check .",
     "format:fix": "prettier --ignore-path ../../.prettierignore --write .",
     "lint": "eslint --ext .ts test",
-    "lint:fix": "yarn lint --fix",
+    "lint:fix": "pnpm lint --fix",
     "typecheck": "tsc --noEmit",
     "test": "mocha --exit",
-    "test:fix": "yarn lint:fix && yarn format:fix && yarn typecheck && yarn test"
+    "test:fix": "pnpm lint:fix && pnpm format:fix && pnpm typecheck && pnpm test"
   },
   "dependencies": {
     "earljs": "link:../earljs",

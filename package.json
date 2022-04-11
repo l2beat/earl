@@ -3,7 +3,7 @@
   "private": true,
   "engines": {
     "node": ">=10",
-    "yarn": "^1.17.3"
+    "pnpm": "^6"
   },
   "workspaces": {
     "packages": [
@@ -17,10 +17,10 @@
     "typecheck": "wsrun -mc typecheck",
     "clean": "wsrun -emc clean",
     "build": "wsrun -x website -temc build",
-    "build:website": "yarn workspace website build",
+    "build:website": "pnpm workspace website build",
     "test": "wsrun -emc test",
     "test:fix": "wsrun -emc test:fix",
-    "release": "wsrun -smec release && yarn changeset publish"
+    "release": "wsrun -smec release && pnpm changeset publish"
   },
   "devDependencies": {
     "@changesets/cli": "2.19.0",
