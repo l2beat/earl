@@ -14,7 +14,7 @@
     "lint:fix": "pnpm lint --fix",
     "typecheck": "tsc --noEmit",
     "clean": "rimraf dist",
-    "build": "pnpm clean && tsc -p ./tsconfig.json",
+    "build": "pnpm clean && tsc --build",
     "test:fix": "pnpm lint:fix && pnpm format:fix && pnpm typecheck"
   },
   "devDependencies": {

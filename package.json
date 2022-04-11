@@ -16,7 +16,7 @@
     "format:fix": "pnpm --parallel --aggregate-output --reporter append-only --filter ./packages format:fix",
     "typecheck": "pnpm --parallel --aggregate-output --reporter append-only --filter ./packages typecheck",
     "clean": "pnpm --parallel --aggregate-output --reporter append-only --filter ./packages clean",
-    "build": "pnpm --parallel --aggregate-output --reporter append-only --filter=!website build",
+    "build": "pnpm --filter=!website build",
     "build:website": "pnpm --filter=website build",
     "test": "pnpm --parallel --aggregate-output --reporter append-only --filter ./packages test",
     "test:fix": "pnpm --parallel --aggregate-output --reporter append-only --filter ./packages test:fix",
