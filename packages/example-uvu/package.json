@@ -8,7 +8,7 @@
     "lint": "eslint --ext .ts .",
     "lint:fix": "pnpm lint --fix",
     "typecheck": "tsc --noEmit",
-    "test": "uvu -r ts-node/register/transpile-only -r earljs/uvu test \"\\.test\\.ts$\"",
+    "test": "uvu -r ts-node/register/transpile-only -r ./node_modules/earljs/uvu test \"\\.test\\.ts$\"",
     "test:fix": "pnpm lint:fix && pnpm format:fix && pnpm test && pnpm typecheck"
   },
   "dependencies": {
