@@ -20,7 +20,7 @@ if [ ! -f "./node_modules/.bin/docusaurus" ]; then
 
   # "optionalDependencies" seem to be broken in Yarn on GitHub Actions?
   # Note that Docusaurus must be an optional dependency, as it requires Node 14 and crashes `yarn install` on earlier Node versions.
-  # todo: learn how to fix this? maybe PNPM helps?
+  # todo: this might be no longer needed as we use PNPM now
   optionalDeps=$(node -e "console.log(Object.entries(require('./package.json').optionalDependencies).map(e => e.join('@')).join(' '))")
   echo $optionalDeps
   pnpm add $optionalDeps

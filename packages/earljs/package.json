@@ -38,7 +38,7 @@
     "lint:fix": "pnpm lint --fix",
     "typecheck": "tsc --noEmit",
     "clean": "rimraf dist",
-    "build": "pnpm clean && tsc -p ./tsconfig.prod.json",
+    "build": "tsc -p ./tsconfig.prod.json",
     "build:watch": "pnpm clean && tsc -p ./tsconfig.prod.json --watch",
     "build:watch:test": "pnpm clean && tsc -p ./tsconfig.json --watch",
     "test": "mocha",
@@ -53,6 +53,8 @@
   "devDependencies": {
     "@microsoft/tsdoc": "^0.13.0",
     "@types/debug": "^4.1.5",
-    "error-stack-parser": "^2.0.6"
+    "error-stack-parser": "^2.0.6",
+    "rimraf": "^3.0.2",
+    "typescript": "^4.6"
   }
 }

@@ -1,13 +1,13 @@
 {
+  "extends": "../../tsconfig.options.json",
   "compilerOptions": {
-    "declaration": true,
-    "lib": ["ES2015"],
-    "module": "CommonJS",
-    "moduleResolution": "node",
-    "strict": true,
-    "target": "ES2015",
-    "esModuleInterop": true,
-    "outDir": "dist"
+    "outDir": "dist",
+    "rootDir": "src"
   },
-  "include": ["src"]
+  "include": ["src"],
+  "references": [
+    {
+      "path": "../earljs/tsconfig.prod.json"
+    }
+  ]
 }

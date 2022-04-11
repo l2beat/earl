@@ -21,10 +21,8 @@ before(function () {
 
     console.log('🔧 Linking local earljs in end-to-end tests project...')
 
-    // Using `link` instead of `file:` protocol helps keeping package.json unchanged
-    // and performs a bit faster, albeit it doesn't support aliases like "@earljs/local".
-    exec(`pnpm link`, { cwd: earlPkgDir })
-    exec(`pnpm link earljs`, { cwd: testPkgDir })
+    // Ensure that workspace version of earljs is used in test-e2e project
+    exec(`pnpm install`, { cwd: testPkgDir })
 
     console.log('🧪 Running end-to-end tests...\n')
   }
