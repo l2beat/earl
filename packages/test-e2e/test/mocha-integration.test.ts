@@ -86,9 +86,10 @@ function runMocha(modes: { watch?: boolean; parallel?: boolean }) {
       const str = String(data)
       result.stderr += str
 
-      const ERROR_PREFIX = '\n× \x1B[31mERROR:\x1B[39m Error:'
-      if (str.startsWith(ERROR_PREFIX)) {
-        fail('Process crashed.' + str)
+      const ERROR_PREFIXES = ['\n× \x1B[31mERROR:\x1B[39m Error:', '(node:']
+
+      if (ERROR_PREFIXES.some((prefix) => str.startsWith(prefix))) {
+        fail('Process crashed.\n' + str)
       }
 
       d(`stderr: ${str}`)
