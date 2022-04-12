@@ -2,7 +2,9 @@ import { MockProvider } from '@ethereum-waffle/provider'
 import { expect } from 'earljs'
 import { BigNumber, Contract, ContractFactory, Wallet } from 'ethers'
 
-describe('toEmit', () => {
+describe('toEmit', function () {
+  this.timeout(10000)
+
   let events: Contract
 
   before(async function () {
