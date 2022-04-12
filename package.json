@@ -3,7 +3,7 @@
   "private": true,
   "engines": {
     "node": ">=10",
-    "yarn": "^1.17.3"
+    "pnpm": "^6"
   },
   "workspaces": {
     "packages": [
@@ -11,16 +11,16 @@
     ]
   },
   "scripts": {
-    "lint": "wsrun -mc lint",
-    "format": "wsrun -mc format",
-    "format:fix": "wsrun -mc format:fix",
-    "typecheck": "wsrun -mc typecheck",
-    "clean": "wsrun -emc clean",
-    "build": "wsrun -x website -temc build",
-    "build:website": "yarn workspace website build",
-    "test": "wsrun -emc test",
-    "test:fix": "wsrun -emc test:fix",
-    "release": "wsrun -smec release && yarn changeset publish"
+    "lint": "pnpm --parallel --aggregate-output --reporter append-only --filter ./packages lint",
+    "format": "pnpm --parallel --aggregate-output --reporter append-only --filter ./packages format",
+    "format:fix": "pnpm --parallel --aggregate-output --reporter append-only --filter ./packages format:fix",
+    "typecheck": "pnpm --parallel --aggregate-output --reporter append-only --filter ./packages typecheck",
+    "clean": "pnpm --parallel --aggregate-output --reporter append-only --filter ./packages clean",
+    "build": "pnpm --filter=!website build",
+    "build:website": "pnpm --filter=website build",
+    "test": "pnpm --parallel --aggregate-output --reporter append-only --filter ./packages test",
+    "test:fix": "pnpm --parallel --aggregate-output --reporter append-only --filter ./packages test:fix",
+    "release": "pnpm --filter ./packages clean && pnpm changeset publish"
   },
   "devDependencies": {
     "@changesets/cli": "2.19.0",
@@ -44,15 +44,14 @@
     "eslint-plugin-tsdoc": "^0.2.11",
     "eslint-plugin-unused-imports": "^1.1.1",
     "fast-check": "^2.19.0",
-    "mocha": "^8.2.1",
+    "mocha": "8.2.1",
     "prettier": "^2.5.0",
     "rimraf": "^3.0.2",
     "sinon": "^8.0.1",
     "sinon-chai": "^3.5.0",
     "ts-node": "^8.5.4",
-    "typescript": "^4.5",
-    "uvu": "^0.5.3",
-    "wsrun": "^5.2.4"
+    "typescript": "^4.6",
+    "uvu": "^0.5.3"
   },
   "resolutions": {
     "prettier": "^2.5.0",

@@ -10,28 +10,30 @@
     "format": "prettier --ignore-path ../../.prettierignore --check .",
     "format:fix": "prettier --ignore-path ../../.prettierignore --write .",
     "lint": "eslint --ext .ts src test",
-    "lint:fix": "yarn lint --fix",
+    "lint:fix": "pnpm lint --fix",
     "typecheck": "tsc --noEmit",
     "clean": "rimraf dist",
-    "build": "yarn clean && tsc -p ./tsconfig.prod.json",
-    "build:watch": "yarn clean && tsc -p ./tsconfig.prod.json --watch",
-    "build:watch:test": "yarn clean && tsc -p ./tsconfig.json --watch",
+    "build": "pnpm clean && tsc -p ./tsconfig.prod.json",
+    "build:watch": "pnpm clean && tsc -p ./tsconfig.prod.json --watch",
+    "build:watch:test": "pnpm clean && tsc -p ./tsconfig.json --watch",
     "test": "mocha",
-    "test:fix": "yarn lint:fix && yarn format:fix && yarn typecheck && yarn test"
+    "test:fix": "pnpm lint:fix && pnpm format:fix && pnpm typecheck && pnpm test"
   },
   "dependencies": {
     "@microsoft/tsdoc": "^0.13.0",
     "@ts-morph/bootstrap": "^0.12.2",
     "fast-glob": "^3.2.7",
-    "lodash": "^4.17.20",
     "ts-command-line-args": "^2.2.0",
     "ts-essentials": "^7.0.1",
     "ts-morph": "^13.0.2"
   },
   "devDependencies": {
+    "@earljs/published": "npm:earljs@latest",
     "@types/command-line-usage": "^5.0.2",
     "@types/debug": "^4",
-    "@types/lodash": "^4",
-    "@earljs/published": "npm:earljs@latest"
+    "@types/lodash": "^4.14.181",
+    "lodash": "^4.17.21",
+    "rimraf": "^3.0.2",
+    "typescript": "^4.6"
   }
 }

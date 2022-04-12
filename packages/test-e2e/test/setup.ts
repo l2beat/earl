@@ -24,14 +24,12 @@ before(async function () {
     const earlPkgDir = resolve(testPkgDir, relativeEarlPkgDir)
 
     console.log('🔨 Building earljs...')
-    exec('yarn build', { cwd: earlPkgDir, errorMsg: 'Failed to build Earl.' })
+    exec('pnpm build', { cwd: earlPkgDir, errorMsg: 'Failed to build Earl.' })
 
     console.log('🔧 Linking local earljs in end-to-end tests project...')
 
-    // Using `link` instead of `file:` protocol helps keeping package.json unchanged
-    // and performs a bit faster, albeit it doesn't support aliases like "@earljs/local".
-    exec(`yarn link`, { cwd: earlPkgDir })
-    exec(`yarn link earljs`, { cwd: testPkgDir })
+    // Ensure that workspace version of earljs is used in test-e2e project
+    exec(`pnpm install`, { cwd: testPkgDir })
 
     console.log('🧪 Running end-to-end tests...\n')
   }
