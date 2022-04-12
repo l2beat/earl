@@ -18,7 +18,7 @@
     "expect",
     "exception"
   ],
-  "repository": "git@github.com:earl-js/earl.git",
+  "repository": "dethcrypto/earl",
   "author": "Kris Kaczor <chris@kaczor.io>",
   "license": "MIT",
   "version": "0.2.3",
