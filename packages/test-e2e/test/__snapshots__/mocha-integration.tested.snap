@@ -1,25 +1,5 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`earljs/mocha failing test 1`] = `0.685109454492407`;
-
-exports[`earljs/mocha failing test 2`] = `0.5971907182181033`;
-
-exports[`earljs/mocha failing test 3`] = `0.3717099183866386`;
-
-exports[`earljs/mocha failing test 4`] = `0.2124437929963483`;
-
-exports[`earljs/mocha failing test 5`] = `0.335712431950143`;
-
-exports[`earljs/mocha failing test 6`] = `0.6786830315628425`;
+exports[`earljs/mocha failing test 1`] = `0.3034235109109409`;
 
 exports[`earljs/mocha successful test 1`] = `2`;
-
-exports[`earljs/mocha successful test 2`] = `2`;
-
-exports[`earljs/mocha successful test 3`] = `2`;
-
-exports[`earljs/mocha successful test 4`] = `2`;
-
-exports[`earljs/mocha successful test 5`] = `2`;
-
-exports[`earljs/mocha successful test 6`] = `2`;
