@@ -1,6 +1,6 @@
 {
   "name": "@earljs/ethereum-plugin",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "license": "MIT",
   "main": "./dist/index.js",
   "module": "./dist/index.js",
@@ -16,8 +16,8 @@
     "lint": "eslint --ext .ts src",
     "lint:fix": "pnpm lint --fix",
     "typecheck": "tsc --noEmit",
-    "clean": "rimraf dist",
-    "build": "pnpm clean && tsc -p ./tsconfig.build.json",
+    "clean": "rimraf dist && rimraf tsconfig.prod.tsbuildinfo",
+    "build": "pnpm clean && tsc -p ./tsconfig.prod.json",
     "test": "mocha",
     "test:fix": "pnpm lint:fix && pnpm format:fix && pnpm typecheck && pnpm test"
   },

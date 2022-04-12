@@ -13,7 +13,7 @@
     "lint": "eslint --ext .ts src",
     "lint:fix": "pnpm lint --fix",
     "typecheck": "tsc --noEmit",
-    "clean": "rimraf dist",
+    "clean": "rimraf dist && rimraf ./tsconfig.tsbuildinfo",
     "build": "pnpm clean && tsc --build",
     "test:fix": "pnpm lint:fix && pnpm format:fix && pnpm typecheck"
   },

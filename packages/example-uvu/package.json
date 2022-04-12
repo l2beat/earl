@@ -12,6 +12,6 @@
     "test:fix": "pnpm lint:fix && pnpm format:fix && pnpm test && pnpm typecheck"
   },
   "dependencies": {
-    "earljs": "*"
+    "earljs": "workspace:^0.2.3"
   }
 }
