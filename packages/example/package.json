@@ -13,7 +13,8 @@
     "test:fix": "pnpm lint:fix && pnpm format:fix && pnpm test && pnpm typecheck"
   },
   "dependencies": {
-    "earljs": "*",
-    "example-plugin": "*"
+    "earljs": "workspace:^0.2.3",
+    "@earljs/ethereum-plugin": "workspace:^0.2.3",
+    "example-plugin": "workspace:^1.0.0"
   }
 }

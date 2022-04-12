@@ -152,9 +152,11 @@ importers:
 
   packages/example:
     specifiers:
-      earljs: '*'
-      example-plugin: '*'
+      '@earljs/ethereum-plugin': workspace:^0.2.3
+      earljs: workspace:^0.2.3
+      example-plugin: workspace:^1.0.0
     dependencies:
+      '@earljs/ethereum-plugin': link:../ethereum-plugin
       earljs: link:../earljs
       example-plugin: link:../example-plugin
 
@@ -170,7 +172,7 @@ importers:
 
   packages/example-uvu:
     specifiers:
-      earljs: '*'
+      earljs: workspace:^0.2.3
     dependencies:
       earljs: link:../earljs
 
