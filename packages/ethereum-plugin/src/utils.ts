@@ -1,4 +1,4 @@
-import { utils } from 'ethers'
+import { utils, Wallet } from 'ethers'
 
 const HEX_REGEX = /^0x[0-9-a-fA-F]*$/
 
@@ -13,5 +13,12 @@ export function isHexString(value: string, length?: number) {
 }
 
 export function isPrivateKey(value: string) {
-  return isHexString(value, 64)
+  if (!isHexString(value, 64)) return false
+
+  try {
+    const _ = new Wallet(value)
+    return true
+  } catch {
+    return false
+  }
 }
