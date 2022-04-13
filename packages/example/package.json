@@ -14,7 +14,7 @@
   },
   "dependencies": {
     "earljs": "workspace:^0.2.3",
-    "@earljs/ethereum-plugin": "workspace:^0.2.3",
+    "@earljs/ethereum-plugin": "workspace:^0.1.0",
     "example-plugin": "workspace:^1.0.0"
   }
 }
