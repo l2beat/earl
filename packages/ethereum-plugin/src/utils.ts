@@ -1,9 +1,13 @@
 import { utils, Wallet } from 'ethers'
 
+const LOWERCASE_ADDRESS_REGEX = /^(0x)?[0-9a-f]{40}$/
 const HEX_REGEX = /^0x[0-9-a-fA-F]*$/
 
-export function isAddress(value: string) {
-  return HEX_REGEX.test(value) && utils.isAddress(value)
+/** returns true if the parameter is checksummed address */
+export const isAddress = utils.isAddress
+
+export function isNonChecksumAdress(address: string) {
+  return address.match(LOWERCASE_ADDRESS_REGEX) !== null
 }
 
 export function isHexString(value: string, length?: number) {

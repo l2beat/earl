@@ -2,6 +2,9 @@ import { Matcher } from 'earljs/internals'
 
 import { isAddress } from '../utils'
 
+/**
+ * matches checksummed addresses
+ */
 export class AddressMatcher extends Matcher {
   check(value: unknown) {
     if (typeof value !== 'string') {

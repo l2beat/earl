@@ -7,7 +7,7 @@ export function toBeAnAddress(this: Expectation<any>): void {
 
   ctrl.assert({
     success: isAddress(ctrl.actual),
-    reason: `String "${ctrl.actual}" is not an ethereum address!`,
-    negatedReason: `String "${ctrl.actual}" is an ethereum address!`,
+    reason: `String "${ctrl.actual}" is not a checksummed ethereum address!`,
+    negatedReason: `String "${ctrl.actual}" is a checksummed ethereum address!`,
   })
 }
