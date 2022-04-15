@@ -4,6 +4,7 @@ import { HexStringMatcher } from './matchers/aHexString'
 import { AddressMatcher } from './matchers/anAddress'
 import { NonChecksumAddressMatcher } from './matchers/aNonChecksumAddress'
 import { PrivateKeyMatcher } from './matchers/aPrivateKey'
+import { bigNumberChecksItsEquality } from './smartEqRules/bigNumberChecksItsEquality'
 import { toBeAHexString } from './validators/toBeAHexString'
 import { toBeAnAddress } from './validators/toBeAnAddress'
 import { toBeANonChecksumAddress } from './validators/toBeANonChecksumAddress'
@@ -16,6 +17,9 @@ export const plugin = createPlugin({
     anAddress: AddressMatcher.make,
     aNonChecksumAddress: NonChecksumAddressMatcher.make,
     aPrivateKey: PrivateKeyMatcher.make,
+  },
+  smartEqRules: {
+    bigNumberChecksItsEquality,
   },
   validators: {
     toBeAHexString,
