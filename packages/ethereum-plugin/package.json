@@ -20,7 +20,8 @@
     "build": "pnpm clean && tsc -p ./tsconfig.prod.json",
     "test": "mocha",
     "test:fix": "pnpm lint:fix && pnpm format:fix && pnpm typecheck && pnpm test",
-    "codegen": "typechain --target=ethers-v5 --out-dir ./test/fixtures/generated ./test/fixtures/Events/*.json"
+    "codegen": "typechain --target=ethers-v5 --out-dir ./test/fixtures/generated ./test/fixtures/Events/*.json",
+    "postinstall": "pnpm codegen"
   },
   "peerDependencies": {
     "earljs": "workspace:^0.2.3",
