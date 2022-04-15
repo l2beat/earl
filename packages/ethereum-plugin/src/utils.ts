@@ -4,7 +4,9 @@ const LOWERCASE_ADDRESS_REGEX = /^(0x)?[0-9a-f]{40}$/
 const HEX_REGEX = /^0x[0-9-a-fA-F]*$/
 
 /** returns true if the parameter is checksummed address */
-export const isAddress = utils.isAddress
+export function isAddress(value: string) {
+  return HEX_REGEX.test(value) && utils.isAddress(value)
+}
 
 export function isNonChecksumAdress(address: string) {
   return address.match(LOWERCASE_ADDRESS_REGEX) !== null

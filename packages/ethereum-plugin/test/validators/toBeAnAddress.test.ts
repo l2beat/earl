@@ -34,12 +34,12 @@ describe('toBeAnAddress', () => {
 
   describe('error messages', () => {
     it('is not an ethereum address', () => {
-      expect(() => expect('foo').toBeAnAddress()).toThrow('String "foo" is not an ethereum address!')
+      expect(() => expect('foo').toBeAnAddress()).toThrow('String "foo" is not a checksummed ethereum address!')
     })
 
     it('is an ethereum address', () => {
       expect(() => expect('0xbc58D03d0C6dE0900C17cddc828A6Cf48dFCEbDC').not.toBeAnAddress()).toThrow(
-        'String "0xbc58D03d0C6dE0900C17cddc828A6Cf48dFCEbDC" is an ethereum address!',
+        'String "0xbc58D03d0C6dE0900C17cddc828A6Cf48dFCEbDC" is a checksummed ethereum address!',
       )
     })
   })
