@@ -1,7 +1,8 @@
 {
   "extends": "./tsconfig.prod.json",
   "compilerOptions": {
-    "rootDir": "."
+    "rootDir": ".",
+    "resolveJsonModule": true
   },
   "include": ["src", "test", "./types.d.ts"]
 }
