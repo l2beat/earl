@@ -1,5 +1,5 @@
 export { Expect, expect, Expect as ExpectInterface } from './expect'
-export { Expectation, ExpectationOptions } from './Expectation'
+export { Expectation, ExpectationOptions, ExpectationOverrides } from './Expectation'
 export type { SmartEqRules } from './isEqual/rules'
 export { Mock, mockFn } from './mocks'
 export type { Validators } from './validators/types'

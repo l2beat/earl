@@ -20,11 +20,13 @@ import { toReferentiallyEqual } from './validators/toReferentiallyEqual'
 import { toThrow } from './validators/toThrow'
 import { ValidatorsFor } from './validators/types'
 
+export interface ExpectationOverrides {}
+
 export interface ExpectationOptions {
   extraMessage?: string
 }
 
-export type Expectation<T> = Modifiers<T> & ValidatorsFor<T>
+export type Expectation<T> = Modifiers<T> & ValidatorsFor<T> & ExpectationOverrides
 
 /**
  * @internal

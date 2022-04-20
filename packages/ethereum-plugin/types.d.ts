@@ -8,3 +8,9 @@ declare module 'earljs' {
   interface Validators extends createPlugin.ValidatorsOf<typeof plugin> {}
   interface SmartEqRules extends createPlugin.SmartEqRulesOf<typeof plugin> {}
 }
+
+declare module 'earljs' {
+  interface ExpectationOverrides {
+    toEmit2: Validators['toEmit']
+  }
+}
