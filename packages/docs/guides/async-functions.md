@@ -13,7 +13,7 @@ resolve. Instead, we encourage you to use `async/await` syntax:
 ```typescript
 function delay(n: number): Promise<void> {
   return new Promise((resolve) => {
-    setInterval(resolve, n)
+    setTimeout(resolve, n)
   })
 }
 
