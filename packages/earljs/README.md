@@ -7,7 +7,7 @@
     <img alt="Build status" src="https://github.com/dethcrypto/earl/workflows/CI/badge.svg">
     <a href="/package.json"><img alt="Software License" src="https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square"></a>
     <img alt="All contributors" src="https://img.shields.io/badge/all_contributors-9-orange.svg?style=flat-square">
-    <a href="https://discord.gg/wQDkeDgzgv"><img alt="Join our discord!" src="https://img.shields.io/discord/895381864922091630.svg?color=7289da&label=deth&logo=discord&style=flat-square"></a>
+    <a href="https://discord.gg/kc3RnmHQRa"><img alt="Join our discord!" src="https://img.shields.io/discord/895381864922091630.svg?color=7289da&label=deth&logo=discord&style=flat-square"></a>
   </p>
 </p>
 
