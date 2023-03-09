@@ -3,39 +3,18 @@
   "private": true,
   "version": "1.0.0",
   "scripts": {
-    "start": "docusaurus start",
-    "build": "docusaurus build",
-    "swizzle": "docusaurus swizzle --typescript",
-    "deploy": "docusaurus deploy",
-    "release": "./scripts/build-and-deploy.sh",
-    "api-reference": "node ./generate-api-reference",
-    "prebuild": "pnpm api-reference"
-  },
-  "dependencies": {
-    "classnames": "^2.2.6",
-    "react": "^16.8.4",
-    "react-dom": "^16.8.4"
-  },
-  "optionalDependencies": {
-    "@docusaurus/core": "2.0.0-beta.9",
-    "@docusaurus/preset-classic": "2.0.0-beta.9"
+    "format": "prettier --ignore-path ../../.prettierignore --check .",
+    "format:fix": "prettier --ignore-path ../../.prettierignore --write .",
+    "start": "vitepress dev docs",
+    "build": "pnpm build:api-reference && pnpm build:docs",
+    "build:docs": "vitepress build docs",
+    "build:api-reference": "node ./generate-api-reference",
+    "preview": "vitepress preview docs",
+    "release": "./scripts/release.sh"
   },
   "devDependencies": {
-    "@docusaurus/module-type-aliases": "^2.0.0-beta.9",
-    "@tsconfig/docusaurus": "^1.0.4",
+    "@dethcrypto/api-reference-generator": "workspace:^1.0.0",
     "netlify-cli": "^2.53.0",
-    "typescript": "^4.6"
-  },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
+    "vitepress": "1.0.0-alpha.51"
   }
 }

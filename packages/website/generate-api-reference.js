@@ -3,23 +3,28 @@
 
 const path = require('path')
 const { writeFileSync } = require('fs')
-const { generateApiReference } = require('../api-reference-generator')
+const { generateApiReference } = require('@dethcrypto/api-reference-generator')
 
 const frontmatter = `\
 ---
-id: api-reference
-hide_title: true
 title: API Reference
+outline: deep
 ---
+
+# {{ $frontmatter.title }}
+
 `
 
 const pageStyles = `\n
-<style>{\`
-  :not(h3) + h4 {
+<style>
+  h4 {
     padding-top: 1em;
-    border-top: 1px solid var(--ifm-color-emphasis-200);
-  }\`
-}</style>\n
+  }
+
+  :not(h3) + h4 {
+    border-top: 1px solid var(--vp-c-divider);
+  }
+</style>\n
 `
 
 async function main() {
@@ -36,7 +41,7 @@ async function main() {
 
   // We're prepending frontmatter and styles here, because we Docusaurus doesn't show
   // headings from imported .mdx files in table of contents
-  writeFileSync(path.resolve(__dirname, '../docs/api/api-reference.md'), frontmatter + pageStyles + reference)
+  writeFileSync(path.resolve(__dirname, './docs/api/api-reference.md'), frontmatter + pageStyles + reference)
 }
 
 void main().catch((err) => {

@@ -2,4 +2,6 @@ node_modules
 .vscode
 package.json
 **/dist
+**/.vitepress/cache
+**/api/api-reference.md
 CHANGELOG.md

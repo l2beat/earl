@@ -12,7 +12,7 @@
     "lint": "eslint --ext .ts src test",
     "lint:fix": "pnpm lint --fix",
     "typecheck": "tsc --noEmit",
-    "clean": "rimraf dist",
+    "clean": "rimraf dist *.tsbuildinfo",
     "build": "pnpm clean && tsc -p ./tsconfig.prod.json",
     "build:watch": "pnpm clean && tsc -p ./tsconfig.prod.json --watch",
     "build:watch:test": "pnpm clean && tsc -p ./tsconfig.json --watch",
