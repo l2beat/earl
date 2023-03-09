@@ -1,0 +1,18 @@
+{
+  "name": "website-new",
+  "private": true,
+  "version": "1.0.0",
+  "scripts": {
+    "format": "prettier --ignore-path ../../.prettierignore --check .",
+    "format:fix": "prettier --ignore-path ../../.prettierignore --write .",
+    "start": "vitepress dev docs",
+    "build": "pnpm build:api-reference && pnpm build:docs",
+    "build:docs": "vitepress build docs",
+    "build:api-reference": "node ./generate-api-reference",
+    "preview": "vitepress preview docs"
+  },
+  "devDependencies": {
+    "@dethcrypto/api-reference-generator": "workspace:^1.0.0",
+    "vitepress": "1.0.0-alpha.51"
+  }
+}

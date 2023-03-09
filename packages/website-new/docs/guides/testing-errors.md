@@ -1,6 +1,9 @@
 ---
 title: Testing errors
+editLink: true
 ---
+
+# {{ $frontmatter.title }}
 
 Often you want to assert that a given operation results in an error being
 thrown. That's what `toThrow` validator is useful in **earl**:

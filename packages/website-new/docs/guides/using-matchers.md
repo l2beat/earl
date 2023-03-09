@@ -1,6 +1,9 @@
 ---
 title: Using matchers
+editLink: true
 ---
+
+# {{ $frontmatter.title }}
 
 Matchers allow matching whole ranges of values rather than just one literal,
 they can be combined with other validators or used with mocks. Let's take a look
@@ -14,12 +17,12 @@ Imagine that we want to match any string in our test case. We can use a generic
 ```typescript
 import { expect } from 'earljs'
 
-expect('abc').toEqual(a(String))
+expect('abc').toEqual(expect.a(String))
 ```
 
-`a(Class)` works with builtin types like strings, numbers etc as well as custom
-classes. It's smart enough to leverage `typeof` check for builtins - so you
-don't have to worry about that :)
+`expect.a(Class)` works with builtin types like strings, numbers etc as well as
+custom classes. It's smart enough to leverage `typeof` check for builtins - so
+you don't have to worry about that :)
 
 What if you don't want to match any string but rather a string containing
 another string or better, matching some pattern?

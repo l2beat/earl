@@ -1,6 +1,9 @@
 ---
 title: Snapshot testing
+editLink: true
 ---
+
+# {{ $frontmatter.title }}
 
 Earl supports Jest's snapshots tests. Only `toMatchSnapshot` is supported right
 now - no inline snapshots support.

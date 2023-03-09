@@ -1,6 +1,9 @@
 ---
 title: Mocks
+editLink: true
 ---
+
+# {{ $frontmatter.title }}
 
 Mocks are dummy objects simulating behaviour of more complicated real world
 objects. **Earl** supports only function mocks for now.
@@ -55,7 +58,7 @@ console.log(mock(2, 2)) // 4
 ```
 
 There are various ways of configuring mocks, explore all of them in
-[API reference](/docs/api/api-reference#mocks).
+[API reference](/api/api-reference#mocks).
 
 ## Asserting mocks
 
@@ -88,4 +91,4 @@ const mock = mockFn<(_: number) => number>()
 expect(mock).toBeExhausted()
 ```
 
-Learn more from [API reference](/docs/api/api-reference#mocks).
+Learn more from [API reference](/api/api-reference#mocks).

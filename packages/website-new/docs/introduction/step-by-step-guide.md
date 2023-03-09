@@ -1,6 +1,9 @@
 ---
 title: Step by step guide
+editLink: true
 ---
+
+# {{ $frontmatter.title }}
 
 Let's setup **mocha** with **earl** and write our first assertion. I will assume
 in this guide that you use TypeScript but **earl** works with JavaScript as

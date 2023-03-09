@@ -1,7 +1,9 @@
 ---
 title: Getting started
-slug: /
+editLink: true
 ---
+
+# {{ $frontmatter.title }}
 
 **Earl** is a ergonomic, modern and type-safe assertion library written in
 TypeScript. You might be familiar with similar libraries like: _chai_ or
@@ -30,5 +32,5 @@ match values. Matchers can be used to match whole ranges of values and are very
 important piece of **earl** ecosystem.
 
 You can read more about those concepts in
-[Core Concepts](/docs/introduction/core-concepts) chapter. But for now lets do a
-step by step guide and write a first test case using **mocha** and **earl**!
+[Core Concepts](/introduction/core-concepts) chapter. But for now lets do a step
+by step guide and write a first test case using **mocha** and **earl**!

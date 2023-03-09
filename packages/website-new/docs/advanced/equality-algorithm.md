@@ -1,7 +1,9 @@
 ---
-id: equality-algorithm
 title: Equality Algorithm
+editLink: true
 ---
+
+# {{ $frontmatter.title }}
 
 The equality algorithm is an extensible and parameterized deep equality checker.
 It is used by all functions that check deep equality inside earl.

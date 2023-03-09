@@ -1,6 +1,9 @@
 ---
 title: Motivation
+editLink: true
 ---
+
+# {{ $frontmatter.title }}
 
 I used to love Mocha + Chai combo, but as time flew, I felt it's limiting. Other
 projects like Jest shown that there is room for innovation in this space. With

@@ -1,6 +1,9 @@
 ---
 title: Plugin development
+editLink: true
 ---
+
+# {{ $frontmatter.title }}
 
 _Note: plugin APIs is experimental and we welcome any feedback._
 

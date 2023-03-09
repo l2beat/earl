@@ -1,6 +1,9 @@
 ---
 title: Using plugins
+editLink: true
 ---
+
+# {{ $frontmatter.title }}
 
 Using plugins with **earl** couldn't be simpler. Just install a plugin package
 and then simply import it.

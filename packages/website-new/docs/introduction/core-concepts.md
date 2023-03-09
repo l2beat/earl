@@ -1,6 +1,9 @@
 ---
 title: Core concepts
+editLink: true
 ---
+
+# {{ $frontmatter.title }}
 
 ### Validators
 
@@ -22,7 +25,7 @@ expect(something).toEqual(expect.anything())
 
 Of course matchers can be nested.
 
-Read more about matchers in [Using matchers guide](/docs/guides/using-matchers).
+Read more about matchers in [Using matchers guide](/guides/using-matchers).
 
 ### Modifiers
 

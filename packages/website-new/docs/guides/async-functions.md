@@ -1,6 +1,9 @@
 ---
 title: Async functions
+editLink: true
 ---
+
+# {{ $frontmatter.title }}
 
 In JavaScript you very frequently work with promises and async code. Here's how
 to deal with them in **earl**.
@@ -47,4 +50,4 @@ eslint rule (it's part of
 [TypeSTRICT](https://github.com/krzkaczor/typestrict)).
 
 Other than that `toBeRejected` works exactly the same as `toThrow` so you can
-take a look at our [testing errors guide](/docs/guides/testing-errors).
+take a look at our [testing errors guide](/guides/testing-errors).

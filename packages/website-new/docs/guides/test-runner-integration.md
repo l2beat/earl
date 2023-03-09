@@ -1,6 +1,9 @@
 ---
 title: Test runner integration
+editLink: true
 ---
+
+# {{ $frontmatter.title }}
 
 Basic capabilities of Earl should work in all test runners. If you're not using
 snapshot tests, feel free to skip this.
