@@ -13,7 +13,7 @@
     "test:fix": "pnpm lint:fix && pnpm format:fix && pnpm typecheck && pnpm test"
   },
   "dependencies": {
-    "@earljs/published": "npm:earljs@latest",
+    "@earljs/published": "npm:earljs@^0.2.3",
     "@types/debug": "^4.1.7",
     "debug": "^4.3.4",
     "earljs": "workspace:^0.2.3"
