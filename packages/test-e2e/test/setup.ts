@@ -2,7 +2,7 @@
 import { execSync, ExecSyncOptions } from 'child_process'
 import { resolve } from 'path'
 
-before(function () {
+before(function (this: Mocha.Context) {
   const isCI = !!process.env.CI && process.env.CI !== 'false'
   const skipBuild = isCI || ['1', 'true'].includes(process.env.SKIP_EARL_BUILD as string)
 

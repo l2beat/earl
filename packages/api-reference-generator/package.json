@@ -20,21 +20,19 @@
     "test:fix": "pnpm lint:fix && pnpm format:fix && pnpm typecheck && pnpm test"
   },
   "dependencies": {
-    "@microsoft/tsdoc": "^0.13.0",
-    "@ts-morph/bootstrap": "^0.12.2",
+    "@microsoft/tsdoc": "^0.14.2",
+    "@ts-morph/bootstrap": "^0.18.0",
     "earljs": "workspace:^0.2.3",
-    "fast-glob": "^3.2.7",
-    "ts-command-line-args": "^2.2.0",
-    "ts-essentials": "^7.0.1",
-    "ts-morph": "^13.0.2"
+    "fast-glob": "^3.2.12",
+    "ts-command-line-args": "^2.4.2",
+    "ts-essentials": "^9.3.1",
+    "ts-morph": "^17.0.1"
   },
   "devDependencies": {
-    "@earljs/published": "npm:earljs@latest",
+    "@earljs/published": "npm:earljs@^0.2.3",
     "@types/command-line-usage": "^5.0.2",
-    "@types/debug": "^4",
-    "@types/lodash": "^4.14.181",
-    "lodash": "^4.17.21",
-    "rimraf": "^3.0.2",
-    "typescript": "^4.6"
+    "@types/debug": "^4.1.7",
+    "@types/lodash": "^4.14.191",
+    "lodash": "^4.17.21"
   }
 }

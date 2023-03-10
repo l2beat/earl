@@ -21,7 +21,7 @@ function main() {
 
     d('Monkey-patching Mocha.prototype.ui')
     const { ui } = module.prototype
-    module.prototype.ui = function (...args: Parameters<typeof module.prototype.ui>) {
+    module.prototype.ui = function (this: Mocha.Context, ...args: Parameters<typeof module.prototype.ui>) {
       setTestRunnerIntegration(new MochaCtx(this.suite))
       return ui.apply(this, args)
     }
@@ -70,7 +70,7 @@ export class MochaCtx implements TestRunnerCtx {
     const self = this
 
     d('Installing beforeEach hook to get testInfo before each test')
-    _hooks.beforeEach(function () {
+    _hooks.beforeEach(function (this: Mocha.Context) {
       assert(this.currentTest, "Current test not set by mocha. This shouldn't happen.")
       assert(this.currentTest.file, "Current test file path not set by mocha. This shouldn't happen.")
       assert(this.currentTest.parent, "Current test has no parent set by mocha. This shouldn't happen.")

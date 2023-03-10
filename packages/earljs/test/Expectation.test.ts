@@ -71,7 +71,7 @@ describe('assert', () => {
   describe('plugin', () => {
     let __ExpectationImplementation: ExpectationType
     let loadValidators: loadValidatorsType
-    beforeEach(function () {
+    beforeEach(function (this: Mocha.Context) {
       this.timeout(5_000)
       clearModuleCache()
       ;({ __ExpectationImplementation, loadValidators } = require('../src/Expectation'))

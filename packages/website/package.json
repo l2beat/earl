@@ -13,7 +13,7 @@
   },
   "devDependencies": {
     "@earl/api-reference-generator": "workspace:^1.0.0",
-    "netlify-cli": "^2.53.0",
+    "netlify-cli": "^13.1.2",
     "vitepress": "1.0.0-alpha.51"
   }
 }
