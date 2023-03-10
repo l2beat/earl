@@ -3,7 +3,7 @@
 
 const path = require('path')
 const { writeFileSync } = require('fs')
-const { generateApiReference } = require('@dethcrypto/api-reference-generator')
+const { generateApiReference } = require('@earl/api-reference-generator')
 
 const frontmatter = `\
 ---

@@ -18,7 +18,7 @@
     "expect",
     "exception"
   ],
-  "repository": "dethcrypto/earl",
+  "repository": "https://github.com/l2beat/earl",
   "author": "Kris Kaczor <chris@kaczor.io>",
   "license": "MIT",
   "version": "0.2.3",
