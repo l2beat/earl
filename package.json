@@ -2,7 +2,7 @@
   "name": "earl-monorepo",
   "private": true,
   "engines": {
-    "node": ">=10",
+    "node": ">=16",
     "pnpm": "^7"
   },
   "workspaces": {

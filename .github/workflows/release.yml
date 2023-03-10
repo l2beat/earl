@@ -18,17 +18,15 @@ jobs:
           version: 7
       - uses: actions/setup-node@v2
         with:
-          node-version: '14.x'
+          node-version: '18.x'
           cache: 'pnpm'
 
       - run: pnpm install --frozen-lockfile
 
-      - name: Either creates release PR or releases everything (packages to npm, documentation do netlify)
+      - name: Either creates release PR or publishes packages to npm
         uses: changesets/action@master
         with:
           publish: pnpm release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN2 }}
-          NETLIFY_APP_ID: ${{ secrets.NETLIFY_APP_ID }}
-          NETLIFY_API_KEY: ${{ secrets.NETLIFY_API_KEY }}

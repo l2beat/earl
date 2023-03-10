@@ -1,9 +1,5 @@
-# Few tips github actions
-# - name: Setup SSH debug session
-#   uses: mxschmitt/action-tmate@v2
-
-name: CI
-
+# ew tips github actions
+# -#   uses: mxschmitt/action-tmate@v2
 on:
   pull_request:
   push:
@@ -14,7 +10,7 @@ jobs:
   CI:
     strategy:
       matrix:
-        node: ['14.x', '16.x']
+        node: ['16.x', '18.x']
         os: [ubuntu-latest, windows-latest, macos-latest]
     runs-on: ${{ matrix.os }}
 
@@ -29,18 +25,8 @@ jobs:
           cache: 'pnpm'
 
       - run: pnpm install --frozen-lockfile
-
-      - name: Lint
-        run: pnpm lint
-
-      - name: Prettier
-        run: pnpm format
-
-      - name: Build
-        run: pnpm build
-
-      - name: Test
-        run: pnpm test
-
-      - name: Typecheck
-        run: pnpm typecheck
+      - run: pnpm lint
+      - run: pnpm format
+      - run: pnpm build
+      - run: pnpm test
+      - run: pnpm typecheck
