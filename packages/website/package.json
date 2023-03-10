@@ -9,8 +9,7 @@
     "build": "pnpm build:api-reference && pnpm build:docs",
     "build:docs": "vitepress build docs",
     "build:api-reference": "node ./generate-api-reference",
-    "preview": "vitepress preview docs",
-    "release": "./scripts/release.sh"
+    "preview": "vitepress preview docs"
   },
   "devDependencies": {
     "@dethcrypto/api-reference-generator": "workspace:^1.0.0",
