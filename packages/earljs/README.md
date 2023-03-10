@@ -1,4 +1,4 @@
-![Earl](https://raw.githubusercontent.com/earl-js/earl/master/packages/docs/images/gh-cover.png)
+![Earl](https://raw.githubusercontent.com/earl-js/earl/master/gh-cover.png)
 
 <p align="center">
   <p align="center">Ergonomic, modern and type-safe assertion library for TypeScript</p>
@@ -40,9 +40,9 @@ expect(response).toEqual({
 
 ## Docs
 
-- [Getting started](https://earljs.dev/docs)
-- [Step by step guide](https://earljs.dev/docs/introduction/step-by-step-guide)
-- [API reference](https://earljs.dev/docs/api/api-reference)
+- [Getting started](https://earljs.dev/introduction/getting-started.html)
+- [Step by step guide](https://earljs.dev/introduction/step-by-step-guide.html)
+- [API reference](https://earljs.dev/api/api-reference.html)
 
 ## ✨ Contributors
 

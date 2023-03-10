@@ -17,7 +17,7 @@ export function toMatchSnapshot(
 
   if (!ctrl.testRunnerCtx) {
     throw new EarlConfigurationError(
-      'Test runner integration is required for snapshot support. Read more: https://earljs.dev/docs/guides/test-runner-integration',
+      'Test runner integration is required for snapshot support. Read more: http://earljs.dev/guides/test-runner-integration.html',
     )
   }
 

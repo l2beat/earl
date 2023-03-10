@@ -6,7 +6,7 @@ import { isEqualUnknown } from './isEqualUnknown'
  * @internal
  *   Not exported itself, but it's exposed through validators. \
  *   Do not confuse with `isEqual` validator.
- * @see https://earljs.dev/docs/advanced/equality-algorithm
+ * @see https://earljs.dev/advanced/equality-algorithm.html
  */
 export function isEqual(value: unknown, other: unknown, options = DEFAULT_EQUALITY_OPTIONS) {
   return isEqualUnknown(value, [], other, [], options)

@@ -1,9 +1,0 @@
-{
-  "name": "docs",
-  "private": true,
-  "version": "1.0.0",
-  "scripts": {
-    "format": "prettier --ignore-path ../../.prettierignore --check .",
-    "format:fix": "prettier --ignore-path ../../.prettierignore --write ."
-  }
-}
