@@ -3,7 +3,7 @@
   "private": true,
   "engines": {
     "node": ">=10",
-    "pnpm": "^6"
+    "pnpm": "^7"
   },
   "workspaces": {
     "packages": [
@@ -11,15 +11,16 @@
     ]
   },
   "scripts": {
-    "lint": "pnpm --parallel --aggregate-output --reporter append-only --filter ./packages lint",
-    "format": "pnpm --parallel --aggregate-output --reporter append-only --filter ./packages format",
-    "format:fix": "pnpm --parallel --aggregate-output --reporter append-only --filter ./packages format:fix",
-    "typecheck": "pnpm --parallel --aggregate-output --reporter append-only --filter ./packages typecheck",
-    "clean": "pnpm --parallel --aggregate-output --reporter append-only --filter ./packages clean",
-    "build": "pnpm --filter ./packages build",
-    "test": "pnpm --parallel --aggregate-output --reporter append-only --filter ./packages test",
-    "test:fix": "pnpm --parallel --aggregate-output --reporter append-only --filter ./packages test:fix",
-    "release": "pnpm --filter ./packages clean && pnpm changeset publish"
+    "lint": "pnpm --recursive --parallel lint",
+    "format": "pnpm --recursive --parallel format",
+    "format:fix": "pnpm --recursive --parallel format:fix",
+    "typecheck": "pnpm --recursive --parallel typecheck",
+    "clean": "pnpm --recursive --parallel clean",
+    "build": "pnpm --recursive build",
+    "build:website": "pnpm --filter website... build",
+    "test": "pnpm --recursive --parallel test",
+    "test:fix": "pnpm --recursive --parallel test:fix",
+    "release": "pnpm --recursive clean && pnpm changeset publish"
   },
   "devDependencies": {
     "@changesets/cli": "2.19.0",
@@ -27,6 +28,7 @@
     "@types/chai-as-promised": "^7.1.2",
     "@types/mocha": "^8.0.3",
     "@types/node": "^13.13.0",
+    "@types/sinon": "^10.0.13",
     "@types/sinon-chai": "^3.2.4",
     "@typescript-eslint/eslint-plugin": "4.15.1",
     "@typescript-eslint/parser": "4.15.1",
