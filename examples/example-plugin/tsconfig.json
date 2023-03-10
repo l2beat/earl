@@ -7,7 +7,7 @@
   "include": ["src"],
   "references": [
     {
-      "path": "../earljs/tsconfig.prod.json"
+      "path": "../../packages/earljs/tsconfig.prod.json"
     }
   ]
 }

@@ -66,6 +66,26 @@ importers:
       typescript: 4.9.5
       uvu: 0.5.3
 
+  examples/example:
+    specifiers:
+      earljs: workspace:^0.2.3
+      example-plugin: workspace:^1.0.0
+    dependencies:
+      earljs: link:../../packages/earljs
+      example-plugin: link:../example-plugin
+
+  examples/example-plugin:
+    specifiers:
+      earljs: workspace:^0.2.3
+    devDependencies:
+      earljs: link:../../packages/earljs
+
+  examples/example-uvu:
+    specifiers:
+      earljs: workspace:^0.2.3
+    dependencies:
+      earljs: link:../../packages/earljs
+
   packages/earljs:
     specifiers:
       '@microsoft/tsdoc': ^0.14.2
@@ -91,26 +111,6 @@ importers:
 
   packages/earljs/uvu:
     specifiers: {}
-
-  packages/example:
-    specifiers:
-      earljs: workspace:^0.2.3
-      example-plugin: workspace:^1.0.0
-    dependencies:
-      earljs: link:../earljs
-      example-plugin: link:../example-plugin
-
-  packages/example-plugin:
-    specifiers:
-      earljs: workspace:^0.2.3
-    devDependencies:
-      earljs: link:../earljs
-
-  packages/example-uvu:
-    specifiers:
-      earljs: workspace:^0.2.3
-    dependencies:
-      earljs: link:../earljs
 
   packages/test-e2e:
     specifiers:
