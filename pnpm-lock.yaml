@@ -12,6 +12,7 @@ importers:
       '@types/chai-as-promised': ^7.1.2
       '@types/mocha': ^8.0.3
       '@types/node': ^13.13.0
+      '@types/sinon': ^10.0.13
       '@types/sinon-chai': ^3.2.4
       '@typescript-eslint/eslint-plugin': 4.15.1
       '@typescript-eslint/parser': 4.15.1
@@ -42,6 +43,7 @@ importers:
       '@types/chai-as-promised': 7.1.5
       '@types/mocha': 8.2.3
       '@types/node': 13.13.52
+      '@types/sinon': 10.0.13
       '@types/sinon-chai': 3.2.8
       '@typescript-eslint/eslint-plugin': 4.15.1_mhspmlwyocmml32a3etislnlpu
       '@typescript-eslint/parser': 4.15.1_hrkuebk64jiu2ut2d2sm4oylnu
@@ -157,9 +159,13 @@ importers:
   packages/test-e2e:
     specifiers:
       '@earljs/published': npm:earljs@latest
+      '@types/debug': ^4.1.7
+      debug: ^4.3.4
       earljs: workspace:^0.2.3
     dependencies:
       '@earljs/published': link:../earljs
+      '@types/debug': 4.1.7
+      debug: 4.3.4
       earljs: link:../earljs
 
   packages/website:
@@ -3501,7 +3507,6 @@ packages:
     resolution: {integrity: sha512-9AonUzyTjXXhEOa0DnqpzZi6VHlqKMswga9EXjpXnnqxwLtdvPPtlO8evrI5D9S6asFRCQ6v+wpiUKbw+vKqyg==}
     dependencies:
       '@types/ms': 0.7.31
-    dev: true
 
   /@types/decompress/4.2.4:
     resolution: {integrity: sha512-/C8kTMRTNiNuWGl5nEyKbPiMv6HA+0RbEXzFhFBEzASM6+oa4tJro9b8nj7eRlOFfuLdzUU+DS/GPDlvvzMOhA==}
@@ -3621,7 +3626,6 @@ packages:
 
   /@types/ms/0.7.31:
     resolution: {integrity: sha512-iiUgKzV9AuaEkZqkOLDIvlQiL6ltuZd9tGcW3gwpnX8JbuiuhFlEGmmFXEXkN50Cvq7Os88IY2v0dkDqXYWVgA==}
-    dev: true
 
   /@types/node-fetch/2.6.1:
     resolution: {integrity: sha512-oMqjURCaxoSIsHSr1E47QHzbmzNR5rK8McHuNb11BOM9cHcIK3Avy0s/b2JlXHoQGTYS3NsvWzV1M0iK7l0wbA==}
@@ -3679,11 +3683,11 @@ packages:
     resolution: {integrity: sha512-d4ImIQbT/rKMG8+AXpmcan5T2/PNeSjrYhvkwet6z0p8kzYtfgA32xzOBlbU0yqJfq+/0Ml805iFoODO0LP5/g==}
     dependencies:
       '@types/chai': 4.3.0
-      '@types/sinon': 10.0.11
+      '@types/sinon': 10.0.13
     dev: true
 
-  /@types/sinon/10.0.11:
-    resolution: {integrity: sha512-dmZsHlBsKUtBpHriNjlK0ndlvEh8dcb9uV9Afsbt89QIyydpC7NcR+nWlAhASfy3GHnxTl4FX/aKE7XZUt/B4g==}
+  /@types/sinon/10.0.13:
+    resolution: {integrity: sha512-UVjDqJblVNQYvVNUsj0PuYYw0ELRmgt1Nt5Vk0pT5f16ROGfcKJY8o1HVuMOJOpD727RrGB9EGvoaTQE5tgxZQ==}
     dependencies:
       '@types/sinonjs__fake-timers': 8.1.2
     dev: true

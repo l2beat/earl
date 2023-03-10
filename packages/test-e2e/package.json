@@ -13,10 +13,9 @@
     "test:fix": "pnpm lint:fix && pnpm format:fix && pnpm typecheck && pnpm test"
   },
   "dependencies": {
-    "earljs": "workspace:^0.2.3",
-    "@earljs/published": "npm:earljs@latest"
-  },
-  "peerDependencies": {
-    "debug": "^4"
+    "@earljs/published": "npm:earljs@latest",
+    "@types/debug": "^4.1.7",
+    "debug": "^4.3.4",
+    "earljs": "workspace:^0.2.3"
   }
 }
