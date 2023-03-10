@@ -1,15 +1,17 @@
 import { expect } from '@earljs/published'
 
-import { encodeAnchor, generateMarkdownForMethodDocumentation, generateTableOfContents } from '../src/generate'
-import { parseTsDocComment } from '../src/tsdocs/parse'
-import { MethodDocumentation } from '../src/types'
+import { encodeAnchor, generateMarkdownForMethodDocumentation, generateTableOfContents } from './generate'
+import { parseTsDocComment } from './tsdocs/parse'
+import { MethodDocumentation } from './types'
 import { sampleMethodComment } from './tsdocs/parse.test'
+import { readFileSync } from 'fs'
 
 describe('generateMarkdownForMethodDocumentation', () => {
   it('generates markdown for a comment with params and examples', async () => {
     const result = generateMarkdownForMethodDocumentation(parseTsDocComment(sampleMethodComment))
+    const expected = readFileSync(require.resolve('./test/docs.txt'), 'utf8')
 
-    expect(result).toMatchSnapshot()
+    expect(result).toEqual(expected)
   })
 })
 
@@ -40,8 +42,9 @@ describe('generateTableOfContents', () => {
     ]
 
     const result = generateTableOfContents(docs)
+    const expected = readFileSync(require.resolve('./test/toc.txt'), 'utf8')
 
-    expect(result).toMatchSnapshot()
+    expect(result).toEqual(expected)
   })
 })
 

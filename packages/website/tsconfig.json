@@ -1,8 +1,6 @@
 {
   "extends": "../../tsconfig.json",
   "compilerOptions": {
-    "lib": ["ESNext"],
-    "strict": true,
-    "outDir": "dist"
+    "noEmit": true
   }
 }

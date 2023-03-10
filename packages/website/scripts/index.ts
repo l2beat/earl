@@ -1,9 +1,8 @@
 // @ts-check
-/* eslint-disable no-console */
 
-const path = require('path')
-const { writeFileSync } = require('fs')
-const { generateApiReference } = require('@earl/api-reference-generator')
+import path from 'path'
+import { writeFileSync } from 'fs'
+import { generateApiReference } from './generateApiReference'
 
 const frontmatter = `\
 ---
@@ -29,7 +28,7 @@ const pageStyles = `\n
 
 async function main() {
   const reference = await generateApiReference({
-    basePath: path.resolve(__dirname, '../earljs/dist'),
+    basePath: path.resolve(__dirname, '../../earljs/dist'),
     files: [
       'Core:expect:expect.d.ts',
       'Validators::validators/types.d.ts',
@@ -41,10 +40,11 @@ async function main() {
 
   // We're prepending frontmatter and styles here, because we Docusaurus doesn't show
   // headings from imported .mdx files in table of contents
-  writeFileSync(path.resolve(__dirname, './docs/api/api-reference.md'), frontmatter + pageStyles + reference)
+  writeFileSync(path.resolve(__dirname, '../docs/api/api-reference.md'), frontmatter + pageStyles + reference)
 }
 
 void main().catch((err) => {
+  // eslint-disable-next-line no-console
   console.error(err)
   process.exit(1)
 })
