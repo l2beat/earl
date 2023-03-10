@@ -170,11 +170,11 @@ importers:
 
   packages/website:
     specifiers:
-      '@dethcrypto/api-reference-generator': workspace:^1.0.0
+      '@earl/api-reference-generator': workspace:^1.0.0
       netlify-cli: ^2.53.0
       vitepress: 1.0.0-alpha.51
     devDependencies:
-      '@dethcrypto/api-reference-generator': link:../api-reference-generator
+      '@earl/api-reference-generator': link:../api-reference-generator
       netlify-cli: 2.71.0
       vitepress: 1.0.0-alpha.51
 

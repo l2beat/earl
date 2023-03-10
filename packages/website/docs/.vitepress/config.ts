@@ -19,13 +19,13 @@ export default defineConfig({
     logo: '/logo.svg',
 
     editLink: {
-      pattern: 'https://github.com/dethcrypto/earl/edit/master/packages/docs/:path',
+      pattern: 'https://github.com/l2beat/earl/edit/master/packages/docs/:path',
       text: 'Edit this page on GitHub',
     },
 
     socialLinks: [
-      { icon: 'github', link: 'https://github.com/dethcrypto/earl' },
-      { icon: 'twitter', link: 'https://twitter.com/dethcrypto' },
+      { icon: 'github', link: 'https://github.com/l2beat/earl' },
+      { icon: 'twitter', link: 'https://twitter.com/l2beat' },
     ],
 
     nav: [
@@ -35,7 +35,7 @@ export default defineConfig({
 
     footer: {
       message: 'Released under the MIT License.',
-      copyright: `Copyright © ${new Date().getFullYear()} dΞth`,
+      copyright: `Copyright © ${new Date().getFullYear()} L2BEAT`,
     },
 
     sidebar: [

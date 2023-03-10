@@ -1,5 +1,5 @@
 {
-  "name": "@dethcrypto/api-reference-generator",
+  "name": "@earl/api-reference-generator",
   "private": true,
   "version": "1.0.0",
   "type": "commonjs",

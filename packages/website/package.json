@@ -12,7 +12,7 @@
     "preview": "vitepress preview docs"
   },
   "devDependencies": {
-    "@dethcrypto/api-reference-generator": "workspace:^1.0.0",
+    "@earl/api-reference-generator": "workspace:^1.0.0",
     "netlify-cli": "^2.53.0",
     "vitepress": "1.0.0-alpha.51"
   }
