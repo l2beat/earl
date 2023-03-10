@@ -77,18 +77,16 @@ importers:
       earljs: workspace:^0.2.3
       fast-glob: ^3.2.12
       lodash: ^4.17.21
-      rimraf: ^4.4.0
       ts-command-line-args: ^2.4.2
       ts-essentials: ^9.3.1
       ts-morph: ^17.0.1
-      typescript: ^4.9.5
     dependencies:
       '@microsoft/tsdoc': 0.14.2
       '@ts-morph/bootstrap': 0.18.0
       earljs: link:../earljs
       fast-glob: 3.2.12
-      ts-command-line-args: 2.4.2_typescript@4.9.5
-      ts-essentials: 9.3.1_typescript@4.9.5
+      ts-command-line-args: 2.4.2
+      ts-essentials: 9.3.1
       ts-morph: 17.0.1
     devDependencies:
       '@earljs/published': link:../earljs
@@ -96,8 +94,6 @@ importers:
       '@types/debug': 4.1.7
       '@types/lodash': 4.14.191
       lodash: 4.17.21
-      rimraf: 4.4.0
-      typescript: 4.9.5
 
   packages/earljs:
     specifiers:
@@ -106,19 +102,15 @@ importers:
       debug: ^4.3.4
       error-stack-parser: ^2.1.4
       jest-snapshot: 26.6.2
-      rimraf: ^4.4.0
       ts-essentials: ^9.3.1
-      typescript: ^4.9.5
     dependencies:
       debug: 4.3.4
       jest-snapshot: 26.6.2
-      ts-essentials: 9.3.1_typescript@4.9.5
+      ts-essentials: 9.3.1
     devDependencies:
       '@microsoft/tsdoc': 0.14.2
       '@types/debug': 4.1.7
       error-stack-parser: 2.1.4
-      rimraf: 4.4.0
-      typescript: 4.9.5
 
   packages/earljs/internals:
     specifiers: {}
@@ -140,12 +132,8 @@ importers:
   packages/example-plugin:
     specifiers:
       earljs: workspace:^0.2.3
-      rimraf: ^4.4.0
-      typescript: ^4.9.5
     devDependencies:
       earljs: link:../earljs
-      rimraf: 4.4.0
-      typescript: 4.9.5
 
   packages/example-uvu:
     specifiers:
@@ -1042,7 +1030,7 @@ packages:
   /@microsoft/tsdoc/0.14.2:
     resolution: {integrity: sha512-9b8mPpKrfeGRuhFH5iO1iwCLeIIsV6+H1sRfxbkoGXIyQE2BTsPd9zqSqQJ+pv5sJ/hT5M1zvOFL02MnEezFug==}
 
-  /@morgan-stanley/ts-mocking-bird/0.6.4_typescript@4.9.5:
+  /@morgan-stanley/ts-mocking-bird/0.6.4:
     resolution: {integrity: sha512-57VJIflP8eR2xXa9cD1LUawh+Gh+BVQfVu0n6GALyg/AqV/Nz25kDRvws3i9kIe1PTrbsZZOYpsYp6bXPd6nVA==}
     peerDependencies:
       jasmine: 2.x || 3.x || 4.x
@@ -1055,7 +1043,6 @@ packages:
         optional: true
     dependencies:
       lodash: 4.17.21
-      typescript: 4.9.5
       uuid: 7.0.3
     dev: false
 
@@ -5957,16 +5944,6 @@ packages:
       once: 1.4.0
     dev: true
 
-  /glob/9.2.1:
-    resolution: {integrity: sha512-Pxxgq3W0HyA3XUvSXcFhRSs+43Jsx0ddxcFrbjxNGkL2Ak5BAUBxLqI5G6ADDeCHLfzzXFhe0b1yYcctGmytMA==}
-    engines: {node: '>=16 || 14 >=14.17'}
-    dependencies:
-      fs.realpath: 1.0.0
-      minimatch: 7.4.2
-      minipass: 4.2.4
-      path-scurry: 1.6.1
-    dev: true
-
   /global-cache-dir/3.0.1:
     resolution: {integrity: sha512-xVtwdmwXiTDsw8/ul8WzhDdU7geUs+LVwJ28HUhNU6Wt2NRrEtFYbFMLrP4ynGLbQYU/rL5X5ZTQCnsjV9iNqQ==}
     engines: {node: '>=12.20.0'}
@@ -7565,11 +7542,6 @@ packages:
     dependencies:
       yallist: 4.0.0
 
-  /lru-cache/7.18.3:
-    resolution: {integrity: sha512-jumlc0BIUrS3qJGgIkWZsyfAM7NCWiBcCDhnd+3NNM5KbBmLTgHVfWBcg6W+rLUsIpzpERPsvwUP7CckAQSOoA==}
-    engines: {node: '>=12'}
-    dev: true
-
   /luxon/3.3.0:
     resolution: {integrity: sha512-An0UCfG/rSiqtAIiBPO0Y9/zAnHUZxAMiCpTd5h2smgsj7GGmcenvrvww2cqNA8/4A5ZrD1gJpHN2mIHZQF+Mg==}
     engines: {node: '>=12'}
@@ -8878,14 +8850,6 @@ packages:
   /path-parse/1.0.7:
     resolution: {integrity: sha512-LDJzPVEEEPR+y48z93A0Ed0yXb8pAByGWo/k5YYdYgpY2/2EsOsksJrq7lOHxryrVOn1ejG6oAp8ahvOIQD8sw==}
 
-  /path-scurry/1.6.1:
-    resolution: {integrity: sha512-OW+5s+7cw6253Q4E+8qQ/u1fVvcJQCJo/VFD8pje+dbJCF1n5ZRMV2AEHbGp+5Q7jxQIYJxkHopnj6nzdGeZLA==}
-    engines: {node: '>=14'}
-    dependencies:
-      lru-cache: 7.18.3
-      minipass: 4.2.4
-    dev: true
-
   /path-to-regexp/0.1.7:
     resolution: {integrity: sha512-5DFkuoqlv1uYQKxy8omFBeJPQcdoE07Kv2sferDCrAq1ohOU+MSDswDIbnx3YAM60qIOnYa53wBhXW0EbMonrQ==}
     dev: true
@@ -9619,14 +9583,6 @@ packages:
     hasBin: true
     dependencies:
       glob: 7.2.3
-    dev: true
-
-  /rimraf/4.4.0:
-    resolution: {integrity: sha512-X36S+qpCUR0HjXlkDe4NAOhS//aHH0Z+h8Ckf2auGJk3PTnx5rLmrHkwNdbVQuCSUhOyFrlRvFEllZOYE+yZGQ==}
-    engines: {node: '>=14'}
-    hasBin: true
-    dependencies:
-      glob: 9.2.1
     dev: true
 
   /rollup/3.19.1:
@@ -10604,11 +10560,11 @@ packages:
     resolution: {integrity: sha512-XrHUvV5HpdLmIj4uVMxHggLbFSZYIn7HEWsqePZcI50pco+MPqJ50wMGY794X7AOOhxOBAjbkqfAbEe/QMp2Lw==}
     dev: true
 
-  /ts-command-line-args/2.4.2_typescript@4.9.5:
+  /ts-command-line-args/2.4.2:
     resolution: {integrity: sha512-mJLQQBOdyD4XI/ZWQY44PIdYde47JhV2xl380O7twPkTQ+Y5vFDHsk8LOeXKuz7dVY5aDCfAzRarNfSqtKOkQQ==}
     hasBin: true
     dependencies:
-      '@morgan-stanley/ts-mocking-bird': 0.6.4_typescript@4.9.5
+      '@morgan-stanley/ts-mocking-bird': 0.6.4
       chalk: 4.1.2
       command-line-args: 5.2.1
       command-line-usage: 6.1.3
@@ -10619,12 +10575,10 @@ packages:
       - typescript
     dev: false
 
-  /ts-essentials/9.3.1_typescript@4.9.5:
+  /ts-essentials/9.3.1:
     resolution: {integrity: sha512-9CChSvQMyVRo29Vb1A2jbs+LKo3d/bAf+ndSaX0T8cEiy/HChVaRN/HY5DqUryZ8hZ6uol9bEgCnGmnDbwBR9Q==}
     peerDependencies:
       typescript: '>=4.1.0'
-    dependencies:
-      typescript: 4.9.5
     dev: false
 
   /ts-morph/17.0.1:
@@ -10810,6 +10764,7 @@ packages:
     resolution: {integrity: sha512-1FXk9E2Hm+QzZQ7z+McJiHL4NW1F2EzMu9Nq9i3zAaGqibafqYwCVU6WyWAuyQRRzOlxou8xZSyXLEN8oKj24g==}
     engines: {node: '>=4.2.0'}
     hasBin: true
+    dev: true
 
   /typical/4.0.0:
     resolution: {integrity: sha512-VAH4IvQ7BDFYglMd7BPRDfLgxZZX4O4TFcRDA6EN5X7erNJJq+McIEp8np9aVtxrCJ6qx4GTYVfOWNjcqwZgRw==}
