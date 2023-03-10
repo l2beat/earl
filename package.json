@@ -47,7 +47,7 @@
     "fast-check": "^3.7.0",
     "mocha": "10.2.0",
     "prettier": "^2.8.4",
-    "rimraf": "^4.4.0",
+    "rimraf": "^3.0.2",
     "sinon": "^15.0.1",
     "sinon-chai": "^3.7.0",
     "ts-node": "^10.9.1",
