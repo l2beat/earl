@@ -1,6 +1,6 @@
 import { expect } from '@earljs/published'
 
-import { extractTsDocCommentsFromString } from '../../src/tsdocs/extract'
+import { extractTsDocCommentsFromString } from './extract'
 
 describe('extractTsDocCommentsFromString', () => {
   it('extracts single method comment', () => {

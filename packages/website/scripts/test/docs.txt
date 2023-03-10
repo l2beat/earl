@@ -1,0 +1,18 @@
+#### **`someMethod(x: number, y: number): void`** {#someMethod-x-number-y-number}
+
+Returns the average of two numbers.
+
+Some other note
+  
+*Parameters:*
+
+- `x` - The first input number.
+- `y` - The second input number.
+  
+*Examples:*
+
+
+Random example
+```ts
+someMethod(1, 2)
+```

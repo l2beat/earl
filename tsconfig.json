@@ -1,12 +1,17 @@
 {
-  "extends": "./tsconfig.options.json",
   "compilerOptions": {
     "lib": ["ES2019"],
     "target": "ES2019",
     "sourceMap": true,
     "composite": true,
-    "incremental": true
-  },
-  "include": ["**/*.ts", "**/*.tsx", "**/*.js", "**/*.mjs", "**/*.cjs", "**/.*.js"],
-  "exclude": ["**/node_modules"]
+    "incremental": true,
+    "declaration": true,
+    "module": "CommonJS",
+    "moduleResolution": "node",
+    "strict": true,
+    "esModuleInterop": true,
+    "outDir": "dist",
+    "allowUnreachableCode": false,
+    "skipLibCheck": true
+  }
 }
