@@ -56,7 +56,6 @@ export default defineConfig({
           { text: 'Async functions', link: '/guides/async-functions' },
           { text: 'Mocks', link: '/guides/mocks' },
           { text: 'Using plugins', link: '/guides/using-plugins' },
-          { text: 'Test runner integration', link: '/guides/test-runner-integration' },
           { text: 'Snapshot testing', link: '/guides/snapshot-testing' },
         ],
       },
