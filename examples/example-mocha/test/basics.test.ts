@@ -1,7 +1,7 @@
 import { expect } from 'earljs'
 
 describe('basics', () => {
-  it('works', () => {
+  it('works', function (this: Mocha.Context) {
     class Person {
       constructor(readonly name: string) {}
     }
@@ -32,6 +32,6 @@ describe('basics', () => {
 
     expect(true).toEqual(true)
 
-    expect(response).toMatchSnapshot()
+    expect(response).toMatchSnapshot(this)
   })
 })

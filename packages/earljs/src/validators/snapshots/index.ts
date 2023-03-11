@@ -1,1 +1,0 @@
-export { toMatchSnapshot } from './toMatchSnapshot'

@@ -1,17 +1,22 @@
 {
-  "name": "example-uvu",
+  "name": "example",
   "private": true,
-  "version": "1.0.1",
+  "version": "1.0.0",
   "scripts": {
+    "start": "ts-node -T ./src/index.ts",
     "format": "prettier --ignore-path ../../.prettierignore --check .",
     "format:fix": "prettier --ignore-path ../../.prettierignore --write .",
     "lint": "eslint --ext .ts .",
     "lint:fix": "pnpm lint --fix",
     "typecheck": "tsc --noEmit",
-    "test": "uvu -r ts-node/register/transpile-only -r ./node_modules/earljs/uvu test \"\\.test\\.ts$\"",
+    "test": "uvu -r ts-node/register test",
     "test:fix": "pnpm lint:fix && pnpm format:fix && pnpm test && pnpm typecheck"
   },
   "dependencies": {
-    "earljs": "workspace:^0.2.3"
+    "earljs": "workspace:^0.2.3",
+    "example-plugin": "workspace:^1.0.0"
+  },
+  "devDependencies": {
+    "uvu": "^0.5.6"
   }
 }

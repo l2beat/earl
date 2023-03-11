@@ -1,0 +1,16 @@
+// basics works 1
+
+{
+  age: 15
+  name: "Alice Duck"
+  nested: {
+    b: Person {
+      name: "Jack"
+    }
+    deep: {
+      nested: true
+    }
+  }
+  timestamp: "12345"
+  trimmed: true
+}

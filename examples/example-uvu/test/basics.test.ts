@@ -1,7 +1,7 @@
 import { expect } from 'earljs'
 import { test } from 'uvu'
 
-test('works', () => {
+test('works', (ctx) => {
   class Person {
     constructor(readonly name: string) {}
   }
@@ -32,7 +32,7 @@ test('works', () => {
 
   expect(true).toEqual(true)
 
-  expect(response).toMatchSnapshot()
+  expect(response).toMatchSnapshot(ctx)
 })
 
 test.run()

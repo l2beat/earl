@@ -1,11 +1,17 @@
 import { expect } from 'earljs'
-import { suite } from 'uvu'
+import { suite, test } from 'uvu'
 
-const test = suite('snapshots')
-
-test('work', () => {
-  expect({ very: { nested: { wow: 'wow' } } }).toMatchSnapshot()
-  expect('totally different thing').toMatchSnapshot()
+test('work', (ctx) => {
+  expect({ very: { nested: { wow: 'wow' } } }).toMatchSnapshot(ctx)
+  expect('totally different thing').toMatchSnapshot(ctx)
 })
 
 test.run()
+
+const mySuite = suite('my suite')
+
+mySuite('my test', (ctx) => {
+  expect({ name: 'uvu', awesome: true }).toMatchSnapshot(ctx)
+})
+
+mySuite.run()

@@ -1,0 +1,13 @@
+// snapshots work 1
+
+{
+  very: {
+    nested: {
+      wow: "wow"
+    }
+  }
+}
+
+// snapshots work 2
+
+"totally different thing"

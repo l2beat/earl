@@ -1,9 +1,10 @@
 import { UnionToIntersection } from 'ts-essentials'
 
 import type { Expectation } from '../Expectation'
-import { ExpectedEqual } from '../isEqual/rules'
+import type { ExpectedEqual } from '../isEqual/rules'
 import type { Mock, MockArgs } from '../mocks/types'
 import type { Newable } from '../types'
+import type { TestContext } from './snapshots/TestContext'
 
 // registry for validators added by plugins
 export interface Validators {
@@ -128,7 +129,7 @@ export interface CommonValidators<T> extends BooleanValidators, OptionalValidato
   /**
    * Checks that the value is the same as in the previous test execution.
    */
-  toMatchSnapshot(): void
+  toMatchSnapshot(context: TestContext): void
 }
 
 export interface FunctionValidators {

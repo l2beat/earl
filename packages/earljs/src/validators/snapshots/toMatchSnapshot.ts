@@ -1,45 +1,44 @@
+import { writeFileSync } from 'fs'
+
 import { Control } from '../../Control'
 import { EarlConfigurationError } from '../../errors'
-import { CompareSnapshot } from './compareSnapshot'
-import { Env, getSnapshotFilePath, getSnapshotFullName, getUpdateSnapshotMode } from './helpers'
-import { compareSnapshotUsingJest } from './jestCompareSnapshot'
+import { format, formatCompact } from '../../format'
+import { formatSnapshot } from './format'
+import { getSnapshot } from './getSnapshot'
+import { getSnapshotUpdateMode } from './getSnapshotUpdateMode'
+import { TestContext } from './TestContext'
 
-export function toMatchSnapshot(
-  ctrl: Control<any>,
-  { compareSnapshot, env }: { compareSnapshot: CompareSnapshot; env: Env } = {
-    compareSnapshot: compareSnapshotUsingJest,
-    env: process.env,
-  },
-): void {
-  if (ctrl.isNegated) {
+export function toMatchSnapshot(control: Control<unknown>, context: TestContext) {
+  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+  if (context === undefined) {
+    throw new EarlConfigurationError('No test context')
+  }
+  if (control.isNegated) {
     throw new EarlConfigurationError("toMatchSnapshot can't be negated")
   }
+  const actual = format(control.actual, null)
 
-  if (!ctrl.testRunnerCtx) {
-    throw new EarlConfigurationError(
-      'Test runner integration is required for snapshot support. Read more: http://earljs.dev/guides/test-runner-integration.html',
-    )
-  }
+  const mode = getSnapshotUpdateMode()
+  const snapshot = getSnapshot(control.file, context, mode)
 
-  const snapshotFilePath = getSnapshotFilePath(ctrl.testRunnerCtx.testInfo.testFilePath)
-  const fullName = getSnapshotFullName(ctrl.testRunnerCtx.testInfo)
-
-  const result = compareSnapshot({
-    actual: ctrl.actual,
-    name: fullName,
-    snapshotFilePath: snapshotFilePath,
-    updateSnapshotMode: getUpdateSnapshotMode(env),
-  })
-
-  if (result.success) {
-    ctrl.assert({ success: true, reason: '-', negatedReason: '-' })
+  if (mode === 'all' || (mode === 'new' && snapshot.expected === undefined)) {
+    snapshot.content[snapshot.name] = actual
+    writeFileSync(snapshot.file, formatSnapshot(snapshot.content), 'utf8')
+  } else if (snapshot.expected === undefined) {
+    control.assert({
+      success: false,
+      reason: `No snapshot found`,
+      negatedReason: '',
+      actual,
+      expected: undefined,
+    })
   } else {
-    ctrl.assert({
-      success: result.success,
-      reason: "Snapshot doesn't match",
-      negatedReason: '-',
-      actual: result.actual,
-      expected: result.expected,
+    control.assert({
+      success: actual === snapshot.expected,
+      reason: `${formatCompact(control.actual)} not equal to snapshot`,
+      negatedReason: '',
+      actual,
+      expected: snapshot.expected,
     })
   }
 }

@@ -1,0 +1,20 @@
+// work 1
+
+{
+  very: {
+    nested: {
+      wow: "wow"
+    }
+  }
+}
+
+// work 2
+
+"totally different thing"
+
+// my suite my test 1
+
+{
+  awesome: true
+  name: "uvu"
+}
