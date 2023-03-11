@@ -1,4 +1,5 @@
 import { expect } from 'chai'
+
 import { format } from '../../../src/format'
 import { formatSnapshot, parseSnapshot } from '../../../src/validators/snapshots/format'
 

@@ -11,7 +11,7 @@ test.run()
 const mySuite = suite('my suite')
 
 mySuite('my test', (ctx) => {
-  expect({ name: 'uvu\n// foo', awesome: true }).toMatchSnapshot(ctx)
+  expect({ name: 'uvu', awesome: true }).toMatchSnapshot(ctx)
 })
 
 mySuite.run()
