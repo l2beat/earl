@@ -4,7 +4,7 @@ import type { Expectation } from '../Expectation'
 import type { ExpectedEqual } from '../isEqual/rules'
 import type { Mock, MockArgs } from '../mocks/types'
 import type { Newable } from '../types'
-import type { MochaTestContext } from './snapshots/MochaTestContext'
+import type { TestContext } from './snapshots/TestContext'
 
 // registry for validators added by plugins
 export interface Validators {
@@ -129,7 +129,7 @@ export interface CommonValidators<T> extends BooleanValidators, OptionalValidato
   /**
    * Checks that the value is the same as in the previous test execution.
    */
-  toMatchSnapshot(context: MochaTestContext): void
+  toMatchSnapshot(context: TestContext): void
 }
 
 export interface FunctionValidators {

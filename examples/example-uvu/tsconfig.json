@@ -1,0 +1,8 @@
+{
+  "compilerOptions": {
+    "lib": ["ESNext"],
+    "strict": true,
+    "skipLibCheck": true,
+    "outDir": "dist"
+  }
+}

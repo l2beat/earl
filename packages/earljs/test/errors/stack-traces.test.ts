@@ -1,6 +1,7 @@
 import { expect } from 'chai'
 import * as errorStackParser from 'error-stack-parser'
 
+import { Control } from '../../src/Control'
 import { AssertionError } from '../../src/errors'
 import { expect as earl } from '../../src/expect'
 
@@ -27,5 +28,17 @@ describe('stack traces for errors', () => {
 
       expect(stackTrace[0].fileName?.endsWith('stack-traces.test.ts')).to.be.true
     }
+  })
+
+  it('has a correct file name', () => {
+    // we need the nesting to simulate the stack trace
+    function nestedValidator() {
+      function nestedGetControl() {
+        return new Control(1, false)
+      }
+      return nestedGetControl()
+    }
+    const control = nestedValidator()
+    expect(control.file).to.equal(__filename)
   })
 })

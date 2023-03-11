@@ -1,3 +1,4 @@
+import ErrorStackParser from 'error-stack-parser'
 import { EOL } from 'os'
 
 interface AssertionErrorOptions {
@@ -28,11 +29,20 @@ export class AssertionError extends Error {
     this.stack = `${this.name}: ${this.message}\n${options.stack}`
   }
 
-  static getCleanStack() {
+  static getLocation() {
+    const error = new Error('message')
+    const stack = this.getCleanStack(error)
+    return {
+      file: ErrorStackParser.parse({ stack } as Error)[0].fileName,
+      stack,
+    }
+  }
+
+  private static getCleanStack(error: Error) {
     // .<validator>, .getControl, new Control, .getCleanStack
     const entriesToRemove = 4
 
-    const stack = new Error('message').stack
+    const stack = error.stack
     if (stack && stack.startsWith('Error: message\n')) {
       return stack
         .split('\n')

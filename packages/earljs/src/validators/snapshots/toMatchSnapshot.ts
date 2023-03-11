@@ -5,9 +5,9 @@ import { EarlConfigurationError } from '../../errors'
 import { format, formatCompact } from '../../format'
 import { getSnapshot } from './getSnapshot'
 import { getSnapshotUpdateMode } from './getSnapshotUpdateMode'
-import { MochaTestContext } from './MochaTestContext'
+import { TestContext } from './TestContext'
 
-export function toMatchSnapshot(control: Control<unknown>, context: MochaTestContext) {
+export function toMatchSnapshot(control: Control<unknown>, context: TestContext) {
   // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
   if (context === undefined) {
     throw new EarlConfigurationError('No test context')
@@ -18,7 +18,7 @@ export function toMatchSnapshot(control: Control<unknown>, context: MochaTestCon
   const actual = format(control.actual, null)
 
   const mode = getSnapshotUpdateMode()
-  const snapshot = getSnapshot(context, mode)
+  const snapshot = getSnapshot(control.file, context, mode)
 
   if (mode === 'all' || (mode === 'new' && snapshot.expected === undefined)) {
     snapshot.content[snapshot.name] = actual

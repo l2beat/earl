@@ -45,11 +45,11 @@
   },
   "dependencies": {
     "debug": "^4.3.4",
+    "error-stack-parser": "^2.1.4",
     "ts-essentials": "^9.3.1"
   },
   "devDependencies": {
     "@microsoft/tsdoc": "^0.14.2",
-    "@types/debug": "^4.1.7",
-    "error-stack-parser": "^2.1.4"
+    "@types/debug": "^4.1.7"
   }
 }
