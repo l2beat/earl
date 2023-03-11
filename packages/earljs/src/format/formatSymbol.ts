@@ -17,7 +17,11 @@ export function formatSymbol(value: symbol, sibling: unknown) {
   if (wellKnown) {
     return toLine(wellKnown)
   }
-  if (typeof sibling === 'symbol' && value !== sibling && value.toString() === sibling.toString()) {
+  if (
+    typeof sibling === 'symbol' &&
+    value !== sibling &&
+    value.toString() === sibling.toString()
+  ) {
     return toLine(`${value.toString()} (different)`)
   }
   return toLine(value.toString())

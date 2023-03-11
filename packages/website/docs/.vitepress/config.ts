@@ -7,12 +7,30 @@ export default defineConfig({
   head: [
     ['meta', { property: 'og:type', content: 'website' }],
     ['meta', { property: 'og:title', content: 'earl' }],
-    ['meta', { property: 'og:description', content: 'Modern assertion library for TypeScript.' }],
-    ['meta', { property: 'og:image', content: 'https://earljs.dev/social.png' }],
+    [
+      'meta',
+      {
+        property: 'og:description',
+        content: 'Modern assertion library for TypeScript.',
+      },
+    ],
+    [
+      'meta',
+      { property: 'og:image', content: 'https://earljs.dev/social.png' },
+    ],
     ['meta', { property: 'twitter:card', content: 'summary_large_image' }],
     ['meta', { property: 'twitter:title', content: 'earl' }],
-    ['meta', { property: 'twitter:description', content: 'Modern assertion library for TypeScript.' }],
-    ['meta', { property: 'twitter:image', content: 'https://earljs.dev/social.png' }],
+    [
+      'meta',
+      {
+        property: 'twitter:description',
+        content: 'Modern assertion library for TypeScript.',
+      },
+    ],
+    [
+      'meta',
+      { property: 'twitter:image', content: 'https://earljs.dev/social.png' },
+    ],
   ],
   themeConfig: {
     // https://vitepress.dev/reference/default-theme-config
@@ -43,7 +61,10 @@ export default defineConfig({
         text: 'Introduction',
         items: [
           { text: 'Getting started', link: '/introduction/getting-started' },
-          { text: 'Step by step guide', link: '/introduction/step-by-step-guide' },
+          {
+            text: 'Step by step guide',
+            link: '/introduction/step-by-step-guide',
+          },
           { text: 'Core concepts', link: '/introduction/core-concepts' },
           { text: 'Motivation', link: '/introduction/motivation' },
         ],
@@ -56,7 +77,10 @@ export default defineConfig({
           { text: 'Async functions', link: '/guides/async-functions' },
           { text: 'Mocks', link: '/guides/mocks' },
           { text: 'Using plugins', link: '/guides/using-plugins' },
-          { text: 'Test runner integration', link: '/guides/test-runner-integration' },
+          {
+            text: 'Test runner integration',
+            link: '/guides/test-runner-integration',
+          },
           { text: 'Snapshot testing', link: '/guides/snapshot-testing' },
         ],
       },

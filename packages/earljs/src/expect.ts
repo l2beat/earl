@@ -1,4 +1,8 @@
-import { __ExpectationImplementation, Expectation, ExpectationOptions } from './Expectation'
+import {
+  __ExpectationImplementation,
+  Expectation,
+  ExpectationOptions,
+} from './Expectation'
 import {
   AMatcher,
   AnythingMatcher,
@@ -36,7 +40,10 @@ export interface Expect extends Matchers {
  * @param actual - the value to match against.
  * @param options - optional configuration.
  */
-export const expect: Expect = <T>(actual: T, options: ExpectationOptions = {}): Expectation<T> => {
+export const expect: Expect = <T>(
+  actual: T,
+  options: ExpectationOptions = {},
+): Expectation<T> => {
   return __ExpectationImplementation.make(actual, false, options)
 }
 expect.anything = AnythingMatcher.make

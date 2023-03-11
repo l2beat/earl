@@ -14,13 +14,15 @@ describe('toReferentiallyEqual', () => {
     })
 
     it('throws on mismatch', () => {
-      expect(() => earl({ test: true }).toReferentiallyEqual({ test: false })).to.throw(
-        '{ test: true } is not { test: false }',
-      )
+      expect(() =>
+        earl({ test: true }).toReferentiallyEqual({ test: false }),
+      ).to.throw('{ test: true } is not { test: false }')
     })
 
     it('throws with informative message deep equality would work', () => {
-      expect(() => earl({ test: true }).toReferentiallyEqual({ test: true })).to.throw(
+      expect(() =>
+        earl({ test: true }).toReferentiallyEqual({ test: true }),
+      ).to.throw(
         '{ test: true } is not { test: true }. Did you mean to use `toEqual` instead?',
       )
     })
@@ -48,7 +50,9 @@ describe('toReferentiallyEqual', () => {
 
     it('throws', () => {
       const actual = { test: true }
-      expect(() => earl(actual).not.toReferentiallyEqual(actual)).to.throw('{ test: true } is { test: true }')
+      expect(() => earl(actual).not.toReferentiallyEqual(actual)).to.throw(
+        '{ test: true } is { test: true }',
+      )
     })
   })
 

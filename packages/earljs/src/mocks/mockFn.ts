@@ -47,9 +47,15 @@ interface Override {
  * const mock2 = mockFn<(a: number, b: string) => number>()
  * ```
  */
-export function mockFn<F extends (...args: any) => any>(defaultImpl?: F): Mock.Of<F>
-export function mockFn<Args extends any[], Return = any>(defaultImpl?: (...args: Args) => Return): Mock<Args, Return>
-export function mockFn<Args extends any[], Return = any>(defaultImpl?: (...args: Args) => Return): Mock<Args, Return> {
+export function mockFn<F extends (...args: any) => any>(
+  defaultImpl?: F,
+): Mock.Of<F>
+export function mockFn<Args extends any[], Return = any>(
+  defaultImpl?: (...args: Args) => Return,
+): Mock<Args, Return>
+export function mockFn<Args extends any[], Return = any>(
+  defaultImpl?: (...args: Args) => Return,
+): Mock<Args, Return> {
   let spec: Spec = {
     type: 'not-ready',
   }
@@ -176,12 +182,18 @@ export function mockFn<Args extends any[], Return = any>(defaultImpl?: (...args:
       },
 
       resolvesToOnce(value: any) {
-        oneTimeOverrides.push({ args, spec: { type: 'return', value: Promise.resolve(value) } })
+        oneTimeOverrides.push({
+          args,
+          spec: { type: 'return', value: Promise.resolve(value) },
+        })
         return mock
       },
 
       rejectsWithOnce(error: any) {
-        oneTimeOverrides.push({ args, spec: { type: 'lazy-return', value: () => Promise.reject(error) } })
+        oneTimeOverrides.push({
+          args,
+          spec: { type: 'lazy-return', value: () => Promise.reject(error) },
+        })
         return mock
       },
     }

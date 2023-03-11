@@ -29,7 +29,8 @@ export function formatArrayEntries(
       const nestedOptions = getOptionsWith(passedOptions, {
         skipMatcherReplacement:
           passedOptions.skipMatcherReplacement ||
-          (!!sibling && !Object.prototype.hasOwnProperty.call(sibling, i.toString())),
+          (!!sibling &&
+            !Object.prototype.hasOwnProperty.call(sibling, i.toString())),
       })
 
       const valueFormat = formatUnknown(

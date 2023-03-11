@@ -4,7 +4,10 @@ import { Newable } from '../types'
 import { Matcher } from './Base'
 
 export class ErrorMatcher extends Matcher {
-  constructor(private readonly errorClass: Newable<Error> = Error, private readonly message?: string) {
+  constructor(
+    private readonly errorClass: Newable<Error> = Error,
+    private readonly message?: string,
+  ) {
     super()
   }
 
@@ -31,8 +34,14 @@ export class ErrorMatcher extends Matcher {
     return `${this.errorClass.name}(${formatCompact(this.message)})`
   }
 
-  static make(classOrMessage: string | Newable<Error>, message?: string): Error {
-    if (typeof classOrMessage === 'string' || classOrMessage instanceof Matcher) {
+  static make(
+    classOrMessage: string | Newable<Error>,
+    message?: string,
+  ): Error {
+    if (
+      typeof classOrMessage === 'string' ||
+      classOrMessage instanceof Matcher
+    ) {
       return new ErrorMatcher(Error, classOrMessage as any) as any
     }
     return new ErrorMatcher(classOrMessage as any, message) as any

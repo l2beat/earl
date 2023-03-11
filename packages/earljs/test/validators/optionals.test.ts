@@ -18,7 +18,12 @@ describe('optional validators', () => {
     })
 
     it('expect(x).toBeDefined() passes if and only if x != null', () => {
-      fc.assert(fc.property(arbitraries.anything, (x) => passes(() => earl(x).toBeDefined()) === (x != null)))
+      fc.assert(
+        fc.property(
+          arbitraries.anything,
+          (x) => passes(() => earl(x).toBeDefined()) === (x != null),
+        ),
+      )
     })
   })
 
@@ -34,7 +39,12 @@ describe('optional validators', () => {
     })
 
     it('expect(x).toBeNullish() passes if and only if x == null', () => {
-      fc.assert(fc.property(arbitraries.anything, (x) => passes(() => earl(x).toBeNullish()) === (x == null)))
+      fc.assert(
+        fc.property(
+          arbitraries.anything,
+          (x) => passes(() => earl(x).toBeNullish()) === (x == null),
+        ),
+      )
     })
   })
 })

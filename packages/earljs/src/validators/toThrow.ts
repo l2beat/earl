@@ -6,7 +6,10 @@ import { isEqual } from '../isEqual'
 import { AnythingMatcher, ErrorMatcher } from '../matchers'
 
 export function toThrow(control: Control<() => void>, expected: unknown) {
-  assert(control.actual instanceof Function, 'Actual has to be a function to check if threw')
+  assert(
+    control.actual instanceof Function,
+    'Actual has to be a function to check if threw',
+  )
 
   let actualThrownValue: unknown
   let threwAnything = false

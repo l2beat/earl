@@ -4,9 +4,9 @@ import { getSnapshotUpdateMode } from '../../../src/validators/snapshots/getSnap
 
 describe(getSnapshotUpdateMode.name, () => {
   it('should throw on CI when requesting snapshot update', () => {
-    expect(() => getSnapshotUpdateMode({ CI: 'true', UPDATE_SNAPSHOTS: 'true' })).to.throw(
-      "Earl configuration error: Can't update snapshots on CI.",
-    )
+    expect(() =>
+      getSnapshotUpdateMode({ CI: 'true', UPDATE_SNAPSHOTS: 'true' }),
+    ).to.throw("Earl configuration error: Can't update snapshots on CI.")
   })
 
   it('should update none snapshots on CI', () => {

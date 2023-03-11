@@ -27,7 +27,10 @@ export type __ValidatorsFor<TValidators, TActual> = UnionToIntersection<
     : never
 > & {
   // validators from plugins
-  [P in keyof Validators]: Validators[P] extends (this: Expectation<infer A>, ...args: infer Args) => void
+  [P in keyof Validators]: Validators[P] extends (
+    this: Expectation<infer A>,
+    ...args: infer Args
+  ) => void
     ? TActual extends A
       ? (...args: Args) => void
       : unknown extends TActual
@@ -37,7 +40,11 @@ export type __ValidatorsFor<TValidators, TActual> = UnionToIntersection<
 }
 
 export type Values<T> = T[keyof T & number]
-export type ItemOfIterable<T> = Extract<T, Iterable<any>> extends Iterable<infer R> ? R : never
+export type ItemOfIterable<T> = Extract<T, Iterable<any>> extends Iterable<
+  infer R
+>
+  ? R
+  : never
 
 // @todo should we extract a type from __Validators of and use it here, turning it into a big intersection type?
 // We could do without UnionToIntersection then I guess...
@@ -52,7 +59,9 @@ export type AllValidators<T> = [
   [() => any, FunctionValidators],
 ]
 
-export interface CommonValidators<T> extends BooleanValidators, OptionalValidators {
+export interface CommonValidators<T>
+  extends BooleanValidators,
+    OptionalValidators {
   /**
    * Performs a recursive equality check. Objects are equal if their fields
    * are equal and they share the same prototype.

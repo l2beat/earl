@@ -10,7 +10,9 @@ describe('extractTsDocCommentsFromString', () => {
     `
     const comments = extractTsDocCommentsFromString(input)
 
-    expect(comments).toEqual([{ signature: 'someMethod(): void', comment: '/** test */' }])
+    expect(comments).toEqual([
+      { signature: 'someMethod(): void', comment: '/** test */' },
+    ])
   })
 
   it('extracts single getter comment', () => {
@@ -20,7 +22,9 @@ describe('extractTsDocCommentsFromString', () => {
     `
     const comments = extractTsDocCommentsFromString(input)
 
-    expect(comments).toEqual([{ signature: 'someMethod(): void', comment: '/** test */' }])
+    expect(comments).toEqual([
+      { signature: 'someMethod(): void', comment: '/** test */' },
+    ])
   })
 
   it('extracts multiple method comments', () => {
@@ -60,7 +64,10 @@ describe('extractTsDocCommentsFromString', () => {
     `
 
     expect(extractTsDocCommentsFromString(input)).toEqual([
-      { signature: 'method(args: { a: number, b: number }): void', comment: '/** boop */' },
+      {
+        signature: 'method(args: { a: number, b: number }): void',
+        comment: '/** boop */',
+      },
     ])
   })
 
@@ -74,7 +81,10 @@ describe('extractTsDocCommentsFromString', () => {
     `
 
     expect(extractTsDocCommentsFromString(input)).toEqual([
-      { signature: 'method(args: { a: number, b: number }): void', comment: '/** boop */' },
+      {
+        signature: 'method(args: { a: number, b: number }): void',
+        comment: '/** boop */',
+      },
     ])
   })
 })

@@ -30,9 +30,17 @@ export function loadPlugin(pluginConfig: PluginConfig): void {
 
 function getPluginSummary(pluginConfig: PluginConfig): string {
   let out = ''
-  out += `Matchers: #${pluginConfig.matchers ? Object.keys(pluginConfig.matchers).length : 0} `
-  out += `Validators: #${pluginConfig.validators ? Object.keys(pluginConfig.validators).length : 0} `
-  out += `SmartEqRules: #${pluginConfig.smartEqRules ? Object.keys(pluginConfig.smartEqRules).length : 0} `
+  out += `Matchers: #${
+    pluginConfig.matchers ? Object.keys(pluginConfig.matchers).length : 0
+  } `
+  out += `Validators: #${
+    pluginConfig.validators ? Object.keys(pluginConfig.validators).length : 0
+  } `
+  out += `SmartEqRules: #${
+    pluginConfig.smartEqRules
+      ? Object.keys(pluginConfig.smartEqRules).length
+      : 0
+  } `
 
   return out
 }

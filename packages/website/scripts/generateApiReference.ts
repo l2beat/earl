@@ -15,21 +15,33 @@ export interface GenerateApiReferenceOptions {
   files: string[]
 }
 
-export async function generateApiReference(args: GenerateApiReferenceOptions): Promise<string> {
-  const sections = args.files.map((file) => file.split(':') as [string, string, string])
+export async function generateApiReference(
+  args: GenerateApiReferenceOptions,
+): Promise<string> {
+  const sections = args.files.map(
+    (file) => file.split(':') as [string, string, string],
+  )
 
   const contents = await Promise.all(
     sections.map(async ([sectionName, prefix, filePaths]) => {
       const patterns = filePaths.split(',')
 
       const files = await glob(
-        patterns.map((pattern) => resolve(process.cwd(), args.basePath, pattern).replace(/\\/g, '/')),
+        patterns.map((pattern) =>
+          resolve(process.cwd(), args.basePath, pattern).replace(/\\/g, '/'),
+        ),
       )
 
-      const sources = await Promise.all(files.map((file) => readFile(file, 'utf-8')))
+      const sources = await Promise.all(
+        files.map((file) => readFile(file, 'utf-8')),
+      )
 
       try {
-        return generateSectionReference(sectionName, prefix, sources.join('\n\n'))
+        return generateSectionReference(
+          sectionName,
+          prefix,
+          sources.join('\n\n'),
+        )
       } catch (err) {
         const msg = `Failed to generate section reference for ${sectionName} for paths ${filePaths}`
         console.error(msg, '\n\n', err)

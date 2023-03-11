@@ -4,7 +4,10 @@ import { ArrayWithMatcher, ContainerWithMatcher } from '../matchers'
 import { ArrayOfLengthMatcher } from '../matchers/ArrayOfLength'
 import { ObjectWithMatcher } from '../matchers/ObjectWith'
 
-export function toBeAContainerWith(control: Control<any>, expectedItems: any[]) {
+export function toBeAContainerWith(
+  control: Control<any>,
+  expectedItems: any[],
+) {
   const m = new ContainerWithMatcher(expectedItems)
 
   const actualFmt = formatCompact(control.actual)
@@ -17,7 +20,10 @@ export function toBeAContainerWith(control: Control<any>, expectedItems: any[]) 
   })
 }
 
-export function toBeAnArrayOfLength(control: Control<readonly any[]>, length: number) {
+export function toBeAnArrayOfLength(
+  control: Control<readonly any[]>,
+  length: number,
+) {
   const m = new ArrayOfLengthMatcher(length)
 
   const actualFmt = formatCompact(control.actual)
@@ -30,7 +36,10 @@ export function toBeAnArrayOfLength(control: Control<readonly any[]>, length: nu
   })
 }
 
-export function toBeAnArrayWith(control: Control<readonly any[]>, expectedItems: readonly any[]) {
+export function toBeAnArrayWith(
+  control: Control<readonly any[]>,
+  expectedItems: readonly any[],
+) {
   const m = new ArrayWithMatcher(expectedItems)
 
   const actualFmt = formatCompact(control.actual)

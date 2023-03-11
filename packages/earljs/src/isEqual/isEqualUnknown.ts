@@ -74,10 +74,23 @@ export function isEqualUnknown(
       return false
     }
   } else if (type === 'Map') {
-    if (!isEqualMap(value as Map<unknown, unknown>, valueStack, other as Map<unknown, unknown>, otherStack, options)) {
+    if (
+      !isEqualMap(
+        value as Map<unknown, unknown>,
+        valueStack,
+        other as Map<unknown, unknown>,
+        otherStack,
+        options,
+      )
+    ) {
       return false
     }
-  } else if (type === 'Date' || type === 'String' || type === 'Number' || type === 'Boolean') {
+  } else if (
+    type === 'Date' ||
+    type === 'String' ||
+    type === 'Number' ||
+    type === 'Boolean'
+  ) {
     if ((value as object).valueOf() !== (other as object).valueOf()) {
       return false
     }
@@ -87,5 +100,12 @@ export function isEqualUnknown(
     }
   }
 
-  return isEqualObject(value as object, valueStack, other as object, otherStack, options, type)
+  return isEqualObject(
+    value as object,
+    valueStack,
+    other as object,
+    otherStack,
+    options,
+    type,
+  )
 }

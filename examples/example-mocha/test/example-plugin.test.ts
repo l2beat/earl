@@ -34,7 +34,10 @@ describe('example-plugin', () => {
         deeplyNested: array,
       })
       expect([set, set]).toEqual([array, array])
-      expect([set, [set, { woop: set }]] as const).toEqual([array, [array, { woop: array }]])
+      expect([set, [set, { woop: set }]] as const).toEqual([
+        array,
+        [array, { woop: array }],
+      ])
     })
   })
 })

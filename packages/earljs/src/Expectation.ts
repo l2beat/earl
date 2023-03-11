@@ -7,9 +7,23 @@ import { Modifiers } from './Modifiers'
 import { DynamicValidator } from './plugins/types'
 import { Newable } from './types'
 import { toBeFalsy, toBeTruthy } from './validators/booleans'
-import { toBeAContainerWith, toBeAnArrayOfLength, toBeAnArrayWith, toBeAnObjectWith } from './validators/dataStructures'
-import { toBeExhausted, toHaveBeenCalledExactlyWith, toHaveBeenCalledWith } from './validators/mocks'
-import { toBeGreaterThan, toBeGreaterThanOrEqualTo, toBeLessThan, toBeLessThanOrEqualTo } from './validators/numbers'
+import {
+  toBeAContainerWith,
+  toBeAnArrayOfLength,
+  toBeAnArrayWith,
+  toBeAnObjectWith,
+} from './validators/dataStructures'
+import {
+  toBeExhausted,
+  toHaveBeenCalledExactlyWith,
+  toHaveBeenCalledWith,
+} from './validators/mocks'
+import {
+  toBeGreaterThan,
+  toBeGreaterThanOrEqualTo,
+  toBeLessThan,
+  toBeLessThanOrEqualTo,
+} from './validators/numbers'
 import { toBeDefined, toBeNullish } from './validators/optionals'
 import { toMatchSnapshot } from './validators/snapshots/toMatchSnapshot'
 import { toBeA } from './validators/toBeA'
@@ -40,7 +54,11 @@ export class __ExpectationImplementation<T> implements Modifiers<T> {
     }
   }
 
-  static make<T>(actual: T, isNegated = false, options: ExpectationOptions = {}): Expectation<T> {
+  static make<T>(
+    actual: T,
+    isNegated = false,
+    options: ExpectationOptions = {},
+  ): Expectation<T> {
     const instance = new __ExpectationImplementation(actual, isNegated, options)
     return instance as unknown as Expectation<T>
   }
@@ -52,7 +70,11 @@ export class __ExpectationImplementation<T> implements Modifiers<T> {
       throw new Error('Tried negating an already negated expectation')
     }
 
-    return new __ExpectationImplementation(this.actual, true, this.options) as unknown as Expectation<T>
+    return new __ExpectationImplementation(
+      this.actual,
+      true,
+      this.options,
+    ) as unknown as Expectation<T>
   }
 
   toEqual(value: ExpectedEqual<T>): void {
@@ -74,18 +96,27 @@ export class __ExpectationImplementation<T> implements Modifiers<T> {
     if (arguments.length === 0) {
       toThrow(this.getControl(), AnythingMatcher.make())
     } else {
-      toThrow(this.getControl(), ErrorMatcher.make(classOrMessage as any, message))
+      toThrow(
+        this.getControl(),
+        ErrorMatcher.make(classOrMessage as any, message),
+      )
     }
   }
 
   toBeRejected(): Promise<void>
   toBeRejected(message: string): Promise<void>
   toBeRejected(errorClass: Newable<Error>, message?: string): Promise<void>
-  toBeRejected(classOrMessage?: string | Newable<Error>, message?: string): Promise<void> {
+  toBeRejected(
+    classOrMessage?: string | Newable<Error>,
+    message?: string,
+  ): Promise<void> {
     if (arguments.length === 0) {
       return toBeRejected(this.getControl(), AnythingMatcher.make())
     } else {
-      return toBeRejected(this.getControl(), ErrorMatcher.make(classOrMessage as any, message))
+      return toBeRejected(
+        this.getControl(),
+        ErrorMatcher.make(classOrMessage as any, message),
+      )
     }
   }
 
@@ -163,7 +194,9 @@ export class __ExpectationImplementation<T> implements Modifiers<T> {
 }
 
 const dynamicValidators: Record<string, DynamicValidator<any>> = {}
-export function loadValidators(validators: Record<string, DynamicValidator<any>>) {
+export function loadValidators(
+  validators: Record<string, DynamicValidator<any>>,
+) {
   for (const [name, validator] of Object.entries(validators)) {
     dynamicValidators[name] = validator
   }

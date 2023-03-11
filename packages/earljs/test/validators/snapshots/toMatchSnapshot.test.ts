@@ -3,7 +3,10 @@ import { readFileSync, writeFileSync } from 'fs'
 
 import { expect as earl } from '../../../src'
 import { format } from '../../../src/format'
-import { formatSnapshot, parseSnapshot } from '../../../src/validators/snapshots/format'
+import {
+  formatSnapshot,
+  parseSnapshot,
+} from '../../../src/validators/snapshots/format'
 import { resetSnapshotCache } from '../../../src/validators/snapshots/getSnapshot'
 import { MochaTestContext } from '../../../src/validators/snapshots/TestContext'
 import { toMatchSnapshot } from '../../../src/validators/snapshots/toMatchSnapshot'

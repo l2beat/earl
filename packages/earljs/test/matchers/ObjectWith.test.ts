@@ -61,18 +61,24 @@ describe('ObjectWith matcher', () => {
     it('works with objects', () => {
       earlExpect({}).toEqual(earlExpect.objectWith({}))
       earlExpect({ a: 1 }).toEqual(earlExpect.objectWith({ a: 1 }))
-      earlExpect({ a: 1, b: '2' }).toEqual(earlExpect.objectWith({ a: 1, b: '2' }))
+      earlExpect({ a: 1, b: '2' }).toEqual(
+        earlExpect.objectWith({ a: 1, b: '2' }),
+      )
 
       earlExpect({}).not.toEqual(earlExpect.objectWith({ a: 1 }))
 
       earlExpect({ a: 1 }).not.toEqual(earlExpect.objectWith({ a: '2' }))
       earlExpect({ a: 1 }).not.toEqual(earlExpect.objectWith({ b: 1 }))
-      earlExpect({ a: 1 as const }).not.toEqual(earlExpect.objectWith({ a: 2 as const }))
+      earlExpect({ a: 1 as const }).not.toEqual(
+        earlExpect.objectWith({ a: 2 as const }),
+      )
       earlExpect({ a: 1, b: '2' }).toEqual(earlExpect.objectWith({ a: 1 }))
     })
 
     it('works with nested matchers', () => {
-      earlExpect({ a: 1 }).toEqual(earlExpect.objectWith({ a: earlExpect.numberCloseTo(2, { delta: 1 }) }))
+      earlExpect({ a: 1 }).toEqual(
+        earlExpect.objectWith({ a: earlExpect.numberCloseTo(2, { delta: 1 }) }),
+      )
 
       earlExpect({ a: 1, b: '2' }).toEqual(
         earlExpect.objectWith({
@@ -84,7 +90,11 @@ describe('ObjectWith matcher', () => {
 
     it('throws understandable error messages', () => {
       expect(() =>
-        earlExpect({ a: 1 }).toEqual(earlExpect.objectWith({ a: earlExpect.numberCloseTo(3, { delta: 1 }) })),
+        earlExpect({ a: 1 }).toEqual(
+          earlExpect.objectWith({
+            a: earlExpect.numberCloseTo(3, { delta: 1 }),
+          }),
+        ),
       ).to.throw('{ a: 1 } not equal to Matcher')
     })
   })

@@ -14,12 +14,19 @@ export function resetSnapshotCache() {
   snapshots.clear()
 }
 
-export function getSnapshot(controlFileName: string | undefined, context: TestContext, mode: SnapshotUpdateMode) {
+export function getSnapshot(
+  controlFileName: string | undefined,
+  context: TestContext,
+  mode: SnapshotUpdateMode,
+) {
   const filePath = context.test?.file ?? controlFileName
   if (!filePath) {
     throw new EarlConfigurationError('Invalid test context')
   }
-  const file = path.join(path.dirname(filePath), path.basename(filePath) + '.snapshot')
+  const file = path.join(
+    path.dirname(filePath),
+    path.basename(filePath) + '.snapshot',
+  )
   const testName = getTestName(context)
   if (!testName) {
     throw new EarlConfigurationError('Invalid test context')

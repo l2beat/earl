@@ -1,7 +1,11 @@
 import { EqualityOptions } from './EqualityOptions'
 import { CanonicalType } from './getCanonicalType'
 
-export function getKeys(value: object, type: CanonicalType, options: EqualityOptions) {
+export function getKeys(
+  value: object,
+  type: CanonicalType,
+  options: EqualityOptions,
+) {
   let keys = Object.keys(value)
   if (type === 'Error') {
     addKey(keys, value, 'name')

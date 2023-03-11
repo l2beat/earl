@@ -10,7 +10,10 @@ export interface BigIntLike {
   (value?: any): any
 }
 
-export type NewableOrPrimitive<T = any> = Newable<T> | SymbolConstructor | BigIntLike
+export type NewableOrPrimitive<T = any> =
+  | Newable<T>
+  | SymbolConstructor
+  | BigIntLike
 
 export type Class2Primitive<T> = T extends string
   ? string

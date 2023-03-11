@@ -4,7 +4,11 @@ import { extractTsDocCommentsFromString } from './tsdocs/extract'
 import { parseTsDocComment } from './tsdocs/parse'
 import { MethodDocumentation } from './types'
 
-export function generateSectionReference(sectionName: string, prefix: string, source: string) {
+export function generateSectionReference(
+  sectionName: string,
+  prefix: string,
+  source: string,
+) {
   const comments = extractTsDocCommentsFromString(source)
   const parsed = comments
     .filter(
@@ -23,8 +27,11 @@ export function generateSectionReference(sectionName: string, prefix: string, so
   }))
 
   return {
-    tableOfContents: `### ${sectionName}\n\n` + generateTableOfContents(prefixed),
-    reference: `### ${sectionName}\n\n` + prefixed.map(generateMarkdownForMethodDocumentation).join('\n'),
+    tableOfContents:
+      `### ${sectionName}\n\n` + generateTableOfContents(prefixed),
+    reference:
+      `### ${sectionName}\n\n` +
+      prefixed.map(generateMarkdownForMethodDocumentation).join('\n'),
   }
 }
 
@@ -47,7 +54,9 @@ function prefixMethodSignature(prefix: string, signature: string) {
 /**
  * @internal
  */
-export function generateMarkdownForMethodDocumentation(doc: MethodDocumentation): string {
+export function generateMarkdownForMethodDocumentation(
+  doc: MethodDocumentation,
+): string {
   // We're generating Docusaurus flavor of Markdown.
   // https://docusaurus.io/docs/markdown-features/headings#explicit-ids
   const header = `\
@@ -85,7 +94,12 @@ ${
  * @internal
  */
 export function generateTableOfContents(docs: MethodDocumentation[]) {
-  const links = docs.map((d) => `- [\`${d.abbreviatedSignature}\`](#${encodeAnchor(d.abbreviatedSignature)})`)
+  const links = docs.map(
+    (d) =>
+      `- [\`${d.abbreviatedSignature}\`](#${encodeAnchor(
+        d.abbreviatedSignature,
+      )})`,
+  )
 
   return links.join('\n')
 }

@@ -8,7 +8,10 @@ import { getSnapshot } from './getSnapshot'
 import { getSnapshotUpdateMode } from './getSnapshotUpdateMode'
 import { TestContext } from './TestContext'
 
-export function toMatchSnapshot(control: Control<unknown>, context: TestContext) {
+export function toMatchSnapshot(
+  control: Control<unknown>,
+  context: TestContext,
+) {
   // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
   if (context === undefined) {
     throw new EarlConfigurationError('No test context')

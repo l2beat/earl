@@ -35,7 +35,10 @@ test('smartEq: nested set is equal to nested array as they contain same elements
     deeplyNested: array,
   })
   expect([set, set]).toEqual([array, array])
-  expect([set, [set, { woop: set }]] as const).toEqual([array, [array, { woop: array }]])
+  expect([set, [set, { woop: set }]] as const).toEqual([
+    array,
+    [array, { woop: array }],
+  ])
 })
 
 test.run()

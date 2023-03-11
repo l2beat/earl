@@ -1,7 +1,10 @@
 import { Expectation } from '../Expectation'
 import { SmartEqResult } from '../isEqual/rules'
 
-export type DynamicValidator<T> = (this: Expectation<T>, ...args: any[]) => void | Promise<void>
+export type DynamicValidator<T> = (
+  this: Expectation<T>,
+  ...args: any[]
+) => void | Promise<void>
 export type DynamicMatcher = (...args: any[]) => any // real type should be Matcher but can be cast to anything for improved DX
 export type SmartEqRule<TActual, TExpected> = (
   actual: TActual,

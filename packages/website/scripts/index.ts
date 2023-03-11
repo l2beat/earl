@@ -41,7 +41,10 @@ async function main() {
 
   // We're prepending frontmatter and styles here, because we Docusaurus doesn't show
   // headings from imported .mdx files in table of contents
-  writeFileSync(path.resolve(__dirname, '../docs/api/api-reference.md'), frontmatter + pageStyles + reference)
+  writeFileSync(
+    path.resolve(__dirname, '../docs/api/api-reference.md'),
+    frontmatter + pageStyles + reference,
+  )
 }
 
 void main().catch((err) => {

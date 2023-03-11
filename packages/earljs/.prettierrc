@@ -1,16 +1,7 @@
 {
-  "printWidth": 120,
-  "tabWidth": 2,
   "semi": false,
   "singleQuote": true,
-  "trailingComma": "all",
-  "proseWrap": "always",
-  "overrides": [
-    {
-      "files": "**/*.md",
-      "options": {
-        "printWidth": 80
-      }
-    }
-  ]
+  "printWidth": 80,
+  "bracketSpacing": true,
+  "trailingComma": "all"
 }

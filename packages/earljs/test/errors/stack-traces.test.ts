@@ -14,7 +14,8 @@ describe('stack traces for errors', () => {
       expect(e).to.be.instanceOf(AssertionError, 'Earl didnt throw')
       const stackTrace = errorStackParser.parse(e)
 
-      expect(stackTrace[0].fileName?.endsWith('stack-traces.test.ts')).to.be.true
+      expect(stackTrace[0].fileName?.endsWith('stack-traces.test.ts')).to.be
+        .true
     }
   })
 
@@ -26,7 +27,8 @@ describe('stack traces for errors', () => {
       expect(e).to.be.instanceOf(AssertionError, 'Earl didnt throw')
       const stackTrace = errorStackParser.parse(e)
 
-      expect(stackTrace[0].fileName?.endsWith('stack-traces.test.ts')).to.be.true
+      expect(stackTrace[0].fileName?.endsWith('stack-traces.test.ts')).to.be
+        .true
     }
   })
 

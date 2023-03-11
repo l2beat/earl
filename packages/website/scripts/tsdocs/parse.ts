@@ -4,11 +4,15 @@ import { Node, Project as TSProject } from 'ts-morph'
 
 import { MethodComment, MethodDocumentation, Param } from '../types'
 
-export function parseTsDocComment(methodComment: MethodComment): MethodDocumentation {
+export function parseTsDocComment(
+  methodComment: MethodComment,
+): MethodDocumentation {
   const tsdocParser: TSDocParser = new TSDocParser()
   const tsProject = new TSProject({ useInMemoryFileSystem: true })
 
-  const parserContext = tsdocParser.parseString(replaceTrailingSlashNewlines(methodComment.comment))
+  const parserContext = tsdocParser.parseString(
+    replaceTrailingSlashNewlines(methodComment.comment),
+  )
 
   if (parserContext.log.messages.length > 0) {
     throw new Error(
@@ -30,12 +34,16 @@ export function parseTsDocComment(methodComment: MethodComment): MethodDocumenta
 
     // enforce common formatting for param descriptions
     if (!description.endsWith('.')) {
-      throw new Error(`Param description for "${name}" of "${methodComment.signature}" doesn't end with a dot (".")!`)
+      throw new Error(
+        `Param description for "${name}" of "${methodComment.signature}" doesn't end with a dot (".")!`,
+      )
     }
 
     // (best effort) enforce that param names are consistent with function signatures
     if (!methodComment.signature.includes(name)) {
-      throw new Error(`Param "${name}" is not part of signature "${methodComment.signature}"!`)
+      throw new Error(
+        `Param "${name}" is not part of signature "${methodComment.signature}"!`,
+      )
     }
 
     params.push({ name, description })

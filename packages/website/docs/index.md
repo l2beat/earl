@@ -23,8 +23,7 @@ hero:
 features:
   - icon: 💪
     title: Powerful
-    details:
-      Use advanced assertions that are able to match whole ranges of values
+    details: Use advanced assertions that are able to match whole ranges of values
 
   - icon: 🤖
     title: Type-safe

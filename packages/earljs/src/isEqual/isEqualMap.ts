@@ -22,7 +22,9 @@ export function isEqualMap(
   otherStack.push(other)
   let result = true
   for (const [key, keyValue] of value.entries()) {
-    if (!isEqualUnknown(keyValue, valueStack, other.get(key), otherStack, options)) {
+    if (
+      !isEqualUnknown(keyValue, valueStack, other.get(key), otherStack, options)
+    ) {
       result = false
       break
     }

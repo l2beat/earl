@@ -2,7 +2,11 @@ import { CanonicalType } from '../isEqual/getCanonicalType'
 import { FormatOptions } from './FormatOptions'
 import { formatString } from './formatString'
 
-export function getRepresentation(value: unknown, type: CanonicalType, options: FormatOptions) {
+export function getRepresentation(
+  value: unknown,
+  type: CanonicalType,
+  options: FormatOptions,
+) {
   if (type === 'Boolean') {
     return (value as boolean).toString()
   } else if (type === 'Number') {

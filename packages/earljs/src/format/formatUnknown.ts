@@ -58,12 +58,8 @@ export function formatUnknown(
 
   const items: string[] = []
 
-  const { typeName, isDifferentPrototype, isSameTypeName } = getComparedTypeName(
-    value,
-    sibling,
-    type,
-    options.ignorePrototypes,
-  )
+  const { typeName, isDifferentPrototype, isSameTypeName } =
+    getComparedTypeName(value, sibling, type, options.ignorePrototypes)
   if (typeName) {
     items.push(typeName)
   }
@@ -87,8 +83,14 @@ export function formatUnknown(
     return toLine(items.join(' '))
   }
 
-  if (type === 'Error' && options.inline && options.maxLineLength !== Infinity) {
-    return toLine(`${typeName ?? ''}(${formatString((value as Error).message, options)})`)
+  if (
+    type === 'Error' &&
+    options.inline &&
+    options.maxLineLength !== Infinity
+  ) {
+    return toLine(
+      `${typeName ?? ''}(${formatString((value as Error).message, options)})`,
+    )
   }
 
   const representation = getRepresentation(value, type, options)
@@ -102,13 +104,45 @@ export function formatUnknown(
   siblingStack.push(sibling)
 
   if (type === 'Array') {
-    entries.push(...formatArrayEntries(value as unknown[], sibling, options, valueStack, siblingStack))
+    entries.push(
+      ...formatArrayEntries(
+        value as unknown[],
+        sibling,
+        options,
+        valueStack,
+        siblingStack,
+      ),
+    )
   } else if (type === 'Set') {
-    entries.push(...formatSetEntries(value as Set<unknown>, sibling, options, valueStack, siblingStack))
+    entries.push(
+      ...formatSetEntries(
+        value as Set<unknown>,
+        sibling,
+        options,
+        valueStack,
+        siblingStack,
+      ),
+    )
   } else if (type === 'Map') {
-    entries.push(...formatMapEntries(value as Map<unknown, unknown>, sibling, options, valueStack, siblingStack))
+    entries.push(
+      ...formatMapEntries(
+        value as Map<unknown, unknown>,
+        sibling,
+        options,
+        valueStack,
+        siblingStack,
+      ),
+    )
   }
-  entries.push(...formatObjectEntries(value as object, sibling, options, valueStack, siblingStack))
+  entries.push(
+    ...formatObjectEntries(
+      value as object,
+      sibling,
+      options,
+      valueStack,
+      siblingStack,
+    ),
+  )
 
   valueStack.pop()
   siblingStack.pop()
@@ -139,7 +173,8 @@ export function formatUnknown(
   if (options.inline) {
     let jointEntries = entries.map((x) => x[1]).join(', ')
     if (jointEntries.length > options.maxLineLength) {
-      jointEntries = entries.length === 1 ? '1 entry' : `${entries.length} entries`
+      jointEntries =
+        entries.length === 1 ? '1 entry' : `${entries.length} entries`
     }
     if (type === 'Array') {
       return toLine(`${beginning}${jointEntries}]`)

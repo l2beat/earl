@@ -1,7 +1,11 @@
 import { Mock } from './index'
 import { Awaited } from './util'
 
-export interface MockGiven<TArgs extends any[], TReturn, TGivenArgs extends TArgs> {
+export interface MockGiven<
+  TArgs extends any[],
+  TReturn,
+  TGivenArgs extends TArgs,
+> {
   /**
    * Schedules the mock to return a value the next time it's called.
    * If anything is already scheduled it will be used first.
@@ -21,7 +25,9 @@ export interface MockGiven<TArgs extends any[], TReturn, TGivenArgs extends TArg
    * If anything is already scheduled it will be used first.
    * @param implementation - function to execute.
    */
-  executesOnce(implementation: (...args: TGivenArgs) => TReturn): Mock<TArgs, TReturn>
+  executesOnce(
+    implementation: (...args: TGivenArgs) => TReturn,
+  ): Mock<TArgs, TReturn>
 
   /**
    * Schedules the mock to return value wrapped in Promise.resolve the next time it's called.

@@ -1,10 +1,18 @@
 import { PluginSmartEqRules, SmartEqRule } from '../plugins/types'
 import { NonEmptyOnly } from '../types'
 
-type ErrorReasons = 'value mismatch' | 'prototype mismatch' | 'object possibly infinite'
-export type SmartEqResult = { result: 'success' } | { result: 'error'; reason: ErrorReasons }
+type ErrorReasons =
+  | 'value mismatch'
+  | 'prototype mismatch'
+  | 'object possibly infinite'
+export type SmartEqResult =
+  | { result: 'success' }
+  | { result: 'error'; reason: ErrorReasons }
 
-export function buildSmartEqResult(success: boolean, reason: ErrorReasons = 'value mismatch'): SmartEqResult {
+export function buildSmartEqResult(
+  success: boolean,
+  reason: ErrorReasons = 'value mismatch',
+): SmartEqResult {
   if (success) {
     return { result: 'success' }
   } else {
@@ -15,7 +23,9 @@ export function buildSmartEqResult(success: boolean, reason: ErrorReasons = 'val
 export const smartEqRules: SmartEqRule<unknown, unknown>[] = []
 
 export function loadSmartEqRules(rules: PluginSmartEqRules<never>): void {
-  const rulesArray: SmartEqRule<unknown, unknown>[] = Array.isArray(rules) ? rules : Object.values(rules)
+  const rulesArray: SmartEqRule<unknown, unknown>[] = Array.isArray(rules)
+    ? rules
+    : Object.values(rules)
   smartEqRules.push(...rulesArray)
 }
 
@@ -27,10 +37,21 @@ export interface SmartEqRules {}
 
 // eslint-disable-next-line @typescript-eslint/no-namespace
 export declare namespace SmartEqRules {
-  export type Expected<TEqRule> = TEqRule extends SmartEqRule<any, infer TExpected> ? TExpected : never
+  export type Expected<TEqRule> = TEqRule extends SmartEqRule<
+    any,
+    infer TExpected
+  >
+    ? TExpected
+    : never
 }
 
 export type ExpectedEqual<TActual> =
   | TActual
-  | SmartEqRules.Expected<Extract<SmartEqRules[keyof SmartEqRules], SmartEqRule<TActual, never>>>
-  | NonEmptyOnly<TActual extends object ? { [K in keyof TActual]: ExpectedEqual<TActual[K]> } : never>
+  | SmartEqRules.Expected<
+      Extract<SmartEqRules[keyof SmartEqRules], SmartEqRule<TActual, never>>
+    >
+  | NonEmptyOnly<
+      TActual extends object
+        ? { [K in keyof TActual]: ExpectedEqual<TActual[K]> }
+        : never
+    >

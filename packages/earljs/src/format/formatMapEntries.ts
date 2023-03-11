@@ -40,21 +40,36 @@ export function formatMapEntries(
 
   const entries: [number, string][] = []
   for (let i = 0; i < valueItems.length; i++) {
-    const keyFormat = formatUnknown(valueItems[i][0], siblingItems[i]?.[0], keyOptions, valueStack, siblingStack)
+    const keyFormat = formatUnknown(
+      valueItems[i][0],
+      siblingItems[i]?.[0],
+      keyOptions,
+      valueStack,
+      siblingStack,
+    )
     for (const line of keyFormat) {
       line[0] += 1
     }
     const valueOptions = getOptionsWith(passedValueOptions, {
       skipMatcherReplacement:
-        passedValueOptions.skipMatcherReplacement || (sibling instanceof Map && !sibling.has(valueItems[i][0])),
+        passedValueOptions.skipMatcherReplacement ||
+        (sibling instanceof Map && !sibling.has(valueItems[i][0])),
     })
-    const valueFormat = formatUnknown(valueItems[i][1], siblingItems[i]?.[1], valueOptions, valueStack, siblingStack)
+    const valueFormat = formatUnknown(
+      valueItems[i][1],
+      siblingItems[i]?.[1],
+      valueOptions,
+      valueStack,
+      siblingStack,
+    )
     for (const line of valueFormat) {
       line[0] += 1
     }
 
     const joint = [...keyFormat]
-    joint[joint.length - 1][1] = `${joint[joint.length - 1][1]} => ${valueFormat[0][1]}`
+    joint[joint.length - 1][1] = `${joint[joint.length - 1][1]} => ${
+      valueFormat[0][1]
+    }`
     joint.push(...valueFormat.slice(1))
 
     entries.push(...joint)
