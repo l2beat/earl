@@ -54,7 +54,7 @@ describe('toReferentiallyEqual', () => {
 
   describe('types', () => {
     it('errors with incompatible objects', () => {
-      //@ts-expect-error
+      //@ts-expect-error incompatible types
       expect(() => earl({ n: 1 }).toReferentiallyEqual({ x: 1 })).to.throw()
     })
   })

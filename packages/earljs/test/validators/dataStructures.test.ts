@@ -73,7 +73,7 @@ describe('dataStructures', () => {
 
     describe('types', () => {
       it('is typesafe', () => {
-        // @ts-expect-error
+        // @ts-expect-error set is not an array
         expect(() => earl(new Set([1, 2, 3])).toBeAnArrayWith(1)).to.throw('Set { 1, 2, 3 } does not contain array [1]')
       })
     })

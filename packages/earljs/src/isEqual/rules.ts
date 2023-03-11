@@ -25,6 +25,7 @@ export function clearSmartEqRules() {
 
 export interface SmartEqRules {}
 
+// eslint-disable-next-line @typescript-eslint/no-namespace
 export declare namespace SmartEqRules {
   export type Expected<TEqRule> = TEqRule extends SmartEqRule<any, infer TExpected> ? TExpected : never
 }

@@ -1,5 +1,4 @@
-import { SmartEqRule } from '.'
-import { PluginConfig } from './types'
+import { PluginConfig, SmartEqRule } from './types'
 
 /**
  * Used to create a new EarlJS plugin and preserve its types for declaration merging.
@@ -23,6 +22,7 @@ export function createPlugin<TConfig extends PluginConfig>(config: TConfig) {
   return config
 }
 
+// eslint-disable-next-line @typescript-eslint/no-namespace
 export declare namespace createPlugin {
   export type MatchersOf<TPlugin extends PluginConfig> = TPlugin['matchers']
   export type ValidatorsOf<TPlugin extends PluginConfig> = TPlugin['validators']

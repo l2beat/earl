@@ -11,6 +11,6 @@ export class EvenNumberMatcher extends Matcher {
   }
 
   static make(): number {
-    return new EvenNumberMatcher() as any
+    return new EvenNumberMatcher() as unknown as number
   }
 }

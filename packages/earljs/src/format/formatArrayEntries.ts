@@ -18,7 +18,7 @@ export function formatArrayEntries(
 
   let empty = 0
   for (let i = 0; i < value.length; i++) {
-    if (!value.hasOwnProperty(i.toString())) {
+    if (!Object.prototype.hasOwnProperty.call(value, i.toString())) {
       empty++
     } else {
       if (empty !== 0) {

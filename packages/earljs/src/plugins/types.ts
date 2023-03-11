@@ -10,7 +10,7 @@ export type SmartEqRule<TActual, TExpected> = (
 ) => SmartEqResult | undefined
 
 export type PluginSmartEqRules<T> =
-  | ReadonlyArray<SmartEqRule<T, T>> // consider deprecating the array here?
+  | readonly SmartEqRule<T, T>[] // consider deprecating the array here?
   | Record<string, SmartEqRule<T, T>> // we need something that's possible to declaration merge
 
 export interface PluginConfig {

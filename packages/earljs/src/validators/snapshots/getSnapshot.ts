@@ -25,9 +25,9 @@ export function getSnapshot(controlFileName: string | undefined, context: TestCo
     throw new EarlConfigurationError('Invalid test context')
   }
 
-  const counter = counters.get(file) || new Map<string, number>()
+  const counter = counters.get(file) ?? new Map<string, number>()
   counters.set(file, counter)
-  const count = counter.get(testName) || 1
+  const count = counter.get(testName) ?? 1
   counter.set(testName, count + 1)
 
   const name = `${testName} ${count}`
@@ -38,7 +38,7 @@ export function getSnapshot(controlFileName: string | undefined, context: TestCo
       content = parseSnapshot(readFileSync(file, 'utf8'))
     } catch {}
   }
-  content = content || {}
+  content = content ?? {}
   snapshots.set(file, content)
 
   const expected = content[name]

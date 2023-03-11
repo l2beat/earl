@@ -25,7 +25,7 @@ describe('ArrayOfLength matcher', () => {
   describe('in expectation', () => {
     it('works', () => {
       earlExpect([1, 2, 3]).toEqual(earlExpect.arrayOfLength(3))
-      earlExpect([1, 2, 3] as ReadonlyArray<number>).toEqual(earlExpect.arrayOfLength(3))
+      earlExpect([1, 2, 3] as readonly number[]).toEqual(earlExpect.arrayOfLength(3))
     })
 
     it('works with nested matchers', () => {

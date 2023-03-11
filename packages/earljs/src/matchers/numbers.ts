@@ -1,7 +1,7 @@
 import { Matcher } from './Base'
 
 abstract class BaseNumberMatcher extends Matcher {
-  constructor(private target: number) {
+  constructor(private readonly target: number) {
     super()
   }
 

@@ -30,8 +30,8 @@
   ],
   "scripts": {
     "start": "ts-node -T ./src/index.ts",
-    "format": "prettier --ignore-path ../../.prettierignore --check .",
-    "format:fix": "prettier --ignore-path ../../.prettierignore --write .",
+    "format": "prettier --check .",
+    "format:fix": "prettier --write .",
     "lint": "eslint --ext .ts src test",
     "lint:fix": "pnpm lint --fix",
     "typecheck": "tsc --noEmit",

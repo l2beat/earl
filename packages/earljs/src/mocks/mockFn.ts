@@ -63,7 +63,7 @@ export function mockFn<Args extends any[], Return = any>(defaultImpl?: (...args:
         return runSpec(override.spec, args)
       }
     }
-    const current = queue.shift() || spec
+    const current = queue.shift() ?? spec
     return runSpec(current, args)
   }
 
@@ -74,17 +74,20 @@ export function mockFn<Args extends any[], Return = any>(defaultImpl?: (...args:
 
   function runSpec(spec: Spec, args: any[]) {
     switch (spec.type) {
-      case 'return':
+      case 'return': {
         mock.calls.push({ args, result: { type: 'return', value: spec.value } })
         return spec.value
-      case 'lazy-return':
+      }
+      case 'lazy-return': {
         const value = spec.value()
         mock.calls.push({ args, result: { type: 'return', value } })
         return value
-      case 'throw':
+      }
+      case 'throw': {
         mock.calls.push({ args, result: { type: 'throw', error: spec.error } })
         throw spec.error
-      case 'exec':
+      }
+      case 'exec': {
         try {
           const value = spec.implementation(...args)
           mock.calls.push({ args, result: { type: 'return', value } })
@@ -93,10 +96,13 @@ export function mockFn<Args extends any[], Return = any>(defaultImpl?: (...args:
           mock.calls.push({ args, result: { type: 'throw', error } })
           throw error
         }
-      case 'not-ready':
+      }
+      case 'not-ready': {
         throw new MockNotConfiguredError()
-      default:
+      }
+      default: {
         throw new UnreachableCaseError(spec)
+      }
     }
   }
 

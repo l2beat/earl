@@ -1,4 +1,4 @@
-import { DEFAULT_EQUALITY_OPTIONS, EqualityOptions, LOOSE_EQUALITY_OPTIONS } from '../isEqual'
+import { DEFAULT_EQUALITY_OPTIONS, EqualityOptions, LOOSE_EQUALITY_OPTIONS } from '../isEqual/EqualityOptions'
 
 export interface FormatOptions extends EqualityOptions {
   /**

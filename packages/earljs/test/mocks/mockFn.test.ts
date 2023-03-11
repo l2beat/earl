@@ -220,7 +220,7 @@ describe('Mock', () => {
   describe('.rejectsWithOnce', () => {
     // note: this test should not throw unhandled rejections
     it('queues function return value', async () => {
-      const fn = mockFn<[number], void>().rejectsWithOnce(new Error('some scary error'))
+      const fn = mockFn<[number], never>().rejectsWithOnce(new Error('some scary error'))
       fn.given(2).rejectsWithOnce(new Error('different error'))
 
       try {

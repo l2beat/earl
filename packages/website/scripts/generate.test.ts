@@ -1,10 +1,10 @@
 import { expect } from '@earljs/published'
+import { readFileSync } from 'fs'
 
 import { encodeAnchor, generateMarkdownForMethodDocumentation, generateTableOfContents } from './generate'
 import { parseTsDocComment } from './tsdocs/parse'
-import { MethodDocumentation } from './types'
 import { sampleMethodComment } from './tsdocs/parse.test'
-import { readFileSync } from 'fs'
+import { MethodDocumentation } from './types'
 
 describe('generateMarkdownForMethodDocumentation', () => {
   it('generates markdown for a comment with params and examples', async () => {

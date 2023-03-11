@@ -1,13 +1,21 @@
 import { expect } from 'chai'
-import sinon from 'sinon'
+import * as sinon from 'sinon'
 
 import { __ExpectationImplementation, getControl, loadValidators } from '../src/Expectation'
 import { clearModuleCache } from './common'
 
 // @todo: could we refactor these tests to test public API instead of __ExpectationImplementation?
 describe('assert', () => {
-  const success = { success: true, reason: 'Failure', negatedReason: 'Negated failure' }
-  const failure = { success: false, reason: 'Failure', negatedReason: 'Negated failure' }
+  const success = {
+    success: true,
+    reason: 'Failure',
+    negatedReason: 'Negated failure',
+  }
+  const failure = {
+    success: false,
+    reason: 'Failure',
+    negatedReason: 'Negated failure',
+  }
 
   describe('when not negated', () => {
     const expectation = __ExpectationImplementation.make(sinon.spy(), undefined, undefined)
@@ -71,7 +79,7 @@ describe('assert', () => {
   describe('plugin', () => {
     let __ExpectationImplementation: ExpectationType
     let loadValidators: loadValidatorsType
-    beforeEach(function (this: Mocha.Context) {
+    beforeEach(function () {
       this.timeout(5_000)
       clearModuleCache()
       ;({ __ExpectationImplementation, loadValidators } = require('../src/Expectation'))

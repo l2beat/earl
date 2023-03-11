@@ -36,7 +36,7 @@ describe('Expectation', () => {
   describe('plugin', () => {
     let earl: expectType
     let loadMatchers: loadMatchersType
-    beforeEach(function (this: Mocha.Context) {
+    beforeEach(function () {
       this.timeout(5_000)
       clearModuleCache()
       ;({ expect: earl, loadMatchers } = require('../src/expect'))

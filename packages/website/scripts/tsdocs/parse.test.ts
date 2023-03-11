@@ -1,7 +1,7 @@
 import { expect } from '@earljs/published'
 
-import { parseTsDocComment } from './parse'
 import { MethodComment } from '../types'
+import { parseTsDocComment } from './parse'
 
 export const sampleMethodComment: MethodComment = {
   signature: 'someMethod(x: number, y: number): void',

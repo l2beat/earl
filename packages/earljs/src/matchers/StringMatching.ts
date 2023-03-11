@@ -1,8 +1,6 @@
 import { Matcher } from './Base'
 
 export class StringMatchingMatcher extends Matcher {
-  constructor(substring: string)
-  constructor(pattern: RegExp)
   constructor(private readonly patternOrSubString: string | RegExp) {
     super()
   }
@@ -13,14 +11,14 @@ export class StringMatchingMatcher extends Matcher {
     }
 
     if (typeof this.patternOrSubString === 'string') {
-      return v.indexOf(this.patternOrSubString) !== -1
+      return v.includes(this.patternOrSubString)
     } else {
       return this.patternOrSubString.test(v)
     }
   }
 
   toString(): string {
-    return `[StringMatching: ${this.patternOrSubString}]`
+    return `[StringMatching: ${this.patternOrSubString.toString()}]`
   }
 
   static make(patternOrSubString: string | RegExp): string {

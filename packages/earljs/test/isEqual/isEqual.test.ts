@@ -4,8 +4,7 @@ import { expect } from 'chai'
 
 import { format, FormatOptions } from '../../src/format'
 import { EqualityOptions, isEqual } from '../../src/isEqual'
-import { clearSmartEqRules } from '../../src/isEqual/rules'
-import { buildSmartEqResult, loadSmartEqRules } from '../../src/isEqual/rules'
+import { buildSmartEqResult, clearSmartEqRules, loadSmartEqRules } from '../../src/isEqual/rules'
 import { AMatcher, AnythingMatcher } from '../../src/matchers'
 
 describe('isEqual', () => {

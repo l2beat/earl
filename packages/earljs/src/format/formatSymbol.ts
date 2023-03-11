@@ -1,6 +1,6 @@
 import { toLine } from './toLine'
 
-const wellKnownSymbols = new Map<Symbol, string>()
+const wellKnownSymbols = new Map<symbol, string>()
 for (const key of Object.getOwnPropertyNames(Symbol)) {
   const known = (Symbol as any)[key]
   if (typeof known === 'symbol') {

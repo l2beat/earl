@@ -3,7 +3,7 @@ import { expect } from 'chai'
 import { expect as earl } from '../../../src'
 import { mockFn } from '../../../src/mocks'
 
-const sum = (a: number, b: number = 0) => a + b
+const sum = (a: number, b = 0) => a + b
 
 describe('toHaveBeenCalledExactlyWith', () => {
   describe('not negated', () => {

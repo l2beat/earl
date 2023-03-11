@@ -1,4 +1,4 @@
-import { getCanonicalType } from '../isEqual'
+import { getCanonicalType } from '../isEqual/getCanonicalType'
 import { Matcher } from '../matchers'
 import { formatArrayEntries } from './formatArrayEntries'
 import { formatMapEntries } from './formatMapEntries'
@@ -23,13 +23,15 @@ export function formatUnknown(
 
   switch (type) {
     case 'null':
+      return toLine('null')
     case 'undefined':
+      return toLine('undefined')
     case 'boolean':
-      return toLine(`${value}`)
+      return toLine(value ? 'true' : 'false')
     case 'string':
       return toLine(formatString(value as string, options))
     case 'bigint':
-      return toLine(`${value}n`)
+      return toLine(`${value as bigint}n`)
     case 'number':
       return formatNumber(value as number, sibling, options)
     case 'symbol':
@@ -86,7 +88,7 @@ export function formatUnknown(
   }
 
   if (type === 'Error' && options.inline && options.maxLineLength !== Infinity) {
-    return toLine(`${typeName}(${formatString((value as Error).message, options)})`)
+    return toLine(`${typeName ?? ''}(${formatString((value as Error).message, options)})`)
   }
 
   const representation = getRepresentation(value, type, options)

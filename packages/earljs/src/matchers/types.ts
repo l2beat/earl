@@ -32,16 +32,9 @@ export interface Matchers {
   /**
    * Matches strings that contain the provided substring.
    *
-   * @param substring - a string to look for in the matched values.
+   * @param pattern - a string to look for in the matched values or a regexp to test the matched values.
    */
-  stringMatching(substring: string): string
-
-  /**
-   * Matches strings that conform to the provided pattern.
-   *
-   * @param pattern - a regexp to test the matched values.
-   */
-  stringMatching(pattern: RegExp): string
+  stringMatching(pattern: string | RegExp): string
 
   /**
    * Matches numbers that are close to the target value. The options are used
@@ -80,7 +73,7 @@ export interface Matchers {
    *
    * @param subset - an object to match against.
    */
-  objectWith(subset: Object): any
+  objectWith(subset: object): any
 
   /**
    * Matches a number greater than target.

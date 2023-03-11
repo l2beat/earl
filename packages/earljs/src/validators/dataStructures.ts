@@ -17,7 +17,7 @@ export function toBeAContainerWith(control: Control<any>, expectedItems: any[]) 
   })
 }
 
-export function toBeAnArrayOfLength(control: Control<ReadonlyArray<any>>, length: number) {
+export function toBeAnArrayOfLength(control: Control<readonly any[]>, length: number) {
   const m = new ArrayOfLengthMatcher(length)
 
   const actualFmt = formatCompact(control.actual)
@@ -30,7 +30,7 @@ export function toBeAnArrayOfLength(control: Control<ReadonlyArray<any>>, length
   })
 }
 
-export function toBeAnArrayWith(control: Control<ReadonlyArray<any>>, expectedItems: ReadonlyArray<any>) {
+export function toBeAnArrayWith(control: Control<readonly any[]>, expectedItems: readonly any[]) {
   const m = new ArrayWithMatcher(expectedItems)
 
   const actualFmt = formatCompact(control.actual)
@@ -43,7 +43,7 @@ export function toBeAnArrayWith(control: Control<ReadonlyArray<any>>, expectedIt
   })
 }
 
-export function toBeAnObjectWith(control: Control<Object>, expected: Object) {
+export function toBeAnObjectWith(control: Control<object>, expected: object) {
   const m = new ObjectWithMatcher(expected)
 
   const actualFmt = formatCompact(control.actual)

@@ -1,4 +1,4 @@
-import { Matcher } from '../matchers'
+import { Matcher } from '../matchers/Base'
 import { EqualityOptions } from './EqualityOptions'
 import { getCanonicalType } from './getCanonicalType'
 import { isEqualMap } from './isEqualMap'

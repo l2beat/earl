@@ -1,8 +1,9 @@
 import { Control } from '../Control'
 import { formatCompact } from '../format'
 import { AMatcher } from '../matchers'
+import { NewableOrPrimitive } from '../types'
 
-export function toBeA<T>(control: Control<T>, clazz: any) {
+export function toBeA<T>(control: Control<T>, clazz: NewableOrPrimitive) {
   const m = new AMatcher(clazz)
   const actualFmt = formatCompact(control.actual)
   const expectedFmt = formatExpectedType(clazz)
@@ -13,7 +14,7 @@ export function toBeA<T>(control: Control<T>, clazz: any) {
   })
 }
 
-function formatExpectedType(clazz: any) {
+function formatExpectedType(clazz: NewableOrPrimitive) {
   if (clazz === String) {
     return 'a string'
   } else if (clazz === Boolean) {

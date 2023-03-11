@@ -40,7 +40,7 @@ export class __ExpectationImplementation<T> implements Modifiers<T> {
     }
   }
 
-  static make<T>(actual: T, isNegated: boolean = false, options: ExpectationOptions = {}): Expectation<T> {
+  static make<T>(actual: T, isNegated = false, options: ExpectationOptions = {}): Expectation<T> {
     const instance = new __ExpectationImplementation(actual, isNegated, options)
     return instance as unknown as Expectation<T>
   }
@@ -101,11 +101,11 @@ export class __ExpectationImplementation<T> implements Modifiers<T> {
     return toBeAnArrayOfLength(this.getControl(), length)
   }
 
-  toBeAnArrayWith(...expectedItems: ReadonlyArray<any>) {
+  toBeAnArrayWith(...expectedItems: readonly any[]) {
     return toBeAnArrayWith(this.getControl(), expectedItems)
   }
 
-  toBeAnObjectWith(subset: Object) {
+  toBeAnObjectWith(subset: object) {
     return toBeAnObjectWith(this.getControl(), subset)
   }
 
@@ -170,5 +170,5 @@ export function loadValidators(validators: Record<string, DynamicValidator<any>>
 }
 
 export function getControl<T>(expectation: Expectation<T>): Control<T> {
-  return (expectation as unknown as __ExpectationImplementation<T>)['getControl']()
+  return (expectation as any).getControl()
 }

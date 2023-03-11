@@ -1,7 +1,8 @@
 // @ts-check
 
-import path from 'path'
 import { writeFileSync } from 'fs'
+import path from 'path'
+
 import { generateApiReference } from './generateApiReference'
 
 const frontmatter = `\

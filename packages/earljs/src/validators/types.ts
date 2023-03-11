@@ -1,9 +1,11 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
 import { UnionToIntersection } from 'ts-essentials'
 
 import type { Expectation } from '../Expectation'
 import type { ExpectedEqual } from '../isEqual/rules'
 import type { Mock, MockArgs } from '../mocks/types'
-import type { Newable } from '../types'
+import type { Newable, NewableOrPrimitive } from '../types'
 import type { TestContext } from './snapshots/TestContext'
 
 // registry for validators added by plugins
@@ -125,7 +127,7 @@ export interface CommonValidators<T> extends BooleanValidators, OptionalValidato
    * expect(foo).toBeA(Object) // matches any object (not null)
    * ```
    */
-  toBeA(clazz: any): void
+  toBeA(clazz: NewableOrPrimitive): void
   /**
    * Checks that the value is the same as in the previous test execution.
    */
@@ -357,7 +359,7 @@ export interface ArrayValidators {
    * expect([1]).toBeAnArrayWith(1, 1) // throws b/c a second "1" is missing
    * ```
    */
-  toBeAnArrayWith(...expectedItems: ReadonlyArray<any>): void
+  toBeAnArrayWith(...expectedItems: readonly any[]): void
 }
 
 export interface IterableValidators<T> {

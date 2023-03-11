@@ -94,6 +94,7 @@ export interface Mock<TArgs extends any[], TReturn> {
 
 export type MockArgs<T> = T extends Mock<infer Args, any> ? Args : never
 
+// eslint-disable-next-line @typescript-eslint/no-namespace
 export namespace Mock {
   export type Of<T extends (...args: any[]) => any> = Mock<Parameters<T>, ReturnType<T>>
 }
