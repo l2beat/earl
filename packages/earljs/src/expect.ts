@@ -1,72 +1,56 @@
-import {
-  __ExpectationImplementation,
-  Expectation,
-  ExpectationOptions,
-} from './Expectation'
-import {
-  AMatcher,
-  AnythingMatcher,
-  ArrayWithMatcher,
-  ContainerWithMatcher,
-  DefinedMatcher,
-  FalsyMatcher,
-  NullishMatcher,
-  NumberCloseToMatcher,
-  NumberGreaterThanMatcher,
-  NumberGreaterThanOrEqualToMatcher,
-  NumberLessThanMatcher,
-  NumberLessThanOrEqualToMatcher,
-  StringMatchingMatcher,
-  TruthyMatcher,
-} from './matchers'
-import { ArrayOfLengthMatcher } from './matchers/ArrayOfLength'
-import { ObjectWithMatcher } from './matchers/ObjectWith'
-import { Matchers } from './matchers/types'
-import { DynamicMatcher } from './plugins/types'
+import { Control } from './Control'
 
-export interface Expect extends Matchers {
-  /**
-   * The `expect` function is used every time you want to test a value.
-   *
-   * @param actual - the value to match against.
-   * @param options - optional configuration.
-   */
-  <T>(actual: T, options?: ExpectationOptions): Expectation<T>
+// to be overridden by plugins
+export interface Validators<T> {
+  readonly value: T
 }
 
-/**
- * The `expect` function is used every time you want to test a value.
- *
- * @param actual - the value to match against.
- * @param options - optional configuration.
- */
-export const expect: Expect = <T>(
-  actual: T,
-  options: ExpectationOptions = {},
-): Expectation<T> => {
-  return __ExpectationImplementation.make(actual, false, options)
-}
-expect.anything = AnythingMatcher.make
-expect.a = AMatcher.make
-expect.stringMatching = StringMatchingMatcher.make
-expect.numberCloseTo = NumberCloseToMatcher.make
-expect.containerWith = ContainerWithMatcher.make
-expect.arrayOfLength = ArrayOfLengthMatcher.make
-expect.arrayWith = ArrayWithMatcher.make
-expect.objectWith = ObjectWithMatcher.make
-expect.numberGreaterThan = NumberGreaterThanMatcher.make
-expect.numberGreaterThanOrEqualTo = NumberGreaterThanOrEqualToMatcher.make
-expect.numberLessThan = NumberLessThanMatcher.make
-expect.numberLessThanOrEqualTo = NumberLessThanOrEqualToMatcher.make
-expect.truthy = TruthyMatcher.make
-expect.falsy = FalsyMatcher.make
-expect.defined = DefinedMatcher.make
-expect.nullish = NullishMatcher.make
+// to be overridden by plugins
+export interface Matchers {}
 
-// dynamically load new matchers and attach to expect object
-// used by plugin loader
-export function loadMatchers(matchers: Record<string, DynamicMatcher>) {
-  for (const [name, matcher] of Object.entries(matchers)) {
-    ;(expect as any)[name] = matcher
+export abstract class Matcher {
+  abstract check(v: unknown): boolean
+  abstract toString(): string
+}
+
+class Expectation<T> {
+  _negated = false
+  constructor(public readonly value: T) {}
+
+  get not() {
+    this._negated = !this._negated
+    return this
+  }
+
+  _getControl() {
+    return new Control(this.value, this._negated)
   }
 }
+
+export function registerValidator(
+  name: string,
+  validator: (control: Control<any>, ...args: any[]) => any,
+) {
+  Reflect.set(
+    Expectation.prototype,
+    name,
+    function (this: Expectation<any>, ...args: any[]) {
+      return validator(this._getControl(), ...args)
+    },
+  )
+}
+
+const rawExpect = function expect<T>(
+  value: T,
+): Validators<T> & { not: Validators<T> } {
+  return new Expectation(value) as any
+}
+
+export function registerMatcher(
+  name: string,
+  build: (...args: any[]) => Matcher,
+) {
+  Reflect.set(rawExpect, name, build)
+}
+
+export const expect = rawExpect as typeof rawExpect & Matchers

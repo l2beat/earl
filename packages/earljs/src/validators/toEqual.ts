@@ -1,6 +1,15 @@
 import { Control } from '../Control'
 import { format, formatCompact } from '../format'
 import { isEqual } from '../isEqual'
+import { registerValidator } from '../expect'
+
+declare module '../expect' {
+  interface Validators<T> {
+    toEqual(expected: T): void
+  }
+}
+
+registerValidator('toEqual', toEqual)
 
 export function toEqual<T>(control: Control<T>, expected: T) {
   const actualFmt = formatCompact(control.actual)

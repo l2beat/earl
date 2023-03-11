@@ -1,5 +1,16 @@
 import { Class2Primitive, NewableOrPrimitive } from '../types'
-import { Matcher } from './Base'
+import { Matcher, registerMatcher } from '../expect'
+
+declare module '../expect' {
+  interface Matchers {
+    a<T>(type: NewableOrPrimitive<T>): Class2Primitive<T>
+  }
+}
+
+registerMatcher(
+  'anything',
+  <T>(clazz: NewableOrPrimitive<T>) => new AMatcher<T>(clazz),
+)
 
 export class AMatcher<T> extends Matcher {
   constructor(private readonly clazz: NewableOrPrimitive<T>) {
@@ -37,9 +48,5 @@ export class AMatcher<T> extends Matcher {
 
   toString() {
     return `[A: ${this.clazz.name}]`
-  }
-
-  static make<T>(clazz: NewableOrPrimitive<T>): Class2Primitive<T> {
-    return new AMatcher(clazz) as any
   }
 }

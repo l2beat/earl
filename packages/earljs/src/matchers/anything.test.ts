@@ -1,6 +1,5 @@
 import { expect } from 'chai'
-
-import { AnythingMatcher } from './Anything'
+import { AnythingMatcher } from './anything'
 
 describe('Anything matcher', () => {
   it('should match anything', () => {
