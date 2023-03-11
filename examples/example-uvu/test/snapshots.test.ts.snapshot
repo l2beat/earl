@@ -11,3 +11,10 @@
 // work 2
 
 "totally different thing"
+
+// my suite my test 1
+
+{
+  awesome: true
+  name: "uvu"
+}
