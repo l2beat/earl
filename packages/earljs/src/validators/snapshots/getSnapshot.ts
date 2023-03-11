@@ -2,11 +2,12 @@ import { readFileSync } from 'fs'
 import path from 'path'
 
 import { EarlConfigurationError } from '../../errors'
+import { parseSnapshot } from './format'
 import { SnapshotUpdateMode } from './getSnapshotUpdateMode'
 import { TestContext } from './TestContext'
 
 const counters = new Map<string, Map<string, number>>()
-const snapshots = new Map<string, Record<string, unknown>>()
+const snapshots = new Map<string, Record<string, string>>()
 
 export function resetSnapshotCache() {
   counters.clear()
@@ -34,10 +35,7 @@ export function getSnapshot(controlFileName: string | undefined, context: TestCo
   let content = snapshots.get(file)
   if (!content || mode === 'all') {
     try {
-      const parsed = JSON.parse(readFileSync(file, 'utf8'))
-      if (typeof parsed === 'object' && parsed !== null) {
-        content = parsed
-      }
+      content = parseSnapshot(readFileSync(file, 'utf8'))
     } catch {}
   }
   content = content || {}

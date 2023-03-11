@@ -3,6 +3,7 @@ import { readFileSync, writeFileSync } from 'fs'
 
 import { expect as earl } from '../../../src'
 import { format } from '../../../src/format'
+import { formatSnapshot, parseSnapshot } from '../../../src/validators/snapshots/format'
 import { resetSnapshotCache } from '../../../src/validators/snapshots/getSnapshot'
 import { MochaTestContext } from '../../../src/validators/snapshots/TestContext'
 import { toMatchSnapshot } from '../../../src/validators/snapshots/toMatchSnapshot'
@@ -57,7 +58,7 @@ describe(toMatchSnapshot.name, () => {
       'foo 2': '"foo2"',
       'bar 1': '"bar1"',
     }
-    writeFileSync(SNAPSHOT_FILE, JSON.stringify(content), 'utf8')
+    writeFileSync(SNAPSHOT_FILE, formatSnapshot(content), 'utf8')
 
     expect(() => {
       earl('foo1').toMatchSnapshot(mochaContext('foo'))
@@ -76,7 +77,7 @@ describe(toMatchSnapshot.name, () => {
       'complex 1': format(x, null),
       'complex 2': format({ ...x, x: null }, null),
     }
-    writeFileSync(SNAPSHOT_FILE, JSON.stringify(content), 'utf8')
+    writeFileSync(SNAPSHOT_FILE, formatSnapshot(content), 'utf8')
 
     expect(() => {
       earl(x).toMatchSnapshot(mochaContext('complex'))
@@ -133,7 +134,7 @@ describe(toMatchSnapshot.name, () => {
 
     it('updates when a value is not present in the snapshot', () => {
       earl('baz').toMatchSnapshot(mochaContext('unknown'))
-      const updatedContent = JSON.parse(readFileSync(SNAPSHOT_FILE, 'utf8'))
+      const updatedContent = parseSnapshot(readFileSync(SNAPSHOT_FILE, 'utf8'))
       expect(updatedContent).to.deep.equal({
         'foo 1': '"foo"',
         'bar 1': '"bar"',
@@ -155,7 +156,7 @@ describe(toMatchSnapshot.name, () => {
 
     it('updates when a snapshot does not match', () => {
       earl('baz').toMatchSnapshot(mochaContext('bar'))
-      const updatedContent = JSON.parse(readFileSync(SNAPSHOT_FILE, 'utf8'))
+      const updatedContent = parseSnapshot(readFileSync(SNAPSHOT_FILE, 'utf8'))
       expect(updatedContent).to.deep.equal({
         'foo 1': '"foo"',
         'bar 1': '"baz"',
@@ -164,7 +165,7 @@ describe(toMatchSnapshot.name, () => {
 
     it('updates when a value is not present in the snapshot', () => {
       earl('baz').toMatchSnapshot(mochaContext('unknown'))
-      const updatedContent = JSON.parse(readFileSync(SNAPSHOT_FILE, 'utf8'))
+      const updatedContent = parseSnapshot(readFileSync(SNAPSHOT_FILE, 'utf8'))
       expect(updatedContent).to.deep.equal({
         'foo 1': '"foo"',
         'bar 1': '"bar"',

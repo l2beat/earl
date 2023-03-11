@@ -1,6 +1,13 @@
+// work 1
+
 {
-  "snapshots work 1": "{\n  very: {\n    nested: {\n      wow: \"wow\"\n    }\n  }\n}",
-  "snapshots work 2": "\"totally different thing\"",
-  "work 1": "{\n  very: {\n    nested: {\n      wow: \"wow\"\n    }\n  }\n}",
-  "work 2": "\"totally different thing\""
+  very: {
+    nested: {
+      wow: "wow"
+    }
+  }
 }
+
+// work 2
+
+"totally different thing"

@@ -3,6 +3,7 @@ import { writeFileSync } from 'fs'
 import { Control } from '../../Control'
 import { EarlConfigurationError } from '../../errors'
 import { format, formatCompact } from '../../format'
+import { formatSnapshot } from './format'
 import { getSnapshot } from './getSnapshot'
 import { getSnapshotUpdateMode } from './getSnapshotUpdateMode'
 import { TestContext } from './TestContext'
@@ -22,7 +23,7 @@ export function toMatchSnapshot(control: Control<unknown>, context: TestContext)
 
   if (mode === 'all' || (mode === 'new' && snapshot.expected === undefined)) {
     snapshot.content[snapshot.name] = actual
-    writeFileSync(snapshot.file, JSON.stringify(snapshot.content, null, 2), 'utf8')
+    writeFileSync(snapshot.file, formatSnapshot(snapshot.content), 'utf8')
   } else if (snapshot.expected === undefined) {
     control.assert({
       success: false,
