@@ -1,20 +1,8 @@
-// ensure NODE_ENV
 process.env.NODE_ENV = 'test'
-
-// exit test runner on unhandled rejections
-process.on('unhandledRejection', (reason, promise) => {
-  console.error(
-    'Unhandled Rejection during test execution:',
-    promise,
-    'reason:',
-    reason,
-  )
-  process.exit(1)
-})
-
 module.exports = {
-  require: ['ts-node/register/transpile-only', './test/setup.ts'],
-  extension: 'ts',
+  spec: '{src,test}/**/*.test.ts',
+  file: 'test/setup.ts',
+  require: 'ts-node/register/transpile-only',
   watchExtensions: 'ts',
-  spec: 'test/**/*.test.ts',
+  extension: 'ts',
 }
