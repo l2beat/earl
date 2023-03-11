@@ -1,6 +1,7 @@
+process.env.NODE_ENV = 'test'
 module.exports = {
-  require: ['ts-node/register/transpile-only'],
-  extension: 'ts',
+  spec: 'scripts/**/*.test.ts',
+  require: 'ts-node/register/transpile-only',
   watchExtensions: 'ts',
-  spec: '**/*.test.ts',
+  extension: 'ts',
 }

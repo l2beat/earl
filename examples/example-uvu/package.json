@@ -6,10 +6,10 @@
     "start": "ts-node -T ./src/index.ts",
     "format": "prettier --check .",
     "format:fix": "prettier --write .",
-    "lint": "eslint --ext .ts .",
+    "lint": "eslint --ext .ts src",
     "lint:fix": "pnpm lint --fix",
     "typecheck": "tsc --noEmit",
-    "test": "uvu -r ts-node/register test",
+    "test": "uvu -r ts-node/register src",
     "test:fix": "pnpm lint:fix && pnpm format:fix && pnpm test && pnpm typecheck"
   },
   "dependencies": {
