@@ -21,7 +21,9 @@ describe('optional matchers', () => {
     })
 
     it('check() returns true if and only if x != null', () => {
-      fc.assert(fc.property(arbitraries.anything, (x) => m.check(x) === (x != null)))
+      fc.assert(
+        fc.property(arbitraries.anything, (x) => m.check(x) === (x != null)),
+      )
     })
   })
 
@@ -41,7 +43,9 @@ describe('optional matchers', () => {
     })
 
     it('check() returns true if and only if x == null', () => {
-      fc.assert(fc.property(arbitraries.anything, (x) => m.check(x) === (x == null)))
+      fc.assert(
+        fc.property(arbitraries.anything, (x) => m.check(x) === (x == null)),
+      )
     })
   })
 })

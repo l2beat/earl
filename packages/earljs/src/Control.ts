@@ -10,9 +10,13 @@ export interface ValidationResult {
 }
 
 export class Control<T> {
-  private location = AssertionError.getLocation()
+  private readonly location = AssertionError.getLocation()
 
-  constructor(public actual: T, public isNegated: boolean, private extraMessage?: string) {}
+  constructor(
+    public actual: T,
+    public isNegated: boolean,
+    private readonly extraMessage?: string,
+  ) {}
 
   get file() {
     return this.location.file
@@ -30,7 +34,9 @@ export class Control<T> {
     }
   }
 
-  fail = (result: Omit<ValidationResult, 'success' | 'negatedReason'>): never => {
+  fail = (
+    result: Omit<ValidationResult, 'success' | 'negatedReason'>,
+  ): never => {
     throw new AssertionError({
       message: result.reason,
       stack: this.location.stack,

@@ -4,8 +4,11 @@ import { expect } from 'chai'
 
 import { format, FormatOptions } from '../../src/format'
 import { EqualityOptions, isEqual } from '../../src/isEqual'
-import { clearSmartEqRules } from '../../src/isEqual/rules'
-import { buildSmartEqResult, loadSmartEqRules } from '../../src/isEqual/rules'
+import {
+  buildSmartEqResult,
+  clearSmartEqRules,
+  loadSmartEqRules,
+} from '../../src/isEqual/rules'
 import { AMatcher, AnythingMatcher } from '../../src/matchers'
 
 describe('isEqual', () => {
@@ -30,7 +33,12 @@ describe('isEqual', () => {
     name: string
     testCases: TestCase[]
   }
-  type TestCase = [unknown, unknown, boolean, Partial<EqualityOptions & { oneWay: boolean }>?]
+  type TestCase = [
+    unknown,
+    unknown,
+    boolean,
+    Partial<EqualityOptions & { oneWay: boolean }>?,
+  ]
 
   function twice<T>(value: T): [T, T] {
     return [value, value]
@@ -123,7 +131,11 @@ describe('isEqual', () => {
           const testCases: TestCase[] = []
           for (let i = 0; i < options.length; i++) {
             for (let j = i; j < options.length; j++) {
-              testCases.push([options[i], options[j], options[i] === options[j]])
+              testCases.push([
+                options[i],
+                options[j],
+                options[i] === options[j],
+              ])
             }
           }
           return testCases
@@ -137,8 +149,16 @@ describe('isEqual', () => {
         [class A {}, function A() {}, false],
         [Array, Array, true],
         [Array, Map, false],
-        [function x() {}, Object.assign(function x() {}, { foo: 'bar' }), false],
-        [Object.assign(function x() {}, { foo: 'bar' }), Object.assign(function x() {}, { foo: 'bar' }), false],
+        [
+          function x() {},
+          Object.assign(function x() {}, { foo: 'bar' }),
+          false,
+        ],
+        [
+          Object.assign(function x() {}, { foo: 'bar' }),
+          Object.assign(function x() {}, { foo: 'bar' }),
+          false,
+        ],
         [...twice(Object.assign(function x() {}, { foo: 'bar' })), true],
       ],
     },
@@ -150,7 +170,11 @@ describe('isEqual', () => {
         [{ x: 1 }, { x: 1 }, true],
         [{ x: 1, y: 2 }, { x: 1, y: 2 }, true],
         [{ x: 1, y: 2 }, { x: 1, y: 3 }, false],
-        [{ x: 1, y: { a: 'x', b: 'y' } }, { x: 1, y: { a: 'x', b: 'y' } }, true],
+        [
+          { x: 1, y: { a: 'x', b: 'y' } },
+          { x: 1, y: { a: 'x', b: 'y' } },
+          true,
+        ],
         [{ x: 1, y: 2 }, { y: 2, x: 1 }, true],
         ...(() => {
           class Vector2 {
@@ -160,7 +184,12 @@ describe('isEqual', () => {
             [new Vector2(1, 2), new Vector2(1, 2), true],
             [new Vector2(1, 2), new Vector2(3, 4), false],
             [new Vector2(1, 2), { x: 1, y: 2 }, false],
-            [new Vector2(1, 2), { x: 1, y: 2 }, true, { ignorePrototypes: true }],
+            [
+              new Vector2(1, 2),
+              { x: 1, y: 2 },
+              true,
+              { ignorePrototypes: true },
+            ],
           ] as TestCase[]
         })(),
       ],
@@ -229,7 +258,11 @@ describe('isEqual', () => {
         [new Array(3), new Array(3), true],
         [new Array(3), new Array(4), false],
         [Object.assign([1, 2, 3], { foo: 'bar' }), [1, 2, 3], false],
-        [Object.assign([1, 2, 3], { foo: 'bar' }), Object.assign([1, 2, 3], { foo: 'bar' }), true],
+        [
+          Object.assign([1, 2, 3], { foo: 'bar' }),
+          Object.assign([1, 2, 3], { foo: 'bar' }),
+          true,
+        ],
         [[1, 2, 3], { 0: 1, 1: 2, 2: 3 }, false],
       ],
       ...(() => {
@@ -245,15 +278,25 @@ describe('isEqual', () => {
     {
       name: 'dates',
       testCases: [
-        [new Date('2005-04-02T21:37:00.000+02:00'), new Date('2005-04-02T19:37:00.000Z'), true],
         [
-          Object.assign(new Date('2005-04-02T21:37:00.000+02:00'), { foo: 'bar' }),
+          new Date('2005-04-02T21:37:00.000+02:00'),
+          new Date('2005-04-02T19:37:00.000Z'),
+          true,
+        ],
+        [
+          Object.assign(new Date('2005-04-02T21:37:00.000+02:00'), {
+            foo: 'bar',
+          }),
           new Date('2005-04-02T21:37:00.000+02:00'),
           false,
         ],
         [
-          Object.assign(new Date('2005-04-02T21:37:00.000+02:00'), { foo: 'bar' }),
-          Object.assign(new Date('2005-04-02T21:37:00.000+02:00'), { foo: 'bar' }),
+          Object.assign(new Date('2005-04-02T21:37:00.000+02:00'), {
+            foo: 'bar',
+          }),
+          Object.assign(new Date('2005-04-02T21:37:00.000+02:00'), {
+            foo: 'bar',
+          }),
           true,
         ],
         ...(() => {
@@ -264,7 +307,12 @@ describe('isEqual', () => {
             [new MyDate(123), new MyDate(123), true],
             [new MyDate(123), new MyDate(456), false],
             [new MyDate(123), new (class MyDate extends Date {})(123), false],
-            [new MyDate(123), new (class MyDate extends Date {})(123), true, { ignorePrototypes: true }],
+            [
+              new MyDate(123),
+              new (class MyDate extends Date {})(123),
+              true,
+              { ignorePrototypes: true },
+            ],
           ] as TestCase[]
         })(),
       ],
@@ -275,16 +323,34 @@ describe('isEqual', () => {
         [/asd/, /asd/, true],
         [/asd/, /asd/i, false],
         [Object.assign(/asd/, { foo: 'bar' }), /asd/, false],
-        [Object.assign(/asd/, { foo: 'bar' }), Object.assign(/asd/, { foo: 'bar' }), true],
+        [
+          Object.assign(/asd/, { foo: 'bar' }),
+          Object.assign(/asd/, { foo: 'bar' }),
+          true,
+        ],
         ...(() => {
           class MyRegExp extends RegExp {}
           return [
             [new RegExp('foo'), new MyRegExp('foo'), false],
-            [new RegExp('foo'), new MyRegExp('foo'), true, { ignorePrototypes: true }],
+            [
+              new RegExp('foo'),
+              new MyRegExp('foo'),
+              true,
+              { ignorePrototypes: true },
+            ],
             [new MyRegExp('foo'), new MyRegExp('foo'), true],
             [new MyRegExp('foo'), new MyRegExp('bar'), false],
-            [new MyRegExp('foo'), new (class MyRegExp extends RegExp {})('foo'), false],
-            [new MyRegExp('foo'), new (class MyRegExp extends RegExp {})('foo'), true, { ignorePrototypes: true }],
+            [
+              new MyRegExp('foo'),
+              new (class MyRegExp extends RegExp {})('foo'),
+              false,
+            ],
+            [
+              new MyRegExp('foo'),
+              new (class MyRegExp extends RegExp {})('foo'),
+              true,
+              { ignorePrototypes: true },
+            ],
           ] as TestCase[]
         })(),
       ],
@@ -301,8 +367,16 @@ describe('isEqual', () => {
         [new Boolean(true), new Boolean(true), true],
         [new Boolean(true), new Boolean(false), false],
         [new Boolean(true), true, false],
-        [Object.assign(new String('foo'), { foo: 'bar' }), new String('foo'), false],
-        [Object.assign(new String('foo'), { foo: 'bar' }), Object.assign(new String('foo'), { foo: 'bar' }), true],
+        [
+          Object.assign(new String('foo'), { foo: 'bar' }),
+          new String('foo'),
+          false,
+        ],
+        [
+          Object.assign(new String('foo'), { foo: 'bar' }),
+          Object.assign(new String('foo'), { foo: 'bar' }),
+          true,
+        ],
         ...(() => {
           class MyString extends String {}
           class MyNumber extends Number {}
@@ -310,25 +384,67 @@ describe('isEqual', () => {
 
           return [
             [new String('foo'), new MyString('foo'), false],
-            [new String('foo'), new MyString('foo'), true, { ignorePrototypes: true }],
+            [
+              new String('foo'),
+              new MyString('foo'),
+              true,
+              { ignorePrototypes: true },
+            ],
             [new MyString('foo'), new MyString('foo'), true],
             [new MyString('foo'), new MyString('bar'), false],
-            [new MyString('foo'), new (class MyString extends String {})('foo'), false],
-            [new MyString('foo'), new (class MyString extends String {})('foo'), true, { ignorePrototypes: true }],
+            [
+              new MyString('foo'),
+              new (class MyString extends String {})('foo'),
+              false,
+            ],
+            [
+              new MyString('foo'),
+              new (class MyString extends String {})('foo'),
+              true,
+              { ignorePrototypes: true },
+            ],
 
             [new Number(123), new MyNumber(123), false],
-            [new Number(123), new MyNumber(123), true, { ignorePrototypes: true }],
+            [
+              new Number(123),
+              new MyNumber(123),
+              true,
+              { ignorePrototypes: true },
+            ],
             [new MyNumber(123), new MyNumber(123), true],
             [new MyNumber(123), new MyNumber(456), false],
-            [new MyNumber(123), new (class MyNumber extends Number {})(123), false],
-            [new MyNumber(123), new (class MyNumber extends Number {})(123), true, { ignorePrototypes: true }],
+            [
+              new MyNumber(123),
+              new (class MyNumber extends Number {})(123),
+              false,
+            ],
+            [
+              new MyNumber(123),
+              new (class MyNumber extends Number {})(123),
+              true,
+              { ignorePrototypes: true },
+            ],
 
             [new Boolean(true), new MyBoolean(true), false],
-            [new Boolean(true), new MyBoolean(true), true, { ignorePrototypes: true }],
+            [
+              new Boolean(true),
+              new MyBoolean(true),
+              true,
+              { ignorePrototypes: true },
+            ],
             [new MyBoolean(true), new MyBoolean(true), true],
             [new MyBoolean(true), new MyBoolean(false), false],
-            [new MyBoolean(true), new (class MyBoolean extends Boolean {})(true), false],
-            [new MyBoolean(true), new (class MyBoolean extends Boolean {})(true), true, { ignorePrototypes: true }],
+            [
+              new MyBoolean(true),
+              new (class MyBoolean extends Boolean {})(true),
+              false,
+            ],
+            [
+              new MyBoolean(true),
+              new (class MyBoolean extends Boolean {})(true),
+              true,
+              { ignorePrototypes: true },
+            ],
           ] as TestCase[]
         })(),
       ],
@@ -362,7 +478,12 @@ describe('isEqual', () => {
       name: 'errors',
       testCases: [
         [new Error('foo'), new Error('foo'), true],
-        [new Error('foo'), new Error('foo'), false, { compareErrorStack: true }],
+        [
+          new Error('foo'),
+          new Error('foo'),
+          false,
+          { compareErrorStack: true },
+        ],
         [
           Object.assign(new Error('foo'), { stack: 'asd' }),
           Object.assign(new Error('foo'), { stack: 'asd' }),
@@ -372,8 +493,17 @@ describe('isEqual', () => {
         [new Error('foo'), new Error('bar'), false],
         [new TypeError('foo'), new TypeError('foo'), true],
         [new Error('foo'), new TypeError('foo'), false],
-        [new Error('foo'), new TypeError('foo'), false, { ignorePrototypes: true }],
-        [new (class MyError extends Error {})('foo'), new (class MyError extends Error {})('foo'), false],
+        [
+          new Error('foo'),
+          new TypeError('foo'),
+          false,
+          { ignorePrototypes: true },
+        ],
+        [
+          new (class MyError extends Error {})('foo'),
+          new (class MyError extends Error {})('foo'),
+          false,
+        ],
         [
           new (class MyError extends Error {})('foo'),
           new (class MyError extends Error {})('foo'),
@@ -385,8 +515,18 @@ describe('isEqual', () => {
     {
       name: 'matchers',
       testCases: [
-        [{ x: 1, y: 2 }, { x: new AMatcher(Number), y: new AMatcher(Number) }, true, { oneWay: true }],
-        [{ x: 1, y: 2 }, { x: new AMatcher(Number), y: new AMatcher(String) }, false, { oneWay: true }],
+        [
+          { x: 1, y: 2 },
+          { x: new AMatcher(Number), y: new AMatcher(Number) },
+          true,
+          { oneWay: true },
+        ],
+        [
+          { x: 1, y: 2 },
+          { x: new AMatcher(Number), y: new AMatcher(String) },
+          false,
+          { oneWay: true },
+        ],
         [[], [new AnythingMatcher()], false, { oneWay: true }],
         [
           (() => {
@@ -451,8 +591,17 @@ describe('isEqual', () => {
           new Map([[1, 'a']]),
           false,
         ],
-        [new Map([[1, 'a']]), new Map([[1, new AnythingMatcher()]]), true, { oneWay: true }],
-        [Object.assign(new Map([[1, 'a']]), { foo: 'bar' }), new Map([[1, 'a']]), false],
+        [
+          new Map([[1, 'a']]),
+          new Map([[1, new AnythingMatcher()]]),
+          true,
+          { oneWay: true },
+        ],
+        [
+          Object.assign(new Map([[1, 'a']]), { foo: 'bar' }),
+          new Map([[1, 'a']]),
+          false,
+        ],
         [
           ...(() => {
             const a = { x: 1 }

@@ -1,6 +1,6 @@
 import { toLine } from './toLine'
 
-const wellKnownSymbols = new Map<Symbol, string>()
+const wellKnownSymbols = new Map<symbol, string>()
 for (const key of Object.getOwnPropertyNames(Symbol)) {
   const known = (Symbol as any)[key]
   if (typeof known === 'symbol') {
@@ -17,7 +17,11 @@ export function formatSymbol(value: symbol, sibling: unknown) {
   if (wellKnown) {
     return toLine(wellKnown)
   }
-  if (typeof sibling === 'symbol' && value !== sibling && value.toString() === sibling.toString()) {
+  if (
+    typeof sibling === 'symbol' &&
+    value !== sibling &&
+    value.toString() === sibling.toString()
+  ) {
     return toLine(`${value.toString()} (different)`)
   }
   return toLine(value.toString())

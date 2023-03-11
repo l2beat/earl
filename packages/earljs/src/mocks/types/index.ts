@@ -59,7 +59,9 @@ export interface Mock<TArgs extends any[], TReturn> {
    * If anything is already scheduled it will be used first.
    * @param implementation - function to execute.
    */
-  executesOnce(implementation: (...args: TArgs[]) => TReturn): Mock<TArgs, TReturn>
+  executesOnce(
+    implementation: (...args: TArgs[]) => TReturn,
+  ): Mock<TArgs, TReturn>
 
   /**
    * Sets the return value wrapped in Promise.resolve of calls to the Mock.
@@ -89,11 +91,17 @@ export interface Mock<TArgs extends any[], TReturn> {
    * Specifies a different behavior when other arguments are given
    * @param args - arguments to match.
    */
-  given<TGivenArgs extends TArgs>(...args: TGivenArgs): MockGiven<TArgs, TReturn, TGivenArgs>
+  given<TGivenArgs extends TArgs>(
+    ...args: TGivenArgs
+  ): MockGiven<TArgs, TReturn, TGivenArgs>
 }
 
 export type MockArgs<T> = T extends Mock<infer Args, any> ? Args : never
 
+// eslint-disable-next-line @typescript-eslint/no-namespace
 export namespace Mock {
-  export type Of<T extends (...args: any[]) => any> = Mock<Parameters<T>, ReturnType<T>>
+  export type Of<T extends (...args: any[]) => any> = Mock<
+    Parameters<T>,
+    ReturnType<T>
+  >
 }

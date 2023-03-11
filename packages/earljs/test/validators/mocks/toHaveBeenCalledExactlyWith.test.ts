@@ -3,7 +3,7 @@ import { expect } from 'chai'
 import { expect as earl } from '../../../src'
 import { mockFn } from '../../../src/mocks'
 
-const sum = (a: number, b: number = 0) => a + b
+const sum = (a: number, b = 0) => a + b
 
 describe('toHaveBeenCalledExactlyWith', () => {
   describe('not negated', () => {
@@ -12,7 +12,9 @@ describe('toHaveBeenCalledExactlyWith', () => {
 
       mock(1, 2)
 
-      expect(() => earl(mock).toHaveBeenCalledExactlyWith([[1, 2]])).not.to.throw()
+      expect(() =>
+        earl(mock).toHaveBeenCalledExactlyWith([[1, 2]]),
+      ).not.to.throw()
     })
 
     it('works when was not called at all', () => {
@@ -26,7 +28,9 @@ describe('toHaveBeenCalledExactlyWith', () => {
 
       mock(1, 2)
 
-      expect(() => earl(mock).toHaveBeenCalledExactlyWith([[1, earl.a(Number)]])).not.to.throw()
+      expect(() =>
+        earl(mock).toHaveBeenCalledExactlyWith([[1, earl.a(Number)]]),
+      ).not.to.throw()
     })
 
     it('works with multiple calls', () => {
@@ -35,7 +39,9 @@ describe('toHaveBeenCalledExactlyWith', () => {
       mock(1, 2)
       mock(3)
 
-      expect(() => earl(mock).toHaveBeenCalledExactlyWith([[1, 2], [3]])).not.to.throw()
+      expect(() =>
+        earl(mock).toHaveBeenCalledExactlyWith([[1, 2], [3]]),
+      ).not.to.throw()
     })
 
     it('throws on partial matches', () => {
@@ -55,9 +61,9 @@ describe('toHaveBeenCalledExactlyWith', () => {
 
       mock(1, 2)
 
-      expect(() => earl(mock).not.toHaveBeenCalledExactlyWith([[1, 2]])).to.throw(
-        "Mock was called exactly with [[1, 2]] but wasn't expected to",
-      )
+      expect(() =>
+        earl(mock).not.toHaveBeenCalledExactlyWith([[1, 2]]),
+      ).to.throw("Mock was called exactly with [[1, 2]] but wasn't expected to")
     })
 
     it("works when wasn't called with expected args", () => {
@@ -65,7 +71,9 @@ describe('toHaveBeenCalledExactlyWith', () => {
 
       mock(1, 2)
 
-      expect(() => earl(mock).not.toHaveBeenCalledExactlyWith([[1, 3]])).not.to.throw()
+      expect(() =>
+        earl(mock).not.toHaveBeenCalledExactlyWith([[1, 3]]),
+      ).not.to.throw()
     })
 
     it('works with empty mocks', () => {

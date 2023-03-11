@@ -5,7 +5,7 @@ import { isEqual } from '../isEqual'
 import { Matcher } from './Base'
 
 export class ArrayWithMatcher<T> extends Matcher {
-  constructor(private readonly expectedItems: ReadonlyArray<T>) {
+  constructor(private readonly expectedItems: readonly T[]) {
     super()
   }
 
@@ -27,12 +27,16 @@ export class ArrayWithMatcher<T> extends Matcher {
 }
 
 /** @internal */
-export function contains(expectedItems: ReadonlyArray<any>, actualItems: ReadonlyArray<any>): boolean {
+export function contains(
+  expectedItems: readonly any[],
+  actualItems: readonly any[],
+): boolean {
   const matchedIndexes: Dictionary<boolean, number> = {}
 
   return expectedItems.every((expectedItem) => {
     const foundIndex = actualItems.findIndex(
-      (actualItem, index) => isEqual(actualItem, expectedItem) && !matchedIndexes[index],
+      (actualItem, index) =>
+        isEqual(actualItem, expectedItem) && !matchedIndexes[index],
     )
 
     if (foundIndex !== -1) {

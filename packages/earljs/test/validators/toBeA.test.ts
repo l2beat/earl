@@ -13,7 +13,9 @@ describe('toBeA validator', () => {
     })
 
     it('throws class', () => {
-      expect(() => earl(1).toBeA(class Foo {})).to.throw('1 is not an instance of class Foo')
+      expect(() => earl(1).toBeA(class Foo {})).to.throw(
+        '1 is not an instance of class Foo',
+      )
     })
   })
 
@@ -28,7 +30,9 @@ describe('toBeA validator', () => {
 
     it('throws', () => {
       class Foo {}
-      expect(() => earl(new Foo()).not.toBeA(Foo)).to.throw('{} is an instance of class Foo')
+      expect(() => earl(new Foo()).not.toBeA(Foo)).to.throw(
+        '{} is an instance of class Foo',
+      )
     })
   })
 })

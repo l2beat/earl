@@ -46,25 +46,33 @@ describe('ContainerWith matcher', () => {
     it('works with array', () => {
       earlExpect([1, 2, 3]).toEqual(earlExpect.containerWith(3))
       earlExpect([1, 2, 3]).toEqual(earlExpect.containerWith(1, 2, 3))
-      earlExpect([1, 2, 3]).not.toEqual(earlExpect.containerWith(1, 2, 3, 4, 5, 6))
+      earlExpect([1, 2, 3]).not.toEqual(
+        earlExpect.containerWith(1, 2, 3, 4, 5, 6),
+      )
     })
 
     it('works with sets', () => {
       earlExpect(new Set([1, 2, 3])).toEqual(earlExpect.containerWith(3))
       earlExpect(new Set([1, 2, 3])).toEqual(earlExpect.containerWith(1, 2, 3))
-      earlExpect(new Set([1, 2, 3])).not.toEqual(earlExpect.containerWith(1, 2, 3, 4, 5, 6))
+      earlExpect(new Set([1, 2, 3])).not.toEqual(
+        earlExpect.containerWith(1, 2, 3, 4, 5, 6),
+      )
     })
 
     it('works with nested matchers', () => {
       earlExpect({ arr: [1, 5, 10] }).toEqual({
-        arr: earlExpect.containerWith(earlExpect.numberCloseTo(6, { delta: 1 })),
+        arr: earlExpect.containerWith(
+          earlExpect.numberCloseTo(6, { delta: 1 }),
+        ),
       })
     })
 
     it('throws understandable error messages', () => {
       expect(() =>
         earlExpect({ arr: [1, 2, 3] }).toEqual({
-          arr: earlExpect.containerWith(earlExpect.numberCloseTo(6, { delta: 1 })),
+          arr: earlExpect.containerWith(
+            earlExpect.numberCloseTo(6, { delta: 1 }),
+          ),
         }),
       ).to.throw('{ arr: [1, 2, 3] } not equal to { arr: Matcher }')
     })

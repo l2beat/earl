@@ -4,7 +4,7 @@ import { LOOSE_FORMAT_OPTIONS } from '../format/FormatOptions'
 import { isEqual, LOOSE_EQUALITY_OPTIONS } from '../isEqual'
 
 // @todo: follow design of jest's loose equal
-export function toLooseEqual(control: Control<any>, expected: any) {
+export function toLooseEqual(control: Control<unknown>, expected: unknown) {
   const actualFmt = formatCompact(control.actual)
   const expectedFmt = formatCompact(expected)
   const reason = `${actualFmt} not loose equal to ${expectedFmt}`

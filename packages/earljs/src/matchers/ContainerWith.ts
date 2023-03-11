@@ -3,7 +3,7 @@ import { contains } from './ArrayWith'
 import { Matcher } from './Base'
 
 export class ContainerWithMatcher<T> extends Matcher {
-  constructor(private readonly expectedItems: ReadonlyArray<T>) {
+  constructor(private readonly expectedItems: readonly T[]) {
     super()
   }
 

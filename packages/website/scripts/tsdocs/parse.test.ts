@@ -1,7 +1,7 @@
 import { expect } from '@earljs/published'
 
-import { parseTsDocComment } from './parse'
 import { MethodComment } from '../types'
+import { parseTsDocComment } from './parse'
 
 export const sampleMethodComment: MethodComment = {
   signature: 'someMethod(x: number, y: number): void',
@@ -45,11 +45,14 @@ someMethod(1, 2)
 
   it('abbreviates exported function signature', () => {
     const actual = parseTsDocComment({
-      signature: 'export declare function mockFn<F extends (...args: any) => any>(defaultImpl?: F): Mock.Of<F>',
+      signature:
+        'export declare function mockFn<F extends (...args: any) => any>(defaultImpl?: F): Mock.Of<F>',
       comment: '/** */',
     })
 
-    expect(actual.abbreviatedSignature).toEqual('function mockFn<F extends (...args: any) => any>(defaultImpl?: F)')
+    expect(actual.abbreviatedSignature).toEqual(
+      'function mockFn<F extends (...args: any) => any>(defaultImpl?: F)',
+    )
   })
 
   it('successfuly parses trailing slashes representing newlines', () => {
@@ -79,7 +82,9 @@ someMethod(1, 2)
   * @param x - The first input number
   */`,
       }),
-    ).toThrow(`Param description for "x" of "test(x: number): void" doesn't end with a dot (".")!`)
+    ).toThrow(
+      `Param description for "x" of "test(x: number): void" doesn't end with a dot (".")!`,
+    )
   })
 
   it('errors when param name is not part of signature', async () => {

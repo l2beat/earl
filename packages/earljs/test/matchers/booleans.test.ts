@@ -24,7 +24,9 @@ describe('boolean matchers', () => {
     })
 
     it('check() returns true if and only if Boolean(x) is true', () => {
-      fc.assert(fc.property(arbitraries.anything, (x) => m.check(x) === Boolean(x)))
+      fc.assert(
+        fc.property(arbitraries.anything, (x) => m.check(x) === Boolean(x)),
+      )
     })
   })
 

@@ -15,37 +15,62 @@ import {
 } from '../../src/validators/types'
 
 type _NumberValidators = ValidatorsFor<number>
-type _t1 = AssertTrue<IsExact<_NumberValidators, NumberValidators & CommonValidators<number>>>
+type _t1 = AssertTrue<
+  IsExact<_NumberValidators, NumberValidators & CommonValidators<number>>
+>
 
 type _ObjectValidators = ValidatorsFor<object>
-type _t2 = AssertTrue<IsExact<_ObjectValidators, ObjectValidators & CommonValidators<object>>>
+type _t2 = AssertTrue<
+  IsExact<_ObjectValidators, ObjectValidators & CommonValidators<object>>
+>
 
 type _SetValidators = ValidatorsFor<Set<string>>
-type _t2_1 = ObjectValidators & CommonValidators<Set<string>> & IterableValidators<string>
+type _t2_1 = ObjectValidators &
+  CommonValidators<Set<string>> &
+  IterableValidators<string>
 
 type _PromiseStringValidators = ValidatorsFor<Promise<string>>
 type _t3 = AssertTrue<
-  IsExact<_PromiseStringValidators, ObjectValidators & PromiseValidators & CommonValidators<Promise<string>>>
+  IsExact<
+    _PromiseStringValidators,
+    ObjectValidators & PromiseValidators & CommonValidators<Promise<string>>
+  >
 >
 
 type _PromiseVoidValidators = ValidatorsFor<Promise<void>>
 type _t4 = AssertTrue<
-  IsExact<_PromiseVoidValidators, ObjectValidators & PromiseValidators & CommonValidators<Promise<void>>>
+  IsExact<
+    _PromiseVoidValidators,
+    ObjectValidators & PromiseValidators & CommonValidators<Promise<void>>
+  >
 >
 
 type _StringArrayValidators = ValidatorsFor<string[]>
 type _t5 = AssertTrue<
   IsExact<
     _StringArrayValidators,
-    ObjectValidators & ArrayValidators & IterableValidators<string> & CommonValidators<string[]>
+    ObjectValidators &
+      ArrayValidators &
+      IterableValidators<string> &
+      CommonValidators<string[]>
   >
 >
 
 type _StringValidators = ValidatorsFor<string>
-type _t6 = AssertTrue<IsExact<_StringValidators, IterableValidators<string> & CommonValidators<string>>>
+type _t6 = AssertTrue<
+  IsExact<
+    _StringValidators,
+    IterableValidators<string> & CommonValidators<string>
+  >
+>
 
 type _BooleanOrNumberValidators = ValidatorsFor<boolean | number>
-type _t7 = AssertTrue<IsExact<_BooleanOrNumberValidators, NumberValidators & CommonValidators<boolean | number>>>
+type _t7 = AssertTrue<
+  IsExact<
+    _BooleanOrNumberValidators,
+    NumberValidators & CommonValidators<boolean | number>
+  >
+>
 
 type SyncOrAsyncNumbers = Promise<number[]> | number[]
 type _SyncOrAsyncArrayValidators = ValidatorsFor<SyncOrAsyncNumbers>

@@ -42,13 +42,12 @@ export class AssertionError extends Error {
     // .<validator>, .getControl, new Control, .getCleanStack
     const entriesToRemove = 4
 
-    const stack = error.stack
-    if (stack && stack.startsWith('Error: message\n')) {
-      return stack
+    if (error.stack?.startsWith('Error: message\n')) {
+      return error.stack
         .split('\n')
         .slice(entriesToRemove + 1)
         .join('\n')
     }
-    return stack ?? ''
+    return error.stack ?? ''
   }
 }

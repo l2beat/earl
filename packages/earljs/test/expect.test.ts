@@ -26,9 +26,9 @@ describe('Expectation', () => {
   })
 
   it('works with extraMessage', () => {
-    expect(() => earl(1, { extraMessage: 'test assertion' }).toEqual(2)).to.throw(
-      ['1 not equal to 2', 'Extra message: test assertion'].join(EOL),
-    )
+    expect(() =>
+      earl(1, { extraMessage: 'test assertion' }).toEqual(2),
+    ).to.throw(['1 not equal to 2', 'Extra message: test assertion'].join(EOL))
   })
 
   type expectType = typeof expect
@@ -36,7 +36,7 @@ describe('Expectation', () => {
   describe('plugin', () => {
     let earl: expectType
     let loadMatchers: loadMatchersType
-    beforeEach(function (this: Mocha.Context) {
+    beforeEach(function () {
       this.timeout(5_000)
       clearModuleCache()
       ;({ expect: earl, loadMatchers } = require('../src/expect'))

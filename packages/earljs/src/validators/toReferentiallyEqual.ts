@@ -7,7 +7,9 @@ export function toReferentiallyEqual<T>(control: Control<T>, expected: T) {
   const strictComparisonResult = Object.is(control.actual, expected)
 
   const additionalInfo =
-    !strictComparisonResult && smartEqComparisonResult ? '. Did you mean to use `toEqual` instead?' : ''
+    !strictComparisonResult && smartEqComparisonResult
+      ? '. Did you mean to use `toEqual` instead?'
+      : ''
 
   const actualFmt = formatCompact(control.actual)
   const expectedFmt = formatCompact(expected)

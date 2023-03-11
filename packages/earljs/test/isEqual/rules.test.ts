@@ -15,7 +15,9 @@ type _ActualTypes = [
   ExpectedEqual<Banana>,
 ]
 type _ExpectedTypes = [number, string, undefined, 1 | 2 | 3, Fruit, Banana]
-type _EveryTypeCanBeEqualToItself = AssertTrue<IsExact<_ActualTypes, _ExpectedTypes>>
+type _EveryTypeCanBeEqualToItself = AssertTrue<
+  IsExact<_ActualTypes, _ExpectedTypes>
+>
 
 interface TestPlugin {
   smartEqRules: {
@@ -28,17 +30,27 @@ interface TestPlugin {
 
 type TestPluginRules = createPlugin.SmartEqRulesOf<TestPlugin>
 
-type _NastyRulesAreFilteredOut = AssertTrue<IsExact<keyof TestPluginRules, 'applesToOranges' | 'potatoToFruit'>>
+type _NastyRulesAreFilteredOut = AssertTrue<
+  IsExact<keyof TestPluginRules, 'applesToOranges' | 'potatoToFruit'>
+>
 
 declare module '../../src/isEqual/rules' {
   export interface SmartEqRules extends TestPluginRules {}
 }
 
-type _ApplesCanBeComparedToOranges = AssertTrue<IsExact<ExpectedEqual<Apple>, Apple | Orange>>
-type _OrangesCanBeComparedToApples = AssertTrue<IsExact<ExpectedEqual<Orange>, Apple | Orange>>
+type _ApplesCanBeComparedToOranges = AssertTrue<
+  IsExact<ExpectedEqual<Apple>, Apple | Orange>
+>
+type _OrangesCanBeComparedToApples = AssertTrue<
+  IsExact<ExpectedEqual<Orange>, Apple | Orange>
+>
 
-type _PotatoCanBeComparedWithFruit = AssertTrue<IsExact<ExpectedEqual<Potato>, Potato | Fruit>>
-type _ButAFruitCannotBeComparedWithPotato = AssertFalse<Has<ExpectedEqual<Fruit>, Potato>>
+type _PotatoCanBeComparedWithFruit = AssertTrue<
+  IsExact<ExpectedEqual<Potato>, Potato | Fruit>
+>
+type _ButAFruitCannotBeComparedWithPotato = AssertFalse<
+  Has<ExpectedEqual<Fruit>, Potato>
+>
 
 class Apple {
   // private property forces nominal typing

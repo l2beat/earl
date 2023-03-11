@@ -3,8 +3,11 @@ import { format, formatCompact } from '../format'
 import { isEqual } from '../isEqual'
 import { AnythingMatcher, ErrorMatcher } from '../matchers'
 
-export async function toBeRejected(control: Control<Promise<any>>, expected: any): Promise<void> {
-  let actualRejectedValue: any | undefined
+export async function toBeRejected(
+  control: Control<Promise<unknown>>,
+  expected: unknown,
+): Promise<void> {
+  let actualRejectedValue: unknown | undefined
   let rejectedAnything = false
   try {
     await control.actual

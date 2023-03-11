@@ -90,7 +90,10 @@ describe('Mock', () => {
     })
 
     it('can queue multiple values', () => {
-      const fn = mockFn().throwsOnce(new Error('Boom')).throwsOnce(new Error('Bam')).throwsOnce(new TypeError('BANG'))
+      const fn = mockFn()
+        .throwsOnce(new Error('Boom'))
+        .throwsOnce(new Error('Bam'))
+        .throwsOnce(new TypeError('BANG'))
       expect(fn).to.throw(Error, 'Boom')
       expect(fn).to.throw(Error, 'Bam')
       expect(fn).to.throw(TypeError, 'BANG')
@@ -143,7 +146,9 @@ describe('Mock', () => {
 
       expect(fn(2, 2)).to.eq(4)
 
-      type _ = AssertTrue<IsExact<Mock<[number, number], number>, Mock.Of<Operation>>>
+      type _ = AssertTrue<
+        IsExact<Mock<[number, number], number>, Mock.Of<Operation>>
+      >
     })
   })
 
@@ -189,7 +194,10 @@ describe('Mock', () => {
     })
 
     it('can queue multiple values', async () => {
-      const fn = mockFn().resolvesToOnce(3).resolvesToOnce(4).resolvesToOnce('hello')
+      const fn = mockFn()
+        .resolvesToOnce(3)
+        .resolvesToOnce(4)
+        .resolvesToOnce('hello')
       expect(await fn()).to.equal(3)
       expect(await fn()).to.equal(4)
       expect(await fn()).to.equal('hello')
@@ -220,7 +228,9 @@ describe('Mock', () => {
   describe('.rejectsWithOnce', () => {
     // note: this test should not throw unhandled rejections
     it('queues function return value', async () => {
-      const fn = mockFn<[number], void>().rejectsWithOnce(new Error('some scary error'))
+      const fn = mockFn<[number], never>().rejectsWithOnce(
+        new Error('some scary error'),
+      )
       fn.given(2).rejectsWithOnce(new Error('different error'))
 
       try {
@@ -266,7 +276,11 @@ describe('Mock', () => {
     })
 
     it('supports multiple .throwsOnce', () => {
-      const fn = mockFn().given(1, 2).throwsOnce(new Error('Boom')).given(1, 2).throwsOnce(new Error('Bam'))
+      const fn = mockFn()
+        .given(1, 2)
+        .throwsOnce(new Error('Boom'))
+        .given(1, 2)
+        .throwsOnce(new Error('Bam'))
       expect(() => fn(1, 2)).to.throw('Boom')
       expect(() => fn(1, 2)).to.throw('Bam')
       expect(() => fn(1, 2)).to.throw(MockNotConfiguredError)
@@ -296,7 +310,9 @@ describe('Mock', () => {
     })
 
     it('supports .resolvesToOnce', async () => {
-      const fn = mockFn<[number, number], Promise<number>>().given(1, 2).resolvesToOnce(3)
+      const fn = mockFn<[number, number], Promise<number>>()
+        .given(1, 2)
+        .resolvesToOnce(3)
       expect(await fn(1, 2)).to.equal(3)
       expect(() => fn(1, 2)).to.throw(MockNotConfiguredError)
       expect(() => fn(3, 4)).to.throw(MockNotConfiguredError)
@@ -342,7 +358,9 @@ describe('Mock', () => {
     it('stores a single call', () => {
       const fn = mockFn(noop)
       fn()
-      expect(fn.calls).to.deep.equal([{ args: [], result: { type: 'return', value: undefined } }])
+      expect(fn.calls).to.deep.equal([
+        { args: [], result: { type: 'return', value: undefined } },
+      ])
     })
 
     it('stores multiple calls', () => {
@@ -363,7 +381,9 @@ describe('Mock', () => {
       try {
         fn()
       } catch {}
-      expect(fn.calls).to.deep.equal([{ args: [], result: { type: 'throw', error } }])
+      expect(fn.calls).to.deep.equal([
+        { args: [], result: { type: 'throw', error } },
+      ])
     })
 
     it('respects .executes', () => {

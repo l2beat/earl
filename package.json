@@ -13,15 +13,16 @@
   },
   "scripts": {
     "lint": "pnpm --recursive --parallel lint",
+    "lint:fix": "pnpm --recursive --parallel lint:fix",
     "format": "pnpm --recursive --parallel format",
     "format:fix": "pnpm --recursive --parallel format:fix",
     "typecheck": "pnpm --recursive --parallel typecheck",
+    "test": "pnpm --recursive --parallel test",
+    "test:fix": "pnpm --recursive --parallel test:fix",
     "clean": "pnpm --recursive --parallel clean",
     "build": "pnpm --recursive build",
     "build:website": "pnpm --filter website... build",
-    "test": "pnpm --recursive --parallel test",
-    "test:fix": "pnpm --recursive --parallel test:fix",
-    "release": "pnpm --recursive clean && pnpm changeset publish"
+    "release": "pnpm clean && pnpm changeset publish"
   },
   "devDependencies": {
     "@changesets/cli": "2.26.0",

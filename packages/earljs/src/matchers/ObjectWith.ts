@@ -3,10 +3,12 @@ import { isEqual } from '../isEqual'
 import { Matcher } from './Base'
 
 function isObject(value: unknown): value is object {
-  return value != null && (typeof value === 'object' || typeof value === 'function')
+  return (
+    value != null && (typeof value === 'object' || typeof value === 'function')
+  )
 }
 
-export class ObjectWithMatcher<T extends Object> extends Matcher {
+export class ObjectWithMatcher<T extends object> extends Matcher {
   constructor(private readonly subset: T) {
     super()
   }
@@ -29,7 +31,7 @@ export class ObjectWithMatcher<T extends Object> extends Matcher {
     return `[ObjectWith: ${formatCompact(this.subset)}]`
   }
 
-  static make(subset: Object): any {
+  static make(subset: object): any {
     return new ObjectWithMatcher(subset)
   }
 }

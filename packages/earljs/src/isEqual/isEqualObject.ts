@@ -25,7 +25,15 @@ export function isEqualObject(
   otherStack.push(other)
   let result = true
   for (let i = 0; i < keys.length; i++) {
-    if (!isEqualUnknown((value as any)[keys[i]], valueStack, (other as any)[otherKeys[i]], otherStack, options)) {
+    if (
+      !isEqualUnknown(
+        (value as any)[keys[i]],
+        valueStack,
+        (other as any)[otherKeys[i]],
+        otherStack,
+        options,
+      )
+    ) {
       result = false
       break
     }

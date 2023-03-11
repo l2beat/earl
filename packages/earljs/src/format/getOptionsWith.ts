@@ -1,6 +1,9 @@
 import { FormatOptions } from './FormatOptions'
 
-export function getOptionsWith(options: FormatOptions, updates: Partial<FormatOptions>) {
+export function getOptionsWith(
+  options: FormatOptions,
+  updates: Partial<FormatOptions>,
+) {
   let hasModifications = false
   for (const key of Object.keys(updates) as (keyof FormatOptions)[]) {
     if (options[key] !== updates[key]) {

@@ -18,7 +18,12 @@ describe('boolean validators', () => {
     })
 
     it('expect(x).toBeTruthy() passes if and only if Boolean(x) is true', () => {
-      fc.assert(fc.property(arbitraries.anything, (x) => passes(() => earl(x).toBeTruthy()) === Boolean(x)))
+      fc.assert(
+        fc.property(
+          arbitraries.anything,
+          (x) => passes(() => earl(x).toBeTruthy()) === Boolean(x),
+        ),
+      )
     })
   })
 
@@ -34,7 +39,12 @@ describe('boolean validators', () => {
     })
 
     it('expect(x).toBeFalsy() passes if and only if Boolean(x) is true', () => {
-      fc.assert(fc.property(arbitraries.anything, (x) => passes(() => earl(x).toBeFalsy()) === !x))
+      fc.assert(
+        fc.property(
+          arbitraries.anything,
+          (x) => passes(() => earl(x).toBeFalsy()) === !x,
+        ),
+      )
     })
   })
 })

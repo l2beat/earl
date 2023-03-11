@@ -1,7 +1,10 @@
 import { expect } from 'chai'
 
 import { format } from '../../../src/format'
-import { formatSnapshot, parseSnapshot } from '../../../src/validators/snapshots/format'
+import {
+  formatSnapshot,
+  parseSnapshot,
+} from '../../../src/validators/snapshots/format'
 
 describe('formatting', () => {
   const snapshot = {

@@ -21,7 +21,8 @@ export function formatObjectEntries(
     const keyFormat = formatKey(key, passedOptions)
     const nestedOptions = getOptionsWith(passedOptions, {
       skipMatcherReplacement:
-        passedOptions.skipMatcherReplacement || (!!sibling && !Object.prototype.hasOwnProperty.call(sibling, key)),
+        passedOptions.skipMatcherReplacement ||
+        (!!sibling && !Object.prototype.hasOwnProperty.call(sibling, key)),
     })
     const valueFormat = formatUnknown(
       (value as any)[key],

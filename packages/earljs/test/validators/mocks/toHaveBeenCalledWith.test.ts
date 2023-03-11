@@ -19,7 +19,9 @@ describe('toHaveBeenCalledWith', () => {
 
       mock(1, 2, 3)
 
-      expect(() => earl(mock).toHaveBeenCalledWith([1, 2, earl.a(Number)])).not.to.throw()
+      expect(() =>
+        earl(mock).toHaveBeenCalledWith([1, 2, earl.a(Number)]),
+      ).not.to.throw()
     })
 
     it('throws on partial matches', () => {
@@ -35,7 +37,9 @@ describe('toHaveBeenCalledWith', () => {
     it('throws with empty mocks', () => {
       const mock = mockFn(noop)
 
-      expect(() => earl(mock).toHaveBeenCalledWith([])).to.throw('Mock was not called with [] but was expected to')
+      expect(() => earl(mock).toHaveBeenCalledWith([])).to.throw(
+        'Mock was not called with [] but was expected to',
+      )
     })
   })
 

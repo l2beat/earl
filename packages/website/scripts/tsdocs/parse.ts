@@ -4,11 +4,15 @@ import { Node, Project as TSProject } from 'ts-morph'
 
 import { MethodComment, MethodDocumentation, Param } from '../types'
 
-export function parseTsDocComment(methodComment: MethodComment): MethodDocumentation {
+export function parseTsDocComment(
+  methodComment: MethodComment,
+): MethodDocumentation {
   const tsdocParser: TSDocParser = new TSDocParser()
   const tsProject = new TSProject({ useInMemoryFileSystem: true })
 
-  const parserContext = tsdocParser.parseString(replaceTrailingSlashNewlines(methodComment.comment))
+  const parserContext = tsdocParser.parseString(
+    replaceTrailingSlashNewlines(methodComment.comment),
+  )
 
   if (parserContext.log.messages.length > 0) {
     throw new Error(
@@ -18,7 +22,7 @@ export function parseTsDocComment(methodComment: MethodComment): MethodDocumenta
 
   const docComment = parserContext.docComment
 
-  let description = Formatter.renderDocNode(docComment.summarySection).trimRight()
+  let description = renderDocNode(docComment.summarySection).trimRight()
 
   // DocNodes render description as a list item, but we just want a paragraph
   if (description.startsWith('* ')) description = description.slice(2)
@@ -26,16 +30,20 @@ export function parseTsDocComment(methodComment: MethodComment): MethodDocumenta
   const params: Param[] = []
   for (const param of docComment.params.blocks) {
     const name = param.parameterName
-    const description = Formatter.renderDocNode(param.content).trim()
+    const description = renderDocNode(param.content).trim()
 
     // enforce common formatting for param descriptions
     if (!description.endsWith('.')) {
-      throw new Error(`Param description for "${name}" of "${methodComment.signature}" doesn't end with a dot (".")!`)
+      throw new Error(
+        `Param description for "${name}" of "${methodComment.signature}" doesn't end with a dot (".")!`,
+      )
     }
 
     // (best effort) enforce that param names are consistent with function signatures
     if (!methodComment.signature.includes(name)) {
-      throw new Error(`Param "${name}" is not part of signature "${methodComment.signature}"!`)
+      throw new Error(
+        `Param "${name}" is not part of signature "${methodComment.signature}"!`,
+      )
     }
 
     params.push({ name, description })
@@ -50,7 +58,7 @@ export function parseTsDocComment(methodComment: MethodComment): MethodDocumenta
 
     // Examples are rendered as Markdown as they are, without any post-processing.
     // Make sure to mark all code snippets with language identifer (e.g. ```ts)
-    const contents = Formatter.renderDocNode(customBlock.content).trim()
+    const contents = renderDocNode(customBlock.content).trim()
 
     examples.push(contents)
   }
@@ -67,38 +75,31 @@ export function parseTsDocComment(methodComment: MethodComment): MethodDocumenta
   }
 }
 
-class Formatter {
-  public static renderDocNode(docNode: DocNode): string {
-    let result: string = ''
+function renderDocNode(docNode: DocNode): string {
+  let result = ''
 
-    if (docNode instanceof DocExcerpt) {
-      result += docNode.content.toString()
-    }
-    for (const childNode of docNode.getChildNodes()) {
-      result += Formatter.renderDocNode(childNode)
-    }
-
-    return result
+  if (docNode instanceof DocExcerpt) {
+    result += docNode.content.toString()
+  }
+  for (const childNode of docNode.getChildNodes()) {
+    result += renderDocNode(childNode)
   }
 
-  public static renderDocNodes(docNodes: ReadonlyArray<DocNode>): string {
-    let result: string = ''
-    for (const docNode of docNodes) {
-      result += Formatter.renderDocNode(docNode)
-    }
-    return result
-  }
+  return result
 }
 
 function abbreviateSignature(signature: string, project: TSProject): string {
   const isClassMethod = !signature.includes('function ')
   const sourceCode = isClassMethod ? `function ${signature} {}` : signature
 
-  const sourceFile = project.createSourceFile('temp.ts', sourceCode, { overwrite: true })
+  const sourceFile = project.createSourceFile('temp.ts', sourceCode, {
+    overwrite: true,
+  })
   const functionDeclaration = sourceFile.getChildAtIndex(0).getChildAtIndex(0)
   assert(Node.isFunctionDeclaration(functionDeclaration))
 
   if (signature.includes('this:')) {
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     functionDeclaration.getParameter('this')!.remove()
   }
 

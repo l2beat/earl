@@ -5,10 +5,13 @@ import { format, formatCompact } from '../format'
 import { isEqual } from '../isEqual'
 import { AnythingMatcher, ErrorMatcher } from '../matchers'
 
-export function toThrow(control: Control<() => void>, expected: any) {
-  assert(control.actual instanceof Function, 'Actual has to be a function to check if threw')
+export function toThrow(control: Control<() => void>, expected: unknown) {
+  assert(
+    control.actual instanceof Function,
+    'Actual has to be a function to check if threw',
+  )
 
-  let actualThrownValue: any | undefined
+  let actualThrownValue: unknown
   let threwAnything = false
   try {
     control.actual()

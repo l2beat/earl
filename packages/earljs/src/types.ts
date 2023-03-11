@@ -1,15 +1,21 @@
+/* eslint-disable @typescript-eslint/ban-types */
 import { Exact } from 'ts-essentials'
 
-export interface Newable<T> {
-  new (...args: any[]): T
-}
+export type Newable<T> = new (...args: any[]) => T
 
 // @note: don't use BigIntConstructor here to avoid relying on modern node typings being installed
-export type BigIntLike = { asIntN: Function; asUintN: Function; (value?: any): any }
+export interface BigIntLike {
+  asIntN: Function
+  asUintN: Function
+  (value?: any): any
+}
 
-export type NewableOrPrimitive<T = any> = Newable<T> | SymbolConstructor | BigIntLike
+export type NewableOrPrimitive<T = any> =
+  | Newable<T>
+  | SymbolConstructor
+  | BigIntLike
 
-export type Class2Primitive<T> = T extends String
+export type Class2Primitive<T> = T extends string
   ? string
   : T extends Number
   ? number
@@ -23,7 +29,7 @@ export type Class2Primitive<T> = T extends String
   ? () => any
   : T extends Exact<Object, T>
   ? any
-  : T extends Array<any>
+  : T extends any[]
   ? any[]
   : T
 

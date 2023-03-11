@@ -10,9 +10,9 @@ describe('dataStructures', () => {
       })
 
       it('throws', () => {
-        expect(() => earl(new Set([1, 2, 3])).toBeAContainerWith(4, 5)).to.throw(
-          'Set { 1, 2, 3 } does not contain [4, 5]',
-        )
+        expect(() =>
+          earl(new Set([1, 2, 3])).toBeAContainerWith(4, 5),
+        ).to.throw('Set { 1, 2, 3 } does not contain [4, 5]')
       })
     })
 
@@ -22,7 +22,9 @@ describe('dataStructures', () => {
       })
 
       it('throws', () => {
-        expect(() => earl(new Set([1, 2, 3])).not.toBeAContainerWith(3)).to.throw('Set { 1, 2, 3 } contains [3]')
+        expect(() =>
+          earl(new Set([1, 2, 3])).not.toBeAContainerWith(3),
+        ).to.throw('Set { 1, 2, 3 } contains [3]')
       })
     })
   })
@@ -35,7 +37,9 @@ describe('dataStructures', () => {
       })
 
       it('throws', () => {
-        expect(() => earl([1, 2, 3]).toBeAnArrayOfLength(4)).to.throw('[1, 2, 3] does not have length 4')
+        expect(() => earl([1, 2, 3]).toBeAnArrayOfLength(4)).to.throw(
+          '[1, 2, 3] does not have length 4',
+        )
       })
     })
 
@@ -45,7 +49,9 @@ describe('dataStructures', () => {
       })
 
       it('throws', () => {
-        expect(() => earl([1, 2, 3]).not.toBeAnArrayOfLength(3)).to.throw('[1, 2, 3] does have length 3')
+        expect(() => earl([1, 2, 3]).not.toBeAnArrayOfLength(3)).to.throw(
+          '[1, 2, 3] does have length 3',
+        )
       })
     })
   })
@@ -57,7 +63,9 @@ describe('dataStructures', () => {
       })
 
       it('throws', () => {
-        expect(() => earl([1, 2, 3]).toBeAnArrayWith(4, 5)).to.throw('[1, 2, 3] does not contain array [4, 5]')
+        expect(() => earl([1, 2, 3]).toBeAnArrayWith(4, 5)).to.throw(
+          '[1, 2, 3] does not contain array [4, 5]',
+        )
       })
     })
 
@@ -67,14 +75,18 @@ describe('dataStructures', () => {
       })
 
       it('throws', () => {
-        expect(() => earl([1, 2, 3]).not.toBeAnArrayWith(3)).to.throw('[1, 2, 3] contains array [3]')
+        expect(() => earl([1, 2, 3]).not.toBeAnArrayWith(3)).to.throw(
+          '[1, 2, 3] contains array [3]',
+        )
       })
     })
 
     describe('types', () => {
       it('is typesafe', () => {
-        // @ts-expect-error
-        expect(() => earl(new Set([1, 2, 3])).toBeAnArrayWith(1)).to.throw('Set { 1, 2, 3 } does not contain array [1]')
+        // @ts-expect-error set is not an array
+        expect(() => earl(new Set([1, 2, 3])).toBeAnArrayWith(1)).to.throw(
+          'Set { 1, 2, 3 } does not contain array [1]',
+        )
       })
     })
   })
@@ -98,9 +110,9 @@ describe('dataStructures', () => {
       })
 
       it('throws', () => {
-        expect(() => earl({ a: 1, b: 2 }).not.toBeAnObjectWith({ a: 1 })).to.throw(
-          '{ a: 1, b: 2 } is a subset of object { a: 1 }',
-        )
+        expect(() =>
+          earl({ a: 1, b: 2 }).not.toBeAnObjectWith({ a: 1 }),
+        ).to.throw('{ a: 1, b: 2 } is a subset of object { a: 1 }')
       })
     })
   })

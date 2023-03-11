@@ -34,7 +34,13 @@ export function formatSetEntries(
   const entries: [number, string][] = []
 
   for (let i = 0; i < valueItems.length; i++) {
-    const valueFormat = formatUnknown(valueItems[i], siblingItems[i], passedOptions, valueStack, siblingStack)
+    const valueFormat = formatUnknown(
+      valueItems[i],
+      siblingItems[i],
+      passedOptions,
+      valueStack,
+      siblingStack,
+    )
     for (const line of valueFormat) {
       line[0] += 1
     }

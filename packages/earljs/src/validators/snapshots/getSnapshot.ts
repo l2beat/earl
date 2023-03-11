@@ -14,20 +14,27 @@ export function resetSnapshotCache() {
   snapshots.clear()
 }
 
-export function getSnapshot(controlFileName: string | undefined, context: TestContext, mode: SnapshotUpdateMode) {
+export function getSnapshot(
+  controlFileName: string | undefined,
+  context: TestContext,
+  mode: SnapshotUpdateMode,
+) {
   const filePath = context.test?.file ?? controlFileName
   if (!filePath) {
     throw new EarlConfigurationError('Invalid test context')
   }
-  const file = path.join(path.dirname(filePath), path.basename(filePath) + '.snapshot')
+  const file = path.join(
+    path.dirname(filePath),
+    path.basename(filePath) + '.snapshot',
+  )
   const testName = getTestName(context)
   if (!testName) {
     throw new EarlConfigurationError('Invalid test context')
   }
 
-  const counter = counters.get(file) || new Map<string, number>()
+  const counter = counters.get(file) ?? new Map<string, number>()
   counters.set(file, counter)
-  const count = counter.get(testName) || 1
+  const count = counter.get(testName) ?? 1
   counter.set(testName, count + 1)
 
   const name = `${testName} ${count}`
@@ -38,7 +45,7 @@ export function getSnapshot(controlFileName: string | undefined, context: TestCo
       content = parseSnapshot(readFileSync(file, 'utf8'))
     } catch {}
   }
-  content = content || {}
+  content = content ?? {}
   snapshots.set(file, content)
 
   const expected = content[name]

@@ -8,6 +8,10 @@ import { isEqualUnknown } from './isEqualUnknown'
  *   Do not confuse with `isEqual` validator.
  * @see https://earljs.dev/advanced/equality-algorithm.html
  */
-export function isEqual(value: unknown, other: unknown, options = DEFAULT_EQUALITY_OPTIONS) {
+export function isEqual(
+  value: unknown,
+  other: unknown,
+  options = DEFAULT_EQUALITY_OPTIONS,
+) {
   return isEqualUnknown(value, [], other, [], options)
 }

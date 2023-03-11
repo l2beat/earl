@@ -11,7 +11,10 @@ export function toBeGreaterThan(control: Control<number>, target: number) {
   })
 }
 
-export function toBeGreaterThanOrEqualTo(control: Control<number>, target: number) {
+export function toBeGreaterThanOrEqualTo(
+  control: Control<number>,
+  target: number,
+) {
   const actualFmt = formatCompact(control.actual)
   const targetFmt = formatCompact(target)
 
@@ -32,7 +35,10 @@ export function toBeLessThan(control: Control<number>, target: number) {
   })
 }
 
-export function toBeLessThanOrEqualTo(control: Control<number>, target: number) {
+export function toBeLessThanOrEqualTo(
+  control: Control<number>,
+  target: number,
+) {
   const actualFmt = formatCompact(control.actual)
   const targetFmt = formatCompact(target)
   control.assert({

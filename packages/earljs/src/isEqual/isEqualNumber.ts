@@ -1,6 +1,10 @@
 import { EqualityOptions } from './EqualityOptions'
 
-export function isEqualNumber(value: number, other: number, options: EqualityOptions) {
+export function isEqualNumber(
+  value: number,
+  other: number,
+  options: EqualityOptions,
+) {
   if (isNaN(value)) {
     return options.uniqueNaNs ? false : isNaN(other)
   } else if (value === 0) {
