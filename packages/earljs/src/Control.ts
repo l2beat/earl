@@ -1,5 +1,4 @@
 import { AssertionError } from './errors'
-import { getTestRunnerIntegration } from './testRunnerCtx'
 
 export interface ValidationResult {
   success: boolean
@@ -11,7 +10,6 @@ export interface ValidationResult {
 }
 
 export class Control<T> {
-  public testRunnerCtx = getTestRunnerIntegration()
   private stack = AssertionError.getCleanStack()
 
   constructor(public actual: T, public isNegated: boolean, private extraMessage?: string) {}

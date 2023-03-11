@@ -1,5 +1,6 @@
 import { readFileSync } from 'fs'
 import path from 'path'
+
 import { EarlConfigurationError } from '../../errors'
 import { SnapshotUpdateMode } from './getSnapshotUpdateMode'
 import { MochaTestContext } from './MochaTestContext'
@@ -24,19 +25,19 @@ export function getSnapshot(context: MochaTestContext, mode: SnapshotUpdateMode)
   const file = path.join(path.dirname(test.file), path.basename(test.file) + '.snapshot')
   const testName = test.fullTitle()
 
-  const counter = counters.get(file) || new Map()
+  const counter = counters.get(file) || new Map<string, number>()
   counters.set(file, counter)
   const count = counter.get(testName) || 1
   counter.set(testName, count + 1)
 
-  const name = testName + ' ' + count
+  const name = `${testName} ${count}`
 
   let content = snapshots.get(file)
   if (!content || mode === 'all') {
     try {
-      content = JSON.parse(readFileSync(file, 'utf8'))
-      if (typeof content !== 'object' || content === null) {
-        content = {}
+      const parsed = JSON.parse(readFileSync(file, 'utf8'))
+      if (typeof parsed === 'object' && parsed !== null) {
+        content = parsed
       }
     } catch {}
   }

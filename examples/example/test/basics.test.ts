@@ -1,7 +1,7 @@
 import { expect } from 'earljs'
 
 describe('basics', () => {
-  it('works', function () {
+  it('works', function (this: Mocha.Context) {
     class Person {
       constructor(readonly name: string) {}
     }

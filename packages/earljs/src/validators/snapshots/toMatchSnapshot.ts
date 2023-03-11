@@ -1,4 +1,5 @@
 import { writeFileSync } from 'fs'
+
 import { Control } from '../../Control'
 import { EarlConfigurationError } from '../../errors'
 import { format, formatCompact } from '../../format'
@@ -7,6 +8,7 @@ import { getSnapshotUpdateMode } from './getSnapshotUpdateMode'
 import { MochaTestContext } from './MochaTestContext'
 
 export function toMatchSnapshot(control: Control<unknown>, context: MochaTestContext) {
+  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
   if (context === undefined) {
     throw new EarlConfigurationError('No test context')
   }

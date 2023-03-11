@@ -11,6 +11,7 @@ describe(toMatchSnapshot.name, () => {
   let content: string
   let envCi: string | undefined
   let envUpdateSnapshots: string | undefined
+  // eslint-disable-next-line no-path-concat
   const SNAPSHOT_FILE = __filename + '.snapshot'
 
   const mochaContext = (title: string): MochaTestContext => ({
@@ -68,7 +69,7 @@ describe(toMatchSnapshot.name, () => {
   it('handles complex objects', () => {
     process.env.CI = 'true'
 
-    let x = { a: 1, b: true, x: null as unknown }
+    const x = { a: 1, b: true, x: null as unknown }
     x.x = x
 
     const content = {
