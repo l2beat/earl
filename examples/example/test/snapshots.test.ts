@@ -1,8 +1,8 @@
 import { expect } from 'earljs'
 
 describe('snapshots', () => {
-  it('work', () => {
-    expect({ very: { nested: { wow: 'wow' } } }).toMatchSnapshot()
-    expect('totally different thing').toMatchSnapshot()
+  it('work', function () {
+    expect({ very: { nested: { wow: 'wow' } } }).toMatchSnapshot(this)
+    expect('totally different thing').toMatchSnapshot(this)
   })
 })

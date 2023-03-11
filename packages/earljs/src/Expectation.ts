@@ -151,8 +151,8 @@ export class __ExpectationImplementation<T> implements Modifiers<T> {
     return toHaveBeenCalledExactlyWith(this.getControl(), args)
   }
 
-  toMatchSnapshot(): void {
-    toMatchSnapshot(this.getControl())
+  toMatchSnapshot(context: Mocha.Context): void {
+    toMatchSnapshot(this.getControl(), context)
   }
 
   // utilities

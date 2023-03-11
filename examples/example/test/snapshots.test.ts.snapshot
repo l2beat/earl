@@ -1,0 +1,4 @@
+{
+  "snapshots work 1": "{\n  very: {\n    nested: {\n      wow: \"wow\"\n    }\n  }\n}",
+  "snapshots work 2": "\"totally different thing\""
+}

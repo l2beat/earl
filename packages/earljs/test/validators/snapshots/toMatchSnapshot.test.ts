@@ -1,67 +1,174 @@
 import { expect } from 'chai'
-import path from 'path'
-import { spy } from 'sinon'
+import { readFileSync, writeFileSync } from 'fs'
 
-import { Control } from '../../../src/internals'
-import { TestRunnerCtx } from '../../../src/test-runners'
-import { toMatchSnapshot } from '../../../src/validators/snapshots'
-import { CompareSnapshot } from '../../../src/validators/snapshots/compareSnapshot'
+import { expect as earl } from '../../../src'
+import { format } from '../../../src/format'
+import { resetSnapshotCache } from '../../../src/validators/snapshots/getSnapshot'
+import { MochaTestContext } from '../../../src/validators/snapshots/MochaTestContext'
+import { toMatchSnapshot } from '../../../src/validators/snapshots/toMatchSnapshot'
 
-describe('toMatchSnapshot', () => {
-  const makeDummyTestRunnerCtx = (): TestRunnerCtx => ({
-    afterTestCase: spy(),
-    beforeTestCase: spy(),
-    testInfo: {
-      suitName: ['Dummy suit'],
-      testName: 'works',
-      testFilePath: '/tests/dummy.test.ts',
+describe(toMatchSnapshot.name, () => {
+  let content: string
+  let envCi: string | undefined
+  let envUpdateSnapshots: string | undefined
+  const SNAPSHOT_FILE = __filename + '.snapshot'
+
+  const mochaContext = (title: string): MochaTestContext => ({
+    test: {
+      file: __filename,
+      fullTitle: () => title,
     },
   })
 
-  class DummyControl extends Control<any> {
-    testRunnerCtx = makeDummyTestRunnerCtx()
-    assert = spy() as any
-    fail = spy() as any
-  }
-
-  it('creates new snapshots', () => {
-    const dummyCtrl = new DummyControl('test123', false)
-    const dummyCompareSnapshot: CompareSnapshot = spy(() => {
-      return { success: true } as any
-    })
-
-    toMatchSnapshot(dummyCtrl, { compareSnapshot: dummyCompareSnapshot, env: {} })
-
-    expect(dummyCompareSnapshot).to.have.been.calledOnceWithExactly({
-      actual: 'test123',
-      name: 'Dummy suit works',
-      updateSnapshotMode: 'new',
-      snapshotFilePath: path.normalize('/tests/__snapshots__/dummy.test.snap'),
-    })
-
-    expect(dummyCtrl.assert).to.have.been.calledOnceWithExactly({ success: true, negatedReason: '-', reason: '-' })
+  before(() => {
+    content = readFileSync(SNAPSHOT_FILE, 'utf8')
+    envCi = process.env.CI
+    envUpdateSnapshots = process.env.UPDATE_SNAPSHOTS
   })
 
-  it('matches existing snapshots', () => {
-    const dummyCtrl = new DummyControl('test123', false)
-    const dummyCompareSnapshot: CompareSnapshot = spy(() => {
-      return { success: false, actual: 'test123', expected: 'abc' } as any
+  beforeEach(() => {
+    process.env.CI = undefined
+    process.env.UPDATE_SNAPSHOTS = undefined
+  })
+
+  afterEach(() => {
+    resetSnapshotCache()
+    writeFileSync(SNAPSHOT_FILE, content, 'utf8')
+  })
+
+  after(() => {
+    process.env.CI = envCi
+    process.env.UPDATE_SNAPSHOTS = envUpdateSnapshots
+  })
+
+  it('cannot be negated', function (this) {
+    expect(() => {
+      // this also tests that the argument type matches
+      earl('foo').not.toMatchSnapshot(this)
+    }).to.throw("Earl configuration error: toMatchSnapshot can't be negated")
+  })
+
+  it('keeps track of the counters', () => {
+    process.env.CI = 'true'
+
+    const content = {
+      'foo 1': '"foo1"',
+      'foo 2': '"foo2"',
+      'bar 1': '"bar1"',
+    }
+    writeFileSync(SNAPSHOT_FILE, JSON.stringify(content), 'utf8')
+
+    expect(() => {
+      earl('foo1').toMatchSnapshot(mochaContext('foo'))
+      earl('foo2').toMatchSnapshot(mochaContext('foo'))
+      earl('bar1').toMatchSnapshot(mochaContext('bar'))
+    }).not.to.throw()
+  })
+
+  it('handles complex objects', () => {
+    process.env.CI = 'true'
+
+    let x = { a: 1, b: true, x: null as unknown }
+    x.x = x
+
+    const content = {
+      'complex 1': format(x, null),
+      'complex 2': format({ ...x, x: null }, null),
+    }
+    writeFileSync(SNAPSHOT_FILE, JSON.stringify(content), 'utf8')
+
+    expect(() => {
+      earl(x).toMatchSnapshot(mochaContext('complex'))
+    }).not.to.throw()
+
+    expect(() => {
+      earl(x).toMatchSnapshot(mochaContext('complex'))
+    }).to.throw('not equal to snapshot')
+  })
+
+  describe('on CI', () => {
+    beforeEach(() => {
+      process.env.CI = 'true'
     })
 
-    toMatchSnapshot(dummyCtrl, { compareSnapshot: dummyCompareSnapshot, env: {} })
-
-    expect(dummyCompareSnapshot).to.have.been.calledOnceWithExactly({
-      actual: 'test123',
-      name: 'Dummy suit works',
-      updateSnapshotMode: 'new',
-      snapshotFilePath: path.normalize('/tests/__snapshots__/dummy.test.snap'),
+    it('passes when snapshot matches', () => {
+      expect(() => {
+        earl('foo').toMatchSnapshot(mochaContext('foo'))
+      }).not.to.throw()
     })
-    expect(dummyCtrl.assert).to.have.been.calledOnceWithExactly({
-      success: false,
-      actual: 'test123',
-      expected: 'abc',
-      reason: "Snapshot doesn't match",
-      negatedReason: '-',
+
+    it('fails when a snapshot does not match', () => {
+      expect(() => {
+        earl('baz').toMatchSnapshot(mochaContext('bar'))
+      }).to.throw('"baz" not equal to snapshot')
+    })
+
+    it('fails when a value is not present in the snapshot', () => {
+      expect(() => {
+        earl('baz').toMatchSnapshot(mochaContext('unknown'))
+      }).to.throw('No snapshot found')
+    })
+
+    it('cannot be set to update on ci', () => {
+      process.env.UPDATE_SNAPSHOTS = 'true'
+      expect(() => {
+        earl('baz').toMatchSnapshot(mochaContext('unknown'))
+      }).to.throw("Earl configuration error: Can't update snapshots on CI.")
+    })
+  })
+
+  describe('locally', () => {
+    it('passes when snapshot matches', () => {
+      expect(() => {
+        earl('foo').toMatchSnapshot(mochaContext('foo'))
+      }).not.to.throw()
+    })
+
+    it('fails when a snapshot does not match', () => {
+      expect(() => {
+        earl('baz').toMatchSnapshot(mochaContext('bar'))
+      }).to.throw('"baz" not equal to snapshot')
+    })
+
+    it('updates when a value is not present in the snapshot', () => {
+      earl('baz').toMatchSnapshot(mochaContext('unknown'))
+      const updatedContent = JSON.parse(readFileSync(SNAPSHOT_FILE, 'utf8'))
+      expect(updatedContent).to.deep.equal({
+        'foo 1': '"foo"',
+        'bar 1': '"bar"',
+        'unknown 1': '"baz"',
+      })
+    })
+  })
+
+  describe('when updating', () => {
+    beforeEach(() => {
+      process.env.UPDATE_SNAPSHOTS = 'true'
+    })
+
+    it('passes when snapshot matches', () => {
+      expect(() => {
+        earl('foo').toMatchSnapshot(mochaContext('foo'))
+      }).not.to.throw()
+    })
+
+    it('updates when a snapshot does not match', () => {
+      earl('baz').toMatchSnapshot(mochaContext('bar'))
+      const updatedContent = JSON.parse(readFileSync(SNAPSHOT_FILE, 'utf8'))
+      expect(updatedContent).to.deep.equal({
+        'foo 1': '"foo"',
+        'bar 1': '"baz"',
+      })
+    })
+
+    it('updates when a value is not present in the snapshot', () => {
+      earl('baz').toMatchSnapshot(mochaContext('unknown'))
+      const updatedContent = JSON.parse(readFileSync(SNAPSHOT_FILE, 'utf8'))
+      expect(updatedContent).to.deep.equal({
+        'foo 1': '"foo"',
+        'bar 1': '"bar"',
+        'unknown 1': '"baz"',
+      })
     })
   })
 })
