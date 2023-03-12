@@ -2,7 +2,6 @@ import { expect } from 'chai'
 import { AssertTrue, IsExact } from 'conditional-type-checks'
 
 import { expect as earl } from '../expect'
-import { noop } from '../test/common'
 import { MockNotConfiguredError } from './errors'
 import { mockFn } from './mockFn'
 import { Mock } from './types'
@@ -353,12 +352,12 @@ describe('Mock', () => {
 
   describe('.calls', () => {
     it('is empty at first', () => {
-      const fn = mockFn(noop)
+      const fn = mockFn()
       expect(fn.calls).to.deep.equal([])
     })
 
     it('stores a single call', () => {
-      const fn = mockFn(noop)
+      const fn = mockFn(() => undefined)
       fn()
       expect(fn.calls).to.deep.equal([
         { args: [], result: { type: 'return', value: undefined } },
@@ -366,14 +365,14 @@ describe('Mock', () => {
     })
 
     it('stores multiple calls', () => {
-      const fn = mockFn(noop)
+      const fn = mockFn((...args: any[]) => args.length)
       fn()
       fn(1)
       fn(5, 'yo')
       expect(fn.calls).to.deep.equal([
-        { args: [], result: { type: 'return', value: undefined } },
-        { args: [1], result: { type: 'return', value: undefined } },
-        { args: [5, 'yo'], result: { type: 'return', value: undefined } },
+        { args: [], result: { type: 'return', value: 0 } },
+        { args: [1], result: { type: 'return', value: 1 } },
+        { args: [5, 'yo'], result: { type: 'return', value: 2 } },
       ])
     })
 

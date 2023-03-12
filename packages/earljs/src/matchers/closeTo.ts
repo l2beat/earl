@@ -4,20 +4,20 @@ declare module '../expect' {
   interface Matchers {
     /**
      * Matches numbers that are close to the target value.
-     * The range is [expected - delta, expected + delta] (inclusive).
+     * The range is [target - delta, target + delta] (inclusive).
      *
-     * @param expected - number to aim for
+     * @param target - number to aim for
      * @param delta - maximum difference between the values
      */
-    closeTo(expected: number, delta: number): number
+    closeTo(target: number, delta: number): number
   }
 }
 
 registerMatcher('closeTo', closeTo)
 
-export function closeTo(expected: number, delta: number) {
-  const min = expected - delta
-  const max = expected + delta
+export function closeTo(target: number, delta: number) {
+  const min = target - delta
+  const max = target + delta
   return (value: unknown) =>
     typeof value === 'number' && value >= min && value <= max
 }

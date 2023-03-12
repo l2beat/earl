@@ -92,8 +92,11 @@ importers:
   packages/earljs:
     specifiers:
       error-stack-parser: ^2.1.4
+      zod: ^3.21.4
     dependencies:
       error-stack-parser: 2.1.4
+    devDependencies:
+      zod: 3.21.4
 
   packages/website:
     specifiers:
@@ -4107,4 +4110,8 @@ packages:
   /yocto-queue/0.1.0:
     resolution: {integrity: sha512-rVksvsnNCdJ/ohGc6xgPwyN8eheCxsiLM8mxuE/t/mOVqJewPuO1miLpTHQiRgTKCLexL4MeAFVagts7HmNZ2Q==}
     engines: {node: '>=10'}
+    dev: true
+
+  /zod/3.21.4:
+    resolution: {integrity: sha512-m46AKbrzKVzOzs/DZgVnG5H55N1sv1M8qZU3A8RIKbs3mrACDNeIOeilDymVb2HdmP8uwshOCF4uJ8uM9rCqJw==}
     dev: true
