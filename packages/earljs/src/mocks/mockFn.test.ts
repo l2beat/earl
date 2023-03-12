@@ -357,7 +357,7 @@ describe('Mock', () => {
     })
 
     it('stores a single call', () => {
-      const fn = mockFn()
+      const fn = mockFn(() => undefined)
       fn()
       expect(fn.calls).to.deep.equal([
         { args: [], result: { type: 'return', value: undefined } },
@@ -365,14 +365,14 @@ describe('Mock', () => {
     })
 
     it('stores multiple calls', () => {
-      const fn = mockFn()
+      const fn = mockFn((...args: any[]) => args.length)
       fn()
       fn(1)
       fn(5, 'yo')
       expect(fn.calls).to.deep.equal([
-        { args: [], result: { type: 'return', value: undefined } },
-        { args: [1], result: { type: 'return', value: undefined } },
-        { args: [5, 'yo'], result: { type: 'return', value: undefined } },
+        { args: [], result: { type: 'return', value: 0 } },
+        { args: [1], result: { type: 'return', value: 1 } },
+        { args: [5, 'yo'], result: { type: 'return', value: 2 } },
       ])
     })
 
