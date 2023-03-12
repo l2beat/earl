@@ -14,11 +14,14 @@ hero:
     alt: VitePress
   actions:
     - theme: brand
-      text: Documentation
+      text: Getting started
       link: /introduction/getting-started
     - theme: alt
-      text: API Examples
-      link: /api/api-reference
+      text: Why earl?
+      link: /introduction/motivation
+    - theme: alt
+      text: GitHub
+      link: https://github.com/l2beat/earl
 
 features:
   - icon: 💪
