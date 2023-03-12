@@ -14,7 +14,8 @@ declare module '../expect' {
      *
      * @param length - expected array length. Can be a matcher.
      */
-    length(length: number): any[] & string & { length: number }
+    length(length: number): any
+    // we can't any[] & string & { length: number } because of missing keys
   }
 }
 
