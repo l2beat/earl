@@ -50,14 +50,7 @@ export async function generateApiReference(
     }),
   )
 
-  const output =
-    '## Synopsis' +
-    '\n\n' +
-    contents.map((section) => section.tableOfContents).join('\n\n') +
-    '\n\n' +
-    '## Reference' +
-    '\n\n' +
-    contents.map((section) => section.reference).join('\n\n')
+  const output = contents.map((section) => section.reference).join('\n\n')
 
   if (args.out) {
     await writeFile(args.out, output, 'utf-8')

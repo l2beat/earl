@@ -27,8 +27,6 @@ export function generateSectionReference(
   }))
 
   return {
-    tableOfContents:
-      `### ${sectionName}\n\n` + generateTableOfContents(prefixed),
     reference:
       `### ${sectionName}\n\n` +
       prefixed.map(generateMarkdownForMethodDocumentation).join('\n'),
@@ -57,10 +55,8 @@ function prefixMethodSignature(prefix: string, signature: string) {
 export function generateMarkdownForMethodDocumentation(
   doc: MethodDocumentation,
 ): string {
-  // We're generating Docusaurus flavor of Markdown.
-  // https://docusaurus.io/docs/markdown-features/headings#explicit-ids
   const header = `\
-#### **\`${doc.signature}\`** {#${encodeAnchor(doc.abbreviatedSignature)}}
+#### **\`${doc.signature}\`**
 
 ${doc.description}
   `
@@ -88,31 +84,4 @@ ${
 }`
 
   return [header, params, examples].filter(Boolean).join('\n')
-}
-
-/**
- * @internal
- */
-export function generateTableOfContents(docs: MethodDocumentation[]) {
-  const links = docs.map(
-    (d) =>
-      `- [\`${d.abbreviatedSignature}\`](#${encodeAnchor(
-        d.abbreviatedSignature,
-      )})`,
-  )
-
-  return links.join('\n')
-}
-
-/**
- * @internal
- */
-export function encodeAnchor(signature: string): string {
-  // @todo All function names should be unique, so we should be free to use the
-  //       identifier as HTML anchor id if we add better handling to method overloads.
-  //       (note: we would have to add class identifier to the anchor id as well)
-
-  let res = signature.replace(/[><\\?.[\]= ]/g, '').replace(/[(),:]/g, '-')
-  while (res.endsWith('-')) res = res.slice(0, -1)
-  return res
 }

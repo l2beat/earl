@@ -1,5 +1,7 @@
 import { defineConfig } from 'vitepress'
 
+const pkg = require('../../../earljs/package.json')
+
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
   title: 'earl',
@@ -37,7 +39,8 @@ export default defineConfig({
     logo: '/logo.svg',
 
     editLink: {
-      pattern: 'https://github.com/l2beat/earl/edit/master/packages/docs/:path',
+      pattern:
+        'https://github.com/l2beat/earl/edit/master/packages/website/docs/:path',
       text: 'Edit this page on GitHub',
     },
 
@@ -49,6 +52,19 @@ export default defineConfig({
     nav: [
       { text: 'Home', link: '/' },
       { text: 'Docs', link: '/introduction/getting-started' },
+      {
+        text: pkg.version,
+        items: [
+          {
+            text: 'Changelog',
+            link: 'https://github.com/l2beat/earl/blob/master/packages/earljs/CHANGELOG.md',
+          },
+          {
+            text: 'Contributing',
+            link: 'https://github.com/l2beat/earl/blob/master/CONTRIBUTING.md',
+          },
+        ],
+      },
     ],
 
     footer: {

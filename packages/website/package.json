@@ -3,11 +3,11 @@
   "private": true,
   "version": "1.0.0",
   "scripts": {
+    "start": "vitepress dev docs",
     "format": "prettier --check .",
     "format:fix": "prettier --write .",
     "lint": "eslint --ext .ts scripts",
     "lint:fix": "pnpm lint --fix",
-    "start": "vitepress dev docs",
     "build": "pnpm build:api-reference && pnpm build:docs",
     "build:docs": "vitepress build docs",
     "build:api-reference": "ts-node ./scripts/index.ts",
