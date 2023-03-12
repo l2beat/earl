@@ -5,7 +5,9 @@ declare module '../expect' {
     /**
      * Matches `null` and `undefined`
      */
-    nullish(): any // we can't use null | undefined because it cannot be assigned to null and undefined
+    nullish(): any
+    // we can't use null | undefined because it cannot be assigned to null and undefined
+    // we can't use null & undefined because it evaluates to never
   }
 }
 

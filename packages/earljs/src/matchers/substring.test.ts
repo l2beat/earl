@@ -1,8 +1,8 @@
-import { substring } from './substring'
 import { expect } from 'chai'
 
 import { expect as earl } from '../index'
 import { testMatcher } from '../test/matchers'
+import { substring } from './substring'
 
 describe(substring.name, () => {
   it('is correctly formatted', () => {
