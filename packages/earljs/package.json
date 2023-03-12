@@ -25,8 +25,7 @@
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "files": [
-    "dist/**/*",
-    "internals/package.json"
+    "dist/**/*"
   ],
   "scripts": {
     "start": "ts-node -T ./src/index.ts",

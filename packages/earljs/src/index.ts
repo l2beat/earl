@@ -1,4 +1,7 @@
 export * from './expect'
+export { Control, ValidationResult } from './Control'
+export * from './format'
+export * from './isEqual'
 import './validators/toEqual'
 import './matchers/a'
 import './matchers/anything'
