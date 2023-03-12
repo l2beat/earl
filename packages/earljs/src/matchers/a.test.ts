@@ -1,11 +1,11 @@
 import { expect } from 'chai'
 
 import { expect as earl } from '../expect'
-import { AMatcher } from './A'
+import { a } from './a'
 
 describe('A matcher', () => {
   it('should match string', () => {
-    const m = new AMatcher(String)
+    const m = a(String)
 
     expect(m.check('m')).to.be.true
     // eslint-disable-next-line
@@ -18,7 +18,7 @@ describe('A matcher', () => {
   })
 
   it('should match numbers', () => {
-    const m = new AMatcher(Number)
+    const m = a(Number)
 
     expect(m.check(5)).to.be.true
     // eslint-disable-next-line
@@ -32,7 +32,7 @@ describe('A matcher', () => {
   })
 
   it('should match boolean', () => {
-    const m = new AMatcher(Boolean)
+    const m = a(Boolean)
 
     expect(m.check(true)).to.be.true
     // eslint-disable-next-line
@@ -46,7 +46,7 @@ describe('A matcher', () => {
   })
 
   it('should match bigint', () => {
-    const m = new AMatcher(BigInt)
+    const m = a(BigInt)
 
     // We eval here because of typescript compilation target being <ES2020
     // eslint-disable-next-line no-eval
@@ -61,7 +61,7 @@ describe('A matcher', () => {
   })
 
   it('should match function', () => {
-    const m = new AMatcher(Function)
+    const m = a(Function)
 
     expect(m.check(() => {})).to.be.true
 
@@ -72,7 +72,7 @@ describe('A matcher', () => {
   })
 
   it('should match object', () => {
-    const m = new AMatcher(Object)
+    const m = a(Object)
 
     expect(m.check({})).to.be.true
     // eslint-disable-next-line
@@ -85,7 +85,7 @@ describe('A matcher', () => {
 
   it('should match symbol', () => {
     // eslint-disable-next-line
-    const m = new AMatcher(Symbol)
+    const m = a(Symbol)
 
     // eslint-disable-next-line
     expect(m.check(Symbol())).to.be.true
@@ -97,7 +97,7 @@ describe('A matcher', () => {
   })
 
   it('should match an array', () => {
-    const m = new AMatcher(Array)
+    const m = a(Array)
 
     expect(m.check([])).to.be.true
 

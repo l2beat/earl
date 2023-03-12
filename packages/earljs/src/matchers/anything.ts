@@ -1,4 +1,4 @@
-import { Matcher, registerMatcher } from '../expect'
+import { createMatcher, registerMatcher } from '../expect'
 
 declare module '../expect' {
   interface Matchers {
@@ -6,14 +6,8 @@ declare module '../expect' {
   }
 }
 
-registerMatcher('anything', () => new AnythingMatcher())
+registerMatcher('anything', anything)
 
-export class AnythingMatcher extends Matcher {
-  check(value: unknown) {
-    return true
-  }
-
-  toString() {
-    return `[Anything]`
-  }
+export function anything() {
+  return createMatcher(`[anything]`, () => true)
 }

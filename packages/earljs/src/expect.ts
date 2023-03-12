@@ -8,9 +8,21 @@ export interface Validators<T> {
 // to be overridden by plugins
 export interface Matchers {}
 
-export abstract class Matcher {
-  abstract check(v: unknown): boolean
-  abstract toString(): string
+class Matcher {
+  constructor(
+    readonly representation: string,
+    readonly check: (v: unknown) => boolean,
+  ) {}
+  toString() {
+    return this.representation
+  }
+}
+
+export function createMatcher(
+  representation: string,
+  check: (v: unknown) => boolean,
+) {
+  return new Matcher(representation, check)
 }
 
 class Expectation<T> {

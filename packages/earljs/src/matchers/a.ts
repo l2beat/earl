@@ -1,5 +1,5 @@
 import { Class2Primitive, NewableOrPrimitive } from '../types'
-import { Matcher, registerMatcher } from '../expect'
+import { createMatcher, registerMatcher } from '../expect'
 
 declare module '../expect' {
   interface Matchers {
@@ -7,46 +7,37 @@ declare module '../expect' {
   }
 }
 
-registerMatcher(
-  'anything',
-  <T>(clazz: NewableOrPrimitive<T>) => new AMatcher<T>(clazz),
-)
+registerMatcher('a', a)
 
-export class AMatcher<T> extends Matcher {
-  constructor(private readonly clazz: NewableOrPrimitive<T>) {
-    super()
-  }
-
-  check(v: unknown) {
-    if (this.clazz === (String as any)) {
-      return typeof v === 'string' || v instanceof String
+export function a<T>(clazz: NewableOrPrimitive<T>) {
+  return createMatcher(`[a: ${clazz.name}]`, (value: unknown) => {
+    if (clazz === (String as any)) {
+      return typeof value === 'string' || value instanceof String
     }
-    if (this.clazz === (Number as any)) {
-      return (typeof v === 'number' && !isNaN(v)) || v instanceof Number
+    if (clazz === (Number as any)) {
+      return (
+        (typeof value === 'number' && !isNaN(value)) || value instanceof Number
+      )
     }
-    if (this.clazz === (Boolean as any)) {
-      return typeof v === 'boolean' || v instanceof Boolean
+    if (clazz === (Boolean as any)) {
+      return typeof value === 'boolean' || value instanceof Boolean
     }
-    if (this.clazz === BigInt) {
-      return typeof v === 'bigint' || v instanceof BigInt
+    if (clazz === BigInt) {
+      return typeof value === 'bigint' || value instanceof BigInt
     }
-    if (this.clazz === (Function as any)) {
-      return typeof v === 'function' || v instanceof Function
+    if (clazz === (Function as any)) {
+      return typeof value === 'function' || value instanceof Function
     }
-    if (this.clazz === (Object as any)) {
-      return typeof v === 'object' && v !== null
+    if (clazz === (Object as any)) {
+      return typeof value === 'object' && value !== null
     }
-    if (this.clazz === Symbol) {
-      return typeof v === 'symbol'
+    if (clazz === Symbol) {
+      return typeof value === 'symbol'
     }
-    if (this.clazz === (Array as any)) {
-      return Array.isArray(v)
+    if (clazz === (Array as any)) {
+      return Array.isArray(value)
     }
 
-    return v instanceof this.clazz
-  }
-
-  toString() {
-    return `[A: ${this.clazz.name}]`
-  }
+    return value instanceof clazz
+  })
 }

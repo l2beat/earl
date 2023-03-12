@@ -1,18 +1,18 @@
 import { expect } from 'chai'
 
-import { StringMatchingMatcher } from './StringMatching'
+import { stringMatching } from './stringMatching'
 
 describe('StringContaining matcher', () => {
   describe('with string', () => {
     it('matches strings containing substring', () => {
-      const m = new StringMatchingMatcher('test')
+      const m = stringMatching('test')
 
       expect(m.check('abc test cde')).to.be.true
       expect(m.check('testtesttest')).to.be.true
     })
 
     it('doesnt match non-strings', () => {
-      const m = new StringMatchingMatcher('test')
+      const m = stringMatching('test')
 
       expect(m.check(undefined)).to.be.false
       expect(m.check(1)).to.be.false
@@ -21,7 +21,7 @@ describe('StringContaining matcher', () => {
     })
 
     it('doesnt match strings not containing substring', () => {
-      const m = new StringMatchingMatcher('test')
+      const m = stringMatching('test')
 
       expect(m.check('')).to.be.false
       expect(m.check('tes')).to.be.false
@@ -29,7 +29,7 @@ describe('StringContaining matcher', () => {
     })
 
     it('matches strings with special characters', () => {
-      const m = new StringMatchingMatcher('"[test]"')
+      const m = stringMatching('"[test]"')
 
       expect(m.check('abc "[test]" abc')).to.be.true
     })
@@ -37,14 +37,14 @@ describe('StringContaining matcher', () => {
 
   describe('with regex', () => {
     it('matches strings matching pattern', () => {
-      const m = new StringMatchingMatcher(new RegExp('^[0-9]+$'))
+      const m = stringMatching(new RegExp('^[0-9]+$'))
 
       expect(m.check('1323')).to.be.true
       expect(m.check('1')).to.be.true
     })
 
     it('doesnt match non-strings', () => {
-      const m = new StringMatchingMatcher(new RegExp('^[0-9]+$'))
+      const m = stringMatching(new RegExp('^[0-9]+$'))
 
       expect(m.check(undefined)).to.be.false
       expect(m.check(1)).to.be.false
@@ -53,7 +53,7 @@ describe('StringContaining matcher', () => {
     })
 
     it('doesnt match strings not matching pattern', () => {
-      const m = new StringMatchingMatcher(new RegExp('^[0-9]+$'))
+      const m = stringMatching(new RegExp('^[0-9]+$'))
 
       expect(m.check('')).to.be.false
       expect(m.check('tes')).to.be.false
