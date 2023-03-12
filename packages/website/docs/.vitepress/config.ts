@@ -39,7 +39,8 @@ export default defineConfig({
     logo: '/logo.svg',
 
     editLink: {
-      pattern: 'https://github.com/l2beat/earl/edit/master/packages/docs/:path',
+      pattern:
+        'https://github.com/l2beat/earl/edit/master/packages/website/docs/:path',
       text: 'Edit this page on GitHub',
     },
 

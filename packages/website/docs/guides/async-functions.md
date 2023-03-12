@@ -5,7 +5,7 @@ editLink: true
 
 # {{ $frontmatter.title }}
 
-In JavaScript you very frequently work with promises and async code. Here's how
+In JavaScript you very frequently work with promises and async functions. Here's how
 to deal with them in **earl**.
 
 ### Successful promises

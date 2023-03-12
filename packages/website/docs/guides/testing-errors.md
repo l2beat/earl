@@ -23,6 +23,8 @@ that will be executed and error will be caught. It's one of the limitation of
 JavaScript but don't worry! As long as you use TypeScript you will get a compile
 time error if you forget to do so.
 
+If you're interested in testing async functions, take a look at [Async functions guide](/guides/async-functions).
+
 ## Matching only part of an error message
 
 You can combine `toThrow` with string matcher to for example to check if error
