@@ -94,7 +94,7 @@ describe(a.name, () => {
 
     it('is type safe', () => {
       earl({ a: 1 }).toEqual(earl.a(Object))
-      // THIS ISN'T ACTUALLY A TYPE SAFE :(
+      // THIS ISN'T ACTUALLY TYPE SAFE :(
       earl('foo').not.toEqual(earl.a(Object))
     })
 

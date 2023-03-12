@@ -2,7 +2,7 @@ import { registerMatcher } from '../expect'
 
 declare module '../expect' {
   interface Matchers {
-    nullish(value: unknown): null | undefined
+    nullish(): any // we can't use null | undefined because it cannot be assigned to null and undefined
   }
 }
 
