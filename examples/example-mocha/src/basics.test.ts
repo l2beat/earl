@@ -22,7 +22,7 @@ describe('basics', () => {
     expect(response).toEqual({
       trimmed: true,
       timestamp: expect.anything(),
-      name: expect.stringMatching(/[Dd]uck/),
+      name: expect.regex(/[Dd]uck/),
       age: expect.a(Number),
       nested: {
         b: expect.a(Person),

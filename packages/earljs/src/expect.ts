@@ -52,12 +52,15 @@ const rawExpect = function expect<T>(
   return new Expectation(value) as any
 }
 
+const matchers: Record<string, (...args: any[]) => Matcher> =
+  Object.create(null)
+
 export function registerMatcher<A extends any[]>(
   name: string,
   check: (...args: A) => (value: unknown) => boolean,
   format?: (...args: A) => string,
 ) {
-  Reflect.set(rawExpect, name, (...args: A) => {
+  Reflect.set(matchers, name, (...args: A) => {
     const representation = format
       ? format(...args)
       : `${name}(${args.map(formatCompact).join(', ')})`
@@ -65,4 +68,9 @@ export function registerMatcher<A extends any[]>(
   })
 }
 
-export const expect = rawExpect as typeof rawExpect & Matchers
+export const expect = new Proxy(rawExpect, {
+  get(target, name) {
+    // we need this, because otherwise we cannot override length
+    return Reflect.get(matchers, name) ?? Reflect.get(target, name)
+  },
+}) as typeof rawExpect & Matchers

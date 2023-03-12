@@ -30,6 +30,31 @@ export type Class2Primitive<T extends NewableOrPrimitive> =
 
 declare module '../expect' {
   interface Matchers {
+    /**
+     * Matches an instance of a provided class or a primitive type. Works as
+     * expected with builtin types like strings, numbers, dates.
+     *
+     * @example
+     * ```ts
+     * // matches `new MyClass()` and `new MySubClass()` if `MySubClass` extends `MyClass`
+     * // doesn't match `new Other()`
+     * expect.a(MyClass)
+     *
+     * // matches `"foo"`
+     * // doesn't match `new String("foo")` or `123`
+     * expect.a(String)
+     *
+     * // matches `123` and `-5.5`
+     * // doesn't match `NaN` or `"123"`
+     * expect.a(Number)
+     *
+     * // matches `{}`, `{ a: 1 }` and `new MyClass()`
+     * // doesn't match `123`, "foo" or `null`
+     * expect.a(Object)
+     * ```
+     *
+     * @param type - class or primitive constructor to match against.
+     */
     a<T extends NewableOrPrimitive>(type: T): Class2Primitive<T>
   }
 }
