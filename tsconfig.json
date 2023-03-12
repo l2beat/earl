@@ -9,6 +9,8 @@
     "module": "CommonJS",
     "moduleResolution": "node",
     "strict": true,
+    "noUncheckedIndexedAccess": false,
+    "isolatedModules": true,
     "esModuleInterop": true,
     "outDir": "dist",
     "allowUnreachableCode": false,

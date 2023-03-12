@@ -1,4 +1,4 @@
-export { Control, ValidationResult } from './Control'
+export * from './Control'
 export * from './expect'
 export * from './format'
 export * from './isEqual'
