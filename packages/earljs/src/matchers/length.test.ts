@@ -16,9 +16,10 @@ describe(length.name, () => {
     earl(['foo', 'bar']).toEqual(earl.length(2))
     earl('foo').toEqual(earl.length(3))
     earl({ length: 5 }).toEqual(earl.length(5))
-    // @ts-expect-error - type mismatch
+    earl({ length: 2, 1: 'a', 2: 'b' }).toEqual(earl.length(2))
+    // THIS ISN'T ACTUALLY TYPE SAFE :(
     earl({ notLength: 5 }).not.toEqual(earl.length(1))
-    // @ts-expect-error - type mismatch
+    // THIS ISN'T ACTUALLY TYPE SAFE :(
     earl(null).not.toEqual(earl.length(2))
   })
 
