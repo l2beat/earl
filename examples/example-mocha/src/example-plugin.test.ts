@@ -7,9 +7,7 @@ describe('example-plugin', () => {
 
   it('EvenNumberMatchers is type safe', () => {
     // @ts-expect-error - type mismatch
-    expect(() => expect('2').toEqual(expect.evenNumber())).toThrow(
-      expect.stringMatching('"2" not equal to Matcher [EvenNumberMatcher]'),
-    )
+    expect('2').not.toEqual(expect.evenNumber())
   })
 
   it('toBeEven works', () => {
