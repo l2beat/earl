@@ -1,5 +1,0 @@
-{
-  "private": true,
-  "main": "../dist/internals.js",
-  "types": "../dist/internals.d.ts"
-}

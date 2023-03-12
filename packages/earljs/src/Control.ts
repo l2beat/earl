@@ -12,11 +12,7 @@ export interface ValidationResult {
 export class Control<T> {
   private readonly location = AssertionError.getLocation()
 
-  constructor(
-    public actual: T,
-    public isNegated: boolean,
-    private readonly extraMessage?: string,
-  ) {}
+  constructor(public actual: T, public isNegated: boolean) {}
 
   get file() {
     return this.location.file
@@ -29,7 +25,6 @@ export class Control<T> {
         stack: this.location.stack,
         actual: result.actual,
         expected: result.expected,
-        extraMessage: this.extraMessage,
       })
     }
   }
@@ -42,7 +37,6 @@ export class Control<T> {
       stack: this.location.stack,
       actual: result.actual,
       expected: result.expected,
-      extraMessage: this.extraMessage,
     })
   }
 }

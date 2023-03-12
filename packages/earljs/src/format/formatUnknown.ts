@@ -1,5 +1,5 @@
+import { Matcher } from '../expect'
 import { getCanonicalType } from '../isEqual/getCanonicalType'
-import { Matcher } from '../matchers'
 import { formatArrayEntries } from './formatArrayEntries'
 import { formatMapEntries } from './formatMapEntries'
 import { formatNumber } from './formatNumber'

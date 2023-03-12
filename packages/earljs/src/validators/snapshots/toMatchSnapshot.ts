@@ -2,11 +2,21 @@ import { writeFileSync } from 'fs'
 
 import { Control } from '../../Control'
 import { EarlConfigurationError } from '../../errors'
+import { registerValidator } from '../../expect'
 import { format, formatCompact } from '../../format'
 import { formatSnapshot } from './format'
 import { getSnapshot } from './getSnapshot'
 import { getSnapshotUpdateMode } from './getSnapshotUpdateMode'
 import { TestContext } from './TestContext'
+
+declare module '../../expect' {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  interface Validators<T> {
+    toMatchSnapshot(context: TestContext): void
+  }
+}
+
+registerValidator('toMatchSnapshot', toMatchSnapshot)
 
 export function toMatchSnapshot(
   control: Control<unknown>,

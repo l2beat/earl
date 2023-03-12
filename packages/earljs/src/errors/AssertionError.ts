@@ -1,12 +1,10 @@
 import ErrorStackParser from 'error-stack-parser'
-import { EOL } from 'os'
 
 interface AssertionErrorOptions {
   message: string
   stack: string
   actual?: string
   expected?: string
-  extraMessage?: string
 }
 
 /**
@@ -18,10 +16,7 @@ export class AssertionError extends Error {
   public expected?: string
 
   constructor(options: AssertionErrorOptions) {
-    let message = options.message
-    if (options.extraMessage) {
-      message += EOL + 'Extra message: ' + options.extraMessage
-    }
+    const message = options.message
     super(message)
     this.name = 'AssertionError'
     this.actual = options.actual

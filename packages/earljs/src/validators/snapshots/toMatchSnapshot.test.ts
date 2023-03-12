@@ -1,8 +1,8 @@
 import { expect } from 'chai'
 import { readFileSync, writeFileSync } from 'fs'
 
-import { expect as earl } from '../../expect'
 import { format } from '../../format'
+import { expect as earl } from '../../index'
 import { formatSnapshot, parseSnapshot } from './format'
 import { resetSnapshotCache } from './getSnapshot'
 import { MochaTestContext } from './TestContext'

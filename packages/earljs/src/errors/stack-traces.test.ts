@@ -2,7 +2,7 @@ import { expect } from 'chai'
 import * as errorStackParser from 'error-stack-parser'
 
 import { Control } from '../Control'
-import { expect as earl } from '../expect'
+import { expect as earl } from '../index'
 import { AssertionError } from './AssertionError'
 
 describe('stack traces for errors', () => {

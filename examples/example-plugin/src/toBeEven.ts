@@ -1,11 +1,19 @@
-import { Expectation, getControl } from 'earljs/internals'
+import { Control, formatCompact, registerValidator } from 'earljs'
 
-export function toBeEven(this: Expectation<number>): void {
-  const ctrl = getControl(this)
+declare module 'earljs' {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  interface Validators<T> {
+    toBeEven(this: Validators<number>): void
+  }
+}
 
-  ctrl.assert({
-    success: ctrl.actual % 2 === 0,
-    reason: `Number ${ctrl.actual} is not even!`,
-    negatedReason: `Number ${ctrl.actual} is even!`,
+registerValidator('toBeEven', toBeEven)
+
+export function toBeEven(control: Control<number>) {
+  const actualFmt = formatCompact(control.actual)
+  control.assert({
+    success: control.actual % 2 === 0,
+    reason: `${actualFmt} is not even!`,
+    negatedReason: `${actualFmt} is even!`,
   })
 }

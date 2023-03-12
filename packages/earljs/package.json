@@ -25,14 +25,13 @@
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "files": [
-    "dist/**/*",
-    "internals/package.json"
+    "dist/**/*"
   ],
   "scripts": {
     "start": "ts-node -T ./src/index.ts",
     "format": "prettier --check .",
     "format:fix": "prettier --write .",
-    "lint": "eslint --ext .ts src",
+    "lint": "eslint --ext .ts --max-warnings 0 src",
     "lint:fix": "pnpm lint --fix",
     "typecheck": "tsc --noEmit",
     "clean": "rimraf dist *.tsbuildinfo",
@@ -44,12 +43,6 @@
     "release": "pnpm lint && pnpm format && pnpm typecheck && pnpm test && pnpm build"
   },
   "dependencies": {
-    "debug": "^4.3.4",
-    "error-stack-parser": "^2.1.4",
-    "ts-essentials": "^9.3.1"
-  },
-  "devDependencies": {
-    "@microsoft/tsdoc": "^0.14.2",
-    "@types/debug": "^4.1.7"
+    "error-stack-parser": "^2.1.4"
   }
 }

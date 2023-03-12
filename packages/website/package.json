@@ -6,29 +6,18 @@
     "start": "vitepress dev docs",
     "format": "prettier --check .",
     "format:fix": "prettier --write .",
-    "lint": "eslint --ext .ts scripts",
-    "lint:fix": "pnpm lint --fix",
-    "build": "pnpm build:api-reference && pnpm build:docs",
-    "build:docs": "vitepress build docs",
-    "build:api-reference": "ts-node ./scripts/index.ts",
+    "build": "vitepress build docs",
     "preview": "vitepress preview docs",
-    "test": "mocha",
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@earljs/published": "npm:earljs@^0.2.3",
-    "@microsoft/tsdoc": "^0.14.2",
-    "@ts-morph/bootstrap": "^0.18.0",
-    "@types/command-line-usage": "^5.0.2",
-    "@types/debug": "^4.1.7",
-    "@types/lodash": "^4.14.191",
-    "earljs": "workspace:^0.2.3",
-    "fast-glob": "^3.2.12",
-    "lodash": "^4.17.21",
-    "netlify-cli": "^13.1.2",
-    "ts-command-line-args": "^2.4.2",
-    "ts-essentials": "^9.3.1",
-    "ts-morph": "^17.0.1",
     "vitepress": "1.0.0-alpha.51"
+  },
+  "pnpm": {
+    "peerDependencyRules": {
+      "ignoreMissing": [
+        "@algolia/client-search"
+      ]
+    }
   }
 }
