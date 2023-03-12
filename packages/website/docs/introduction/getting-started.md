@@ -32,5 +32,17 @@ match values. Matchers can be used to match whole ranges of values and are very
 important piece of **earl** ecosystem.
 
 You can read more about those concepts in
-[Core Concepts](/introduction/core-concepts) chapter. But for now lets do a step
-by step guide and write a first test case using **mocha** and **earl**!
+[Core Concepts](/introduction/core-concepts) chapter.
+
+**Earl**'s killer feature is type-safety meaning that assertions that will for sure fail result in compile-time error.
+
+```typescript
+import { expect } from 'earljs'
+
+const meaningOfLife = 42
+
+// TS error: Argument of type 'String' is not assignable to parameter of type 'number'
+expect(meaningOfLife).toEqual(expect.a(String))
+```
+
+Lets do a step by step guide and write a first test case using **mocha** and **earl**!

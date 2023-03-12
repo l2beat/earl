@@ -24,16 +24,23 @@ Here's a minimal _tsconfig.json_:
 ```json
 {
   "compilerOptions": {
-    "lib": ["ES2018"],
+    "lib": ["ES2019"],
+    "target": "ES2019",
+    "sourceMap": true,
+    "composite": true,
+    "incremental": true,
+    "declaration": true,
     "module": "CommonJS",
     "moduleResolution": "node",
     "strict": true,
-    "target": "ES2015",
     "esModuleInterop": true,
-    "sourceMap": true
-  },
-  "include": ["src", "test"]
+    "outDir": "dist",
+    "allowUnreachableCode": false,
+    "skipLibCheck": true
+  }
+  "include": ["src"]
 }
+
 ```
 
 ## Function under tests
@@ -68,10 +75,9 @@ module.exports = {
 
 ## Write our first test case
 
-Lets create our first test suite. I like to mirror directory structure of `src/`
-inside my `test/` directory so that's what we are going to do:
+Lets create our first test suite next to the file with implementation.
 
-_test/sum.test.ts_:
+_src/sum.test.ts_:
 
 ```typescript
 import { expect } from 'earljs'

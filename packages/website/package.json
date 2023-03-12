@@ -3,9 +3,9 @@
   "private": true,
   "version": "1.0.0",
   "scripts": {
+    "start": "vitepress dev docs",
     "format": "prettier --check .",
     "format:fix": "prettier --write .",
-    "start": "vitepress dev docs",
     "build": "vitepress build docs",
     "preview": "vitepress preview docs",
     "typecheck": "tsc --noEmit"

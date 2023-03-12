@@ -17,85 +17,9 @@ outline: deep
   }
 </style>
 
-## Synopsis
-
 ### Core
 
-- [`function expect<T>(actual: T, options?: ExpectationOptions)`](#functionexpectT-actual-T-options-ExpectationOptions)
-
-### Validators
-
-- [`.toBeA(clazz: NewableOrPrimitive)`](#toBeA-clazz-NewableOrPrimitive)
-- [`.toBeAContainerWith(...expectedItems: T[])`](#toBeAContainerWith-expectedItems-T)
-- [`.toBeAnArrayOfLength(length: number)`](#toBeAnArrayOfLength-length-number)
-- [`.toBeAnArrayWith(...expectedItems: readonly any[])`](#toBeAnArrayWith-expectedItems-readonlyany)
-- [`.toBeAnObjectWith(subset: object)`](#toBeAnObjectWith-subset-object)
-- [`.toBeDefined()`](#toBeDefined)
-- [`.toBeExhausted()`](#toBeExhausted)
-- [`.toBeFalsy()`](#toBeFalsy)
-- [`.toBeGreaterThan(target: number)`](#toBeGreaterThan-target-number)
-- [`.toBeGreaterThanOrEqualTo(target: number)`](#toBeGreaterThanOrEqualTo-target-number)
-- [`.toBeLessThan(target: number)`](#toBeLessThan-target-number)
-- [`.toBeLessThanOrEqualTo(target: number)`](#toBeLessThanOrEqualTo-target-number)
-- [`.toBeNullish()`](#toBeNullish)
-- [`.toBeRejected(errorClass: Newable<Error>, message?: string)`](#toBeRejected-errorClass-NewableError-message-string)
-- [`.toBeRejected(message?: string)`](#toBeRejected-message-string)
-- [`.toBeTruthy()`](#toBeTruthy)
-- [`.toEqual(value: ExpectedEqual<T>)`](#toEqual-value-ExpectedEqualT)
-- [`.toHaveBeenCalledExactlyWith(args: MockArgs<T>[])`](#toHaveBeenCalledExactlyWith-args-MockArgsT)
-- [`.toHaveBeenCalledWith(args: MockArgs<T>)`](#toHaveBeenCalledWith-args-MockArgsT)
-- [`.toLooseEqual(value: any)`](#toLooseEqual-value-any)
-- [`.toMatchSnapshot(context: TestContext)`](#toMatchSnapshot-context-TestContext)
-- [`.toReferentiallyEqual(value: T)`](#toReferentiallyEqual-value-T)
-- [`.toThrow(errorClass: Newable<Error>, message?: string)`](#toThrow-errorClass-NewableError-message-string)
-- [`.toThrow(message?: string)`](#toThrow-message-string)
-
-### Modifiers
-
-- [`.not()`](#not)
-
-### Matchers
-
-- [`expect.a<T>(type: NewableOrPrimitive<T>)`](#expectaT-type-NewableOrPrimitiveT)
-- [`expect.anything()`](#expectanything)
-- [`expect.arrayOfLength<T>(length: number)`](#expectarrayOfLengthT-length-number)
-- [`expect.arrayWith<T>(...items: T[])`](#expectarrayWithT-items-T)
-- [`expect.containerWith(...items: any[])`](#expectcontainerWith-items-any)
-- [`expect.defined()`](#expectdefined)
-- [`expect.falsy()`](#expectfalsy)
-- [`expect.nullish()`](#expectnullish)
-- [`expect.numberCloseTo(target: number, options: NumberCloseToDelta)`](#expectnumberCloseTo-target-number-options-NumberCloseToDelta)
-- [`expect.numberGreaterThan(target: number)`](#expectnumberGreaterThan-target-number)
-- [`expect.numberGreaterThanOrEqualTo(target: number)`](#expectnumberGreaterThanOrEqualTo-target-number)
-- [`expect.numberLessThan(target: number)`](#expectnumberLessThan-target-number)
-- [`expect.numberLessThanOrEqualTo(target: number)`](#expectnumberLessThanOrEqualTo-target-number)
-- [`expect.objectWith(subset: object)`](#expectobjectWith-subset-object)
-- [`expect.stringMatching(pattern: string`](#expectstringMatching-pattern-string)
-- [`expect.truthy()`](#expecttruthy)
-
-### Mocks
-
-- [`function mockFn<F extends (...args: any) => any>(defaultImpl?: F)`](#functionmockFnFextends-args-any-any-defaultImpl-F)
-- [`function mock(...args: TArgs)`](#functionmock-args-TArgs)
-- [`mock.calls`](#mockcalls)
-- [`mock.executes(implementation: (...args: TArgs[]) => TReturn)`](#mockexecutes-implementation--args-TArgs-TReturn)
-- [`mock.executesOnce(implementation: (...args: TArgs[]) => TReturn)`](#mockexecutesOnce-implementation--args-TArgs-TReturn)
-- [`mock.given<TGivenArgs extends TArgs>(...args: TGivenArgs)`](#mockgivenTGivenArgsextendsTArgs-args-TGivenArgs)
-- [`mock.isExhausted()`](#mockisExhausted)
-- [`mock.rejectsWith(error: any)`](#mockrejectsWith-error-any)
-- [`mock.rejectsWithOnce(error: any)`](#mockrejectsWithOnce-error-any)
-- [`mock.resolvesTo(value: Awaited<TReturn>)`](#mockresolvesTo-value-AwaitedTReturn)
-- [`mock.resolvesToOnce(value: Awaited<TReturn>)`](#mockresolvesToOnce-value-AwaitedTReturn)
-- [`mock.returns(value: TReturn)`](#mockreturns-value-TReturn)
-- [`mock.returnsOnce(value: TReturn)`](#mockreturnsOnce-value-TReturn)
-- [`mock.throws(error: any)`](#mockthrows-error-any)
-- [`mock.throwsOnce(error: any)`](#mockthrowsOnce-error-any)
-
-## Reference
-
-### Core
-
-#### **`function expect<T>(actual: T, options?: ExpectationOptions): Expectation<T>`** {#functionexpectT-actual-T-options-ExpectationOptions}
+#### **`function expect<T>(actual: T, options?: ExpectationOptions): Expectation<T>`**
 
 The `expect` function is used every time you want to test a value.
   
@@ -107,7 +31,7 @@ The `expect` function is used every time you want to test a value.
 
 ### Validators
 
-#### **`.toBeA(clazz: NewableOrPrimitive): void`** {#toBeA-clazz-NewableOrPrimitive}
+#### **`.toBeA(clazz: NewableOrPrimitive): void`**
 
 Checks if the value is an instance of a provided class or a primitive type. Works as expected with builtin types like strings, numbers, dates.
 
@@ -126,7 +50,7 @@ expect(object).toBeA(MyClass) // checks if object is instance of `MyClass`, but 
 expect(foo).toBeA(String) // checks if foo is instance of string
 expect(foo).toBeA(Object) // matches any object (not null)
 ```
-#### **`.toBeAContainerWith(...expectedItems: T[]): void`** {#toBeAContainerWith-expectedItems-T}
+#### **`.toBeAContainerWith(...expectedItems: T[]): void`**
 
 Checks if the value is an iterable containing all of the provided items. Internally, container is first turned into array and `toBeAnArrayWith` is used for final comparison.
   
@@ -140,7 +64,7 @@ Checks if the value is an iterable containing all of the provided items. Interna
 ```ts
 expect([1, 2, 3]).toBeAContainerWith(1, 2)
 ```
-#### **`.toBeAnArrayOfLength(length: number): void`** {#toBeAnArrayOfLength-length-number}
+#### **`.toBeAnArrayOfLength(length: number): void`**
 
 Checks if the values is an array containing exactly given number of items.
   
@@ -155,7 +79,7 @@ Checks if the values is an array containing exactly given number of items.
 expect([1, 2, 3]).toBeAnArrayOfLength(3)
 expect([1, 2, 3]).toBeAnArrayOfLength(expect.numberGreaterThanOrEqualTo(3)))
 ```
-#### **`.toBeAnArrayWith(...expectedItems: readonly any[]): void`** {#toBeAnArrayWith-expectedItems-readonlyany}
+#### **`.toBeAnArrayWith(...expectedItems: readonly any[]): void`**
 
 Checks if the value is an array containing all of the provided items. Each expected item must be matched uniquely.
   
@@ -170,7 +94,7 @@ Checks if the value is an array containing all of the provided items. Each expec
 expect([1, 2, 3]).toBeAnArrayWith(1)
 expect([1]).toBeAnArrayWith(1, 1) // throws b/c a second "1" is missing
 ```
-#### **`.toBeAnObjectWith(subset: object): void`** {#toBeAnObjectWith-subset-object}
+#### **`.toBeAnObjectWith(subset: object): void`**
 
 Checks if the value is an object containing given key-value pairs.
   
@@ -184,7 +108,7 @@ Checks if the value is an object containing given key-value pairs.
 ```ts
 expect({ a: 1, b: 2, c: 3 }).toBeAnObjectWith({ b: 2, a: 1 })
 ```
-#### **`.toBeDefined(): void`** {#toBeDefined}
+#### **`.toBeDefined(): void`**
 
 Checks if the value is different to `undefined` and `null`.
   
@@ -195,11 +119,11 @@ Checks if the value is different to `undefined` and `null`.
 expect(0).toBeDefined()
 expect(null).not.toBeDefined()
 ```
-#### **`.toBeExhausted(): void`** {#toBeExhausted}
+#### **`.toBeExhausted(): void`**
 
 Checks if all the expected calls to the mock have been performed.
   
-#### **`.toBeFalsy(): void`** {#toBeFalsy}
+#### **`.toBeFalsy(): void`**
 
 Checks if the value is falsy.
   
@@ -213,7 +137,7 @@ expect(true).not.toBeFalsy()
 
 There are six falsy values in JavaScript: `false`, `0`, `''`, `null`, `undefined`, and `NaN`.
 Everything else is truthy.
-#### **`.toBeGreaterThan(target: number): void`** {#toBeGreaterThan-target-number}
+#### **`.toBeGreaterThan(target: number): void`**
 
 Checks if the value is greater than the provided target.
   
@@ -229,7 +153,7 @@ expect(2).toBeGreaterThan(1)
 expect(1).not.toBeGreaterThan(1)
 expect(-3).not.toBeGreaterThan(1)
 ```
-#### **`.toBeGreaterThanOrEqualTo(target: number): void`** {#toBeGreaterThanOrEqualTo-target-number}
+#### **`.toBeGreaterThanOrEqualTo(target: number): void`**
 
 Checks if the value is greater than or equal to the provided target.
   
@@ -245,7 +169,7 @@ expect(2).toBeGreaterThanOrEqualTo(1)
 expect(1).toBeGreaterThanOrEqualTo(1)
 expect(-3).not.toBeGreaterThanOrEqualTo(1)
 ```
-#### **`.toBeLessThan(target: number): void`** {#toBeLessThan-target-number}
+#### **`.toBeLessThan(target: number): void`**
 
 Checks if the value is less than the provided target.
   
@@ -261,7 +185,7 @@ expect(-3).toBeLessThan(1)
 expect(1).not.toBeLessThan(1)
 expect(2).not.toBeLessThan(1)
 ```
-#### **`.toBeLessThanOrEqualTo(target: number): void`** {#toBeLessThanOrEqualTo-target-number}
+#### **`.toBeLessThanOrEqualTo(target: number): void`**
 
 Checks if the value is less than or equal the provided target.
   
@@ -277,7 +201,7 @@ expect(-3).toBeLessThanOrEqualTo(1)
 expect(1).toBeLessThanOrEqualTo(1)
 expect(2).not.toBeLessThanOrEqualTo(1)
 ```
-#### **`.toBeNullish(): void`** {#toBeNullish}
+#### **`.toBeNullish(): void`**
 
 Checks if the value is `undefined` or `null`.
   
@@ -288,7 +212,7 @@ Checks if the value is `undefined` or `null`.
 expect(undefined).toBeNullish()
 expect(false).not.toBeNullish()
 ```
-#### **`.toBeRejected(errorClass: Newable<Error>, message?: string): Promise<void>`** {#toBeRejected-errorClass-NewableError-message-string}
+#### **`.toBeRejected(errorClass: Newable<Error>, message?: string): Promise<void>`**
 
 Awaits the provided promise and expects it to be rejected. The error's
 class and message are also checked.
@@ -298,7 +222,7 @@ class and message are also checked.
 - `errorClass` - expected class of the thrown error.
 - `message` - string or matcher to check the message against.
   
-#### **`.toBeRejected(message?: string): Promise<void>`** {#toBeRejected-message-string}
+#### **`.toBeRejected(message?: string): Promise<void>`**
 
 Awaits the provided promise and expects it to be rejected. The message
 of the error is also checked.
@@ -316,7 +240,7 @@ const promise = Promise.reject(new Error('oops, sorry'))
 await expect(promise).toBeRejected(Error, 'oops')
 await expect(promise).not.toBeRejected(TypeError)
 ```
-#### **`.toBeTruthy(): void`** {#toBeTruthy}
+#### **`.toBeTruthy(): void`**
 
 Checks if the value is truthy.
   
@@ -330,7 +254,7 @@ expect(false).not.toBeTruthy()
 
 There are six falsy values in JavaScript: `false`, `0`, `''`, `null`, `undefined`, and `NaN`.
 Everything else is truthy.
-#### **`.toEqual(value: ExpectedEqual<T>): void`** {#toEqual-value-ExpectedEqualT}
+#### **`.toEqual(value: ExpectedEqual<T>): void`**
 
 Performs a recursive equality check. Objects are equal if their fields
 are equal and they share the same prototype.
@@ -350,7 +274,7 @@ expect('foo').toEqual('foo') // Equality check against primitive value
 expect([1, { a: 2 }]).toEqual([1, { a: expect.a(Number) }]) // Usage with "a" matcher
 expect({ a: 2, b: 2 }).not.toEqual({ a: 2 }) // Negated equality check
 ```
-#### **`.toHaveBeenCalledExactlyWith(args: MockArgs<T>[]): void`** {#toHaveBeenCalledExactlyWith-args-MockArgsT}
+#### **`.toHaveBeenCalledExactlyWith(args: MockArgs<T>[]): void`**
 
 Checks the entire history of mock calls.
 
@@ -361,7 +285,7 @@ internal rules are used instead of the usual checks.
 
 - `args` - an array where each item is an array of values or matchers to check the mock call against.
   
-#### **`.toHaveBeenCalledWith(args: MockArgs<T>): void`** {#toHaveBeenCalledWith-args-MockArgsT}
+#### **`.toHaveBeenCalledWith(args: MockArgs<T>): void`**
 
 Check if the mock has been called with the provided arguments.
 
@@ -372,7 +296,7 @@ internal rules are used instead of the usual checks.
 
 - `args` - an array of values or matchers to check the mock calls against.
   
-#### **`.toLooseEqual(value: any): void`** {#toLooseEqual-value-any}
+#### **`.toLooseEqual(value: any): void`**
 
 Performs a recursive equality check. Objects are equal if their fields
 are equal. Object prototypes are ignored.
@@ -397,11 +321,11 @@ expect(new A()).not.toEqual({ a: 1 })
 // toLooseEqual ignores prototypes and focuses only on the value
 expect(new A()).toLooseEqual({ a: 1 })
 ```
-#### **`.toMatchSnapshot(context: TestContext): void`** {#toMatchSnapshot-context-TestContext}
+#### **`.toMatchSnapshot(context: TestContext): void`**
 
 Checks that the value is the same as in the previous test execution.
   
-#### **`.toReferentiallyEqual(value: T): void`** {#toReferentiallyEqual-value-T}
+#### **`.toReferentiallyEqual(value: T): void`**
 
 Performs a referential equality check using `Object.is`. It is similar to
 `===`, with two differences:
@@ -425,7 +349,7 @@ expect(x).toReferentiallyEqual(x)
 expect({}).not.toReferentiallyEqual(x)
 expect(NaN).toReferentiallyEqual(NaN)
 ```
-#### **`.toThrow(errorClass: Newable<Error>, message?: string): void`** {#toThrow-errorClass-NewableError-message-string}
+#### **`.toThrow(errorClass: Newable<Error>, message?: string): void`**
 
 Calls the provided function and expects an error to be thrown. The error's
 class and message are also checked.
@@ -446,7 +370,7 @@ const doThrow = () => {
 expect(() => doThrow()).toThrow(Error, 'oops')
 expect(() => doThrow()).not.toThrow(TypeError)
 ```
-#### **`.toThrow(message?: string): void`** {#toThrow-message-string}
+#### **`.toThrow(message?: string): void`**
 
 Calls the provided function and expects an error to be thrown. The message
 of the error is also checked.
@@ -467,7 +391,7 @@ expect(() => doThrow()).not.toThrow(expect.stringMatching(/end$/))
 
 ### Modifiers
 
-#### **`.not(): Expectation<T>`** {#not}
+#### **`.not(): Expectation<T>`**
 
 Inverts the behaviour of the validator that follows.
   
@@ -481,7 +405,7 @@ expect(3).not.toEqual(4) // ✅
 
 ### Matchers
 
-#### **`expect.a<T>(type: NewableOrPrimitive<T>): Class2Primitive<T>`** {#expectaT-type-NewableOrPrimitiveT}
+#### **`expect.a<T>(type: NewableOrPrimitive<T>): Class2Primitive<T>`**
 
 Matches an instance of a provided class or a primitive type. Works as expected with builtin types like strings, numbers, dates.
 
@@ -500,7 +424,7 @@ expect(something).toEqual(expect.a(MyClass)) // matches any object of instance M
 expect(something).toEqual(expect.a(String)) // matches any string
 expect(something).toEqual(expect.a(Object)) // matches any object (not null)
 ```
-#### **`expect.anything(): any`** {#expectanything}
+#### **`expect.anything(): any`**
 
 Matches any value.
   
@@ -511,7 +435,7 @@ Matches any value.
 expect(null).toEqual(expect.anything())
 expect({ a: 'something' }).toEqual({ a: expect.anything() })
 ```
-#### **`expect.arrayOfLength<T>(length: number): T[]`** {#expectarrayOfLengthT-length-number}
+#### **`expect.arrayOfLength<T>(length: number): T[]`**
 
 Matches an array containing exactly given number of items.
   
@@ -519,7 +443,7 @@ Matches an array containing exactly given number of items.
 
 - `length` - expected array length. Can be a matcher.
   
-#### **`expect.arrayWith<T>(...items: T[]): T[]`** {#expectarrayWithT-items-T}
+#### **`expect.arrayWith<T>(...items: T[]): T[]`**
 
 Matches an array containing the provided items.
   
@@ -527,7 +451,7 @@ Matches an array containing the provided items.
 
 - `items` - values or matchers to look for in the matched array.
   
-#### **`expect.containerWith(...items: any[]): any`** {#expectcontainerWith-items-any}
+#### **`expect.containerWith(...items: any[]): any`**
 
 Matches an iterable containing the provided items.
   
@@ -535,7 +459,7 @@ Matches an iterable containing the provided items.
 
 - `items` - values or matchers to look for in the matched iterable.
   
-#### **`expect.defined(): any`** {#expectdefined}
+#### **`expect.defined(): any`**
 
 Matches any value that is not `null` or `undefined`.
   
@@ -546,7 +470,7 @@ Matches any value that is not `null` or `undefined`.
 expect({ a: 0 }).toEqual({ a: expect.defined() })
 expect({ a: null }).not.toEqual({ a: expect.defined() })
 ```
-#### **`expect.falsy(): any`** {#expectfalsy}
+#### **`expect.falsy(): any`**
 
 Matches any falsy value.
   
@@ -560,7 +484,7 @@ expect([true]).not.toEqual([expect.falsy()])
 
 There are six falsy values in JavaScript: `false`, `0`, `''`, `null`, `undefined`, and `NaN`.
 Everything else is truthy.
-#### **`expect.nullish(): any`** {#expectnullish}
+#### **`expect.nullish(): any`**
 
 Matches `null` and `undefined`
   
@@ -571,7 +495,7 @@ Matches `null` and `undefined`
 expect({ a: undefined }).toEqual({ a: expect.nullish() })
 expect([null]).toEqual([expect.nullish()])
 ```
-#### **`expect.numberCloseTo(target: number, options: NumberCloseToDelta): number`** {#expectnumberCloseTo-target-number-options-NumberCloseToDelta}
+#### **`expect.numberCloseTo(target: number, options: NumberCloseToDelta): number`**
 
 Matches numbers that are close to the target value. The options are used
 to specify the maximum difference.
@@ -583,7 +507,7 @@ The range is [expected - delta, expected + delta] (inclusive).
 - `target` - a number to aim for.
 - `options` - an object with the delta parameter, denoting the maximum difference between the values.
   
-#### **`expect.numberGreaterThan(target: number): number`** {#expectnumberGreaterThan-target-number}
+#### **`expect.numberGreaterThan(target: number): number`**
 
 Matches a number greater than target.
   
@@ -591,7 +515,7 @@ Matches a number greater than target.
 
 - `target` - number to compare to.
   
-#### **`expect.numberGreaterThanOrEqualTo(target: number): number`** {#expectnumberGreaterThanOrEqualTo-target-number}
+#### **`expect.numberGreaterThanOrEqualTo(target: number): number`**
 
 Matches a number greater than or equal to target.
   
@@ -613,7 +537,7 @@ expect({ c: 2 }).not.toEqual({
   c: expect.numberGreaterThanOrEqualTo(3),
 })
 ```
-#### **`expect.numberLessThan(target: number): number`** {#expectnumberLessThan-target-number}
+#### **`expect.numberLessThan(target: number): number`**
 
 Matches a number less than target.
   
@@ -629,7 +553,7 @@ expect({ a: 2 }).toEqual({ a: expect.numberLessThan(3) })
 expect({ b: 2 }).not.toEqual({ b: expect.numberLessThan(2) })
 expect({ c: 2 }).not.toEqual({ c: expect.numberLessThan(1) })
 ```
-#### **`expect.numberLessThanOrEqualTo(target: number): number`** {#expectnumberLessThanOrEqualTo-target-number}
+#### **`expect.numberLessThanOrEqualTo(target: number): number`**
 
 Matches a number less than or equal to target.
   
@@ -651,7 +575,7 @@ expect({ c: 2 }).not.toEqual({
   c: expect.numberLessThanOrEqualTo(1),
 })
 ```
-#### **`expect.objectWith(subset: object): any`** {#expectobjectWith-subset-object}
+#### **`expect.objectWith(subset: object): any`**
 
 Matches an object containing given key-value pairs.
   
@@ -659,7 +583,7 @@ Matches an object containing given key-value pairs.
 
 - `subset` - an object to match against.
   
-#### **`expect.stringMatching(pattern: string`** {#expectstringMatching-pattern-string}
+#### **`expect.stringMatching(pattern: string`**
 
 Matches strings that contain the provided substring.
   
@@ -667,7 +591,7 @@ Matches strings that contain the provided substring.
 
 - `pattern` - a string to look for in the matched values or a regexp to test the matched values.
   
-#### **`expect.truthy(): any`** {#expecttruthy}
+#### **`expect.truthy(): any`**
 
 Matches any truthy value.
   
@@ -684,7 +608,7 @@ Everything else is truthy.
 
 ### Mocks
 
-#### **`function mockFn<F extends (...args: any) => any>(defaultImpl?: F): Mock.Of<F>`** {#functionmockFnFextends-args-any-any-defaultImpl-F}
+#### **`function mockFn<F extends (...args: any) => any>(defaultImpl?: F): Mock.Of<F>`**
 
 Creates a mock conforming to a given signature.
   
@@ -695,15 +619,15 @@ Creates a mock conforming to a given signature.
 const mock1 = mockFn<[number, string], number>()
 const mock2 = mockFn<(a: number, b: string) => number>()
 ```
-#### **`function mock(...args: TArgs): TReturn`** {#functionmock-args-TArgs}
+#### **`function mock(...args: TArgs): TReturn`**
 
 Calls the mock function.
   
-#### **`mock.calls: MockCall<TArgs, TReturn>[]`** {#mockcalls}
+#### **`mock.calls: MockCall<TArgs, TReturn>[]`**
 
 An array containing all the performed calls.
   
-#### **`mock.executes(implementation: (...args: TArgs[]) => TReturn): Mock<TArgs, TReturn>`** {#mockexecutes-implementation--args-TArgs-TReturn}
+#### **`mock.executes(implementation: (...args: TArgs[]) => TReturn): Mock<TArgs, TReturn>`**
 
 Sets the underlying implementation of the Mock.
 Overrides any previous configuration.
@@ -712,7 +636,7 @@ Overrides any previous configuration.
 
 - `implementation` - function to execute.
   
-#### **`mock.executesOnce(implementation: (...args: TArgs[]) => TReturn): Mock<TArgs, TReturn>`** {#mockexecutesOnce-implementation--args-TArgs-TReturn}
+#### **`mock.executesOnce(implementation: (...args: TArgs[]) => TReturn): Mock<TArgs, TReturn>`**
 
 Schedules the mock to use the provided implementation the next time it's called.
 If anything is already scheduled it will be used first.
@@ -721,7 +645,7 @@ If anything is already scheduled it will be used first.
 
 - `implementation` - function to execute.
   
-#### **`mock.given<TGivenArgs extends TArgs>(...args: TGivenArgs): MockGiven<TArgs, TReturn, TGivenArgs>`** {#mockgivenTGivenArgsextendsTArgs-args-TGivenArgs}
+#### **`mock.given<TGivenArgs extends TArgs>(...args: TGivenArgs): MockGiven<TArgs, TReturn, TGivenArgs>`**
 
 Specifies a different behavior when other arguments are given
   
@@ -729,11 +653,11 @@ Specifies a different behavior when other arguments are given
 
 - `args` - arguments to match.
   
-#### **`mock.isExhausted(): boolean`** {#mockisExhausted}
+#### **`mock.isExhausted(): boolean`**
 
 Checks if all the expected calls to the mock have been performed.
   
-#### **`mock.rejectsWith(error: any): Mock<TArgs, TReturn>`** {#mockrejectsWith-error-any}
+#### **`mock.rejectsWith(error: any): Mock<TArgs, TReturn>`**
 
 Sets the error rejected by calls to the Mock.
   
@@ -741,7 +665,7 @@ Sets the error rejected by calls to the Mock.
 
 - `error` - error to be thrown.
   
-#### **`mock.rejectsWithOnce(error: any): Mock<TArgs, any>`** {#mockrejectsWithOnce-error-any}
+#### **`mock.rejectsWithOnce(error: any): Mock<TArgs, any>`**
 
 Schedules the mock to reject with value the next time it's called.
 If anything is already scheduled it will be used first.
@@ -750,7 +674,7 @@ If anything is already scheduled it will be used first.
 
 - `error` - error to be thrown.
   
-#### **`mock.resolvesTo(value: Awaited<TReturn>): Mock<TArgs, TReturn>`** {#mockresolvesTo-value-AwaitedTReturn}
+#### **`mock.resolvesTo(value: Awaited<TReturn>): Mock<TArgs, TReturn>`**
 
 Sets the return value wrapped in Promise.resolve of calls to the Mock.
   
@@ -758,7 +682,7 @@ Sets the return value wrapped in Promise.resolve of calls to the Mock.
 
 - `value` - value to be returned.
   
-#### **`mock.resolvesToOnce(value: Awaited<TReturn>): Mock<TArgs, TReturn>`** {#mockresolvesToOnce-value-AwaitedTReturn}
+#### **`mock.resolvesToOnce(value: Awaited<TReturn>): Mock<TArgs, TReturn>`**
 
 Schedules the mock to return value wrapped in Promise.resolve the next time it's called.
 If anything is already scheduled it will be used first.
@@ -767,7 +691,7 @@ If anything is already scheduled it will be used first.
 
 - `value` - value to be returned.
   
-#### **`mock.returns(value: TReturn): Mock<TArgs, TReturn>`** {#mockreturns-value-TReturn}
+#### **`mock.returns(value: TReturn): Mock<TArgs, TReturn>`**
 
 Sets the return value of calls to the Mock.
 Overrides any previous configuration.
@@ -776,7 +700,7 @@ Overrides any previous configuration.
 
 - `value` - value to be returned.
   
-#### **`mock.returnsOnce(value: TReturn): Mock<TArgs, TReturn>`** {#mockreturnsOnce-value-TReturn}
+#### **`mock.returnsOnce(value: TReturn): Mock<TArgs, TReturn>`**
 
 Schedules the mock to return a value the next time it's called.
 If anything is already scheduled it will be used first.
@@ -785,7 +709,7 @@ If anything is already scheduled it will be used first.
 
 - `value` - value to be returned.
   
-#### **`mock.throws(error: any): Mock<TArgs, TReturn>`** {#mockthrows-error-any}
+#### **`mock.throws(error: any): Mock<TArgs, TReturn>`**
 
 Sets the error thrown by calls to the Mock.
 Overrides any previous configuration.
@@ -794,7 +718,7 @@ Overrides any previous configuration.
 
 - `error` - error to be thrown.
   
-#### **`mock.throwsOnce(error: any): Mock<TArgs, TReturn>`** {#mockthrowsOnce-error-any}
+#### **`mock.throwsOnce(error: any): Mock<TArgs, TReturn>`**
 
 Schedules the mock to throw an error the next time it's called.
 If anything is already scheduled it will be used first.
