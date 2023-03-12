@@ -5,7 +5,7 @@
   "scripts": {
     "format": "prettier --check .",
     "format:fix": "prettier --write .",
-    "lint": "eslint --ext .ts scripts",
+    "lint": "eslint --ext .ts --max-warnings 0 scripts",
     "lint:fix": "pnpm lint --fix",
     "start": "vitepress dev docs",
     "build": "pnpm build:api-reference && pnpm build:docs",

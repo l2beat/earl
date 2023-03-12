@@ -29,7 +29,7 @@ const pageStyles = `\n
 
 async function main() {
   const reference = await generateApiReference({
-    basePath: path.resolve(__dirname, '../../earljs/dist'),
+    basePath: path.resolve(__dirname, '../node_modules/@earljs/published/dist'),
     files: [
       'Core:expect:expect.d.ts',
       'Validators::validators/types.d.ts',

@@ -6,7 +6,7 @@
     "start": "ts-node -T ./src/index.ts",
     "format": "prettier --check .",
     "format:fix": "prettier --write .",
-    "lint": "eslint --ext .ts src",
+    "lint": "eslint --ext .ts --max-warnings 0 src",
     "lint:fix": "pnpm lint --fix",
     "typecheck": "tsc --noEmit",
     "test": "mocha",
