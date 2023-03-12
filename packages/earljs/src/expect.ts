@@ -52,7 +52,8 @@ const rawExpect = function expect<T>(
   return new Expectation(value) as any
 }
 
-const matchers: Record<string, (...args: any[]) => Matcher> = {}
+const matchers: Record<string, (...args: any[]) => Matcher> =
+  Object.create(null)
 
 export function registerMatcher<A extends any[]>(
   name: string,
