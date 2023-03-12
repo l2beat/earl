@@ -1,43 +1,34 @@
-import { createMatcher, registerMatcher } from '../expect'
+import { registerMatcher } from '../expect'
 import { Class2Primitive, NewableOrPrimitive } from '../types'
 
 declare module '../expect' {
   interface Matchers {
-    a<T>(type: NewableOrPrimitive<T>): Class2Primitive<T>
+    a<T extends NewableOrPrimitive>(type: T): Class2Primitive<T>
   }
 }
 
-registerMatcher('a', a)
+registerMatcher('a', a, (clazz) => `a(${clazz.name})`)
 
-export function a<T>(clazz: NewableOrPrimitive<T>) {
-  return createMatcher(`[a: ${clazz.name}]`, (value: unknown) => {
-    if (clazz === (String as any)) {
-      return typeof value === 'string' || value instanceof String
-    }
-    if (clazz === (Number as any)) {
-      return (
-        (typeof value === 'number' && !isNaN(value)) || value instanceof Number
-      )
-    }
-    if (clazz === (Boolean as any)) {
-      return typeof value === 'boolean' || value instanceof Boolean
-    }
-    if (clazz === BigInt) {
-      return typeof value === 'bigint' || value instanceof BigInt
-    }
-    if (clazz === (Function as any)) {
-      return typeof value === 'function' || value instanceof Function
-    }
-    if (clazz === (Object as any)) {
+export function a(clazz: NewableOrPrimitive) {
+  return (value: unknown) => {
+    if (clazz === String) {
+      return typeof value === 'string'
+    } else if (clazz === Number) {
+      return typeof value === 'number' && !isNaN(value)
+    } else if (clazz === Boolean) {
+      return typeof value === 'boolean'
+    } else if (clazz === BigInt) {
+      return typeof value === 'bigint'
+    } else if (clazz === Function) {
+      return typeof value === 'function'
+    } else if (clazz === Object) {
       return typeof value === 'object' && value !== null
-    }
-    if (clazz === Symbol) {
+    } else if (clazz === Symbol) {
       return typeof value === 'symbol'
-    }
-    if (clazz === (Array as any)) {
+    } else if (clazz === Array) {
       return Array.isArray(value)
+    } else {
+      return value instanceof clazz
     }
-
-    return value instanceof clazz
-  })
+  }
 }

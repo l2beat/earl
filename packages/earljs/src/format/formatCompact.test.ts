@@ -2,8 +2,7 @@
 /* eslint-disable no-new-wrappers */
 import { expect } from 'chai'
 
-import { a } from '../matchers/a'
-import { anything } from '../matchers/anything'
+import { expect as earl } from '../index'
 import { formatCompact } from './formatCompact'
 
 describe('formatCompact', () => {
@@ -71,9 +70,9 @@ describe('formatCompact', () => {
     ],
     [new Error('foo'), 'Error("foo")'],
     [new TypeError('foo'), 'TypeError("foo")'],
-    [a(String), 'Matcher [a: String]'],
-    [anything(), 'Matcher [anything]'],
-    [[anything()], '[Matcher [anything]]'],
+    [earl.a(String), 'Matcher a(String)'],
+    [earl.anything(), 'Matcher anything()'],
+    [[earl.anything()], '[Matcher anything()]'],
     [new (class Foo {})(), 'Foo {}'],
   ]
 

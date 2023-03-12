@@ -1,4 +1,5 @@
 import { Control } from './Control'
+import { formatCompact } from './format'
 
 // to be overridden by plugins
 export interface Validators<T> {
@@ -16,13 +17,6 @@ export class Matcher {
   toString() {
     return this.representation
   }
-}
-
-export function createMatcher(
-  representation: string,
-  check: (v: unknown) => boolean,
-) {
-  return new Matcher(representation, check)
 }
 
 class Expectation<T> {
@@ -58,11 +52,17 @@ const rawExpect = function expect<T>(
   return new Expectation(value) as any
 }
 
-export function registerMatcher(
+export function registerMatcher<A extends any[]>(
   name: string,
-  build: (...args: any[]) => Matcher,
+  check: (...args: A) => (value: unknown) => boolean,
+  format?: (...args: A) => string,
 ) {
-  Reflect.set(rawExpect, name, build)
+  Reflect.set(rawExpect, name, (...args: A) => {
+    const representation = format
+      ? format(...args)
+      : `${name}(${args.map(formatCompact).join(', ')})`
+    return new Matcher(representation, check(...args))
+  })
 }
 
 export const expect = rawExpect as typeof rawExpect & Matchers

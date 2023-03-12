@@ -2,8 +2,7 @@
 /* eslint-disable no-new-wrappers */
 import { expect } from 'chai'
 
-import { a } from '../matchers/a'
-import { anything } from '../matchers/anything'
+import { expect as earl } from '../index'
 import { format } from './format'
 import { FormatOptions } from './FormatOptions'
 
@@ -578,25 +577,25 @@ describe('format', () => {
     {
       name: 'matchers',
       testCases: [
-        [a(String), 'foo', '"foo"'],
+        [earl.a(String), 'foo', '"foo"'],
         [
-          a(String),
+          earl.a(String),
           'foo',
-          'Matcher [a: String]',
+          'Matcher a(String)',
           { skipMatcherReplacement: true },
         ],
-        [a(String), 123, 'Matcher [a: String]'],
-        [anything(), null, 'null'],
+        [earl.a(String), 123, 'Matcher a(String)'],
+        [earl.anything(), null, 'null'],
         [
-          anything(),
+          earl.anything(),
           null,
-          'Matcher [anything]',
+          'Matcher anything()',
           { skipMatcherReplacement: true },
         ],
-        [{ foo: anything() }, {}, '{\n  foo: Matcher [anything]\n}'],
-        [[anything()], [], '[\n  Matcher [anything]\n]'],
+        [{ foo: earl.anything() }, {}, '{\n  foo: Matcher anything()\n}'],
+        [[earl.anything()], [], '[\n  Matcher anything()\n]'],
         [
-          { x: anything() },
+          { x: earl.anything() },
           (() => {
             const x = { x: { y: { z: {} } } }
             x.x.y.z = x
@@ -606,7 +605,7 @@ describe('format', () => {
           { inline: true },
         ],
         [
-          [anything()],
+          [earl.anything()],
           (() => {
             const x = [[[]]]
             ;(x as any)[0][0][0] = x
@@ -693,11 +692,15 @@ describe('format', () => {
           new Map([[{}, {}]]),
           'Map {\n  (different) {} => {}\n}',
         ],
-        [new Map([[1, anything()]]), new Map([[1, {}]]), 'Map {\n  1 => {}\n}'],
         [
-          new Map([[1, anything()]]),
+          new Map([[1, earl.anything()]]),
+          new Map([[1, {}]]),
+          'Map {\n  1 => {}\n}',
+        ],
+        [
+          new Map([[1, earl.anything()]]),
           new Map([[2, {}]]),
-          'Map {\n  1 => Matcher [anything]\n}',
+          'Map {\n  1 => Matcher anything()\n}',
         ],
         [
           new Map([[{ x: 1 }, [2]]]),

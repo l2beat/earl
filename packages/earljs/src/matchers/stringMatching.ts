@@ -1,4 +1,4 @@
-import { createMatcher, registerMatcher } from '../expect'
+import { registerMatcher } from '../expect'
 
 declare module '../expect' {
   interface Matchers {
@@ -9,18 +9,15 @@ declare module '../expect' {
 registerMatcher('stringMatching', stringMatching)
 
 export function stringMatching(substringOrPattern: string | RegExp) {
-  return createMatcher(
-    `[stringMatching: ${substringOrPattern.toString()}]`,
-    (value: unknown) => {
-      if (typeof value !== 'string') {
-        return false
-      }
+  return (value: unknown) => {
+    if (typeof value !== 'string') {
+      return false
+    }
 
-      if (typeof substringOrPattern === 'string') {
-        return value.includes(substringOrPattern)
-      } else {
-        return substringOrPattern.test(value)
-      }
-    },
-  )
+    if (typeof substringOrPattern === 'string') {
+      return value.includes(substringOrPattern)
+    } else {
+      return substringOrPattern.test(value)
+    }
+  }
 }

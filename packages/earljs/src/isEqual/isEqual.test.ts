@@ -3,8 +3,7 @@
 import { expect } from 'chai'
 
 import { format, FormatOptions } from '../format'
-import { a } from '../matchers/a'
-import { anything } from '../matchers/anything'
+import { expect as earl } from '../index'
 import { EqualityOptions } from './EqualityOptions'
 import { isEqual } from './isEqual'
 
@@ -514,24 +513,24 @@ describe('isEqual', () => {
       testCases: [
         [
           { x: 1, y: 2 },
-          { x: a(Number), y: a(Number) },
+          { x: earl.a(Number), y: earl.a(Number) },
           true,
           { oneWay: true },
         ],
         [
           { x: 1, y: 2 },
-          { x: a(Number), y: a(String) },
+          { x: earl.a(Number), y: earl.a(String) },
           false,
           { oneWay: true },
         ],
-        [[], [anything()], false, { oneWay: true }],
+        [[], [earl.anything()], false, { oneWay: true }],
         [
           (() => {
             const x = { x: { y: { z: {} } } }
             x.x.y.z = x
             return x
           })(),
-          { x: anything() },
+          { x: earl.anything() },
           true,
           { oneWay: true },
         ],
@@ -590,7 +589,7 @@ describe('isEqual', () => {
         ],
         [
           new Map([[1, 'a']]),
-          new Map([[1, anything()]]),
+          new Map([[1, earl.anything()]]),
           true,
           { oneWay: true },
         ],

@@ -1,4 +1,4 @@
-import { createMatcher, registerMatcher } from '../expect'
+import { registerMatcher } from '../expect'
 
 declare module '../expect' {
   interface Matchers {
@@ -9,5 +9,5 @@ declare module '../expect' {
 registerMatcher('nullish', nullish)
 
 export function nullish() {
-  return createMatcher(`[nullish]`, (value: unknown) => value == null)
+  return (value: unknown) => value == null
 }
