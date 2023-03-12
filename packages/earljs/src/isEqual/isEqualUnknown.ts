@@ -1,11 +1,10 @@
-import { Matcher } from '../matchers/Base'
+import { Matcher } from '../expect'
 import { EqualityOptions } from './EqualityOptions'
 import { getCanonicalType } from './getCanonicalType'
 import { isEqualMap } from './isEqualMap'
 import { isEqualNumber } from './isEqualNumber'
 import { isEqualObject } from './isEqualObject'
 import { isEqualSet } from './isEqualSet'
-import { smartEqRules } from './rules'
 
 export function isEqualUnknown(
   value: unknown,
@@ -16,13 +15,6 @@ export function isEqualUnknown(
 ) {
   if (other instanceof Matcher) {
     return other.check(value)
-  }
-
-  for (const rule of smartEqRules) {
-    const ruleResult = rule(value, other, options.ignorePrototypes)
-    if (ruleResult) {
-      return ruleResult.result === 'success'
-    }
   }
 
   const type = getCanonicalType(value)

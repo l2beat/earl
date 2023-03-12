@@ -1,5 +1,5 @@
-import { Class2Primitive, NewableOrPrimitive } from '../types'
 import { createMatcher, registerMatcher } from '../expect'
+import { Class2Primitive, NewableOrPrimitive } from '../types'
 
 declare module '../expect' {
   interface Matchers {

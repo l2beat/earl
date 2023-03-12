@@ -2,13 +2,9 @@
 /* eslint-disable no-new-wrappers */
 import { expect } from 'chai'
 
-import {
-  buildSmartEqResult,
-  clearSmartEqRules,
-  loadSmartEqRules,
-} from '../../src/isEqual/rules'
 import { format, FormatOptions } from '../format'
-import { AMatcher, AnythingMatcher } from '../matchers'
+import { a } from '../matchers/a'
+import { anything } from '../matchers/anything'
 import { EqualityOptions } from './EqualityOptions'
 import { isEqual } from './isEqual'
 
@@ -518,24 +514,24 @@ describe('isEqual', () => {
       testCases: [
         [
           { x: 1, y: 2 },
-          { x: new AMatcher(Number), y: new AMatcher(Number) },
+          { x: a(Number), y: a(Number) },
           true,
           { oneWay: true },
         ],
         [
           { x: 1, y: 2 },
-          { x: new AMatcher(Number), y: new AMatcher(String) },
+          { x: a(Number), y: a(String) },
           false,
           { oneWay: true },
         ],
-        [[], [new AnythingMatcher()], false, { oneWay: true }],
+        [[], [anything()], false, { oneWay: true }],
         [
           (() => {
             const x = { x: { y: { z: {} } } }
             x.x.y.z = x
             return x
           })(),
-          { x: new AnythingMatcher() },
+          { x: anything() },
           true,
           { oneWay: true },
         ],
@@ -594,7 +590,7 @@ describe('isEqual', () => {
         ],
         [
           new Map([[1, 'a']]),
-          new Map([[1, new AnythingMatcher()]]),
+          new Map([[1, anything()]]),
           true,
           { oneWay: true },
         ],
@@ -695,17 +691,4 @@ describe('isEqual', () => {
       }
     })
   }
-
-  it('supports rules', () => {
-    const twoNotTwoRule = (actual: unknown, expected: unknown) =>
-      actual === 2 && expected === 2 ? buildSmartEqResult(false) : undefined
-    loadSmartEqRules([twoNotTwoRule])
-
-    expect(isEqual(2, 2, DEFAULTS)).to.equal(false)
-    expect(isEqual(3, 3, DEFAULTS)).to.equal(true)
-    expect(isEqual({ x: 2 }, { x: 2 }, DEFAULTS)).to.equal(false)
-    expect(isEqual({ x: 3 }, { x: 3 }, DEFAULTS)).to.equal(true)
-
-    clearSmartEqRules()
-  })
 })

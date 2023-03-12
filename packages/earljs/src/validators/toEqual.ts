@@ -1,7 +1,7 @@
 import { Control } from '../Control'
+import { registerValidator } from '../expect'
 import { format, formatCompact } from '../format'
 import { isEqual } from '../isEqual'
-import { registerValidator } from '../expect'
 
 declare module '../expect' {
   interface Validators<T> {

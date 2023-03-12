@@ -1,6 +1,6 @@
 import { expect } from 'chai'
 
-import { expect as earl } from '../expect'
+import { expect as earl } from '../index'
 
 describe('toEqual', () => {
   describe('not negated', () => {

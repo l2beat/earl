@@ -16,7 +16,7 @@ export class AssertionError extends Error {
   public expected?: string
 
   constructor(options: AssertionErrorOptions) {
-    let message = options.message
+    const message = options.message
     super(message)
     this.name = 'AssertionError'
     this.actual = options.actual

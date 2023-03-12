@@ -2,7 +2,8 @@
 /* eslint-disable no-new-wrappers */
 import { expect } from 'chai'
 
-import { AMatcher, AnythingMatcher } from '../matchers'
+import { a } from '../matchers/a'
+import { anything } from '../matchers/anything'
 import { format } from './format'
 import { FormatOptions } from './FormatOptions'
 
@@ -577,25 +578,25 @@ describe('format', () => {
     {
       name: 'matchers',
       testCases: [
-        [new AMatcher(String), 'foo', '"foo"'],
+        [a(String), 'foo', '"foo"'],
         [
-          new AMatcher(String),
+          a(String),
           'foo',
-          'Matcher [A: String]',
+          'Matcher [a: String]',
           { skipMatcherReplacement: true },
         ],
-        [new AMatcher(String), 123, 'Matcher [A: String]'],
-        [new AnythingMatcher(), null, 'null'],
+        [a(String), 123, 'Matcher [a: String]'],
+        [anything(), null, 'null'],
         [
-          new AnythingMatcher(),
+          anything(),
           null,
-          'Matcher [Anything]',
+          'Matcher [anything]',
           { skipMatcherReplacement: true },
         ],
-        [{ foo: new AnythingMatcher() }, {}, '{\n  foo: Matcher [Anything]\n}'],
-        [[new AnythingMatcher()], [], '[\n  Matcher [Anything]\n]'],
+        [{ foo: anything() }, {}, '{\n  foo: Matcher [anything]\n}'],
+        [[anything()], [], '[\n  Matcher [anything]\n]'],
         [
-          { x: new AnythingMatcher() },
+          { x: anything() },
           (() => {
             const x = { x: { y: { z: {} } } }
             x.x.y.z = x
@@ -605,7 +606,7 @@ describe('format', () => {
           { inline: true },
         ],
         [
-          [new AnythingMatcher()],
+          [anything()],
           (() => {
             const x = [[[]]]
             ;(x as any)[0][0][0] = x
@@ -692,15 +693,11 @@ describe('format', () => {
           new Map([[{}, {}]]),
           'Map {\n  (different) {} => {}\n}',
         ],
+        [new Map([[1, anything()]]), new Map([[1, {}]]), 'Map {\n  1 => {}\n}'],
         [
-          new Map([[1, new AnythingMatcher()]]),
-          new Map([[1, {}]]),
-          'Map {\n  1 => {}\n}',
-        ],
-        [
-          new Map([[1, new AnythingMatcher()]]),
+          new Map([[1, anything()]]),
           new Map([[2, {}]]),
-          'Map {\n  1 => Matcher [Anything]\n}',
+          'Map {\n  1 => Matcher [anything]\n}',
         ],
         [
           new Map([[{ x: 1 }, [2]]]),

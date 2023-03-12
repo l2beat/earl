@@ -8,7 +8,7 @@ export interface Validators<T> {
 // to be overridden by plugins
 export interface Matchers {}
 
-class Matcher {
+export class Matcher {
   constructor(
     readonly representation: string,
     readonly check: (v: unknown) => boolean,
