@@ -2,7 +2,6 @@ import { expect } from 'chai'
 import { AssertTrue, IsExact } from 'conditional-type-checks'
 
 import { expect as earl } from '../expect'
-import { noop } from '../test/common'
 import { MockNotConfiguredError } from './errors'
 import { mockFn } from './mockFn'
 import { Mock } from './types'
@@ -353,12 +352,12 @@ describe('Mock', () => {
 
   describe('.calls', () => {
     it('is empty at first', () => {
-      const fn = mockFn(noop)
+      const fn = mockFn()
       expect(fn.calls).to.deep.equal([])
     })
 
     it('stores a single call', () => {
-      const fn = mockFn(noop)
+      const fn = mockFn()
       fn()
       expect(fn.calls).to.deep.equal([
         { args: [], result: { type: 'return', value: undefined } },
@@ -366,7 +365,7 @@ describe('Mock', () => {
     })
 
     it('stores multiple calls', () => {
-      const fn = mockFn(noop)
+      const fn = mockFn()
       fn()
       fn(1)
       fn(5, 'yo')
