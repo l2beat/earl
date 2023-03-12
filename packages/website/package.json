@@ -8,7 +8,6 @@
     "start": "vitepress dev docs",
     "build": "vitepress build docs",
     "preview": "vitepress preview docs",
-    "test": "mocha",
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
