@@ -11,7 +11,7 @@ declare module '../expect' {
   }
 }
 
-registerMatcher('check', check, () => 'check(predicate)')
+registerMatcher('check', check, () => 'check(???)')
 
 export function check(predicate: (value: unknown) => boolean) {
   return (value: unknown) => predicate(value)

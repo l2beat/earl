@@ -6,9 +6,7 @@ import { check } from './check'
 
 describe(check.name, () => {
   it('is correctly formatted', () => {
-    expect(earl.check((x) => x !== undefined).toString()).to.equal(
-      'check(predicate)',
-    )
+    expect(earl.check((x) => x !== undefined).toString()).to.equal('check(???)')
   })
 
   it('is type safe', () => {
