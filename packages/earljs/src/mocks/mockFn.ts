@@ -1,5 +1,3 @@
-import { UnreachableCaseError } from 'ts-essentials'
-
 import { isEqual } from '../isEqual'
 import { MockNotConfiguredError } from './errors'
 import { Mock, MockCall } from './types'
@@ -107,7 +105,7 @@ export function mockFn<Args extends any[], Return = any>(
         throw new MockNotConfiguredError()
       }
       default: {
-        throw new UnreachableCaseError(spec)
+        throw new Error('Unreachable case')
       }
     }
   }
