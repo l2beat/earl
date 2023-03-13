@@ -24,8 +24,7 @@ describe(includes.name, () => {
     earl(['foo', 'bar']).toEqual(earl.includes('foo'))
     earl(new Set(['foo', 'bar'])).toEqual(earl.includes('foo'))
     earl(new MyCollection(['foo', 'bar'])).toEqual(earl.includes('foo'))
-    // THIS ISN'T ACTUALLY TYPE SAFE :(
-    earl('foo').not.toEqual(earl.includes('f'))
+    earl('foo').toEqual(earl.includes('f'))
   })
 
   it('works with matchers', () => {
@@ -55,6 +54,7 @@ describe(includes.name, () => {
         new Set([3, 4]),
         new MyCollection([]),
         new MyCollection([3, 4]),
+        '2',
         'green',
         '',
         0,
@@ -85,6 +85,7 @@ describe(includes.name, () => {
         new MyCollection([2, 5]),
         new MyCollection([]),
         new MyCollection([1, 2, 3, 4, 5, 6, 7, 8]),
+        '2 2 5',
         'green',
         '',
         0,
@@ -116,6 +117,7 @@ describe(includes.name, () => {
         new MyCollection([2, 5]),
         new MyCollection([]),
         new MyCollection([1, 2, null]),
+        '123 foo',
         'green',
         '',
         0,
@@ -124,6 +126,21 @@ describe(includes.name, () => {
         null,
         {},
       ],
+    )
+  })
+
+  describe('includes("foo")', () => {
+    testMatcher(
+      includes('foo'),
+      [
+        'this is foo',
+        'foo',
+        [2, 'foo'],
+        ['foo', 'bar', 4],
+        new MyCollection([2, 'foo']),
+        new Set([2, 'foo']),
+      ],
+      ['magic', 'fo of'],
     )
   })
 })

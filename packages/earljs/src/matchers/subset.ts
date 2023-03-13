@@ -8,13 +8,13 @@ declare module '../expect' {
      *
      * @param subset - an object to match against.
      */
-    partial(subset: object): any
+    subset(subset: object): any
   }
 }
 
-registerMatcher('partial', partial)
+registerMatcher('subset', subset)
 
-export function partial(subset: Record<string, unknown>) {
+export function subset(subset: Record<string, unknown>) {
   return (value: unknown) => {
     if (!isObject(value)) {
       return false

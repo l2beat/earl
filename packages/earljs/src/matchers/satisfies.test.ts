@@ -2,19 +2,21 @@ import { expect } from 'chai'
 
 import { expect as earl } from '../index'
 import { testMatcher } from '../test/matchers'
-import { check } from './check'
+import { satisfies } from './satisfies'
 
-describe(check.name, () => {
+describe(satisfies.name, () => {
   it('is correctly formatted', () => {
-    expect(earl.check((x) => x !== undefined).toString()).to.equal('check(???)')
+    expect(earl.satisfies((x) => x !== undefined).toString()).to.equal(
+      'satisfies(???)',
+    )
   })
 
   it('is type safe', () => {
-    earl(0).toEqual(earl.check((x) => x !== undefined))
+    earl(0).toEqual(earl.satisfies((x) => x !== undefined))
   })
 
   testMatcher(
-    check((x) => x !== undefined),
+    satisfies((x) => x !== undefined),
     [
       null,
       false,

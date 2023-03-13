@@ -2,33 +2,33 @@ import { expect } from 'chai'
 
 import { expect as earl } from '../index'
 import { testMatcher } from '../test/matchers'
-import { nonEmpty } from './nonEmpty'
+import { notEmpty } from './notEmpty'
 
-describe(nonEmpty.name, () => {
+describe(notEmpty.name, () => {
   it('is correctly formatted', () => {
-    expect(earl.nonEmpty().toString()).to.equal('nonEmpty()')
+    expect(earl.notEmpty().toString()).to.equal('notEmpty()')
   })
 
   it('is type safe', () => {
-    earl('').not.toEqual(earl.nonEmpty())
-    earl('foo').toEqual(earl.nonEmpty())
-    earl([]).not.toEqual(earl.nonEmpty())
-    earl([1, 2]).toEqual(earl.nonEmpty())
-    earl(new Set()).not.toEqual(earl.nonEmpty())
-    earl(new Set([1, 2])).toEqual(earl.nonEmpty())
-    earl(new Map()).not.toEqual(earl.nonEmpty())
+    earl('').not.toEqual(earl.notEmpty())
+    earl('foo').toEqual(earl.notEmpty())
+    earl([]).not.toEqual(earl.notEmpty())
+    earl([1, 2]).toEqual(earl.notEmpty())
+    earl(new Set()).not.toEqual(earl.notEmpty())
+    earl(new Set([1, 2])).toEqual(earl.notEmpty())
+    earl(new Map()).not.toEqual(earl.notEmpty())
     earl(
       new Map([
         ['a', 1],
         ['b', 2],
       ]),
-    ).toEqual(earl.nonEmpty())
+    ).toEqual(earl.notEmpty())
     // @ts-expect-error - type mismatch
-    earl(1).not.toEqual(earl.nonEmpty())
+    earl(1).not.toEqual(earl.notEmpty())
   })
 
   testMatcher(
-    nonEmpty(),
+    notEmpty(),
     [
       [1],
       [1, 2],

@@ -3,7 +3,7 @@ import { registerMatcher } from '../expect'
 declare module '../expect' {
   interface Matchers {
     /**
-     * Matches defined values, i.e. values that are not `null` or `undefined`.
+     * Matches values that are not `undefined`.
      */
     defined(): any
   }
@@ -12,5 +12,5 @@ declare module '../expect' {
 registerMatcher('defined', defined)
 
 export function defined() {
-  return (value: unknown) => value != null
+  return (value: unknown) => value !== undefined
 }

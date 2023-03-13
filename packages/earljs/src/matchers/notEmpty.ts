@@ -3,15 +3,15 @@ import { registerMatcher } from '../expect'
 declare module '../expect' {
   interface Matchers {
     /**
-     * Matches non-empty strings, arrays, sets and maps.
+     * Matches strings, arrays, sets and maps that aren't empty.
      */
-    nonEmpty(): string & any[] & never[] & Set<any> & Map<any, any>
+    notEmpty(): string & any[] & never[] & Set<any> & Map<any, any>
   }
 }
 
-registerMatcher('nonEmpty', nonEmpty)
+registerMatcher('notEmpty', notEmpty)
 
-export function nonEmpty() {
+export function notEmpty() {
   return (value: unknown) => {
     if (typeof value === 'string') return value.length > 0
     if (Array.isArray(value)) return value.length > 0

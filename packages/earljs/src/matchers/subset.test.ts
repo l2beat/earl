@@ -2,19 +2,19 @@ import { expect } from 'chai'
 
 import { expect as earl } from '../index'
 import { testMatcher } from '../test/matchers'
-import { partial } from './partial'
+import { subset } from './subset'
 
-describe(partial.name, () => {
+describe(subset.name, () => {
   it('is correctly formatted', () => {
-    expect(earl.partial({ x: 1 }).toString()).to.equal('partial({ x: 1 })')
+    expect(earl.subset({ x: 1 }).toString()).to.equal('subset({ x: 1 })')
   })
 
   it('is type safe', () => {
-    earl({ x: 1, y: 2 }).toEqual(earl.partial({ x: 1 }))
+    earl({ x: 1, y: 2 }).toEqual(earl.subset({ x: 1 }))
   })
 
   testMatcher(
-    partial({ x: 1, a: earl.a(String) }),
+    subset({ x: 1, a: earl.a(String) }),
     [
       { x: 1, a: 'foo' },
       { x: 1, a: 'foo', y: 2 },
