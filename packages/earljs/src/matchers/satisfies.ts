@@ -7,12 +7,12 @@ declare module '../expect' {
      *
      * @param predicate - the function for checking values
      */
-    check(predicate: (value: unknown) => boolean): any
+    satisfies(predicate: (value: unknown) => boolean): any
   }
 }
 
-registerMatcher('check', check, () => 'check(???)')
+registerMatcher('satisfies', satisfies, () => 'satisfies(???)')
 
-export function check(predicate: (value: unknown) => boolean) {
+export function satisfies(predicate: (value: unknown) => boolean) {
   return (value: unknown) => predicate(value)
 }
