@@ -3,7 +3,7 @@ import { registerMatcher } from '../expect'
 declare module '../expect' {
   interface Matchers {
     /**
-     * Matches numbers that are greater or equal to a given target.
+     * Matches numbers that are greater than or equal to a given target.
      *
      * @param target - target value (inclusive)
      */
