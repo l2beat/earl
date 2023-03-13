@@ -15,7 +15,22 @@ describe(defined.name, () => {
 
   testMatcher(
     defined(),
-    [1, 4, 'foo', true, [], {}, Symbol(), false, NaN, 0, -0, BigInt(0), ''],
-    [null, undefined],
+    [
+      1,
+      4,
+      'foo',
+      true,
+      [],
+      {},
+      Symbol(),
+      false,
+      NaN,
+      0,
+      -0,
+      BigInt(0),
+      '',
+      null,
+    ],
+    [undefined],
   )
 })
