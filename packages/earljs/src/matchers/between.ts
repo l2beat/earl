@@ -9,13 +9,17 @@ declare module '../expect' {
      * @param min - minimum value (inclusive)
      * @param max - maximum value (exclusive)
      */
-    between(min: number, max: number): number
+    between(min: number | bigint, max: number | bigint): number
   }
 }
 
 registerMatcher('between', between)
 
-export function between(min: number, max: number) {
+export function between(min: number | bigint, max: number | bigint) {
+  const [realMin, realMax] = min < max ? [min, max] : [max, min]
+
   return (value: unknown) =>
-    typeof value === 'number' && value >= min && value < max
+    (typeof value === 'number' || typeof value === 'bigint') &&
+    value >= realMin &&
+    value < realMax
 }

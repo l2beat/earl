@@ -17,8 +17,8 @@ export function toEqual<T>(control: Control<T>, expected: T) {
 
   control.assert({
     success: isEqual(control.actual, expected),
-    reason: `${actualFmt} not equal to ${expectedFmt}`,
-    negatedReason: `${actualFmt} equal to ${expectedFmt}`,
+    reason: `${actualFmt} isn't equal to ${expectedFmt}`,
+    negatedReason: `${actualFmt} is equal to ${expectedFmt}`,
     actual: format(control.actual, null),
     expected: format(expected, control.actual),
   })

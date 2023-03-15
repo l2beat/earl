@@ -1,8 +1,9 @@
 import { expect } from 'chai'
 
 import { expect as earl } from '../index'
+import { toEqual } from './toEqual'
 
-describe('toEqual', () => {
+describe(toEqual.name, () => {
   describe('without .not', () => {
     it('passes for matching complex object', () => {
       class B {
@@ -39,7 +40,7 @@ describe('toEqual', () => {
     it('fails on unequal primitives', () => {
       expect(() => {
         earl(42).toEqual(420)
-      }).to.throw('42 not equal to 420')
+      }).to.throw("42 isn't equal to 420")
     })
 
     it('fails on unequal objects', () => {
@@ -48,7 +49,7 @@ describe('toEqual', () => {
           a: undefined,
           b: true,
         }).toEqual({ b: false } as any)
-      }).to.throw('{ a: undefined, b: true } not equal to { b: false }')
+      }).to.throw("{ a: undefined, b: true } isn't equal to { b: false }")
     })
 
     it('fails on prototype mismatch with a reasonable error message', () => {
@@ -58,7 +59,7 @@ describe('toEqual', () => {
 
       expect(() => {
         earl(new Test(true)).toEqual({ property: true })
-      }).to.throw('Test { property: true } not equal to { property: true }')
+      }).to.throw("Test { property: true } isn't equal to { property: true }")
     })
   })
 
@@ -72,7 +73,7 @@ describe('toEqual', () => {
     it('fails when values are equal', () => {
       expect(() => {
         earl(5).not.toEqual(5)
-      }).to.throw('5 equal to 5')
+      }).to.throw('5 is equal to 5')
     })
   })
 

@@ -7,12 +7,13 @@ declare module '../expect' {
      *
      * @param target - target value (inclusive)
      */
-    greaterThanOrEqual(target: number): number
+    greaterThanOrEqual(target: number | bigint): number
   }
 }
 
 registerMatcher('greaterThanOrEqual', greaterThanOrEqual)
 
-export function greaterThanOrEqual(target: number) {
-  return (value: unknown) => typeof value === 'number' && value >= target
+export function greaterThanOrEqual(target: number | bigint) {
+  return (value: unknown) =>
+    (typeof value === 'number' || typeof value === 'bigint') && value >= target
 }
