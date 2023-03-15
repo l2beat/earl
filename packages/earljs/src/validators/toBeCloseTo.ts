@@ -12,17 +12,18 @@ declare module '../expect' {
 
 registerValidator('toBeCloseTo', toBeCloseTo)
 
-export function toBeCloseTo<T>(
-  control: Control<T>,
+export function toBeCloseTo(
+  control: Control<unknown>,
   target: number,
   delta: number,
 ) {
-  const actualFmt = formatCompact(control.actual)
-  const targetFmt = formatCompact(target)
+  const actualInline = formatCompact(control.actual)
+  const targetInline = formatCompact(target)
+  const deltaInline = formatCompact(delta)
 
   control.assert({
     success: closeTo(target, delta)(control.actual),
-    reason: `${actualFmt} isn't close to ${targetFmt} +/- ${delta}`,
-    negatedReason: `${actualFmt} is close to ${targetFmt} +/- ${delta}`,
+    reason: `${actualInline} isn't close to ${targetInline} +/- ${deltaInline}`,
+    negatedReason: `${actualInline} is close to ${targetInline} +/- ${deltaInline}`,
   })
 }

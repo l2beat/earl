@@ -15,16 +15,16 @@ declare module '../expect' {
 
 registerValidator('toBeLessThanOrEqual', toBeLessThanOrEqual)
 
-export function toBeLessThanOrEqual<T>(
-  control: Control<T>,
+export function toBeLessThanOrEqual(
+  control: Control<unknown>,
   target: number | bigint,
 ) {
-  const actualFmt = formatCompact(control.actual)
-  const targetFmt = formatCompact(target)
+  const actualInline = formatCompact(control.actual)
+  const targetInline = formatCompact(target)
 
   control.assert({
     success: lessThanOrEqual(target)(control.actual),
-    reason: `${actualFmt} isn't less than or equal to ${targetFmt}`,
-    negatedReason: `${actualFmt} is less than or equal to ${targetFmt}`,
+    reason: `${actualInline} isn't less than or equal to ${targetInline}`,
+    negatedReason: `${actualInline} is less than or equal to ${targetInline}`,
   })
 }

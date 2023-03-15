@@ -16,18 +16,18 @@ declare module '../expect' {
 
 registerValidator('toBeBetween', toBeBetween)
 
-export function toBeBetween<T>(
-  control: Control<T>,
+export function toBeBetween(
+  control: Control<unknown>,
   min: number | bigint,
   max: number | bigint,
 ) {
-  const actualFmt = formatCompact(control.actual)
-  const minFmt = formatCompact(min)
-  const maxFmt = formatCompact(max)
+  const actualInline = formatCompact(control.actual)
+  const minInline = formatCompact(min)
+  const maxInline = formatCompact(max)
 
   control.assert({
     success: between(min, max)(control.actual),
-    reason: `${actualFmt} isn't between ${minFmt} and ${maxFmt}`,
-    negatedReason: `${actualFmt} is between ${minFmt} and ${maxFmt}`,
+    reason: `${actualInline} isn't between ${minInline} and ${maxInline}`,
+    negatedReason: `${actualInline} is between ${minInline} and ${maxInline}`,
   })
 }

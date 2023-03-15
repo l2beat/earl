@@ -12,13 +12,13 @@ declare module '../expect' {
 registerValidator('toEqual', toEqual)
 
 export function toEqual<T>(control: Control<T>, expected: T) {
-  const actualFmt = formatCompact(control.actual)
-  const expectedFmt = formatCompact(expected)
+  const actualInline = formatCompact(control.actual)
+  const expectedInline = formatCompact(expected)
 
   control.assert({
     success: isEqual(control.actual, expected),
-    reason: `${actualFmt} isn't equal to ${expectedFmt}`,
-    negatedReason: `${actualFmt} is equal to ${expectedFmt}`,
+    reason: `${actualInline} isn't equal to ${expectedInline}`,
+    negatedReason: `${actualInline} is equal to ${expectedInline}`,
     actual: format(control.actual, null),
     expected: format(expected, control.actual),
   })
