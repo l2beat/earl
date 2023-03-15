@@ -2,6 +2,7 @@ import { expect } from 'chai'
 
 import { expect as earl } from '../index'
 import { testMatcher } from '../test/matchers'
+import { TEST_VALUES } from '../test/values'
 import { nullish } from './nullish'
 
 describe(nullish.name, () => {
@@ -16,5 +17,9 @@ describe(nullish.name, () => {
     earl('foo').not.toEqual(earl.nullish())
   })
 
-  testMatcher(nullish(), [undefined, null], ['m', '', 0, 1, [], {}])
+  testMatcher(
+    nullish(),
+    [null, undefined],
+    TEST_VALUES.filter((x) => x !== null && x !== undefined),
+  )
 })

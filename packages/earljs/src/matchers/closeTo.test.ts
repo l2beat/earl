@@ -2,6 +2,7 @@ import { expect } from 'chai'
 
 import { expect as earl } from '../index'
 import { testMatcher } from '../test/matchers'
+import { TEST_VALUES } from '../test/values'
 import { closeTo } from './closeTo'
 
 describe(closeTo.name, () => {
@@ -17,7 +18,15 @@ describe(closeTo.name, () => {
 
   testMatcher(
     closeTo(1, 0.001),
-    [1, 0.99994, 1.00002],
-    [1.002, 9.998, 5, 123, -4, 'green', '', [], {}],
+    [1, 0.99994, 1.00002, 1 + Number.EPSILON, 1 - Number.EPSILON],
+    [
+      1.002,
+      9.998,
+      5,
+      123,
+      -4,
+      NaN,
+      ...TEST_VALUES.filter((x) => typeof x !== 'number'),
+    ],
   )
 })

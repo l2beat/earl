@@ -2,6 +2,7 @@ import { expect } from 'chai'
 
 import { expect as earl } from '../index'
 import { testMatcher } from '../test/matchers'
+import { TEST_OBJECTS, TEST_VALUES } from '../test/values'
 import { subset } from './subset'
 
 describe(subset.name, () => {
@@ -20,18 +21,12 @@ describe(subset.name, () => {
       { x: 1, a: 'foo', y: 2 },
     ],
     [
+      {},
       { x: 1, a: 2 },
       { x: 1 },
       { a: 'foo' },
       { x: 'foo', a: 'bar' },
-      undefined,
-      null,
-      'm',
-      '',
-      0,
-      1,
-      [],
-      {},
+      ...TEST_VALUES.filter((x) => !TEST_OBJECTS.includes(x)),
     ],
   )
 })

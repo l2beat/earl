@@ -2,6 +2,7 @@ import { expect } from 'chai'
 
 import { expect as earl } from '../index'
 import { testMatcher } from '../test/matchers'
+import { TEST_VALUES } from '../test/values'
 import { unsafeInteger } from './unsafeInteger'
 
 describe(unsafeInteger.name, () => {
@@ -28,6 +29,13 @@ describe(unsafeInteger.name, () => {
       Number.MAX_SAFE_INTEGER * 2,
       Number.MIN_SAFE_INTEGER * 2,
     ],
-    [0.5, -1.2, 'green', '', [], {}],
+    [
+      0.5,
+      -1.2,
+      Infinity,
+      -Infinity,
+      NaN,
+      TEST_VALUES.filter((x) => typeof x !== 'number'),
+    ],
   )
 })

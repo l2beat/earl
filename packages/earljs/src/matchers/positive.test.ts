@@ -2,6 +2,7 @@ import { expect } from 'chai'
 
 import { expect as earl } from '../index'
 import { testMatcher } from '../test/matchers'
+import { TEST_VALUES } from '../test/values'
 import { positive } from './positive'
 
 describe(positive.name, () => {
@@ -17,7 +18,20 @@ describe(positive.name, () => {
 
   testMatcher(
     positive(),
-    [0.0001, 1, 4, 11, 10.5, 100, 12356.789],
-    [0, -4, -12.5, 'green', '', [], {}],
+    [Number.EPSILON, 0.5, 1, 4, 11, 10.5, 100, 12356.789, Infinity],
+    [
+      0,
+      NaN,
+      -Number.EPSILON,
+      -0.5,
+      -1,
+      -4,
+      -11,
+      -10.5,
+      -100,
+      -12356.789,
+      -Infinity,
+      TEST_VALUES.filter((x) => typeof x !== 'number'),
+    ],
   )
 })

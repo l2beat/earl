@@ -2,6 +2,7 @@ import { expect } from 'chai'
 
 import { expect as earl } from '../index'
 import { testMatcher } from '../test/matchers'
+import { TEST_VALUES } from '../test/values'
 import { defined } from './defined'
 
 describe(defined.name, () => {
@@ -15,22 +16,7 @@ describe(defined.name, () => {
 
   testMatcher(
     defined(),
-    [
-      1,
-      4,
-      'foo',
-      true,
-      [],
-      {},
-      Symbol(),
-      false,
-      NaN,
-      0,
-      -0,
-      BigInt(0),
-      '',
-      null,
-    ],
+    TEST_VALUES.filter((x) => x !== undefined),
     [undefined],
   )
 })

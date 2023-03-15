@@ -3,6 +3,7 @@ import * as z from 'zod'
 
 import { expect as earl } from '../index'
 import { testMatcher } from '../test/matchers'
+import { TEST_OBJECTS, TEST_VALUES } from '../test/values'
 import { schema } from './schema'
 
 describe(schema.name, () => {
@@ -25,6 +26,11 @@ describe(schema.name, () => {
   testMatcher(
     schema(Person),
     [{ name: 'Bobby', age: 4 }],
-    [{ name: 1 }, { x: 1, y: 2 }, '', 'tes', '123a', undefined, 1, {}, []],
+    [
+      { name: 1 },
+      { x: 1, y: 2 },
+      {},
+      ...TEST_VALUES.filter((x) => !TEST_OBJECTS.includes(x)),
+    ],
   )
 })

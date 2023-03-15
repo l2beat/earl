@@ -2,6 +2,7 @@ import { expect } from 'chai'
 
 import { expect as earl } from '../index'
 import { testMatcher } from '../test/matchers'
+import { TEST_VALUES } from '../test/values'
 import { integer } from './integer'
 
 describe(integer.name, () => {
@@ -27,14 +28,14 @@ describe(integer.name, () => {
       Number.MIN_SAFE_INTEGER,
     ],
     [
-      Number.MAX_SAFE_INTEGER * 2,
-      Number.MIN_SAFE_INTEGER * 2,
       0.5,
       -1.2,
-      'green',
-      '',
-      [],
-      {},
+      Number.MAX_SAFE_INTEGER * 2,
+      Number.MIN_SAFE_INTEGER * 2,
+      Infinity,
+      -Infinity,
+      NaN,
+      TEST_VALUES.filter((x) => typeof x !== 'number'),
     ],
   )
 })

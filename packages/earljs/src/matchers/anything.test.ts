@@ -2,6 +2,7 @@ import { expect } from 'chai'
 
 import { expect as earl } from '../index'
 import { testMatcher } from '../test/matchers'
+import { TEST_VALUES } from '../test/values'
 import { anything } from './anything'
 
 describe(anything.name, () => {
@@ -14,5 +15,5 @@ describe(anything.name, () => {
     earl(undefined).toEqual(earl.anything())
   })
 
-  testMatcher(anything(), ['m', '', 0, 1, undefined, null, [], {}], [])
+  testMatcher(anything(), TEST_VALUES, [])
 })

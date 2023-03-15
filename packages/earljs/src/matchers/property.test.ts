@@ -2,6 +2,7 @@ import { expect } from 'chai'
 
 import { expect as earl } from '../index'
 import { testMatcher } from '../test/matchers'
+import { TEST_OBJECTS, TEST_VALUES } from '../test/values'
 import { property } from './property'
 
 describe(property.name, () => {
@@ -18,7 +19,11 @@ describe(property.name, () => {
     testMatcher(
       property('foo'),
       [{ foo: 1 }, { foo: 1, bar: 'baz' }],
-      [{ bar: 'baz' }, undefined, null, 'm', '', 0, 1, [], {}],
+      [
+        { bar: 'baz' },
+        {},
+        TEST_VALUES.filter((x) => !TEST_OBJECTS.includes(x)),
+      ],
     )
   })
 
@@ -26,19 +31,7 @@ describe(property.name, () => {
     testMatcher(
       property('foo', 42),
       [{ foo: 42 }, { foo: 42, bar: 'baz' }],
-      [
-        { foo: 1 },
-        { foo: false },
-        { bar: 'baz' },
-        undefined,
-        null,
-        'm',
-        '',
-        0,
-        1,
-        [],
-        {},
-      ],
+      [{ foo: 1 }, { foo: false }, { bar: 'baz' }, {}],
     )
   })
 
@@ -46,19 +39,7 @@ describe(property.name, () => {
     testMatcher(
       property('foo', undefined),
       [{ foo: undefined }, { foo: undefined, bar: 'baz' }],
-      [
-        { foo: 1 },
-        { foo: false },
-        { bar: 'baz' },
-        undefined,
-        null,
-        'm',
-        '',
-        0,
-        1,
-        [],
-        {},
-      ],
+      [{ foo: 1 }, { foo: false }, { bar: 'baz' }, {}],
     )
   })
 
@@ -66,7 +47,7 @@ describe(property.name, () => {
     testMatcher(
       property('foo', earl.a(String)),
       [{ foo: 'xyz' }, { foo: 'xyz', bar: 'baz' }],
-      [{ foo: 1 }, { foo: false }, undefined, null, 'm', '', 0, 1, [], {}],
+      [{ foo: 1 }, { foo: false }, {}],
     )
   })
 })

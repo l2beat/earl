@@ -2,6 +2,7 @@ import { expect } from 'chai'
 
 import { expect as earl } from '../index'
 import { testMatcher } from '../test/matchers'
+import { TEST_OBJECTS, TEST_PRIMITIVES } from '../test/values'
 import { empty } from './empty'
 
 describe(empty.name, () => {
@@ -40,13 +41,8 @@ describe(empty.name, () => {
         ['a', 1],
         ['b', 2],
       ]),
-      0,
-      1,
-      4,
-      -12.5,
-      true,
-      null,
-      {},
+      ...TEST_PRIMITIVES.filter((x) => x !== ''),
+      ...TEST_OBJECTS,
     ],
   )
 })

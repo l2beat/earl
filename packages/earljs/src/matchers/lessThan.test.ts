@@ -2,6 +2,7 @@ import { expect } from 'chai'
 
 import { expect as earl } from '../index'
 import { testMatcher } from '../test/matchers'
+import { TEST_VALUES } from '../test/values'
 import { lessThan } from './lessThan'
 
 describe(lessThan.name, () => {
@@ -17,7 +18,14 @@ describe(lessThan.name, () => {
 
   testMatcher(
     lessThan(10),
-    [9, 9.5, 1, 0, -1, -100, -12356.789],
-    [10, 11, 19.998, 'green', '', [], {}],
+    [9, 9.5, 1, 0, -1, -100, -12356.789, -Infinity],
+    [
+      10,
+      11,
+      19.998,
+      NaN,
+      Infinity,
+      ...TEST_VALUES.filter((x) => typeof x !== 'number'),
+    ],
   )
 })
