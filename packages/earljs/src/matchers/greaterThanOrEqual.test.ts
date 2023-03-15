@@ -2,6 +2,7 @@ import { expect } from 'chai'
 
 import { expect as earl } from '../index'
 import { testMatcher } from '../test/matchers'
+import { TEST_VALUES } from '../test/values'
 import { greaterThanOrEqual } from './greaterThanOrEqual'
 
 describe(greaterThanOrEqual.name, () => {
@@ -19,7 +20,18 @@ describe(greaterThanOrEqual.name, () => {
 
   testMatcher(
     greaterThanOrEqual(10),
-    [10, 11, 10.5, 100, 12356.789],
-    [0, 0.5, 1, -0.0001, 9.998, 5, -4, 'green', '', [], {}],
+    [10, 11, 10.5, 100, 12356.789, Infinity],
+    [
+      0,
+      0.5,
+      1,
+      -0.0001,
+      9.998,
+      5,
+      -4,
+      NaN,
+      -Infinity,
+      ...TEST_VALUES.filter((x) => typeof x !== 'number'),
+    ],
   )
 })

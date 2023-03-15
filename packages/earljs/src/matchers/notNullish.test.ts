@@ -2,6 +2,7 @@ import { expect } from 'chai'
 
 import { expect as earl } from '../index'
 import { testMatcher } from '../test/matchers'
+import { TEST_VALUES } from '../test/values'
 import { notNullish } from './notNullish'
 
 describe(notNullish.name, () => {
@@ -15,7 +16,7 @@ describe(notNullish.name, () => {
 
   testMatcher(
     notNullish(),
-    [1, 4, 'foo', true, [], {}, Symbol(), false, NaN, 0, -0, BigInt(0), ''],
+    TEST_VALUES.filter((x) => x !== null && x !== undefined),
     [null, undefined],
   )
 })

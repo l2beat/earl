@@ -2,6 +2,7 @@ import { expect } from 'chai'
 
 import { expect as earl } from '../index'
 import { testMatcher } from '../test/matchers'
+import { TEST_OBJECTS,TEST_PRIMITIVES } from '../test/values'
 import { includes } from './includes'
 
 describe(includes.name, () => {
@@ -54,14 +55,8 @@ describe(includes.name, () => {
         new Set([3, 4]),
         new MyCollection([]),
         new MyCollection([3, 4]),
-        '2',
-        'green',
-        '',
-        0,
-        1,
-        undefined,
-        null,
-        {},
+        ...TEST_PRIMITIVES,
+        ...TEST_OBJECTS,
       ],
     )
   })
@@ -85,14 +80,8 @@ describe(includes.name, () => {
         new MyCollection([2, 5]),
         new MyCollection([]),
         new MyCollection([1, 2, 3, 4, 5, 6, 7, 8]),
-        '2 2 5',
-        'green',
-        '',
-        0,
-        1,
-        undefined,
-        null,
-        {},
+        ...TEST_PRIMITIVES,
+        ...TEST_OBJECTS,
       ],
     )
   })
@@ -117,14 +106,8 @@ describe(includes.name, () => {
         new MyCollection([2, 5]),
         new MyCollection([]),
         new MyCollection([1, 2, null]),
-        '123 foo',
-        'green',
-        '',
-        0,
-        1,
-        undefined,
-        null,
-        {},
+        ...TEST_PRIMITIVES,
+        ...TEST_OBJECTS,
       ],
     )
   })
@@ -140,7 +123,13 @@ describe(includes.name, () => {
         new MyCollection([2, 'foo']),
         new Set([2, 'foo']),
       ],
-      ['magic', 'fo of'],
+      [
+        'magic',
+        'fo of',
+        '',
+        ...TEST_PRIMITIVES.filter((x) => typeof x !== 'string'),
+        ...TEST_OBJECTS,
+      ],
     )
   })
 })

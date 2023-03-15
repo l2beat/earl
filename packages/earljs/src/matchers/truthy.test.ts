@@ -2,6 +2,7 @@ import { expect } from 'chai'
 
 import { expect as earl } from '../index'
 import { testMatcher } from '../test/matchers'
+import { TEST_VALUES } from '../test/values'
 import { truthy } from './truthy'
 
 describe(truthy.name, () => {
@@ -15,7 +16,7 @@ describe(truthy.name, () => {
 
   testMatcher(
     truthy(),
-    [1, 4, 'foo', true, [], {}, Symbol()],
-    [null, undefined, false, NaN, 0, -0, BigInt(0), ''],
+    TEST_VALUES.filter((x) => !!x),
+    TEST_VALUES.filter((x) => !x),
   )
 })

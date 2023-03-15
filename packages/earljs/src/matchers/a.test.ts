@@ -2,6 +2,12 @@ import { expect } from 'chai'
 
 import { expect as earl } from '../index'
 import { testMatcher } from '../test/matchers'
+import {
+  TEST_COMPLEX,
+  TEST_FUNCTIONS,
+  TEST_PRIMITIVES,
+  TEST_VALUES,
+} from '../test/values'
 import { a } from './a'
 
 describe(a.name, () => {
@@ -18,8 +24,8 @@ describe(a.name, () => {
 
     testMatcher(
       a(String),
-      ['green', ''],
-      [new String('green'), 0, 1, undefined, null, 1, {}],
+      TEST_VALUES.filter((x) => typeof x === 'string'),
+      TEST_VALUES.filter((x) => typeof x !== 'string'),
     )
   })
 
@@ -36,8 +42,8 @@ describe(a.name, () => {
 
     testMatcher(
       a(Number),
-      [5, -5.2, 0, 1],
-      [new Number(5), NaN, '', undefined, null, [], {}],
+      TEST_VALUES.filter((x) => typeof x === 'number' && !Number.isNaN(x)),
+      TEST_VALUES.filter((x) => typeof x !== 'number').concat(NaN),
     )
   })
 
@@ -55,7 +61,7 @@ describe(a.name, () => {
     testMatcher(
       a(Boolean),
       [true, false],
-      [new Boolean(false), 0, 1, '', undefined, null, [], {}],
+      TEST_VALUES.filter((x) => typeof x !== 'boolean'),
     )
   })
 
@@ -70,7 +76,11 @@ describe(a.name, () => {
       earl('foo').not.toEqual(earl.a(BigInt))
     })
 
-    testMatcher(a(BigInt), [BigInt(5)], [0, 1, '', undefined, null, [], {}])
+    testMatcher(
+      a(BigInt),
+      TEST_VALUES.filter((x) => typeof x === 'bigint'),
+      TEST_VALUES.filter((x) => typeof x !== 'bigint'),
+    )
   })
 
   describe(Function.name, () => {
@@ -84,7 +94,11 @@ describe(a.name, () => {
       earl('foo').not.toEqual(earl.a(Function))
     })
 
-    testMatcher(a(Function), [() => 1], [0, 1, '', undefined, null, [], {}])
+    testMatcher(
+      a(Function),
+      TEST_VALUES.filter((x) => typeof x === 'function'),
+      TEST_VALUES.filter((x) => typeof x !== 'function'),
+    )
   })
 
   describe(Object.name, () => {
@@ -98,7 +112,11 @@ describe(a.name, () => {
       earl('foo').not.toEqual(earl.a(Object))
     })
 
-    testMatcher(a(Object), [[], {}, { a: 1 }], [0, 1, '', undefined, null])
+    testMatcher(
+      a(Object),
+      TEST_COMPLEX.filter((x) => !TEST_FUNCTIONS.includes(x)),
+      [...TEST_PRIMITIVES, ...TEST_FUNCTIONS],
+    )
   })
 
   describe(Symbol.name, () => {
@@ -114,8 +132,8 @@ describe(a.name, () => {
 
     testMatcher(
       a(Symbol),
-      [Symbol(), Symbol('foo'), Symbol.for('foo'), Symbol.iterator],
-      [0, 1, '', undefined, null, [], {}],
+      TEST_VALUES.filter((x) => typeof x === 'symbol'),
+      TEST_VALUES.filter((x) => typeof x !== 'symbol'),
     )
   })
 
@@ -130,7 +148,11 @@ describe(a.name, () => {
       earl('foo').not.toEqual(earl.a(Array))
     })
 
-    testMatcher(a(Array), [[], [1, 2, 3]], [0, 1, '', undefined, null, {}])
+    testMatcher(
+      a(Array),
+      TEST_VALUES.filter((x) => Array.isArray(x)),
+      TEST_VALUES.filter((x) => !Array.isArray(x)),
+    )
   })
 
   describe('custom class', () => {
@@ -164,13 +186,7 @@ describe(a.name, () => {
       [
         { name: 'Carol', isJohn: () => false },
         { name: 'Alice', isJohn: Person.prototype.isJohn },
-        0,
-        1,
-        '',
-        undefined,
-        null,
-        [],
-        {},
+        ...TEST_VALUES,
       ],
     )
   })
