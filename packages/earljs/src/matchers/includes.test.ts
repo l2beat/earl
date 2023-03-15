@@ -2,7 +2,7 @@ import { expect } from 'chai'
 
 import { expect as earl } from '../index'
 import { testMatcher } from '../test/matchers'
-import { TEST_OBJECTS,TEST_PRIMITIVES } from '../test/values'
+import { TEST_OBJECTS, TEST_PRIMITIVES } from '../test/values'
 import { includes } from './includes'
 
 describe(includes.name, () => {
