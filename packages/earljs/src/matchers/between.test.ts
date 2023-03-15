@@ -58,4 +58,12 @@ describe(between.name, () => {
       ],
     )
   })
+
+  describe('between(100, -100)', () => {
+    testMatcher(
+      between(100, -100),
+      [-100, -50, -1, 0, 1, 50, 99],
+      [-200, -101, 100, 200],
+    )
+  })
 })
