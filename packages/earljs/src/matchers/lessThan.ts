@@ -7,12 +7,13 @@ declare module '../expect' {
      *
      * @param target - target value (inclusive)
      */
-    lessThan(target: number): number
+    lessThan(target: number | bigint): number
   }
 }
 
 registerMatcher('lessThan', lessThan)
 
-export function lessThan(target: number) {
-  return (value: unknown) => typeof value === 'number' && value < target
+export function lessThan(target: number | bigint) {
+  return (value: unknown) =>
+    (typeof value === 'number' || typeof value === 'bigint') && value < target
 }
