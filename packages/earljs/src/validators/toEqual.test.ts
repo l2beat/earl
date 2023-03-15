@@ -1,8 +1,9 @@
 import { expect } from 'chai'
 
 import { expect as earl } from '../index'
+import { toEqual } from './toEqual'
 
-describe('toEqual', () => {
+describe(toEqual.name, () => {
   describe('without .not', () => {
     it('passes for matching complex object', () => {
       class B {

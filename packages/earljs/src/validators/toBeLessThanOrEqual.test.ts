@@ -1,8 +1,9 @@
 import { expect } from 'chai'
 
 import { expect as earl } from '../index'
+import { toBeLessThanOrEqual } from './toBeLessThanOrEqual'
 
-describe('toBeLessThanOrEqual', () => {
+describe(toBeLessThanOrEqual.name, () => {
   describe('without .not', () => {
     describe('numbers', () => {
       it('passes for a number less than expected', () => {

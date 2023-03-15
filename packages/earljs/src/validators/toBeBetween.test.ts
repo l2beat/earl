@@ -1,8 +1,9 @@
 import { expect } from 'chai'
 
 import { expect as earl } from '../index'
+import { toBeBetween } from './toBeBetween'
 
-describe('toBeBetween', () => {
+describe(toBeBetween.name, () => {
   describe('without .not', () => {
     describe('numbers', () => {
       it('passes for a number inside the range', () => {
