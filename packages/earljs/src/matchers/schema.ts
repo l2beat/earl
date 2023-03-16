@@ -21,7 +21,7 @@ declare module '../expect' {
      *
      * @param regex - a regular expression to test the matched values.
      */
-    schema<T>(schema: Schema<T>): T
+    schema(schema: Schema<any>): any
   }
 }
 
