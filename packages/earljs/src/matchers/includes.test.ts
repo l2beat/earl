@@ -17,7 +17,7 @@ describe(includes.name, () => {
     expect(earl.includes(2).toString()).to.equal('includes(2)')
     expect(earl.includes(2, 5).toString()).to.equal('includes(2, 5)')
     expect(earl.includes(earl.a(Number)).toString()).to.equal(
-      'includes(Matcher a(Number))',
+      'includes(expect.a(Number))',
     )
   })
 

@@ -42,9 +42,10 @@ export function formatUnknown(
     if (!options.skipMatcherReplacement && value.check(sibling)) {
       return formatUnknown(sibling, null, options, siblingStack, [])
     } else {
-      let line = `Matcher ${value.toString()}`
+      let line = `expect.${value.toString()}`
       if (options.inline && line.length > options.maxLineLength) {
-        line = 'Matcher'
+        // TODO: function name!
+        line = 'expect.?'
       }
       return toLine(line)
     }

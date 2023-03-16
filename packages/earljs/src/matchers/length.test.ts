@@ -9,7 +9,7 @@ describe(length.name, () => {
   it('is correctly formatted', () => {
     expect(earl.length(2).toString()).to.equal('length(2)')
     expect(earl.length(earl.a(Number)).toString()).to.equal(
-      'length(Matcher a(Number))',
+      'length(expect.a(Number))',
     )
   })
 

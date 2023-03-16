@@ -70,9 +70,9 @@ describe('formatCompact', () => {
     ],
     [new Error('foo'), 'Error("foo")'],
     [new TypeError('foo'), 'TypeError("foo")'],
-    [earl.a(String), 'Matcher a(String)'],
-    [earl.anything(), 'Matcher anything()'],
-    [[earl.anything()], '[Matcher anything()]'],
+    [earl.a(String), 'expect.a(String)'],
+    [earl.anything(), 'expect.anything()'],
+    [[earl.anything()], '[expect.anything()]'],
     [new (class Foo {})(), 'Foo {}'],
   ]
 
