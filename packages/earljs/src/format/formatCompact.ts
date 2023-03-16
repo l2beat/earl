@@ -13,6 +13,9 @@ const FORMAT_OPTIONS: FormatOptions = {
   requireStrictEquality: false,
 }
 
-export function formatCompact(value: unknown): string {
-  return format(value, null, FORMAT_OPTIONS)
+export function formatCompact(value: unknown, maxLineLength?: number): string {
+  return format(value, null, {
+    ...FORMAT_OPTIONS,
+    maxLineLength: maxLineLength ?? FORMAT_OPTIONS.maxLineLength,
+  })
 }

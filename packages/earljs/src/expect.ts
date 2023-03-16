@@ -63,7 +63,7 @@ export function registerMatcher<A extends any[]>(
   Reflect.set(matchers, name, (...args: A) => {
     const representation = format
       ? format(...args)
-      : `${name}(${args.map(formatCompact).join(', ')})`
+      : `${name}(${args.map((x) => formatCompact(x)).join(', ')})`
     return new Matcher(representation, check(...args))
   })
 }
