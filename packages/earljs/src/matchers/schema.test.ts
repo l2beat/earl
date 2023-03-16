@@ -19,7 +19,9 @@ describe(schema.name, () => {
 
   it('is type safe', () => {
     earl({ name: 'Bobby', age: 4 }).toEqual(earl.schema(Person))
-    // @ts-expect-error - type mismatch
+    // After thinking about this for some time I decided to make this compile
+    // The reason is that it should be up to the schema to do the validation
+    // while earl steps away.
     earl(1).not.toEqual(earl.schema(Person))
   })
 
