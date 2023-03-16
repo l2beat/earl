@@ -15,16 +15,16 @@ declare module '../expect' {
 
 registerValidator('toBeGreaterThan', toBeGreaterThan)
 
-export function toBeGreaterThan<T>(
-  control: Control<T>,
+export function toBeGreaterThan(
+  control: Control<unknown>,
   target: number | bigint,
 ) {
-  const actualFmt = formatCompact(control.actual)
-  const targetFmt = formatCompact(target)
+  const actualInline = formatCompact(control.actual)
+  const targetInline = formatCompact(target)
 
   control.assert({
     success: greaterThan(target)(control.actual),
-    reason: `${actualFmt} isn't greater than ${targetFmt}`,
-    negatedReason: `${actualFmt} is greater than ${targetFmt}`,
+    reason: `${actualInline} isn't greater than ${targetInline}`,
+    negatedReason: `${actualInline} is greater than ${targetInline}`,
   })
 }
