@@ -581,19 +581,19 @@ describe('format', () => {
         [
           earl.a(String),
           'foo',
-          'Matcher a(String)',
+          'expect.a(String)',
           { skipMatcherReplacement: true },
         ],
-        [earl.a(String), 123, 'Matcher a(String)'],
+        [earl.a(String), 123, 'expect.a(String)'],
         [earl.anything(), null, 'null'],
         [
           earl.anything(),
           null,
-          'Matcher anything()',
+          'expect.anything()',
           { skipMatcherReplacement: true },
         ],
-        [{ foo: earl.anything() }, {}, '{\n  foo: Matcher anything()\n}'],
-        [[earl.anything()], [], '[\n  Matcher anything()\n]'],
+        [{ foo: earl.anything() }, {}, '{\n  foo: expect.anything()\n}'],
+        [[earl.anything()], [], '[\n  expect.anything()\n]'],
         [
           { x: earl.anything() },
           (() => {
@@ -700,7 +700,7 @@ describe('format', () => {
         [
           new Map([[1, earl.anything()]]),
           new Map([[2, {}]]),
-          'Map {\n  1 => Matcher anything()\n}',
+          'Map {\n  1 => expect.anything()\n}',
         ],
         [
           new Map([[{ x: 1 }, [2]]]),
