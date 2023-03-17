@@ -2,6 +2,8 @@ export * from './Control'
 export * from './expect'
 export * from './format'
 export * from './isEqual'
+export * from './mocks'
+
 import './matchers/a'
 import './matchers/anything'
 import './matchers/between'

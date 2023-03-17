@@ -4,7 +4,7 @@ import { AssertTrue, IsExact } from 'conditional-type-checks'
 import { expect as earl } from '../expect'
 import { MockNotConfiguredError } from './errors'
 import { mockFn } from './mockFn'
-import { Mock } from './types'
+import { Mock, MockOf } from './types'
 
 const sum = (a: number, b: number) => a + b
 
@@ -71,7 +71,7 @@ describe('Mock', () => {
     })
 
     it('resets any existing config', () => {
-      const fn = mockFn()
+      const fn = mockFn<(a: number, b: number) => number>()
         .returns(3)
         .given(1, 2)
         .executesOnce((a, b) => a + b)
@@ -148,7 +148,7 @@ describe('Mock', () => {
       expect(fn(2, 2)).to.eq(4)
 
       type _ = AssertTrue<
-        IsExact<Mock<[number, number], number>, Mock.Of<Operation>>
+        IsExact<Mock<[number, number], number>, MockOf<Operation>>
       >
     })
   })
