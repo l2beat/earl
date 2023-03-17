@@ -116,7 +116,7 @@ export default defineConfig({
     algolia: {
       appId: 'QF2RRFVWZ5',
       apiKey: 'a338815904319796ea2e156c44ded361',
-      indexName: 'earl',
+      indexName: 'earljs',
     },
   },
 })
