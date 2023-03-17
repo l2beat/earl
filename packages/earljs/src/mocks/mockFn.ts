@@ -1,6 +1,6 @@
 import { isEqual } from '../isEqual'
 import { MockNotConfiguredError } from './errors'
-import { Mock, MockCall } from './types'
+import { Mock, MockCall, MockOf } from './types'
 
 interface ReturnSpec {
   type: 'return'
@@ -47,13 +47,13 @@ interface Override {
  */
 export function mockFn<F extends (...args: any) => any>(
   defaultImpl?: F,
-): Mock.Of<F>
-export function mockFn<Args extends any[], Return = any>(
-  defaultImpl?: (...args: Args) => Return,
-): Mock<Args, Return>
-export function mockFn<Args extends any[], Return = any>(
-  defaultImpl?: (...args: Args) => Return,
-): Mock<Args, Return> {
+): MockOf<F>
+export function mockFn<A extends any[], R>(
+  defaultImpl?: (...args: A) => R,
+): Mock<A, R>
+export function mockFn<A extends any[], R>(
+  defaultImpl?: (...args: A) => R,
+): Mock<A, R> {
   let spec: Spec = {
     type: 'not-ready',
   }
