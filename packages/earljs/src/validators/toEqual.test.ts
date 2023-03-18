@@ -1,6 +1,7 @@
 import { expect } from 'chai'
 
 import { expect as earl } from '../index'
+import { captureMochaOutput, stripIndent } from '../test/errors'
 import { toEqual } from './toEqual'
 
 describe(toEqual.name, () => {
@@ -107,6 +108,41 @@ describe(toEqual.name, () => {
       type LinkedList<T> = [T] | [T, LinkedList<T>]
       const x: LinkedList<number> = [1, [2]]
       earl(x).not.toEqual([2, [3, [4]]])
+    })
+  })
+
+  describe('output', () => {
+    it('simple case', () => {
+      const diff = captureMochaOutput(() => {
+        earl({ x: 1, y: 2 }).toEqual({ x: 3, y: 2 })
+      })
+
+      expect(diff).to.equal(stripIndent`
+        AssertionError: { x: 1, y: 2 } isn't equal to { x: 3, y: 2 }
+
+         {
+        -  x: 1
+        +  x: 3
+           y: 2
+         }
+      `)
+    })
+
+    it('long strings', () => {
+      const diff = captureMochaOutput(() => {
+        earl(
+          'i wanna be the very best like no one ever was to catch them is my real test to train them is my cause',
+        ).toEqual(
+          'i wanna be the very best XXXX no one ever was to catch XXXX is my real XXXX to train them is my cause',
+        )
+      })
+
+      expect(diff).to.equal(stripIndent`
+        AssertionError: "i wanna..." isn't equal to "i wanna..."
+
+        -"i wanna be the very best like no one ever was to catch them is my real test to train them is my cause"
+        +"i wanna be the very best XXXX no one ever was to catch XXXX is my real XXXX to train them is my cause"
+      `)
     })
   })
 })
