@@ -1,6 +1,7 @@
 import { expect } from 'chai'
 
 import { expect as earl } from '../index'
+import { captureMochaOutput, stripIndent } from '../test/errors'
 import { toThrow } from './toThrow'
 
 describe(toThrow.name, () => {
@@ -146,5 +147,78 @@ describe(toThrow.name, () => {
         throw new Error('I like pancakes and waffles')
       }).toThrow(/h.{3}y/)
     }).to.throw("function call threw, but the message didn't match /h.{3}y/")
+  })
+
+  describe('output', () => {
+    it('message regex mismatch', () => {
+      const diff = captureMochaOutput(() => {
+        earl(() => {
+          throw new Error('foo')
+        }).toThrow(/bar/)
+      })
+
+      expect(diff).to.equal(stripIndent`
+        AssertionError: function call threw, but the message didn't match /bar/
+
+         Error {
+        -  message: "foo"
+        +  message: /bar/
+           name: "Error"
+         }
+      `)
+    })
+
+    it('type and message mismatch', () => {
+      const diff = captureMochaOutput(() => {
+        earl(() => {
+          throw new Error('foo')
+        }).toThrow(TypeError, 'bar')
+      })
+
+      expect(diff).to.equal(stripIndent`
+        AssertionError: function call threw, but the error wasn't an instance of TypeError with message "bar"
+
+        -Error {
+        -  message: "foo"
+        +TypeError {
+        +  message: "bar"
+           name: "Error"
+         }
+      `)
+    })
+
+    it('non error object thrown value', () => {
+      const diff = captureMochaOutput(() => {
+        earl(() => {
+          throw { message: 'foo' }
+        }).toThrow(/bar/)
+      })
+
+      expect(diff).to.equal(stripIndent`
+        AssertionError: function call threw, but the message didn't match /bar/
+
+         {
+        -  message: "foo"
+        +  message: /bar/
+         }
+      `)
+    })
+
+    it('null thrown value', () => {
+      const diff = captureMochaOutput(() => {
+        earl(() => {
+          throw null
+        }).toThrow(/bar/)
+      })
+
+      expect(diff).to.equal(stripIndent`
+        AssertionError: function call threw, but the message didn't match /bar/
+
+        -null
+        +{
+        +  message: /bar/
+        +}
+      `)
+    })
   })
 })
