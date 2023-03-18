@@ -1,40 +1,13 @@
 import { isEqual } from '../isEqual'
 import { MockNotConfiguredError } from './errors'
-import { Mock, MockCall, MockOf } from './types'
-
-interface ReturnSpec {
-  type: 'return'
-  value: any
-}
-
-/**
- * Used to lazily evaluate rejected promises so node doesn't think they are unhandled
- */
-interface LazyReturnSpec {
-  type: 'lazy-return'
-  value: () => any
-}
-
-interface ThrowSpec {
-  type: 'throw'
-  error: any
-}
-
-interface ExecSpec {
-  type: 'exec'
-  implementation: (...args: any[]) => any
-}
-
-interface NotReadySpec {
-  type: 'not-ready'
-}
-
-type Spec = ReturnSpec | LazyReturnSpec | ThrowSpec | ExecSpec | NotReadySpec
+import { Mock, MockCall, MockOf, Spec } from './types'
 
 interface Override {
   args: any[]
   spec: Spec
 }
+
+const mockSymbol = Symbol('mock')
 
 /**
  * Creates a mock conforming to a given signature.
@@ -71,9 +44,18 @@ export function mockFn<A extends any[], R>(
     return runSpec(current, args)
   }
 
+  mock[mockSymbol] = true
   mock.calls = [] as MockCall<any, any>[]
   mock.isExhausted = function () {
     return queue.length === 0 && oneTimeOverrides.length === 0
+  }
+
+  mock.getQueueLength = function () {
+    return queue.length
+  }
+
+  mock.getOneTimeOverridesLength = function () {
+    return oneTimeOverrides.length
   }
 
   function runSpec(spec: Spec, args: any[]) {
@@ -202,4 +184,8 @@ export function mockFn<A extends any[], R>(
   }
 
   return mock
+}
+
+export function isMock(value: unknown): value is Mock<any[], any> {
+  return typeof value === 'function' && (value as any)[mockSymbol] === true
 }
