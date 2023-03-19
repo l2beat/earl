@@ -1,20 +1,10 @@
-import { expect } from 'chai'
-
 import { expect as earl } from '../../index'
-import { testMatcher } from '../../test/matchers'
+import { testMatcher, testMatcherFormat } from '../../test/matchers'
 import { TEST_VALUES } from '../../test/values'
 import { closeTo } from './closeTo'
 
 describe(closeTo.name, () => {
-  it('is correctly formatted', () => {
-    expect(earl.closeTo(1, 0.001).toString()).to.equal('closeTo(1, 0.001)')
-  })
-
-  it('is type safe', () => {
-    earl(1.000004).toEqual(earl.closeTo(1, 0.001))
-    // @ts-expect-error - type mismatch
-    earl('foo').not.toEqual(earl.closeTo(1, 0.001))
-  })
+  testMatcherFormat(earl.closeTo(1, 0.001), 'closeTo(1, 0.001)')
 
   testMatcher(
     closeTo(1, 0.001),

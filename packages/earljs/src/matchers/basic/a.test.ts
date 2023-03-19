@@ -1,7 +1,5 @@
-import { expect } from 'chai'
-
 import { expect as earl } from '../../index'
-import { testMatcher } from '../../test/matchers'
+import { testMatcher, testMatcherFormat } from '../../test/matchers'
 import {
   TEST_COMPLEX,
   TEST_FUNCTIONS,
@@ -12,15 +10,7 @@ import { a } from './a'
 
 describe(a.name, () => {
   describe(String.name, () => {
-    it('is correctly formatted', () => {
-      expect(earl.a(String).toString()).to.equal('a(String)')
-    })
-
-    it('is type safe', () => {
-      earl('foo').toEqual(earl.a(String))
-      // @ts-expect-error - type mismatch
-      earl(1).not.toEqual(earl.a(String))
-    })
+    testMatcherFormat(earl.a(String), 'a(String)')
 
     testMatcher(
       a(String),
@@ -30,15 +20,7 @@ describe(a.name, () => {
   })
 
   describe(Number.name, () => {
-    it('is correctly formatted', () => {
-      expect(earl.a(Number).toString()).to.equal('a(Number)')
-    })
-
-    it('is type safe', () => {
-      earl(1).toEqual(earl.a(Number))
-      // @ts-expect-error - type mismatch
-      earl('foo').not.toEqual(earl.a(Number))
-    })
+    testMatcherFormat(earl.a(Number), 'a(Number)')
 
     testMatcher(
       a(Number),
@@ -48,15 +30,7 @@ describe(a.name, () => {
   })
 
   describe(Boolean.name, () => {
-    it('is correctly formatted', () => {
-      expect(earl.a(Boolean).toString()).to.equal('a(Boolean)')
-    })
-
-    it('is type safe', () => {
-      earl(true).toEqual(earl.a(Boolean))
-      // @ts-expect-error - type mismatch
-      earl('foo').not.toEqual(earl.a(Boolean))
-    })
+    testMatcherFormat(earl.a(Boolean), 'a(Boolean)')
 
     testMatcher(
       a(Boolean),
@@ -66,15 +40,7 @@ describe(a.name, () => {
   })
 
   describe(BigInt.name, () => {
-    it('is correctly formatted', () => {
-      expect(earl.a(BigInt).toString()).to.equal('a(BigInt)')
-    })
-
-    it('is type safe', () => {
-      earl(BigInt(5)).toEqual(earl.a(BigInt))
-      // @ts-expect-error - type mismatch
-      earl('foo').not.toEqual(earl.a(BigInt))
-    })
+    testMatcherFormat(earl.a(BigInt), 'a(BigInt)')
 
     testMatcher(
       a(BigInt),
@@ -84,15 +50,7 @@ describe(a.name, () => {
   })
 
   describe(Function.name, () => {
-    it('is correctly formatted', () => {
-      expect(earl.a(Function).toString()).to.equal('a(Function)')
-    })
-
-    it('is type safe', () => {
-      earl(() => 1).toEqual(earl.a(Function))
-      // @ts-expect-error - type mismatch
-      earl('foo').not.toEqual(earl.a(Function))
-    })
+    testMatcherFormat(earl.a(Function), 'a(Function)')
 
     testMatcher(
       a(Function),
@@ -102,15 +60,7 @@ describe(a.name, () => {
   })
 
   describe(Object.name, () => {
-    it('is correctly formatted', () => {
-      expect(earl.a(Object).toString()).to.equal('a(Object)')
-    })
-
-    it('is type safe', () => {
-      earl({ a: 1 }).toEqual(earl.a(Object))
-      // THIS ISN'T ACTUALLY TYPE SAFE :(
-      earl('foo').not.toEqual(earl.a(Object))
-    })
+    testMatcherFormat(earl.a(Object), 'a(Object)')
 
     testMatcher(
       a(Object),
@@ -120,15 +70,7 @@ describe(a.name, () => {
   })
 
   describe(Symbol.name, () => {
-    it('is correctly formatted', () => {
-      expect(earl.a(Symbol).toString()).to.equal('a(Symbol)')
-    })
-
-    it('is type safe', () => {
-      earl(Symbol('foo')).toEqual(earl.a(Symbol))
-      // @ts-expect-error - type mismatch
-      earl('foo').not.toEqual(earl.a(Symbol))
-    })
+    testMatcherFormat(earl.a(Symbol), 'a(Symbol)')
 
     testMatcher(
       a(Symbol),
@@ -138,15 +80,7 @@ describe(a.name, () => {
   })
 
   describe(Array.name, () => {
-    it('is correctly formatted', () => {
-      expect(earl.a(Array).toString()).to.equal('a(Array)')
-    })
-
-    it('is type safe', () => {
-      earl([1, 2, 3]).toEqual(earl.a(Array))
-      // @ts-expect-error - type mismatch
-      earl('foo').not.toEqual(earl.a(Array))
-    })
+    testMatcherFormat(earl.a(Array), 'a(Array)')
 
     testMatcher(
       a(Array),
@@ -169,16 +103,7 @@ describe(a.name, () => {
       }
     }
 
-    it('is correctly formatted', () => {
-      // eslint-disable-next-line @typescript-eslint/no-base-to-string
-      expect(earl.a(Person).toString()).to.equal('a(Person)')
-    })
-
-    it('is type safe', () => {
-      earl(new Person('Jane')).toEqual(earl.a(Person))
-      // @ts-expect-error - type mismatch
-      earl('foo').not.toEqual(earl.a(Person))
-    })
+    testMatcherFormat(earl.a(Person), 'a(Person)')
 
     testMatcher(
       a(Person),

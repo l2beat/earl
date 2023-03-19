@@ -9,7 +9,7 @@ declare module '../../expect' {
      * @param min - minimum value (inclusive)
      * @param max - maximum value (exclusive)
      */
-    between(min: number | bigint, max: number | bigint): number
+    between(min: number | bigint, max: number | bigint): never
   }
 }
 

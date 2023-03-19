@@ -7,7 +7,7 @@ declare module '../../expect' {
      *
      * @param target - target value (inclusive)
      */
-    greaterThan(target: number | bigint): number
+    greaterThan(target: number | bigint): never
   }
 }
 

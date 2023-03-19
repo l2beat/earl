@@ -1,27 +1,15 @@
 import { expect } from 'chai'
 
 import { expect as earl } from '../../index'
-import { testMatcher } from '../../test/matchers'
+import { testMatcher, testMatcherFormat } from '../../test/matchers'
 import { TEST_VALUES } from '../../test/values'
 import { length } from './length'
 
 describe(length.name, () => {
+  describe('formatting', () => {})
   it('is correctly formatted', () => {
-    expect(earl.length(2).toString()).to.equal('length(2)')
-    expect(earl.length(earl.a(Number)).toString()).to.equal(
-      'length(expect.a(Number))',
-    )
-  })
-
-  it('is type safe', () => {
-    earl(['foo', 'bar']).toEqual(earl.length(2))
-    earl('foo').toEqual(earl.length(3))
-    earl({ length: 5 }).toEqual(earl.length(5))
-    earl({ length: 2, 1: 'a', 2: 'b' }).toEqual(earl.length(2))
-    // THIS ISN'T ACTUALLY TYPE SAFE :(
-    earl({ notLength: 5 }).not.toEqual(earl.length(1))
-    // THIS ISN'T ACTUALLY TYPE SAFE :(
-    earl(null).not.toEqual(earl.length(2))
+    testMatcherFormat(earl.length(2), 'length(2)')
+    testMatcherFormat(earl.length(earl.a(Number)), 'length(expect.a(Number))')
   })
 
   it('works with matchers', () => {

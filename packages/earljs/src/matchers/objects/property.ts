@@ -9,7 +9,7 @@ declare module '../../expect' {
      * @param key - property key
      * @param expected - optional property value
      */
-    property(key: string, expected?: unknown): any
+    property(key: string, expected?: unknown): never
   }
 }
 

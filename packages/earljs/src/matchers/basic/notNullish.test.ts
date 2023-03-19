@@ -1,18 +1,10 @@
-import { expect } from 'chai'
-
 import { expect as earl } from '../../index'
-import { testMatcher } from '../../test/matchers'
+import { testMatcher, testMatcherFormat } from '../../test/matchers'
 import { TEST_VALUES } from '../../test/values'
 import { notNullish } from './notNullish'
 
 describe(notNullish.name, () => {
-  it('is correctly formatted', () => {
-    expect(earl.notNullish().toString()).to.equal('notNullish()')
-  })
-
-  it('is type safe', () => {
-    earl(0).toEqual(earl.notNullish())
-  })
+  testMatcherFormat(earl.notNullish(), 'notNullish()')
 
   testMatcher(
     notNullish(),

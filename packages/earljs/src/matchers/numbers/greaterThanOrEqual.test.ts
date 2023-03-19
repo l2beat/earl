@@ -1,22 +1,10 @@
-import { expect } from 'chai'
-
 import { expect as earl } from '../../index'
-import { testMatcher } from '../../test/matchers'
+import { testMatcher, testMatcherFormat } from '../../test/matchers'
 import { TEST_VALUES } from '../../test/values'
 import { greaterThanOrEqual } from './greaterThanOrEqual'
 
 describe(greaterThanOrEqual.name, () => {
-  it('is correctly formatted', () => {
-    expect(earl.greaterThanOrEqual(10).toString()).to.equal(
-      'greaterThanOrEqual(10)',
-    )
-  })
-
-  it('is type safe', () => {
-    earl(10.5).toEqual(earl.greaterThanOrEqual(10))
-    // @ts-expect-error - type mismatch
-    earl('foo').not.toEqual(earl.greaterThanOrEqual(10))
-  })
+  testMatcherFormat(earl.greaterThanOrEqual(10), 'greaterThanOrEqual(10)')
 
   describe('greaterThanOrEqual(10)', () => {
     testMatcher(

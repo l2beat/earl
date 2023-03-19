@@ -9,7 +9,7 @@ declare module '../../expect' {
      * @param target - number to aim for
      * @param delta - maximum difference between the values
      */
-    closeTo(target: number, delta: number): number
+    closeTo(target: number, delta: number): never
   }
 }
 

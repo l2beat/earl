@@ -5,7 +5,7 @@ declare module '../../expect' {
     /**
      * Matches empty strings, arrays, sets and maps.
      */
-    empty(): string & any[] & never[] & Set<any> & Map<any, any>
+    empty(): never
   }
 }
 

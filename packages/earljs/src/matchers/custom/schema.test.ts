@@ -1,8 +1,7 @@
-import { expect } from 'chai'
 import * as z from 'zod'
 
 import { expect as earl } from '../../index'
-import { testMatcher } from '../../test/matchers'
+import { testMatcher, testMatcherFormat } from '../../test/matchers'
 import { TEST_OBJECTS, TEST_VALUES } from '../../test/values'
 import { schema } from './schema'
 
@@ -12,18 +11,7 @@ describe(schema.name, () => {
     age: z.number(),
   })
 
-  it('is correctly formatted', () => {
-    // eslint-disable-next-line @typescript-eslint/no-base-to-string
-    expect(earl.schema(Person).toString()).to.equal('schema(???)')
-  })
-
-  it('is type safe', () => {
-    earl({ name: 'Bobby', age: 4 }).toEqual(earl.schema(Person))
-    // After thinking about this for some time I decided to make this compile
-    // The reason is that it should be up to the schema to do the validation
-    // while earl steps away.
-    earl(1).not.toEqual(earl.schema(Person))
-  })
+  testMatcherFormat(earl.schema(Person), 'schema(???)')
 
   testMatcher(
     schema(Person),

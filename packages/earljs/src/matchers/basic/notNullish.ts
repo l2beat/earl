@@ -5,7 +5,7 @@ declare module '../../expect' {
     /**
      * Matches values that are not nullish, i.e. values that are not `null` or `undefined`.
      */
-    notNullish(): any
+    notNullish(): never
   }
 }
 

@@ -5,7 +5,7 @@ declare module '../../expect' {
     /**
      * Matches numbers that are integers. Doesn't check against Number.MIN_SAFE_INTEGER nad Number.MAX_SAFE_INTEGER.
      */
-    unsafeInteger(): number
+    unsafeInteger(): never
   }
 }
 

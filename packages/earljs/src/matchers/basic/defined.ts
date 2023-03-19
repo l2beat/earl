@@ -5,7 +5,7 @@ declare module '../../expect' {
     /**
      * Matches values that are not `undefined`.
      */
-    defined(): any
+    defined(): never
   }
 }
 
