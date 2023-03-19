@@ -1,23 +1,23 @@
 import { expect } from 'chai'
 
 import { expect as earl, mockFn } from '../../index'
-import { toHaveBeenNthCalledWith } from './toHaveBeenNthCalledWith'
+import { toHaveBeenLastCalledWith } from './toHaveBeenLastCalledWith'
 
-describe(toHaveBeenNthCalledWith.name, () => {
+describe(toHaveBeenLastCalledWith.name, () => {
   describe('without .not', () => {
     it('passes when arguments match', () => {
       expect(() => {
         const mock = mockFn((a: number, b: number) => a + b)
         mock(1, 2)
         mock(3, 4)
-        earl(mock).toHaveBeenNthCalledWith(2, 3, earl.greaterThan(3))
+        earl(mock).toHaveBeenLastCalledWith(3, earl.greaterThan(3))
       }).not.to.throw()
     })
 
-    it('fails when the mock function was not called enough times', () => {
+    it('fails when the mock function was not called', () => {
       expect(() => {
         const mock = mockFn()
-        earl(mock).toHaveBeenNthCalledWith(1, 1)
+        earl(mock).toHaveBeenLastCalledWith(1)
       }).to.throw(
         'The mock function was never called, but it was expected to have been called at least once.',
       )
@@ -28,7 +28,7 @@ describe(toHaveBeenNthCalledWith.name, () => {
         const mock = mockFn((a: number, b: number) => a + b)
         mock(1, 2)
         mock(3, 4)
-        earl(mock).toHaveBeenNthCalledWith(2, 5, earl.greaterThan(7))
+        earl(mock).toHaveBeenLastCalledWith(5, earl.greaterThan(7))
       }).to.throw(
         'The passed arguments [3, 4] are not equal to [5, expect.?], but were expected to be equal.',
       )
@@ -41,14 +41,14 @@ describe(toHaveBeenNthCalledWith.name, () => {
         const mock = mockFn((a: number, b: number) => a + b)
         mock(1, 2)
         mock(3, 4)
-        earl(mock).not.toHaveBeenNthCalledWith(2, 5, earl.greaterThan(7))
+        earl(mock).not.toHaveBeenLastCalledWith(5, earl.greaterThan(7))
       }).not.to.throw()
     })
 
-    it('passes when the mock function was not called enough times', () => {
+    it('passes when the mock function was not called', () => {
       expect(() => {
         const mock = mockFn()
-        earl(mock).not.toHaveBeenNthCalledWith(1, 1)
+        earl(mock).not.toHaveBeenLastCalledWith(1, 1)
       }).not.to.throw()
     })
 
@@ -57,7 +57,7 @@ describe(toHaveBeenNthCalledWith.name, () => {
         const mock = mockFn((a: number, b: number) => a + b)
         mock(1, 2)
         mock(3, 4)
-        earl(mock).not.toHaveBeenNthCalledWith(2, 3, earl.greaterThan(3))
+        earl(mock).not.toHaveBeenLastCalledWith(3, earl.greaterThan(3))
       }).to.throw(
         'The passed arguments [3, 4] are equal to [3, expect.?], but were expected not to be equal.',
       )
