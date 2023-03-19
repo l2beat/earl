@@ -19,3 +19,9 @@ export function testMatcher(
     })
   }
 }
+
+export function testMatcherFormat(matcher: never, expected: string) {
+  it(`formats as ${expected}`, () => {
+    expect((matcher as any).toString()).to.equal(expected)
+  })
+}

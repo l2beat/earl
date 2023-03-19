@@ -6,7 +6,7 @@ declare module '../../expect' {
      * Matches truthy values.
      * https://developer.mozilla.org/en-US/docs/Glossary/Truthy
      */
-    truthy(): any
+    truthy(): never
   }
 }
 

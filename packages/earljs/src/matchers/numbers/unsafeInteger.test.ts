@@ -1,20 +1,10 @@
-import { expect } from 'chai'
-
 import { expect as earl } from '../../index'
-import { testMatcher } from '../../test/matchers'
+import { testMatcher, testMatcherFormat } from '../../test/matchers'
 import { TEST_VALUES } from '../../test/values'
 import { unsafeInteger } from './unsafeInteger'
 
 describe(unsafeInteger.name, () => {
-  it('is correctly formatted', () => {
-    expect(earl.unsafeInteger().toString()).to.equal('unsafeInteger()')
-  })
-
-  it('is type safe', () => {
-    earl(123).toEqual(earl.unsafeInteger())
-    // @ts-expect-error - type mismatch
-    earl('foo').not.toEqual(earl.unsafeInteger())
-  })
+  testMatcherFormat(earl.unsafeInteger(), 'unsafeInteger()')
 
   testMatcher(
     unsafeInteger(),

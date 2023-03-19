@@ -1,20 +1,10 @@
-import { expect } from 'chai'
-
 import { expect as earl } from '../../index'
-import { testMatcher } from '../../test/matchers'
+import { testMatcher, testMatcherFormat } from '../../test/matchers'
 import { TEST_VALUES } from '../../test/values'
 import { positive } from './positive'
 
 describe(positive.name, () => {
-  it('is correctly formatted', () => {
-    expect(earl.positive().toString()).to.equal('positive()')
-  })
-
-  it('is type safe', () => {
-    earl(10.5).toEqual(earl.positive())
-    // @ts-expect-error - type mismatch
-    earl('foo').not.toEqual(earl.positive())
-  })
+  testMatcherFormat(earl.positive(), 'positive()')
 
   testMatcher(
     positive(),

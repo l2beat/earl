@@ -7,7 +7,7 @@ declare module '../../expect' {
      *
      * @param predicate - the function for checking values
      */
-    satisfies(predicate: (value: unknown) => boolean): any
+    satisfies(predicate: (value: unknown) => boolean): never
   }
 }
 

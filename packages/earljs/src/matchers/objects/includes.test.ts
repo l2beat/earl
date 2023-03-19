@@ -1,7 +1,7 @@
 import { expect } from 'chai'
 
 import { expect as earl } from '../../index'
-import { testMatcher } from '../../test/matchers'
+import { testMatcher, testMatcherFormat } from '../../test/matchers'
 import { TEST_OBJECTS, TEST_PRIMITIVES } from '../../test/values'
 import { includes } from './includes'
 
@@ -13,19 +13,13 @@ describe(includes.name, () => {
     }
   }
 
-  it('is correctly formatted', () => {
-    expect(earl.includes(2).toString()).to.equal('includes(2)')
-    expect(earl.includes(2, 5).toString()).to.equal('includes(2, 5)')
-    expect(earl.includes(earl.a(Number)).toString()).to.equal(
+  describe('formatting', () => {
+    testMatcherFormat(earl.includes(2), 'includes(2)')
+    testMatcherFormat(earl.includes(2, 5), 'includes(2, 5)')
+    testMatcherFormat(
+      earl.includes(earl.a(Number)),
       'includes(expect.a(Number))',
     )
-  })
-
-  it('is type safe', () => {
-    earl(['foo', 'bar']).toEqual(earl.includes('foo'))
-    earl(new Set(['foo', 'bar'])).toEqual(earl.includes('foo'))
-    earl(new MyCollection(['foo', 'bar'])).toEqual(earl.includes('foo'))
-    earl('foo').toEqual(earl.includes('f'))
   })
 
   it('works with matchers', () => {

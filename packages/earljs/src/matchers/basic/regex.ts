@@ -13,7 +13,7 @@ declare module '../../expect' {
      *
      * @param regex - a regular expression to test the matched values.
      */
-    regex(regex: RegExp): string
+    regex(regex: RegExp): never
   }
 }
 

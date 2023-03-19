@@ -1,20 +1,10 @@
-import { expect } from 'chai'
-
 import { expect as earl } from '../../index'
-import { testMatcher } from '../../test/matchers'
+import { testMatcher, testMatcherFormat } from '../../test/matchers'
 import { TEST_VALUES } from '../../test/values'
 import { between } from './between'
 
 describe(between.name, () => {
-  it('is correctly formatted', () => {
-    expect(earl.between(0, 1).toString()).to.equal('between(0, 1)')
-  })
-
-  it('is type safe', () => {
-    earl(0.5).toEqual(earl.between(0, 1))
-    // @ts-expect-error - type mismatch
-    earl('foo').not.toEqual(earl.between(0, 1))
-  })
+  testMatcherFormat(earl.between(0, 1), 'between(0, 1)')
 
   describe('between(0, 1)', () => {
     testMatcher(

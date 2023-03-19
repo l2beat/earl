@@ -5,7 +5,7 @@ declare module '../../expect' {
     /**
      * Matches numbers that are less than 0.
      */
-    negative(): number
+    negative(): never
   }
 }
 

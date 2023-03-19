@@ -19,8 +19,7 @@ declare module '../../expect' {
      *
      * @param items - items or matchers to look for. When the value is a string, all items must be strings too.
      */
-    includes(...items: any[]): any
-    // we can't use any[] & Set<any> & Iterable<any> because of missing keys
+    includes(...items: any[]): never
   }
 }
 

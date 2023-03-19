@@ -6,7 +6,7 @@ declare module '../../expect' {
      * Matches falsy values.
      * https://developer.mozilla.org/en-US/docs/Glossary/Falsy
      */
-    falsy(): any
+    falsy(): never
   }
 }
 

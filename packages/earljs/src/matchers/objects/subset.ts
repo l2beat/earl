@@ -8,7 +8,7 @@ declare module '../../expect' {
      *
      * @param subset - an object to match against.
      */
-    subset(subset: object): any
+    subset(subset: object): never
   }
 }
 

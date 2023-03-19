@@ -5,7 +5,7 @@ declare module '../../expect' {
     /**
      * Matches any value.
      */
-    anything(): any
+    anything(): never
   }
 }
 

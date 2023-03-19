@@ -1,18 +1,12 @@
-import { expect } from 'chai'
-
 import { expect as earl } from '../../index'
-import { testMatcher } from '../../test/matchers'
+import { testMatcher, testMatcherFormat } from '../../test/matchers'
 import { TEST_OBJECTS, TEST_VALUES } from '../../test/values'
 import { property } from './property'
 
 describe(property.name, () => {
-  it('is correctly formatted', () => {
-    expect(earl.property('foo').toString()).to.equal('property("foo")')
-    expect(earl.property('foo', 42).toString()).to.equal('property("foo", 42)')
-  })
-
-  it('is type safe', () => {
-    earl({ x: 1, y: 2 }).toEqual(earl.property('x', 1))
+  describe('formatting', () => {
+    testMatcherFormat(earl.property('foo'), 'property("foo")')
+    testMatcherFormat(earl.property('foo', 42), 'property("foo", 42)')
   })
 
   describe('property("foo")', () => {
