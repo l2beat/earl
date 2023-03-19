@@ -14,55 +14,55 @@ describe(toBeA.name, () => {
     it('fails for a value not being a String', () => {
       expect(() => {
         earl(1).toBeA(String)
-      }).to.throw("1 isn't a string")
+      }).to.throw('1 is not a string, but it was expected to be.')
     })
 
     it('fails for a value not being a Number', () => {
       expect(() => {
         earl(false).toBeA(Number)
-      }).to.throw("false isn't a number")
+      }).to.throw('false is not a number, but it was expected to be.')
     })
 
     it('fails for a value not being a Boolean', () => {
       expect(() => {
         earl(1).toBeA(Boolean)
-      }).to.throw("1 isn't a boolean")
+      }).to.throw('1 is not a boolean, but it was expected to be.')
     })
 
     it('fails for a value not being a BigInt', () => {
       expect(() => {
         earl(1).toBeA(BigInt)
-      }).to.throw("1 isn't a bigint")
+      }).to.throw('1 is not a bigint, but it was expected to be.')
     })
 
     it('fails for a value not being a Function', () => {
       expect(() => {
         earl(1).toBeA(Function)
-      }).to.throw("1 isn't a function")
+      }).to.throw('1 is not a function, but it was expected to be.')
     })
 
     it('fails for a value not being an Object', () => {
       expect(() => {
         earl(1).toBeA(Object)
-      }).to.throw("1 isn't an object")
+      }).to.throw('1 is not an object, but it was expected to be.')
     })
 
     it('fails for a value not being a Symbol', () => {
       expect(() => {
         earl(1).toBeA(Symbol)
-      }).to.throw("1 isn't a symbol")
+      }).to.throw('1 is not a symbol, but it was expected to be.')
     })
 
     it('fails for a value not being an Array', () => {
       expect(() => {
         earl(1).toBeA(Array)
-      }).to.throw("1 isn't an array")
+      }).to.throw('1 is not an array, but it was expected to be.')
     })
 
     it('fails for a value not being a Date', () => {
       expect(() => {
         earl(1).toBeA(Date)
-      }).to.throw("1 isn't an instance of Date")
+      }).to.throw('1 is not an instance of Date, but it was expected to be.')
     })
   })
 
@@ -76,31 +76,33 @@ describe(toBeA.name, () => {
     it('fails for a value being a String', () => {
       expect(() => {
         earl('foo').not.toBeA(String)
-      }).to.throw('"foo" is a string')
+      }).to.throw('"foo" is a string, but it was not expected to be.')
     })
 
     it('fails for a value being a Number', () => {
       expect(() => {
         earl(1).not.toBeA(Number)
-      }).to.throw('1 is a number')
+      }).to.throw('1 is a number, but it was not expected to be.')
     })
 
     it('fails for a value being a Boolean', () => {
       expect(() => {
         earl(false).not.toBeA(Boolean)
-      }).to.throw('false is a boolean')
+      }).to.throw('false is a boolean, but it was not expected to be.')
     })
 
     it('fails for a value being a BigInt', () => {
       expect(() => {
         earl(BigInt(5)).not.toBeA(BigInt)
-      }).to.throw('5n is a bigint')
+      }).to.throw('5n is a bigint, but it was not expected to be.')
     })
 
     it('fails for a value being a Function', () => {
       expect(() => {
         earl(() => {}).not.toBeA(Function)
-      }).to.throw('function [anonymous]() is a function')
+      }).to.throw(
+        'function [anonymous]() is a function, but it was not expected to be.',
+      )
     })
 
     it('fails for a value being an Object', () => {
@@ -112,7 +114,7 @@ describe(toBeA.name, () => {
     it('fails for a value being a Symbol', () => {
       expect(() => {
         earl(Symbol('foo')).not.toBeA(Symbol)
-      }).to.throw('Symbol(foo) is a symbol')
+      }).to.throw('Symbol(foo) is a symbol, but it was not expected to be.')
     })
 
     it('fails for a value being an Array', () => {

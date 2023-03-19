@@ -1,7 +1,7 @@
 import { expect } from 'chai'
 import { readFileSync, writeFileSync } from 'fs'
 
-import { format } from '../../format'
+import { format, formatCompact } from '../../format'
 import { expect as earl } from '../../index'
 import { formatSnapshot, parseSnapshot } from './format'
 import { resetSnapshotCache } from './getSnapshot'
@@ -47,7 +47,7 @@ describe(toMatchSnapshot.name, () => {
     expect(() => {
       // this also tests that the argument type matches
       earl('foo').not.toMatchSnapshot(this)
-    }).to.throw("Earl configuration error: toMatchSnapshot can't be negated")
+    }).to.throw("toMatchSnapshot cannot be used with 'not'.")
   })
 
   it('keeps track of the counters', () => {
@@ -85,7 +85,11 @@ describe(toMatchSnapshot.name, () => {
 
     expect(() => {
       earl(x).toMatchSnapshot(mochaContext('complex'))
-    }).to.throw('not equal to snapshot')
+    }).to.throw(
+      `${formatCompact(
+        x,
+      )} is not equal to snapshot. Run with UPDATE_SNAPSHOTS=true to update snapshots.`,
+    )
   })
 
   describe('on CI', () => {
@@ -102,20 +106,24 @@ describe(toMatchSnapshot.name, () => {
     it('fails when a snapshot does not match', () => {
       expect(() => {
         earl('baz').toMatchSnapshot(mochaContext('bar'))
-      }).to.throw('"baz" not equal to snapshot')
+      }).to.throw(
+        '"baz" is not equal to snapshot. Run with UPDATE_SNAPSHOTS=true to update snapshots.',
+      )
     })
 
     it('fails when a value is not present in the snapshot', () => {
       expect(() => {
         earl('baz').toMatchSnapshot(mochaContext('unknown'))
-      }).to.throw('No snapshot found')
+      }).to.throw('No snapshot was found. Snapshots cannot be generated on CI.')
     })
 
     it('cannot be set to update on ci', () => {
       process.env.UPDATE_SNAPSHOTS = 'true'
       expect(() => {
         earl('baz').toMatchSnapshot(mochaContext('unknown'))
-      }).to.throw("Earl configuration error: Can't update snapshots on CI.")
+      }).to.throw(
+        "Both CI and UPDATE_SNAPSHOTS are set, however they can't be used together as updating snapshots on the CI is not permitted.",
+      )
     })
   })
 
@@ -129,7 +137,9 @@ describe(toMatchSnapshot.name, () => {
     it('fails when a snapshot does not match', () => {
       expect(() => {
         earl('baz').toMatchSnapshot(mochaContext('bar'))
-      }).to.throw('"baz" not equal to snapshot')
+      }).to.throw(
+        '"baz" is not equal to snapshot. Run with UPDATE_SNAPSHOTS=true to update snapshots.',
+      )
     })
 
     it('updates when a value is not present in the snapshot', () => {

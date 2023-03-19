@@ -6,7 +6,9 @@ describe(getSnapshotUpdateMode.name, () => {
   it('should throw on CI when requesting snapshot update', () => {
     expect(() =>
       getSnapshotUpdateMode({ CI: 'true', UPDATE_SNAPSHOTS: 'true' }),
-    ).to.throw("Earl configuration error: Can't update snapshots on CI.")
+    ).to.throw(
+      "Both CI and UPDATE_SNAPSHOTS are set, however they can't be used together as updating snapshots on the CI is not permitted.",
+    )
   })
 
   it('should update none snapshots on CI', () => {

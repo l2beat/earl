@@ -1,7 +1,6 @@
 import { readFileSync } from 'fs'
 import path from 'path'
 
-import { EarlConfigurationError } from '../../errors'
 import { parseSnapshot } from './format'
 import { SnapshotUpdateMode } from './getSnapshotUpdateMode'
 import { TestContext } from './TestContext'
@@ -21,7 +20,7 @@ export function getSnapshot(
 ) {
   const filePath = context.test?.file ?? controlFileName
   if (!filePath) {
-    throw new EarlConfigurationError('Invalid test context')
+    throw new TypeError('Invalid test context')
   }
   const file = path.join(
     path.dirname(filePath),
@@ -29,7 +28,7 @@ export function getSnapshot(
   )
   const testName = getTestName(context)
   if (!testName) {
-    throw new EarlConfigurationError('Invalid test context')
+    throw new TypeError('Invalid test context')
   }
 
   const counter = counters.get(file) ?? new Map<string, number>()
