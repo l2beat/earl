@@ -6,9 +6,6 @@ import { formatCompact } from './format'
 export interface Validators<T, R> {}
 
 // to be overridden by plugins
-export interface SyncOnlyValidators {}
-
-// to be overridden by plugins
 export interface Matchers {}
 
 export class Matcher {
@@ -78,15 +75,10 @@ export function registerValidator(
   Reflect.set(Expectation.prototype, name, execute)
 }
 
-type AsyncValidators<T> = Omit<
-  Validators<Awaited<T>, Promise<void>>,
-  keyof SyncOnlyValidators
->
-
 type ValidatorsAndModifiers<T> = Validators<T, void> & {
   not: Validators<T, void>
-  async: AsyncValidators<T> & {
-    not: AsyncValidators<T>
+  async: Validators<Awaited<T>, Promise<void>> & {
+    not: Validators<Awaited<T>, Promise<void>>
   }
 }
 
