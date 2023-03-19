@@ -18,7 +18,7 @@ export function toMatchRegex(control: Control<unknown>, expected: RegExp) {
 
   control.assert({
     success: regex(expected)(control.actual),
-    reason: `${actualInline} doesn't match ${expectedInline}`,
-    negatedReason: `${actualInline} matches ${expectedInline}`,
+    reason: `The value ${actualInline} does not match ${expectedInline}, but it was expected to match.`,
+    negatedReason: `The value ${actualInline} matches ${expectedInline}, but it was expected not to match.`,
   })
 }

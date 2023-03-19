@@ -19,7 +19,9 @@ describe(toMatchSchema.name, () => {
         earl({ x: 1, y: 'foo' }).toMatchSchema(
           z.object({ x: z.number(), y: z.number() }),
         )
-      }).to.throw('{ x: 1, y: "foo" } doesn\'t match the given schema')
+      }).to.throw(
+        'The value { x: 1, y: "foo" } does not match the given schema, but it was expected to match.',
+      )
     })
   })
 
@@ -29,7 +31,9 @@ describe(toMatchSchema.name, () => {
         earl({ x: 1, y: 2 }).not.toMatchSchema(
           z.object({ x: z.number(), y: z.number() }),
         )
-      }).to.throw('{ x: 1, y: 2 } matches the given schema')
+      }).to.throw(
+        'The value { x: 1, y: 2 } matches the given schema, but it was expected not to match.',
+      )
     })
 
     it('passes for a value that does not match the schema', () => {

@@ -16,7 +16,7 @@ export function toBeNullish(control: Control<unknown>) {
   const actualInline = formatCompact(control.actual)
   control.assert({
     success: nullish()(control.actual),
-    reason: `${actualInline} isn't nullish`,
-    negatedReason: `${actualInline} is nullish`,
+    reason: `The value ${actualInline} is not nullish, but it was expected to be nullish.`,
+    negatedReason: `The value ${actualInline} is nullish, but it was expected not to be nullish.`,
   })
 }

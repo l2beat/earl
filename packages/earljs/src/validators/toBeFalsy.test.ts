@@ -24,7 +24,9 @@ describe(toBeFalsy.name, () => {
         it(`fails for ${valueInline}`, () => {
           expect(() => {
             earl(value).toBeFalsy()
-          }).to.throw(`${valueInline} isn't falsy`)
+          }).to.throw(
+            `The value ${valueInline} is not falsy, but it was expected to be falsy.`,
+          )
         })
       }
     })
@@ -37,7 +39,9 @@ describe(toBeFalsy.name, () => {
         it(`fails for ${valueInline}`, () => {
           expect(() => {
             earl(value).not.toBeFalsy()
-          }).to.throw(`${valueInline} is falsy`)
+          }).to.throw(
+            `The value ${valueInline} is falsy, but it was expected not to be falsy.`,
+          )
         })
       }
     })

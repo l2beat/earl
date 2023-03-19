@@ -44,7 +44,7 @@ describe(toThrow.name, () => {
       expect(() => {
         earl(() => {}).toThrow()
       }).to.throw(
-        'Function call did not throw an error, but it was expected to.',
+        'The function call did not throw an error, but it was expected to.',
       )
     })
 
@@ -54,7 +54,7 @@ describe(toThrow.name, () => {
           throw new Error('Some error')
         }).toThrow('Different error')
       }).to.throw(
-        'Function call threw, but the message did not match "Different error" and it was expected to.',
+        'The function call threw, but the message did not match "Different error" and it was expected to.',
       )
     })
 
@@ -64,7 +64,7 @@ describe(toThrow.name, () => {
           throw new Error('Some error')
         }).toThrow(CustomError)
       }).to.throw(
-        'Function call threw, but the error was not an instance of CustomError and it was expected to be.',
+        'The function call threw, but the error was not an instance of CustomError and it was expected to be.',
       )
     })
 
@@ -74,7 +74,7 @@ describe(toThrow.name, () => {
           throw new CustomError('Some error')
         }).toThrow(Error, 'Different error')
       }).to.throw(
-        'Function call threw, but the error was not an instance of Error with message "Different error" and it was expected to be.',
+        'The function call threw, but the error was not an instance of Error with message "Different error" and it was expected to be.',
       )
     })
   })
@@ -91,7 +91,9 @@ describe(toThrow.name, () => {
         earl(() => {
           throw new Error('Some error')
         }).not.toThrow()
-      }).to.throw('Function call threw an error, but it was not expected to.')
+      }).to.throw(
+        'The function call threw an error, but it was expected not to.',
+      )
     })
 
     it('fails when function throws an error with a matching message', () => {
@@ -100,7 +102,7 @@ describe(toThrow.name, () => {
           throw new Error('Some error')
         }).not.toThrow('Some error')
       }).to.throw(
-        'Function call threw and the message matched "Some error", but it was not expected to.',
+        'The function call threw and the message matched "Some error", but it was expected not to.',
       )
     })
 
@@ -110,7 +112,7 @@ describe(toThrow.name, () => {
           throw new CustomError('Some error')
         }).not.toThrow(CustomError)
       }).to.throw(
-        'Function call threw and the error was an instance of CustomError, but it was expected not to be.',
+        'The function call threw and the error was an instance of CustomError, but it was expected not to be.',
       )
     })
 
@@ -120,7 +122,7 @@ describe(toThrow.name, () => {
           throw new CustomError('Some error')
         }).not.toThrow(CustomError, 'Some error')
       }).to.throw(
-        'Function call threw and the error was an instance of CustomError with message "Some error", but it was expected not to be.',
+        'The function call threw and the error was an instance of CustomError with message "Some error", but it was expected not to be.',
       )
     })
   })
@@ -137,7 +139,7 @@ describe(toThrow.name, () => {
         throw new Error('I like pancakes and waffles')
       }).toThrow('honey')
     }).to.throw(
-      'Function call threw, but the message did not match "honey" and it was expected to.',
+      'The function call threw, but the message did not match "honey" and it was expected to.',
     )
   })
 
@@ -153,7 +155,7 @@ describe(toThrow.name, () => {
         throw new Error('I like pancakes and waffles')
       }).toThrow(/h.{3}y/)
     }).to.throw(
-      'Function call threw, but the message did not match /h.{3}y/ and it was expected to.',
+      'The function call threw, but the message did not match /h.{3}y/ and it was expected to.',
     )
   })
 
@@ -166,7 +168,7 @@ describe(toThrow.name, () => {
       })
 
       expect(diff).to.equal(stripIndent`
-        Function call threw, but the message did not match /bar/ and it was expected to.
+        The function call threw, but the message did not match /bar/ and it was expected to.
 
         -"foo"
         +/bar/
@@ -181,7 +183,7 @@ describe(toThrow.name, () => {
       })
 
       expect(diff).to.equal(stripIndent`
-        Function call threw, but the error was not an instance of TypeError and it was expected to be.
+        The function call threw, but the error was not an instance of TypeError and it was expected to be.
 
         -Error
         +TypeError
@@ -196,7 +198,7 @@ describe(toThrow.name, () => {
       })
 
       expect(diff).to.equal(stripIndent`
-        Function call threw, but the error was not an instance of TypeError with message "bar" and it was expected to be.
+        The function call threw, but the error was not an instance of TypeError with message "bar" and it was expected to be.
 
         -Error {
         -  message: "foo"
@@ -215,7 +217,7 @@ describe(toThrow.name, () => {
       })
 
       expect(diff).to.equal(stripIndent`
-        Function call threw, but the message did not match /bar/ and it was expected to.
+        The function call threw, but the message did not match /bar/ and it was expected to.
 
         -"foo"
         +/bar/
@@ -230,7 +232,7 @@ describe(toThrow.name, () => {
       })
 
       expect(diff).to.equal(stripIndent`
-        Function call threw, but the message did not match /bar/ and it was expected to.
+        The function call threw, but the message did not match /bar/ and it was expected to.
 
         -undefined
         +/bar/

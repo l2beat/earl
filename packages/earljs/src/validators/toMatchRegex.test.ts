@@ -14,7 +14,9 @@ describe(toMatchRegex.name, () => {
     it('fails for a value that does not match the regex', () => {
       expect(() => {
         earl('bar').toMatchRegex(/f/)
-      }).to.throw('"bar" doesn\'t match /f/')
+      }).to.throw(
+        'The value "bar" does not match /f/, but it was expected to match.',
+      )
     })
   })
 
@@ -22,7 +24,9 @@ describe(toMatchRegex.name, () => {
     it('fails for a value that matches the regex', () => {
       expect(() => {
         earl('foo').not.toMatchRegex(/f/)
-      }).to.throw('"foo" matches /f/')
+      }).to.throw(
+        'The value "foo" matches /f/, but it was expected not to match.',
+      )
     })
 
     it('passes for a value that does not match the regex', () => {

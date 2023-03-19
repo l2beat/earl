@@ -20,7 +20,7 @@ export function toSatisfy(
 
   control.assert({
     success: satisfies(predicate)(control.actual),
-    reason: `${actualInline} doesn't satisfy the given predicate`,
-    negatedReason: `${actualInline} satisfies the given predicate`,
+    reason: `The value ${actualInline} does not satisfy the given predicate, but it was expected to satisfy it.`,
+    negatedReason: `The value ${actualInline} satisfies the given predicate, but it was expected not to satisfy it.`,
   })
 }

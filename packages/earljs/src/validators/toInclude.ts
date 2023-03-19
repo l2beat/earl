@@ -34,8 +34,8 @@ export function toInclude(control: Control<unknown>, ...items: unknown[]) {
 
   control.assert({
     success: includes(...items)(control.actual),
-    reason: `${actualInline} doesn't include ${itemsInline}`,
-    negatedReason: `${actualInline} includes ${itemsInline}`,
+    reason: `The value ${actualInline} does not include ${itemsInline}, but it was expected to.`,
+    negatedReason: `The value ${actualInline} includes ${itemsInline}, but it was expected not to.`,
   })
 }
 

@@ -14,7 +14,9 @@ describe(toSatisfy.name, () => {
     it('fails for a value that does not satisfy the predicate', () => {
       expect(() => {
         earl(42).toSatisfy((value) => value < 0)
-      }).to.throw("42 doesn't satisfy the given predicate")
+      }).to.throw(
+        'The value 42 does not satisfy the given predicate, but it was expected to satisfy it.',
+      )
     })
   })
 
@@ -22,7 +24,9 @@ describe(toSatisfy.name, () => {
     it('fails for a value that satisfies the predicate', () => {
       expect(() => {
         earl(42).not.toSatisfy((value) => value > 0)
-      }).to.throw('42 satisfies the given predicate')
+      }).to.throw(
+        'The value 42 satisfies the given predicate, but it was expected not to satisfy it.',
+      )
     })
 
     it('passes for a value that does not satisfy the predicate', () => {

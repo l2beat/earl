@@ -21,7 +21,9 @@ describe(toBeLessThanOrEqual.name, () => {
       it('fails for a number greater than expected', () => {
         expect(() => {
           earl(10).toBeLessThanOrEqual(5)
-        }).to.throw("10 isn't less than or equal to 5")
+        }).to.throw(
+          'The value 10 is not less than or equal to 5, but it was expected to be.',
+        )
       })
     })
 
@@ -41,7 +43,9 @@ describe(toBeLessThanOrEqual.name, () => {
       it('fails for a bigint greater than expected', () => {
         expect(() => {
           earl(BigInt(10)).toBeLessThanOrEqual(BigInt(5))
-        }).to.throw("10n isn't less than or equal to 5n")
+        }).to.throw(
+          'The value 10n is not less than or equal to 5n, but it was expected to be.',
+        )
       })
     })
   })
@@ -50,13 +54,17 @@ describe(toBeLessThanOrEqual.name, () => {
     it('fails for a number less than or equal to expected', () => {
       expect(() => {
         earl(5).not.toBeLessThanOrEqual(15)
-      }).to.throw('5 is less than or equal to 15')
+      }).to.throw(
+        'The value 5 is less than or equal to 15, but it was expected not to be.',
+      )
     })
 
     it('fails for a number equal to expected', () => {
       expect(() => {
         earl(10).not.toBeLessThanOrEqual(10)
-      }).to.throw('10 is less than or equal to 10')
+      }).to.throw(
+        'The value 10 is less than or equal to 10, but it was expected not to be.',
+      )
     })
 
     it('passes for a number greater than expected', () => {
