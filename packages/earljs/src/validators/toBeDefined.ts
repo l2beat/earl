@@ -16,7 +16,7 @@ export function toBeDefined(control: Control<unknown>) {
   const actualInline = formatCompact(control.actual)
   control.assert({
     success: defined()(control.actual),
-    reason: `${actualInline} isn't defined`,
-    negatedReason: `${actualInline} isn't undefined`,
+    reason: `The value ${actualInline} is undefined, but it was expected to be defined.`,
+    negatedReason: `The value ${actualInline} is not undefined, but it was expected to be undefined.`,
   })
 }

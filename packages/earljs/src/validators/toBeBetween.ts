@@ -27,7 +27,7 @@ export function toBeBetween(
 
   control.assert({
     success: between(min, max)(control.actual),
-    reason: `${actualInline} is not between ${minInline} and ${maxInline}, but it was expected to be.`,
-    negatedReason: `${actualInline} is between ${minInline} and ${maxInline}, but it was not expected to be.`,
+    reason: `The value ${actualInline} is not between ${minInline} and ${maxInline}, but it was expected to be.`,
+    negatedReason: `The value ${actualInline} is between ${minInline} and ${maxInline}, but it was expected not to be.`,
   })
 }

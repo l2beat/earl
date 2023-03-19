@@ -340,32 +340,34 @@ describe('format', () => {
     {
       name: 'date',
       testCases: [
+        [new Date('2005-04-02'), null, 'Date 2005-04-02'],
         [
           new Date('2005-04-02T21:37:00.000+02:00'),
           null,
-          'Date 2005-04-02T19:37:00.000Z',
+          'Date 2005-04-02T19:37:00Z',
+        ],
+        [
+          new Date('2005-04-02T21:37:00.123+02:00'),
+          null,
+          'Date 2005-04-02T19:37:00.123Z',
         ],
         [
           Object.assign(new Date('2005-04-02T21:37:00.000+02:00'), {
             foo: 'bar',
           }),
           null,
-          'Date 2005-04-02T19:37:00.000Z & {\n  foo: "bar"\n}',
+          'Date 2005-04-02T19:37:00Z & {\n  foo: "bar"\n}',
+        ],
+        [new (class MyDate extends Date {})(0), null, 'MyDate 1970-01-01'],
+        [
+          new (class MyDate extends Date {})(0),
+          new (class MyDate extends Date {})(0),
+          'MyDate (different prototype) 1970-01-01',
         ],
         [
           new (class MyDate extends Date {})(0),
           null,
-          'MyDate 1970-01-01T00:00:00.000Z',
-        ],
-        [
-          new (class MyDate extends Date {})(0),
-          new (class MyDate extends Date {})(0),
-          'MyDate (different prototype) 1970-01-01T00:00:00.000Z',
-        ],
-        [
-          new (class MyDate extends Date {})(0),
-          null,
-          'Date 1970-01-01T00:00:00.000Z',
+          'Date 1970-01-01',
           { ignorePrototypes: true },
         ],
       ],

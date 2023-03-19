@@ -110,7 +110,7 @@ describe(toThrow.name, () => {
           throw new CustomError('Some error')
         }).not.toThrow(CustomError)
       }).to.throw(
-        'Function call threw and the error was an instance of CustomError, but it was not expected to be.',
+        'Function call threw and the error was an instance of CustomError, but it was expected not to be.',
       )
     })
 
@@ -120,7 +120,7 @@ describe(toThrow.name, () => {
           throw new CustomError('Some error')
         }).not.toThrow(CustomError, 'Some error')
       }).to.throw(
-        'Function call threw and the error was an instance of CustomError with message "Some error", but it was not expected to be.',
+        'Function call threw and the error was an instance of CustomError with message "Some error", but it was expected not to be.',
       )
     })
   })

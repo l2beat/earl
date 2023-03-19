@@ -76,7 +76,7 @@ export function toThrow(
     return control.assert({
       success: classMatches,
       reason: `Function call threw, but the error was not an instance of ${className} and it was expected to be.`,
-      negatedReason: `Function call threw and the error was an instance of ${className}, but it was not expected to be.`,
+      negatedReason: `Function call threw and the error was an instance of ${className}, but it was expected not to be.`,
       expected: className,
       actual: getConstructorName(thrownError),
     })
@@ -89,7 +89,7 @@ export function toThrow(
     return control.assert({
       success: classMatches && messageMatches,
       reason: `Function call threw, but the error was not an instance of ${className} with message ${messageInline} and it was expected to be.`,
-      negatedReason: `Function call threw and the error was an instance of ${className} with message ${messageInline}, but it was not expected to be.`,
+      negatedReason: `Function call threw and the error was an instance of ${className} with message ${messageInline}, but it was expected not to be.`,
       expected: formatExpected(thrownError, expectedClass, expectedMessage),
       actual: format(thrownError, null),
     })
