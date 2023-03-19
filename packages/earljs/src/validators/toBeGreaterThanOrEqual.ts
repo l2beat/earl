@@ -1,7 +1,7 @@
 import { Control } from '../Control'
 import { registerValidator } from '../expect'
 import { formatCompact } from '../format'
-import { greaterThanOrEqual } from '../matchers/greaterThanOrEqual'
+import { greaterThanOrEqual } from '../matchers/numbers/greaterThanOrEqual'
 
 declare module '../expect' {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars

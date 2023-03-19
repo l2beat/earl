@@ -1,7 +1,7 @@
 import { Control } from '../Control'
 import { registerValidator } from '../expect'
 import { formatCompact } from '../format'
-import { includes } from '../matchers/includes'
+import { includes } from '../matchers/objects/includes'
 
 type MemberOf<T> = T extends (infer U)[]
   ? U

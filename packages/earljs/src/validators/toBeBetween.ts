@@ -1,7 +1,7 @@
 import { Control } from '../Control'
 import { registerValidator } from '../expect'
 import { formatCompact } from '../format'
-import { between } from '../matchers/between'
+import { between } from '../matchers/numbers/between'
 
 declare module '../expect' {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
