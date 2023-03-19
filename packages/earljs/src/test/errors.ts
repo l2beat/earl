@@ -53,10 +53,10 @@ export function stripIndent(
   })
 
   const lines = result.split('\n')
-  if (lines[0].trim() === '') {
+  if (lines[0]?.trim() === '') {
     lines.shift()
   }
-  if (lines[lines.length - 1].trim() === '') {
+  if (lines[lines.length - 1]?.trim() === '') {
     lines.pop()
   }
 

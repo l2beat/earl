@@ -27,10 +27,8 @@ export class AssertionError extends Error {
   static getLocation() {
     const error = new Error('message')
     const stack = this.getCleanStack(error)
-    return {
-      file: ErrorStackParser.parse({ stack } as Error)[0].fileName,
-      stack,
-    }
+    const file = ErrorStackParser.parse({ stack } as Error)[0]?.fileName
+    return { file, stack }
   }
 
   private static getCleanStack(error: Error) {
