@@ -1,9 +1,13 @@
 import { Control } from '../../Control'
 import { registerValidator } from '../../expect'
-import { format, formatCompact } from '../../format'
-import { isEqual } from '../../isEqual'
+import { formatCompact } from '../../format'
 import { Mock, MockArgs } from '../../mocks'
-import { assertIsMock, formatCalledTimes, formatTimes } from './utils'
+import {
+  assertIsMock,
+  compareArgs,
+  formatCalledTimes,
+  formatTimes,
+} from './utils'
 
 declare module '../../expect' {
   interface Validators<T> {
@@ -42,14 +46,5 @@ export function toHaveBeenNthCalledWith(
     })
   }
 
-  const argsInline = formatCompact(nthCall.args)
-  const expectedInline = formatCompact(expected)
-
-  control.assert({
-    success: isEqual(nthCall.args, expected),
-    reason: `The passed arguments ${argsInline} are not equal to ${expectedInline}, but were expected to be equal.`,
-    negatedReason: `The passed arguments ${argsInline} are equal to ${expectedInline}, but were expected not to be equal.`,
-    actual: format(nthCall.args, null),
-    expected: format(expected, nthCall.args),
-  })
+  compareArgs(control, nthCall.args, expected)
 }
