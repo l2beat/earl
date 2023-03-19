@@ -14,7 +14,7 @@ describe(toBeCloseTo.name, () => {
     it('fails for a number outside the range', () => {
       expect(() => {
         earl(1.5).toBeCloseTo(1, 0.2)
-      }).to.throw("1.5 isn't close to 1 +/- 0.2")
+      }).to.throw('1.5 is not close to 1 +/- 0.2, but it was expected to be.')
     })
   })
 
@@ -22,7 +22,7 @@ describe(toBeCloseTo.name, () => {
     it('fails for a number close to the target', () => {
       expect(() => {
         earl(1.1).not.toBeCloseTo(1, 0.2)
-      }).to.throw('1.1 is close to 1 +/- 0.2')
+      }).to.throw('1.1 is close to 1 +/- 0.2, but it was not expected to be.')
     })
 
     it('passes for a number outside the range', () => {

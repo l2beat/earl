@@ -19,7 +19,7 @@ export function captureDiff(fn: () => void): string {
 
 export function captureMochaOutput(fn: () => void): string {
   const error = captureError(fn)
-  return `AssertionError: ${error.message}\n\n${getErrorDiff(error)}`
+  return `${error.name}: ${error.message}\n\n${getErrorDiff(error)}`
 }
 
 export function getErrorDiff(error: AssertionError) {

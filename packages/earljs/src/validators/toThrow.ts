@@ -38,7 +38,7 @@ export function toThrow(
   if (!didThrow) {
     return control.assert({
       success: false,
-      reason: "function call didn't throw an error",
+      reason: 'Function call did not throw an error, but it was expected to.',
       negatedReason: '',
     })
   }
@@ -52,7 +52,8 @@ export function toThrow(
     return control.assert({
       success: true,
       reason: '',
-      negatedReason: 'function call threw an error',
+      negatedReason:
+        'Function call threw an error, but it was not expected to.',
     })
   }
 
@@ -63,10 +64,10 @@ export function toThrow(
     const messageInline = formatCompact(expectedMessage)
     return control.assert({
       success: messageMatches,
-      reason: `function call threw, but the message didn't match ${messageInline}`,
-      negatedReason: `function call threw and the message matched ${messageInline}`,
-      expected: formatExpected(thrownError, expectedClass, expectedMessage),
-      actual: format(thrownError, null),
+      reason: `Function call threw, but the message did not match ${messageInline} and it was expected to.`,
+      negatedReason: `Function call threw and the message matched ${messageInline}, but it was not expected to.`,
+      expected: format(expectedMessage, null),
+      actual: format(getMessageProperty(thrownError), null),
     })
   }
 
@@ -74,10 +75,10 @@ export function toThrow(
     const className = expectedClass.name
     return control.assert({
       success: classMatches,
-      reason: `function call threw, but the error wasn't an instance of ${className}`,
-      negatedReason: `function call threw and the error was an instance of ${className}`,
-      expected: formatExpected(thrownError, expectedClass, expectedMessage),
-      actual: format(thrownError, null),
+      reason: `Function call threw, but the error was not an instance of ${className} and it was expected to be.`,
+      negatedReason: `Function call threw and the error was an instance of ${className}, but it was not expected to be.`,
+      expected: className,
+      actual: getConstructorName(thrownError),
     })
   }
 
@@ -87,8 +88,8 @@ export function toThrow(
 
     return control.assert({
       success: classMatches && messageMatches,
-      reason: `function call threw, but the error wasn't an instance of ${className} with message ${messageInline}`,
-      negatedReason: `function call threw and the error was an instance of ${className} with message ${messageInline}`,
+      reason: `Function call threw, but the error was not an instance of ${className} with message ${messageInline} and it was expected to be.`,
+      negatedReason: `Function call threw and the error was an instance of ${className} with message ${messageInline}, but it was not expected to be.`,
       expected: formatExpected(thrownError, expectedClass, expectedMessage),
       actual: format(thrownError, null),
     })
@@ -139,11 +140,9 @@ function formatExpected(
 }
 
 function getMessageProperty(thrownError: unknown): unknown {
-  return (
-    typeof thrownError === 'object' &&
-    thrownError != null &&
-    Reflect.get(thrownError, 'message')
-  )
+  return typeof thrownError === 'object' && thrownError != null
+    ? Reflect.get(thrownError, 'message')
+    : undefined
 }
 
 function getNameProperty(thrownError: unknown): string | undefined {

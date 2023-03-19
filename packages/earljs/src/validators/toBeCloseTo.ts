@@ -23,7 +23,7 @@ export function toBeCloseTo(
 
   control.assert({
     success: closeTo(target, delta)(control.actual),
-    reason: `${actualInline} isn't close to ${targetInline} +/- ${deltaInline}`,
-    negatedReason: `${actualInline} is close to ${targetInline} +/- ${deltaInline}`,
+    reason: `${actualInline} is not close to ${targetInline} +/- ${deltaInline}, but it was expected to be.`,
+    negatedReason: `${actualInline} is close to ${targetInline} +/- ${deltaInline}, but it was not expected to be.`,
   })
 }
