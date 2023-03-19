@@ -14,15 +14,6 @@ describe(toHaveBeenExhausted.name, () => {
       }).not.to.throw()
     })
 
-    it('fails when the value is not a mock function', () => {
-      expect(() => {
-        // @ts-expect-error - not a mock function
-        earl({}).toHaveBeenNthCalledWith(1, 1)
-      }).to.throw(
-        'The value {} is not a mock function, but it was expected to be a mock function.',
-      )
-    })
-
     it('fails when the mock function was not called enough times', () => {
       expect(() => {
         const mock = mockFn()

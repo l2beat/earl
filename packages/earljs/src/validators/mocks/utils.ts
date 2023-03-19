@@ -12,3 +12,13 @@ export function assertIsMock(
     })
   }
 }
+
+export function formatTimes(times: number) {
+  return times === 1 ? 'once' : times === 2 ? 'twice' : `${times} times`
+}
+
+export function formatCalledTimes(mock: Mock<any[], any>) {
+  return mock.calls.length === 0
+    ? 'never called'
+    : `called ${formatTimes(mock.calls.length)}`
+}
