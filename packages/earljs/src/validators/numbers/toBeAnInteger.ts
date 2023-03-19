@@ -12,7 +12,7 @@ declare module '../../expect' {
 
 registerValidator('toBeAnInteger', toBeAnInteger)
 
-export function toBeAnInteger(control: Control<unknown>) {
+export function toBeAnInteger(control: Control) {
   const actualInline = formatCompact(control.actual)
   control.assert({
     success: integer()(control.actual),

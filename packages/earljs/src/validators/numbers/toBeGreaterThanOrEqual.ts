@@ -16,7 +16,7 @@ declare module '../../expect' {
 registerValidator('toBeGreaterThanOrEqual', toBeGreaterThanOrEqual)
 
 export function toBeGreaterThanOrEqual(
-  control: Control<unknown>,
+  control: Control,
   target: number | bigint,
 ) {
   const actualInline = formatCompact(control.actual)

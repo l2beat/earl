@@ -23,10 +23,10 @@ declare module "earljs" {
 
 registerValidator("toBeEven", toBeEven);
 
-export function toBeEven(control: Control<number>) {
+export function toBeEven(control: Control) {
   const actualFmt = formatCompact(control.actual);
   control.assert({
-    success: control.actual % 2 === 0,
+    success: typeof control.actual === "number" && control.actual % 2 === 0,
     reason: `${actualFmt} is not even!`,
     negatedReason: `${actualFmt} is even!`,
   });

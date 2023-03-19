@@ -12,7 +12,7 @@ declare module '../../expect' {
 
 registerValidator('toBeA', toBeA)
 
-export function toBeA(control: Control<unknown>, clazz: NewableOrPrimitive) {
+export function toBeA(control: Control, clazz: NewableOrPrimitive) {
   const actualInline = formatCompact(control.actual)
   const clazzInline = getClassName(clazz)
 

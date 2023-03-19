@@ -12,7 +12,7 @@ declare module '../../expect' {
 
 registerValidator('toBeFalsy', toBeFalsy)
 
-export function toBeFalsy(control: Control<unknown>) {
+export function toBeFalsy(control: Control) {
   const actualInline = formatCompact(control.actual)
   control.assert({
     success: falsy()(control.actual),

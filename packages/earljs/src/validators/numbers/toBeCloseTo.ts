@@ -12,11 +12,7 @@ declare module '../../expect' {
 
 registerValidator('toBeCloseTo', toBeCloseTo)
 
-export function toBeCloseTo(
-  control: Control<unknown>,
-  target: number,
-  delta: number,
-) {
+export function toBeCloseTo(control: Control, target: number, delta: number) {
   const actualInline = formatCompact(control.actual)
   const targetInline = formatCompact(target)
   const deltaInline = formatCompact(delta)

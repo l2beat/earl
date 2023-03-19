@@ -17,7 +17,7 @@ declare module '../../expect' {
 registerValidator('toBeBetween', toBeBetween)
 
 export function toBeBetween(
-  control: Control<unknown>,
+  control: Control,
   min: number | bigint,
   max: number | bigint,
 ) {

@@ -12,7 +12,7 @@ declare module '../../expect' {
 
 registerValidator('toBeNegative', toBeNegative)
 
-export function toBeNegative(control: Control<unknown>) {
+export function toBeNegative(control: Control) {
   const actualInline = formatCompact(control.actual)
   control.assert({
     success: negative()(control.actual),

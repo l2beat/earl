@@ -15,7 +15,7 @@ declare module '../../expect' {
 registerValidator('toHaveBeenLastCalledWith', toHaveBeenLastCalledWith)
 
 export function toHaveBeenLastCalledWith(
-  control: Control<unknown>,
+  control: Control,
   ...expected: unknown[]
 ) {
   assertIsMock(control)

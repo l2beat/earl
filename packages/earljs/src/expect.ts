@@ -2,9 +2,8 @@ import { Control } from './Control'
 import { formatCompact } from './format'
 
 // to be overridden by plugins
-export interface Validators<T, R> {
-  readonly value: T
-}
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+export interface Validators<T, R> {}
 
 // to be overridden by plugins
 export interface SyncOnlyValidators {}
@@ -22,10 +21,10 @@ export class Matcher {
   }
 }
 
-class Expectation<T> {
-  _negated = false
-  _async = false
-  constructor(public readonly value: T) {}
+class Expectation {
+  protected _negated = false
+  protected _async = false
+  constructor(protected readonly _value: unknown) {}
 
   get not() {
     if (this._negated) {
@@ -46,22 +45,33 @@ class Expectation<T> {
     return this
   }
 
-  _getControl() {
-    return new Control(this.value, this._negated)
+  protected _getControl() {
+    return new Control({ actual: this._value, isNegated: this._negated })
+  }
+
+  protected async _getAsyncControl() {
+    const asyncResult = await Promise.resolve(this._value).then(
+      (value) => ({ type: 'success' as const, value }),
+      (value) => ({ type: 'error' as const, value }),
+    )
+    return new Control({ isNegated: this._negated, asyncResult })
   }
 }
 
 export function registerValidator(
   name: string,
-  validator: (control: Control<any>, ...args: any[]) => any,
+  validator: (control: Control, ...args: any[]) => any,
 ) {
-  Reflect.set(
-    Expectation.prototype,
-    name,
-    function (this: Expectation<any>, ...args: any[]) {
-      return validator(this._getControl(), ...args)
-    },
-  )
+  function execute(this: Expectation, ...args: any[]) {
+    if (this._async) {
+      return this._getAsyncControl().then((control) =>
+        validator(control, ...args),
+      )
+    }
+    return validator(this._getControl(), ...args)
+  }
+  Object.defineProperty(execute, 'name', { value: name, writable: false })
+  Reflect.set(Expectation.prototype, name, execute)
 }
 
 type AsyncValidators<T> = Omit<

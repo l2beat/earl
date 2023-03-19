@@ -12,7 +12,7 @@ declare module '../../expect' {
 
 registerValidator('toBeASafeInteger', toBeASafeInteger)
 
-export function toBeASafeInteger(control: Control<unknown>) {
+export function toBeASafeInteger(control: Control) {
   const actualInline = formatCompact(control.actual)
   control.assert({
     success: safeInteger()(control.actual),

@@ -16,10 +16,7 @@ declare module '../../expect' {
 
 registerValidator('toHaveBeenCalledTimes', toHaveBeenCalledTimes)
 
-export function toHaveBeenCalledTimes(
-  control: Control<unknown>,
-  times: number,
-) {
+export function toHaveBeenCalledTimes(control: Control, times: number) {
   assertIsMock(control)
 
   if (!Number.isInteger(times) || times < 0) {

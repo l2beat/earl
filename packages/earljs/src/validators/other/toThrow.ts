@@ -17,7 +17,7 @@ declare module '../../expect' {
 registerValidator('toThrow', toThrow)
 
 export function toThrow(
-  control: Control<unknown>,
+  control: Control,
   errorClassOrMessage?: (new (...args: any[]) => Error) | string | RegExp,
   message?: string | RegExp,
 ): void {

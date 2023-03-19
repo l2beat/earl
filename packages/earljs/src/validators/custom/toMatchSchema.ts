@@ -12,10 +12,7 @@ declare module '../../expect' {
 
 registerValidator('toMatchSchema', toMatchSchema)
 
-export function toMatchSchema(
-  control: Control<unknown>,
-  expected: Schema<unknown>,
-) {
+export function toMatchSchema(control: Control, expected: Schema<unknown>) {
   const actualInline = formatCompact(control.actual)
 
   control.assert({

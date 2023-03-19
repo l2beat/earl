@@ -12,7 +12,7 @@ declare module '../../expect' {
 
 registerValidator('toHaveBeenExhausted', toHaveBeenExhausted)
 
-export function toHaveBeenExhausted(control: Control<unknown>) {
+export function toHaveBeenExhausted(control: Control) {
   assertIsMock(control)
 
   const remainingCalls = control.actual.getQueueLength()

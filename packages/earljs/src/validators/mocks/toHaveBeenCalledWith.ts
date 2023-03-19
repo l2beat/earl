@@ -16,10 +16,7 @@ declare module '../../expect' {
 
 registerValidator('toHaveBeenCalledWith', toHaveBeenCalledWith)
 
-export function toHaveBeenCalledWith(
-  control: Control<unknown>,
-  ...expected: unknown[]
-) {
+export function toHaveBeenCalledWith(control: Control, ...expected: unknown[]) {
   assertIsMock(control)
 
   if (control.actual.calls.length === 0) {

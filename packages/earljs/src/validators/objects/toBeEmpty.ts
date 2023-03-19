@@ -12,7 +12,7 @@ declare module '../../expect' {
 
 registerValidator('toBeEmpty', toBeEmpty)
 
-export function toBeEmpty(control: Control<unknown>) {
+export function toBeEmpty(control: Control) {
   const actualInline = formatCompact(control.actual)
   control.assert({
     success: empty()(control.actual),

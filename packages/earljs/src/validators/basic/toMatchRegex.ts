@@ -12,7 +12,7 @@ declare module '../../expect' {
 
 registerValidator('toMatchRegex', toMatchRegex)
 
-export function toMatchRegex(control: Control<unknown>, expected: RegExp) {
+export function toMatchRegex(control: Control, expected: RegExp) {
   const actualInline = formatCompact(control.actual)
   const expectedInline = formatCompact(expected)
 

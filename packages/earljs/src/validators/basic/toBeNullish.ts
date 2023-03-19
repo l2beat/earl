@@ -12,7 +12,7 @@ declare module '../../expect' {
 
 registerValidator('toBeNullish', toBeNullish)
 
-export function toBeNullish(control: Control<unknown>) {
+export function toBeNullish(control: Control) {
   const actualInline = formatCompact(control.actual)
   control.assert({
     success: nullish()(control.actual),

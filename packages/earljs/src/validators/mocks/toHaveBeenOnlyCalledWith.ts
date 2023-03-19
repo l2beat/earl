@@ -15,7 +15,7 @@ declare module '../../expect' {
 registerValidator('toHaveBeenOnlyCalledWith', toHaveBeenOnlyCalledWith)
 
 export function toHaveBeenOnlyCalledWith(
-  control: Control<unknown>,
+  control: Control,
   ...expected: unknown[]
 ) {
   assertIsMock(control)

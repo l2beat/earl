@@ -12,7 +12,7 @@ declare module '../../expect' {
 
 registerValidator('toHaveBeenCalled', toHaveBeenCalled)
 
-export function toHaveBeenCalled(control: Control<unknown>) {
+export function toHaveBeenCalled(control: Control) {
   assertIsMock(control)
 
   const calledTimes = formatCalledTimes(control.actual)

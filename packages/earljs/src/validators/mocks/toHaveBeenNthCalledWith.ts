@@ -22,7 +22,7 @@ declare module '../../expect' {
 registerValidator('toHaveBeenNthCalledWith', toHaveBeenNthCalledWith)
 
 export function toHaveBeenNthCalledWith(
-  control: Control<unknown>,
+  control: Control,
   time: number,
   ...expected: unknown[]
 ) {

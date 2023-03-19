@@ -13,7 +13,7 @@ declare module '../../expect' {
 registerValidator('toSatisfy', toSatisfy)
 
 export function toSatisfy(
-  control: Control<unknown>,
+  control: Control,
   predicate: (value: unknown) => boolean,
 ) {
   const actualInline = formatCompact(control.actual)

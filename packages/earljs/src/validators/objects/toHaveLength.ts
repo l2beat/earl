@@ -15,7 +15,7 @@ declare module '../../expect' {
 
 registerValidator('toHaveLength', toHaveLength)
 
-export function toHaveLength(control: Control<unknown>, expected: number) {
+export function toHaveLength(control: Control, expected: number) {
   const actualInline = formatCompact(control.actual)
   const expectedInline = formatCompact(expected)
   control.assert({

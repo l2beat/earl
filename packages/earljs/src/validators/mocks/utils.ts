@@ -4,8 +4,8 @@ import { isEqual } from '../../isEqual'
 import { isMock, Mock } from '../../mocks'
 
 export function assertIsMock(
-  control: Control<unknown>,
-): asserts control is Control<Mock<any[], any>> {
+  control: Control,
+): asserts control is Control & { actual: Mock<any[], any> } {
   if (!isMock(control.actual)) {
     const actualInline = formatCompact(control.actual)
     return control.fail({
@@ -25,7 +25,7 @@ export function formatCalledTimes(mock: Mock<any[], any>) {
 }
 
 export function compareArgs(
-  control: Control<unknown>,
+  control: Control,
   actual: unknown[],
   expected: unknown[],
 ) {

@@ -24,7 +24,7 @@ declare module '../../expect' {
 
 registerValidator('toInclude', toInclude)
 
-export function toInclude(control: Control<unknown>, ...items: unknown[]) {
+export function toInclude(control: Control, ...items: unknown[]) {
   const actualInline = formatCompact(control.actual)
   const itemsInline = formatItems(items)
 

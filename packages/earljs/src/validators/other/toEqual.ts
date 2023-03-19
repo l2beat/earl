@@ -11,7 +11,7 @@ declare module '../../expect' {
 
 registerValidator('toEqual', toEqual)
 
-export function toEqual(control: Control<unknown>, expected: unknown) {
+export function toEqual(control: Control, expected: unknown) {
   const actualInline = formatCompact(control.actual)
   const expectedInline = formatCompact(expected)
 
