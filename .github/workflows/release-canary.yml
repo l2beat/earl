@@ -1,0 +1,42 @@
+name: Release (canary)
+
+on:
+  push:
+    branches:
+      - master
+    paths:
+      - 'packages/earljs/**'
+      - '.github/workflows/release-canary.yml'
+
+jobs:
+  release-canary:
+    name: Release (canary)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - uses: pnpm/action-setup@v2
+        with:
+          version: 7
+      - uses: actions/setup-node@v2
+        with:
+          node-version: '18.x'
+          cache: 'pnpm'
+
+      - run: pnpm install --frozen-lockfile
+
+      - run: pnpm build:earl
+
+      - name: Set version
+        run: |
+          cd packages/earljs
+          npm --no-git-tag-version version minor
+          npm --no-git-tag-version version $(npm pkg get version | sed 's/"//g')-canary.$(date +'%Y%m%dT%H%M%S')
+
+      - name: Publish to npm
+        uses: JS-DevTools/npm-publish@v1
+        with:
+          token: ${{ secrets.NPM_TOKEN }}
+          dry-run: false
+          tag: canary

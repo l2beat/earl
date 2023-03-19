@@ -10,7 +10,7 @@ jobs:
     name: Release
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v3
         with:
           fetch-depth: 0
       - uses: pnpm/action-setup@v2
@@ -26,7 +26,8 @@ jobs:
       - name: Either creates release PR or publishes packages to npm
         uses: changesets/action@master
         with:
-          publish: pnpm release
+          version: pnpm changeset:version
+          publish: pnpm changeset:release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN2 }}
