@@ -5,11 +5,11 @@ import { length } from '../../matchers/objects/length'
 
 declare module '../../expect' {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  interface Validators<T> {
+  interface Validators<T, R> {
     toHaveLength(
-      this: Validators<string | any[] | { length: number }>,
+      this: Validators<string | any[] | { length: number }, R>,
       length: number,
-    ): void
+    ): R
   }
 }
 

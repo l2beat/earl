@@ -5,8 +5,8 @@ import { assertIsMock } from './utils'
 
 declare module '../../expect' {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  interface Validators<T> {
-    toHaveBeenExhausted(this: Validators<Mock<any[], any>>): void
+  interface Validators<T, R> {
+    toHaveBeenExhausted(this: Validators<Mock<any[], any>, R>): R
   }
 }
 

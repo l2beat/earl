@@ -153,4 +153,9 @@ describe(toEqual.name, () => {
       `)
     })
   })
+
+  it('works with .async', async () => {
+    await earl(Promise.resolve(5)).async.toEqual(5)
+    await earl(Promise.resolve(6)).async.not.toEqual(5)
+  })
 })

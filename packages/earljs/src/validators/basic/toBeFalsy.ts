@@ -5,8 +5,8 @@ import { falsy } from '../../matchers/basic/falsy'
 
 declare module '../../expect' {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  interface Validators<T> {
-    toBeFalsy(): void
+  interface Validators<T, R> {
+    toBeFalsy(): R
   }
 }
 

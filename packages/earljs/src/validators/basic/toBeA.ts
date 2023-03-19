@@ -1,33 +1,12 @@
 import { Control } from '../../Control'
 import { registerValidator } from '../../expect'
 import { formatCompact } from '../../format'
-import { a, Newable, NewableOrPrimitive } from '../../matchers/basic/a'
-
-export type Class2Primitive<T extends NewableOrPrimitive> =
-  T extends StringConstructor
-    ? string
-    : T extends NumberConstructor
-    ? number
-    : T extends BooleanConstructor
-    ? boolean
-    : T extends BigIntConstructor
-    ? bigint
-    : T extends SymbolConstructor
-    ? symbol
-    : T extends FunctionConstructor
-    ? () => any
-    : T extends ObjectConstructor
-    ? any // we can't use object or record because of missing keys
-    : T extends ArrayConstructor
-    ? any[]
-    : T extends Newable<infer R>
-    ? R
-    : never
+import { a, NewableOrPrimitive } from '../../matchers/basic/a'
 
 declare module '../../expect' {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  interface Validators<T> {
-    toBeA<C extends NewableOrPrimitive>(clazz: C): Class2Primitive<C>
+  interface Validators<T, R> {
+    toBeA<C extends NewableOrPrimitive>(clazz: C): R
   }
 }
 

@@ -13,12 +13,12 @@ type MemberOf<T> = T extends (infer U)[]
 
 declare module '../../expect' {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  interface Validators<T> {
-    toInclude(this: Validators<string>, ...substrings: string[]): void
+  interface Validators<T, R> {
+    toInclude(this: Validators<string, R>, ...substrings: string[]): R
     toInclude(
-      this: Validators<any[] | Set<any> | Iterable<any>>,
+      this: Validators<any[] | Set<any> | Iterable<any>, R>,
       ...items: MemberOf<T>[]
-    ): void
+    ): R
   }
 }
 

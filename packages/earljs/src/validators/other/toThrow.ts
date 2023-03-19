@@ -4,13 +4,13 @@ import { format, formatCompact } from '../../format'
 
 declare module '../../expect' {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  interface Validators<T> {
-    toThrow(this: Validators<() => any>, message?: string | RegExp): void
+  interface Validators<T, R> {
+    toThrow(this: Validators<() => any, R>, message?: string | RegExp): R
     toThrow(
-      this: Validators<() => any>,
+      this: Validators<() => any, R>,
       errorClass: new (...args: any[]) => Error,
       message?: string | RegExp,
-    ): void
+    ): R
   }
 }
 
