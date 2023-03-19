@@ -1,11 +1,6 @@
 {
   "$schema": "https://unpkg.com/@changesets/config@2.1.0/schema.json",
-  "changelog": [
-    "@changesets/changelog-github",
-    {
-      "repo": "l2beat/earl"
-    }
-  ],
+  "changelog": "@changesets/cli/changelog",
   "commit": false,
   "linked": [],
   "access": "public",
