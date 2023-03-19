@@ -166,7 +166,7 @@ describe(toThrow.name, () => {
       })
 
       expect(diff).to.equal(stripIndent`
-        AssertionError: Function call threw, but the message did not match /bar/ and it was expected to.
+        Function call threw, but the message did not match /bar/ and it was expected to.
 
         -"foo"
         +/bar/
@@ -181,7 +181,7 @@ describe(toThrow.name, () => {
       })
 
       expect(diff).to.equal(stripIndent`
-        AssertionError: Function call threw, but the error was not an instance of TypeError and it was expected to be.
+        Function call threw, but the error was not an instance of TypeError and it was expected to be.
 
         -Error
         +TypeError
@@ -196,7 +196,7 @@ describe(toThrow.name, () => {
       })
 
       expect(diff).to.equal(stripIndent`
-        AssertionError: Function call threw, but the error was not an instance of TypeError with message "bar" and it was expected to be.
+        Function call threw, but the error was not an instance of TypeError with message "bar" and it was expected to be.
 
         -Error {
         -  message: "foo"
@@ -215,7 +215,7 @@ describe(toThrow.name, () => {
       })
 
       expect(diff).to.equal(stripIndent`
-        AssertionError: Function call threw, but the message did not match /bar/ and it was expected to.
+        Function call threw, but the message did not match /bar/ and it was expected to.
 
         -"foo"
         +/bar/
@@ -230,7 +230,7 @@ describe(toThrow.name, () => {
       })
 
       expect(diff).to.equal(stripIndent`
-        AssertionError: Function call threw, but the message did not match /bar/ and it was expected to.
+        Function call threw, but the message did not match /bar/ and it was expected to.
 
         -undefined
         +/bar/

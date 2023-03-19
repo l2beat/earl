@@ -118,7 +118,7 @@ describe(toEqual.name, () => {
       })
 
       expect(diff).to.equal(stripIndent`
-        AssertionError: { x: 1, y: 2 } isn't equal to { x: 3, y: 2 }
+        { x: 1, y: 2 } isn't equal to { x: 3, y: 2 }
 
          {
         -  x: 1
@@ -138,7 +138,7 @@ describe(toEqual.name, () => {
       })
 
       expect(diff).to.equal(stripIndent`
-        AssertionError: "i wanna..." isn't equal to "i wanna..."
+        "i wanna..." isn't equal to "i wanna..."
 
         -"i wanna be the very best like no one ever was to catch them is my real test to train them is my cause"
         +"i wanna be the very best XXXX no one ever was to catch XXXX is my real XXXX to train them is my cause"
