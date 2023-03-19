@@ -5,14 +5,14 @@ import { safeInteger } from '../../matchers/numbers/safeInteger'
 
 declare module '../../expect' {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  interface Validators<T> {
-    toBeASafeInteger(this: Validators<number | bigint>): void
+  interface Validators<T, R> {
+    toBeASafeInteger(this: Validators<number | bigint, R>): R
   }
 }
 
 registerValidator('toBeASafeInteger', toBeASafeInteger)
 
-export function toBeASafeInteger(control: Control<unknown>) {
+export function toBeASafeInteger(control: Control) {
   const actualInline = formatCompact(control.actual)
   control.assert({
     success: safeInteger()(control.actual),

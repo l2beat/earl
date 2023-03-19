@@ -5,14 +5,14 @@ import { regex } from '../../matchers/basic/regex'
 
 declare module '../../expect' {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  interface Validators<T> {
-    toMatchRegex(this: Validators<string>, regex: RegExp): void
+  interface Validators<T, R> {
+    toMatchRegex(this: Validators<string, R>, regex: RegExp): R
   }
 }
 
 registerValidator('toMatchRegex', toMatchRegex)
 
-export function toMatchRegex(control: Control<unknown>, expected: RegExp) {
+export function toMatchRegex(control: Control, expected: RegExp) {
   const actualInline = formatCompact(control.actual)
   const expectedInline = formatCompact(expected)
 

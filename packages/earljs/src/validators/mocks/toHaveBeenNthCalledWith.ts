@@ -10,19 +10,19 @@ import {
 } from './utils'
 
 declare module '../../expect' {
-  interface Validators<T> {
+  interface Validators<T, R> {
     toHaveBeenNthCalledWith(
-      this: Validators<Mock<any[], any>>,
+      this: Validators<Mock<any[], any>, R>,
       time: number,
       ...args: MockArgs<T>
-    ): void
+    ): R
   }
 }
 
 registerValidator('toHaveBeenNthCalledWith', toHaveBeenNthCalledWith)
 
 export function toHaveBeenNthCalledWith(
-  control: Control<unknown>,
+  control: Control,
   time: number,
   ...expected: unknown[]
 ) {

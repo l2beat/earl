@@ -5,14 +5,14 @@ import { integer } from '../../matchers/numbers/integer'
 
 declare module '../../expect' {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  interface Validators<T> {
-    toBeAnInteger(this: Validators<number | bigint>): void
+  interface Validators<T, R> {
+    toBeAnInteger(this: Validators<number | bigint, R>): R
   }
 }
 
 registerValidator('toBeAnInteger', toBeAnInteger)
 
-export function toBeAnInteger(control: Control<unknown>) {
+export function toBeAnInteger(control: Control) {
   const actualInline = formatCompact(control.actual)
   control.assert({
     success: integer()(control.actual),

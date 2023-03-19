@@ -5,14 +5,14 @@ import { nullish } from '../../matchers/basic/nullish'
 
 declare module '../../expect' {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  interface Validators<T> {
-    toBeNullish(): void
+  interface Validators<T, R> {
+    toBeNullish(): R
   }
 }
 
 registerValidator('toBeNullish', toBeNullish)
 
-export function toBeNullish(control: Control<unknown>) {
+export function toBeNullish(control: Control) {
   const actualInline = formatCompact(control.actual)
   control.assert({
     success: nullish()(control.actual),

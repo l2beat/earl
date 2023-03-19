@@ -5,14 +5,14 @@ import { empty } from '../../matchers/objects/empty'
 
 declare module '../../expect' {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  interface Validators<T> {
-    toBeEmpty(this: Validators<string | any[] | Set<any> | Map<any, any>>): void
+  interface Validators<T, R> {
+    toBeEmpty(this: Validators<string | any[] | Set<any> | Map<any, any>, R>): R
   }
 }
 
 registerValidator('toBeEmpty', toBeEmpty)
 
-export function toBeEmpty(control: Control<unknown>) {
+export function toBeEmpty(control: Control) {
   const actualInline = formatCompact(control.actual)
   control.assert({
     success: empty()(control.actual),

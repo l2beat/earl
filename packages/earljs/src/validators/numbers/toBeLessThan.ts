@@ -5,20 +5,17 @@ import { lessThan } from '../../matchers/numbers/lessThan'
 
 declare module '../../expect' {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  interface Validators<T> {
+  interface Validators<T, R> {
     toBeLessThan(
-      this: Validators<number | bigint>,
+      this: Validators<number | bigint, R>,
       target: number | bigint,
-    ): void
+    ): R
   }
 }
 
 registerValidator('toBeLessThan', toBeLessThan)
 
-export function toBeLessThan(
-  control: Control<unknown>,
-  target: number | bigint,
-) {
+export function toBeLessThan(control: Control, target: number | bigint) {
   const actualInline = formatCompact(control.actual)
   const targetInline = formatCompact(target)
 

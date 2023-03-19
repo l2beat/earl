@@ -24,21 +24,18 @@ export class AssertionError extends Error {
     this.stack = `${this.message}\n${options.stack}`
   }
 
-  static getLocation() {
+  static getLocation(depth: number) {
     const error = new Error('message')
-    const stack = this.getCleanStack(error)
+    const stack = this.getCleanStack(error, depth)
     const file = ErrorStackParser.parse({ stack } as Error)[0]?.fileName
     return { file, stack }
   }
 
-  private static getCleanStack(error: Error) {
-    // .<validator>, .getControl, new Control, .getCleanStack
-    const entriesToRemove = 4
-
+  private static getCleanStack(error: Error, depth: number) {
     if (error.stack?.startsWith('Error: message\n')) {
       return error.stack
         .split('\n')
-        .slice(entriesToRemove + 1)
+        .slice(depth + 1)
         .join('\n')
     }
     return error.stack ?? ''

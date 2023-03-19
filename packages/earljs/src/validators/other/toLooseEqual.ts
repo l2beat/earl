@@ -6,14 +6,14 @@ import { isEqual, LOOSE_EQUALITY_OPTIONS } from '../../isEqual'
 
 declare module '../../expect' {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  interface Validators<T> {
-    toLooseEqual(expected: unknown): void
+  interface Validators<T, R> {
+    toLooseEqual(expected: unknown): R
   }
 }
 
 registerValidator('toLooseEqual', toLooseEqual)
 
-export function toLooseEqual(control: Control<unknown>, expected: unknown) {
+export function toLooseEqual(control: Control, expected: unknown) {
   const actualInline = formatCompact(control.actual)
   const expectedInline = formatCompact(expected)
 

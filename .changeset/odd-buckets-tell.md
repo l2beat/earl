@@ -14,19 +14,19 @@ import { Control, formatCompact, registerValidator } from "earljs";
 
 // we use the module augmentation feature of typescript to keep it type safe
 declare module "earljs" {
-  interface Validators<T> {
+  interface Validators<T, R> {
     // note the this: Validators<number> part
     // it ensures that the validator is only available on numbers
-    toBeEven(this: Validators<number>): void;
+    toBeEven(this: Validators<number, R>): R;
   }
 }
 
 registerValidator("toBeEven", toBeEven);
 
-export function toBeEven(control: Control<number>) {
+export function toBeEven(control: Control) {
   const actualFmt = formatCompact(control.actual);
   control.assert({
-    success: control.actual % 2 === 0,
+    success: typeof control.actual === "number" && control.actual % 2 === 0,
     reason: `${actualFmt} is not even!`,
     negatedReason: `${actualFmt} is even!`,
   });

@@ -4,14 +4,14 @@ import { format, formatCompact } from '../../format'
 
 declare module '../../expect' {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  interface Validators<T> {
-    toExactlyEqual(expected: unknown): void
+  interface Validators<T, R> {
+    toExactlyEqual(expected: unknown): R
   }
 }
 
 registerValidator('toExactlyEqual', toExactlyEqual)
 
-export function toExactlyEqual(control: Control<unknown>, expected: unknown) {
+export function toExactlyEqual(control: Control, expected: unknown) {
   const actualInline = formatCompact(control.actual)
   const expectedInline = formatCompact(expected)
 

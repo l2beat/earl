@@ -5,15 +5,15 @@ import { satisfies } from '../../matchers/custom/satisfies'
 
 declare module '../../expect' {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  interface Validators<T> {
-    toSatisfy(predicate: (value: T) => boolean): void
+  interface Validators<T, R> {
+    toSatisfy(predicate: (value: T) => boolean): R
   }
 }
 
 registerValidator('toSatisfy', toSatisfy)
 
 export function toSatisfy(
-  control: Control<unknown>,
+  control: Control,
   predicate: (value: unknown) => boolean,
 ) {
   const actualInline = formatCompact(control.actual)

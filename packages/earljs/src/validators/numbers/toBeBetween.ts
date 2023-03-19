@@ -5,19 +5,19 @@ import { between } from '../../matchers/numbers/between'
 
 declare module '../../expect' {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  interface Validators<T> {
+  interface Validators<T, R> {
     toBeBetween(
-      this: Validators<number | bigint>,
+      this: Validators<number | bigint, R>,
       min: number | bigint,
       max: number | bigint,
-    ): void
+    ): R
   }
 }
 
 registerValidator('toBeBetween', toBeBetween)
 
 export function toBeBetween(
-  control: Control<unknown>,
+  control: Control,
   min: number | bigint,
   max: number | bigint,
 ) {

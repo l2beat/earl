@@ -5,14 +5,14 @@ import { assertIsMock, formatCalledTimes } from './utils'
 
 declare module '../../expect' {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  interface Validators<T> {
-    toHaveBeenCalled(this: Validators<Mock<any[], any>>): void
+  interface Validators<T, R> {
+    toHaveBeenCalled(this: Validators<Mock<any[], any>, R>): R
   }
 }
 
 registerValidator('toHaveBeenCalled', toHaveBeenCalled)
 
-export function toHaveBeenCalled(control: Control<unknown>) {
+export function toHaveBeenCalled(control: Control) {
   assertIsMock(control)
 
   const calledTimes = formatCalledTimes(control.actual)

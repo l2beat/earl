@@ -4,18 +4,18 @@ import { Mock, MockArgs } from '../../mocks'
 import { assertIsMock, compareArgs, formatCalledTimes } from './utils'
 
 declare module '../../expect' {
-  interface Validators<T> {
+  interface Validators<T, R> {
     toHaveBeenOnlyCalledWith(
-      this: Validators<Mock<any[], any>>,
+      this: Validators<Mock<any[], any>, R>,
       ...args: MockArgs<T>
-    ): void
+    ): R
   }
 }
 
 registerValidator('toHaveBeenOnlyCalledWith', toHaveBeenOnlyCalledWith)
 
 export function toHaveBeenOnlyCalledWith(
-  control: Control<unknown>,
+  control: Control,
   ...expected: unknown[]
 ) {
   assertIsMock(control)

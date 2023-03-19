@@ -5,14 +5,14 @@ import { defined } from '../../matchers/basic/defined'
 
 declare module '../../expect' {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  interface Validators<T> {
-    toBeDefined(): void
+  interface Validators<T, R> {
+    toBeDefined(): R
   }
 }
 
 registerValidator('toBeDefined', toBeDefined)
 
-export function toBeDefined(control: Control<unknown>) {
+export function toBeDefined(control: Control) {
   const actualInline = formatCompact(control.actual)
   control.assert({
     success: defined()(control.actual),

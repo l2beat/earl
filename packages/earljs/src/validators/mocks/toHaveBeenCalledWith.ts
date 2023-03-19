@@ -6,20 +6,17 @@ import { Mock, MockArgs } from '../../mocks'
 import { assertIsMock } from './utils'
 
 declare module '../../expect' {
-  interface Validators<T> {
+  interface Validators<T, R> {
     toHaveBeenCalledWith(
-      this: Validators<Mock<any[], any>>,
+      this: Validators<Mock<any[], any>, R>,
       ...args: MockArgs<T>
-    ): void
+    ): R
   }
 }
 
 registerValidator('toHaveBeenCalledWith', toHaveBeenCalledWith)
 
-export function toHaveBeenCalledWith(
-  control: Control<unknown>,
-  ...expected: unknown[]
-) {
+export function toHaveBeenCalledWith(control: Control, ...expected: unknown[]) {
   assertIsMock(control)
 
   if (control.actual.calls.length === 0) {

@@ -10,17 +10,14 @@ import { TestContext } from './TestContext'
 
 declare module '../../expect' {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  interface Validators<T> {
-    toMatchSnapshot(context: TestContext): void
+  interface Validators<T, R> {
+    toMatchSnapshot(context: TestContext): R
   }
 }
 
 registerValidator('toMatchSnapshot', toMatchSnapshot)
 
-export function toMatchSnapshot(
-  control: Control<unknown>,
-  context: TestContext,
-) {
+export function toMatchSnapshot(control: Control, context: TestContext) {
   // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
   if (context === undefined) {
     throw new TypeError(

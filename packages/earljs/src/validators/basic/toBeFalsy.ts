@@ -5,14 +5,14 @@ import { falsy } from '../../matchers/basic/falsy'
 
 declare module '../../expect' {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  interface Validators<T> {
-    toBeFalsy(): void
+  interface Validators<T, R> {
+    toBeFalsy(): R
   }
 }
 
 registerValidator('toBeFalsy', toBeFalsy)
 
-export function toBeFalsy(control: Control<unknown>) {
+export function toBeFalsy(control: Control) {
   const actualInline = formatCompact(control.actual)
   control.assert({
     success: falsy()(control.actual),

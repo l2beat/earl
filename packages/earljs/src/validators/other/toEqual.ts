@@ -4,14 +4,14 @@ import { format, formatCompact } from '../../format'
 import { isEqual } from '../../isEqual'
 
 declare module '../../expect' {
-  interface Validators<T> {
-    toEqual(expected: T): void
+  interface Validators<T, R> {
+    toEqual(expected: T): R
   }
 }
 
 registerValidator('toEqual', toEqual)
 
-export function toEqual(control: Control<unknown>, expected: unknown) {
+export function toEqual(control: Control, expected: unknown) {
   const actualInline = formatCompact(control.actual)
   const expectedInline = formatCompact(expected)
 

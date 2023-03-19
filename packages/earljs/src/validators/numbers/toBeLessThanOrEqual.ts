@@ -5,20 +5,17 @@ import { lessThanOrEqual } from '../../matchers/numbers/lessThanOrEqual'
 
 declare module '../../expect' {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  interface Validators<T> {
+  interface Validators<T, R> {
     toBeLessThanOrEqual(
-      this: Validators<number | bigint>,
+      this: Validators<number | bigint, R>,
       target: number | bigint,
-    ): void
+    ): R
   }
 }
 
 registerValidator('toBeLessThanOrEqual', toBeLessThanOrEqual)
 
-export function toBeLessThanOrEqual(
-  control: Control<unknown>,
-  target: number | bigint,
-) {
+export function toBeLessThanOrEqual(control: Control, target: number | bigint) {
   const actualInline = formatCompact(control.actual)
   const targetInline = formatCompact(target)
 

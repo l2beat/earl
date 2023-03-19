@@ -5,14 +5,14 @@ import { positive } from '../../matchers/numbers/positive'
 
 declare module '../../expect' {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  interface Validators<T> {
-    toBePositive(this: Validators<number | bigint>): void
+  interface Validators<T, R> {
+    toBePositive(this: Validators<number | bigint, R>): R
   }
 }
 
 registerValidator('toBePositive', toBePositive)
 
-export function toBePositive(control: Control<unknown>) {
+export function toBePositive(control: Control) {
   const actualInline = formatCompact(control.actual)
   control.assert({
     success: positive()(control.actual),
