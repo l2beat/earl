@@ -24,6 +24,7 @@ export class Control {
 
   public isNegated = false
   public isAsync = false
+  public receivedPromise = false
   public isAsyncSuccess = false
   public asyncError: unknown
 
@@ -32,6 +33,11 @@ export class Control {
     this.isNegated = options.isNegated ?? false
 
     this.isAsync = options.asyncResult !== undefined
+
+    if (this.isAsync && options.asyncResult?.value !== options.actual) {
+      this.receivedPromise = true
+    }
+
     if (options.asyncResult?.type === 'success') {
       this.isAsyncSuccess = true
       this._actual = options.asyncResult.value

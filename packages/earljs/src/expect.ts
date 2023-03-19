@@ -54,7 +54,11 @@ class Expectation {
       (value) => ({ type: 'success' as const, value }),
       (value) => ({ type: 'error' as const, value }),
     )
-    return new Control({ isNegated: this._negated, asyncResult })
+    return new Control({
+      actual: this._value,
+      isNegated: this._negated,
+      asyncResult,
+    })
   }
 }
 
