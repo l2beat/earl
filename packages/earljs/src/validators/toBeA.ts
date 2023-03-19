@@ -18,8 +18,8 @@ export function toBeA(control: Control<unknown>, clazz: NewableOrPrimitive) {
 
   control.assert({
     success: a(clazz)(control.actual),
-    reason: `${actualInline} isn't ${clazzInline}`,
-    negatedReason: `${actualInline} is ${clazzInline}`,
+    reason: `The value ${actualInline} is not ${clazzInline}, but it was expected to be ${clazzInline}.`,
+    negatedReason: `The value ${actualInline} is ${clazzInline}, but it was expected not to be ${clazzInline}.`,
   })
 }
 

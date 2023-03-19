@@ -1,10 +1,10 @@
-import { EarlConfigurationError } from '../../errors'
-
 export type SnapshotUpdateMode = 'none' | 'new' | 'all'
 
 export function getSnapshotUpdateMode(env = process.env): SnapshotUpdateMode {
   if (isCI(env) && shouldUpdate(env)) {
-    throw new EarlConfigurationError("Can't update snapshots on CI.")
+    throw new TypeError(
+      "Both CI and UPDATE_SNAPSHOTS are set, however they can't be used together as updating snapshots on the CI is not permitted.",
+    )
   }
 
   if (isCI(env)) {

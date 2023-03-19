@@ -28,14 +28,16 @@ describe(toInclude.name, () => {
       it('fails for a string not containing the substring', () => {
         expect(() => {
           earl('i like pancakes').toInclude('waffles')
-        }).to.throw('"i like pancakes" doesn\'t include "waffles"')
+        }).to.throw(
+          'The value "i like pancakes" does not include "waffles", but it was expected to.',
+        )
       })
 
       it('fails for a string containing some of the substrings', () => {
         expect(() => {
           earl('i like pancakes').toInclude('waffles', 'pancakes')
         }).to.throw(
-          '"i like pancakes" doesn\'t include all of: "waffles" and "pancakes"',
+          '"i like pancakes" does not include all of: "waffles" and "pancakes", but it was expected to.',
         )
       })
     })
@@ -56,13 +58,17 @@ describe(toInclude.name, () => {
       it('fails for an array not containing the element', () => {
         expect(() => {
           earl([1, 2, 3]).toInclude(4)
-        }).to.throw("[1, 2, 3] doesn't include 4")
+        }).to.throw(
+          'The value [1, 2, 3] does not include 4, but it was expected to.',
+        )
       })
 
       it('fails for an array containing some of the elements', () => {
         expect(() => {
           earl([1, 2, 3]).toInclude(2, 4, 5)
-        }).to.throw("[1, 2, 3] doesn't include all of: 2, 4 and 5")
+        }).to.throw(
+          'The value [1, 2, 3] does not include all of: 2, 4 and 5, but it was expected to.',
+        )
       })
     })
 
@@ -82,13 +88,17 @@ describe(toInclude.name, () => {
       it('fails for an set not containing the element', () => {
         expect(() => {
           earl(new Set([1, 2, 3])).toInclude(4)
-        }).to.throw("Set { 1, 2, 3 } doesn't include 4")
+        }).to.throw(
+          'The value Set { 1, 2, 3 } does not include 4, but it was expected to.',
+        )
       })
 
       it('fails for an set containing some of the elements', () => {
         expect(() => {
           earl(new Set([1, 2, 3])).toInclude(2, 4, 5)
-        }).to.throw("Set { 1, 2, 3 } doesn't include all of: 2, 4 and 5")
+        }).to.throw(
+          'The value Set { 1, 2, 3 } does not include all of: 2, 4 and 5, but it was expected to.',
+        )
       })
     })
 
@@ -108,14 +118,16 @@ describe(toInclude.name, () => {
       it('fails for an iterable not containing the element', () => {
         expect(() => {
           earl(new MyCollection([1, 2, 3])).toInclude(4)
-        }).to.throw("MyCollection { items: [1, 2, 3] } doesn't include 4")
+        }).to.throw(
+          'The value MyCollection { items: [1, 2, 3] } does not include 4, but it was expected to.',
+        )
       })
 
       it('fails for an iterable containing some of the elements', () => {
         expect(() => {
           earl(new MyCollection([1, 2, 3])).toInclude(2, 4, 5)
         }).to.throw(
-          "MyCollection { items: [1, 2, 3] } doesn't include all of: 2, 4 and 5",
+          'The value MyCollection { items: [1, 2, 3] } does not include all of: 2, 4 and 5, but it was expected to.',
         )
       })
     })
@@ -126,13 +138,17 @@ describe(toInclude.name, () => {
       it('fails for a string containing the substring', () => {
         expect(() => {
           earl('i like pancakes').not.toInclude('pancakes')
-        }).to.throw('"i like pancakes" includes "pancakes"')
+        }).to.throw(
+          'The value "i like pancakes" includes "pancakes", but it was expected not to.',
+        )
       })
 
       it('fails for a string containing multiple substrings', () => {
         expect(() => {
           earl('i like pancakes').not.toInclude('pancakes', 'like')
-        }).to.throw('"i like pancakes" includes all of: "pancakes" and "like"')
+        }).to.throw(
+          'The value "i like pancakes" includes all of: "pancakes" and "like", but it was expected not to.',
+        )
       })
 
       it('passes for a string not containing the substring', () => {
@@ -152,13 +168,17 @@ describe(toInclude.name, () => {
       it('fails for an array containing the element', () => {
         expect(() => {
           earl([1, 2, 3]).not.toInclude(2)
-        }).to.throw('[1, 2, 3] includes 2')
+        }).to.throw(
+          'The value [1, 2, 3] includes 2, but it was expected not to.',
+        )
       })
 
       it('fails for an array containing multiple elements', () => {
         expect(() => {
           earl([1, 2, 3]).not.toInclude(2, 3)
-        }).to.throw('[1, 2, 3] includes all of: 2 and 3')
+        }).to.throw(
+          'The value [1, 2, 3] includes all of: 2 and 3, but it was expected not to.',
+        )
       })
 
       it('passes for an array not containing the element', () => {
@@ -178,13 +198,17 @@ describe(toInclude.name, () => {
       it('fails for an set containing the element', () => {
         expect(() => {
           earl(new Set([1, 2, 3])).not.toInclude(2)
-        }).to.throw('Set { 1, 2, 3 } includes 2')
+        }).to.throw(
+          'The value Set { 1, 2, 3 } includes 2, but it was expected not to.',
+        )
       })
 
       it('fails for an set containing multiple elements', () => {
         expect(() => {
           earl(new Set([1, 2, 3])).not.toInclude(2, 3)
-        }).to.throw('Set { 1, 2, 3 } includes all of: 2 and 3')
+        }).to.throw(
+          'The value Set { 1, 2, 3 } includes all of: 2 and 3, but it was expected not to.',
+        )
       })
 
       it('passes for an set not containing the element', () => {
@@ -204,14 +228,16 @@ describe(toInclude.name, () => {
       it('fails for an iterable containing the element', () => {
         expect(() => {
           earl(new MyCollection([1, 2, 3])).not.toInclude(2)
-        }).to.throw('MyCollection { items: [1, 2, 3] } includes 2')
+        }).to.throw(
+          'The value MyCollection { items: [1, 2, 3] } includes 2, but it was expected not to.',
+        )
       })
 
       it('fails for an iterable containing multiple elements', () => {
         expect(() => {
           earl(new MyCollection([1, 2, 3])).not.toInclude(2, 3)
         }).to.throw(
-          'MyCollection { items: [1, 2, 3] } includes all of: 2 and 3',
+          'The value MyCollection { items: [1, 2, 3] } includes all of: 2 and 3, but it was expected not to.',
         )
       })
 

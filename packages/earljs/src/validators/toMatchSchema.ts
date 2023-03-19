@@ -20,7 +20,7 @@ export function toMatchSchema(
 
   control.assert({
     success: schema(expected)(control.actual),
-    reason: `${actualInline} doesn't match the given schema`,
-    negatedReason: `${actualInline} matches the given schema`,
+    reason: `The value ${actualInline} does not match the given schema, but it was expected to match.`,
+    negatedReason: `The value ${actualInline} matches the given schema, but it was expected not to match.`,
   })
 }

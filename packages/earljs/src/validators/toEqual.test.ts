@@ -41,7 +41,9 @@ describe(toEqual.name, () => {
     it('fails on unequal primitives', () => {
       expect(() => {
         earl(42).toEqual(420)
-      }).to.throw("42 isn't equal to 420")
+      }).to.throw(
+        'The value 42 is not equal to 420, but it was expected to be equal.',
+      )
     })
 
     it('fails on unequal objects', () => {
@@ -50,7 +52,9 @@ describe(toEqual.name, () => {
           a: undefined,
           b: true,
         }).toEqual({ b: false } as any)
-      }).to.throw("{ a: undefined, b: true } isn't equal to { b: false }")
+      }).to.throw(
+        'The value { a: undefined, b: true } is not equal to { b: false }, but it was expected to be equal.',
+      )
     })
 
     it('fails on prototype mismatch with a reasonable error message', () => {
@@ -60,7 +64,9 @@ describe(toEqual.name, () => {
 
       expect(() => {
         earl(new Test(true)).toEqual({ property: true })
-      }).to.throw("Test { property: true } isn't equal to { property: true }")
+      }).to.throw(
+        'The value Test { property: true } is not equal to { property: true }, but it was expected to be equal.',
+      )
     })
   })
 
@@ -74,7 +80,9 @@ describe(toEqual.name, () => {
     it('fails when values are equal', () => {
       expect(() => {
         earl(5).not.toEqual(5)
-      }).to.throw('5 is equal to 5')
+      }).to.throw(
+        'The value 5 is equal to 5, but it was expected not to be equal.',
+      )
     })
   })
 
@@ -118,7 +126,7 @@ describe(toEqual.name, () => {
       })
 
       expect(diff).to.equal(stripIndent`
-        AssertionError: { x: 1, y: 2 } isn't equal to { x: 3, y: 2 }
+        The value { x: 1, y: 2 } is not equal to { x: 3, y: 2 }, but it was expected to be equal.
 
          {
         -  x: 1
@@ -138,7 +146,7 @@ describe(toEqual.name, () => {
       })
 
       expect(diff).to.equal(stripIndent`
-        AssertionError: "i wanna..." isn't equal to "i wanna..."
+        The value "i wanna..." is not equal to "i wanna...", but it was expected to be equal.
 
         -"i wanna be the very best like no one ever was to catch them is my real test to train them is my cause"
         +"i wanna be the very best XXXX no one ever was to catch XXXX is my real XXXX to train them is my cause"

@@ -32,19 +32,25 @@ describe(toBeEmpty.name, () => {
     it('fails for non-empty strings', () => {
       expect(() => {
         earl('hello').toBeEmpty()
-      }).to.throw('"hello" isn\'t empty')
+      }).to.throw(
+        'The value "hello" is not empty, but it was expected to be empty.',
+      )
     })
 
     it('fails for non-empty arrays', () => {
       expect(() => {
         earl([1, 2, 3]).toBeEmpty()
-      }).to.throw("[1, 2, 3] isn't empty")
+      }).to.throw(
+        'The value [1, 2, 3] is not empty, but it was expected to be empty.',
+      )
     })
 
     it('fails for non-empty sets', () => {
       expect(() => {
         earl(new Set([1, 2, 3])).toBeEmpty()
-      }).to.throw("Set { 1, 2, 3 } isn't empty")
+      }).to.throw(
+        'The value Set { 1, 2, 3 } is not empty, but it was expected to be empty.',
+      )
     })
 
     it('fails for non-empty maps', () => {
@@ -56,7 +62,9 @@ describe(toBeEmpty.name, () => {
             ['c', 3],
           ]),
         ).toBeEmpty()
-      }).to.throw('Map { "a" => 1, "b" => 2, "c" => 3 } isn\'t empty')
+      }).to.throw(
+        'The value Map { "a" => 1, "b" => 2, "c" => 3 } is not empty, but it was expected to be empty.',
+      )
     })
   })
 
@@ -64,25 +72,29 @@ describe(toBeEmpty.name, () => {
     it('fails for empty strings', () => {
       expect(() => {
         earl('').not.toBeEmpty()
-      }).to.throw('"" is empty')
+      }).to.throw('The value "" is empty, but it was expected not to be empty.')
     })
 
     it('fails for empty arrays', () => {
       expect(() => {
         earl([]).not.toBeEmpty()
-      }).to.throw('[] is empty')
+      }).to.throw('The value [] is empty, but it was expected not to be empty.')
     })
 
     it('fails for empty sets', () => {
       expect(() => {
         earl(new Set()).not.toBeEmpty()
-      }).to.throw('Set {} is empty')
+      }).to.throw(
+        'The value Set {} is empty, but it was expected not to be empty.',
+      )
     })
 
     it('fails for empty maps', () => {
       expect(() => {
         earl(new Map()).not.toBeEmpty()
-      }).to.throw('Map {} is empty')
+      }).to.throw(
+        'The value Map {} is empty, but it was expected not to be empty.',
+      )
     })
 
     it('passes for non-empty strings', () => {

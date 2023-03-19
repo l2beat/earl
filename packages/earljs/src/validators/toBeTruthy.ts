@@ -16,7 +16,7 @@ export function toBeTruthy(control: Control<unknown>) {
   const actualInline = formatCompact(control.actual)
   control.assert({
     success: truthy()(control.actual),
-    reason: `${actualInline} isn't truthy`,
-    negatedReason: `${actualInline} is truthy`,
+    reason: `The value ${actualInline} is not truthy, but it was expected to be truthy.`,
+    negatedReason: `The value ${actualInline} is truthy, but it was expected not to be truthy.`,
   })
 }

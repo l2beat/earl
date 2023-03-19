@@ -21,7 +21,7 @@ export class AssertionError extends Error {
     this.name = 'AssertionError'
     this.actual = options.actual
     this.expected = options.expected
-    this.stack = `${this.name}: ${this.message}\n${options.stack}`
+    this.stack = `${this.message}\n${options.stack}`
   }
 
   static getLocation() {

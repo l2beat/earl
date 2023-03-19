@@ -16,7 +16,7 @@ export function toBeEmpty(control: Control<unknown>) {
   const actualInline = formatCompact(control.actual)
   control.assert({
     success: empty()(control.actual),
-    reason: `${actualInline} isn't empty`,
-    negatedReason: `${actualInline} is empty`,
+    reason: `The value ${actualInline} is not empty, but it was expected to be empty.`,
+    negatedReason: `The value ${actualInline} is empty, but it was expected not to be empty.`,
   })
 }

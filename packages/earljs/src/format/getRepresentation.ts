@@ -16,6 +16,13 @@ export function getRepresentation(
   } else if (type === 'RegExp') {
     return (value as RegExp).toString()
   } else if (type === 'Date') {
-    return (value as Date).toISOString()
+    const iso = (value as Date).toISOString()
+    if (iso.endsWith('T00:00:00.000Z')) {
+      return iso.slice(0, -14)
+    } else if (iso.endsWith('.000Z')) {
+      return iso.slice(0, -5) + 'Z'
+    } else {
+      return iso
+    }
   }
 }

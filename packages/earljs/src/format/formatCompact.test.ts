@@ -40,7 +40,7 @@ describe('formatCompact', () => {
     [new String('foo'), 'String "foo"'],
     [new Number(123), 'Number 123'],
     [new Boolean(false), 'Boolean false'],
-    [new Date(0), 'Date 1970-01-01T00:00:00.000Z'],
+    [new Date(0), 'Date 1970-01-01'],
     [Promise.resolve(1), 'Promise'],
     [new WeakMap(), 'WeakMap'],
     [new WeakSet(), 'WeakSet'],

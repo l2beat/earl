@@ -20,8 +20,8 @@ export function toHaveLength(control: Control<unknown>, expected: number) {
   const expectedInline = formatCompact(expected)
   control.assert({
     success: length(expected)(control.actual),
-    reason: `${actualInline} doesn't have length ${expectedInline}`,
-    negatedReason: `${actualInline} has length ${expectedInline}`,
+    reason: `The value ${actualInline} does not have length ${expectedInline}, but it was expected to.`,
+    negatedReason: `The value ${actualInline} has length ${expectedInline}, but it was expected not to.`,
     actual: format(getLength(control.actual), null),
     expected: format(expected, null),
   })

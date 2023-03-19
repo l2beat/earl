@@ -24,7 +24,7 @@ export function toBeLessThanOrEqual(
 
   control.assert({
     success: lessThanOrEqual(target)(control.actual),
-    reason: `${actualInline} isn't less than or equal to ${targetInline}`,
-    negatedReason: `${actualInline} is less than or equal to ${targetInline}`,
+    reason: `The value ${actualInline} is not less than or equal to ${targetInline}, but it was expected to be.`,
+    negatedReason: `The value ${actualInline} is less than or equal to ${targetInline}, but it was expected not to be.`,
   })
 }

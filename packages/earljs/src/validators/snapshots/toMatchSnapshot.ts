@@ -1,7 +1,6 @@
 import { writeFileSync } from 'fs'
 
 import { Control } from '../../Control'
-import { EarlConfigurationError } from '../../errors'
 import { registerValidator } from '../../expect'
 import { format, formatCompact } from '../../format'
 import { formatSnapshot } from './format'
@@ -24,10 +23,12 @@ export function toMatchSnapshot(
 ) {
   // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
   if (context === undefined) {
-    throw new EarlConfigurationError('No test context')
+    throw new TypeError(
+      'Invalid or no test context provided to .toMatchSnapshot(context).',
+    )
   }
   if (control.isNegated) {
-    throw new EarlConfigurationError("toMatchSnapshot can't be negated")
+    throw new TypeError("toMatchSnapshot cannot be used with 'not'.")
   }
   const actual = format(control.actual, null)
 
@@ -40,7 +41,7 @@ export function toMatchSnapshot(
   } else if (snapshot.expected === undefined) {
     control.assert({
       success: false,
-      reason: `No snapshot found`,
+      reason: `No snapshot was found. Snapshots cannot be generated on CI.`,
       negatedReason: '',
       actual,
       expected: undefined,
@@ -48,7 +49,9 @@ export function toMatchSnapshot(
   } else {
     control.assert({
       success: actual === snapshot.expected,
-      reason: `${formatCompact(control.actual)} not equal to snapshot`,
+      reason: `${formatCompact(
+        control.actual,
+      )} is not equal to snapshot. Run with UPDATE_SNAPSHOTS=true to update snapshots.`,
       negatedReason: '',
       actual,
       expected: snapshot.expected,

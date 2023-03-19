@@ -24,7 +24,7 @@ export function toBeGreaterThanOrEqual(
 
   control.assert({
     success: greaterThanOrEqual(target)(control.actual),
-    reason: `${actualInline} isn't greater than or equal to ${targetInline}`,
-    negatedReason: `${actualInline} is greater than or equal to ${targetInline}`,
+    reason: `The value ${actualInline} is not greater than or equal to ${targetInline}, but it was expected to be.`,
+    negatedReason: `The value ${actualInline} is greater than or equal to ${targetInline}, but it was expected not to be.`,
   })
 }

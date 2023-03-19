@@ -8,7 +8,9 @@ describe(toBeNullish.name, () => {
     it('fails for 42', () => {
       expect(() => {
         earl(42).toBeNullish()
-      }).to.throw("42 isn't nullish")
+      }).to.throw(
+        'The value 42 is not nullish, but it was expected to be nullish.',
+      )
     })
 
     it('fails for null', () => {
@@ -34,13 +36,17 @@ describe(toBeNullish.name, () => {
     it('passes for null', () => {
       expect(() => {
         earl(null).not.toBeNullish()
-      }).to.throw('null is nullish')
+      }).to.throw(
+        'The value null is nullish, but it was expected not to be nullish.',
+      )
     })
 
     it('passes for undefined', () => {
       expect(() => {
         earl(undefined).not.toBeNullish()
-      }).to.throw('undefined is nullish')
+      }).to.throw(
+        'The value undefined is nullish, but it was expected not to be nullish.',
+      )
     })
   })
 })

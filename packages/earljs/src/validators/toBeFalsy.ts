@@ -16,7 +16,7 @@ export function toBeFalsy(control: Control<unknown>) {
   const actualInline = formatCompact(control.actual)
   control.assert({
     success: falsy()(control.actual),
-    reason: `${actualInline} isn't falsy`,
-    negatedReason: `${actualInline} is falsy`,
+    reason: `The value ${actualInline} is not falsy, but it was expected to be falsy.`,
+    negatedReason: `The value ${actualInline} is falsy, but it was expected not to be falsy.`,
   })
 }
