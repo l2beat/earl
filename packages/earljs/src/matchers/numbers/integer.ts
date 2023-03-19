@@ -3,7 +3,9 @@ import { registerMatcher } from '../../expect'
 declare module '../../expect' {
   interface Matchers {
     /**
-     * Matches numbers that are integers between Number.MIN_SAFE_INTEGER nad Number.MAX_SAFE_INTEGER
+     * Matches numbers that are integers.
+     *
+     * Works for both numbers and bigints.
      */
     integer(): never
   }
@@ -12,9 +14,12 @@ declare module '../../expect' {
 registerMatcher('integer', integer)
 
 export function integer() {
-  return (value: unknown) =>
-    typeof value === 'number' &&
-    Number.isInteger(value) &&
-    value >= Number.MIN_SAFE_INTEGER &&
-    value <= Number.MAX_SAFE_INTEGER
+  return (value: unknown) => {
+    if (typeof value === 'number') {
+      return Number.isInteger(value)
+    } else if (typeof value === 'bigint') {
+      return true
+    }
+    return false
+  }
 }

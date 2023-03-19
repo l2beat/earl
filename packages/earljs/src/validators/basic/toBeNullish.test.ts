@@ -13,13 +13,13 @@ describe(toBeNullish.name, () => {
       )
     })
 
-    it('fails for null', () => {
+    it('passes for null', () => {
       expect(() => {
         earl(null).toBeNullish()
       }).not.to.throw()
     })
 
-    it('fails for undefined', () => {
+    it('passes for undefined', () => {
       expect(() => {
         earl(undefined).toBeNullish()
       }).not.to.throw()
@@ -33,7 +33,7 @@ describe(toBeNullish.name, () => {
       }).not.to.throw()
     })
 
-    it('passes for null', () => {
+    it('fails for null', () => {
       expect(() => {
         earl(null).not.toBeNullish()
       }).to.throw(
@@ -41,7 +41,7 @@ describe(toBeNullish.name, () => {
       )
     })
 
-    it('passes for undefined', () => {
+    it('fails for undefined', () => {
       expect(() => {
         earl(undefined).not.toBeNullish()
       }).to.throw(

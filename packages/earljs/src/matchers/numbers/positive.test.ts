@@ -8,7 +8,19 @@ describe(positive.name, () => {
 
   testMatcher(
     positive(),
-    [Number.EPSILON, 0.5, 1, 4, 11, 10.5, 100, 12356.789, Infinity],
+    [
+      Number.EPSILON,
+      0.5,
+      1,
+      4,
+      11,
+      10.5,
+      100,
+      12356.789,
+      Infinity,
+      BigInt(1),
+      BigInt(123456789),
+    ],
     [
       0,
       NaN,
@@ -21,6 +33,8 @@ describe(positive.name, () => {
       -100,
       -12356.789,
       -Infinity,
+      BigInt(-1),
+      BigInt(-123456789),
       TEST_VALUES.filter((x) => typeof x !== 'number'),
     ],
   )
