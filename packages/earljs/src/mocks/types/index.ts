@@ -23,6 +23,16 @@ export interface Mock<A extends any[], R> {
   isExhausted(): boolean
 
   /**
+   * Returns the number of remaining calls, e.g. `returnsOnce`.
+   */
+  getQueueLength(): number
+
+  /**
+   * Returns the number of remaining one time overrides, `e.g. given(...).returnsOnce(...)`.
+   */
+  getOneTimeOverridesLength(): number
+
+  /**
    * Sets the return value of calls to the Mock.
    * Overrides any previous configuration.
    * @param value - value to be returned.
@@ -98,3 +108,37 @@ export type MockOf<T extends (...args: any[]) => any> = Mock<
   Parameters<T>,
   ReturnType<T>
 >
+
+export type Spec =
+  | ReturnSpec
+  | LazyReturnSpec
+  | ThrowSpec
+  | ExecSpec
+  | NotReadySpec
+
+export interface ReturnSpec {
+  type: 'return'
+  value: any
+}
+
+/**
+ * Used to lazily evaluate rejected promises so node doesn't think they are unhandled
+ */
+export interface LazyReturnSpec {
+  type: 'lazy-return'
+  value: () => any
+}
+
+export interface ThrowSpec {
+  type: 'throw'
+  error: any
+}
+
+export interface ExecSpec {
+  type: 'exec'
+  implementation: (...args: any[]) => any
+}
+
+export interface NotReadySpec {
+  type: 'not-ready'
+}
