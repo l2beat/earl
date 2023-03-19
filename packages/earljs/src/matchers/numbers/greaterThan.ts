@@ -5,6 +5,8 @@ declare module '../../expect' {
     /**
      * Matches numbers that are greater than a given target.
      *
+     * Works for both numbers and bigints.
+     *
      * @param target - target value (inclusive)
      */
     greaterThan(target: number | bigint): never

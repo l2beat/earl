@@ -16,16 +16,18 @@ describe(integer.name, () => {
       -12353462456,
       Number.MAX_SAFE_INTEGER,
       Number.MIN_SAFE_INTEGER,
+      Number.MAX_SAFE_INTEGER * 2,
+      Number.MIN_SAFE_INTEGER * 2,
+      BigInt(1234),
+      BigInt(-1234),
     ],
     [
       0.5,
       -1.2,
-      Number.MAX_SAFE_INTEGER * 2,
-      Number.MIN_SAFE_INTEGER * 2,
       Infinity,
       -Infinity,
       NaN,
-      TEST_VALUES.filter((x) => typeof x !== 'number'),
+      TEST_VALUES.filter((x) => typeof x !== 'number' && typeof x !== 'bigint'),
     ],
   )
 })

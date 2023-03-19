@@ -6,6 +6,8 @@ declare module '../../expect' {
      * Matches numbers that are between the two numbers.
      * The range is [min, max) (right-exclusive).
      *
+     * Works for both numbers and bigints.
+     *
      * @param min - minimum value (inclusive)
      * @param max - maximum value (exclusive)
      */

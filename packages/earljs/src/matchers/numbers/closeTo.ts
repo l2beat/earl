@@ -6,6 +6,8 @@ declare module '../../expect' {
      * Matches numbers that are close to the target value.
      * The range is [target - delta, target + delta] (inclusive).
      *
+     * Works only for numbers and not for bigints.
+     *
      * @param target - number to aim for
      * @param delta - maximum difference between the values
      */
