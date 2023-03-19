@@ -41,7 +41,7 @@ export function formatMapEntries(
   const entries: [number, string][] = []
   for (let i = 0; i < valueItems.length; i++) {
     const keyFormat = formatUnknown(
-      valueItems[i][0],
+      valueItems[i]?.[0],
       siblingItems[i]?.[0],
       keyOptions,
       valueStack,
@@ -53,10 +53,10 @@ export function formatMapEntries(
     const valueOptions = getOptionsWith(passedValueOptions, {
       skipMatcherReplacement:
         passedValueOptions.skipMatcherReplacement ||
-        (sibling instanceof Map && !sibling.has(valueItems[i][0])),
+        (sibling instanceof Map && !sibling.has(valueItems[i]?.[0])),
     })
     const valueFormat = formatUnknown(
-      valueItems[i][1],
+      valueItems[i]?.[1],
       siblingItems[i]?.[1],
       valueOptions,
       valueStack,
@@ -67,9 +67,10 @@ export function formatMapEntries(
     }
 
     const joint = [...keyFormat]
-    joint[joint.length - 1][1] = `${joint[joint.length - 1][1]} => ${
-      valueFormat[0][1]
-    }`
+    const last = joint[joint.length - 1]
+    if (last !== undefined) {
+      last[1] = `${last[1]} => ${valueFormat[0]?.[1] ?? 'undefined'}`
+    }
     joint.push(...valueFormat.slice(1))
 
     entries.push(...joint)
