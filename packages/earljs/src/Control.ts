@@ -19,7 +19,7 @@ export interface ControlOptions {
 }
 
 export class Control {
-  private readonly _location = AssertionError.getLocation()
+  private readonly _location
   private readonly _actual: unknown
 
   public isNegated = false
@@ -40,6 +40,8 @@ export class Control {
       this._actual = undefined
       this.asyncError = options.asyncResult.value
     }
+
+    this._location = AssertionError.getLocation(this.isAsync ? 3 : 4)
   }
 
   get actual() {
