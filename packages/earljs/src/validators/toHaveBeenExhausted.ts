@@ -1,7 +1,7 @@
 import { Control } from '../Control'
 import { registerValidator } from '../expect'
-import { formatCompact } from '../format'
-import { isMock, Mock } from '../mocks'
+import { Mock } from '../mocks'
+import { assertIsMock } from './utils'
 
 declare module '../expect' {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -13,11 +13,7 @@ declare module '../expect' {
 registerValidator('toHaveBeenExhausted', toHaveBeenExhausted)
 
 export function toHaveBeenExhausted(control: Control<unknown>) {
-  if (!isMock(control.actual)) {
-    return control.fail({
-      reason: `Expected ${formatCompact(control.actual)} to be a mock`,
-    })
-  }
+  assertIsMock(control)
 
   const remainingCalls = control.actual.getQueueLength()
   const remainingOverrides = control.actual.getOneTimeOverridesLength()
