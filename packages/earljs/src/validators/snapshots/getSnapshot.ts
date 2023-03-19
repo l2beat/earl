@@ -20,7 +20,9 @@ export function getSnapshot(
 ) {
   const filePath = context.test?.file ?? controlFileName
   if (!filePath) {
-    throw new TypeError('Invalid test context')
+    throw new TypeError(
+      'Invalid test context. Cannot determine test file path.',
+    )
   }
   const file = path.join(
     path.dirname(filePath),
@@ -28,7 +30,7 @@ export function getSnapshot(
   )
   const testName = getTestName(context)
   if (!testName) {
-    throw new TypeError('Invalid test context')
+    throw new TypeError('Invalid test context. Cannot determine test name.')
   }
 
   const counter = counters.get(file) ?? new Map<string, number>()

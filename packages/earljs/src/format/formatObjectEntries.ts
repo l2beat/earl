@@ -31,7 +31,10 @@ export function formatObjectEntries(
       valueStack,
       siblingStack,
     )
-    valueFormat[0][1] = `${keyFormat}: ${valueFormat[0][1]}`
+    const first = valueFormat[0]
+    if (first !== undefined) {
+      first[1] = `${keyFormat}: ${first[1]}`
+    }
     for (const line of valueFormat) {
       line[0] += 1
     }

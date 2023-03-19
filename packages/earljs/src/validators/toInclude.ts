@@ -46,7 +46,8 @@ function formatItems(items: unknown[]) {
 
 function languageJoin(items: string[]) {
   if (items.length === 1) {
-    return items[0]
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    return items[0]!
   }
   // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
   return `all of: ${items.slice(0, -1).join(', ')} and ${items.at(-1)}`

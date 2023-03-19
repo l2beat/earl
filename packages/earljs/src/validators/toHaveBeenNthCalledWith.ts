@@ -3,7 +3,6 @@ import { registerValidator } from '../expect'
 import { format, formatCompact } from '../format'
 import { isEqual } from '../isEqual'
 import { Mock, MockArgs } from '../mocks'
-import { MockCall } from '../mocks/types'
 import { assertIsMock } from './utils'
 
 declare module '../expect' {
@@ -32,9 +31,7 @@ export function toHaveBeenNthCalledWith(
     )
   }
 
-  const nthCall = control.actual.calls[time - 1] as
-    | MockCall<any[], any>
-    | undefined
+  const nthCall = control.actual.calls[time - 1]
   if (nthCall === undefined) {
     const times = formatTimes(time)
     const calledTimes =

@@ -9,7 +9,7 @@
     "module": "CommonJS",
     "moduleResolution": "node",
     "strict": true,
-    "noUncheckedIndexedAccess": false,
+    "noUncheckedIndexedAccess": true,
     "isolatedModules": true,
     "esModuleInterop": true,
     "outDir": "dist",
