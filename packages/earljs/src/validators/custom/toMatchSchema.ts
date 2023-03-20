@@ -1,18 +1,18 @@
 import { Control } from '../../Control'
 import { registerValidator } from '../../expect'
 import { formatCompact } from '../../format'
-import { Schema, schema } from '../../matchers/custom/schema'
+import { schema, ZodSchema } from '../../matchers/custom/schema'
 
 declare module '../../expect' {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   interface Validators<T> {
-    toMatchSchema(schema: Schema<any>): void
+    toMatchSchema(schema: ZodSchema): void
   }
 }
 
 registerValidator('toMatchSchema', toMatchSchema)
 
-export function toMatchSchema(control: Control, expected: Schema<unknown>) {
+export function toMatchSchema(control: Control, expected: ZodSchema) {
   const actualInline = formatCompact(control.actual)
 
   control.assert({

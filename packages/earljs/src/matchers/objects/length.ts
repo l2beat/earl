@@ -6,13 +6,21 @@ declare module '../../expect' {
     /**
      * Matches an array, string or any object with a `length` property that has the given length.
      *
+     * If you want to match a top level value, use
+     * `expect(...).toHaveLength(length)` instead.
+     *
+     * @param length - The expected array length. Can be a matcher.
+     *
      * @example
      * ```ts
-     * expect.length(3)
-     * expect.length(expect.min(3))
+     * expect({
+     *   numbers: [1, 2, 3],
+     *   letters: 'abcdef',
+     * }).toEqual({
+     *   numbers: expect.length(3),
+     *   letters: expect.length(expect.greaterThan(3)),
+     * })
      * ```
-     *
-     * @param length - expected array length. Can be a matcher.
      */
     length(length: number): never
   }

@@ -26,12 +26,10 @@ describe(toBeBetween.name, () => {
         }).not.to.throw()
       })
 
-      it('fails for a number equal to the upper bound', () => {
+      it('passes for a number equal to the upper bound', () => {
         expect(() => {
           earl(10).toBeBetween(1, 10)
-        }).to.throw(
-          'The value 10 is not between 1 and 10, but it was expected to be.',
-        )
+        }).not.to.throw()
       })
     })
 

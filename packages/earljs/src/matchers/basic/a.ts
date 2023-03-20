@@ -10,56 +10,58 @@ export type NewableOrPrimitive =
 declare module '../../expect' {
   interface Matchers {
     /**
-     * Matches an instance of a provided class or a primitive type. Works as
-     * expected with builtin types like strings, numbers, dates.
+     * Matches an instance of a provided class or a primitive type. It is
+     * compatible with built-in types like strings, numbers, and dates.
+     *
+     * Using this matcher is recommended when you don't care about the exact
+     * value as long as it matches a given type.
+     *
+     * If you want to match a top level value, use `expect(...).toBeA(type)`
+     * instead.
+     *
+     * @param type - The class or primitive constructor to match against.
      *
      * @example
      * ```ts
-     * // matches `new MyClass()` and `new MySubClass()` if `MySubClass` extends `MyClass`
-     * // doesn't match `new Other()`
-     * expect.a(MyClass)
+     * // Primitives
+     * expect({ foo: Math.random() }).toEqual({ foo: expect.a(Number) })
      *
-     * // matches `"foo"`
-     * // doesn't match `new String("foo")` or `123`
-     * expect.a(String)
-     *
-     * // matches `123` and `-5.5`
-     * // doesn't match `NaN` or `"123"`
-     * expect.a(Number)
-     *
-     * // matches `{}`, `{ a: 1 }` and `new MyClass()`
-     * // doesn't match `123`, "foo" or `null`
-     * expect.a(Object)
+     * // Classes
+     * expect({
+     *   employee: new Employee('John Doe', 42),
+     *   birthday: new Date('1990-01-01'),
+     * }).toEqual({
+     *   employee: expect.a(Employee),
+     *   birthday: expect.a(Date),
+     * })
      * ```
-     *
-     * @param type - class or primitive constructor to match against.
      */
     a<T extends NewableOrPrimitive>(type: T): never
   }
 }
 
-registerMatcher('a', a, (clazz) => `a(${clazz.name})`)
+registerMatcher('a', a, (type) => `a(${type.name})`)
 
-export function a(clazz: NewableOrPrimitive) {
+export function a(type: NewableOrPrimitive) {
   return (value: unknown) => {
-    if (clazz === String) {
+    if (type === String) {
       return typeof value === 'string'
-    } else if (clazz === Number) {
+    } else if (type === Number) {
       return typeof value === 'number' && !isNaN(value)
-    } else if (clazz === Boolean) {
+    } else if (type === Boolean) {
       return typeof value === 'boolean'
-    } else if (clazz === BigInt) {
+    } else if (type === BigInt) {
       return typeof value === 'bigint'
-    } else if (clazz === Function) {
+    } else if (type === Function) {
       return typeof value === 'function'
-    } else if (clazz === Object) {
+    } else if (type === Object) {
       return typeof value === 'object' && value !== null
-    } else if (clazz === Symbol) {
+    } else if (type === Symbol) {
       return typeof value === 'symbol'
-    } else if (clazz === Array) {
+    } else if (type === Array) {
       return Array.isArray(value)
     } else {
-      return value instanceof clazz
+      return value instanceof type
     }
   }
 }

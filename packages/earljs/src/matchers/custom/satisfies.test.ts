@@ -8,9 +8,19 @@ describe(satisfies.name, () => {
     'satisfies(???)',
   )
 
-  testMatcher(
-    satisfies((x) => x === 2),
-    [2],
-    [3, 4],
-  )
+  describe('exactly true', () => {
+    testMatcher(
+      satisfies((x) => x === 2),
+      [2],
+      [3, 4],
+    )
+  })
+
+  describe('truthy values', () => {
+    testMatcher(
+      satisfies((x) => x as boolean),
+      [2, 'hello', true, [], {}],
+      [0, '', false, null, undefined],
+    )
+  })
 })

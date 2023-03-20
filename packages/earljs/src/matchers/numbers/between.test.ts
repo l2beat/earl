@@ -9,10 +9,9 @@ describe(between.name, () => {
   describe('between(0, 1)', () => {
     testMatcher(
       between(0, 1),
-      [0, 0.5, 0.75, 0.9999, BigInt(0)],
+      [0, 0.5, 0.75, 0.9999, 1, BigInt(0), BigInt(1)],
       [
-        1,
-        BigInt(1),
+        BigInt(-100),
         BigInt(100),
         100,
         -1,
@@ -31,19 +30,19 @@ describe(between.name, () => {
   describe('between(100n, 200n)', () => {
     testMatcher(
       between(BigInt(100), BigInt(200)),
-      [100, 101, 150, 199, BigInt(100), BigInt(101), BigInt(150), BigInt(199)],
+      [100, 101, 150, 200, BigInt(100), BigInt(101), BigInt(150), BigInt(200)],
       [
         99,
         50,
         0,
         -100,
-        200,
+        201,
         60000,
         BigInt(99),
         BigInt(50),
         BigInt(0),
         BigInt(-100),
-        BigInt(200),
+        BigInt(201),
         BigInt(60000),
       ],
     )
@@ -52,8 +51,8 @@ describe(between.name, () => {
   describe('between(100, -100)', () => {
     testMatcher(
       between(100, -100),
-      [-100, -50, -1, 0, 1, 50, 99],
-      [-200, -101, 100, 200],
+      [-100, -50, -1, 0, 1, 50, 100],
+      [-200, -101, 101, 200],
     )
   })
 })

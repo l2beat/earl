@@ -3,10 +3,23 @@ import { isEqual } from '../../isEqual'
 
 declare module '../../expect' {
   interface Matchers {
+    // TODO: mention `expect(...).toHaveSubset(subset)
     /**
      * Matches an object containing the given key value pairs.
      *
-     * @param subset - an object to match against.
+     * @param subset - The key value paris to match against.
+     *
+     * @example
+     * ```ts
+     * const response = await api.get('/users/me')
+     * expect(response).toEqual({
+     *   success: true,
+     *   data: expect.subset({
+     *     name: 'John Doe',
+     *     age: 42,
+     *   }),
+     * })
+     * ```
      */
     subset(subset: object): never
   }
