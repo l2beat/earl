@@ -1,4 +1,5 @@
 import { expect as earl } from '../../index'
+import { hasTestedExample } from '../../test/hasTestedExample'
 import { testMatcher, testMatcherFormat } from '../../test/matchers'
 import {
   TEST_COMPLEX,
@@ -9,6 +10,28 @@ import {
 import { a } from './a'
 
 describe(a.name, () => {
+  it('example', function () {
+    // #region setup
+    hasTestedExample(this)
+    const expect = earl
+    class Employee {
+      constructor(public name: string, public age: number) {}
+    }
+    // #endregion
+
+    // Primitives
+    expect({ foo: Math.random() }).toEqual({ foo: expect.a(Number) })
+
+    // Classes
+    expect({
+      employee: new Employee('John Doe', 42),
+      birthday: new Date('1990-01-01'),
+    }).toEqual({
+      employee: expect.a(Employee),
+      birthday: expect.a(Date),
+    })
+  })
+
   describe(String.name, () => {
     testMatcherFormat(earl.a(String), 'a(String)')
 
