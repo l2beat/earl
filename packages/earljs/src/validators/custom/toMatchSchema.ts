@@ -5,8 +5,8 @@ import { Schema, schema } from '../../matchers/custom/schema'
 
 declare module '../../expect' {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  interface Validators<T, R> {
-    toMatchSchema(schema: Schema<any>): R
+  interface Validators<T> {
+    toMatchSchema(schema: Schema<any>): void
   }
 }
 

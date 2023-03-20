@@ -5,11 +5,11 @@ import { greaterThan } from '../../matchers/numbers/greaterThan'
 
 declare module '../../expect' {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  interface Validators<T, R> {
+  interface Validators<T> {
     toBeGreaterThan(
-      this: Validators<number | bigint, R>,
+      this: Validators<number | bigint>,
       target: number | bigint,
-    ): R
+    ): void
   }
 }
 

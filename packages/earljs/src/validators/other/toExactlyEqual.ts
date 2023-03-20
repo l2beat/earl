@@ -4,8 +4,8 @@ import { format, formatCompact } from '../../format'
 
 declare module '../../expect' {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  interface Validators<T, R> {
-    toExactlyEqual(expected: unknown): R
+  interface Validators<T> {
+    toExactlyEqual(expected: unknown): void
   }
 }
 

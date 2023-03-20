@@ -5,8 +5,8 @@ import { integer } from '../../matchers/numbers/integer'
 
 declare module '../../expect' {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  interface Validators<T, R> {
-    toBeAnInteger(this: Validators<number | bigint, R>): R
+  interface Validators<T> {
+    toBeAnInteger(this: Validators<number | bigint>): void
   }
 }
 

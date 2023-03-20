@@ -5,8 +5,8 @@ import { satisfies } from '../../matchers/custom/satisfies'
 
 declare module '../../expect' {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  interface Validators<T, R> {
-    toSatisfy(predicate: (value: T) => boolean): R
+  interface Validators<T> {
+    toSatisfy(predicate: (value: T) => boolean): void
   }
 }
 

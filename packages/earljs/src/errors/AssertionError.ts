@@ -24,14 +24,15 @@ export class AssertionError extends Error {
     this.stack = `${this.message}\n${options.stack}`
   }
 
-  static getLocation(depth: number) {
+  static getLocation() {
     const error = new Error('message')
-    const stack = this.getCleanStack(error, depth)
+    const stack = this.getCleanStack(error)
     const file = ErrorStackParser.parse({ stack } as Error)[0]?.fileName
     return { file, stack }
   }
 
-  private static getCleanStack(error: Error, depth: number) {
+  private static getCleanStack(error: Error) {
+    const depth = 4
     if (error.stack?.startsWith('Error: message\n')) {
       return error.stack
         .split('\n')
