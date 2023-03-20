@@ -4,6 +4,18 @@ declare module '../../expect' {
   interface Matchers {
     /**
      * Matches values that are not `undefined`.
+     *
+     * If you want to match a top level value, use `expect(...).toBeDefined()`
+     * instead.
+     *
+     * @example
+     * ```ts
+     * const result = await fetchStockPrices('BANANA', 'KIWI')
+     * expect(result).toEqual({
+     *   BANANA: expect.defined(),
+     *   KIWI: expect.defined(),
+     * })
+     * ```
      */
     defined(): never
   }

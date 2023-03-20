@@ -3,15 +3,22 @@ import { registerMatcher } from '../../expect'
 declare module '../../expect' {
   interface Matchers {
     /**
-     * Matches strings that match a regular expression.
+     * Matches strings that match a given regular expression.
+     *
+     * If you want to match a top level value, use
+     * `expect(...).toMatchRegex(regex)` instead.
+     *
+     * @param regex - The regular expression to test the matched values.
      *
      * @example
      * ```ts
-     * // matches strings that start with "foo"
-     * expect.regex(/^foo/)
+     * const contact = await customer.getUSContactInfo()
+     * expect(contact).toEqual({
+     *   state: expect.regex(/^[A-Z]{2}$/),
+     *   zipCode: expect.regex(/^\d{5}$/),
+     *   phoneNumber: expect.regex(/^\d{3}-\d{3}-\d{4}$/),
+     * })
      * ```
-     *
-     * @param regex - a regular expression to test the matched values.
      */
     regex(regex: RegExp): never
   }

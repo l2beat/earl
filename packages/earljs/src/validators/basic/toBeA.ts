@@ -6,43 +6,43 @@ import { a, NewableOrPrimitive } from '../../matchers/basic/a'
 declare module '../../expect' {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   interface Validators<T> {
-    toBeA<C extends NewableOrPrimitive>(clazz: C): void
+    toBeA<C extends NewableOrPrimitive>(type: C): void
   }
 }
 
 registerValidator('toBeA', toBeA)
 
-export function toBeA(control: Control, clazz: NewableOrPrimitive) {
+export function toBeA(control: Control, type: NewableOrPrimitive) {
   const actualInline = formatCompact(control.actual)
-  const clazzInline = getClassName(clazz)
+  const typeInline = getTypeName(type)
 
   control.assert({
-    success: a(clazz)(control.actual),
-    reason: `The value ${actualInline} is not ${clazzInline}, but it was expected to be ${clazzInline}.`,
-    negatedReason: `The value ${actualInline} is ${clazzInline}, but it was expected not to be ${clazzInline}.`,
+    success: a(type)(control.actual),
+    reason: `The value ${actualInline} is not ${typeInline}, but it was expected to be ${typeInline}.`,
+    negatedReason: `The value ${actualInline} is ${typeInline}, but it was expected not to be ${typeInline}.`,
   })
 }
 
-function getClassName(clazz: NewableOrPrimitive) {
-  if (clazz === String) {
+function getTypeName(type: NewableOrPrimitive) {
+  if (type === String) {
     return 'a string'
-  } else if (clazz === Number) {
+  } else if (type === Number) {
     return 'a number'
-  } else if (clazz === Boolean) {
+  } else if (type === Boolean) {
     return 'a boolean'
-  } else if (clazz === BigInt) {
+  } else if (type === BigInt) {
     return 'a bigint'
-  } else if (clazz === Function) {
+  } else if (type === Function) {
     return 'a function'
-  } else if (clazz === Object) {
+  } else if (type === Object) {
     return 'an object'
-  } else if (clazz === Symbol) {
+  } else if (type === Symbol) {
     return 'a symbol'
-  } else if (clazz === Array) {
+  } else if (type === Array) {
     return 'an array'
   }
-  if (typeof clazz === 'function') {
-    return `an instance of ${clazz.name}`
+  if (typeof type === 'function') {
+    return `an instance of ${type.name}`
   }
-  return `an instance of ${formatCompact(clazz)}`
+  return `an instance of ${formatCompact(type)}`
 }
