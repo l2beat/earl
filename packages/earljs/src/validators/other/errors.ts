@@ -43,7 +43,7 @@ export function processError(
     return control.assert({
       success: true,
       reason: '',
-      negatedReason: `${sentenceStart}, but it was expected not to.`,
+      negatedReason: `${sentenceStart} an error, but it was expected not to.`,
     })
   }
 
@@ -54,8 +54,8 @@ export function processError(
     const messageInline = formatCompact(expectedMessage)
     return control.assert({
       success: messageMatches,
-      reason: `${sentenceStart} and the message did not match ${messageInline}, but it was expected to.`,
-      negatedReason: `${sentenceStart} and the message matched ${messageInline}, but it was expected not to.`,
+      reason: `${sentenceStart} a message that did not match ${messageInline}, but it was expected to.`,
+      negatedReason: `${sentenceStart} a message matching ${messageInline}, but it was expected not to.`,
       expected: format(expectedMessage, null),
       actual: format(getMessageProperty(thrownError), null),
     })
@@ -65,8 +65,8 @@ export function processError(
     const className = expectedClass.name
     return control.assert({
       success: classMatches,
-      reason: `${sentenceStart} and it was not an instance of ${className}, but it was expected to be.`,
-      negatedReason: `${sentenceStart} and it was an instance of ${className}, but it was expected not to be.`,
+      reason: `${sentenceStart} an error that was not an instance of ${className}, but it was expected to be.`,
+      negatedReason: `${sentenceStart} an instance of ${className}, but it was expected not to.`,
       expected: className,
       actual: getConstructorName(thrownError),
     })
@@ -78,8 +78,8 @@ export function processError(
 
     return control.assert({
       success: classMatches && messageMatches,
-      reason: `${sentenceStart} and it was not an instance of ${className} with message ${messageInline}, but it was expected to be.`,
-      negatedReason: `${sentenceStart} and it was an instance of ${className} with message ${messageInline}, but it was expected not to be.`,
+      reason: `${sentenceStart} an error that was not an instance of ${className} with the message ${messageInline}, but it was expected to be.`,
+      negatedReason: `${sentenceStart} an instance of ${className} with the message ${messageInline}, but it was expected not to.`,
       expected: formatExpected(thrownError, expectedClass, expectedMessage),
       actual: format(thrownError, null),
     })

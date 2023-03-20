@@ -54,7 +54,7 @@ describe(`${toBeRejectedWith.name} and toBeRejected`, () => {
           throw new Error('Some error')
         }).toBeRejectedWith('Different error'),
       ).to.be.rejectedWith(
-        'The async function call threw an error and the message did not match "Different error", but it was expected to.',
+        'The async function call threw a message that did not match "Different error", but it was expected to.',
       )
     })
 
@@ -64,7 +64,7 @@ describe(`${toBeRejectedWith.name} and toBeRejected`, () => {
           'Other error',
         ),
       ).to.be.rejectedWith(
-        'The promise was rejected with an error and the message did not match "Other error", but it was expected to.',
+        'The promise was rejected with a message that did not match "Other error", but it was expected to.',
       )
     })
   })
@@ -90,7 +90,7 @@ describe(`${toBeRejectedWith.name} and toBeRejected`, () => {
           throw new Error('Some error')
         }).not.toBeRejectedWith('Some error'),
       ).to.be.rejectedWith(
-        'The async function call threw an error and the message matched "Some error", but it was expected not to.',
+        'The async function call threw a message matching "Some error", but it was expected not to.',
       )
     })
 
@@ -100,7 +100,7 @@ describe(`${toBeRejectedWith.name} and toBeRejected`, () => {
           throw new TypeError('Some error')
         }).not.toBeRejectedWith(TypeError, 'Some error'),
       ).to.be.rejectedWith(
-        'The async function call threw an error and it was an instance of TypeError with message "Some error", but it was expected not to be.',
+        'The async function call threw an instance of TypeError with the message "Some error", but it was expected not to.',
       )
     })
   })

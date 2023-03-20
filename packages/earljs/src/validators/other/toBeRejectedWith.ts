@@ -71,7 +71,7 @@ async function handleAsyncFunction(
   processError(
     control,
     error,
-    'The async function call threw an error',
+    'The async function call threw',
     errorClassOrMessage,
     message,
   )
@@ -97,7 +97,7 @@ async function handlePromise(
   processError(
     control,
     error,
-    'The promise was rejected with an error',
+    'The promise was rejected with',
     errorClassOrMessage,
     message,
   )

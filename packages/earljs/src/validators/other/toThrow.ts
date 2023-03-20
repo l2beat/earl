@@ -53,7 +53,7 @@ export function toThrow(
   processError(
     control,
     error,
-    'The function call threw an error',
+    'The function call threw',
     errorClassOrMessage,
     message,
   )
