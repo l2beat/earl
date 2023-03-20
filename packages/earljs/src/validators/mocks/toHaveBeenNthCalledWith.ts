@@ -10,12 +10,12 @@ import {
 } from './utils'
 
 declare module '../../expect' {
-  interface Validators<T, R> {
+  interface Validators<T> {
     toHaveBeenNthCalledWith(
-      this: Validators<Mock<any[], any>, R>,
+      this: Validators<Mock<any[], any>>,
       time: number,
       ...args: MockArgs<T>
-    ): R
+    ): void
   }
 }
 

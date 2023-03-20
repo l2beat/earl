@@ -5,8 +5,8 @@ import { safeInteger } from '../../matchers/numbers/safeInteger'
 
 declare module '../../expect' {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  interface Validators<T, R> {
-    toBeASafeInteger(this: Validators<number | bigint, R>): R
+  interface Validators<T> {
+    toBeASafeInteger(this: Validators<number | bigint>): void
   }
 }
 

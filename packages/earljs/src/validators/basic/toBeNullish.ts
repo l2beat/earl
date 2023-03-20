@@ -5,8 +5,8 @@ import { nullish } from '../../matchers/basic/nullish'
 
 declare module '../../expect' {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  interface Validators<T, R> {
-    toBeNullish(): R
+  interface Validators<T> {
+    toBeNullish(): void
   }
 }
 

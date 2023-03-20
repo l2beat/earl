@@ -5,8 +5,8 @@ import { closeTo } from '../../matchers/numbers/closeTo'
 
 declare module '../../expect' {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  interface Validators<T, R> {
-    toBeCloseTo(this: Validators<number, R>, target: number, delta: number): R
+  interface Validators<T> {
+    toBeCloseTo(this: Validators<number>, target: number, delta: number): void
   }
 }
 

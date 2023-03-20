@@ -32,19 +32,6 @@ describe('stack traces for errors', () => {
     }
   })
 
-  it('cleans stack traces for native async errors', async () => {
-    try {
-      await earl(Promise.resolve(1)).async.toEqual(2)
-      expect.fail('should throw')
-    } catch (e: any) {
-      expect(e).to.be.instanceOf(AssertionError, 'Earl did not throw')
-      const stackTrace = errorStackParser.parse(e)
-
-      expect(stackTrace[0]?.fileName?.endsWith('stack-traces.test.ts')).to.be
-        .true
-    }
-  })
-
   it('has a correct file name', () => {
     // we need the nesting to simulate the stack trace
     function nestedValidator() {

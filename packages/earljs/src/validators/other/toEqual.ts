@@ -4,8 +4,8 @@ import { format, formatCompact } from '../../format'
 import { isEqual } from '../../isEqual'
 
 declare module '../../expect' {
-  interface Validators<T, R> {
-    toEqual(expected: T): R
+  interface Validators<T> {
+    toEqual(expected: T): void
   }
 }
 

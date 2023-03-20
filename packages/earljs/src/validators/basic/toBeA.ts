@@ -5,8 +5,8 @@ import { a, NewableOrPrimitive } from '../../matchers/basic/a'
 
 declare module '../../expect' {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  interface Validators<T, R> {
-    toBeA<C extends NewableOrPrimitive>(clazz: C): R
+  interface Validators<T> {
+    toBeA<C extends NewableOrPrimitive>(clazz: C): void
   }
 }
 

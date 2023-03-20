@@ -5,8 +5,8 @@ import { regex } from '../../matchers/basic/regex'
 
 declare module '../../expect' {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  interface Validators<T, R> {
-    toMatchRegex(this: Validators<string, R>, regex: RegExp): R
+  interface Validators<T> {
+    toMatchRegex(this: Validators<string>, regex: RegExp): void
   }
 }
 

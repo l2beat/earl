@@ -10,8 +10,8 @@ import { TestContext } from './TestContext'
 
 declare module '../../expect' {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  interface Validators<T, R> {
-    toMatchSnapshot(context: TestContext): R
+  interface Validators<T> {
+    toMatchSnapshot(context: TestContext): void
   }
 }
 
