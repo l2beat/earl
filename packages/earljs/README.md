@@ -1,4 +1,4 @@
-![Earl](https://raw.githubusercontent.com/earl-js/earl/master/gh-cover.png)
+![Earl](https://raw.githubusercontent.com/l2beat/earl/master/gh-cover.png)
 
 <p align="center">
   <p align="center">Ergonomic, modern and type-safe assertion library for TypeScript</p>
