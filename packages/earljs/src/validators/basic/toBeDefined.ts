@@ -5,8 +5,8 @@ import { defined } from '../../matchers/basic/defined'
 
 declare module '../../expect' {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  interface Validators<T, R> {
-    toBeDefined(): R
+  interface Validators<T> {
+    toBeDefined(): void
   }
 }
 

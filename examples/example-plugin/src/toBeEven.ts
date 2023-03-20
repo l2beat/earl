@@ -2,8 +2,8 @@ import { Control, formatCompact, registerValidator } from 'earljs'
 
 declare module 'earljs' {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  interface Validators<T, R> {
-    toBeEven(this: Validators<number, R>): void
+  interface Validators<T> {
+    toBeEven(this: Validators<number>): void
   }
 }
 

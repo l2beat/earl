@@ -6,8 +6,8 @@ import { isEqual, LOOSE_EQUALITY_OPTIONS } from '../../isEqual'
 
 declare module '../../expect' {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  interface Validators<T, R> {
-    toLooseEqual(expected: unknown): R
+  interface Validators<T> {
+    toLooseEqual(expected: unknown): void
   }
 }
 

@@ -6,11 +6,11 @@ import { Mock, MockArgs } from '../../mocks'
 import { assertIsMock } from './utils'
 
 declare module '../../expect' {
-  interface Validators<T, R> {
+  interface Validators<T> {
     toHaveBeenCalledWith(
-      this: Validators<Mock<any[], any>, R>,
+      this: Validators<Mock<any[], any>>,
       ...args: MockArgs<T>
-    ): R
+    ): void
   }
 }
 

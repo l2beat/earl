@@ -153,17 +153,4 @@ describe(toEqual.name, () => {
       `)
     })
   })
-
-  it('works with .async', async () => {
-    await earl(Promise.resolve(5)).async.toEqual(5)
-    await earl(Promise.resolve(6)).async.not.toEqual(5)
-
-    await expect(earl(Promise.resolve(6)).async.toEqual(5)).to.be.rejectedWith(
-      'The value 6 is not equal to 5, but it was expected to be equal.',
-    )
-
-    await expect(
-      earl(Promise.reject<number>(new Error('Some error'))).async.toEqual(5),
-    ).to.be.rejectedWith('Some error')
-  })
 })

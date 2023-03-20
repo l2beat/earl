@@ -14,10 +14,10 @@ import { Control, formatCompact, registerValidator } from "earljs";
 
 // we use the module augmentation feature of typescript to keep it type safe
 declare module "earljs" {
-  interface Validators<T, R> {
+  interface Validators<T> {
     // note the this: Validators<number> part
     // it ensures that the validator is only available on numbers
-    toBeEven(this: Validators<number, R>): R;
+    toBeEven(this: Validators<number>);
   }
 }
 

@@ -5,8 +5,8 @@ import { positive } from '../../matchers/numbers/positive'
 
 declare module '../../expect' {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  interface Validators<T, R> {
-    toBePositive(this: Validators<number | bigint, R>): R
+  interface Validators<T> {
+    toBePositive(this: Validators<number | bigint>): void
   }
 }
 

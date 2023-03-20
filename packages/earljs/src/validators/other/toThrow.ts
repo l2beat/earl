@@ -4,12 +4,12 @@ import { format, formatCompact } from '../../format'
 
 declare module '../../expect' {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  interface Validators<T, R> {
+  interface Validators<T> {
     toThrow(
-      this: Validators<R extends Promise<void> ? any : () => any, R>,
+      this: Validators<() => any>,
       errorClassOrMessage?: (new (...args: any[]) => Error) | string | RegExp,
       message?: string | RegExp,
-    ): R
+    ): void
   }
 }
 
@@ -20,94 +20,15 @@ export function toThrow(
   errorClassOrMessage?: (new (...args: any[]) => Error) | string | RegExp,
   message?: string | RegExp,
 ): void | Promise<void> {
-  if (control.isAsync && control.receivedPromise) {
-    return continuePromise(control, errorClassOrMessage, message)
-  }
-
   if (typeof control.actual !== 'function') {
     const actualInline = formatCompact(control.actual)
     return control.fail({ reason: `Expected ${actualInline} to be a function` })
   }
 
-  if (control.isAsync) {
-    return continueAsyncFunction(
-      control,
-      control.actual,
-      errorClassOrMessage,
-      message,
-    )
-  }
-  continueSyncFunction(control, control.actual, errorClassOrMessage, message)
-}
-
-function continuePromise(
-  control: Control,
-  errorClassOrMessage?: (new (...args: any[]) => Error) | string | RegExp,
-  message?: string | RegExp,
-) {
-  if (control.isAsyncSuccess) {
-    return control.assert({
-      success: false,
-      reason:
-        'The promise was not rejected, but it was expected to be rejected.',
-      negatedReason: '',
-    })
-  }
-
-  processError(
-    control,
-    control.asyncError,
-    'The promise was rejected with an error',
-    errorClassOrMessage,
-    message,
-  )
-}
-
-async function continueAsyncFunction(
-  control: Control,
-  // eslint-disable-next-line @typescript-eslint/ban-types
-  fn: Function,
-  errorClassOrMessage?: (new (...args: any[]) => Error) | string | RegExp,
-  message?: string | RegExp,
-) {
   let thrownError: unknown
   let didThrow = false
   try {
-    await fn()
-  } catch (e) {
-    didThrow = true
-    thrownError = e
-  }
-
-  if (!didThrow) {
-    return control.assert({
-      success: false,
-      reason:
-        'The async function call did not throw an error, but it was expected to.',
-      negatedReason: '',
-    })
-  }
-
-  processError(
-    control,
-    thrownError,
-    'The async function call threw an error',
-    errorClassOrMessage,
-    message,
-  )
-}
-
-function continueSyncFunction(
-  control: Control,
-  // eslint-disable-next-line @typescript-eslint/ban-types
-  fn: Function,
-  errorClassOrMessage?: (new (...args: any[]) => Error) | string | RegExp,
-  message?: string | RegExp,
-) {
-  let thrownError: unknown
-  let didThrow = false
-  try {
-    fn()
+    control.actual()
   } catch (e) {
     didThrow = true
     thrownError = e
