@@ -11,13 +11,7 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
+    "@algolia/client-search": "^4.15.0",
     "vitepress": "1.0.0-alpha.51"
-  },
-  "pnpm": {
-    "peerDependencyRules": {
-      "ignoreMissing": [
-        "@algolia/client-search"
-      ]
-    }
   }
 }
