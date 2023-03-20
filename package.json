@@ -27,7 +27,6 @@
     "changeset:version": "changeset version && pnpm install --lockfile-only"
   },
   "devDependencies": {
-    "@changesets/changelog-github": "^0.4.5",
     "@changesets/cli": "^2.23.2",
     "@types/chai": "^4.3.4",
     "@types/chai-as-promised": "^7.1.5",
