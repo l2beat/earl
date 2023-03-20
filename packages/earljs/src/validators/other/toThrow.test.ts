@@ -159,6 +159,24 @@ describe(toThrow.name, () => {
     )
   })
 
+  it('informs the user about async function handling', () => {
+    expect(() => {
+      earl(async () => {
+        throw new Error('Some error')
+      }).toThrow()
+    }).to.throw(
+      'The function call returned a promise. To make this assertion work with async functions replace toThrow with toBeRejected and add await.',
+    )
+
+    expect(() => {
+      earl(async () => {
+        throw new Error('Some error')
+      }).toThrow('Some error')
+    }).to.throw(
+      'The function call returned a promise. To make this assertion work with async functions replace toThrow with toBeRejectedWith and add await.',
+    )
+  })
+
   describe('output', () => {
     it('message regex mismatch', () => {
       const diff = captureMochaOutput(() => {
