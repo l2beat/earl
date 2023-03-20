@@ -185,6 +185,11 @@ describe('Mock', () => {
       const fn = mockFn().resolvesTo(3)
       expect(await fn()).to.equal(3)
     })
+
+    it('is async', async () => {
+      const fn = mockFn().resolvesTo(3)
+      expect(fn()).to.be.instanceOf(Promise)
+    })
   })
 
   describe('.resolvesToOnce', () => {
@@ -203,6 +208,21 @@ describe('Mock', () => {
       expect(await fn()).to.equal(4)
       expect(await fn()).to.equal('hello')
       expect(() => fn()).to.throw(MockNotConfiguredError)
+    })
+
+    it('is async', async () => {
+      const fn = mockFn().resolvesToOnce(3)
+      expect(fn()).to.be.instanceOf(Promise)
+    })
+
+    it('is async when combined with resolvesTo', async () => {
+      const fn = mockFn()
+        .resolvesToOnce(1)
+        .resolvesToOnce(2)
+        .resolvesToOnce(3)
+        .resolvesTo(4)
+
+      expect(fn()).to.be.instanceOf(Promise)
     })
 
     it('respects previous configuration', async () => {

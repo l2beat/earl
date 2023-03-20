@@ -2,9 +2,8 @@ import { Control } from './Control'
 import { formatCompact } from './format'
 
 // to be overridden by plugins
-export interface Validators<T> {
-  readonly value: T
-}
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+export interface Validators<T, R> {}
 
 // to be overridden by plugins
 export interface Matchers {}
@@ -19,36 +18,71 @@ export class Matcher {
   }
 }
 
-class Expectation<T> {
-  _negated = false
-  constructor(public readonly value: T) {}
+class Expectation {
+  protected _negated = false
+  protected _async = false
+  constructor(protected readonly _value: unknown) {}
 
   get not() {
-    this._negated = !this._negated
+    if (this._negated) {
+      throw new TypeError('Cannot apply .not modifier twice.')
+    }
+    this._negated = true
     return this
   }
 
-  _getControl() {
-    return new Control(this.value, this._negated)
+  get async() {
+    if (this._negated) {
+      throw new TypeError('Cannot call .not.async, use .async.not instead.')
+    }
+    if (this._async) {
+      throw new TypeError('Cannot apply .async modifier twice.')
+    }
+    this._async = true
+    return this
+  }
+
+  protected _getControl() {
+    return new Control({ actual: this._value, isNegated: this._negated })
+  }
+
+  protected async _getAsyncControl() {
+    const asyncResult = await Promise.resolve(this._value).then(
+      (value) => ({ type: 'success' as const, value }),
+      (value) => ({ type: 'error' as const, value }),
+    )
+    return new Control({
+      actual: this._value,
+      isNegated: this._negated,
+      asyncResult,
+    })
   }
 }
 
 export function registerValidator(
   name: string,
-  validator: (control: Control<any>, ...args: any[]) => any,
+  validator: (control: Control, ...args: any[]) => any,
 ) {
-  Reflect.set(
-    Expectation.prototype,
-    name,
-    function (this: Expectation<any>, ...args: any[]) {
-      return validator(this._getControl(), ...args)
-    },
-  )
+  function execute(this: Expectation, ...args: any[]) {
+    if (this._async) {
+      return this._getAsyncControl().then((control) =>
+        validator(control, ...args),
+      )
+    }
+    return validator(this._getControl(), ...args)
+  }
+  Object.defineProperty(execute, 'name', { value: name, writable: false })
+  Reflect.set(Expectation.prototype, name, execute)
 }
 
-const rawExpect = function expect<T>(
-  value: T,
-): Validators<T> & { not: Validators<T> } {
+type ValidatorsAndModifiers<T> = Validators<T, void> & {
+  not: Validators<T, void>
+  async: Validators<Awaited<T>, Promise<void>> & {
+    not: Validators<Awaited<T>, Promise<void>>
+  }
+}
+
+const rawExpect = function expect<T>(value: T): ValidatorsAndModifiers<T> {
   return new Expectation(value) as any
 }
 
