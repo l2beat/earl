@@ -9,6 +9,9 @@ jobs:
   release:
     name: Release
     runs-on: ubuntu-latest
+    permissions:
+      # Give the default GITHUB_TOKEN write permission to commit and push the changed files back to the repository.
+      contents: write
     steps:
       - uses: actions/checkout@v3
         with:
@@ -24,6 +27,7 @@ jobs:
       - run: pnpm install --frozen-lockfile
 
       - name: Either creates release PR or publishes packages to npm
+        id: changesets
         uses: changesets/action@master
         with:
           version: pnpm changeset:version
@@ -31,3 +35,9 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN2 }}
+        
+      - name: Push docs if a publish happens
+        if: steps.changesets.outputs.published == 'true'
+        uses: stefanzweifel/git-auto-commit-action@v4
+        with: 
+          branch: docs-stable
