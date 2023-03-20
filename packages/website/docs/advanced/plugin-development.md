@@ -41,9 +41,9 @@ This type and other necessities for plugin development are exposed in
 
 Plugins should provide type information by tweaking **earl**'s public interfaces
 but if you use TypeScript to develop your plugin it can
-[be done automatically](https://github.com/earl-js/earl/blob/master/packages/example-plugin/types.d.ts).
+[be done automatically](https://github.com/l2beat/earl/blob/master/packages/example-plugin/types.d.ts).
 
 ## Examples
 
-- [Plugin example](https://github.com/earl-js/earl/blob/master/packages/example-plugin)
-- [Example of using plugin](https://github.com/earl-js/earl/blob/master/packages/example/test)
+- [Plugin example](https://github.com/l2beat/earl/blob/master/packages/example-plugin)
+- [Example of using plugin](https://github.com/l2beat/earl/blob/master/packages/example/test)
