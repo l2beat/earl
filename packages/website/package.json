@@ -6,13 +6,13 @@
     "start": "vitepress dev docs",
     "format": "prettier --check .",
     "format:fix": "prettier --write .",
-    "lint": "eslint --ext .ts scripts",
+    "lint": "eslint --ext .ts generators",
     "lint:fix": "pnpm lint --fix",
     "test": "mocha",
     "build": "vitepress build docs",
     "preview": "vitepress preview docs",
     "typecheck": "tsc --noEmit",
-    "generate:api-reference": "ts-node -T ./scripts/index.ts"
+    "generate:api-reference": "ts-node -T ./generators/api-reference/index.ts"
   },
   "dependencies": {
     "@algolia/client-search": "^4.15.0",
