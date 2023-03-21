@@ -36,6 +36,12 @@ export async function generateApiReference(
         files.map((file) => readFile(file, 'utf-8')),
       )
 
+      if (sources.length === 0) {
+        throw new Error(
+          `No API definition found for ${sectionName}. Are u sure you've built the 'earl' project?`,
+        )
+      }
+
       try {
         return generateSectionReference(
           sectionName,
