@@ -104,6 +104,7 @@ importers:
       '@earljs/published': npm:earljs@^0.2.3
       '@microsoft/tsdoc': ^0.14.2
       '@types/lodash': ^4.14.191
+      earljs: workspace:^0.2.3
       fast-glob: ^3.2.12
       lodash: ^4.17.21
       ts-essentials: ^9.3.1
@@ -114,6 +115,7 @@ importers:
       '@earljs/published': link:../earljs
       '@microsoft/tsdoc': 0.14.2
       '@types/lodash': 4.14.191
+      earljs: link:../earljs
       fast-glob: 3.2.12
       lodash: 4.17.21
       ts-essentials: 9.3.1
