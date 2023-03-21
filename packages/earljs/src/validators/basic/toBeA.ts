@@ -6,6 +6,26 @@ import { a, NewableOrPrimitive } from '../../matchers/basic/a'
 declare module '../../expect' {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   interface Validators<T> {
+    /**
+     * Asserts that the value is an instance of a provided class or a primitive
+     * type. It is compatible with built-in types like strings, numbers, and
+     * dates.
+     *
+     * If you want to match a nested value, use the matcher
+     * `expect.a(type)` instead.
+     *
+     * @param type - The class or primitive constructor to match against.
+     *
+     * @example
+     * ```ts
+     * // Primitives
+     * expect(123).toBeA(Number)
+     * expect('foo').not.toBeA(String)
+     *
+     * // Classes
+     * expect(new Person('John', 'Doe')).toBeA(Person)
+     * ```
+     */
     toBeA<C extends NewableOrPrimitive>(type: C): void
   }
 }

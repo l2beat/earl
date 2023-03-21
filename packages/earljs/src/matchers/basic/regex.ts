@@ -3,7 +3,7 @@ import { registerMatcher } from '../../expect'
 declare module '../../expect' {
   interface Matchers {
     /**
-     * Matches strings that match a given regular expression.
+     * Matches strings that match the given regular expression.
      *
      * If you want to match a top level value, use
      * `expect(...).toMatchRegex(regex)` instead.
