@@ -9,7 +9,7 @@
     "lint": "eslint --ext .ts generators",
     "lint:fix": "pnpm lint --fix",
     "test": "mocha",
-    "build": "vitepress build docs",
+    "build": "pnpm generate:api-reference && vitepress build docs",
     "preview": "vitepress preview docs",
     "typecheck": "tsc --noEmit",
     "generate:api-reference": "ts-node -T ./generators/api-reference/index.ts"

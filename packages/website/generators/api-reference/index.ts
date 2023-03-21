@@ -25,14 +25,9 @@ async function main() {
 
   const fullPage = frontmatter + reference
 
-  console.log(fullPage)
-
-  // We're prepending frontmatter and styles here, because we Docusaurus doesn't show
-  // headings from imported .mdx files in table of contents
-  writeFileSync(
-    path.resolve(__dirname, '../docs/api/api-reference.md'),
-    fullPage,
-  )
+  const outputPath = path.resolve(__dirname, '../docs/api/api-reference.md')
+  writeFileSync(outputPath, fullPage)
+  console.log(`Wrote API reference to ${outputPath}}`)
 }
 
 void main().catch((err) => {
