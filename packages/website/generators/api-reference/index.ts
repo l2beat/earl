@@ -25,9 +25,9 @@ async function main() {
 
   const fullPage = frontmatter + reference
 
-  const outputPath = path.resolve(__dirname, '../docs/api/api-reference.md')
+  const outputPath = path.resolve(__dirname, '../../docs/api/api-reference.md')
   writeFileSync(outputPath, fullPage)
-  console.log(`Wrote API reference to ${outputPath}}`)
+  console.log(`Wrote API reference to ${outputPath}`)
 }
 
 void main().catch((err) => {
