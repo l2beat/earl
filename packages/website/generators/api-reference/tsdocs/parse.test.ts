@@ -1,4 +1,4 @@
-import { expect } from '@earljs/published'
+import { expect } from 'earljs'
 
 import { MethodComment } from '../types'
 import { parseTsDocComment } from './parse'

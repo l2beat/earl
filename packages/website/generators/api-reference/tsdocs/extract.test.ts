@@ -1,4 +1,4 @@
-import { expect } from '@earljs/published'
+import { expect } from 'earljs'
 
 import { extractTsDocCommentsFromString } from './extract'
 

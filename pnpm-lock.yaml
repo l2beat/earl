@@ -101,7 +101,6 @@ importers:
   packages/website:
     specifiers:
       '@algolia/client-search': ^4.15.0
-      '@earljs/published': npm:earljs@^0.2.3
       '@microsoft/tsdoc': ^0.14.2
       '@types/lodash': ^4.14.191
       earljs: workspace:^0.2.3
@@ -112,7 +111,6 @@ importers:
       vitepress: 1.0.0-alpha.51
     dependencies:
       '@algolia/client-search': 4.15.0
-      '@earljs/published': link:../earljs
       '@microsoft/tsdoc': 0.14.2
       '@types/lodash': 4.14.191
       earljs: link:../earljs
