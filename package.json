@@ -20,7 +20,7 @@
     "test": "pnpm --recursive --parallel test",
     "test:fix": "pnpm --recursive --parallel test:fix",
     "clean": "pnpm --recursive --parallel clean",
-    "build": "pnpm --recursive build",
+    "build": "pnpm build:earl && pnpm build:website",
     "build:earl": "pnpm --filter earljs... build",
     "build:website": "pnpm --filter website... build",
     "changeset:release": "pnpm build:earl && changeset publish",
