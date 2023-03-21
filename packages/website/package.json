@@ -6,12 +6,23 @@
     "start": "vitepress dev docs",
     "format": "prettier --check .",
     "format:fix": "prettier --write .",
+    "lint": "eslint --ext .ts scripts",
+    "lint:fix": "pnpm lint --fix",
+    "test": "mocha",
     "build": "vitepress build docs",
     "preview": "vitepress preview docs",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "generate:api-reference": "ts-node -T ./scripts/index.ts"
   },
   "dependencies": {
     "@algolia/client-search": "^4.15.0",
+    "@earljs/published": "npm:earljs@^0.2.3",
+    "@microsoft/tsdoc": "^0.14.2",
+    "@types/lodash": "^4.14.191",
+    "fast-glob": "^3.2.12",
+    "lodash": "^4.17.21",
+    "ts-essentials": "^9.3.1",
+    "ts-morph": "^17.0.1",
     "vitepress": "1.0.0-alpha.51"
   }
 }

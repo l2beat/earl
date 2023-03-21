@@ -1,614 +1,579 @@
 ---
 title: API Reference
+editLink: false
 outline: deep
 ---
 
 # {{ $frontmatter.title }}
 
+## Validators
 
+### **`.toBeA<C extends NewableOrPrimitive>(type: C): void`**
 
-<style>
-  h4 {
-    padding-top: 1em;
-  }
+Validates an instance of a provided class or a primitive type. It is
+compatible with built-in types like strings, numbers, and dates.
 
-  :not(h3) + h4 {
-    border-top: 1px solid var(--vp-c-divider);
-  }
-</style>
+Using this validator is recommended when you don't care about the exact
+value as long as it matches a given type.
 
-### Core
-
-#### **`function expect<T>(actual: T, options?: ExpectationOptions): Expectation<T>`**
-
-The `expect` function is used every time you want to test a value.
+If you want to match a deep nested values, use matcher `expect(...).toEqual(key: expect.A(Date)})`
+instead.
   
 *Parameters:*
 
-- `actual` - the value to match against.
-- `options` - optional configuration.
+- `type` - The class or primitive constructor to match against.
   
+*Examples:*
 
-### Validators
 
-#### **`.toBeA(clazz: NewableOrPrimitive): void`**
+```ts
+// Primitives
+expect(Math.random()).toToBeA(Number)
 
-Checks if the value is an instance of a provided class or a primitive type. Works as expected with builtin types like strings, numbers, dates.
+// Classes
+expect(new Employee('John Doe', 42)).toToBeA(Employee)
+expect(new Date('1990-01-01')).toToBeA(expect.a(Date))
+```
 
-1. `expect.a(MyClass)` - matches `new MyClass`, but not `new Other()`
-2. `expect.a(String)` - matches `"foo"`, but not `123`
+## Matchers
+
+### **`expect.a<T extends NewableOrPrimitive>(type: T): never`**
+
+Matches an instance of a provided class or a primitive type. It is
+compatible with built-in types like strings, numbers, and dates.
+
+Using this matcher is recommended when you don't care about the exact
+value as long as it matches a given type.
+
+If you want to match a top level value, use `expect(...).toBeA(type)`
+instead.
   
 *Parameters:*
 
-- `clazz` - type class or primitive constructor to match against.
+- `type` - The class or primitive constructor to match against.
   
 *Examples:*
 
 
 ```ts
-expect(object).toBeA(MyClass) // checks if object is instance of `MyClass`, but not `Other`
-expect(foo).toBeA(String) // checks if foo is instance of string
-expect(foo).toBeA(Object) // matches any object (not null)
+// Primitives
+expect({ foo: Math.random() }).toEqual({ foo: expect.a(Number) })
+
+// Classes
+expect({
+  employee: new Employee('John Doe', 42),
+  birthday: new Date('1990-01-01'),
+}).toEqual({
+  employee: expect.a(Employee),
+  birthday: expect.a(Date),
+})
 ```
-#### **`.toBeAContainerWith(...expectedItems: T[]): void`**
-
-Checks if the value is an iterable containing all of the provided items. Internally, container is first turned into array and `toBeAnArrayWith` is used for final comparison.
-  
-*Parameters:*
-
-- `expectedItems` - values or matchers to look for in the matched iterable. Order of the items doesn't matter.
-  
-*Examples:*
-
-
-```ts
-expect([1, 2, 3]).toBeAContainerWith(1, 2)
-```
-#### **`.toBeAnArrayOfLength(length: number): void`**
-
-Checks if the values is an array containing exactly given number of items.
-  
-*Parameters:*
-
-- `length` - expected array length. Can be a matcher.
-  
-*Examples:*
-
-
-```ts
-expect([1, 2, 3]).toBeAnArrayOfLength(3)
-expect([1, 2, 3]).toBeAnArrayOfLength(expect.numberGreaterThanOrEqualTo(3)))
-```
-#### **`.toBeAnArrayWith(...expectedItems: readonly any[]): void`**
-
-Checks if the value is an array containing all of the provided items. Each expected item must be matched uniquely.
-  
-*Parameters:*
-
-- `expectedItems` - values or matchers to look for in the matched array. Order of the items doesn't matter.
-  
-*Examples:*
-
-
-```ts
-expect([1, 2, 3]).toBeAnArrayWith(1)
-expect([1]).toBeAnArrayWith(1, 1) // throws b/c a second "1" is missing
-```
-#### **`.toBeAnObjectWith(subset: object): void`**
-
-Checks if the value is an object containing given key-value pairs.
-  
-*Parameters:*
-
-- `subset` - an object to match against.
-  
-*Examples:*
-
-
-```ts
-expect({ a: 1, b: 2, c: 3 }).toBeAnObjectWith({ b: 2, a: 1 })
-```
-#### **`.toBeDefined(): void`**
-
-Checks if the value is different to `undefined` and `null`.
-  
-*Examples:*
-
-
-```ts
-expect(0).toBeDefined()
-expect(null).not.toBeDefined()
-```
-#### **`.toBeExhausted(): void`**
-
-Checks if all the expected calls to the mock have been performed.
-  
-#### **`.toBeFalsy(): void`**
-
-Checks if the value is falsy.
-  
-*Examples:*
-
-
-```ts
-expect(0).toBeFalsy()
-expect(true).not.toBeFalsy()
-```
-
-There are six falsy values in JavaScript: `false`, `0`, `''`, `null`, `undefined`, and `NaN`.
-Everything else is truthy.
-#### **`.toBeGreaterThan(target: number): void`**
-
-Checks if the value is greater than the provided target.
-  
-*Parameters:*
-
-- `target` - number to check against.
-  
-*Examples:*
-
-
-```ts
-expect(2).toBeGreaterThan(1)
-expect(1).not.toBeGreaterThan(1)
-expect(-3).not.toBeGreaterThan(1)
-```
-#### **`.toBeGreaterThanOrEqualTo(target: number): void`**
-
-Checks if the value is greater than or equal to the provided target.
-  
-*Parameters:*
-
-- `target` - number to check against.
-  
-*Examples:*
-
-
-```ts
-expect(2).toBeGreaterThanOrEqualTo(1)
-expect(1).toBeGreaterThanOrEqualTo(1)
-expect(-3).not.toBeGreaterThanOrEqualTo(1)
-```
-#### **`.toBeLessThan(target: number): void`**
-
-Checks if the value is less than the provided target.
-  
-*Parameters:*
-
-- `target` - number to check against.
-  
-*Examples:*
-
-
-```ts
-expect(-3).toBeLessThan(1)
-expect(1).not.toBeLessThan(1)
-expect(2).not.toBeLessThan(1)
-```
-#### **`.toBeLessThanOrEqualTo(target: number): void`**
-
-Checks if the value is less than or equal the provided target.
-  
-*Parameters:*
-
-- `target` - number to check against.
-  
-*Examples:*
-
-
-```ts
-expect(-3).toBeLessThanOrEqualTo(1)
-expect(1).toBeLessThanOrEqualTo(1)
-expect(2).not.toBeLessThanOrEqualTo(1)
-```
-#### **`.toBeNullish(): void`**
-
-Checks if the value is `undefined` or `null`.
-  
-*Examples:*
-
-
-```ts
-expect(undefined).toBeNullish()
-expect(false).not.toBeNullish()
-```
-#### **`.toBeRejected(errorClass: Newable<Error>, message?: string): Promise<void>`**
-
-Awaits the provided promise and expects it to be rejected. The error's
-class and message are also checked.
-  
-*Parameters:*
-
-- `errorClass` - expected class of the thrown error.
-- `message` - string or matcher to check the message against.
-  
-#### **`.toBeRejected(message?: string): Promise<void>`**
-
-Awaits the provided promise and expects it to be rejected. The message
-of the error is also checked.
-  
-*Parameters:*
-
-- `message` - string or matcher to check the message against.
-  
-*Examples:*
-
-
-```ts
-const promise = Promise.reject(new Error('oops, sorry'))
-
-await expect(promise).toBeRejected(Error, 'oops')
-await expect(promise).not.toBeRejected(TypeError)
-```
-#### **`.toBeTruthy(): void`**
-
-Checks if the value is truthy.
-  
-*Examples:*
-
-
-```ts
-expect(1).toBeTruthy()
-expect(false).not.toBeTruthy()
-```
-
-There are six falsy values in JavaScript: `false`, `0`, `''`, `null`, `undefined`, and `NaN`.
-Everything else is truthy.
-#### **`.toEqual(value: ExpectedEqual<T>): void`**
-
-Performs a recursive equality check. Objects are equal if their fields
-are equal and they share the same prototype.
-
-You can use matchers in place of a value. When a matcher is encountered its
-internal rules are used instead of the usual checks.
-  
-*Parameters:*
-
-- `value` - value to check against.
-  
-*Examples:*
-
-
-```ts
-expect('foo').toEqual('foo') // Equality check against primitive value
-expect([1, { a: 2 }]).toEqual([1, { a: expect.a(Number) }]) // Usage with "a" matcher
-expect({ a: 2, b: 2 }).not.toEqual({ a: 2 }) // Negated equality check
-```
-#### **`.toHaveBeenCalledExactlyWith(args: MockArgs<T>[]): void`**
-
-Checks the entire history of mock calls.
-
-You can use matchers in place of a value. When a matcher is encountered its
-internal rules are used instead of the usual checks.
-  
-*Parameters:*
-
-- `args` - an array where each item is an array of values or matchers to check the mock call against.
-  
-#### **`.toHaveBeenCalledWith(args: MockArgs<T>): void`**
-
-Check if the mock has been called with the provided arguments.
-
-You can use matchers in place of a value. When a matcher is encountered its
-internal rules are used instead of the usual checks.
-  
-*Parameters:*
-
-- `args` - an array of values or matchers to check the mock calls against.
-  
-#### **`.toLooseEqual(value: any): void`**
-
-Performs a recursive equality check. Objects are equal if their fields
-are equal. Object prototypes are ignored.
-
-You can use matchers in place of a value. When a matcher is encountered its
-internal rules are used instead of the usual checks.
-  
-*Parameters:*
-
-- `value` - value to check against.
-  
-*Examples:*
-
-
-```ts
-class A {
-  a = 1
-}
-
-// using toEqual requires matching prototypes
-expect(new A()).not.toEqual({ a: 1 })
-// toLooseEqual ignores prototypes and focuses only on the value
-expect(new A()).toLooseEqual({ a: 1 })
-```
-#### **`.toMatchSnapshot(context: TestContext): void`**
-
-Checks that the value is the same as in the previous test execution.
-  
-#### **`.toReferentiallyEqual(value: T): void`**
-
-Performs a referential equality check using `Object.is`. It is similar to
-`===`, with two differences:
-
-1. `Object.is(-0, +0)` returns `false`
-2. `Object.is(NaN, NaN)` returns `true`
-
-This function should be used if you care about object identity rather than
-deep equality.
-  
-*Parameters:*
-
-- `value` - value to check against.
-  
-*Examples:*
-
-
-```ts
-const x = {}
-expect(x).toReferentiallyEqual(x)
-expect({}).not.toReferentiallyEqual(x)
-expect(NaN).toReferentiallyEqual(NaN)
-```
-#### **`.toThrow(errorClass: Newable<Error>, message?: string): void`**
-
-Calls the provided function and expects an error to be thrown. The error's
-class and message are also checked.
-  
-*Parameters:*
-
-- `errorClass` - expected class of the thrown error.
-- `message` - string or matcher to check the message against.
-  
-*Examples:*
-
-
-```ts
-const doThrow = () => {
-  throw new Error('oops, sorry')
-}
-
-expect(() => doThrow()).toThrow(Error, 'oops')
-expect(() => doThrow()).not.toThrow(TypeError)
-```
-#### **`.toThrow(message?: string): void`**
-
-Calls the provided function and expects an error to be thrown. The message
-of the error is also checked.
-  
-*Parameters:*
-
-- `message` - string or matcher to check the message against.
-  
-*Examples:*
-
-
-```ts
-const doThrow = () => { throw new Error('oops, sorry') }
-
-expect(() => doThrow()).toThrow('oops')
-expect(() => doThrow()).not.toThrow(expect.stringMatching(/end$/))
-```
-
-### Modifiers
-
-#### **`.not(): Expectation<T>`**
-
-Inverts the behaviour of the validator that follows.
-  
-*Examples:*
-
-
-```ts
-expect(3).toEqual(4) // ❌
-expect(3).not.toEqual(4) // ✅
-```
-
-### Matchers
-
-#### **`expect.a<T>(type: NewableOrPrimitive<T>): Class2Primitive<T>`**
-
-Matches an instance of a provided class or a primitive type. Works as expected with builtin types like strings, numbers, dates.
-
-1. `expect.a(MyClass)` - matches `new MyClass`, but not `new Other()`
-2. `expect.a(String)` - matches `"foo"`, but not `123`
-  
-*Parameters:*
-
-- `type` - class or primitive constructor to match against.
-  
-*Examples:*
-
-
-```ts
-expect(something).toEqual(expect.a(MyClass)) // matches any object of instance MyClass but not `other`
-expect(something).toEqual(expect.a(String)) // matches any string
-expect(something).toEqual(expect.a(Object)) // matches any object (not null)
-```
-#### **`expect.anything(): any`**
+### **`expect.anything(): never`**
 
 Matches any value.
+
+Using this matcher is recommended when you want to ensure that a key is
+present on an object, but you don't care about its value.
   
 *Examples:*
 
 
 ```ts
-expect(null).toEqual(expect.anything())
-expect({ a: 'something' }).toEqual({ a: expect.anything() })
-```
-#### **`expect.arrayOfLength<T>(length: number): T[]`**
-
-Matches an array containing exactly given number of items.
-  
-*Parameters:*
-
-- `length` - expected array length. Can be a matcher.
-  
-#### **`expect.arrayWith<T>(...items: T[]): T[]`**
-
-Matches an array containing the provided items.
-  
-*Parameters:*
-
-- `items` - values or matchers to look for in the matched array.
-  
-#### **`expect.containerWith(...items: any[]): any`**
-
-Matches an iterable containing the provided items.
-  
-*Parameters:*
-
-- `items` - values or matchers to look for in the matched iterable.
-  
-#### **`expect.defined(): any`**
-
-Matches any value that is not `null` or `undefined`.
-  
-*Examples:*
-
-
-```ts
-expect({ a: 0 }).toEqual({ a: expect.defined() })
-expect({ a: null }).not.toEqual({ a: expect.defined() })
-```
-#### **`expect.falsy(): any`**
-
-Matches any falsy value.
-  
-*Examples:*
-
-
-```ts
-expect({ a: 0 }).toEqual({ a: expect.falsy() })
-expect([true]).not.toEqual([expect.falsy()])
-```
-
-There are six falsy values in JavaScript: `false`, `0`, `''`, `null`, `undefined`, and `NaN`.
-Everything else is truthy.
-#### **`expect.nullish(): any`**
-
-Matches `null` and `undefined`
-  
-*Examples:*
-
-
-```ts
-expect({ a: undefined }).toEqual({ a: expect.nullish() })
-expect([null]).toEqual([expect.nullish()])
-```
-#### **`expect.numberCloseTo(target: number, options: NumberCloseToDelta): number`**
-
-Matches numbers that are close to the target value. The options are used
-to specify the maximum difference.
-
-The range is [expected - delta, expected + delta] (inclusive).
-  
-*Parameters:*
-
-- `target` - a number to aim for.
-- `options` - an object with the delta parameter, denoting the maximum difference between the values.
-  
-#### **`expect.numberGreaterThan(target: number): number`**
-
-Matches a number greater than target.
-  
-*Parameters:*
-
-- `target` - number to compare to.
-  
-#### **`expect.numberGreaterThanOrEqualTo(target: number): number`**
-
-Matches a number greater than or equal to target.
-  
-*Parameters:*
-
-- `target` - number to compare to.
-  
-*Examples:*
-
-
-```ts
-expect({ a: 2 }).toEqual({
-  a: expect.numberGreaterThanOrEqualTo(1),
-})
-expect({ b: 2 }).toEqual({
-  b: expect.numberGreaterThanOrEqualTo(2),
-})
-expect({ c: 2 }).not.toEqual({
-  c: expect.numberGreaterThanOrEqualTo(3),
+const person = findPerson('John Doe')
+expect(person).toEqual({
+  name: 'John Doe',
+  favoriteThing: expect.anything()
 })
 ```
-#### **`expect.numberLessThan(target: number): number`**
+### **`expect.between(min: number | bigint, max: number | bigint): never`**
 
-Matches a number less than target.
+Matches numbers that are between the two numbers.
+The range is `[min, max]`, inclusive on both sides.
+
+Works for both numbers and bigints.
+
+If you want to match a top level value, use
+`expect(...).toBeBetween(min, max)` instead.
   
 *Parameters:*
 
-- `target` - number to compare to.
+- `min` - The minimum value, inclusive.
+- `max` - The maximum value, inclusive.
   
 *Examples:*
 
 
 ```ts
-expect({ a: 2 }).toEqual({ a: expect.numberLessThan(3) })
-expect({ b: 2 }).not.toEqual({ b: expect.numberLessThan(2) })
-expect({ c: 2 }).not.toEqual({ c: expect.numberLessThan(1) })
+const location = getLatLon()
+expect(location).toEqual({
+  lat: expect.between(-90, 90),
+  lon: expect.between(-180, 180),
+})
 ```
-#### **`expect.numberLessThanOrEqualTo(target: number): number`**
+### **`expect.closeTo(target: number, delta: number): never`**
 
-Matches a number less than or equal to target.
+Matches numbers that are close to the target value. The range is
+`[target - delta, target + delta]`, inclusive on both sides.
+
+Works only for numbers and not for bigints.
+
+If you want to match a top level value, use
+`expect(...).toBeCloseTo(target, delta)` instead.
   
 *Parameters:*
 
-- `target` - number to compare to.
+- `target` - The number to aim for.
+- `delta` - The maximum difference between the values.
   
 *Examples:*
 
 
 ```ts
-expect({ a: 2 }).toEqual({
-  a: expect.numberLessThanOrEqualTo(3),
-})
-expect({ b: 2 }).toEqual({
-  b: expect.numberLessThanOrEqualTo(2),
-})
-expect({ c: 2 }).not.toEqual({
-  c: expect.numberLessThanOrEqualTo(1),
+const vector = getApproximateStrikeTarget()
+expect(vector).toEqual({
+  x: expect.closeTo(420, 0.001),
+  y: expect.closeTo(69, 0.001),
 })
 ```
-#### **`expect.objectWith(subset: object): any`**
+### **`expect.defined(): never`**
 
-Matches an object containing given key-value pairs.
-  
-*Parameters:*
+Matches values that are not `undefined`.
 
-- `subset` - an object to match against.
-  
-#### **`expect.stringMatching(pattern: string`**
-
-Matches strings that contain the provided substring.
-  
-*Parameters:*
-
-- `pattern` - a string to look for in the matched values or a regexp to test the matched values.
-  
-#### **`expect.truthy(): any`**
-
-Matches any truthy value.
+If you want to match a top level value, use `expect(...).toBeDefined()`
+instead.
   
 *Examples:*
 
 
 ```ts
-expect({ a: 1 }).toEqual({ a: expect.truthy() })
-expect([false]).not.toEqual([expect.truthy()])
+const result = await fetchStockPrices('BANANA', 'KIWI')
+expect(result).toEqual({
+  BANANA: expect.defined(),
+  KIWI: expect.defined(),
+})
+```
+### **`expect.empty(): never`**
+
+Matches empty strings, arrays, sets and maps.
+
+If you want to match a top level value, use `expect(...).toBeEmpty()`
+instead.
+  
+*Examples:*
+
+
+```ts
+const sadGuy = await people.findWhere({ friendCount: 0 })
+expect(sadGuy).toEqual({
+  name: 'John Doe',
+  friends: expect.empty(),
+})
+```
+### **`expect.falsy(): never`**
+
+Matches falsy values, as defined by:
+https://developer.mozilla.org/en-US/docs/Glossary/Falsy
+
+You can also use its sister matcher, `truthy`, to match the opposite.
+
+If you want to match a top level value, use `expect(...).toBeFalsy()`
+instead.
+  
+*Examples:*
+
+
+```ts
+const doggy = dogApi.getDog('Waffles')
+expect(doggy).toEqual({
+  name: 'Waffles',
+  // Waffles is a stray, we don't know the date :(
+  birthday: expect.falsy(),
+})
+```
+### **`expect.greaterThan(target: number | bigint): never`**
+
+Matches numbers that are greater than the given target.
+
+Works for both numbers and bigints.
+
+If you want to match a top level value, use
+`expect(...).toBeGreaterThan(target)` instead.
+  
+*Parameters:*
+
+- `target` - The target value to compare to.
+  
+*Examples:*
+
+
+```ts
+expect({
+  salary: 100_000,
+  bonus: 10_000,
+}).toEqual({
+  salary: expect.greaterThan(50_000),
+  bonus: expect.greaterThan(5_000),
+})
+```
+### **`expect.greaterThanOrEqual(target: number | bigint): never`**
+
+Matches numbers that are greater than or equal to the given target.
+
+Works for both numbers and bigints.
+
+If you want to match a top level value, use
+`expect(...).toBeGreaterThanOrEqual(target)` instead.
+  
+*Parameters:*
+
+- `target` - The target value to compare to.
+  
+*Examples:*
+
+
+```ts
+expect({
+  salary: 100_000,
+  bonus: 5_000,
+}).toEqual({
+  salary: expect.greaterThanOrEqual(50_000),
+  bonus: expect.greaterThanOrEqual(5_000),
+})
+```
+### **`expect.includes(...items: any[]): never`**
+
+Matches an array, Set or iterable that includes the given item or items.
+Also matches a string that includes the given substring or substrings.
+
+If you want to match a top level value, use
+`expect(...).toInclude(...items)` instead.
+  
+*Parameters:*
+
+- `items` - Items or matchers to look for. When the value is a string, all items must be strings too.
+  
+*Examples:*
+
+
+```ts
+expect({
+  numbers: [1, 2, 3],
+  mixed: [1, "foo", false],
+  string: "I like pancakes",
+}).toEqual({
+  numbers: expect.includes(1, 2),
+  mixed: expect.includes(1, expect.a(String)),
+  string: expect.includes("pancakes"),
+})
+```
+### **`expect.integer(): never`**
+
+Matches numbers that are integers.
+
+Works for both numbers and bigints.
+
+If you want to match a top level value, use
+`expect(...).toBeAnInteger()` instead.
+  
+*Examples:*
+
+
+```ts
+const counts = getParticleCounts()
+expect(counts).toEqual({
+  min: 0,
+  max: expect.integer(),
+  median: expect.integer(),
+})
+```
+### **`expect.length(length: number): never`**
+
+Matches an array, string or any object with a `length` property that has the given length.
+
+If you want to match a top level value, use
+`expect(...).toHaveLength(length)` instead.
+  
+*Parameters:*
+
+- `length` - The expected array length. Can be a matcher.
+  
+*Examples:*
+
+
+```ts
+expect({
+  numbers: [1, 2, 3],
+  letters: 'abcdef',
+}).toEqual({
+  numbers: expect.length(3),
+  letters: expect.length(expect.greaterThan(3)),
+})
+```
+### **`expect.lessThan(target: number | bigint): never`**
+
+Matches numbers that are less than the given target.
+
+Works for both numbers and bigints.
+
+If you want to match a top level value, use
+`expect(...).toBeLessThan(target)` instead.
+  
+*Parameters:*
+
+- `target` - The target value to compare to.
+  
+*Examples:*
+
+
+```ts
+expect({
+  salary: 100_000,
+  bonus: 10_000,
+}).toEqual({
+  salary: expect.lessThan(200_000),
+  bonus: expect.lessThan(20_000),
+})
+```
+### **`expect.lessThanOrEqual(target: number | bigint): never`**
+
+Matches numbers that are less than or equal to the given target.
+
+Works for both numbers and bigints.
+
+If you want to match a top level value, use
+`expect(...).toBeLessThanOrEqual(target)` instead.
+  
+*Parameters:*
+
+- `target` - The target value to compare to.
+  
+*Examples:*
+
+
+```ts
+expect({
+  salary: 100_000,
+  bonus: 20_000,
+}).toEqual({
+  salary: expect.lessThanOrEqual(200_000),
+  bonus: expect.lessThanOrEqual(20_000),
+})
+```
+### **`expect.notEmpty(): never`**
+
+Matches strings, arrays, sets and maps that aren't empty.
+
+If you want to match a top level value, use `expect(...).not.toBeEmpty()`
+instead.
+  
+*Examples:*
+
+
+```ts
+const happyGuy = await people.findWhere({ friendCount: 'max' })
+expect(happyGuy).toEqual({
+  name: 'John Doe',
+  friends: expect.notEmpty(),
+})
+```
+### **`expect.notNullish(): never`**
+
+Matches values that are not nullish, i.e. values that are not `null`
+or `undefined`.
+
+If you want to match a top level value, use
+`expect(...).not.toBeNullish()` instead.
+  
+*Examples:*
+
+
+```ts
+const result = await fetchStockPrices('BANANA', 'KIWI')
+expect(result).toEqual({
+  BANANA: expect.notNullish(),
+  KIWI: expect.notNullish(),
+})
+```
+### **`expect.nullish(): never`**
+
+Matches `null` and `undefined`.
+
+If you want to match a top level value, use `expect(...).toBeNullish()`
+instead.
+  
+*Examples:*
+
+
+```ts
+const result = await flight.getPassenger('17A')
+expect(result).toEqual({
+  name: 'John Doe',
+  seat: '17A',
+  insurancePolicy: expect.nullish(),
+})
+```
+### **`expect.property(key: string, value?: unknown): never`**
+
+Matches objects for which a given key exists. Optionally checks the
+property value.
+  
+*Parameters:*
+
+- `key` - The expected property key.
+- `value` - (optional) The expected property value.
+  
+*Examples:*
+
+
+```ts
+const events = await getLatestEvents({ limit: 3 })
+expect(events).toEqual([
+  expect.property('pending', true),
+  expect.property('finalizedAt'),
+  expect.property('finalizedAt'),
+])
+```
+### **`expect.regex(regex: RegExp): never`**
+
+Matches strings that match a given regular expression.
+
+If you want to match a top level value, use
+`expect(...).toMatchRegex(regex)` instead.
+  
+*Parameters:*
+
+- `regex` - The regular expression to test the matched values.
+  
+*Examples:*
+
+
+```ts
+const contact = await customer.getUSContactInfo()
+expect(contact).toEqual({
+  state: expect.regex(/^[A-Z]{2}$/),
+  zipCode: expect.regex(/^\d{5}$/),
+  phoneNumber: expect.regex(/^\d{3}-\d{3}-\d{4}$/),
+})
+```
+### **`expect.safeInteger(): never`**
+
+Matches numbers that are integers between Number.MIN_SAFE_INTEGER nad Number.MAX_SAFE_INTEGER.
+
+Works for both numbers and bigints.
+
+If you want to match a top level value, use
+`expect(...).toBeASafeInteger()` instead.
+  
+*Examples:*
+
+
+```ts
+const counts = getExperimentStats()
+expect(counts).toEqual({
+  min: 0n,
+  max: expect.safeInteger(),
+  median: expect.safeInteger(),
+})
+```
+### **`expect.satisfies(predicate: (value: unknown) => boolean): never`**
+
+Matches values for which the predicate returns a truthy value.
+
+Usually other matchers are more appropriate, but this can be useful if
+you are testing something custom.
+
+If you want to match a top level value, use
+`expect(...).toSatisfy(predicate)` instead.
+  
+*Parameters:*
+
+- `predicate` - The function for checking values.
+  
+*Examples:*
+
+
+```ts
+function isShark(value: unknown) {
+  return value instanceof Fish && value.species === 'shark'
+}
+expect(crazyZoologist).toEqual({
+  name: 'John Doe',
+  pet: expect.satisfies(isShark),
+})
+```
+### **`expect.schema(schema: ZodSchema): never`**
+
+Matches values conforming to a zod schema.
+
+If you want to match a top level value, use
+`expect(...).toMatchSchema(schema)` instead.
+  
+*Parameters:*
+
+- `schema` - The zod schema to use.
+  
+*Examples:*
+
+
+```ts
+import * as z from 'zod'
+const product = await getLatestProduct()
+expect(product).toEqual({
+  name: 'Turbocharger 9000',
+  uuid: expect.schema(z.uuid()),
+  pricing: expect.schema(z.object({
+    price: z.number().positive(0),
+    currency: z.string().length(3),
+  })),
+})
+```
+### **`expect.subset(subset: object): never`**
+
+Matches an object containing the given key value pairs.
+  
+*Parameters:*
+
+- `subset` - The key value paris to match against.
+  
+*Examples:*
+
+
+```ts
+const response = await api.get('/users/me')
+expect(response).toEqual({
+  success: true,
+  data: expect.subset({
+    name: 'John Doe',
+    age: 42,
+  }),
+})
+```
+### **`expect.truthy(): never`**
+
+Matches truthy values, as defined by:
+https://developer.mozilla.org/en-US/docs/Glossary/Truthy
+
+You can also use its sister matcher, `falsy`, to match the opposite.
+
+If you want to match a top level value, use `expect(...).toBeTruthy()`
+instead.
+  
+*Examples:*
+
+
+```ts
+const kitty = catApi.getCat('Peanut')
+expect(kitty).toEqual({
+  name: 'Peanut',
+  // they are a happy family, but we don't care about the details
+  mom: expect.truthy(),
+  dad: expect.truthy(),
+})
 ```
 
-There are six falsy values in JavaScript: `false`, `0`, `''`, `null`, `undefined`, and `NaN`.
-Everything else is truthy.
+## Mocks
 
-### Mocks
-
-#### **`function mockFn<F extends (...args: any) => any>(defaultImpl?: F): Mock.Of<F>`**
+### **`function mockFn<F extends (...args: any) => any>(defaultImpl?: F): MockOf<F>`**
 
 Creates a mock conforming to a given signature.
   
@@ -619,15 +584,15 @@ Creates a mock conforming to a given signature.
 const mock1 = mockFn<[number, string], number>()
 const mock2 = mockFn<(a: number, b: string) => number>()
 ```
-#### **`function mock(...args: TArgs): TReturn`**
+### **`function mock(...args: A): R`**
 
 Calls the mock function.
   
-#### **`mock.calls: MockCall<TArgs, TReturn>[]`**
+### **`mock.calls: MockCall<A, R>[]`**
 
 An array containing all the performed calls.
   
-#### **`mock.executes(implementation: (...args: TArgs[]) => TReturn): Mock<TArgs, TReturn>`**
+### **`mock.executes(implementation: (...args: A) => R): Mock<A, R>`**
 
 Sets the underlying implementation of the Mock.
 Overrides any previous configuration.
@@ -636,7 +601,7 @@ Overrides any previous configuration.
 
 - `implementation` - function to execute.
   
-#### **`mock.executesOnce(implementation: (...args: TArgs[]) => TReturn): Mock<TArgs, TReturn>`**
+### **`mock.executesOnce(implementation: (...args: A) => R): Mock<A, R>`**
 
 Schedules the mock to use the provided implementation the next time it's called.
 If anything is already scheduled it will be used first.
@@ -645,7 +610,15 @@ If anything is already scheduled it will be used first.
 
 - `implementation` - function to execute.
   
-#### **`mock.given<TGivenArgs extends TArgs>(...args: TGivenArgs): MockGiven<TArgs, TReturn, TGivenArgs>`**
+### **`mock.getOneTimeOverridesLength(): number`**
+
+Returns the number of remaining one time overrides, `e.g. given(...).returnsOnce(...)`.
+  
+### **`mock.getQueueLength(): number`**
+
+Returns the number of remaining calls, e.g. `returnsOnce`.
+  
+### **`mock.given<B extends A>(...args: B): MockGiven<A, R, B>`**
 
 Specifies a different behavior when other arguments are given
   
@@ -653,11 +626,11 @@ Specifies a different behavior when other arguments are given
 
 - `args` - arguments to match.
   
-#### **`mock.isExhausted(): boolean`**
+### **`mock.isExhausted(): boolean`**
 
 Checks if all the expected calls to the mock have been performed.
   
-#### **`mock.rejectsWith(error: any): Mock<TArgs, TReturn>`**
+### **`mock.rejectsWith(error: any): Mock<A, R>`**
 
 Sets the error rejected by calls to the Mock.
   
@@ -665,7 +638,7 @@ Sets the error rejected by calls to the Mock.
 
 - `error` - error to be thrown.
   
-#### **`mock.rejectsWithOnce(error: any): Mock<TArgs, any>`**
+### **`mock.rejectsWithOnce(error: any): Mock<A, any>`**
 
 Schedules the mock to reject with value the next time it's called.
 If anything is already scheduled it will be used first.
@@ -674,7 +647,7 @@ If anything is already scheduled it will be used first.
 
 - `error` - error to be thrown.
   
-#### **`mock.resolvesTo(value: Awaited<TReturn>): Mock<TArgs, TReturn>`**
+### **`mock.resolvesTo(value: Awaited<R>): Mock<A, R>`**
 
 Sets the return value wrapped in Promise.resolve of calls to the Mock.
   
@@ -682,7 +655,7 @@ Sets the return value wrapped in Promise.resolve of calls to the Mock.
 
 - `value` - value to be returned.
   
-#### **`mock.resolvesToOnce(value: Awaited<TReturn>): Mock<TArgs, TReturn>`**
+### **`mock.resolvesToOnce(value: Awaited<R>): Mock<A, R>`**
 
 Schedules the mock to return value wrapped in Promise.resolve the next time it's called.
 If anything is already scheduled it will be used first.
@@ -691,7 +664,7 @@ If anything is already scheduled it will be used first.
 
 - `value` - value to be returned.
   
-#### **`mock.returns(value: TReturn): Mock<TArgs, TReturn>`**
+### **`mock.returns(value: R): Mock<A, R>`**
 
 Sets the return value of calls to the Mock.
 Overrides any previous configuration.
@@ -700,7 +673,7 @@ Overrides any previous configuration.
 
 - `value` - value to be returned.
   
-#### **`mock.returnsOnce(value: TReturn): Mock<TArgs, TReturn>`**
+### **`mock.returnsOnce(value: R): Mock<A, R>`**
 
 Schedules the mock to return a value the next time it's called.
 If anything is already scheduled it will be used first.
@@ -709,7 +682,7 @@ If anything is already scheduled it will be used first.
 
 - `value` - value to be returned.
   
-#### **`mock.throws(error: any): Mock<TArgs, TReturn>`**
+### **`mock.throws(error: any): Mock<A, R>`**
 
 Sets the error thrown by calls to the Mock.
 Overrides any previous configuration.
@@ -718,7 +691,7 @@ Overrides any previous configuration.
 
 - `error` - error to be thrown.
   
-#### **`mock.throwsOnce(error: any): Mock<TArgs, TReturn>`**
+### **`mock.throwsOnce(error: any): Mock<A, R>`**
 
 Schedules the mock to throw an error the next time it's called.
 If anything is already scheduled it will be used first.
