@@ -15,6 +15,7 @@
     "generate:api-reference": "ts-node -T ./generators/api-reference/index.ts"
   },
   "dependencies": {
+    "earljs": "workspace:^0.2.3",
     "@algolia/client-search": "^4.15.0",
     "@earljs/published": "npm:earljs@^0.2.3",
     "@microsoft/tsdoc": "^0.14.2",
