@@ -6,6 +6,24 @@ import { lessThan } from '../../matchers/numbers/lessThan'
 declare module '../../expect' {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   interface Validators<T> {
+    /**
+     * Asserts that a number is less the target value.
+     *
+     * Works for both numbers and bigints.
+     *
+     * If you want to match a nested value, use the matcher
+     * `expect.lessThan(target)` instead.
+     *
+     * @param target - The target value to compare to.
+     *
+     * @example
+     * ```ts
+     * expect(50_000n).toBeLessThan(100_000n)
+     *
+     * expect(1337n).not.toBeLessThan(1337n)
+     * expect(0xDEADBEEF).not.toBeLessThan(0xCAFEBABE)
+     * ```
+     */
     toBeLessThan(
       this: Validators<number | bigint>,
       target: number | bigint,

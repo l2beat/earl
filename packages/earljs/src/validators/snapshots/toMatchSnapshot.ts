@@ -11,6 +11,38 @@ import { TestContext } from './TestContext'
 declare module '../../expect' {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   interface Validators<T> {
+    /**
+     * Asserts that a value is equal to a snapshot. The first time the assertion
+     * is run, a snapshot is created. Subsequent runs will compare the value to
+     * the snapshot.
+     *
+     * Snapshots are stored in the `.snapshot` files next to the test file.
+     *
+     * To update all snapshots set the `UPDATE_SNAPSHOTS` environment variable
+     * to `true`.
+     *
+     * Because earl is independent of the test runner it needs to have some
+     * information about the test context. This is provided by the `context`
+     * argument. In mocha the context is the `this` object. In uvu it is the
+     * context parameter.
+     *
+     * @param context - The test context.
+     *
+     * @example
+     * ```ts
+     * // mocha
+     * it('snapshot', function () {
+     *   // Important! use `function` instead of `() =>`
+     *   // to have access to `this`.
+     *   expect({ foo: 'bar' }).toMatchSnapshot(this)
+     * })
+     *
+     * // uvu
+     * test('snapshot', (ctx) => {
+     *   expect({ foo: 'bar' }).toMatchSnapshot(ctx)
+     * })
+     * ```
+     */
     toMatchSnapshot(context: TestContext): void
   }
 }

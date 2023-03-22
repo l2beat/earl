@@ -14,7 +14,42 @@ type MemberOf<T> = T extends (infer U)[]
 declare module '../../expect' {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   interface Validators<T> {
+    /**
+     * Asserts that a string includes all of the provided substrings.
+     * The substrings can overlap.
+     *
+     * If you want to match a nested value, use the matcher
+     * `expect.includes(...)` instead.
+     *
+     * @param substrings - The substrings to look for. Cannot be matchers.
+     *
+     * @example
+     * ```ts
+     * expect('i like pancakes').toInclude('like', 'cakes')
+     * expect('animals').toInclude('ani', 'nim', 'mal')
+     *
+     * expect('robot').not.toInclude('cupcake')
+     * ```
+     */
     toInclude(this: Validators<string>, ...substrings: string[]): void
+
+    /**
+     * Asserts that an array, set or iterable includes all of the provided
+     * items.
+     *
+     * If you want to match a nested value, use the matcher
+     * `expect.includes(...)` instead.
+     *
+     * @param items - The items to look for. Can be matchers.
+     *
+     * @example
+     * ```ts
+     * expect([1, 'foo', false]).toInclude(expect.a(Boolean), 'foo')
+     * expect(new Set([5, 6])).toInclude(5)
+     *
+     * expect([true, false]).not.toInclude('magic')
+     * ```
+     */
     toInclude(
       this: Validators<any[] | Set<any> | Iterable<any>>,
       ...items: MemberOf<T>[]

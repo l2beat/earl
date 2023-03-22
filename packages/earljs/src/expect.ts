@@ -47,6 +47,9 @@ export function registerValidator(
 }
 
 type ValidatorsAndModifiers<T> = Validators<T> & {
+  /**
+   * Negates the following assertion.
+   */
   not: Validators<T>
 }
 
