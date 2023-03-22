@@ -20,7 +20,7 @@ declare module '../../expect' {
      * ```ts
      * // Primitives
      * expect(123).toBeA(Number)
-     * expect('foo').not.toBeA(String)
+     * expect('foo').not.toBeA(Boolean)
      *
      * // Classes
      * expect(new Person('John', 'Doe')).toBeA(Person)
