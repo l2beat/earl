@@ -95,6 +95,11 @@ export function mockFn<A extends any[], R>(
         }
       }
       case 'not-ready': {
+        if (parameterOverrides.length > 0) {
+          throw new Error(
+            'The mock function was called with arguments that do not match any of the parameter overrides and no default behavior has been provided.',
+          )
+        }
         throw new TypeError(
           'The mock function was called but no default behavior has been provided.',
         )

@@ -11,26 +11,26 @@ export type MockObject<T> = T & {
  * Returns a mock object that can be used in place of a real object. This
  * is useful if the real object is hard to create or if it is hard to get it
  * exhibit some specific behavior.
- * 
+ *
  * Functions on the mock object are also `mockFn`s, so they can be used in
  * validators that work for mocks.
- * 
+ *
  * @param overrides - The members to be overridden.
- * 
+ *
  * @example
  * ```ts
  * class Person {
  *   constructor(public name: string, public age: number) {}
- * 
+ *
  *   isAdult() {
  *     return this.age >= 18
  *   }
  * }
- * 
+ *
  * const mock = mockObject<Person>({
  *   isAdult: () => true,
  * })
- * 
+ *
  * expect(mock.isAdult()).toEqual(true)
  * expect(mock.isAdult).toHaveBeenCalled()
  * ```

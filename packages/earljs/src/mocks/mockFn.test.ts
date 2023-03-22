@@ -455,6 +455,13 @@ describe('Mock', () => {
 
       fn.given(2, 2).returnsOnce(5)
     })
+
+    it('throws an error when no default behavior is provided', () => {
+      const fn = mockFn().given(3).returnsOnce(4)
+      expect(() => fn()).to.throw(
+        'The mock function was called with arguments that do not match any of the parameter overrides and no default behavior has been provided.',
+      )
+    })
   })
 
   describe('.calls', () => {
