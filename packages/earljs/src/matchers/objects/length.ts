@@ -9,7 +9,7 @@ declare module '../../expect' {
      * If you want to match a top level value, use
      * `expect(...).toHaveLength(length)` instead.
      *
-     * @param length - The expected array length. Can be a matcher.
+     * @param length - The expected length. Can be a matcher.
      *
      * @example
      * ```ts

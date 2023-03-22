@@ -6,6 +6,28 @@ import { satisfies } from '../../matchers/custom/satisfies'
 declare module '../../expect' {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   interface Validators<T> {
+    /**
+     * Asserts that the provided predicate returns a truthy result for the
+     * given value.
+     *
+     * Usually other validators are more appropriate, but this can be useful if
+     * you are testing something custom.
+     *
+     * If you want to match a nested value, use the matcher
+     * `expect.satisfies(predicate)` instead.
+     *
+     * @param predicate - The function for checking values.
+     *
+     * @example
+     * ```ts
+     * function isShark(value: unknown) {
+     *   return value instanceof Fish && value.species === 'shark'
+     * }
+     * expect(
+     *   new Fish('Bobby', { species: 'shark' }),
+     * ).toSatisfy(isShark)
+     * ```
+     */
     toSatisfy(predicate: (value: T) => boolean): void
   }
 }

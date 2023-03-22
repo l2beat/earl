@@ -5,8 +5,8 @@ declare module '../../expect' {
     /**
      * Matches values that are not `undefined`.
      *
-     * If you want to match a top level value, use `expect(...).toBeDefined()`
-     * instead.
+     * If you want to match a top level value, use
+     * `expect(...).not.toEqual(undefined)` instead.
      *
      * @example
      * ```ts

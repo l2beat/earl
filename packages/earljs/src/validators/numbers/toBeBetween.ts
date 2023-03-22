@@ -6,6 +6,26 @@ import { between } from '../../matchers/numbers/between'
 declare module '../../expect' {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   interface Validators<T> {
+    /**
+     * Asserts that a number is between the two numbers.
+     * The range is `[min, max]`, inclusive on both sides.
+     *
+     * Works for both numbers and bigints.
+     *
+     * If you want to match a nested value, use the matcher
+     * `expect.toBeBetween(min, max)` instead.
+     *
+     * @param min - The minimum value, inclusive.
+     * @param max - The maximum value, inclusive.
+     *
+     * @example
+     * ```ts
+     * expect(0.5).toBeBetween(0, 1)
+     * expect(100n).toBeBetween(-200n, 200n)
+     *
+     * expect(20).not.toBeBetween(0, 1)
+     * ```
+     */
     toBeBetween(
       this: Validators<number | bigint>,
       min: number | bigint,

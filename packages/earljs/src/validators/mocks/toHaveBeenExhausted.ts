@@ -6,6 +6,23 @@ import { assertIsMock } from './utils'
 declare module '../../expect' {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   interface Validators<T> {
+    /**
+     * Asserts that the mock function was called enough so that all the
+     * specified one time overrides were used.
+     *
+     * If no one time overrides were specified, this will always pass.
+     *
+     * @example
+     * ```ts
+     * import { expect, mockFn } from 'earljs'
+     *
+     * const fn = mockFn().returnsOnce(420).returnsOnce(69)
+     * expect(fn).not.toHaveBeenExhausted()
+     * fn() // returns 420
+     * fn() // returns 69
+     * expect(fn).toHaveBeenExhausted()
+     * ```
+     */
     toHaveBeenExhausted(this: Validators<Mock<any[], any>>): void
   }
 }

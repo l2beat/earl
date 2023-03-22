@@ -39,9 +39,9 @@ describe(toLooseEqual.name, () => {
 
     it('fails on unequal primitives', () => {
       expect(() => {
-        earl(42).toLooseEqual(420)
+        earl({ x: 42 }).toLooseEqual({ x: 420 })
       }).to.throw(
-        'The value 42 is not loosely equal to 420, but it was expected to be loosely equal.',
+        'The value { x: 42 } is not loosely equal to { x: 420 }, but it was expected to be loosely equal.',
       )
     })
 
@@ -70,15 +70,15 @@ describe(toLooseEqual.name, () => {
   describe('with .not', () => {
     it('passes when values are not loosely equal', () => {
       expect(() => {
-        earl(5).not.toLooseEqual(7)
+        earl({ x: 5 }).not.toLooseEqual({ x: 7 })
       }).not.to.throw()
     })
 
     it('fails when values are equal', () => {
       expect(() => {
-        earl(5).not.toLooseEqual(5)
+        earl({ x: 5 }).not.toLooseEqual({ x: 5 })
       }).to.throw(
-        'The value 5 is loosely equal to 5, but it was expected not to be loosely equal.',
+        'The value { x: 5 } is loosely equal to { x: 5 }, but it was expected not to be loosely equal.',
       )
     })
   })

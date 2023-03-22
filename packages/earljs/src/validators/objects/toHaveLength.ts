@@ -6,6 +6,23 @@ import { length } from '../../matchers/objects/length'
 declare module '../../expect' {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   interface Validators<T> {
+    /**
+     * Asserts that a string, array or object with a `length` property
+     * has a specific length.
+     *
+     * If you want to match a nested value, use the matcher
+     * `expect.length(length)` instead.
+     *
+     * @param length - The expected length. Can be a matcher.
+     *
+     * @example
+     * ```ts
+     * expect('abcdef').toHaveLength(6)
+     * expect([1, 2, 3]).toHaveLength(expect.greaterThan(2))
+     *
+     * expect({ length: 5 }).not.toHaveLength(4)
+     * ```
+     */
     toHaveLength(
       this: Validators<string | any[] | { length: number }>,
       length: number,

@@ -7,7 +7,31 @@ import { isEqual, LOOSE_EQUALITY_OPTIONS } from '../../isEqual'
 declare module '../../expect' {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   interface Validators<T> {
-    toLooseEqual(expected: unknown): void
+    /**
+     * Asserts that a value is loosely equal to another value. The equality is
+     * checked using recursively, but ignoring object prototypes.
+     *
+     * This validator also supports asymmetric matchers on the expected value.
+     *
+     * This validator shouldn't be used for primitives. Use `toEqual`
+     * instead.
+     *
+     * Unlike `toEqual` this validator does not also work on the type level.
+     *
+     * If you would like instead to check values for referential equality
+     * use the `toExactlyEqual` validator instead.
+     *
+     * @param expected - The expected value. Can include nested matchers.
+     *
+     * @example
+     * ```ts
+     * expect(new Vector2(5, 7)).toEqual({
+     *   x: 5,
+     *   y: expect.greaterThan(0),
+     * })
+     * ```
+     */
+    toLooseEqual(this: Validators<object>, expected: unknown): void
   }
 }
 

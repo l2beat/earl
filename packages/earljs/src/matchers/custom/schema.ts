@@ -7,7 +7,7 @@ export interface ZodSchema {
 declare module '../../expect' {
   interface Matchers {
     /**
-     * Matches values conforming to a zod schema.
+     * Matches values conforming to the provided zod schema.
      *
      * If you want to match a top level value, use
      * `expect(...).toMatchSchema(schema)` instead.
