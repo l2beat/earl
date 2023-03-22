@@ -1,16 +1,16 @@
-import { isMock, mockFn } from './mockFn'
+import { isMockFn, mockFn } from './mockFn'
 import { MockFunctionOf } from './types'
 
-export type MockedObject<T> = T & {
+export type MockObject<T> = T & {
   [P in keyof T]: T[P] extends (...args: any[]) => any
     ? MockFunctionOf<T[P]>
     : T[P]
 }
 
-export function mock<T>(overrides: Partial<T> = {}): MockedObject<T> {
+export function mockObject<T>(overrides: Partial<T> = {}): MockObject<T> {
   const clone = replaceFunctionsWithMocks(overrides)
 
-  return new Proxy(clone as MockedObject<T>, {
+  return new Proxy(clone as MockObject<T>, {
     get(target, property, receiver) {
       if (Reflect.has(target, property)) {
         return Reflect.get(target, property, receiver)
@@ -36,7 +36,7 @@ function replaceFunctionsWithMocks<T extends object>(object: T) {
   for (const key of Object.keys(clone) as (keyof T)[]) {
     const value = clone[key]
     if (typeof value === 'function') {
-      if (!isMock(value)) {
+      if (!isMockFn(value)) {
         clone[key] = mockFn(value as any) as any
       }
     }

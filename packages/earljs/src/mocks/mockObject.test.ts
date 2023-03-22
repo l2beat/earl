@@ -1,9 +1,9 @@
 import { expect } from 'chai'
 
-import { mock } from './mock'
-import { isMock } from './mockFn'
+import { isMockFn } from './mockFn'
+import { mockObject } from './mockObject'
 
-describe(mock.name, () => {
+describe(mockObject.name, () => {
   class Jogger {
     name = 'A'
     run() {
@@ -12,7 +12,7 @@ describe(mock.name, () => {
   }
 
   it('can mock a class', () => {
-    const instance = mock<Jogger>({
+    const instance = mockObject<Jogger>({
       name: 'B',
       run: () => 10,
     })
@@ -20,18 +20,18 @@ describe(mock.name, () => {
     expect(instance.name).to.equal('B')
     expect(instance.run()).to.equal(10)
 
-    expect(isMock(instance.run)).to.equal(true)
+    expect(isMockFn(instance.run)).to.equal(true)
   })
 
   it('can reconfigure properties', () => {
-    const instance = mock<Jogger>({ run: () => 10 })
+    const instance = mockObject<Jogger>({ run: () => 10 })
     instance.run.returnsOnce(20)
 
     expect(instance.run()).to.equal(20)
   })
 
   it('handles values without overrides', () => {
-    const instance = mock<Jogger>({})
+    const instance = mockObject<Jogger>({})
     expect(() => instance.run()).to.throw(
       'Cannot call .run() - no mock implementation provided.',
     )

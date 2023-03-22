@@ -1,12 +1,12 @@
 import { Control } from '../../Control'
 import { format, formatCompact } from '../../format'
 import { isEqual } from '../../isEqual'
-import { isMock, MockFunction } from '../../mocks'
+import { isMockFn, MockFunction } from '../../mocks'
 
 export function assertIsMock(
   control: Control,
 ): asserts control is Control & { actual: MockFunction<any[], any> } {
-  if (!isMock(control.actual)) {
+  if (!isMockFn(control.actual)) {
     const actualInline = formatCompact(control.actual)
     return control.fail({
       reason: `The value ${actualInline} is not a mock function, but it was expected to be a mock function.`,

@@ -1,5 +1,4 @@
 import { isEqual } from '../isEqual'
-import { MockNotConfiguredError } from './errors'
 import { MockCall, MockFunction, MockFunctionOf, Spec } from './types'
 
 interface Override {
@@ -96,7 +95,9 @@ export function mockFn<A extends any[], R>(
         }
       }
       case 'not-ready': {
-        throw new MockNotConfiguredError()
+        throw new TypeError(
+          'The mock function was called but no default behavior has been provided.',
+        )
       }
       default: {
         throw new Error('Unreachable case')
@@ -211,6 +212,6 @@ export function mockFn<A extends any[], R>(
   return mock
 }
 
-export function isMock(value: unknown): value is MockFunction<any[], any> {
+export function isMockFn(value: unknown): value is MockFunction<any[], any> {
   return typeof value === 'function' && (value as any)[mockSymbol] === true
 }

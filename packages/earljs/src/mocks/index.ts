@@ -1,6 +1,5 @@
-export * from './errors'
-export { mock } from './mock'
-export { isMock, mockFn } from './mockFn'
+export { isMockFn, mockFn } from './mockFn'
+export { mockObject } from './mockObject'
 export {
   type MockCall,
   type MockFunction,
