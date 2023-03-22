@@ -1,6 +1,6 @@
 import { Control } from '../../Control'
 import { registerValidator } from '../../expect'
-import { Mock } from '../../mocks'
+import { MockFunction } from '../../mocks'
 import { assertIsMock, formatCalledTimes } from './utils'
 
 declare module '../../expect' {
@@ -21,7 +21,7 @@ declare module '../../expect' {
      * expect(fn2).not.toHaveBeenCalled()
      * ```
      */
-    toHaveBeenCalled(this: Validators<Mock<any[], any>>): void
+    toHaveBeenCalled(this: Validators<MockFunction<any[], any>>): void
   }
 }
 

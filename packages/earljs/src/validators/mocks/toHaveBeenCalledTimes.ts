@@ -1,7 +1,7 @@
 import { Control } from '../../Control'
 import { registerValidator } from '../../expect'
 import { formatCompact } from '../../format'
-import { Mock } from '../../mocks'
+import { MockFunction } from '../../mocks'
 import { assertIsMock, formatCalledTimes, formatTimes } from './utils'
 
 declare module '../../expect' {
@@ -23,7 +23,7 @@ declare module '../../expect' {
      * ```
      */
     toHaveBeenCalledTimes(
-      this: Validators<Mock<any[], any>>,
+      this: Validators<MockFunction<any[], any>>,
       times: number,
     ): void
   }

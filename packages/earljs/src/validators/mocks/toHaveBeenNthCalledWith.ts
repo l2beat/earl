@@ -1,7 +1,7 @@
 import { Control } from '../../Control'
 import { registerValidator } from '../../expect'
 import { formatCompact } from '../../format'
-import { Mock, MockArgs } from '../../mocks'
+import { MockFunction, MockParameters } from '../../mocks'
 import {
   assertIsMock,
   compareArgs,
@@ -38,9 +38,9 @@ declare module '../../expect' {
      * ```
      */
     toHaveBeenNthCalledWith(
-      this: Validators<Mock<any[], any>>,
+      this: Validators<MockFunction<any[], any>>,
       n: number,
-      ...args: MockArgs<T>
+      ...args: MockParameters<T>
     ): void
   }
 }

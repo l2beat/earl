@@ -2,7 +2,7 @@ import { Control } from '../../Control'
 import { registerValidator } from '../../expect'
 import { formatCompact } from '../../format'
 import { isEqual } from '../../isEqual'
-import { Mock, MockArgs } from '../../mocks'
+import { MockFunction, MockParameters } from '../../mocks'
 import { assertIsMock } from './utils'
 
 declare module '../../expect' {
@@ -34,8 +34,8 @@ declare module '../../expect' {
      * ```
      */
     toHaveBeenCalledWith(
-      this: Validators<Mock<any[], any>>,
-      ...args: MockArgs<T>
+      this: Validators<MockFunction<any[], any>>,
+      ...args: MockParameters<T>
     ): void
   }
 }

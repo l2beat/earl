@@ -2,9 +2,8 @@ import { expect } from 'chai'
 import { AssertTrue, IsExact } from 'conditional-type-checks'
 
 import { expect as earl } from '../expect'
-import { MockNotConfiguredError } from './errors'
 import { mockFn } from './mockFn'
-import { Mock, MockOf } from './types'
+import { MockFunction, MockFunctionOf } from './types'
 
 const sum = (a: number, b: number) => a + b
 
@@ -17,7 +16,9 @@ describe('Mock', () => {
 
     it('function throws an error when not configured', () => {
       const fn = mockFn()
-      expect(() => fn()).to.throw(MockNotConfiguredError)
+      expect(() => fn()).to.throw(
+        'The mock function was called but no default behavior has been provided.',
+      )
     })
   })
 
@@ -27,15 +28,16 @@ describe('Mock', () => {
       expect(fn()).to.equal(3)
     })
 
-    it('resets any existing config', () => {
+    it('resets any existing default behavior', () => {
       const fn = mockFn()
         .throws(new Error('Boom'))
         .given(1, 2)
         .executesOnce((a, b) => a + b)
         .returnsOnce(55)
-        .returns(3)
+        .returns(5)
 
-      expect(fn()).to.equal(3)
+      expect(fn()).to.equal(55)
+      expect(fn()).to.equal(5)
       expect(fn(1, 2)).to.equal(3)
     })
   })
@@ -44,7 +46,9 @@ describe('Mock', () => {
     it('queues function return value', () => {
       const fn = mockFn().returnsOnce(3)
       expect(fn()).to.equal(3)
-      expect(() => fn()).to.throw(MockNotConfiguredError)
+      expect(() => fn()).to.throw(
+        'The mock function was called but no default behavior has been provided.',
+      )
     })
 
     it('can queue multiple values', () => {
@@ -52,7 +56,9 @@ describe('Mock', () => {
       expect(fn()).to.equal(3)
       expect(fn()).to.equal(4)
       expect(fn()).to.equal('hello')
-      expect(() => fn()).to.throw(MockNotConfiguredError)
+      expect(() => fn()).to.throw(
+        'The mock function was called but no default behavior has been provided.',
+      )
     })
 
     it('respects previous configuration', () => {
@@ -72,13 +78,14 @@ describe('Mock', () => {
 
     it('resets any existing config', () => {
       const fn = mockFn<(a: number, b: number) => number>()
-        .returns(3)
+        .returns(5)
         .given(1, 2)
         .executesOnce((a, b) => a + b)
         .returnsOnce(55)
         .throws(new Error('Boom'))
 
-      expect(fn).to.throw('Boom')
+      expect(fn(3, 4)).to.equal(55)
+      expect(fn(1, 2)).to.equal(3)
       expect(() => fn(1, 2)).to.throw('Boom')
     })
   })
@@ -87,7 +94,9 @@ describe('Mock', () => {
     it('queues function to throw', () => {
       const fn = mockFn().throwsOnce(new Error('Boom'))
       expect(fn).to.throw('Boom')
-      expect(() => fn()).to.throw(MockNotConfiguredError)
+      expect(() => fn()).to.throw(
+        'The mock function was called but no default behavior has been provided.',
+      )
     })
 
     it('can queue multiple values', () => {
@@ -98,7 +107,9 @@ describe('Mock', () => {
       expect(fn).to.throw(Error, 'Boom')
       expect(fn).to.throw(Error, 'Bam')
       expect(fn).to.throw(TypeError, 'BANG')
-      expect(() => fn()).to.throw(MockNotConfiguredError)
+      expect(() => fn()).to.throw(
+        'The mock function was called but no default behavior has been provided.',
+      )
     })
 
     it('respects previous configuration', () => {
@@ -124,8 +135,9 @@ describe('Mock', () => {
         .returnsOnce(55)
         .executes((x: string) => 'Hey ' + x)
 
+      expect(fn('Marie')).to.equal(55)
       expect(fn('Marie')).to.equal('Hey Marie')
-      expect(fn('foo')).to.equal('Hey foo')
+      expect(fn('foo')).to.equal(5)
     })
   })
 
@@ -148,7 +160,10 @@ describe('Mock', () => {
       expect(fn(2, 2)).to.eq(4)
 
       type _ = AssertTrue<
-        IsExact<Mock<[number, number], number>, MockOf<Operation>>
+        IsExact<
+          MockFunction<[number, number], number>,
+          MockFunctionOf<Operation>
+        >
       >
     })
   })
@@ -157,7 +172,9 @@ describe('Mock', () => {
     it('queues function to execute implementation', () => {
       const fn = mockFn().executesOnce((x: number) => x + 1)
       expect(fn(4)).to.equal(5)
-      expect(() => fn(4)).to.throw(MockNotConfiguredError)
+      expect(() => fn(4)).to.throw(
+        'The mock function was called but no default behavior has been provided.',
+      )
     })
 
     it('can queue multiple values', () => {
@@ -168,7 +185,9 @@ describe('Mock', () => {
       expect(fn(4)).to.equal(5)
       expect(fn(4)).to.equal(2)
       expect(fn(4)).to.equal(15)
-      expect(() => fn(4)).to.throw(MockNotConfiguredError)
+      expect(() => fn(4)).to.throw(
+        'The mock function was called but no default behavior has been provided.',
+      )
     })
 
     it('respects previous configuration', () => {
@@ -196,7 +215,9 @@ describe('Mock', () => {
     it('queues function return value', async () => {
       const fn = mockFn().resolvesToOnce(3)
       expect(await fn()).to.equal(3)
-      expect(() => fn()).to.throw(MockNotConfiguredError)
+      expect(() => fn()).to.throw(
+        'The mock function was called but no default behavior has been provided.',
+      )
     })
 
     it('can queue multiple values', async () => {
@@ -207,7 +228,9 @@ describe('Mock', () => {
       expect(await fn()).to.equal(3)
       expect(await fn()).to.equal(4)
       expect(await fn()).to.equal('hello')
-      expect(() => fn()).to.throw(MockNotConfiguredError)
+      expect(() => fn()).to.throw(
+        'The mock function was called but no default behavior has been provided.',
+      )
     })
 
     it('is async', async () => {
@@ -222,7 +245,9 @@ describe('Mock', () => {
         .resolvesToOnce(3)
         .resolvesTo(4)
 
-      expect(fn()).to.be.instanceOf(Promise)
+      const promise = fn()
+      expect(promise).to.be.instanceOf(Promise)
+      expect(await promise).to.equal(1)
     })
 
     it('respects previous configuration', async () => {
@@ -270,30 +295,66 @@ describe('Mock', () => {
     })
   })
 
+  describe('.reset', () => {
+    it('resets a mock without a default implementation', () => {
+      const fn = mockFn().returns(3)
+      expect(fn()).to.equal(3)
+      fn.reset()
+      expect(() => fn()).to.throw()
+    })
+
+    it('resets a mock with a default implementation', () => {
+      const fn = mockFn((a: string, b: string) => a.length + b.length).returns(
+        3,
+      )
+      expect(fn('foo', 'bar')).to.equal(3)
+      fn.reset()
+      expect(fn('foo', 'bar')).to.equal(6)
+    })
+  })
+
   describe('.given', () => {
     it('supports .returnsOnce', () => {
       const fn = mockFn().given(1, 2).returnsOnce(3)
       expect(fn(1, 2)).to.equal(3)
-      expect(() => fn(1, 2)).to.throw(MockNotConfiguredError)
-      expect(() => fn(3, 4)).to.throw(MockNotConfiguredError)
-      expect(() => fn()).to.throw(MockNotConfiguredError)
+      expect(() => fn(1, 2)).to.throw(
+        'The mock function was called but no default behavior has been provided.',
+      )
+      expect(() => fn(3, 4)).to.throw(
+        'The mock function was called but no default behavior has been provided.',
+      )
+      expect(() => fn()).to.throw(
+        'The mock function was called but no default behavior has been provided.',
+      )
     })
 
     it('supports multiple .returnsOnce', () => {
       const fn = mockFn().given(1, 2).returnsOnce(3).given(1, 2).returnsOnce(4)
       expect(fn(1, 2)).to.equal(3)
       expect(fn(1, 2)).to.equal(4)
-      expect(() => fn(1, 2)).to.throw(MockNotConfiguredError)
-      expect(() => fn(3, 4)).to.throw(MockNotConfiguredError)
-      expect(() => fn()).to.throw(MockNotConfiguredError)
+      expect(() => fn(1, 2)).to.throw(
+        'The mock function was called but no default behavior has been provided.',
+      )
+      expect(() => fn(3, 4)).to.throw(
+        'The mock function was called but no default behavior has been provided.',
+      )
+      expect(() => fn()).to.throw(
+        'The mock function was called but no default behavior has been provided.',
+      )
     })
 
     it('supports .throwsOnce', () => {
       const fn = mockFn().given(1, 2).throwsOnce(new Error('Boom'))
       expect(() => fn(1, 2)).to.throw('Boom')
-      expect(() => fn(1, 2)).to.throw(MockNotConfiguredError)
-      expect(() => fn(3, 4)).to.throw(MockNotConfiguredError)
-      expect(() => fn()).to.throw(MockNotConfiguredError)
+      expect(() => fn(1, 2)).to.throw(
+        'The mock function was called but no default behavior has been provided.',
+      )
+      expect(() => fn(3, 4)).to.throw(
+        'The mock function was called but no default behavior has been provided.',
+      )
+      expect(() => fn()).to.throw(
+        'The mock function was called but no default behavior has been provided.',
+      )
     })
 
     it('supports multiple .throwsOnce', () => {
@@ -304,9 +365,15 @@ describe('Mock', () => {
         .throwsOnce(new Error('Bam'))
       expect(() => fn(1, 2)).to.throw('Boom')
       expect(() => fn(1, 2)).to.throw('Bam')
-      expect(() => fn(1, 2)).to.throw(MockNotConfiguredError)
-      expect(() => fn(3, 4)).to.throw(MockNotConfiguredError)
-      expect(() => fn()).to.throw(MockNotConfiguredError)
+      expect(() => fn(1, 2)).to.throw(
+        'The mock function was called but no default behavior has been provided.',
+      )
+      expect(() => fn(3, 4)).to.throw(
+        'The mock function was called but no default behavior has been provided.',
+      )
+      expect(() => fn()).to.throw(
+        'The mock function was called but no default behavior has been provided.',
+      )
     })
 
     it('supports .executesOnce', () => {
@@ -314,8 +381,12 @@ describe('Mock', () => {
         .given(1, 2)
         .executesOnce((a, b) => a + b)
       expect(fn(1, 2)).to.equal(3)
-      expect(() => fn(1, 2)).to.throw(MockNotConfiguredError)
-      expect(() => fn(3, 4)).to.throw(MockNotConfiguredError)
+      expect(() => fn(1, 2)).to.throw(
+        'The mock function was called but no default behavior has been provided.',
+      )
+      expect(() => fn(3, 4)).to.throw(
+        'The mock function was called but no default behavior has been provided.',
+      )
     })
 
     it('supports multiple .executesOnce', () => {
@@ -326,8 +397,12 @@ describe('Mock', () => {
         .executesOnce((a, b) => a + b * 2)
       expect(fn(1, 2)).to.equal(3)
       expect(fn(1, 2)).to.equal(5)
-      expect(() => fn(1, 2)).to.throw(MockNotConfiguredError)
-      expect(() => fn(3, 4)).to.throw(MockNotConfiguredError)
+      expect(() => fn(1, 2)).to.throw(
+        'The mock function was called but no default behavior has been provided.',
+      )
+      expect(() => fn(3, 4)).to.throw(
+        'The mock function was called but no default behavior has been provided.',
+      )
     })
 
     it('supports .resolvesToOnce', async () => {
@@ -335,9 +410,15 @@ describe('Mock', () => {
         .given(1, 2)
         .resolvesToOnce(3)
       expect(await fn(1, 2)).to.equal(3)
-      expect(() => fn(1, 2)).to.throw(MockNotConfiguredError)
-      expect(() => fn(3, 4)).to.throw(MockNotConfiguredError)
-      expect(() => (fn as any)()).to.throw(MockNotConfiguredError)
+      expect(() => fn(1, 2)).to.throw(
+        'The mock function was called but no default behavior has been provided.',
+      )
+      expect(() => fn(3, 4)).to.throw(
+        'The mock function was called but no default behavior has been provided.',
+      )
+      expect(() => (fn as any)()).to.throw(
+        'The mock function was called but no default behavior has been provided.',
+      )
     })
 
     it('supports .rejectsWithOnce', async () => {
@@ -348,9 +429,15 @@ describe('Mock', () => {
       } catch (e) {
         expect(e).to.eq(3)
       }
-      expect(() => fn(1, 2)).to.throw(MockNotConfiguredError)
-      expect(() => fn(3, 4)).to.throw(MockNotConfiguredError)
-      expect(() => fn()).to.throw(MockNotConfiguredError)
+      expect(() => fn(1, 2)).to.throw(
+        'The mock function was called but no default behavior has been provided.',
+      )
+      expect(() => fn(3, 4)).to.throw(
+        'The mock function was called but no default behavior has been provided.',
+      )
+      expect(() => fn()).to.throw(
+        'The mock function was called but no default behavior has been provided.',
+      )
     })
 
     it('supports asymmetric matchers', () => {
@@ -367,6 +454,13 @@ describe('Mock', () => {
       const fn = mockFn(sum)
 
       fn.given(2, 2).returnsOnce(5)
+    })
+
+    it('throws an error when no default behavior is provided', () => {
+      const fn = mockFn().given(3).returnsOnce(4)
+      expect(() => fn()).to.throw(
+        'The mock function was called with arguments that do not match any of the parameter overrides and no default behavior has been provided.',
+      )
     })
   })
 
