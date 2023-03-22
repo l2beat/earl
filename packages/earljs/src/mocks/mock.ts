@@ -1,8 +1,10 @@
 import { isMock, mockFn } from './mockFn'
-import { MockOf } from './types'
+import { MockFunctionOf } from './types'
 
 export type MockedObject<T> = T & {
-  [P in keyof T]: T[P] extends (...args: any[]) => any ? MockOf<T[P]> : T[P]
+  [P in keyof T]: T[P] extends (...args: any[]) => any
+    ? MockFunctionOf<T[P]>
+    : T[P]
 }
 
 export function mock<T>(overrides: Partial<T> = {}): MockedObject<T> {

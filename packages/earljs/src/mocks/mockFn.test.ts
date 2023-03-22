@@ -4,7 +4,7 @@ import { AssertTrue, IsExact } from 'conditional-type-checks'
 import { expect as earl } from '../expect'
 import { MockNotConfiguredError } from './errors'
 import { mockFn } from './mockFn'
-import { Mock, MockOf } from './types'
+import { MockFunction, MockFunctionOf } from './types'
 
 const sum = (a: number, b: number) => a + b
 
@@ -27,15 +27,16 @@ describe('Mock', () => {
       expect(fn()).to.equal(3)
     })
 
-    it('resets any existing config', () => {
+    it('resets any existing default behavior', () => {
       const fn = mockFn()
         .throws(new Error('Boom'))
         .given(1, 2)
         .executesOnce((a, b) => a + b)
         .returnsOnce(55)
-        .returns(3)
+        .returns(5)
 
-      expect(fn()).to.equal(3)
+      expect(fn()).to.equal(55)
+      expect(fn()).to.equal(5)
       expect(fn(1, 2)).to.equal(3)
     })
   })
@@ -72,13 +73,14 @@ describe('Mock', () => {
 
     it('resets any existing config', () => {
       const fn = mockFn<(a: number, b: number) => number>()
-        .returns(3)
+        .returns(5)
         .given(1, 2)
         .executesOnce((a, b) => a + b)
         .returnsOnce(55)
         .throws(new Error('Boom'))
 
-      expect(fn).to.throw('Boom')
+      expect(fn(3, 4)).to.equal(55)
+      expect(fn(1, 2)).to.equal(3)
       expect(() => fn(1, 2)).to.throw('Boom')
     })
   })
@@ -124,8 +126,9 @@ describe('Mock', () => {
         .returnsOnce(55)
         .executes((x: string) => 'Hey ' + x)
 
+      expect(fn('Marie')).to.equal(55)
       expect(fn('Marie')).to.equal('Hey Marie')
-      expect(fn('foo')).to.equal('Hey foo')
+      expect(fn('foo')).to.equal(5)
     })
   })
 
@@ -148,7 +151,10 @@ describe('Mock', () => {
       expect(fn(2, 2)).to.eq(4)
 
       type _ = AssertTrue<
-        IsExact<Mock<[number, number], number>, MockOf<Operation>>
+        IsExact<
+          MockFunction<[number, number], number>,
+          MockFunctionOf<Operation>
+        >
       >
     })
   })
@@ -222,7 +228,9 @@ describe('Mock', () => {
         .resolvesToOnce(3)
         .resolvesTo(4)
 
-      expect(fn()).to.be.instanceOf(Promise)
+      const promise = fn()
+      expect(promise).to.be.instanceOf(Promise)
+      expect(await promise).to.equal(1)
     })
 
     it('respects previous configuration', async () => {
@@ -267,6 +275,24 @@ describe('Mock', () => {
       } catch (e: any) {
         expect(e.message).to.eq('different error')
       }
+    })
+  })
+
+  describe('.reset', () => {
+    it('resets a mock without a default implementation', () => {
+      const fn = mockFn().returns(3)
+      expect(fn()).to.equal(3)
+      fn.reset()
+      expect(() => fn()).to.throw()
+    })
+
+    it('resets a mock with a default implementation', () => {
+      const fn = mockFn((a: string, b: string) => a.length + b.length).returns(
+        3,
+      )
+      expect(fn('foo', 'bar')).to.equal(3)
+      fn.reset()
+      expect(fn('foo', 'bar')).to.equal(6)
     })
   })
 

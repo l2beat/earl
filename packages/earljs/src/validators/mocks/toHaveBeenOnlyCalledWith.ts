@@ -1,6 +1,6 @@
 import { Control } from '../../Control'
 import { registerValidator } from '../../expect'
-import { Mock, MockArgs } from '../../mocks'
+import { MockFunction, MockParameters } from '../../mocks'
 import { assertIsMock, compareArgs, formatCalledTimes } from './utils'
 
 declare module '../../expect' {
@@ -31,8 +31,8 @@ declare module '../../expect' {
      * ```
      */
     toHaveBeenOnlyCalledWith(
-      this: Validators<Mock<any[], any>>,
-      ...args: MockArgs<T>
+      this: Validators<MockFunction<any[], any>>,
+      ...args: MockParameters<T>
     ): void
   }
 }

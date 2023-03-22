@@ -1,6 +1,6 @@
 import { Control } from '../../Control'
 import { registerValidator } from '../../expect'
-import { Mock } from '../../mocks'
+import { MockFunction } from '../../mocks'
 import { assertIsMock } from './utils'
 
 declare module '../../expect' {
@@ -23,7 +23,7 @@ declare module '../../expect' {
      * expect(fn).toHaveBeenExhausted()
      * ```
      */
-    toHaveBeenExhausted(this: Validators<Mock<any[], any>>): void
+    toHaveBeenExhausted(this: Validators<MockFunction<any[], any>>): void
   }
 }
 
@@ -32,8 +32,8 @@ registerValidator('toHaveBeenExhausted', toHaveBeenExhausted)
 export function toHaveBeenExhausted(control: Control) {
   assertIsMock(control)
 
-  const remainingCalls = control.actual.getQueueLength()
-  const remainingOverrides = control.actual.getOneTimeOverridesLength()
+  const remainingCalls = control.actual.getOneTimeOverridesLength()
+  const remainingOverrides = control.actual.getParameterOverridesLength()
 
   let remaining = ''
   if (remainingCalls !== 0 && remainingOverrides === 0) {

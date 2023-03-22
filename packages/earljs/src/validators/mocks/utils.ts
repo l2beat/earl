@@ -1,11 +1,11 @@
 import { Control } from '../../Control'
 import { format, formatCompact } from '../../format'
 import { isEqual } from '../../isEqual'
-import { isMock, Mock } from '../../mocks'
+import { isMock, MockFunction } from '../../mocks'
 
 export function assertIsMock(
   control: Control,
-): asserts control is Control & { actual: Mock<any[], any> } {
+): asserts control is Control & { actual: MockFunction<any[], any> } {
   if (!isMock(control.actual)) {
     const actualInline = formatCompact(control.actual)
     return control.fail({
@@ -18,7 +18,7 @@ export function formatTimes(times: number) {
   return times === 1 ? 'once' : times === 2 ? 'twice' : `${times} times`
 }
 
-export function formatCalledTimes(mock: Mock<any[], any>) {
+export function formatCalledTimes(mock: MockFunction<any[], any>) {
   return mock.calls.length === 0
     ? 'never called'
     : `called ${formatTimes(mock.calls.length)}`

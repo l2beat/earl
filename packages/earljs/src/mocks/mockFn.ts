@@ -1,6 +1,6 @@
 import { isEqual } from '../isEqual'
 import { MockNotConfiguredError } from './errors'
-import { Mock, MockCall, MockOf, Spec } from './types'
+import { MockCall, MockFunction, MockFunctionOf, Spec } from './types'
 
 interface Override {
   args: any[]
@@ -10,52 +10,64 @@ interface Override {
 const mockSymbol = Symbol('mock')
 
 /**
- * Creates a mock conforming to a given signature.
+ * Creates a mock function conforming to a given signature. You can call
+ * methods on the mock function to further customize its behavior.
+ *
+ * Without a default implementation and without any further configuration the
+ * mock will throw an error when called.
+ *
+ * @param defaultImplementation - (optional) A default implementation to use when the mock is called.
  *
  * @example
  * ```ts
- * const mock1 = mockFn<[number, string], number>()
+ * const mock1 = mockFn((a: number, b: string) => a + b.length)
+ *
  * const mock2 = mockFn<(a: number, b: string) => number>()
+ * const mock3 = mockFn<[number, string], number>()
+ *
+ * const mock4 = mockFn()
+ *   .returnsOnce(420)
+ *   .returns(69)
  * ```
  */
 export function mockFn<F extends (...args: any) => any>(
-  defaultImpl?: F,
-): MockOf<F>
+  defaultImplementation?: F,
+): MockFunctionOf<F>
 export function mockFn<A extends any[], R>(
-  defaultImpl?: (...args: A) => R,
-): Mock<A, R>
+  defaultImplementation?: (...args: A) => R,
+): MockFunction<A, R>
 export function mockFn<A extends any[], R>(
-  defaultImpl?: (...args: A) => R,
-): Mock<A, R> {
-  let spec: Spec = {
+  defaultImplementation?: (...args: A) => R,
+): MockFunction<A, R> {
+  let defaultSpec: Spec = {
     type: 'not-ready',
   }
-  let queue: Spec[] = []
-  let oneTimeOverrides: Override[] = []
+  let oneTimeOverrides: Spec[] = []
+  let parameterOverrides: Override[] = []
 
   function mock(...args: any[]) {
-    for (const override of oneTimeOverrides) {
+    for (const override of parameterOverrides) {
       if (isEqual(args, override.args)) {
-        oneTimeOverrides.splice(oneTimeOverrides.indexOf(override), 1)
+        parameterOverrides.splice(parameterOverrides.indexOf(override), 1)
         return runSpec(override.spec, args)
       }
     }
-    const current = queue.shift() ?? spec
+    const current = oneTimeOverrides.shift() ?? defaultSpec
     return runSpec(current, args)
   }
 
   mock[mockSymbol] = true
   mock.calls = [] as MockCall<any, any>[]
   mock.isExhausted = function () {
-    return queue.length === 0 && oneTimeOverrides.length === 0
-  }
-
-  mock.getQueueLength = function () {
-    return queue.length
+    return oneTimeOverrides.length === 0 && parameterOverrides.length === 0
   }
 
   mock.getOneTimeOverridesLength = function () {
     return oneTimeOverrides.length
+  }
+
+  mock.getParameterOverridesLength = function () {
+    return parameterOverrides.length
   }
 
   function runSpec(spec: Spec, args: any[]) {
@@ -92,77 +104,90 @@ export function mockFn<A extends any[], R>(
     }
   }
 
-  function reset(newSpec: Spec) {
-    spec = newSpec
-    queue = []
+  mock.reset = function () {
+    defaultSpec = { type: 'not-ready' }
     oneTimeOverrides = []
+    parameterOverrides = []
+    if (defaultImplementation) {
+      mock.executes(defaultImplementation)
+    }
   }
 
   mock.returns = function (value: any) {
-    reset({ type: 'return', value })
+    defaultSpec = { type: 'return', value }
     return mock
   }
 
   mock.returnsOnce = function (value: any) {
-    queue.push({ type: 'return', value })
+    oneTimeOverrides.push({ type: 'return', value })
     return mock
   }
 
   mock.throws = function (error: any) {
-    reset({ type: 'throw', error })
+    defaultSpec = { type: 'throw', error }
     return mock
   }
+
   mock.throwsOnce = function (error: any) {
-    queue.push({ type: 'throw', error })
+    oneTimeOverrides.push({ type: 'throw', error })
     return mock
   }
 
   mock.executes = function (implementation: (...args: any[]) => any) {
-    reset({ type: 'exec', implementation })
+    defaultSpec = { type: 'exec', implementation }
     return mock
   }
+
   mock.executesOnce = function (implementation: (...args: any[]) => any) {
-    queue.push({ type: 'exec', implementation })
+    oneTimeOverrides.push({ type: 'exec', implementation })
     return mock
   }
 
   mock.resolvesTo = function (value: any) {
-    reset({ type: 'return', value: Promise.resolve(value) })
+    defaultSpec = { type: 'return', value: Promise.resolve(value) }
     return mock
   }
+
   mock.resolvesToOnce = function (value: any) {
-    queue.push({ type: 'return', value: Promise.resolve(value) })
+    oneTimeOverrides.push({ type: 'return', value: Promise.resolve(value) })
     return mock
   }
 
   mock.rejectsWith = function (error: any) {
-    reset({ type: 'lazy-return', value: () => Promise.reject(error) })
+    defaultSpec = { type: 'lazy-return', value: () => Promise.reject(error) }
     return mock
   }
+
   mock.rejectsWithOnce = function (error: any) {
-    queue.push({ type: 'lazy-return', value: () => Promise.reject(error) })
+    oneTimeOverrides.push({
+      type: 'lazy-return',
+      value: () => Promise.reject(error),
+    })
     return mock
   }
 
   mock.given = function (...args: any[]) {
     return {
       returnsOnce(value: any) {
-        oneTimeOverrides.push({ args, spec: { type: 'return', value } })
+        parameterOverrides.push({ args, spec: { type: 'return', value } })
         return mock
       },
 
       throwsOnce(error: any) {
-        oneTimeOverrides.push({ args, spec: { type: 'throw', error } })
+        parameterOverrides.push({ args, spec: { type: 'throw', error } })
         return mock
       },
 
       executesOnce(implementation: (...args: any[]) => any) {
-        oneTimeOverrides.push({ args, spec: { type: 'exec', implementation } })
+        parameterOverrides.push({
+          args,
+          spec: { type: 'exec', implementation },
+        })
         return mock
       },
 
       resolvesToOnce(value: any) {
-        oneTimeOverrides.push({
+        parameterOverrides.push({
           args,
           spec: { type: 'return', value: Promise.resolve(value) },
         })
@@ -170,7 +195,7 @@ export function mockFn<A extends any[], R>(
       },
 
       rejectsWithOnce(error: any) {
-        oneTimeOverrides.push({
+        parameterOverrides.push({
           args,
           spec: { type: 'lazy-return', value: () => Promise.reject(error) },
         })
@@ -179,13 +204,13 @@ export function mockFn<A extends any[], R>(
     }
   }
 
-  if (defaultImpl) {
-    mock.executes(defaultImpl)
+  if (defaultImplementation) {
+    mock.executes(defaultImplementation)
   }
 
   return mock
 }
 
-export function isMock(value: unknown): value is Mock<any[], any> {
+export function isMock(value: unknown): value is MockFunction<any[], any> {
   return typeof value === 'function' && (value as any)[mockSymbol] === true
 }
