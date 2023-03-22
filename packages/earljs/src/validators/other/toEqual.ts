@@ -1,6 +1,6 @@
 import { Control } from '../../Control'
 import { registerValidator } from '../../expect'
-import { format, formatCompact } from '../../format'
+import { formatCompact } from '../../format'
 import { isEqual } from '../../isEqual'
 
 declare module '../../expect' {
@@ -63,7 +63,7 @@ export function toEqual(control: Control, expected: unknown) {
     success: isEqual(control.actual, expected),
     reason: `The value ${actualInline} is not equal to ${expectedInline}, but it was expected to be equal.`,
     negatedReason: `The value ${actualInline} is equal to ${expectedInline}, but it was expected not to be equal.`,
-    actual: format(control.actual, null),
-    expected: format(expected, control.actual),
+    actual: control.actual,
+    expected,
   })
 }

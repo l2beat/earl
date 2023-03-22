@@ -1,6 +1,6 @@
 import { Control } from '../../Control'
 import { registerValidator } from '../../expect'
-import { format, formatCompact } from '../../format'
+import { formatCompact } from '../../format'
 import { length } from '../../matchers/objects/length'
 
 declare module '../../expect' {
@@ -39,8 +39,8 @@ export function toHaveLength(control: Control, expected: number) {
     success: length(expected)(control.actual),
     reason: `The value ${actualInline} does not have length ${expectedInline}, but it was expected to.`,
     negatedReason: `The value ${actualInline} has length ${expectedInline}, but it was expected not to.`,
-    actual: format(getLength(control.actual), null),
-    expected: format(expected, null),
+    actual: getLength(control.actual),
+    expected: expected,
   })
 }
 

@@ -1,5 +1,5 @@
 import { Control } from '../../Control'
-import { format, formatCompact } from '../../format'
+import { formatCompact } from '../../format'
 import { isEqual } from '../../isEqual'
 import { isMockFn, MockFunction } from '../../mocks'
 
@@ -36,7 +36,7 @@ export function compareArgs(
     success: isEqual(actual, expected),
     reason: `The passed arguments ${actualInline} are not equal to ${expectedInline}, but were expected to be equal.`,
     negatedReason: `The passed arguments ${actualInline} are equal to ${expectedInline}, but were expected not to be equal.`,
-    actual: format(actual, null),
-    expected: format(expected, actual),
+    actual,
+    expected,
   })
 }

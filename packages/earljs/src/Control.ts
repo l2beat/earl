@@ -1,12 +1,13 @@
 import { AssertionError } from './errors'
+import { format } from './format'
 
 export interface ValidationResult {
   success: boolean
   hint?: string
   reason: string
   negatedReason: string
-  actual?: string
-  expected?: string
+  actual?: unknown
+  expected?: unknown
 }
 
 export interface ControlOptions {
@@ -36,8 +37,7 @@ export class Control {
       throw new AssertionError({
         message: result.success ? result.negatedReason : result.reason,
         stack: this._location.stack,
-        actual: result.actual,
-        expected: result.expected,
+        ...formatActualAndExpected(result),
       })
     }
   }
@@ -48,8 +48,27 @@ export class Control {
     throw new AssertionError({
       message: result.reason,
       stack: this._location.stack,
-      actual: result.actual,
-      expected: result.expected,
+      ...formatActualAndExpected(result),
     })
+  }
+}
+
+function formatActualAndExpected(
+  result: Pick<ValidationResult, 'actual' | 'expected'>,
+) {
+  if (!('actual' in result && 'expected' in result)) {
+    return {}
+  }
+
+  if (
+    typeof result.actual === 'string' &&
+    typeof result.expected === 'string'
+  ) {
+    return { actual: result.actual, expected: result.expected }
+  }
+
+  return {
+    actual: format(result.actual, null),
+    expected: format(result.expected, result.actual),
   }
 }

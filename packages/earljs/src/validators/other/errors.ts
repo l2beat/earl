@@ -56,8 +56,8 @@ export function processError(
       success: messageMatches,
       reason: `${sentenceStart} a message that did not match ${messageInline}, but it was expected to.`,
       negatedReason: `${sentenceStart} a message matching ${messageInline}, but it was expected not to.`,
-      expected: format(expectedMessage, null),
-      actual: format(getMessageProperty(thrownError), null),
+      actual: getMessageProperty(thrownError),
+      expected: expectedMessage,
     })
   }
 
@@ -67,8 +67,8 @@ export function processError(
       success: classMatches,
       reason: `${sentenceStart} an error that was not an instance of ${className}, but it was expected to be.`,
       negatedReason: `${sentenceStart} an instance of ${className}, but it was expected not to.`,
-      expected: className,
       actual: getConstructorName(thrownError),
+      expected: className,
     })
   }
 
@@ -80,8 +80,8 @@ export function processError(
       success: classMatches && messageMatches,
       reason: `${sentenceStart} an error that was not an instance of ${className} with the message ${messageInline}, but it was expected to be.`,
       negatedReason: `${sentenceStart} an instance of ${className} with the message ${messageInline}, but it was expected not to.`,
+      actual: thrownError,
       expected: formatExpected(thrownError, expectedClass, expectedMessage),
-      actual: format(thrownError, null),
     })
   }
 }
