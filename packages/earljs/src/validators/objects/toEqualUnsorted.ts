@@ -1,6 +1,6 @@
 import { Control } from '../../Control'
 import { registerValidator } from '../../expect'
-import { format, formatCompact } from '../../format'
+import { formatCompact } from '../../format'
 import { isEqual } from '../../isEqual'
 
 declare module '../../expect' {
@@ -54,8 +54,8 @@ export function toEqualUnsorted(control: Control, expected: unknown) {
       success: false,
       reason: `The value ${actualInline} has a different length than ${expectedInline}, but is was expected to have the same length.`,
       negatedReason: '',
-      actual: format(control.actual.length, null),
-      expected: format(expected.length, control.actual.length),
+      actual: control.actual.length,
+      expected: expected.length,
     })
   }
 
@@ -75,7 +75,7 @@ export function toEqualUnsorted(control: Control, expected: unknown) {
     success: isEqual(control.actual, reordered),
     reason: `The value ${actualInline} is not unsorted equal to ${expectedInline}, but it was expected to be unsorted equal.`,
     negatedReason: `The value ${actualInline} is unsorted equal to ${expectedInline}, but it was expected not to be unsorted equal.`,
-    actual: format(control.actual, null),
-    expected: format(reordered, control.actual),
+    actual: control.actual,
+    expected: reordered,
   })
 }

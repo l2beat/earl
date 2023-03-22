@@ -1,6 +1,6 @@
 import { Control } from '../../Control'
 import { registerValidator } from '../../expect'
-import { format, formatCompact } from '../../format'
+import { formatCompact } from '../../format'
 
 declare module '../../expect' {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -35,8 +35,8 @@ export function toExactlyEqual(control: Control, expected: unknown) {
     success: sameValueZero(control.actual, expected),
     reason: `The value ${actualInline} is not the exact same value as ${expectedInline}, but it was expected to be.`,
     negatedReason: `The value ${actualInline} is the exact same value as ${expectedInline}, but it was expected not to be.`,
-    actual: format(control.actual, null),
-    expected: format(expected, control.actual),
+    actual: control.actual,
+    expected,
   })
 }
 
