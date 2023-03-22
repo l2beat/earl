@@ -80,7 +80,7 @@ export function processError(
       success: classMatches && messageMatches,
       reason: `${sentenceStart} an error that was not an instance of ${className} with the message ${messageInline}, but it was expected to be.`,
       negatedReason: `${sentenceStart} an instance of ${className} with the message ${messageInline}, but it was expected not to.`,
-      actual: thrownError,
+      actual: format(thrownError, null),
       expected: formatExpected(thrownError, expectedClass, expectedMessage),
     })
   }
