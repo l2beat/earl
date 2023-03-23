@@ -7,10 +7,13 @@ import { Example } from './types'
 
 export async function main() {
   console.log('Generating test examples from tsdocs...')
-  const filePaths = await FastGlob('src/matchers/basic/*.ts', {
+  const filePaths = await FastGlob('src/matchers/**/*.ts', {
     absolute: true,
     cwd: join(__dirname, '../../../earljs'),
-    ignore: ['**/*.test.ts'],
+    ignore: [
+      '**/*.test.ts',
+      '**/*/schema.ts', // ignore this one particular file because it imports external dependencies like zod
+    ],
   })
   console.log('Found files: ', filePaths.length)
   const files = filePaths.map((filePath) => ({

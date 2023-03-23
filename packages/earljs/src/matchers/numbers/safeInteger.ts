@@ -14,7 +14,7 @@ declare module '../../expect' {
      * ```ts
      * const counts = getExperimentStats()
      * expect(counts).toEqual({
-     *   min: 0n,
+     *   min: 0,
      *   max: expect.safeInteger(),
      *   median: expect.safeInteger(),
      * })

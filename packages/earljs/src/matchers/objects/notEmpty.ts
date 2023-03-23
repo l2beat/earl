@@ -10,7 +10,7 @@ declare module '../../expect' {
      *
      * @example
      * ```ts
-     * const happyGuy = await people.findWhere({ friendCount: 'max' })
+     * const happyGuy = await people.findWhere({ friendCount: 42 })
      * expect(happyGuy).toEqual({
      *   name: 'John Doe',
      *   friends: expect.notEmpty(),
