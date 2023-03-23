@@ -32,13 +32,17 @@ export class AssertionError extends Error {
   }
 
   private static getCleanStack(error: Error) {
-    const depth = 4
-    if (error.stack?.startsWith('Error: message\n')) {
-      return error.stack
-        .split('\n')
-        .slice(depth + 1)
-        .join('\n')
+    const lines = error.stack?.split('\n') ?? []
+
+    if (lines[0]?.startsWith('Error: message')) {
+      return lines.slice(5).join('\n')
     }
+
+    if (lines[0]?.includes('AssertionError') && lines[2]?.includes('^')) {
+      // in esbuild-register context is added to the stack trace
+      return lines.slice(9).join('\n')
+    }
+
     return error.stack ?? ''
   }
 }

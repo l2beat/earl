@@ -1,7 +1,6 @@
-/* eslint-disable @typescript-eslint/no-var-requires */
-const { expect } = require('earljs')
-const { utils } = require('mocha')
-const Parser = require('error-stack-parser')
+import { expect } from 'earljs'
+import { utils } from 'mocha'
+import Parser from 'error-stack-parser'
 
 function captureError(fn) {
   try {
@@ -41,16 +40,16 @@ describe('stack traces', () => {
     const stack = getStack(error)
 
     expect(stack[0]).toEqual({
-      at: undefined,
-      file: expect.includes('test-node/stack-traces.test.js'),
+      at: 'fn',
+      file: expect.includes('test-babel/stack-traces.test.js'),
     })
     expect(stack[1]).toEqual({
       at: 'captureError',
-      file: expect.includes('test-node/stack-traces.test.js'),
+      file: expect.includes('test-babel/stack-traces.test.js'),
     })
     expect(stack[2]).toEqual({
       at: 'Context.<anonymous>',
-      file: expect.includes('test-node/stack-traces.test.js'),
+      file: expect.includes('test-babel/stack-traces.test.js'),
     })
   })
 
@@ -63,16 +62,16 @@ describe('stack traces', () => {
     const stack = getStack(error)
 
     expect(stack[0]).toEqual({
-      at: undefined,
-      file: expect.includes('test-node/stack-traces.test.js'),
+      at: 'fn',
+      file: expect.includes('test-babel/stack-traces.test.js'),
     })
     expect(stack[1]).toEqual({
       at: 'captureError',
-      file: expect.includes('test-node/stack-traces.test.js'),
+      file: expect.includes('test-babel/stack-traces.test.js'),
     })
     expect(stack[2]).toEqual({
       at: 'Context.<anonymous>',
-      file: expect.includes('test-node/stack-traces.test.js'),
+      file: expect.includes('test-babel/stack-traces.test.js'),
     })
   })
 
@@ -84,15 +83,15 @@ describe('stack traces', () => {
 
     expect(stack[0]).toEqual({
       at: undefined,
-      file: expect.includes('test-node/stack-traces.test.js'),
+      file: expect.includes('test-babel/stack-traces.test.js'),
     })
     expect(stack[1]).toEqual({
-      at: 'async captureErrorAsync',
-      file: expect.includes('test-node/stack-traces.test.js'),
+      at: 'captureErrorAsync',
+      file: expect.includes('test-babel/stack-traces.test.js'),
     })
     expect(stack[2]).toEqual({
-      at: 'async Context.<anonymous>',
-      file: expect.includes('test-node/stack-traces.test.js'),
+      at: 'Context.<anonymous>',
+      file: expect.includes('test-babel/stack-traces.test.js'),
     })
   })
 
@@ -105,16 +104,16 @@ describe('stack traces', () => {
     const stack = getStack(error)
 
     expect(stack[0]).toEqual({
-      at: undefined,
-      file: expect.includes('test-node/stack-traces.test.js'),
+      at: 'fn',
+      file: expect.includes('test-babel/stack-traces.test.js'),
     })
     expect(stack[1]).toEqual({
       at: 'captureErrorAsync',
-      file: expect.includes('test-node/stack-traces.test.js'),
+      file: expect.includes('test-babel/stack-traces.test.js'),
     })
     expect(stack[2]).toEqual({
       at: 'Context.<anonymous>',
-      file: expect.includes('test-node/stack-traces.test.js'),
+      file: expect.includes('test-babel/stack-traces.test.js'),
     })
   })
 })

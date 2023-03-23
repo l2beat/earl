@@ -64,7 +64,7 @@
   },
   "overrides": [
     {
-      "files": ["**/test/**/*.ts", "*.test.ts"],
+      "files": ["**/test/**/*.ts", "*.test.ts", "**/test/**/*.js", "*.test.js"],
       "rules": {
         "@typescript-eslint/ban-types": "off",
         "@typescript-eslint/no-extraneous-class": "off",
