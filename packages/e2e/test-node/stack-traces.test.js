@@ -42,15 +42,15 @@ describe('stack traces', () => {
 
     expect(stack[0]).toEqual({
       at: 'expect().toEqual',
-      file: expect.includes('test-node/stack-traces.test.js'),
+      file: expect.includes('stack-traces.test.js'),
     })
     expect(stack[1]).toEqual({
       at: expect.a(String),
-      file: expect.includes('test-node/stack-traces.test.js'),
+      file: expect.includes('stack-traces.test.js'),
     })
     expect(stack[2]).toEqual({
       at: expect.a(String),
-      file: expect.includes('test-node/stack-traces.test.js'),
+      file: expect.includes('stack-traces.test.js'),
     })
   })
 
@@ -60,15 +60,15 @@ describe('stack traces', () => {
 
     expect(stack[0]).toEqual({
       at: 'expect().not.toEqual',
-      file: expect.includes('test-node/stack-traces.test.js'),
+      file: expect.includes('stack-traces.test.js'),
     })
     expect(stack[1]).toEqual({
       at: expect.a(String),
-      file: expect.includes('test-node/stack-traces.test.js'),
+      file: expect.includes('stack-traces.test.js'),
     })
     expect(stack[2]).toEqual({
       at: expect.a(String),
-      file: expect.includes('test-node/stack-traces.test.js'),
+      file: expect.includes('stack-traces.test.js'),
     })
   })
 
@@ -82,15 +82,15 @@ describe('stack traces', () => {
 
     expect(stack[0]).toEqual({
       at: 'expect().toThrow',
-      file: expect.includes('test-node/stack-traces.test.js'),
+      file: expect.includes('stack-traces.test.js'),
     })
     expect(stack[1]).toEqual({
       at: expect.a(String),
-      file: expect.includes('test-node/stack-traces.test.js'),
+      file: expect.includes('stack-traces.test.js'),
     })
     expect(stack[2]).toEqual({
       at: expect.a(String),
-      file: expect.includes('test-node/stack-traces.test.js'),
+      file: expect.includes('stack-traces.test.js'),
     })
   })
 
@@ -102,15 +102,15 @@ describe('stack traces', () => {
 
     expect(stack[0]).toEqual({
       at: 'expect().toEqual',
-      file: expect.includes('test-node/stack-traces.test.js'),
+      file: expect.includes('stack-traces.test.js'),
     })
     expect(stack[1]).toEqual({
       at: expect.a(String),
-      file: expect.includes('test-node/stack-traces.test.js'),
+      file: expect.includes('stack-traces.test.js'),
     })
     expect(stack[2]).toEqual({
       at: expect.a(String),
-      file: expect.includes('test-node/stack-traces.test.js'),
+      file: expect.includes('stack-traces.test.js'),
     })
   })
 
@@ -124,15 +124,15 @@ describe('stack traces', () => {
 
     expect(stack[0]).toEqual({
       at: 'expect().toBeRejectedWith',
-      file: expect.includes('test-node/stack-traces.test.js'),
+      file: expect.includes('stack-traces.test.js'),
     })
     expect(stack[1]).toEqual({
       at: expect.a(String),
-      file: expect.includes('test-node/stack-traces.test.js'),
+      file: expect.includes('stack-traces.test.js'),
     })
     expect(stack[2]).toEqual({
       at: expect.a(String),
-      file: expect.includes('test-node/stack-traces.test.js'),
+      file: expect.includes('stack-traces.test.js'),
     })
   })
 })
