@@ -1,7 +1,9 @@
 {
   "extends": "../../tsconfig.json",
   "compilerOptions": {
-    "noEmit": true
+    "noEmit": true,
+    "lib": ["ES2020"], // we need ES2020 to support bigint literals
+    "target": "ES2020"
   },
   "include": ["**/*", "docs/.vitepress/config.ts"]
 }

@@ -14,7 +14,7 @@ export function generateTestFile(examples: Example[]): string {
     .join('\n')
 
   return `
-  import { expect } from 'earljs'
+  import { expect, mockFn } from 'earljs'
   
   describe('Examples from tsdocs', () => {
   

@@ -22,12 +22,12 @@ declare module '../../expect' {
      *
      * const fn1 = mockFn((a: number, b: number) => a + b)
      * fn1(1, 2)
-     * expect(fn).toHaveBeenOnlyCalledWith(1, expect.a(Number))
+     * expect(fn1).toHaveBeenOnlyCalledWith(1, expect.a(Number))
      *
      * const fn2 = mockFn((a: number, b: number) => a + b)
      * fn2(1, 2)
      * fn2(3, 4)
-     * expect(fn).not.toHaveBeenOnlyCalledWith(1, 2)
+     * expect(fn2).not.toHaveBeenOnlyCalledWith(1, 2)
      * ```
      */
     toHaveBeenOnlyCalledWith(

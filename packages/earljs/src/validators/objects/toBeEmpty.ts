@@ -18,7 +18,7 @@ declare module '../../expect' {
      * expect(new Map()).toBeEmpty()
      *
      * expect('foo').not.toBeEmpty()
-     * expect(new Set([1, 2, 3]).not.toBeEmpty()
+     * expect(new Set([1, 2, 3])).not.toBeEmpty()
      * ```
      */
     toBeEmpty(this: Validators<string | any[] | Set<any> | Map<any, any>>): void

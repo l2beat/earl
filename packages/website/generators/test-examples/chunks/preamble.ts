@@ -44,7 +44,10 @@ const catApi = {
 }
 
 class Fish {
-  constructor(public species: string) {}
+  readonly species: string
+  constructor(public name: string, opts?: { species: 'shark' }) {
+    this.species = opts?.species ?? 'fish'
+  }
 }
 const crazyZoologist = {
   name: 'John Doe',
@@ -115,6 +118,14 @@ function getExperimentStats() {
     max: 120,
     median: 60,
   }
+}
+
+class Person {
+  constructor(public firstName: string, public lastName: string) {}
+}
+
+class Vector2 {
+  constructor(public readonly x: number, public readonly y: number) {}
 }
 
 // #endregion
