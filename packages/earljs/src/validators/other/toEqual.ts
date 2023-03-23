@@ -40,12 +40,11 @@ declare module '../../expect' {
      * expect({ foo: 'bar' }).toEqual({ foo: 'bar' })
      *
      * expect({ x: 15, y: -20 }).toEqual({
-     *   x: expect.greaterThan(0)
+     *   x: expect.greaterThan(0),
      *   y: expect.lessThan(0)
      * })
      *
-     * // This does not compile, because
-     * // the type string is not assignable to number
+     * // type-error: the type string is not assignable to number
      * expect(123).not.toEqual('foo')
      * ```
      */

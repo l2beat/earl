@@ -20,9 +20,9 @@ declare module '../../expect' {
      * const product = await getLatestProduct()
      * expect(product).toEqual({
      *   name: 'Turbocharger 9000',
-     *   uuid: expect.schema(z.uuid()),
+     *   uuid: expect.schema(z.string().uuid()),
      *   pricing: expect.schema(z.object({
-     *     price: z.number().positive(0),
+     *     price: z.number().positive(),
      *     currency: z.string().length(3),
      *   })),
      * })

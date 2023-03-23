@@ -109,6 +109,7 @@ importers:
       ts-essentials: ^9.3.1
       ts-morph: ^17.0.1
       vitepress: 1.0.0-alpha.51
+      zod: ^3.21.4
     dependencies:
       '@algolia/client-search': 4.15.0
       '@microsoft/tsdoc': 0.14.2
@@ -119,6 +120,8 @@ importers:
       ts-essentials: 9.3.1
       ts-morph: 17.0.1
       vitepress: 1.0.0-alpha.51_2xdflmy6sc2qhwxavtux3g5lt4
+    devDependencies:
+      zod: 3.21.4
 
 packages:
 

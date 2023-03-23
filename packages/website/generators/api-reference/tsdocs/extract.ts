@@ -18,7 +18,9 @@ export function extractTsDocCommentsFromString(
     `Couldn't find any block comments in source:\n\`${source}\``,
   )
   while (rawMethodComment != null) {
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     const comment = `/** ${rawMethodComment[1]!.trim()} */`
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     let signature = removeGetterKeyword(rawMethodComment[2]!.trim())
 
     if (signature.endsWith(';')) signature = signature.slice(0, -1)

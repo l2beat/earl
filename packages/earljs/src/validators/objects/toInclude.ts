@@ -47,6 +47,7 @@ declare module '../../expect' {
      * expect([1, 'foo', false]).toInclude(expect.a(Boolean), 'foo')
      * expect(new Set([5, 6])).toInclude(5)
      *
+     * // type-error: type string is not assignable to boolean
      * expect([true, false]).not.toInclude('magic')
      * ```
      */

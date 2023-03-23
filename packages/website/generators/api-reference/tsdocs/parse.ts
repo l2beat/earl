@@ -17,6 +17,7 @@ export function parseTsDocComment(
   if (parserContext.log.messages.length > 0) {
     throw new Error(
       `Syntax error: \n ${
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
         parserContext.log.messages[0]!.text
       }\nwhile parsing: \n${methodComment.comment}\n${methodComment.signature}`,
     )
@@ -59,7 +60,7 @@ export function parseTsDocComment(
     }
 
     // Examples are rendered as Markdown as they are, without any post-processing.
-    // Make sure to mark all code snippets with language identifer (e.g. ```ts)
+    // Make sure to mark all code snippets with language identifier (e.g. ```ts)
     const contents = renderDocNode(customBlock.content).trim()
 
     examples.push(contents)

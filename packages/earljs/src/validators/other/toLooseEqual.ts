@@ -25,7 +25,7 @@ declare module '../../expect' {
      *
      * @example
      * ```ts
-     * expect(new Vector2(5, 7)).toEqual({
+     * expect(new Vector2(5, 7)).toLooseEqual({
      *   x: 5,
      *   y: expect.greaterThan(0),
      * })
