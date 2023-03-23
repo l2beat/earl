@@ -1,17 +1,32 @@
+import FastGlob from 'fast-glob'
 import { readFileSync, writeFileSync } from 'fs'
-import { join } from 'path'
+import { basename, join } from 'path'
+
+import { generateTestFile } from './generate'
+import { Example } from './types'
 
 export async function main() {
-  const file = join(__dirname, '../../../earljs/src/matchers/basic/a.ts')
-  const outputFile = join(__dirname, './output.ts')
+  console.log('Generating test examples from tsdocs...')
+  const filePaths = await FastGlob('src/matchers/basic/*.ts', {
+    absolute: true,
+    cwd: join(__dirname, '../../../earljs'),
+    ignore: ['**/*.test.ts'],
+  })
+  console.log('Found files: ', filePaths.length)
+  const files = filePaths.map((filePath) => ({
+    name: basename(filePath, '.ts'),
+    source: readFileSync(filePath, 'utf-8'),
+  }))
 
-  const source = readFileSync(file, 'utf-8')
-  const example = extractExample(source)
+  const examples: Example[] = files.map((file) => ({
+    name: file.name,
+    source: extractExample(file.source),
+  }))
 
-  const testFile = generateTestFile('a', example)
+  const testFile = generateTestFile(examples)
 
-  console.log(testFile)
-  writeFileSync(outputFile, testFile)
+  // console.log(testFile)
+  writeFileSync(join(__dirname, './output.ts'), testFile)
 }
 
 function extractExample(source: string): string {
@@ -30,29 +45,6 @@ function extractExample(source: string): string {
     .join('\n')
 
   return example
-}
-
-function generateTestFile(name: string, example: string): string {
-  // cut off first few lines of preamble as they are comments
-  const preamble = readFileSync(join(__dirname, './preamble.ts'), 'utf-8')
-    .split('\n')
-    .slice(2)
-    .join('\n')
-
-  return `
-import { expect } from 'earljs'
-
-describe('Examples from tsdocs', () => {
-
-  ${preamble}
-
-  describe('${name}', () => {
-    it('should work', () => {
-      ${example}
-    })
-  })
-})
-  `
 }
 
 main().catch((e) => {
