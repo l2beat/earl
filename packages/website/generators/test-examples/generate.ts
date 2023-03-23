@@ -10,13 +10,14 @@ export function generateTestFile(examples: Example[]): string {
     'utf-8',
   )
     .split('\n')
-    .slice(4)
+    .slice(3)
     .join('\n')
 
   return `
+  ${preamble}
+  
   import { expect, mockFn, mockObject } from 'earljs'
   
-  ${preamble}
   
   describe('Examples from tsdocs', () => {
   

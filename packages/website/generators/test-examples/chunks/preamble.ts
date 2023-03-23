@@ -1,7 +1,7 @@
 // Common setup shared across all examples
-/* eslint-disable */
 export {}
 
+/* eslint-disable */
 import * as z from 'zod'
 
 // #region setup
