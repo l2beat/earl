@@ -95,7 +95,7 @@ declare module '../../expect' {
      * // checking the error class and message
      * await expect(
      *   async () => 1n / 0n,
-     * ).toBeRejectedWith(RangeError, 'division by zero')
+     * ).toBeRejectedWith(RangeError, 'Division by zero')
      * ```
      */
     toBeRejectedWith(

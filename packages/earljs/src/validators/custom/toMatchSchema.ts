@@ -18,7 +18,7 @@ declare module '../../expect' {
      * ```ts
      * import * as z from 'zod'
      * const Pricing = z.object({
-     *   price: z.number().positive(0),
+     *   price: z.number().positive(),
      *   currency: z.string().length(3),
      * })
      *

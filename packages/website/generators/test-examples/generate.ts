@@ -16,9 +16,10 @@ export function generateTestFile(examples: Example[]): string {
   return `
   import { expect, mockFn, mockObject } from 'earljs'
   
+  ${preamble}
+  
   describe('Examples from tsdocs', () => {
   
-    ${preamble}
   
     ${examples.map(generateExampleTest).join('\n\n')}
   })

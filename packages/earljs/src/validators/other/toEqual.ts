@@ -44,7 +44,7 @@ declare module '../../expect' {
      *   y: expect.lessThan(0)
      * })
      *
-     * // @ts-expect-error: the type string is not assignable to number
+     * // type-error: the type string is not assignable to number
      * expect(123).not.toEqual('foo')
      * ```
      */

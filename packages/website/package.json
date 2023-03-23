@@ -25,5 +25,8 @@
     "ts-essentials": "^9.3.1",
     "ts-morph": "^17.0.1",
     "vitepress": "1.0.0-alpha.51"
+  },
+  "devDependencies": {
+    "zod": "^3.21.4"
   }
 }

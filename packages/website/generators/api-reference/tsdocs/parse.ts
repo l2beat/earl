@@ -60,7 +60,7 @@ export function parseTsDocComment(
     }
 
     // Examples are rendered as Markdown as they are, without any post-processing.
-    // Make sure to mark all code snippets with language identifer (e.g. ```ts)
+    // Make sure to mark all code snippets with language identifier (e.g. ```ts)
     const contents = renderDocNode(customBlock.content).trim()
 
     examples.push(contents)

@@ -1,6 +1,8 @@
+// Common setup shared across all examples
 /* eslint-disable */
 export {}
-// Common setup shared across all examples
+
+import * as z from 'zod'
 
 // #region setup
 class Employee {
@@ -126,6 +128,17 @@ class Person {
 
 class Vector2 {
   constructor(public readonly x: number, public readonly y: number) {}
+}
+
+async function getLatestProduct() {
+  return {
+    name: 'Turbocharger 9000',
+    uuid: '123e4567-e89b-12d3-a456-426614174000',
+    pricing: {
+      price: 0.5,
+      currency: 'BTC',
+    },
+  }
 }
 
 // #endregion

@@ -12,8 +12,6 @@ export async function main() {
     cwd: join(__dirname, '../../../earljs'),
     ignore: [
       '**/*.test.ts',
-      '**/*/schema.ts', // ignore because it requires external dependencies like zod
-      '**/*/toMatchSchema.ts', // ignore because it requires external dependencies like zod
       '**/*/toMatchSnapshot.ts', // ignore because example uses uvu and mocha
     ],
   })
@@ -55,11 +53,18 @@ function extractExamples(source: string): string[] {
     (line, i) => i > exampleStartIndex + 1 && line.includes('* ```'),
   )
 
-  const example = sourceLines
+  let example = sourceLines
     .slice(exampleStartIndex + 2, exampleEndIndex)
     .map((line) => line.replace(/^\s*\*\s*/, '').trim())
     .filter((line) => !line.startsWith('import'))
     .join('\n')
+
+  if (example.includes('@ts-expect-error')) {
+    throw new Error(
+      `Example contains "@ts-expect-error". Due to a bug in tsdoc it will break the formatting. Please replace it with // type-error: ...`,
+    )
+  }
+  example = example.replace(/type-error/g, '@ts-expect-error')
 
   return [
     example,
