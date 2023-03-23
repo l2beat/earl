@@ -1,0 +1,4 @@
+{
+  "extends": "../../tsconfig.json",
+  "include": ["test-esbuild", "test-node", "test-ts-node"]
+}
