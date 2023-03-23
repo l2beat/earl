@@ -23,10 +23,13 @@ export async function main() {
   }))
 
   const examples: Example[] = files
-    .map((file) => ({
-      name: file.name,
-      source: extractExample(file.source),
-    }))
+    .flatMap((file) => {
+      const examples = extractExamples(file.source)
+      return examples.map((example, index) => ({
+        name: `${file.name}${examples.length > 1 ? index + 1 : ''}`,
+        source: example,
+      }))
+    })
     .filter((example): example is Example => !!example.source)
   console.log(
     `Found ${examples.length} examples across ${filePaths.length} source files`,
@@ -37,14 +40,15 @@ export async function main() {
   writeFileSync(join(__dirname, './output/examples.test.ts'), testFile)
 }
 
-function extractExample(source: string): string | undefined {
+// extract multiple examples from a single file
+function extractExamples(source: string): string[] {
   const sourceLines = source.split('\n')
 
   const exampleStartIndex = sourceLines.findIndex((line) =>
     line.includes('* @example'),
   )
   if (exampleStartIndex === -1) {
-    return undefined
+    return []
   }
 
   const exampleEndIndex = sourceLines.findIndex(
@@ -57,7 +61,10 @@ function extractExample(source: string): string | undefined {
     .filter((line) => !line.startsWith('import'))
     .join('\n')
 
-  return example
+  return [
+    example,
+    ...extractExamples(sourceLines.slice(exampleEndIndex + 1).join('\n')),
+  ]
 }
 
 main().catch((e) => {
