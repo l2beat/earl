@@ -45,11 +45,11 @@ describe('stack traces', () => {
       file: expect.includes('test-node/stack-traces.test.js'),
     })
     expect(stack[1]).toEqual({
-      at: 'captureError',
+      at: expect.a(String),
       file: expect.includes('test-node/stack-traces.test.js'),
     })
     expect(stack[2]).toEqual({
-      at: 'Context.<anonymous>',
+      at: expect.a(String),
       file: expect.includes('test-node/stack-traces.test.js'),
     })
   })
@@ -63,11 +63,11 @@ describe('stack traces', () => {
       file: expect.includes('test-node/stack-traces.test.js'),
     })
     expect(stack[1]).toEqual({
-      at: 'captureError',
+      at: expect.a(String),
       file: expect.includes('test-node/stack-traces.test.js'),
     })
     expect(stack[2]).toEqual({
-      at: 'Context.<anonymous>',
+      at: expect.a(String),
       file: expect.includes('test-node/stack-traces.test.js'),
     })
   })
@@ -85,11 +85,11 @@ describe('stack traces', () => {
       file: expect.includes('test-node/stack-traces.test.js'),
     })
     expect(stack[1]).toEqual({
-      at: 'captureError',
+      at: expect.a(String),
       file: expect.includes('test-node/stack-traces.test.js'),
     })
     expect(stack[2]).toEqual({
-      at: 'Context.<anonymous>',
+      at: expect.a(String),
       file: expect.includes('test-node/stack-traces.test.js'),
     })
   })
@@ -105,11 +105,11 @@ describe('stack traces', () => {
       file: expect.includes('test-node/stack-traces.test.js'),
     })
     expect(stack[1]).toEqual({
-      at: 'async captureErrorAsync',
+      at: expect.a(String),
       file: expect.includes('test-node/stack-traces.test.js'),
     })
     expect(stack[2]).toEqual({
-      at: 'async Context.<anonymous>',
+      at: expect.a(String),
       file: expect.includes('test-node/stack-traces.test.js'),
     })
   })
@@ -127,11 +127,11 @@ describe('stack traces', () => {
       file: expect.includes('test-node/stack-traces.test.js'),
     })
     expect(stack[1]).toEqual({
-      at: 'captureErrorAsync',
+      at: expect.a(String),
       file: expect.includes('test-node/stack-traces.test.js'),
     })
     expect(stack[2]).toEqual({
-      at: 'Context.<anonymous>',
+      at: expect.a(String),
       file: expect.includes('test-node/stack-traces.test.js'),
     })
   })

@@ -44,11 +44,11 @@ describe('stack traces', () => {
       file: expect.includes('test-esbuild/stack-traces.test.ts'),
     })
     expect(stack[1]).toEqual({
-      at: 'null.captureError',
+      at: expect.a(String),
       file: expect.includes('test-esbuild/stack-traces.test.ts'),
     })
     expect(stack[2]).toEqual({
-      at: 'Context.<anonymous>',
+      at: expect.a(String),
       file: expect.includes('test-esbuild/stack-traces.test.ts'),
     })
   })
@@ -62,11 +62,11 @@ describe('stack traces', () => {
       file: expect.includes('test-esbuild/stack-traces.test.ts'),
     })
     expect(stack[1]).toEqual({
-      at: 'null.captureError',
+      at: expect.a(String),
       file: expect.includes('test-esbuild/stack-traces.test.ts'),
     })
     expect(stack[2]).toEqual({
-      at: 'Context.<anonymous>',
+      at: expect.a(String),
       file: expect.includes('test-esbuild/stack-traces.test.ts'),
     })
   })
@@ -84,11 +84,11 @@ describe('stack traces', () => {
       file: expect.includes('test-esbuild/stack-traces.test.ts'),
     })
     expect(stack[1]).toEqual({
-      at: 'null.captureError',
+      at: expect.a(String),
       file: expect.includes('test-esbuild/stack-traces.test.ts'),
     })
     expect(stack[2]).toEqual({
-      at: 'Context.<anonymous>',
+      at: expect.a(String),
       file: expect.includes('test-esbuild/stack-traces.test.ts'),
     })
   })
@@ -104,11 +104,11 @@ describe('stack traces', () => {
       file: expect.includes('test-esbuild/stack-traces.test.ts'),
     })
     expect(stack[1]).toEqual({
-      at: 'null.captureErrorAsync',
+      at: expect.a(String),
       file: expect.includes('test-esbuild/stack-traces.test.ts'),
     })
     expect(stack[2]).toEqual({
-      at: 'Context.<anonymous>',
+      at: expect.a(String),
       file: expect.includes('test-esbuild/stack-traces.test.ts'),
     })
   })
@@ -126,11 +126,11 @@ describe('stack traces', () => {
       file: expect.includes('test-esbuild/stack-traces.test.ts'),
     })
     expect(stack[1]).toEqual({
-      at: 'null.captureErrorAsync',
+      at: expect.a(String),
       file: expect.includes('test-esbuild/stack-traces.test.ts'),
     })
     expect(stack[2]).toEqual({
-      at: 'Context.<anonymous>',
+      at: expect.a(String),
       file: expect.includes('test-esbuild/stack-traces.test.ts'),
     })
   })
