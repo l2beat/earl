@@ -40,7 +40,25 @@ describe('stack traces', () => {
     const stack = getStack(error)
 
     expect(stack[0]).toEqual({
-      at: undefined,
+      at: 'expect().toEqual',
+      file: expect.includes('test-ts-node/stack-traces.test.ts'),
+    })
+    expect(stack[1]).toEqual({
+      at: 'captureError',
+      file: expect.includes('test-ts-node/stack-traces.test.ts'),
+    })
+    expect(stack[2]).toEqual({
+      at: 'Context.<anonymous>',
+      file: expect.includes('test-ts-node/stack-traces.test.ts'),
+    })
+  })
+
+  it('captures correct negated synchronous stack traces', () => {
+    const error = captureError(() => expect(1).not.toEqual(1))
+    const stack = getStack(error)
+
+    expect(stack[0]).toEqual({
+      at: 'expect().not.toEqual',
       file: expect.includes('test-ts-node/stack-traces.test.ts'),
     })
     expect(stack[1]).toEqual({
@@ -62,7 +80,7 @@ describe('stack traces', () => {
     const stack = getStack(error)
 
     expect(stack[0]).toEqual({
-      at: undefined,
+      at: 'expect().toThrow',
       file: expect.includes('test-ts-node/stack-traces.test.ts'),
     })
     expect(stack[1]).toEqual({
@@ -82,7 +100,7 @@ describe('stack traces', () => {
     const stack = getStack(error)
 
     expect(stack[0]).toEqual({
-      at: undefined,
+      at: 'expect().toEqual',
       file: expect.includes('test-ts-node/stack-traces.test.ts'),
     })
     expect(stack[1]).toEqual({
@@ -104,7 +122,7 @@ describe('stack traces', () => {
     const stack = getStack(error)
 
     expect(stack[0]).toEqual({
-      at: undefined,
+      at: 'expect().toBeRejectedWith',
       file: expect.includes('test-ts-node/stack-traces.test.ts'),
     })
     expect(stack[1]).toEqual({

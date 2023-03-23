@@ -30,8 +30,15 @@ class Expectation {
     return this
   }
 
-  protected _getControl() {
-    return new Control({ actual: this._value, isNegated: this._negated })
+  protected _getControl(name: string) {
+    const functionName = this._negated
+      ? `expect().not.${name}`
+      : `expect().${name}`
+    return new Control({
+      name: functionName,
+      actual: this._value,
+      isNegated: this._negated,
+    })
   }
 }
 
@@ -40,7 +47,7 @@ export function registerValidator(
   validator: (control: Control, ...args: any[]) => any,
 ) {
   function execute(this: Expectation, ...args: any[]) {
-    return validator(this._getControl(), ...args)
+    return validator(this._getControl(name), ...args)
   }
   Object.defineProperty(execute, 'name', { value: name, writable: false })
   Reflect.set(Expectation.prototype, name, execute)
