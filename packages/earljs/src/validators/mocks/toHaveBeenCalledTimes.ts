@@ -47,5 +47,7 @@ export function toHaveBeenCalledTimes(control: Control, times: number) {
     success: control.actual.calls.length === times,
     reason: `The mock function was ${calledTimes}, but it was expected to have been called ${expectedTimes}.`,
     negatedReason: `The mock function was ${calledTimes}, but it was expected not to have been called ${expectedTimes}.`,
+    actual: control.actual.calls.length,
+    expected: times,
   })
 }
