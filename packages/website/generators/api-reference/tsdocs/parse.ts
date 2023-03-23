@@ -17,6 +17,7 @@ export function parseTsDocComment(
   if (parserContext.log.messages.length > 0) {
     throw new Error(
       `Syntax error: \n ${
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
         parserContext.log.messages[0]!.text
       }\nwhile parsing: \n${methodComment.comment}\n${methodComment.signature}`,
     )

@@ -9,10 +9,11 @@
     "lint": "eslint --ext .ts generators",
     "lint:fix": "pnpm lint --fix",
     "test": "mocha",
-    "build": "pnpm generate:api-reference && vitepress build docs",
+    "build": "pnpm generate:api-reference && pnpm generate:example-tests && vitepress build docs",
     "preview": "vitepress preview docs",
     "typecheck": "tsc --noEmit",
-    "generate:api-reference": "ts-node -T ./generators/api-reference/index.ts"
+    "generate:api-reference": "ts-node -T ./generators/api-reference/index.ts",
+    "generate:example-tests": "ts-node -T ./generators/test-examples/index.ts"
   },
   "dependencies": {
     "earljs": "workspace:^0.2.3",
