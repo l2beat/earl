@@ -36,7 +36,7 @@ describe('stack traces for errors', () => {
     // we need the nesting to simulate the stack trace
     function nestedValidator() {
       function nestedGetControl() {
-        return new Control({})
+        return new Control({ name: 'foo' })
       }
       return nestedGetControl()
     }

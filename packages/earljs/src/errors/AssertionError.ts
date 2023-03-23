@@ -24,21 +24,49 @@ export class AssertionError extends Error {
     this.stack = `${this.message}\n${options.stack}`
   }
 
-  static getLocation() {
+  static getLocation(name: string) {
     const error = new Error('message')
-    const stack = this.getCleanStack(error)
-    const file = ErrorStackParser.parse({ stack } as Error)[0]?.fileName
-    return { file, stack }
+    const cleaned = getCleanStack(error)
+    const parsed = ErrorStackParser.parse({ stack: cleaned } as Error)
+    return {
+      file: parsed[0]?.fileName,
+      stack: formatStack(name, parsed),
+    }
+  }
+}
+
+function getCleanStack(error: Error) {
+  const lines = error.stack?.split('\n') ?? []
+
+  if (lines[0]?.startsWith('Error: message')) {
+    return lines.slice(5).join('\n')
   }
 
-  private static getCleanStack(error: Error) {
-    const depth = 4
-    if (error.stack?.startsWith('Error: message\n')) {
-      return error.stack
-        .split('\n')
-        .slice(depth + 1)
-        .join('\n')
-    }
-    return error.stack ?? ''
+  if (lines[0]?.includes('AssertionError') && lines[2]?.includes('^')) {
+    // in esbuild-register context is added to the stack trace
+    return lines.slice(9).join('\n')
   }
+
+  return error.stack ?? ''
+}
+
+function formatStack(name: string, stack: ErrorStackParser.StackFrame[]) {
+  return stack
+    .map((frame, i) => {
+      let file = frame.fileName
+      if (file !== undefined && frame.lineNumber !== undefined) {
+        file += `:${frame.lineNumber}`
+        if (frame.columnNumber !== undefined) {
+          file += `:${frame.columnNumber}`
+        }
+      }
+
+      if (i === 0) {
+        return file === undefined
+          ? `    at ${name}`
+          : `    at ${name} (${file})`
+      }
+      return frame.source
+    })
+    .join('\n')
 }

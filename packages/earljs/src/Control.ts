@@ -11,21 +11,24 @@ export interface ValidationResult {
 }
 
 export interface ControlOptions {
+  name: string
   actual?: unknown
   isNegated?: boolean
 }
 
 export class Control {
   private readonly _location
+  public readonly name: string
   public readonly actual: unknown
 
   public isNegated = false
 
   constructor(options: ControlOptions) {
+    this.name = options.name
     this.actual = options.actual
     this.isNegated = options.isNegated ?? false
 
-    this._location = AssertionError.getLocation()
+    this._location = AssertionError.getLocation(this.name)
   }
 
   get file() {
