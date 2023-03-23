@@ -34,7 +34,7 @@ declare module '../../expect' {
      * }).toThrow(/^\d+$/)
      *
      * // checking the error class
-     * expect(async () => {
+     * expect(() => {
      *   throw new TypeError('magic')
      * }).toThrow(TypeError)
      *
@@ -69,7 +69,7 @@ declare module '../../expect' {
      * }).toThrow(/^\d+$/)
      *
      * // checking the error class
-     * expect(async () => {
+     * expect(() => {
      *   throw new TypeError('magic')
      * }).toThrow(TypeError)
      *

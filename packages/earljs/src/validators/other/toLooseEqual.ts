@@ -2,7 +2,7 @@ import { Control } from '../../Control'
 import { registerValidator } from '../../expect'
 import { format, formatCompact } from '../../format'
 import { LOOSE_FORMAT_OPTIONS } from '../../format/FormatOptions'
-import { isEqual, LOOSE_EQUALITY_OPTIONS } from '../../isEqual'
+import { LOOSE_EQUALITY_OPTIONS, isEqual } from '../../isEqual'
 
 declare module '../../expect' {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -25,7 +25,7 @@ declare module '../../expect' {
      *
      * @example
      * ```ts
-     * expect(new Vector2(5, 7)).toEqual({
+     * expect(new Vector2(5, 7)).toLooseEqual({
      *   x: 5,
      *   y: expect.greaterThan(0),
      * })

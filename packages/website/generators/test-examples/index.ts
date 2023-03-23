@@ -12,8 +12,9 @@ export async function main() {
     cwd: join(__dirname, '../../../earljs'),
     ignore: [
       '**/*.test.ts',
-      '**/*/schema.ts', // ignore this one particular file because it imports external dependencies like zod
-      '**/*/toMatchSchema.ts', // ignore this one particular file because it imports external dependencies like zod
+      '**/*/schema.ts', // ignore because it requires external dependencies like zod
+      '**/*/toMatchSchema.ts', // ignore because it requires external dependencies like zod
+      '**/*/toMatchSnapshot.ts', // ignore because example uses uvu and mocha
     ],
   })
   const files = filePaths.map((filePath) => ({

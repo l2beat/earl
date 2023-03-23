@@ -51,7 +51,7 @@ class Fish {
 }
 const crazyZoologist = {
   name: 'John Doe',
-  pet: new Fish('shark'),
+  pet: new Fish('Nemo', { species: 'shark' }),
 }
 
 const people = {
