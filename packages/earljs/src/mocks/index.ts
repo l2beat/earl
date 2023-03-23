@@ -1,5 +1,5 @@
 export { isMockFn, mockFn } from './mockFn'
-export { mockObject } from './mockObject'
+export { type MockObject, mockObject } from './mockObject'
 export {
   type MockCall,
   type MockFunction,
