@@ -5,7 +5,10 @@ import { Example } from './types'
 
 export function generateTestFile(examples: Example[]): string {
   // cut off first few lines of preamble as they are comments
-  const preamble = readFileSync(join(__dirname, './preamble.ts'), 'utf-8')
+  const preamble = readFileSync(
+    join(__dirname, './chunks/preamble.ts'),
+    'utf-8',
+  )
     .split('\n')
     .slice(2)
     .join('\n')
@@ -25,7 +28,7 @@ export function generateTestFile(examples: Example[]): string {
 function generateExampleTest(example: Example) {
   return `
     describe('${example.name}', () => {
-      it('should work', () => {
+      it('works', async () => {
         ${example.source}
       })
     })`

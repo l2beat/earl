@@ -33,15 +33,9 @@ const customer = {
   },
 }
 
-interface Cat {
-  name: string
-  mom: Cat
-  dad: Cat
-}
-
 const catApi = {
-  getCat(name: string): Cat {
-    return { name, mom: catApi.getCat('Mom'), dad: catApi.getCat('Dad') }
+  getCat(name: string) {
+    return { name, mom: true, dad: true }
   },
 }
 

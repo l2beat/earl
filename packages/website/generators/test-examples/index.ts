@@ -25,8 +25,7 @@ export async function main() {
 
   const testFile = generateTestFile(examples)
 
-  // console.log(testFile)
-  writeFileSync(join(__dirname, './output.ts'), testFile)
+  writeFileSync(join(__dirname, './output/examples.test.ts'), testFile)
 }
 
 function extractExample(source: string): string {

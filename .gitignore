@@ -4,3 +4,4 @@ dist
 **/tsconfig.prod.tsbuildinfo
 .vercel
 packages/website/.vitepress
+packages/website/generators/test-examples/output
