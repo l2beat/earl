@@ -1,14 +1,29 @@
 import { Control } from '../../Control'
 import { registerValidator } from '../../expect'
 import { formatCompact } from '../../format'
-import { Mock } from '../../mocks'
+import { MockFunction } from '../../mocks'
 import { assertIsMock, formatCalledTimes, formatTimes } from './utils'
 
 declare module '../../expect' {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   interface Validators<T> {
+    /**
+     * Asserts that the mock function was called the given number of times.
+     *
+     * @param times - The number of times the mock function was expected to be called.
+     *
+     * @example
+     * ```ts
+     * import { expect, mockFn } from 'earljs'
+     *
+     * const fn = mockFn().returns(42)
+     * fn()
+     * expect(fn).toHaveBeenCalledTimes(1)
+     * expect(fn).not.toHaveBeenCalledTimes(2)
+     * ```
+     */
     toHaveBeenCalledTimes(
-      this: Validators<Mock<any[], any>>,
+      this: Validators<MockFunction<any[], any>>,
       times: number,
     ): void
   }

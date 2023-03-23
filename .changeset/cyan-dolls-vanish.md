@@ -1,0 +1,5 @@
+---
+"earljs": minor
+---
+
+Add toEqualUnsorted

@@ -1,11 +1,27 @@
 import { Control } from '../../Control'
 import { registerValidator } from '../../expect'
-import { format, formatCompact } from '../../format'
+import { formatCompact } from '../../format'
 
 declare module '../../expect' {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   interface Validators<T> {
-    toExactlyEqual(expected: unknown): void
+    /**
+     * Asserts that a value is referentially equal to the expected value.
+     *
+     * This validator shouldn't be used for primitives or deep equality checks.
+     * Use `toEqual` instead.
+     *
+     * @param expected - The expected value.
+     *
+     * @example
+     * ```ts
+     * const vector = { x: 5, y: 7 }
+     * expect(vector).toExactlyEqual(vector)
+     *
+     * expect(vector).not.toExactlyEqual({ x: 5, y: 7 })
+     * ```
+     */
+    toExactlyEqual(this: Validators<object>, expected: unknown): void
   }
 }
 
@@ -19,8 +35,8 @@ export function toExactlyEqual(control: Control, expected: unknown) {
     success: sameValueZero(control.actual, expected),
     reason: `The value ${actualInline} is not the exact same value as ${expectedInline}, but it was expected to be.`,
     negatedReason: `The value ${actualInline} is the exact same value as ${expectedInline}, but it was expected not to be.`,
-    actual: format(control.actual, null),
-    expected: format(expected, control.actual),
+    actual: control.actual,
+    expected,
   })
 }
 

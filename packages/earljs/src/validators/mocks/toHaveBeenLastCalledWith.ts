@@ -1,13 +1,37 @@
 import { Control } from '../../Control'
 import { registerValidator } from '../../expect'
-import { Mock, MockArgs } from '../../mocks'
+import { MockFunction, MockParameters } from '../../mocks'
 import { assertIsMock, compareArgs } from './utils'
 
 declare module '../../expect' {
   interface Validators<T> {
+    /**
+     * Asserts that when the mock function was called the last time it was
+     * called with the given arguments. If the function was never called this
+     * will fail.
+     *
+     * The arguments are checked for deep equality and can also be matchers.
+     *
+     * If you would like to assert that the function was only called once use
+     * `expect(fn).toHaveBeenOnlyCalledWith(...)` instead.
+     *
+     * @param args - The arguments the mock function was expected to be called with. They can also be matchers.
+     *
+     * @example
+     * ```ts
+     * import { expect, mockFn } from 'earljs'
+     *
+     * const fn = mockFn((a: string, b: string) => a + ' ' + b)
+     * fn('i like', 'pancakes')
+     * fn('you like', 'waffles')
+     *
+     * expect(fn).toHaveBeenLastCalledWith('you like', expect.a(String))
+     * expect(fn).not.toHaveBeenLastCalledWith('i like', 'pancakes')
+     * ```
+     */
     toHaveBeenLastCalledWith(
-      this: Validators<Mock<any[], any>>,
-      ...args: MockArgs<T>
+      this: Validators<MockFunction<any[], any>>,
+      ...args: MockParameters<T>
     ): void
   }
 }

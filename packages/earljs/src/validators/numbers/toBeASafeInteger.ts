@@ -6,6 +6,23 @@ import { safeInteger } from '../../matchers/numbers/safeInteger'
 declare module '../../expect' {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   interface Validators<T> {
+    /**
+     * Asserts that a value is an integer or a bigint and falls within the safe
+     * range of values as defined by `Number.MIN_SAFE_INTEGER` and
+     * `Number.MAX_SAFE_INTEGER`.
+     *
+     * If you want to match a nested value, use the matcher
+     * `expect.safeInteger()` instead.
+     *
+     * @example
+     * ```ts
+     * expect(100).toBeASafeInteger()
+     * expect(100n).toBeASafeInteger()
+     *
+     * expect(100.5).not.toBeASafeInteger()
+     * expect(Number.MAX_SAFE_INTEGER * 2).not.toBeASafeInteger()
+     * ```
+     */
     toBeASafeInteger(this: Validators<number | bigint>): void
   }
 }

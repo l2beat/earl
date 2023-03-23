@@ -6,6 +6,29 @@ import { falsy } from '../../matchers/basic/falsy'
 declare module '../../expect' {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   interface Validators<T> {
+    /**
+     * Asserts that a value is falsy, as defined by:
+     * https://developer.mozilla.org/en-US/docs/Glossary/Falsy
+     *
+     * You can also use its sister validator, `toBeTruthy`, to match the
+     * opposite.
+     *
+     * If you want to match a nested value, use the matcher
+     * `expect.falsy()` instead.
+     *
+     * @example
+     * ```ts
+     * expect(0).toBeFalsy()
+     * expect('').toBeFalsy()
+     * expect(false).toBeFalsy()
+     * expect(null).toBeFalsy()
+     *
+     * expect(1).not.toBeFalsy()
+     * expect('foo').not.toBeFalsy()
+     * expect(true).not.toBeFalsy()
+     * expect({ x: 1, y : 2 }).not.toBeFalsy()
+     * ```
+     */
     toBeFalsy(): void
   }
 }

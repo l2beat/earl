@@ -6,6 +6,23 @@ import { integer } from '../../matchers/numbers/integer'
 declare module '../../expect' {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   interface Validators<T> {
+    /**
+     * Asserts that a value is an integer or a bigint.
+     *
+     * You can also check that the integer is within the safe range of values
+     * by using `expect(...).toBeASafeInteger()`
+     *
+     * If you want to match a nested value, use the matcher
+     * `expect.integer()` instead.
+     *
+     * @example
+     * ```ts
+     * expect(100).toBeAnInteger()
+     * expect(100n).toBeAnInteger()
+     *
+     * expect(100.5).not.toBeAnInteger()
+     * ```
+     */
     toBeAnInteger(this: Validators<number | bigint>): void
   }
 }

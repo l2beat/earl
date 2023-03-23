@@ -6,6 +6,21 @@ import { empty } from '../../matchers/objects/empty'
 declare module '../../expect' {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   interface Validators<T> {
+    /**
+     * Asserts that a string, array, sets or map is empty.
+     *
+     * If you want to match a nested value, use the matcher
+     * `expect.empty()` instead.
+     *
+     * @example
+     * ```ts
+     * expect([]).toBeEmpty()
+     * expect(new Map()).toBeEmpty()
+     *
+     * expect('foo').not.toBeEmpty()
+     * expect(new Set([1, 2, 3]).not.toBeEmpty()
+     * ```
+     */
     toBeEmpty(this: Validators<string | any[] | Set<any> | Map<any, any>>): void
   }
 }

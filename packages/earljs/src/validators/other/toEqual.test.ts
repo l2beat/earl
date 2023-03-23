@@ -139,17 +139,19 @@ describe(toEqual.name, () => {
     it('long strings', () => {
       const diff = captureMochaOutput(() => {
         earl(
-          'i wanna be the very best like no one ever was to catch them is my real test to train them is my cause',
+          'i wanna be the very best\nlike no one ever was to catch them is my real test\nto train them is my cause',
         ).toEqual(
-          'i wanna be the very best XXXX no one ever was to catch XXXX is my real XXXX to train them is my cause',
+          'i wanna be the very best\nXXXX no one ever was to catch XXXX is my real XXXX\nto train them is my cause',
         )
       })
 
       expect(diff).to.equal(stripIndent`
         The value "i wanna..." is not equal to "i wanna...", but it was expected to be equal.
 
-        -"i wanna be the very best like no one ever was to catch them is my real test to train them is my cause"
-        +"i wanna be the very best XXXX no one ever was to catch XXXX is my real XXXX to train them is my cause"
+         i wanna be the very best
+        -like no one ever was to catch them is my real test
+        +XXXX no one ever was to catch XXXX is my real XXXX
+         to train them is my cause
       `)
     })
   })

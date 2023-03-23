@@ -1,12 +1,27 @@
 import { Control } from '../../Control'
 import { registerValidator } from '../../expect'
-import { Mock } from '../../mocks'
+import { MockFunction } from '../../mocks'
 import { assertIsMock, formatCalledTimes } from './utils'
 
 declare module '../../expect' {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   interface Validators<T> {
-    toHaveBeenCalled(this: Validators<Mock<any[], any>>): void
+    /**
+     * Asserts that the mock function has been called at least once.
+     *
+     * @example
+     * ```ts
+     * import { expect, mockFn } from 'earljs'
+     *
+     * const fn1 = mockFn().returns(42)
+     * fn1()
+     * expect(fn1).toHaveBeenCalled()
+     *
+     * const fn2 = mockFn().returns(42)
+     * expect(fn2).not.toHaveBeenCalled()
+     * ```
+     */
+    toHaveBeenCalled(this: Validators<MockFunction<any[], any>>): void
   }
 }
 

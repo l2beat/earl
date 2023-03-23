@@ -14,12 +14,14 @@ describe(toExactlyEqual.name, () => {
 
     it('passes for NaNs', () => {
       expect(() => {
+        // @ts-expect-error - desired behavior
         earl(NaN).toExactlyEqual(NaN)
       }).not.to.throw()
     })
 
     it('passes for +0 and -0', () => {
       expect(() => {
+        // @ts-expect-error - desired behavior
         earl(+0).toExactlyEqual(-0)
       }).not.to.throw()
     })
@@ -45,6 +47,7 @@ describe(toExactlyEqual.name, () => {
 
     it('fails for NaNs', () => {
       expect(() => {
+        // @ts-expect-error - desired behavior
         earl(NaN).not.toExactlyEqual(NaN)
       }).to.throw(
         'The value NaN is the exact same value as NaN, but it was expected not to be.',
@@ -53,6 +56,7 @@ describe(toExactlyEqual.name, () => {
 
     it('fails for +0 and -0', () => {
       expect(() => {
+        // @ts-expect-error - desired behavior
         earl(+0).not.toExactlyEqual(-0)
       }).to.throw(
         'The value 0 is the exact same value as 0, but it was expected not to be.',

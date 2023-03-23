@@ -1,13 +1,38 @@
 import { Control } from '../../Control'
 import { registerValidator } from '../../expect'
-import { Mock, MockArgs } from '../../mocks'
+import { MockFunction, MockParameters } from '../../mocks'
 import { assertIsMock, compareArgs, formatCalledTimes } from './utils'
 
 declare module '../../expect' {
   interface Validators<T> {
+    /**
+     * Asserts that the mock function was called exactly once and with the
+     * provided arguments.
+     *
+     * The arguments are checked for deep equality and can also be matchers.
+     *
+     * If you don't care that the function was only called once use
+     * `expect(fn).toHaveBeenNthCalledWith(1, ...)` instead.
+     *
+     * @param args - The arguments the mock function was expected to be called with. They can also be matchers.
+     *
+     * @example
+     * ```ts
+     * import { expect, mockFn } from 'earljs'
+     *
+     * const fn1 = mockFn((a: number, b: number) => a + b)
+     * fn1(1, 2)
+     * expect(fn).toHaveBeenOnlyCalledWith(1, expect.a(Number))
+     *
+     * const fn2 = mockFn((a: number, b: number) => a + b)
+     * fn2(1, 2)
+     * fn2(3, 4)
+     * expect(fn).not.toHaveBeenOnlyCalledWith(1, 2)
+     * ```
+     */
     toHaveBeenOnlyCalledWith(
-      this: Validators<Mock<any[], any>>,
-      ...args: MockArgs<T>
+      this: Validators<MockFunction<any[], any>>,
+      ...args: MockParameters<T>
     ): void
   }
 }

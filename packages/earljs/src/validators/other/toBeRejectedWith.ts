@@ -6,15 +6,98 @@ import { captureAsyncError, processError } from './errors'
 declare module '../../expect' {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   interface Validators<T> {
+    /**
+     * Asserts that an async function or a promise was rejected.
+     *
+     * The result of this validator is a promise, so you can need to use
+     * it with `await`.
+     *
+     * To also assert the error message, use `toBeRejectedWith`.
+     *
+     * @example
+     * ```ts
+     * await expect(async () => {
+     *   throw new Error('foo')
+     * }).toBeRejected()
+     *
+     * await expect(Promise.reject(new Error('foo'))).toBeRejected()
+     * ```
+     */
     toBeRejected(
       this: Validators<(() => Promise<any>) | Promise<any>>,
     ): Promise<void>
 
+    /**
+     * Asserts that an async function or a promise was rejected with a given
+     * message and/or error class.
+     *
+     * The result of this validator is a promise, so you can need to use
+     * it with `await`.
+     *
+     * @param errorClass - The error class to check.
+     * @param message - A substring of the error message or a regex matching the message.
+     *
+     * @example
+     * ```ts
+     * // checking the error message with a substring
+     * await expect(async () => {
+     *   throw new Error('no pancakes found')
+     * }).toBeRejectedWith('pancakes')
+     *
+     * // checking the error message with a regex
+     * await expect(
+     *   Promise.reject(new Error('12345')),
+     * ).toBeRejectedWith(/^\d+$/)
+     *
+     * // checking the error class
+     * await expect(async () => {
+     *   throw new TypeError('magic')
+     * }).toBeRejectedWith(TypeError)
+     *
+     * // checking the error class and message
+     * await expect(
+     *   async () => 1n / 0n,
+     * ).toBeRejectedWith(RangeError, 'Division by zero')
+     * ```
+     */
     toBeRejectedWith(
       this: Validators<(() => Promise<any>) | Promise<any>>,
       message: string | RegExp,
     ): Promise<void>
 
+    /**
+     * Asserts that an async function or a promise was rejected with a given
+     * message and/or error class.
+     *
+     * The result of this validator is a promise, so you can need to use
+     * it with `await`.
+     *
+     * @param errorClass - The error class to check.
+     * @param message - A substring of the error message or a regex matching the message.
+     *
+     * @example
+     * ```ts
+     * // checking the error message with a substring
+     * await expect(async () => {
+     *   throw new Error('no pancakes found')
+     * }).toBeRejectedWith('pancakes')
+     *
+     * // checking the error message with a regex
+     * await expect(
+     *   Promise.reject(new Error('12345')),
+     * ).toBeRejectedWith(/^\d+$/)
+     *
+     * // checking the error class
+     * await expect(async () => {
+     *   throw new TypeError('magic')
+     * }).toBeRejectedWith(TypeError)
+     *
+     * // checking the error class and message
+     * await expect(
+     *   async () => 1n / 0n,
+     * ).toBeRejectedWith(RangeError, 'division by zero')
+     * ```
+     */
     toBeRejectedWith(
       this: Validators<(() => Promise<any>) | Promise<any>>,
       errorClass: new (...args: any[]) => Error,

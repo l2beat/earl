@@ -1,11 +1,28 @@
 import { Control } from '../../Control'
 import { registerValidator } from '../../expect'
-import { format, formatCompact } from '../../format'
+import { formatCompact } from '../../format'
 import { length } from '../../matchers/objects/length'
 
 declare module '../../expect' {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   interface Validators<T> {
+    /**
+     * Asserts that a string, array or object with a `length` property
+     * has a specific length.
+     *
+     * If you want to match a nested value, use the matcher
+     * `expect.length(length)` instead.
+     *
+     * @param length - The expected length. Can be a matcher.
+     *
+     * @example
+     * ```ts
+     * expect('abcdef').toHaveLength(6)
+     * expect([1, 2, 3]).toHaveLength(expect.greaterThan(2))
+     *
+     * expect({ length: 5 }).not.toHaveLength(4)
+     * ```
+     */
     toHaveLength(
       this: Validators<string | any[] | { length: number }>,
       length: number,
@@ -22,8 +39,8 @@ export function toHaveLength(control: Control, expected: number) {
     success: length(expected)(control.actual),
     reason: `The value ${actualInline} does not have length ${expectedInline}, but it was expected to.`,
     negatedReason: `The value ${actualInline} has length ${expectedInline}, but it was expected not to.`,
-    actual: format(getLength(control.actual), null),
-    expected: format(expected, null),
+    actual: getLength(control.actual),
+    expected: expected,
   })
 }
 
