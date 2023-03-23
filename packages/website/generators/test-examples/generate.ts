@@ -10,7 +10,7 @@ export function generateTestFile(examples: Example[]): string {
     'utf-8',
   )
     .split('\n')
-    .slice(2)
+    .slice(4)
     .join('\n')
 
   return `

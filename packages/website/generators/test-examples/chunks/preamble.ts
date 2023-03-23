@@ -1,4 +1,6 @@
-// file with common setup shared across all examples
+/* eslint-disable */
+export {}
+// Common setup shared across all examples
 
 // #region setup
 class Employee {
