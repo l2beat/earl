@@ -2,7 +2,7 @@ import { Control } from '../../Control'
 import { registerValidator } from '../../expect'
 import { format, formatCompact } from '../../format'
 import { LOOSE_FORMAT_OPTIONS } from '../../format/FormatOptions'
-import { LOOSE_EQUALITY_OPTIONS, isEqual } from '../../isEqual'
+import { isEqual, LOOSE_EQUALITY_OPTIONS } from '../../isEqual'
 
 declare module '../../expect' {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
