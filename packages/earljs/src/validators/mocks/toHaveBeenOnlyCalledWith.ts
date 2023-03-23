@@ -52,6 +52,8 @@ export function toHaveBeenOnlyCalledWith(
       success: false,
       reason: `The mock function was ${calledTimes}, but it was expected to have been called exactly once.`,
       negatedReason: '',
+      actual: control.actual.calls.length,
+      expected: 1,
     })
   }
 

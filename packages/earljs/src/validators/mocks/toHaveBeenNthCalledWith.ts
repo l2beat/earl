@@ -69,6 +69,8 @@ export function toHaveBeenNthCalledWith(
       success: false,
       reason: `The mock function was ${calledTimes}, but it was expected to have been called at least ${times}.`,
       negatedReason: '',
+      actual: control.actual.calls.length,
+      expected: n,
     })
   }
 
