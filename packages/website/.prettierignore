@@ -3,3 +3,4 @@ dist
 docs/.vitepress/cache
 docs/.vitepress/dist
 docs/api/api-reference.md
+generators/test-examples/output
