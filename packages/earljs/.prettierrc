@@ -3,5 +3,9 @@
   "singleQuote": true,
   "printWidth": 80,
   "bracketSpacing": true,
-  "trailingComma": "all"
+  "trailingComma": "all",
+  "plugins": ["@krzkaczor/prettier-plugin-jsdoc"],
+  "jsdocSingleLineComment": false,
+  "jsdocPreferCodeFences": true,
+  "tsdoc": true
 }
