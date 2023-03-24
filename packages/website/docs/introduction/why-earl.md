@@ -50,14 +50,14 @@ safety, mocking tools and a great developer experience.
 
 Check it out yourself!
 
-```ts
+```ts{7-10,18-29}
 import { expect, mockObject } from 'earl'
 import { CreditCardValidator } from './CreditCardValidator'
 import { PaymentProcessor } from './PaymentProcessor'
 
 describe(PaymentProcessor.name, () => {
   it('correctly processes payment', async () => {
-    // Create mock objects while remaining fully type safe
+    // Create mock objects while remaining fully type safe // [!code focus:4]
     const validator = mockObject<CreditCardValidator>({
       validateCreditCard: async () => true,
     })
@@ -68,14 +68,14 @@ describe(PaymentProcessor.name, () => {
       amount: Math.random(),
     })
 
-    // Assert deep equality with ease
+    // Assert deep equality with ease // [!code focus:6]
     expect(result).toEqual({
       success: true,
       // Leverage asymmetric matchers to make assertions more flexible
       message: expect.includes('payment successful'),
     })
 
-    // Spy on mock functions and assert on their calls
+    // Spy on mock functions and assert on their calls // [!code focus:5]
     expect(validator.validateCreditCard).toHaveBeenLastCalledWith(
       creditCardNumber: '1234 5678 9012 3456',
       amount: expect.a(Number),
