@@ -51,7 +51,7 @@ export default defineConfig({
 
     nav: [
       { text: 'Home', link: '/' },
-      { text: 'Docs', link: '/introduction/getting-started' },
+      { text: 'Docs', link: '/introduction/why-earl' },
       {
         text: pkg.version,
         items: [
@@ -76,13 +76,9 @@ export default defineConfig({
       {
         text: 'Introduction',
         items: [
+          { text: 'Why Earl?', link: '/introduction/why-earl' },
           { text: 'Getting started', link: '/introduction/getting-started' },
-          {
-            text: 'Step by step guide',
-            link: '/introduction/step-by-step-guide',
-          },
           { text: 'Core concepts', link: '/introduction/core-concepts' },
-          { text: 'Motivation', link: '/introduction/motivation' },
         ],
       },
       {

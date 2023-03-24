@@ -7,10 +7,47 @@ editLink: true
 
 ### Validators
 
-Validators are basically more powerful assertions like `toEqual` or `toThrow`.
-All of them support matchers in expected values.
+Validators are core of Earl. They are used every time you want to assert
+something during testing.
+
+A great example of a validator is `toEqual` which compares the provided value
+with the expected value using a deep equality algorithm.
+
+```ts
+const value = { foo: 'bar', baz: Math.random() }
+
+expect(value).toEqual({
+  foo: 'bar',
+  // this is a matcher, continue reading to learn about them
+  baz: expect.a(Number),
+})
+```
+
+Another great example is `toThrow` which can be used to check for errors:
+
+```ts
+function safeDiv(a: number, b: number) {
+  if (b === 0) {
+    throw new Error('Division by zero')
+  }
+  return a / b
+}
+
+expect(() => safeDiv(1, 0)).toThrow('Division by zero')
+```
+
+Validators can also be negated using the `not` modifier:
+
+```ts
+expect(1).not.toEqual(2)
+```
+
+<!-- TODO: read more in a guide about the most important validators -->
+<!-- TODO: browse validators API reference -->
 
 ### Matchers
+
+<!-- TODO: more info about matchers. -->
 
 Matchers are used with validators to match more than a single value. They are
 attached directly to `expect` object. For example with `expect.anything()` you
@@ -25,13 +62,9 @@ expect(something).toEqual(expect.anything())
 
 Of course matchers can be nested.
 
-Read more about matchers in [Using matchers guide](/guides/using-matchers).
+<!-- TODO: read more in a guide about the most important matchers -->
+<!-- TODO: browse matchers API reference -->
 
-### Modifiers
-
-Modifiers change the way how assertion behave. Currently only modifier is `not`
-which negates an assertion:
-
-```typescript
-expect(something).not.toEqual(expect.anything())
-```
+<!-- TODO: snapshots -->
+<!-- TODO: mocks -->
+<!-- TODO: plugins -->
