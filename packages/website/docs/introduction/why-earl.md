@@ -85,14 +85,40 @@ it('throws an error when dividing by zero', () => {
 And here's the mocha output that you'll see when the test fails:
 
 ```
-  1) throws an error when dividing by zero:
-     The function call did not throw an error, but it was expected to.
-      at expect().toThrow (math.test.ts:5:30)
+1) throws an error when dividing by zero:
+   The function call did not throw an error, but it was expected to.
+    at expect().toThrow (math.test.ts:5:30)
 ```
 
-You can clearly see the reason why the assertion failed ("The function call did not throw an error, but it was expected to.") and you can also see the validator function and the exact line of code that caused the failure.
+You can clearly see the reason why the assertion failed `The function call did not throw an error, but it was expected to.` and you can also see the validator function `expect().toThrow` and the exact line of code that caused the failure: `math.test.ts:5:30`.
 
-This might seem benign, but you'd be surprised how many tools get this part really wrong, especially in async contexts.
+We have also developed a custom deep equality algorithm that is integrated with our custom object formatter so that you get the best diffs possible.
+
+Having a robust formatter allows you to quickly identify nasty issues that otherwise would be near impossible to spot. Here's an example of how Earl's formatter can help you identify a subtle bug:
+
+```ts
+it('can handle weird edge cases', () => {
+  const weirdObject = Object.assign(Object.create(null), { x: 1 })
+  expect(weirdObject).toEqual({ x: 1 })
+})
+```
+
+And here's the diff you'll see when the test fails:
+
+```
+1) can handle weird edge cases:
+
+   The value [custom prototype] { x: 1 } is not equal to { x: 1 },
+   but it was expected to be equal.
+   + expected - actual
+
+    [custom prototype] { // [!code --]
+    { // [!code ++]
+      x: 1
+    }
+
+    at expect().toEqual (edge-case.test.ts:3:23)
+```
 
 ### Uniformity
 
