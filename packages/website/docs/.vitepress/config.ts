@@ -75,7 +75,7 @@ export default defineConfig({
         items: [
           { text: 'Why Earl?', link: '/introduction/why-earl' },
           { text: 'Getting started', link: '/introduction/getting-started' },
-          { text: 'Core concepts', link: '/introduction/core-concepts' },
+          { text: 'Main concepts', link: '/introduction/main-concepts' },
         ],
       },
       {

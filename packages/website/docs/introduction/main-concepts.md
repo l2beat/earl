@@ -1,5 +1,5 @@
 ---
-title: Core concepts
+title: Main concepts
 editLink: true
 ---
 
