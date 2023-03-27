@@ -11,14 +11,11 @@ hero:
   image:
     light: /hero-light.svg
     dark: /hero-dark.svg
-    alt: VitePress
+    alt: Earl
   actions:
     - theme: brand
-      text: Getting started
-      link: /introduction/getting-started
-    - theme: alt
-      text: Why earl?
-      link: /introduction/motivation
+      text: Documentation
+      link: /introduction/why-earl
     - theme: alt
       text: GitHub
       link: https://github.com/l2beat/earl
