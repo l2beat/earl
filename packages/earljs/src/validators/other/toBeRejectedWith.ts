@@ -9,8 +9,8 @@ declare module '../../expect' {
     /**
      * Asserts that an async function or a promise was rejected.
      *
-     * The result of this validator is a promise, so you can need to use
-     * it with `await`.
+     * The result of this validator is a promise, so you can need to use it with
+     * `await`.
      *
      * To also assert the error message, use `toBeRejectedWith`.
      *
@@ -31,11 +31,12 @@ declare module '../../expect' {
      * Asserts that an async function or a promise was rejected with a given
      * message and/or error class.
      *
-     * The result of this validator is a promise, so you can need to use
-     * it with `await`.
+     * The result of this validator is a promise, so you can need to use it with
+     * `await`.
      *
      * @param errorClass - The error class to check.
-     * @param message - A substring of the error message or a regex matching the message.
+     * @param message - A substring of the error message or a regex matching the
+     *   message.
      *
      * @example
      * ```ts
@@ -45,9 +46,9 @@ declare module '../../expect' {
      * }).toBeRejectedWith('pancakes')
      *
      * // checking the error message with a regex
-     * await expect(
-     *   Promise.reject(new Error('12345')),
-     * ).toBeRejectedWith(/^\d+$/)
+     * await expect(Promise.reject(new Error('12345'))).toBeRejectedWith(
+     *   /^\d+$/,
+     * )
      *
      * // checking the error class
      * await expect(async () => {
@@ -55,9 +56,10 @@ declare module '../../expect' {
      * }).toBeRejectedWith(TypeError)
      *
      * // checking the error class and message
-     * await expect(
-     *   async () => 1n / 0n,
-     * ).toBeRejectedWith(RangeError, 'Division by zero')
+     * await expect(async () => 1n / 0n).toBeRejectedWith(
+     *   RangeError,
+     *   'Division by zero',
+     * )
      * ```
      */
     toBeRejectedWith(
@@ -69,11 +71,12 @@ declare module '../../expect' {
      * Asserts that an async function or a promise was rejected with a given
      * message and/or error class.
      *
-     * The result of this validator is a promise, so you can need to use
-     * it with `await`.
+     * The result of this validator is a promise, so you can need to use it with
+     * `await`.
      *
      * @param errorClass - The error class to check.
-     * @param message - A substring of the error message or a regex matching the message.
+     * @param message - A substring of the error message or a regex matching the
+     *   message.
      *
      * @example
      * ```ts
@@ -83,9 +86,9 @@ declare module '../../expect' {
      * }).toBeRejectedWith('pancakes')
      *
      * // checking the error message with a regex
-     * await expect(
-     *   Promise.reject(new Error('12345')),
-     * ).toBeRejectedWith(/^\d+$/)
+     * await expect(Promise.reject(new Error('12345'))).toBeRejectedWith(
+     *   /^\d+$/,
+     * )
      *
      * // checking the error class
      * await expect(async () => {
@@ -93,9 +96,10 @@ declare module '../../expect' {
      * }).toBeRejectedWith(TypeError)
      *
      * // checking the error class and message
-     * await expect(
-     *   async () => 1n / 0n,
-     * ).toBeRejectedWith(RangeError, 'Division by zero')
+     * await expect(async () => 1n / 0n).toBeRejectedWith(
+     *   RangeError,
+     *   'Division by zero',
+     * )
      * ```
      */
     toBeRejectedWith(

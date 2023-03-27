@@ -7,8 +7,8 @@ declare module '../../expect' {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   interface Validators<T> {
     /**
-     * Asserts that a string, array or object with a `length` property
-     * has a specific length.
+     * Asserts that a string, array or object with a `length` property has a
+     * specific length.
      *
      * If you want to match a nested value, use the matcher
      * `expect.length(length)` instead.

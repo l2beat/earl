@@ -3,7 +3,8 @@ import { registerMatcher } from '../../expect'
 declare module '../../expect' {
   interface Matchers {
     /**
-     * Matches numbers that are integers between Number.MIN_SAFE_INTEGER nad Number.MAX_SAFE_INTEGER.
+     * Matches numbers that are integers between Number.MIN_SAFE_INTEGER nad
+     * Number.MAX_SAFE_INTEGER.
      *
      * Works for both numbers and bigints.
      *

@@ -9,11 +9,11 @@ declare module '../../expect' {
     /**
      * Asserts that a value is an integer or a bigint.
      *
-     * You can also check that the integer is within the safe range of values
-     * by using `expect(...).toBeASafeInteger()`
+     * You can also check that the integer is within the safe range of values by
+     * using `expect(...).toBeASafeInteger()`
      *
-     * If you want to match a nested value, use the matcher
-     * `expect.integer()` instead.
+     * If you want to match a nested value, use the matcher `expect.integer()`
+     * instead.
      *
      * @example
      * ```ts

@@ -9,8 +9,8 @@ declare module '../../expect' {
     /**
      * Asserts that a string, array, sets or map is empty.
      *
-     * If you want to match a nested value, use the matcher
-     * `expect.empty()` instead.
+     * If you want to match a nested value, use the matcher `expect.empty()`
+     * instead.
      *
      * @example
      * ```ts

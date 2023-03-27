@@ -14,7 +14,8 @@ declare module '../../expect' {
      * `toBeRejectedWith` instead.
      *
      * @param errorClass - The error class to check.
-     * @param message - A substring of the error message or a regex matching the message.
+     * @param message - A substring of the error message or a regex matching the
+     *   message.
      *
      * @example
      * ```ts
@@ -39,9 +40,7 @@ declare module '../../expect' {
      * }).toThrow(TypeError)
      *
      * // checking the error class and message
-     * expect(
-     *   () => 1n / 0n,
-     * ).toThrow(RangeError, 'Division by zero')
+     * expect(() => 1n / 0n).toThrow(RangeError, 'Division by zero')
      * ```
      */
     toThrow(this: Validators<() => any>, message?: string | RegExp): void
@@ -54,7 +53,8 @@ declare module '../../expect' {
      * `toBeRejectedWith` instead.
      *
      * @param errorClass - The error class to check.
-     * @param message - A substring of the error message or a regex matching the message.
+     * @param message - A substring of the error message or a regex matching the
+     *   message.
      *
      * @example
      * ```ts
@@ -74,9 +74,7 @@ declare module '../../expect' {
      * }).toThrow(TypeError)
      *
      * // checking the error class and message
-     * expect(
-     *   () => 1n / 0n,
-     * ).toThrow(RangeError, 'Division by zero')
+     * expect(() => 1n / 0n).toThrow(RangeError, 'Division by zero')
      * ```
      */
     toThrow(

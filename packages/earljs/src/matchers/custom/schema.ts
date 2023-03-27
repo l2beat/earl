@@ -21,10 +21,12 @@ declare module '../../expect' {
      * expect(product).toEqual({
      *   name: 'Turbocharger 9000',
      *   uuid: expect.schema(z.string().uuid()),
-     *   pricing: expect.schema(z.object({
-     *     price: z.number().positive(),
-     *     currency: z.string().length(3),
-     *   })),
+     *   pricing: expect.schema(
+     *     z.object({
+     *       price: z.number().positive(),
+     *       currency: z.string().length(3),
+     *     }),
+     *   ),
      * })
      * ```
      */

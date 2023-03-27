@@ -21,7 +21,7 @@ declare module '../../expect' {
      * expect(50_000n).toBeLessThan(100_000n)
      *
      * expect(1337n).not.toBeLessThan(1337n)
-     * expect(0xDEADBEEF).not.toBeLessThan(0xCAFEBABE)
+     * expect(0xdeadbeef).not.toBeLessThan(0xcafebabe)
      * ```
      */
     toBeLessThan(

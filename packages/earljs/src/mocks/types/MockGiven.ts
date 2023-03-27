@@ -46,8 +46,8 @@ export interface MockGiven<
 
   /**
    * Adds a parameter override for the mock to return a promise rejected with
-   * the given error the next time it's called with the provided parameters.
-   * If another parameter override is already scheduled it will be used first.
+   * the given error the next time it's called with the provided parameters. If
+   * another parameter override is already scheduled it will be used first.
    *
    * @param error - The error to be rejected inside the promise.
    */

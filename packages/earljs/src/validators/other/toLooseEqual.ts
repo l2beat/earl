@@ -13,13 +13,12 @@ declare module '../../expect' {
      *
      * This validator also supports asymmetric matchers on the expected value.
      *
-     * This validator shouldn't be used for primitives. Use `toEqual`
-     * instead.
+     * This validator shouldn't be used for primitives. Use `toEqual` instead.
      *
      * Unlike `toEqual` this validator does not also work on the type level.
      *
-     * If you would like instead to check values for referential equality
-     * use the `toExactlyEqual` validator instead.
+     * If you would like instead to check values for referential equality use
+     * the `toExactlyEqual` validator instead.
      *
      * @param expected - The expected value. Can include nested matchers.
      *

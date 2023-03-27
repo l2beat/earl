@@ -9,15 +9,15 @@ declare module '../../expect' {
     /**
      * Asserts that a value is nullish, meaning it is either `null` or
      * `undefined`.
-     * 
-     * If you want to match a nested value, use the matcher
-     * `expect.nullish()` or `expect.notNullish()` instead.
+     *
+     * If you want to match a nested value, use the matcher `expect.nullish()`
+     * or `expect.notNullish()` instead.
      *
      * @example
      * ```ts
      * expect(null).toBeNullish()
      * expect(undefined).toBeNullish()
-
+     *
      * expect('foo').not.toBeNullish()
      * expect({ x: 1 }).not.toBeNullish()
      * ```

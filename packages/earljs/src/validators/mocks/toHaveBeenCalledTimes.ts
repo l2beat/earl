@@ -10,7 +10,8 @@ declare module '../../expect' {
     /**
      * Asserts that the mock function was called the given number of times.
      *
-     * @param times - The number of times the mock function was expected to be called.
+     * @param times - The number of times the mock function was expected to be
+     *   called.
      *
      * @example
      * ```ts

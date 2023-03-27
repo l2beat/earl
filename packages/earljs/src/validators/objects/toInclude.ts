@@ -15,8 +15,8 @@ declare module '../../expect' {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   interface Validators<T> {
     /**
-     * Asserts that a string includes all of the provided substrings.
-     * The substrings can overlap.
+     * Asserts that a string includes all of the provided substrings. The
+     * substrings can overlap.
      *
      * If you want to match a nested value, use the matcher
      * `expect.includes(...)` instead.
