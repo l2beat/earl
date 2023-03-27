@@ -65,7 +65,49 @@ expect(registeredUser).toEqual({
 })
 ```
 
+You can read more about matchers in the [Using matchers](/guides/using-matchers) guide or browse the [API reference](/api/matchers).
+
 ## Error handling
+
+Earl provides robust support for testing functions and promises that throw errors.
+
+Here's an example of how you can test a function that throws an error:
+
+::: code-group
+
+```ts [index.test.ts]
+import { getZipCode, markAsDelivered } from './index'
+
+it('cannot get zip code of a user without an address', () => {
+  const user = { name: 'John' }
+  expect(() => getZipCode(user)).toThrow('User has no address')
+})
+
+it('cannot mark nonexistent order as delivered', async () => {
+  await expect(markAsDelivered(1)).toBeRejectedWith('Order not found')
+})
+```
+
+```ts [index.ts]
+export function getZipCode(user: User) {
+  if (!user.address) {
+    throw new Error('User has no address')
+  }
+  return user.address.zipCode
+}
+
+export async function markAsDelivered(orderId: number) {
+  const order = await getOrder(orderId)
+  if (!order) {
+    throw new Error('Order not found')
+  }
+  await saveOrder({ ...order, status: 'delivered' })
+}
+```
+
+:::
+
+You can read more about errors in the [Handling errors](/guides/handling-errors) guide or browse the [API reference](/api/validators).
 
 ## Mocks
 
