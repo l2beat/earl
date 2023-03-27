@@ -1,5 +1,5 @@
 ---
-title: Using matchers
+title: Using mocks
 editLink: true
 ---
 

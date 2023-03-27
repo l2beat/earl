@@ -1,5 +1,5 @@
 ---
-title: Using matchers
+title: Extending Earl
 editLink: true
 ---
 

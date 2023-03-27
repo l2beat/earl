@@ -15,11 +15,6 @@ To determine the equality of two values the following checks are executed:
 1. If the second value is a [Matcher](/guides/using-matchers.md) and it...
    1. matches the first value, then the values are considered equal;
    1. doesn't match the first value, then the values are considered unequal.
-1. Every [custom equality rule](/advanced/plugin-development.md) is checked.
-   1. If it returns undefined the next rule is checked or the algorithm
-      advances.
-   1. If it returns success, then the values are considered equal.
-   1. If it returns error, then the values are considered unequal.
 1. If any of the values is equal to one of it's ancestors (is a self-referencing
    object)...
    1. If the other value is equal to it's ancestor of the same distance (e.g.

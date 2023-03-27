@@ -81,16 +81,12 @@ export default defineConfig({
       {
         text: 'Guides',
         items: [
+          { text: 'Basic assertions', link: '/guides/basic-assertions' },
           { text: 'Using matchers', link: '/guides/using-matchers' },
-          { text: 'Testing errors', link: '/guides/testing-errors' },
-          { text: 'Async functions', link: '/guides/async-functions' },
-          { text: 'Mocks', link: '/guides/mocks' },
-          { text: 'Using plugins', link: '/guides/using-plugins' },
-          {
-            text: 'Test runner integration',
-            link: '/guides/test-runner-integration',
-          },
+          { text: 'Handling errors', link: '/guides/handling-errors' },
+          { text: 'Using mocks', link: '/guides/using-mocks' },
           { text: 'Snapshot testing', link: '/guides/snapshot-testing' },
+          { text: 'Checking with Zod', link: '/guides/checking-with-zod' },
         ],
       },
       {
@@ -100,8 +96,8 @@ export default defineConfig({
       {
         text: 'Advanced',
         items: [
-          { text: 'Plugin development', link: 'advanced/plugin-development' },
-          { text: 'Equality algorithm', link: 'advanced/equality-algorithm' },
+          { text: 'Extending Earl', link: '/advanced/extending-earl' },
+          { text: 'Equality algorithm', link: '/advanced/equality-algorithm' },
         ],
       },
     ],
