@@ -24,12 +24,12 @@ declare module '../../expect' {
      *
      * expect({
      *   price: 1299,
-     *   currency: 'USD'
+     *   currency: 'USD',
      * }).toMatchSchema(Pricing)
      *
      * expect({
      *   price: -1,
-     *   currency: 'error'
+     *   currency: 'error',
      * }).not.toMatchSchema(Pricing)
      * ```
      */

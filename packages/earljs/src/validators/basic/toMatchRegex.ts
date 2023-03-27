@@ -8,16 +8,16 @@ declare module '../../expect' {
   interface Validators<T> {
     /**
      * Asserts that the value is a string matching the given regular expression.
-     * 
+     *
      * If you want to match a nested value, use the matcher
      * `expect.regex(regex)` instead.
      *
      * @param regex - The regular expression to test the matched values.
-     * 
+     *
      * @example
      * ```ts
      * expect('I like pancakes').toMatchRegex(/like/)
-
+     *
      * expect('foo').not.toMatchRegex(/^d+$/)
      * ```
      */

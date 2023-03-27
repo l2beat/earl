@@ -3,8 +3,8 @@ import { registerMatcher } from '../../expect'
 declare module '../../expect' {
   interface Matchers {
     /**
-     * Matches numbers that are between the two numbers.
-     * The range is `[min, max]`, inclusive on both sides.
+     * Matches numbers that are between the two numbers. The range is
+     * `[min, max]`, inclusive on both sides.
      *
      * Works for both numbers and bigints.
      *

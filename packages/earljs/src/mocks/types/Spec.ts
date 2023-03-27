@@ -10,7 +10,8 @@ export interface ReturnSpec {
   value: any
 }
 /**
- * Used to lazily evaluate rejected promises so node doesn't think they are unhandled
+ * Used to lazily evaluate rejected promises so node doesn't think they are
+ * unhandled
  */
 
 export interface LazyReturnSpec {

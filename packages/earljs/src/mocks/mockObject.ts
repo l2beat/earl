@@ -8,8 +8,8 @@ export type MockObject<T> = T & {
 }
 
 /**
- * Returns a mock object that can be used in place of a real object. This
- * is useful if the real object is hard to create or if it is hard to get it
+ * Returns a mock object that can be used in place of a real object. This is
+ * useful if the real object is hard to create or if it is hard to get it
  * exhibit some specific behavior.
  *
  * Functions on the mock object are also `mockFn`s, so they can be used in

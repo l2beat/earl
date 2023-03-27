@@ -7,8 +7,8 @@ declare module '../../expect' {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   interface Validators<T> {
     /**
-     * Asserts that a number is between the two numbers.
-     * The range is `[min, max]`, inclusive on both sides.
+     * Asserts that a number is between the two numbers. The range is
+     * `[min, max]`, inclusive on both sides.
      *
      * Works for both numbers and bigints.
      *

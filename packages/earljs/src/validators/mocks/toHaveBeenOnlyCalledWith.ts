@@ -14,7 +14,8 @@ declare module '../../expect' {
      * If you don't care that the function was only called once use
      * `expect(fn).toHaveBeenNthCalledWith(1, ...)` instead.
      *
-     * @param args - The arguments the mock function was expected to be called with. They can also be matchers.
+     * @param args - The arguments the mock function was expected to be called
+     *   with. They can also be matchers.
      *
      * @example
      * ```ts

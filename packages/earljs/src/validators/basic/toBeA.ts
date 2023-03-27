@@ -11,8 +11,8 @@ declare module '../../expect' {
      * type. It is compatible with built-in types like strings, numbers, and
      * dates.
      *
-     * If you want to match a nested value, use the matcher
-     * `expect.a(type)` instead.
+     * If you want to match a nested value, use the matcher `expect.a(type)`
+     * instead.
      *
      * @param type - The class or primitive constructor to match against.
      *

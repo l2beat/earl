@@ -6,25 +6,24 @@ import { isEqual } from '../../isEqual'
 declare module '../../expect' {
   interface Validators<T> {
     /**
-     * Asserts that an array is equal to another array if the order of the
-     * items is to be disregarded.
-     * 
-     * This validator supports matchers, but extreme caution should be
-     * exercised when using them. The algorithm used to compare the arrays
-     * does not check all possible permutations, so it is possible that
-     * the matcher will match a value that was provided verbatim later in the
-     * expected array.
-     * 
+     * Asserts that an array is equal to another array if the order of the items
+     * is to be disregarded.
+     *
+     * This validator supports matchers, but extreme caution should be exercised
+     * when using them. The algorithm used to compare the arrays does not check
+     * all possible permutations, so it is possible that the matcher will match
+     * a value that was provided verbatim later in the expected array.
+     *
      * **Using matchers with this validator is only recommended for advanced
      * users that know what they are doing!**
      *
      * @param expected - The array of expected items.
-     * 
+     *
      * @example
      * ```ts
      * expect([1, 2, 3]).toEqualUnsorted([3, 1, 2])
-
-    * expect(['foo', 'bar']).not.toEqualUnsorted(['a', 'b', 'c'])
+     *
+     * expect(['foo', 'bar']).not.toEqualUnsorted(['a', 'b', 'c'])
      * ```
      */
     toEqualUnsorted(this: Validators<any[]>, expected: T): void

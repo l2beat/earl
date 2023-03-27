@@ -4,7 +4,8 @@ import { isEqual } from '../../isEqual'
 declare module '../../expect' {
   interface Matchers {
     /**
-     * Matches an array, string or any object with a `length` property that has the given length.
+     * Matches an array, string or any object with a `length` property that has
+     * the given length.
      *
      * If you want to match a top level value, use
      * `expect(...).toHaveLength(length)` instead.

@@ -22,7 +22,8 @@ declare module '../../expect' {
      * `expect(fn).toHaveBeenLastCalledWith(...)` instead.
      *
      * @param n - The call number to check the arguments of. Index starts at 1.
-     * @param args - The arguments the mock function was expected to be called with the nth time. They can also be matchers.
+     * @param args - The arguments the mock function was expected to be called
+     *   with the nth time. They can also be matchers.
      *
      * @example
      * ```ts

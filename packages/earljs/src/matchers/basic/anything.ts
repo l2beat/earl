@@ -13,7 +13,7 @@ declare module '../../expect' {
      * const person = findPerson('John Doe')
      * expect(person).toEqual({
      *   name: 'John Doe',
-     *   favoriteThing: expect.anything()
+     *   favoriteThing: expect.anything(),
      * })
      * ```
      */

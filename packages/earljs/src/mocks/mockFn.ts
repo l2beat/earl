@@ -9,13 +9,14 @@ interface Override {
 const mockSymbol = Symbol('mock')
 
 /**
- * Creates a mock function conforming to a given signature. You can call
- * methods on the mock function to further customize its behavior.
+ * Creates a mock function conforming to a given signature. You can call methods
+ * on the mock function to further customize its behavior.
  *
  * Without a default implementation and without any further configuration the
  * mock will throw an error when called.
  *
- * @param defaultImplementation - (optional) A default implementation to use when the mock is called.
+ * @param defaultImplementation - (optional) A default implementation to use
+ *   when the mock is called.
  *
  * @example
  * ```ts
@@ -24,9 +25,7 @@ const mockSymbol = Symbol('mock')
  * const mock2 = mockFn<(a: number, b: string) => number>()
  * const mock3 = mockFn<[number, string], number>()
  *
- * const mock4 = mockFn()
- *   .returnsOnce(420)
- *   .returns(69)
+ * const mock4 = mockFn().returnsOnce(420).returns(69)
  * ```
  */
 export function mockFn<F extends (...args: any) => any>(

@@ -23,8 +23,8 @@ export interface MockFunction<A extends any[], R> {
   isExhausted(): boolean
 
   /**
-   * Returns the number of remaining overrides that have yet to be used,
-   * e.g. `returnsOnce`.
+   * Returns the number of remaining overrides that have yet to be used, e.g.
+   * `returnsOnce`.
    */
   getOneTimeOverridesLength(): number
 
@@ -35,8 +35,8 @@ export interface MockFunction<A extends any[], R> {
   getParameterOverridesLength(): number
 
   /**
-   * Changes the default behavior to return the provided value.
-   * Replaces any previous default behavior. Does not affect overrides.
+   * Changes the default behavior to return the provided value. Replaces any
+   * previous default behavior. Does not affect overrides.
    *
    * @param value - The value to be returned.
    */
@@ -52,8 +52,8 @@ export interface MockFunction<A extends any[], R> {
   returnsOnce(value: R): MockFunction<A, R>
 
   /**
-   * Changes the default behavior to throw the provided error.
-   * Replaces any previous default behavior. Does not affect overrides.
+   * Changes the default behavior to throw the provided error. Replaces any
+   * previous default behavior. Does not affect overrides.
    *
    * @param error - The error to be thrown.
    */
@@ -69,8 +69,8 @@ export interface MockFunction<A extends any[], R> {
   throwsOnce(error: any): MockFunction<A, R>
 
   /**
-   * Changes the default behavior to execute the given implementation.
-   * Replaces any previous default behavior. Does not affect overrides.
+   * Changes the default behavior to execute the given implementation. Replaces
+   * any previous default behavior. Does not affect overrides.
    *
    * @param implementation - The function to execute.
    */

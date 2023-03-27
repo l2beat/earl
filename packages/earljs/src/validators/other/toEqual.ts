@@ -14,18 +14,17 @@ declare module '../../expect' {
      * This validator also supports asymmetric matchers on the expected value.
      *
      * Because this validator also works on the type level you will receive
-     * editor suggestions for the properties on the expected value based on
-     * the actual value.
+     * editor suggestions for the properties on the expected value based on the
+     * actual value.
      *
      * To opt out of type checking you can explicitly provide `unknown` as the
      * type parameter.
-     *
      * ```ts
      * expect<unknown>(1).not.toEqual('foo')
      * ```
      *
-     * If you would like instead to check values for referential equality
-     * use the `toExactlyEqual` validator instead.
+     * If you would like instead to check values for referential equality use
+     * the `toExactlyEqual` validator instead.
      *
      * Alternatively if you would like to ignore type level checks and object
      * prototypes use the `toLooseEqual` validator instead.
@@ -41,7 +40,7 @@ declare module '../../expect' {
      *
      * expect({ x: 15, y: -20 }).toEqual({
      *   x: expect.greaterThan(0),
-     *   y: expect.lessThan(0)
+     *   y: expect.lessThan(0),
      * })
      *
      * // type-error: the type string is not assignable to number

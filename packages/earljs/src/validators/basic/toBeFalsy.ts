@@ -13,8 +13,8 @@ declare module '../../expect' {
      * You can also use its sister validator, `toBeTruthy`, to match the
      * opposite.
      *
-     * If you want to match a nested value, use the matcher
-     * `expect.falsy()` instead.
+     * If you want to match a nested value, use the matcher `expect.falsy()`
+     * instead.
      *
      * @example
      * ```ts
@@ -26,7 +26,7 @@ declare module '../../expect' {
      * expect(1).not.toBeFalsy()
      * expect('foo').not.toBeFalsy()
      * expect(true).not.toBeFalsy()
-     * expect({ x: 1, y : 2 }).not.toBeFalsy()
+     * expect({ x: 1, y: 2 }).not.toBeFalsy()
      * ```
      */
     toBeFalsy(): void
