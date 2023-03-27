@@ -113,29 +113,6 @@ You can read more about errors in the [Handling errors](/guides/handling-errors)
 
 ## Snapshots
 
-<!-- TODO: read more in a guide about the most important validators -->
-<!-- TODO: browse validators API reference -->
+## Extensions
 
-### Matchers
-
-<!-- TODO: more info about matchers. -->
-
-Matchers are used with validators to match more than a single value. They are
-attached directly to `expect` object. For example with `expect.anything()` you
-can match any value.
-
-Combine it with validator like `beEqual` to create (not very useful) assertion
-that works with any value:
-
-```typescript
-expect(something).toEqual(expect.anything())
-```
-
-Of course matchers can be nested.
-
-<!-- TODO: read more in a guide about the most important matchers -->
-<!-- TODO: browse matchers API reference -->
-
-<!-- TODO: snapshots -->
-<!-- TODO: mocks -->
-<!-- TODO: plugins -->
+Earl is designed to be extensible. You can extend Earl with your own validators and matchers. This is a feature intended for advanced users. Read more about it in the [Extending Earl](/advanced/extending-earl) guide.
