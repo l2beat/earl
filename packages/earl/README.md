@@ -24,8 +24,6 @@
 npm install --save-dev earl
 ```
 
-**Note:** It's `earljs` not `earl`!
-
 ## Example
 
 ```typescript
