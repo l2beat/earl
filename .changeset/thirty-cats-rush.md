@@ -1,5 +1,5 @@
 ---
-"earl": minor
+'earl': minor
 ---
 
 Replace jest-snapshots with a custom implementation.
@@ -17,18 +17,18 @@ In mocha this is simply done by passing `this` inside a test (remember to use
 `function` and not `=>`).
 
 ```js
-it("should work", function () {
-  expect(1).toMatchSnapshot(this);
-});
+it('should work', function () {
+  expect(1).toMatchSnapshot(this)
+})
 ```
 
 In uvu this is done by passing the `ctx` which is an argument to te test
 callback.
 
 ```js
-test("should work", (ctx) => {
-  expect(1).toMatchSnapshot(ctx);
-});
+test('should work', (ctx) => {
+  expect(1).toMatchSnapshot(ctx)
+})
 ```
 
 The snapshot format has also been improved. Jest uses a js-like module format,
