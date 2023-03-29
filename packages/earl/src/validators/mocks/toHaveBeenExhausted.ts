@@ -14,7 +14,7 @@ declare module '../../expect' {
      *
      * @example
      * ```ts
-     * import { expect, mockFn } from 'earljs'
+     * import { expect, mockFn } from 'earl'
      *
      * const fn = mockFn().returnsOnce(420).returnsOnce(69)
      * expect(fn).not.toHaveBeenExhausted()

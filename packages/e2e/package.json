@@ -19,7 +19,7 @@
     "@babel/core": "^7.21.3",
     "@babel/preset-env": "^7.20.2",
     "@babel/register": "^7.21.0",
-    "earljs": "workspace:^0.2.3",
+    "earl": "workspace:^0.2.3",
     "error-stack-parser": "^2.1.4",
     "esbuild": "^0.17.12",
     "esbuild-register": "^3.4.2",

@@ -1,12 +1,12 @@
 ---
-'earljs': minor
+'earl': minor
 ---
 
 Replace jest-snapshots with a custom implementation.
 
 Previously in order to use snapshots a test runner integration was needed. In
-mocha this was done by adding `-r earljs/mocha` to the command line and in uvu
-`-r earljs/uvu`. The jest snapshot code was also complex, had a lot of
+mocha this was done by adding `-r earl/mocha` to the command line and in uvu
+`-r earl/uvu`. The jest snapshot code was also complex, had a lot of
 dependencies and was hard to maintain.
 
 This commit removes the jest snapshot code and replaces it with a custom

@@ -1,6 +1,6 @@
 import { defineConfig } from 'vitepress'
 
-const pkg = require('../../../earljs/package.json')
+const pkg = require('../../../earl/package.json')
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
@@ -16,10 +16,7 @@ export default defineConfig({
         content: 'Modern assertion library for TypeScript.',
       },
     ],
-    [
-      'meta',
-      { property: 'og:image', content: 'https://earljs.dev/social.png' },
-    ],
+    ['meta', { property: 'og:image', content: 'https://earl.dev/social.png' }],
     ['meta', { property: 'twitter:card', content: 'summary_large_image' }],
     ['meta', { property: 'twitter:title', content: 'earl' }],
     [
@@ -31,7 +28,7 @@ export default defineConfig({
     ],
     [
       'meta',
-      { property: 'twitter:image', content: 'https://earljs.dev/social.png' },
+      { property: 'twitter:image', content: 'https://earl.dev/social.png' },
     ],
   ],
   themeConfig: {
@@ -57,7 +54,7 @@ export default defineConfig({
         items: [
           {
             text: 'Changelog',
-            link: 'https://github.com/l2beat/earl/blob/master/packages/earljs/CHANGELOG.md',
+            link: 'https://github.com/l2beat/earl/blob/master/packages/earl/CHANGELOG.md',
           },
           {
             text: 'Contributing',

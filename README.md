@@ -1,1 +1,1 @@
-./packages/earljs/README.md
+./packages/earl/README.md

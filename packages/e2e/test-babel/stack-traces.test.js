@@ -1,6 +1,6 @@
-import { expect } from 'earljs'
-import { utils } from 'mocha'
+import { expect } from 'earl'
 import Parser from 'error-stack-parser'
+import { utils } from 'mocha'
 
 function captureError(fn) {
   try {

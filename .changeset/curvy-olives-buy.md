@@ -1,5 +1,5 @@
 ---
-"earljs": minor
+"earl": minor
 ---
 
 Add matchers to cover the old use cases and some new. Below is a list of current matchers:

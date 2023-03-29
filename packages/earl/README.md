@@ -21,7 +21,7 @@
 ## Installation
 
 ```sh
-npm install --save-dev earljs
+npm install --save-dev earl
 ```
 
 **Note:** It's `earljs` not `earl`!
@@ -29,7 +29,7 @@ npm install --save-dev earljs
 ## Example
 
 ```typescript
-import { expect } from 'earljs'
+import { expect } from 'earl'
 
 // ...
 

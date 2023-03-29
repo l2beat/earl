@@ -1,4 +1,4 @@
-import { expect } from 'earljs'
+import { expect } from 'earl'
 import { readFileSync } from 'fs'
 
 import { generateMarkdownForMethodDocumentation } from './generate'

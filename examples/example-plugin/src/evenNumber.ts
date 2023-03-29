@@ -1,6 +1,6 @@
-import { registerMatcher } from 'earljs'
+import { registerMatcher } from 'earl'
 
-declare module 'earljs' {
+declare module 'earl' {
   interface Matchers {
     evenNumber(): number
   }

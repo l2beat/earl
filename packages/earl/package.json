@@ -1,5 +1,5 @@
 {
-  "name": "earljs",
+  "name": "earl",
   "description": "Ergonomic, modern and type-safe assertion library",
   "keywords": [
     "assert",

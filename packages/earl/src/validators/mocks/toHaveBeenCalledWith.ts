@@ -26,7 +26,7 @@ declare module '../../expect' {
      *
      * @example
      * ```ts
-     * import { expect, mockFn } from 'earljs'
+     * import { expect, mockFn } from 'earl'
      *
      * const fn = mockFn((a: number, b: number) => a + b)
      * fn(1, 2)

@@ -1,6 +1,6 @@
 import 'example-plugin'
 
-import { expect } from 'earljs'
+import { expect } from 'earl'
 import { test } from 'uvu'
 
 test('EvenNumberMatcher works', () => {

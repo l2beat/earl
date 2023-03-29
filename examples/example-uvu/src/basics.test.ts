@@ -1,4 +1,4 @@
-import { expect } from 'earljs'
+import { expect } from 'earl'
 import { test } from 'uvu'
 
 test('works', (ctx) => {

@@ -68,25 +68,25 @@ importers:
 
   examples/example-mocha:
     specifiers:
-      earljs: workspace:^0.2.3
+      earl: workspace:^0.2.3
       example-plugin: workspace:^1.0.0
     dependencies:
-      earljs: link:../../packages/earljs
+      earl: link:../../packages/earl
       example-plugin: link:../example-plugin
 
   examples/example-plugin:
     specifiers:
-      earljs: workspace:^0.2.3
+      earl: workspace:^0.2.3
     devDependencies:
-      earljs: link:../../packages/earljs
+      earl: link:../../packages/earl
 
   examples/example-uvu:
     specifiers:
-      earljs: workspace:^0.2.3
+      earl: workspace:^0.2.3
       example-plugin: workspace:^1.0.0
       uvu: ^0.5.6
     dependencies:
-      earljs: link:../../packages/earljs
+      earl: link:../../packages/earl
       example-plugin: link:../example-plugin
     devDependencies:
       uvu: 0.5.6
@@ -95,14 +95,14 @@ importers:
     specifiers:
       '@types/mocha': ^10.0.1
       '@types/node': ^18.15.0
-      earljs: workspace:^0.2.3
+      earl: workspace:^0.2.3
       mocha: 10.2.0
       ts-node: ^10.9.1
       typescript: ^4.9.5
     devDependencies:
       '@types/mocha': 10.0.1
       '@types/node': 18.15.0
-      earljs: link:../../packages/earljs
+      earl: link:../../packages/earl
       mocha: 10.2.0
       ts-node: 10.9.1_lwgqdwokjtwlohdqtbb6s252kq
       typescript: 4.9.5
@@ -112,7 +112,7 @@ importers:
       '@babel/core': ^7.21.3
       '@babel/preset-env': ^7.20.2
       '@babel/register': ^7.21.0
-      earljs: workspace:^0.2.3
+      earl: workspace:^0.2.3
       error-stack-parser: ^2.1.4
       esbuild: ^0.17.12
       esbuild-register: ^3.4.2
@@ -122,14 +122,14 @@ importers:
       '@babel/core': 7.21.3
       '@babel/preset-env': 7.20.2_@babel+core@7.21.3
       '@babel/register': 7.21.0_@babel+core@7.21.3
-      earljs: link:../earljs
+      earl: link:../earl
       error-stack-parser: 2.1.4
       esbuild: 0.17.12
       esbuild-register: 3.4.2_esbuild@0.17.12
       source-map-support: 0.5.21
       ts-node: 10.9.1
 
-  packages/earljs:
+  packages/earl:
     specifiers:
       error-stack-parser: ^2.1.4
       zod: ^3.21.4
@@ -143,7 +143,7 @@ importers:
       '@algolia/client-search': ^4.15.0
       '@microsoft/tsdoc': ^0.14.2
       '@types/lodash': ^4.14.191
-      earljs: workspace:^0.2.3
+      earl: workspace:^0.2.3
       fast-glob: ^3.2.12
       lodash: ^4.17.21
       ts-essentials: ^9.3.1
@@ -154,7 +154,7 @@ importers:
       '@algolia/client-search': 4.15.0
       '@microsoft/tsdoc': 0.14.2
       '@types/lodash': 4.14.191
-      earljs: link:../earljs
+      earl: link:../earl
       fast-glob: 3.2.12
       lodash: 4.17.21
       ts-essentials: 9.3.1
