@@ -29,13 +29,13 @@ npm install --save-dev earl
 ## Example
 
 ```typescript
-import { expect } from "earl";
+import { expect } from 'earl'
 
 // ...
 
 expect(response).toEqual({
   body: { trimmed: true, timestamp: expect.a(String) },
-});
+})
 ```
 
 ## Docs
