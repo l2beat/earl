@@ -1,8 +1,8 @@
-import { createPlugin } from 'earljs/internals'
+import { createPlugin } from 'earl/internals'
 
 import { plugin } from './dist'
 
-declare module 'earljs' {
+declare module 'earl' {
   interface Expect extends createPlugin.MatchersOf<typeof plugin> {}
   interface Validators extends createPlugin.ValidatorsOf<typeof plugin> {}
   interface SmartEqRules extends createPlugin.SmartEqRulesOf<typeof plugin> {}

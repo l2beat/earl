@@ -1,4 +1,5 @@
-import { expect } from "earljs";
+import { expect } from "earl";
+
 import { add } from "./math";
 
 describe(add.name, () => {

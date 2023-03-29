@@ -1,2 +1,2 @@
-// load example earljs plugin
+// load example earl plugin
 import 'example-plugin'

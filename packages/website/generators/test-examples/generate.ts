@@ -16,7 +16,7 @@ export function generateTestFile(examples: Example[]): string {
   return `
   ${preamble}
   
-  import { expect, mockFn, mockObject } from 'earljs'
+  import { expect, mockFn, mockObject } from 'earl'
   
   
   describe('Examples from tsdocs', () => {

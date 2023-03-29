@@ -1,5 +1,5 @@
 ---
-"earljs": minor
+"earl": minor
 ---
 
 Remove a lot of old functionality, improve plugin system.
@@ -10,10 +10,10 @@ how to add custom matchers or validators. It is now really easy to add your own.
 Adding validators is now as simple as:
 
 ```ts
-import { Control, formatCompact, registerValidator } from "earljs";
+import { Control, formatCompact, registerValidator } from "earl";
 
 // we use the module augmentation feature of typescript to keep it type safe
-declare module "earljs" {
+declare module "earl" {
   interface Validators<T> {
     // note the this: Validators<number> part
     // it ensures that the validator is only available on numbers
@@ -34,7 +34,7 @@ export function toBeEven(control: Control) {
 
 // later
 
-import { expect } from "earljs";
+import { expect } from "earl";
 
 expect(2).toBeEven();
 ```
@@ -42,10 +42,10 @@ expect(2).toBeEven();
 Adding matchers is also really easy:
 
 ```ts
-import { registerMatcher } from "earljs";
+import { registerMatcher } from "earl";
 
 // we again use the module augmentation feature of typescript to keep it type safe
-declare module "earljs" {
+declare module "earl" {
   interface Matchers {
     // note that the matcher returns a number and not a boolean like the implementation
     // it ensures that the matcher can be used as a substitute for a real number in .toEqual()

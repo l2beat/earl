@@ -1,4 +1,4 @@
-import { expect } from 'earljs'
+import { expect } from 'earl'
 import Parser from 'error-stack-parser'
 import { utils } from 'mocha'
 

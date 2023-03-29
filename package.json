@@ -21,7 +21,7 @@
     "test:fix": "pnpm --recursive --parallel test:fix",
     "clean": "pnpm --recursive --parallel clean",
     "build": "pnpm --recursive build",
-    "build:earl": "pnpm --filter earljs... build",
+    "build:earl": "pnpm --filter earl... build",
     "build:website": "pnpm --filter website... build",
     "changeset:release": "pnpm build:earl && changeset publish",
     "changeset:version": "changeset version && pnpm install --lockfile-only"

@@ -5,7 +5,7 @@ on:
     branches:
       - master
     paths:
-      - 'packages/earljs/**'
+      - 'packages/earl/**'
       - '.github/workflows/release-canary.yml'
 
 jobs:
@@ -32,14 +32,14 @@ jobs:
         run: |
           pnpm changeset version
           
-          cd packages/earljs
-          npm pkg set version=$(npm pkg get version | jq .earljs -r)-canary.$(date +'%Y%m%dT%H%M%S')
+          cd packages/earl
+          npm pkg set version=$(npm pkg get version | jq .earl -r)-canary.$(date +'%Y%m%dT%H%M%S')
           echo "Version changed: $(npm pkg get version)"
 
       - name: Publish to npm
         uses: JS-DevTools/npm-publish@v1
         with:
-          package: packages/earljs/package.json
+          package: packages/earl/package.json
           token: ${{ secrets.NPM_TOKEN2 }}
           dry-run: false
           tag: canary

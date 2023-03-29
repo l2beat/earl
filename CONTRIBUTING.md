@@ -14,7 +14,7 @@ version but simple `nvm` also will do.
 ### Project structure
 
 We use monorepo with PNPM workspaces. The main package is placed under
-`packages/earljs`, and this is where probably you will spend the most time.
+`packages/earl`, and this is where probably you will spend the most time.
 
 ### Running tests
 
@@ -37,7 +37,7 @@ pnpm test:fix
 
 ### Watch mode
 
-While inside `packages/earljs` you might run `pnpm build:watch` to build project
+While inside `packages/earl` you might run `pnpm build:watch` to build project
 in watch mode.
 
 `pnpm build:watch:test` will watch tests too. _WARNING_: this will create broken

@@ -1,4 +1,4 @@
-import { expect } from 'earljs'
+import { expect } from 'earl'
 
 describe('example-plugin', () => {
   it('EvenNumberMatcher works', () => {

@@ -9,7 +9,7 @@ export async function main() {
   console.log('Generating test examples from tsdocs...')
   const filePaths = await FastGlob('src/**/*.ts', {
     absolute: true,
-    cwd: join(__dirname, '../../../earljs'),
+    cwd: join(__dirname, '../../../earl'),
     ignore: [
       '**/*.test.ts',
       '**/*/toMatchSnapshot.ts', // ignore because example uses uvu and mocha
