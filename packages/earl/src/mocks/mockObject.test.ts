@@ -33,7 +33,7 @@ describe(mockObject.name, () => {
   it('handles values without overrides', () => {
     const instance = mockObject<Jogger>({})
     expect(() => instance.run()).to.throw(
-      'Cannot call .run() - no mock implementation provided.',
+      'Cannot access .run - no mock value provided.',
     )
   })
 })
