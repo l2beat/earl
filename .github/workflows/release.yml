@@ -18,11 +18,11 @@ jobs:
           fetch-depth: 0
       - uses: pnpm/action-setup@v2
         with:
-          version: 7
+          version: 8
       - uses: actions/setup-node@v2
         with:
-          node-version: '18.x'
-          cache: 'pnpm'
+          node-version: "18.x"
+          cache: "pnpm"
 
       - run: pnpm install --frozen-lockfile
 
@@ -35,9 +35,9 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN2 }}
-        
+
       - name: Push docs if a publish happens
         if: steps.changesets.outputs.published == 'true'
         uses: stefanzweifel/git-auto-commit-action@v4
-        with: 
+        with:
           branch: docs-stable

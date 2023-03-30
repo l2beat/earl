@@ -43,18 +43,9 @@ export function mockObject<T>(overrides: Partial<T> = {}): MockObject<T> {
       if (Reflect.has(target, property)) {
         return Reflect.get(target, property, receiver)
       }
-      return new Proxy(function () {}, {
-        apply: () => {
-          throw new TypeError(
-            `Cannot call .${property.toString()}() - no mock implementation provided.`,
-          )
-        },
-        get: (_, key) => {
-          throw new TypeError(
-            `Cannot access .${property.toString()}.${key.toString()} - no mock value provided.`,
-          )
-        },
-      })
+      throw new TypeError(
+        `Cannot access .${property.toString()} - no mock value provided.`,
+      )
     },
   })
 }

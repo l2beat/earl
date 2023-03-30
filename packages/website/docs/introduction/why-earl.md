@@ -1,6 +1,7 @@
 ---
 title: Why Earl?
 editLink: true
+outline: [2, 3]
 ---
 
 # {{ $frontmatter.title }}
@@ -9,112 +10,183 @@ editLink: true
 If you can't wait to start using Earl proceed to [Getting started](/introduction/getting-started).
 :::
 
-## The world without Earl
+## Motivation
 
-Over the years we've seen many testing frameworks come and go. When a new one
-is developed features that are prioritized are usually speed, parallelism and
-compatibility with the ever expanding JavaScript ecosystem.
+As a lot of projects in the JavaScript ecosystem Earl was born out of
+frustration with the status quo and a desire to build something better. We've
+tried it all: Mocha+Chai, Jest, Vitest and many more. Mocha was something
+we kept coming back to, but felt that Chai was holding it back.
 
-Having used many of them over the years including Jest and Vitest we've found
-that they unfortunately fall short on the following fronts:
+We wanted to have something that combined the simplicity, robustness and speed
+of Mocha with a modern and type-safe API for assertions.
 
-1. Simplicity - The feature set keeps growing, often introducing multiple
-   conflicting ways of achieving the same goal. The complexity of those tools
-   also makes them [unfortunately](https://github.com/facebook/jest/issues/4414)
-   very [prone](https://github.com/facebook/jest/issues/2441) to
-   [bugs](https://github.com/facebook/jest/issues/8688).
-2. Speed - By trying to be maximally parallel and maximally compatible those
-   frameworks often end up being [slower](https://github.com/facebook/jest/issues?q=is%3Aissue+slow+is%3Aopen)
-   than their predecessors, because of the overhead of running each file in
-   parallel and trying to juggle the complexity of js transpilation.
-3. Type safety - With the rise of TypeScript it seems silly to us that testing
-   frameworks are not taking advantage of the type system to provide better
-   error messages and more powerful assertions.
+And so, we created Earl!
 
-There is one framework however, that we've been using for years and loving it.
-Mocha isn't new, isn't fancy, but it is really good at getting the job done and
-getting out of your way. It's also very fast and simple to use.
+## Core principles
 
-Mocha however is just a test runner and should be paired with an assertion
-library like Chai. Chai was nice years ago, but it feels really dated now,
-requiring plugins to (barely) handle newer features like async/await.
+When we set out to build Earl we landed on a few core principles:
 
-Here is where Earl comes in. Earl is a modern assertion library for Mocha that
-is type-safe, fast and simple to use.
+### Type safety
 
-## A taste of Earl
+We believe type safety is a crucial aspect of writing reliable and maintainable code. With Earl, we wanted to ensure that the validators, like `toEqual`, are type safe, which prevents mistakes and enhances the developer experience with editor completions.
 
-With Earl you are able to leverage the simplicity, speed and robustness of a
-mature test framework like Mocha and combine it with modern assertions, type
-safety, mocking tools and a great developer experience.
+By incorporating type safety in the library, we minimize the risk of writing incorrect test cases or introducing subtle bugs that may slip through the cracks. This focus on type safety guarantees that the assertions in your tests align with the expected types and values, leading to robust and reliable test code.
 
-Check it out yourself!
+Here's an example of this principle in action:
 
-```ts{7-10,18-29}
-import { expect, mockObject } from 'earl'
-import { CreditCardValidator } from './CreditCardValidator'
-import { PaymentProcessor } from './PaymentProcessor'
+```ts
+interface User {
+  name: string
+  email: string
+  notificationCount: number
+}
+const result: User = await api.getCurrentUser()
 
-describe(PaymentProcessor.name, () => {
-  it('correctly processes payment', async () => {
-    // Create mock objects while remaining fully type safe // [!code focus:4]
-    const validator = mockObject<CreditCardValidator>({
-      validateCreditCard: async () => true,
-    })
-    const processor = new PaymentProcessor(validator)
-
-    const result = await processor.processPayment({
-      creditCardNumber: '1234 5678 9012 3456',
-      amount: Math.random(),
-    })
-
-    // Assert deep equality with ease // [!code focus:6]
-    expect(result).toEqual({
-      success: true,
-      // Leverage asymmetric matchers to make assertions more flexible
-      message: expect.includes('payment successful'),
-    })
-
-    // Spy on mock functions and assert on their calls // [!code focus:5]
-    expect(validator.validateCreditCard).toHaveBeenLastCalledWith(
-      creditCardNumber: '1234 5678 9012 3456',
-      amount: expect.a(Number),
-    })
-  })
+// This code fails to compile, and TypeScript provides this useful
+// error message:
+// Property 'notificationCount' is missing in type
+// '{ name: string; email: any; }' but required in type 'User'.
+expect(result).toEqual({
+  name: 'John Doe',
+  email: expect.a(String),
 })
 ```
 
-Earl is also carefully optimized for providing developers with enough context
-so that they are able to act on failing assertions efficiently.
+### Clarity
 
-1. **Useful error messages**
-   <p>
-   We have spent a lot of time to make sure that error messages are helpful
-   and meaningful for every assertion made using Earl.
-   </p>
-   <p>
-   We have also developed a custom deep equality algorithm that is tightly
-   integrated to our object formatter, so that the object diffs can display
-   issues such as mismatched prototypes, unique symbols and more.
-   </p>
+Clarity is at the heart of Earl's design, ensuring that tests are easy to read, write, and maintain. We've designed an expressive yet concise API for writing assertions that are self-explanatory and easy to understand. But our commitment to clarity doesn't stop there; we've also put significant effort into crafting helpful and informative error messages.
 
-2. **Type safety**
-   <p>
-   Earl is written in TypeScript and uses the type system to reduce developer
-   errors and provide editor completions when writing assertions.
-   </p>
+We understand that debugging test failures can be a time-consuming process. That's why we've gone the extra mile to create error messages that are as useful as possible. These messages not only pinpoint the issue but also provide contextual information about the failed assertion. To achieve this, we've even rewritten stack traces to display the specific assertion that was called, making it easier for developers to identify and resolve problems quickly.
 
-3. **Mocks**
-   <p>
-   Earl comes with a powerful mocking toolkit that allows you to mock any
-   function or object. It is fully integrated with the rest if Earl and allows
-   you to write very flexible tests.
-   </p>
+This example illustrates how Earl's error messages can help you quickly identify the root cause of a test failure:
 
-4. **Snapshot testing**
-   <p>
-   We've included first class support for snapshots that unlike other options
-   in the ecosystem doesn't require hooking into nodejs internals and overriding
-   module loading code. Because of this it is much more robust and works with
-   many test runners.
-   </p>
+::: code-group
+
+```ts [math.ts]
+export function divide(a: number, b: number) {
+  return a / b
+}
+```
+
+:::
+::: code-group
+
+```ts [math.test.ts]
+import { expect } from 'earl'
+import { divide } from './math'
+
+it('throws an error when dividing by zero', () => {
+  expect(() => divide(1, 0)).toThrow('Division by zero')
+})
+```
+
+:::
+
+And here's the mocha output that you'll see when the test fails:
+
+```
+1) throws an error when dividing by zero:
+   The function call did not throw an error, but it was expected to.
+    at expect().toThrow (math.test.ts:5:30)
+```
+
+You can clearly see the reason why the assertion failed `The function call did not throw an error, but it was expected to.` and you can also see the validator function `expect().toThrow` and the exact line of code that caused the failure: `math.test.ts:5:30`.
+
+We have also developed a custom deep equality algorithm that is integrated with our custom object formatter so that you get the best diffs possible.
+
+Having a robust formatter allows you to quickly identify nasty issues that otherwise would be near impossible to spot. Here's an example of how Earl's formatter can help you identify a subtle bug:
+
+```ts
+it('can handle weird edge cases', () => {
+  const weirdObject = Object.assign(Object.create(null), { x: 1 })
+  expect(weirdObject).toEqual({ x: 1 })
+})
+```
+
+And here's the diff you'll see when the test fails:
+
+```
+1) can handle weird edge cases:
+
+   The value [custom prototype] { x: 1 } is not equal to { x: 1 },
+   but it was expected to be equal.
+   + expected - actual
+
+    [custom prototype] { // [!code --]
+    { // [!code ++]
+      x: 1
+    }
+
+    at expect().toEqual (edge-case.test.ts:3:23)
+```
+
+### Uniformity
+
+Earl's API is designed to be consistent and predictable. We've taken great care to ensure that the API is easy to learn and use. We've also made sure that the API is consistent across all validators, so you can easily switch between them without having to learn a new API for each one. Earl also provides a single way to do each thing, so you never need to pick between many options while just trying to get the job done.
+
+This one is best illustrated with examples of design decisions we've made:
+
+```ts
+// We don't have a `toBe` validator, because it's the same as `toEqual`.
+expect(1).toEqual(1)
+expect({ x: 1 }).toEqual({ x: 1 })
+
+// Referential equality checking is done with `toExactlyEqual`,
+// but it doesn't support primitives, because for them it'd be
+// the same as `toEqual`.
+expect({ x: 1 }).not.toExactlyEqual({ x: 1 })
+
+// We don't have a `toBeNull`, `toBeUndefined`, `toBeTrue` and many
+// more like them, because they're the same as `toEqual`.
+expect(null).toEqual(null)
+expect(undefined).toEqual(undefined)
+expect(true).toEqual(true)
+
+// We don't have a special syntax for async code.
+expect(await someAsyncFunction()).toEqual(1)
+
+// But we do have special validators for async code that throws.
+await expect(someAsyncFunctionThatThrows()).toBeRejected()
+```
+
+### Composability
+
+Composability is a key feature of Earl, promoting a modular approach to writing tests by combining and reusing different components, such as matchers and validators. Matchers can be used alongside validators to create flexible and tailored assertions, allowing users to fine-tune their test cases to be as loose or as specific as desired.
+
+For example, you can use matchers like `expect.a(Number)` within a validator, as shown here:
+
+```ts
+const vector = {
+  x: Math.random(),
+  y: Math.random(),
+}
+
+expect(vector).toEqual({
+  x: expect.a(Number),
+  y: expect.a(Number),
+})
+```
+
+This enables greater flexibility in testing various values and ensures that your assertions are adaptable to a wide range of scenarios.
+
+By offering composable matchers and validators, Earl empowers developers to create custom assertions that suit their unique testing needs. This versatility makes Earl a powerful tool for testing TypeScript applications, enabling developers to write tests that are both comprehensive and adaptable to changing requirements and dynamic values.
+
+## But wait, there's more!
+
+Earl offers a wide array of additional features designed to make your testing experience even better. These tools and functionalities help you tackle various testing challenges, ensuring that Earl remains a versatile and comprehensive testing library for TypeScript projects.
+
+Here's a brief overview of some of the other exciting features Earl provides:
+
+- **Mock functions**: Earl includes built-in support for creating mock functions, streamlining the process of testing interactions between functions and components.
+
+- **Validators for mock functions**: To complement the mock functions, Earl offers dedicated validators that help you verify if a mock function has been called with the correct arguments or the expected number of times.
+
+- **Mock objects**: Mock objects in Earl allow you to create lightweight and customizable objects for testing purposes, making it easier to isolate specific parts of your code for testing.
+
+- **Snapshots**: Snapshot testing support in Earl enables you to capture the output of your components or functions at a specific point in time. This functionality allows you to easily track changes in your code's behavior and detect unexpected regressions.
+
+- **Support for Zod**: Earl integrates seamlessly with the Zod validation library, enabling you to combine the power of both libraries to create even more robust and reliable tests.
+
+- **Extensibility**: Earl provides the ability to extend its core functionality by adding custom validators and matchers. This feature allows you to tailor Earl to your specific testing requirements, making it a highly adaptable tool for your TypeScript projects.
+
+By offering a diverse range of features and the ability to extend its capabilities, Earl solidifies its position as a powerful and comprehensive testing solution for the TypeScript ecosystem.

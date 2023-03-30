@@ -32,7 +32,7 @@ pnpm add --save-dev earl
 After that you can import **earl** in your test files and you are ready to go!
 
 If your project is already set up, you can skip the next section and go straight
-to learning the [Core concepts](/introduction/core-concepts).
+to learning the [Main concepts](/introduction/main-concepts).
 
 If you want us to hold your hand and walk you through the project setup
 read along.
