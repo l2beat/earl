@@ -137,4 +137,4 @@ Earl has a bit different approach to snapshots than other framework so make sure
 
 ## Extensions
 
-Earl is designed to be extensible. You can extend Earl with your own validators and matchers. This is a feature intended for advanced users. Read more about it in the [Extending Earl](/advanced/extending-earl) guide.
+Earl is designed to be extensible. You can extend Earl with your own validators and matchers. This is a feature intended for advanced users. Read more about it in the [Extending Earl](/advanced/extending-earl) guide or browse the [API reference](/api/extending).
