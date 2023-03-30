@@ -7,11 +7,9 @@ editLink: true
 
 ## Validators
 
-Validators are core of Earl. They are used every time you want to assert
-something during testing.
+Validators form the core of Earl. They are the functions you call each time you want to assert something during testing.
 
-A great example of a validator is `toEqual` which compares the provided value
-with the expected value using a deep equality algorithm.
+A prime example of a validator is `toEqual`, which compares the provided value with the expected value using a deep equality algorithm.
 
 ```ts
 const value = { foo: 'bar', baz: Math.random() }
@@ -23,7 +21,7 @@ expect(value).toEqual({
 })
 ```
 
-Another great example is `toThrow` which can be used to check for errors:
+Another helpful example is `toThrow`, which can be used to check for errors:
 
 ```ts
 function safeDiv(a: number, b: number) {
@@ -46,13 +44,9 @@ You can read more about the available validators in the [Basic assertions](/guid
 
 ## Matchers
 
-Matchers work with validators to allow more complex assertions that can handle
-dynamic or unknown values. Instead of asserting everything about some part
-of the tested value, you can use a matcher to assert only that the value is of
-a certain type, or has a certain quality.
+Matchers work alongside validators to allow more complex assertions that can handle dynamic or unknown values. Instead of asserting everything about a specific part of the tested value, you can use a matcher to assert only that the value is of a certain type or has a certain quality.
 
-For example, you can use `expect.a(Number)` to assert that the value is a
-number, or `expect.length(5)` to assert that the value has a length of 5.
+For instance, you can use `expect.a(Number)` to assert that the value is a number or `expect.length(5)` to assert that the value has a length of 5.
 
 Here you can see some matchers in action:
 
@@ -111,7 +105,35 @@ You can read more about errors in the [Handling errors](/guides/handling-errors)
 
 ## Mocks
 
+When testing complex code, you'll inevitably encounter the need to substitute some existing functions or objects with mocks. Fortunately, Earl provides a simple API for creating mocks and a set of built-in validators for asserting that a mock was called with the expected arguments.
+
+Here's an example of how you can use mocks:
+
+```ts
+import { expect, mockObject } from 'earl'
+
+interface IApi {
+  getUser(id: number): Promise<User>
+  getOrders(userId: number): Promise<Order[]>
+}
+
+// you only mock the values you care about, the rest error on access
+const api = mockObject<IApi>({
+  getUser: async (id) => ({ id, name: 'John', email: 'john@mail.com' }),
+})
+
+const user = await api.getUser(1)
+expect(user.name).toEqual('John')
+expect(api.getUser).toHaveBeenOnlyCalledWith(1)
+```
+
+You can read more about mocks in the [Using mocks](/guides/using-mocks) guide or browse the [API reference](/api/validators).
+
 ## Snapshots
+
+Sometimes the values you want to test are quite complex, or their actual content is less important than the fact that they are correct. In these cases, you can use snapshots to assert that the value matches a previously stored value.
+
+Earl has a bit different approach to snapshots than other framework so make sure to check out the [Snapshot testing](/guides/snapshot-testing) guide or browse the [API reference](/api/validators).
 
 ## Extensions
 
