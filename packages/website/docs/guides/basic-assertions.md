@@ -71,7 +71,7 @@ expect(10).toBeLessThan(20)
 expect(50).toBeLessThanOrEqual(50)
 ```
 
-## Inspecting containers
+## Inspecting strings and containers
 
 In TypeScript, there are many options for storing groups of values. Earl makes working with them easy by providing a few validators for them. Here's a list of all the validators that Earl provides for containers:
 
@@ -79,6 +79,7 @@ In TypeScript, there are many options for storing groups of values. Earl makes w
 2. `toHaveLength`, which checks if the container has the given length. It works for strings and arrays. It also supports matchers.
 3. `toInclude`, which checks if the container includes the given value or values. It works for sets, maps, arrays, and strings. It also supports matchers and passing multiple values.
 4. `toEqualUnsorted`, which checks if the array has the same values as another array without worrying about the order.
+5. `toMatchRegex`, which checks if the string matches the given regular expression.
 
 ```ts
 // Sets
@@ -98,6 +99,7 @@ expect([1, 2, 3]).toEqualUnsorted([3, 2, 1])
 expect('').toBeEmpty()
 expect('foo').toHaveLength(3)
 expect('foo').toInclude('o')
+expect('I love Earl').toMatchRegex(/Earl/)
 ```
 
 ## Negating validators
