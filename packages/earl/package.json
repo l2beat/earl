@@ -33,7 +33,7 @@
       },
       "require": {
         "types": "./dist/cjs/index.d.ts",
-        "default": "./dist/cjs/index-cjs.js"
+        "default": "./dist/cjs/index.js"
       }
     }
   },
