@@ -49,8 +49,7 @@
       "error",
       { "devDependencies": false }
     ],
-    "import/no-internal-modules": ["error", { "forbid": ["@l2beat/*/**"] }],
-    "import/no-unresolved": ["error", { "ignore": ["^knex/types/tables$"] }],
+    "import/no-unresolved": "error",
     "no-constant-condition": "off",
     "no-empty": "off",
     "no-only-tests/no-only-tests": "error",
