@@ -10,6 +10,8 @@ This is the first stable release of Earl. It is an almost complete rewrite of th
 
 1. The package name has changed from `earljs` to `earl`. The old package name will be deprecated on npm.
 
+   - The new release includes both CommonJS and ESM builds.
+
 2. Website updates
 
    - The website domain name has changed from `https://earljs.dev` to `https://earl.fun`.
