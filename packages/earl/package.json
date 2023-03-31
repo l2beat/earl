@@ -24,7 +24,7 @@
   },
   "author": "Kris Kaczor <chris@kaczor.io>",
   "license": "MIT",
-  "version": "0.2.3",
+  "version": "1.0.0",
   "main": "./dist/cjs/index.js",
   "module": "./dist/esm/index.js",
   "types": "./dist/esm/index.d.ts",
