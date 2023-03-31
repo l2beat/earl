@@ -19,6 +19,9 @@
     "exception"
   ],
   "repository": "https://github.com/l2beat/earl",
+  "bugs": {
+    "url": "https://github.com/l2beat/earl/issues"
+  },
   "author": "Kris Kaczor <chris@kaczor.io>",
   "license": "MIT",
   "version": "0.2.3",
