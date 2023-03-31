@@ -17,7 +17,7 @@ async function main() {
   const reference = await generateApiReference({
     basePath: path.resolve(__dirname, '../../../earl/dist/cjs'),
     files: [
-      'Validators::validators/**/toBeA.d.ts', // replace with once more docs for validators are written: 'Validators:validators:validators/**/*.d.ts',
+      'Validators::validators/**/*.d.ts',
       'Matchers:expect:matchers/**/*.d.ts',
       'Mocks:mock:mocks/mockFn.d.ts,mocks/types/index.d.ts',
     ],

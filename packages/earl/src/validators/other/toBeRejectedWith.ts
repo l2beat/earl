@@ -34,7 +34,6 @@ declare module '../../expect' {
      * The result of this validator is a promise, so you can need to use it with
      * `await`.
      *
-     * @param errorClass - The error class to check.
      * @param message - A substring of the error message or a regex matching the
      *   message.
      *
