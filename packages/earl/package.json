@@ -51,7 +51,7 @@
     "lint": "eslint --ext .ts --max-warnings 0 src",
     "lint:fix": "pnpm lint --fix",
     "typecheck": "tsc --noEmit",
-    "clean": "rimraf dist *.tsbuildinfo",
+    "clean": "rimraf dist",
     "build": "pnpm clean &&  pnpm build:cjs && pnpm build:esm",
     "build:cjs": "tsc -p ./tsconfig.cjs.json",
     "build:esm": "tsc -p ./tsconfig.esm.json",
