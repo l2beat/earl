@@ -8,7 +8,7 @@ export function extractTsDocCommentsFromString(
 ): MethodComment[] {
   // @todo use TypeScript's parser to extract signatures and comments
   // We have a few bugs already — see skipped tests in extract.test.ts
-  const DOC_COMMENT_REGEX = /\/\*\*([\s\S]*?)\*\/[\n\r]+([\s\S]*?)[{;\n\r]+/gm
+  const DOC_COMMENT_REGEX = /\/\*\*([\s\S]*?)\*\/[\n\r]+([\s\S]*?);+/gm
 
   const methodComments: MethodComment[] = []
 
@@ -22,6 +22,10 @@ export function extractTsDocCommentsFromString(
     const comment = `/** ${rawMethodComment[1]!.trim()} */`
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     let signature = removeGetterKeyword(rawMethodComment[2]!.trim())
+    signature = signature.replace(/\n/g, '')
+    signature = signature.replace(/[ ]+/g, ' ')
+    signature = signature.replace(/,[ ]?\)/g, ')')
+    signature = signature.replace(/\( /g, '(')
 
     if (signature.endsWith(';')) signature = signature.slice(0, -1)
 

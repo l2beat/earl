@@ -13,7 +13,6 @@ declare module '../../expect' {
      * This validator does not support async functions. Use `toBeRejected` and
      * `toBeRejectedWith` instead.
      *
-     * @param errorClass - The error class to check.
      * @param message - A substring of the error message or a regex matching the
      *   message.
      *
