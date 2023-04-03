@@ -82,7 +82,7 @@ Some interesting matchers for strings and containers include:
 
 ## Custom matchers
 
-Earl provides more matchers than the ones listed above. To see the full list, please check out the [API reference](/api/matchers).
+Earl provides more matchers than the ones listed above. To see the full list, please check out the [API reference](/api/api-reference).
 
 If you find that you want to check something that Earl doesn't provide a matcher for, you can easily work around this by using `expect.satisfies(predicate)` or by registering your own matcher.
 

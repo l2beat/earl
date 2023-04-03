@@ -37,7 +37,7 @@ expect(hello()).toEqual(42)
 expect(hello()).toEqual(42)
 ```
 
-You can learn about all the different customization functions in the [API reference](/api/mocks).
+You can learn about all the different customization functions in the [API reference](/api/api-reference).
 
 ## Mocking objects
 

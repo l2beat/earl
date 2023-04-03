@@ -113,7 +113,7 @@ expect(1).not.toEqual(2)
 
 ## Custom validators
 
-Earl provides more validators than the ones listed above. To see the full list, please check out the [API reference](/api/validators).
+Earl provides more validators than the ones listed above. To see the full list, please check out the [API reference](/api/api-reference).
 
 If you find that you want to check something that Earl doesn't provide a validator for, you can easily work around this by using `toSatisfy` or by registering your own validator.
 
