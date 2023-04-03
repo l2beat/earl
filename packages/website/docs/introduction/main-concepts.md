@@ -40,7 +40,7 @@ Validators can also be negated using the `not` modifier:
 expect(1).not.toEqual(2)
 ```
 
-You can read more about the available validators in the [Basic assertions](/guides/basic-assertions) guide or browse the [API reference](/api/validators).
+You can read more about the available validators in the [Basic assertions](/guides/basic-assertions) guide or browse the [API reference](/api/api-reference).
 
 ## Matchers
 
@@ -59,7 +59,7 @@ expect(registeredUser).toEqual({
 })
 ```
 
-You can read more about matchers in the [Using matchers](/guides/using-matchers) guide or browse the [API reference](/api/matchers).
+You can read more about matchers in the [Using matchers](/guides/using-matchers) guide or browse the [API reference](/api/api-reference).
 
 ## Error handling
 
@@ -101,7 +101,7 @@ export async function markAsDelivered(orderId: number) {
 
 :::
 
-You can read more about errors in the [Handling errors](/guides/handling-errors) guide or browse the [API reference](/api/validators).
+You can read more about errors in the [Handling errors](/guides/handling-errors) guide or browse the [API reference](/api/api-reference).
 
 ## Mocks
 
@@ -127,14 +127,14 @@ expect(user.name).toEqual('John')
 expect(api.getUser).toHaveBeenOnlyCalledWith(1)
 ```
 
-You can read more about mocks in the [Using mocks](/guides/using-mocks) guide or browse the [API reference](/api/validators).
+You can read more about mocks in the [Using mocks](/guides/using-mocks) guide or browse the [API reference](/api/api-reference).
 
 ## Snapshots
 
 Sometimes the values you want to test are quite complex, or their actual content is less important than the fact that they are correct. In these cases, you can use snapshots to assert that the value matches a previously stored value.
 
-Earl has a bit different approach to snapshots than other framework so make sure to check out the [Snapshot testing](/guides/snapshot-testing) guide or browse the [API reference](/api/validators).
+Earl has a bit different approach to snapshots than other framework so make sure to check out the [Snapshot testing](/guides/snapshot-testing) guide or browse the [API reference](/api/api-reference).
 
 ## Extensions
 
-Earl is designed to be extensible. You can extend Earl with your own validators and matchers. This is a feature intended for advanced users. Read more about it in the [Extending Earl](/advanced/extending-earl) guide or browse the [API reference](/api/extending).
+Earl is designed to be extensible. You can extend Earl with your own validators and matchers. This is a feature intended for advanced users. Read more about it in the [Extending Earl](/advanced/extending-earl) guide or browse the [API reference](/api/api-reference).
