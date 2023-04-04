@@ -27,22 +27,22 @@ npm install --save-dev earl
 ## Example
 
 ```typescript
-import { expect } from "earl";
+import { expect } from 'earl'
 
 const user = {
-  name: "John Doe",
-  email: "john@doe.com",
+  name: 'John Doe',
+  email: 'john@doe.com',
   notificationCount: 5,
-};
+}
 
 // This code fails to compile, and TypeScript provides this useful
 // error message:
 // Property 'notificationCount' is missing in type
 // '{ name: string; email: any; }' but required in type 'User'.
 expect(user).toEqual({
-  name: "John Doe",
+  name: 'John Doe',
   email: expect.a(String),
-});
+})
 ```
 
 ## Docs
