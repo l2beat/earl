@@ -11,12 +11,12 @@
 
 ## Features
 
-- 💪 Powerful validators and matchers
-- 🤖 Type-safe - written in TypeScript and goes well with static analysis
-- 🎭 Builtin support for mocks
-- ☕ Works great with Mocha
-- 📸 Snapshot testing
-- 🔌 Extensible with plugins
+- 💪 Use advanced assertions that are able to match whole ranges of values
+- 🤖 Written in TypeScript with type-safety in mind
+- 🎭 Type-safe, fully integrated mocks included
+- ☕ Finally a modern assertion library for Mocha
+- 📸 Snapshots can be easily created and updated with Earl
+- 🔌 Tweak to your needs with plugins
 
 ## Installation
 
@@ -27,13 +27,22 @@ npm install --save-dev earl
 ## Example
 
 ```typescript
-import { expect } from 'earl'
+import { expect } from "earl";
 
-// ...
+const user = {
+  name: "John Doe",
+  email: "john@doe.com",
+  notificationCount: 5,
+};
 
-expect(response).toEqual({
-  body: { trimmed: true, timestamp: expect.a(String) },
-})
+// This code fails to compile, and TypeScript provides this useful
+// error message:
+// Property 'notificationCount' is missing in type
+// '{ name: string; email: any; }' but required in type 'User'.
+expect(user).toEqual({
+  name: "John Doe",
+  email: expect.a(String),
+});
 ```
 
 ## Docs
