@@ -1,6 +1,6 @@
 import { expect } from 'chai'
 
-import { getSnapshotUpdateMode } from './getSnapshotUpdateMode'
+import { getSnapshotUpdateMode } from './getSnapshotUpdateMode.js'
 
 describe(getSnapshotUpdateMode.name, () => {
   it('should throw on CI when requesting snapshot update', () => {

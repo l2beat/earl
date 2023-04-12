@@ -1,6 +1,6 @@
 import { reporters } from 'mocha'
 
-import { AssertionError } from '../errors'
+import { AssertionError } from '../errors/index.js'
 
 export function captureError(fn: () => void): AssertionError {
   try {

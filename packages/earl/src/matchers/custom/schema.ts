@@ -1,4 +1,4 @@
-import { registerMatcher } from '../../expect'
+import { registerMatcher } from '../../expect.js'
 
 export interface ZodSchema {
   parse(value: unknown): any

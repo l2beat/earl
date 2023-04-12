@@ -1,7 +1,7 @@
 import { expect } from 'chai'
 
-import { expect as earl } from '../../index'
-import { toBeCloseTo } from './toBeCloseTo'
+import { expect as earl } from '../../index.js'
+import { toBeCloseTo } from './toBeCloseTo.js'
 
 describe(toBeCloseTo.name, () => {
   describe('without .not', () => {

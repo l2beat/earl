@@ -1,7 +1,7 @@
-import { expect as earl } from '../../index'
-import { testMatcher, testMatcherFormat } from '../../test/matchers'
-import { TEST_VALUES } from '../../test/values'
-import { between } from './between'
+import { expect as earl } from '../../index.js'
+import { testMatcher, testMatcherFormat } from '../../test/matchers.js'
+import { TEST_VALUES } from '../../test/values.js'
+import { between } from './between.js'
 
 describe(between.name, () => {
   testMatcherFormat(earl.between(0, 1), 'between(0, 1)')

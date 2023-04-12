@@ -1,7 +1,7 @@
 import { expect } from 'chai'
 
-import { isMockFn } from './mockFn'
-import { mockObject } from './mockObject'
+import { isMockFn } from './mockFn.js'
+import { mockObject } from './mockObject.js'
 
 describe(mockObject.name, () => {
   class Jogger {

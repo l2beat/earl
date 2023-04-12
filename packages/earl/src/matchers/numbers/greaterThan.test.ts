@@ -1,7 +1,7 @@
-import { expect as earl } from '../../index'
-import { testMatcher, testMatcherFormat } from '../../test/matchers'
-import { TEST_VALUES } from '../../test/values'
-import { greaterThan } from './greaterThan'
+import { expect as earl } from '../../index.js'
+import { testMatcher, testMatcherFormat } from '../../test/matchers.js'
+import { TEST_VALUES } from '../../test/values.js'
+import { greaterThan } from './greaterThan.js'
 
 describe(greaterThan.name, () => {
   testMatcherFormat(earl.greaterThan(10), 'greaterThan(10)')

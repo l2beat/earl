@@ -1,8 +1,8 @@
-import { Control } from '../../Control'
-import { registerValidator } from '../../expect'
-import { format, formatCompact } from '../../format'
-import { LOOSE_FORMAT_OPTIONS } from '../../format/FormatOptions'
-import { isEqual, LOOSE_EQUALITY_OPTIONS } from '../../isEqual'
+import { Control } from '../../Control.js'
+import { registerValidator } from '../../expect.js'
+import { LOOSE_FORMAT_OPTIONS } from '../../format/FormatOptions.js'
+import { format, formatCompact } from '../../format/index.js'
+import { isEqual, LOOSE_EQUALITY_OPTIONS } from '../../isEqual/index.js'
 
 declare module '../../expect' {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars

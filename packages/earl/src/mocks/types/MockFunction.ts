@@ -1,5 +1,5 @@
-import { MockGiven } from './MockGiven'
-import { Awaited } from './util'
+import { MockGiven } from './MockGiven.js'
+import { Awaited } from './util.js'
 
 export interface MockCall<TArgs, TReturn> {
   args: TArgs

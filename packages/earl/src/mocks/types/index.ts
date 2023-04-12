@@ -1,3 +1,3 @@
-export * from './MockFunction'
-export * from './MockGiven'
-export * from './Spec'
+export * from './MockFunction.js'
+export * from './MockGiven.js'
+export * from './Spec.js'

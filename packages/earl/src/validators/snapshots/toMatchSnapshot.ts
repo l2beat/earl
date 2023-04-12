@@ -1,12 +1,12 @@
 import { writeFileSync } from 'fs'
 
-import { Control } from '../../Control'
-import { registerValidator } from '../../expect'
-import { format, formatCompact } from '../../format'
-import { formatSnapshot } from './format'
-import { getSnapshot } from './getSnapshot'
-import { getSnapshotUpdateMode } from './getSnapshotUpdateMode'
-import { TestContext } from './TestContext'
+import { Control } from '../../Control.js'
+import { registerValidator } from '../../expect.js'
+import { format, formatCompact } from '../../format/index.js'
+import { formatSnapshot } from './format.js'
+import { getSnapshot } from './getSnapshot.js'
+import { getSnapshotUpdateMode } from './getSnapshotUpdateMode.js'
+import { TestContext } from './TestContext.js'
 
 declare module '../../expect' {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars

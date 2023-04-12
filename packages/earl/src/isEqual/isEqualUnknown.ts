@@ -1,10 +1,10 @@
-import { Matcher } from '../expect'
-import { EqualityOptions } from './EqualityOptions'
-import { getCanonicalType } from './getCanonicalType'
-import { isEqualMap } from './isEqualMap'
-import { isEqualNumber } from './isEqualNumber'
-import { isEqualObject } from './isEqualObject'
-import { isEqualSet } from './isEqualSet'
+import { Matcher } from '../expect.js'
+import { EqualityOptions } from './EqualityOptions.js'
+import { getCanonicalType } from './getCanonicalType.js'
+import { isEqualMap } from './isEqualMap.js'
+import { isEqualNumber } from './isEqualNumber.js'
+import { isEqualObject } from './isEqualObject.js'
+import { isEqualSet } from './isEqualSet.js'
 
 export function isEqualUnknown(
   value: unknown,

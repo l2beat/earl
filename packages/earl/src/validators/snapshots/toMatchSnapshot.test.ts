@@ -1,12 +1,12 @@
 import { expect } from 'chai'
 import { readFileSync, writeFileSync } from 'fs'
 
-import { format, formatCompact } from '../../format'
-import { expect as earl } from '../../index'
-import { formatSnapshot, parseSnapshot } from './format'
-import { resetSnapshotCache } from './getSnapshot'
-import { MochaTestContext } from './TestContext'
-import { toMatchSnapshot } from './toMatchSnapshot'
+import { format, formatCompact } from '../../format/index.js'
+import { expect as earl } from '../../index.js'
+import { formatSnapshot, parseSnapshot } from './format.js'
+import { resetSnapshotCache } from './getSnapshot.js'
+import { MochaTestContext } from './TestContext.js'
+import { toMatchSnapshot } from './toMatchSnapshot.js'
 
 describe(toMatchSnapshot.name, () => {
   let content: string

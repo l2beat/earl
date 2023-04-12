@@ -1,1 +1,1 @@
-export { AssertionError } from './AssertionError'
+export { AssertionError } from './AssertionError.js'

@@ -1,13 +1,13 @@
-import { Control } from '../../Control'
-import { registerValidator } from '../../expect'
-import { formatCompact } from '../../format'
-import { MockFunction, MockParameters } from '../../mocks'
+import { Control } from '../../Control.js'
+import { registerValidator } from '../../expect.js'
+import { formatCompact } from '../../format/index.js'
+import { MockFunction, MockParameters } from '../../mocks/index.js'
 import {
   assertIsMock,
   compareArgs,
   formatCalledTimes,
   formatTimes,
-} from './utils'
+} from './utils.js'
 
 declare module '../../expect' {
   interface Validators<T> {

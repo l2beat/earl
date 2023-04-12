@@ -1,7 +1,7 @@
 import { expect } from 'chai'
 
-import { expect as earl, formatCompact } from '../../index'
-import { toBeTruthy } from './toBeTruthy'
+import { expect as earl, formatCompact } from '../../index.js'
+import { toBeTruthy } from './toBeTruthy.js'
 
 describe(toBeTruthy.name, () => {
   const truthyValues = [true, 42, 'hello', {}, [], () => {}]

@@ -1,4 +1,4 @@
-export * from './EqualityOptions'
-export { type CanonicalType, getCanonicalType } from './getCanonicalType'
-export { getKeys } from './getKeys'
-export { isEqual } from './isEqual'
+export * from './EqualityOptions.js'
+export { type CanonicalType, getCanonicalType } from './getCanonicalType.js'
+export { getKeys } from './getKeys.js'
+export { isEqual } from './isEqual.js'

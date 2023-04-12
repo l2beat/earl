@@ -1,7 +1,7 @@
-import { expect as earl } from '../../index'
-import { testMatcher, testMatcherFormat } from '../../test/matchers'
-import { TEST_OBJECTS, TEST_VALUES } from '../../test/values'
-import { property } from './property'
+import { expect as earl } from '../../index.js'
+import { testMatcher, testMatcherFormat } from '../../test/matchers.js'
+import { TEST_OBJECTS, TEST_VALUES } from '../../test/values.js'
+import { property } from './property.js'
 
 describe(property.name, () => {
   describe('formatting', () => {

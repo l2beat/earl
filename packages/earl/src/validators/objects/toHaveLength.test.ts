@@ -1,7 +1,7 @@
 import { expect } from 'chai'
 
-import { expect as earl } from '../../index'
-import { toHaveLength } from './toHaveLength'
+import { expect as earl } from '../../index.js'
+import { toHaveLength } from './toHaveLength.js'
 
 describe(toHaveLength.name, () => {
   describe('without .not', () => {

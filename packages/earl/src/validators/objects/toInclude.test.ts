@@ -1,7 +1,7 @@
 import { expect } from 'chai'
 
-import { expect as earl } from '../../index'
-import { toInclude } from './toInclude'
+import { expect as earl } from '../../index.js'
+import { toInclude } from './toInclude.js'
 
 describe(toInclude.name, () => {
   class MyCollection<T> implements Iterable<T> {

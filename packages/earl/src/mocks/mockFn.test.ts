@@ -1,9 +1,9 @@
 import { expect } from 'chai'
 import { AssertTrue, IsExact } from 'conditional-type-checks'
 
-import { expect as earl } from '../expect'
-import { mockFn } from './mockFn'
-import { MockFunction, MockFunctionOf } from './types'
+import { expect as earl } from '../expect.js'
+import { mockFn } from './mockFn.js'
+import { MockFunction, MockFunctionOf } from './types/index.js'
 
 const sum = (a: number, b: number) => a + b
 

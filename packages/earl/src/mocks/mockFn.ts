@@ -1,5 +1,5 @@
-import { isEqual } from '../isEqual'
-import { MockCall, MockFunction, MockFunctionOf, Spec } from './types'
+import { isEqual } from '../isEqual/index.js'
+import { MockCall, MockFunction, MockFunctionOf, Spec } from './types/index.js'
 
 interface Override {
   args: any[]

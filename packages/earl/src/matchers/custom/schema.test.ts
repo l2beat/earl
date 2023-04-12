@@ -1,9 +1,9 @@
 import * as z from 'zod'
 
-import { expect as earl } from '../../index'
-import { testMatcher, testMatcherFormat } from '../../test/matchers'
-import { TEST_OBJECTS, TEST_VALUES } from '../../test/values'
-import { schema } from './schema'
+import { expect as earl } from '../../index.js'
+import { testMatcher, testMatcherFormat } from '../../test/matchers.js'
+import { TEST_OBJECTS, TEST_VALUES } from '../../test/values.js'
+import { schema } from './schema.js'
 
 describe(schema.name, () => {
   const Person = z.object({

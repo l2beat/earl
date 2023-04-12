@@ -1,5 +1,5 @@
-import { Control } from './Control'
-import { formatCompact } from './format'
+import { Control } from './Control.js'
+import { formatCompact } from './format/index.js'
 
 // to be overridden by plugins
 // eslint-disable-next-line @typescript-eslint/no-unused-vars

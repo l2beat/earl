@@ -1,5 +1,5 @@
-import { DEFAULT_FORMAT_OPTIONS } from './FormatOptions'
-import { formatUnknown } from './formatUnknown'
+import { DEFAULT_FORMAT_OPTIONS } from './FormatOptions.js'
+import { formatUnknown } from './formatUnknown.js'
 
 export function format(
   value: unknown,

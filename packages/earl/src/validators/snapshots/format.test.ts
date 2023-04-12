@@ -1,7 +1,7 @@
 import { expect } from 'chai'
 
-import { format } from '../../format'
-import { formatSnapshot, parseSnapshot } from './format'
+import { format } from '../../format/index.js'
+import { formatSnapshot, parseSnapshot } from './format.js'
 
 describe('formatting', () => {
   const snapshot = {

@@ -1,7 +1,7 @@
-import { Control } from '../../Control'
-import { registerValidator } from '../../expect'
-import { formatCompact } from '../../format'
-import { isEqual } from '../../isEqual'
+import { Control } from '../../Control.js'
+import { registerValidator } from '../../expect.js'
+import { formatCompact } from '../../format/index.js'
+import { isEqual } from '../../isEqual/index.js'
 
 declare module '../../expect' {
   interface Validators<T> {

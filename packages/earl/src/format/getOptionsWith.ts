@@ -1,4 +1,4 @@
-import { FormatOptions } from './FormatOptions'
+import { FormatOptions } from './FormatOptions.js'
 
 export function getOptionsWith(
   options: FormatOptions,

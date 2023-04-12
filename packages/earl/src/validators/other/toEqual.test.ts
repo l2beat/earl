@@ -1,8 +1,8 @@
 import { expect } from 'chai'
 
-import { expect as earl } from '../../index'
-import { captureMochaOutput, stripIndent } from '../../test/errors'
-import { toEqual } from './toEqual'
+import { expect as earl } from '../../index.js'
+import { captureMochaOutput, stripIndent } from '../../test/errors.js'
+import { toEqual } from './toEqual.js'
 
 describe(toEqual.name, () => {
   describe('without .not', () => {

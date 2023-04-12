@@ -1,7 +1,7 @@
-import { expect as earl } from '../../index'
-import { testMatcher, testMatcherFormat } from '../../test/matchers'
-import { TEST_VALUES } from '../../test/values'
-import { regex } from './regex'
+import { expect as earl } from '../../index.js'
+import { testMatcher, testMatcherFormat } from '../../test/matchers.js'
+import { TEST_VALUES } from '../../test/values.js'
+import { regex } from './regex.js'
 
 describe(regex.name, () => {
   testMatcherFormat(earl.regex(/^[0-9]+$/), 'regex(/^[0-9]+$/)')

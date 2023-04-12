@@ -2,10 +2,10 @@
 /* eslint-disable no-new-wrappers */
 import { expect } from 'chai'
 
-import { format, FormatOptions } from '../format'
-import { expect as earl } from '../index'
-import { EqualityOptions } from './EqualityOptions'
-import { isEqual } from './isEqual'
+import { format, FormatOptions } from '../format/index.js'
+import { expect as earl } from '../index.js'
+import { EqualityOptions } from './EqualityOptions.js'
+import { isEqual } from './isEqual.js'
 
 describe('isEqual', () => {
   const DEFAULTS: EqualityOptions & { oneWay: boolean } = {

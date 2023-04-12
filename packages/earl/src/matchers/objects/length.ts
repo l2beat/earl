@@ -1,5 +1,5 @@
-import { registerMatcher } from '../../expect'
-import { isEqual } from '../../isEqual'
+import { registerMatcher } from '../../expect.js'
+import { isEqual } from '../../isEqual/index.js'
 
 declare module '../../expect' {
   interface Matchers {

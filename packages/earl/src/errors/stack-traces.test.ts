@@ -1,9 +1,9 @@
 import { expect } from 'chai'
 import * as errorStackParser from 'error-stack-parser'
 
-import { Control } from '../Control'
-import { expect as earl } from '../index'
-import { AssertionError } from './AssertionError'
+import { Control } from '../Control.js'
+import { expect as earl } from '../index.js'
+import { AssertionError } from './AssertionError.js'
 
 describe('stack traces for errors', () => {
   it('cleans stack traces for sync errors', () => {

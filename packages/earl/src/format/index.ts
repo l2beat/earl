@@ -1,3 +1,3 @@
-export { format } from './format'
-export { formatCompact } from './formatCompact'
-export { type FormatOptions } from './FormatOptions'
+export { format } from './format.js'
+export { formatCompact } from './formatCompact.js'
+export { type FormatOptions } from './FormatOptions.js'

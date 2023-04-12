@@ -1,7 +1,7 @@
 import { expect } from 'chai'
 
-import { expect as earl, mockFn } from '../../index'
-import { toHaveBeenLastCalledWith } from './toHaveBeenLastCalledWith'
+import { expect as earl, mockFn } from '../../index.js'
+import { toHaveBeenLastCalledWith } from './toHaveBeenLastCalledWith.js'
 
 describe(toHaveBeenLastCalledWith.name, () => {
   describe('without .not', () => {

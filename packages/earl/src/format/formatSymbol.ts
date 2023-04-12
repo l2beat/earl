@@ -1,4 +1,4 @@
-import { toLine } from './toLine'
+import { toLine } from './toLine.js'
 
 const wellKnownSymbols = new Map<symbol, string>()
 for (const key of Object.getOwnPropertyNames(Symbol)) {

@@ -1,7 +1,7 @@
-import { expect as earl } from '../../index'
-import { testMatcher, testMatcherFormat } from '../../test/matchers'
-import { TEST_OBJECTS, TEST_PRIMITIVES } from '../../test/values'
-import { notEmpty } from './notEmpty'
+import { expect as earl } from '../../index.js'
+import { testMatcher, testMatcherFormat } from '../../test/matchers.js'
+import { TEST_OBJECTS, TEST_PRIMITIVES } from '../../test/values.js'
+import { notEmpty } from './notEmpty.js'
 
 describe(notEmpty.name, () => {
   testMatcherFormat(earl.notEmpty(), 'notEmpty()')

@@ -1,5 +1,5 @@
-import { DEFAULT_EQUALITY_OPTIONS } from './EqualityOptions'
-import { isEqualUnknown } from './isEqualUnknown'
+import { DEFAULT_EQUALITY_OPTIONS } from './EqualityOptions.js'
+import { isEqualUnknown } from './isEqualUnknown.js'
 
 /**
  * Equality algorithm used by all functions that check deep equality. Do not
