@@ -2,7 +2,7 @@ import {
   DEFAULT_EQUALITY_OPTIONS,
   EqualityOptions,
   LOOSE_EQUALITY_OPTIONS,
-} from '../isEqual/EqualityOptions'
+} from '../isEqual/EqualityOptions.js'
 
 export interface FormatOptions extends EqualityOptions {
   /**

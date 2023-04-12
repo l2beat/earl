@@ -1,4 +1,4 @@
-import { FormatOptions } from './FormatOptions'
+import { FormatOptions } from './FormatOptions.js'
 
 export function formatString(value: string, options: FormatOptions) {
   if (options.inline && value.length > options.maxLineLength - 2) {

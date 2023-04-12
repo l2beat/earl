@@ -1,9 +1,9 @@
-import { Control } from '../../Control'
-import { registerValidator } from '../../expect'
-import { formatCompact } from '../../format'
-import { a, NewableOrPrimitive } from '../../matchers/basic/a'
+import { Control } from '../../Control.js'
+import { registerValidator } from '../../expect.js'
+import { formatCompact } from '../../format/index.js'
+import { a, NewableOrPrimitive } from '../../matchers/basic/a.js'
 
-declare module '../../expect' {
+declare module '../../expect.js' {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   interface Validators<T> {
     /**

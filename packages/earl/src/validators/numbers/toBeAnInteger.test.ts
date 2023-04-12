@@ -1,7 +1,7 @@
 import { expect } from 'chai'
 
-import { expect as earl } from '../../index'
-import { toBeAnInteger } from './toBeAnInteger'
+import { expect as earl } from '../../index.js'
+import { toBeAnInteger } from './toBeAnInteger.js'
 
 describe(toBeAnInteger.name, () => {
   describe('without .not', () => {

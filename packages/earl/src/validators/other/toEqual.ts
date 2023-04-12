@@ -1,9 +1,9 @@
-import { Control } from '../../Control'
-import { registerValidator } from '../../expect'
-import { formatCompact } from '../../format'
-import { isEqual } from '../../isEqual'
+import { Control } from '../../Control.js'
+import { registerValidator } from '../../expect.js'
+import { formatCompact } from '../../format/index.js'
+import { isEqual } from '../../isEqual/index.js'
 
-declare module '../../expect' {
+declare module '../../expect.js' {
   interface Validators<T> {
     /**
      * Asserts that a value is equal to another value. The equality is checked

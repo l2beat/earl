@@ -1,7 +1,7 @@
 import { expect } from 'chai'
 
-import { expect as earl } from '../../index'
-import { toLooseEqual } from './toLooseEqual'
+import { expect as earl } from '../../index.js'
+import { toLooseEqual } from './toLooseEqual.js'
 
 describe(toLooseEqual.name, () => {
   describe('without .not', () => {

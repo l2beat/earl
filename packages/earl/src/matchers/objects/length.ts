@@ -1,7 +1,7 @@
-import { registerMatcher } from '../../expect'
-import { isEqual } from '../../isEqual'
+import { registerMatcher } from '../../expect.js'
+import { isEqual } from '../../isEqual/index.js'
 
-declare module '../../expect' {
+declare module '../../expect.js' {
   interface Matchers {
     /**
      * Matches an array, string or any object with a `length` property that has

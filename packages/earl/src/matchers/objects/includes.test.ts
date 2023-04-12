@@ -1,9 +1,9 @@
 import { expect } from 'chai'
 
-import { expect as earl } from '../../index'
-import { testMatcher, testMatcherFormat } from '../../test/matchers'
-import { TEST_OBJECTS, TEST_PRIMITIVES } from '../../test/values'
-import { includes } from './includes'
+import { expect as earl } from '../../index.js'
+import { testMatcher, testMatcherFormat } from '../../test/matchers.js'
+import { TEST_OBJECTS, TEST_PRIMITIVES } from '../../test/values.js'
+import { includes } from './includes.js'
 
 describe(includes.name, () => {
   class MyCollection<T> implements Iterable<T> {

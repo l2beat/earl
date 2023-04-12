@@ -1,5 +1,5 @@
-import { Control } from '../../Control'
-import { format, formatCompact } from '../../format'
+import { Control } from '../../Control.js'
+import { format, formatCompact } from '../../format/index.js'
 
 export function captureError(fn: () => unknown) {
   let error: unknown

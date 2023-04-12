@@ -1,6 +1,6 @@
-import { expect as earl } from '../../index'
-import { testMatcher, testMatcherFormat } from '../../test/matchers'
-import { satisfies } from './satisfies'
+import { expect as earl } from '../../index.js'
+import { testMatcher, testMatcherFormat } from '../../test/matchers.js'
+import { satisfies } from './satisfies.js'
 
 describe(satisfies.name, () => {
   testMatcherFormat(

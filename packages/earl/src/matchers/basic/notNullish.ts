@@ -1,6 +1,6 @@
-import { registerMatcher } from '../../expect'
+import { registerMatcher } from '../../expect.js'
 
-declare module '../../expect' {
+declare module '../../expect.js' {
   interface Matchers {
     /**
      * Matches values that are not nullish, i.e. values that are not `null` or

@@ -1,9 +1,9 @@
 import { expect } from 'chai'
-import * as errorStackParser from 'error-stack-parser'
+import ErrorStackParser from 'error-stack-parser'
 
-import { Control } from '../Control'
-import { expect as earl } from '../index'
-import { AssertionError } from './AssertionError'
+import { Control } from '../Control.js'
+import { expect as earl } from '../index.js'
+import { AssertionError } from './AssertionError.js'
 
 describe('stack traces for errors', () => {
   it('cleans stack traces for sync errors', () => {
@@ -12,7 +12,7 @@ describe('stack traces for errors', () => {
       expect.fail('should throw')
     } catch (e: any) {
       expect(e).to.be.instanceOf(AssertionError, 'Earl did not throw')
-      const stackTrace = errorStackParser.parse(e)
+      const stackTrace = ErrorStackParser.parse(e)
 
       expect(stackTrace[0]?.fileName?.endsWith('stack-traces.test.ts')).to.be
         .true
@@ -25,7 +25,7 @@ describe('stack traces for errors', () => {
       expect.fail('should throw')
     } catch (e: any) {
       expect(e).to.be.instanceOf(AssertionError, 'Earl did not throw')
-      const stackTrace = errorStackParser.parse(e)
+      const stackTrace = ErrorStackParser.parse(e)
 
       expect(stackTrace[0]?.fileName?.endsWith('stack-traces.test.ts')).to.be
         .true
@@ -41,6 +41,6 @@ describe('stack traces for errors', () => {
       return nestedGetControl()
     }
     const control = nestedValidator()
-    expect(control.file).to.equal(__filename)
+    expect(control.file).to.equal(import.meta.url)
   })
 })

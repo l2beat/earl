@@ -1,6 +1,6 @@
 import { expect } from 'chai'
 
-import { formatCompact } from '../format'
+import { formatCompact } from '../format/index.js'
 
 export function testMatcher(
   matcher: (value: unknown) => boolean,

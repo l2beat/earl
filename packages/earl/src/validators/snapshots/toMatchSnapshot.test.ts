@@ -1,23 +1,24 @@
 import { expect } from 'chai'
 import { readFileSync, writeFileSync } from 'fs'
+import { fileURLToPath } from 'url'
 
-import { format, formatCompact } from '../../format'
-import { expect as earl } from '../../index'
-import { formatSnapshot, parseSnapshot } from './format'
-import { resetSnapshotCache } from './getSnapshot'
-import { MochaTestContext } from './TestContext'
-import { toMatchSnapshot } from './toMatchSnapshot'
+import { format, formatCompact } from '../../format/index.js'
+import { expect as earl } from '../../index.js'
+import { formatSnapshot, parseSnapshot } from './format.js'
+import { resetSnapshotCache } from './getSnapshot.js'
+import { MochaTestContext } from './TestContext.js'
+import { toMatchSnapshot } from './toMatchSnapshot.js'
 
 describe(toMatchSnapshot.name, () => {
   let content: string
   let envCi: string | undefined
   let envUpdateSnapshots: string | undefined
   // eslint-disable-next-line no-path-concat
-  const SNAPSHOT_FILE = __filename + '.snapshot'
+  const SNAPSHOT_FILE = fileURLToPath(import.meta.url) + '.snapshot'
 
   const mochaContext = (title: string): MochaTestContext => ({
     test: {
-      file: __filename,
+      file: fileURLToPath(import.meta.url),
       fullTitle: () => title,
     },
   })

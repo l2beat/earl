@@ -1,9 +1,9 @@
-import { Control } from '../../Control'
-import { registerValidator } from '../../expect'
-import { MockFunction } from '../../mocks'
-import { assertIsMock } from './utils'
+import { Control } from '../../Control.js'
+import { registerValidator } from '../../expect.js'
+import { MockFunction } from '../../mocks/index.js'
+import { assertIsMock } from './utils.js'
 
-declare module '../../expect' {
+declare module '../../expect.js' {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   interface Validators<T> {
     /**

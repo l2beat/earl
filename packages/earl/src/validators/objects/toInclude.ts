@@ -1,7 +1,7 @@
-import { Control } from '../../Control'
-import { registerValidator } from '../../expect'
-import { formatCompact } from '../../format'
-import { includes } from '../../matchers/objects/includes'
+import { Control } from '../../Control.js'
+import { registerValidator } from '../../expect.js'
+import { formatCompact } from '../../format/index.js'
+import { includes } from '../../matchers/objects/includes.js'
 
 type MemberOf<T> = T extends (infer U)[]
   ? U
@@ -11,7 +11,7 @@ type MemberOf<T> = T extends (infer U)[]
   ? U
   : unknown
 
-declare module '../../expect' {
+declare module '../../expect.js' {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   interface Validators<T> {
     /**

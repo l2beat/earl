@@ -1,15 +1,15 @@
-import { Control } from '../../Control'
-import { registerValidator } from '../../expect'
-import { formatCompact } from '../../format'
-import { MockFunction, MockParameters } from '../../mocks'
+import { Control } from '../../Control.js'
+import { registerValidator } from '../../expect.js'
+import { formatCompact } from '../../format/index.js'
+import { MockFunction, MockParameters } from '../../mocks/index.js'
 import {
   assertIsMock,
   compareArgs,
   formatCalledTimes,
   formatTimes,
-} from './utils'
+} from './utils.js'
 
-declare module '../../expect' {
+declare module '../../expect.js' {
   interface Validators<T> {
     /**
      * Asserts that when the mock function was called the nth time it was called

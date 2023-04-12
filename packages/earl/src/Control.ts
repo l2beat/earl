@@ -1,5 +1,5 @@
-import { AssertionError } from './errors'
-import { format } from './format'
+import { AssertionError } from './errors/index.js'
+import { format } from './format/index.js'
 
 export interface ValidationResult {
   success: boolean

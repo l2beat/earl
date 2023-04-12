@@ -1,7 +1,7 @@
 import { expect } from 'chai'
 
-import { expect as earl } from '../../index'
-import { toMatchRegex } from './toMatchRegex'
+import { expect as earl } from '../../index.js'
+import { toMatchRegex } from './toMatchRegex.js'
 
 describe(toMatchRegex.name, () => {
   describe('without .not', () => {

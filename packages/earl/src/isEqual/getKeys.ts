@@ -1,5 +1,5 @@
-import { EqualityOptions } from './EqualityOptions'
-import { CanonicalType } from './getCanonicalType'
+import { EqualityOptions } from './EqualityOptions.js'
+import { CanonicalType } from './getCanonicalType.js'
 
 export function getKeys(
   value: object,

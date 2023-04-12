@@ -1,10 +1,10 @@
-import { registerMatcher } from '../../expect'
+import { registerMatcher } from '../../expect.js'
 
 export interface ZodSchema {
   parse(value: unknown): any
 }
 
-declare module '../../expect' {
+declare module '../../expect.js' {
   interface Matchers {
     /**
      * Matches values conforming to the provided zod schema.

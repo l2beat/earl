@@ -1,12 +1,12 @@
-import { expect as earl } from '../../index'
-import { testMatcher, testMatcherFormat } from '../../test/matchers'
+import { expect as earl } from '../../index.js'
+import { testMatcher, testMatcherFormat } from '../../test/matchers.js'
 import {
   TEST_COMPLEX,
   TEST_FUNCTIONS,
   TEST_PRIMITIVES,
   TEST_VALUES,
-} from '../../test/values'
-import { a } from './a'
+} from '../../test/values.js'
+import { a } from './a.js'
 
 describe(a.name, () => {
   describe(String.name, () => {

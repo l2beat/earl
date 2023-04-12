@@ -1,7 +1,7 @@
-import { expect as earl } from '../../index'
-import { testMatcher, testMatcherFormat } from '../../test/matchers'
-import { TEST_VALUES } from '../../test/values'
-import { closeTo } from './closeTo'
+import { expect as earl } from '../../index.js'
+import { testMatcher, testMatcherFormat } from '../../test/matchers.js'
+import { TEST_VALUES } from '../../test/values.js'
+import { closeTo } from './closeTo.js'
 
 describe(closeTo.name, () => {
   testMatcherFormat(earl.closeTo(1, 0.001), 'closeTo(1, 0.001)')

@@ -1,8 +1,8 @@
 import { expect } from 'chai'
 
-import { expect as earl } from '../../index'
-import { captureMochaOutput, stripIndent } from '../../test/errors'
-import { toThrow } from './toThrow'
+import { expect as earl } from '../../index.js'
+import { captureMochaOutput, stripIndent } from '../../test/errors.js'
+import { toThrow } from './toThrow.js'
 
 describe(toThrow.name, () => {
   class CustomError extends Error {}

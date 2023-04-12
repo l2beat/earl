@@ -1,5 +1,5 @@
-import { isMockFn, mockFn } from './mockFn'
-import { MockFunctionOf } from './types'
+import { isMockFn, mockFn } from './mockFn.js'
+import { MockFunctionOf } from './types/index.js'
 
 export type MockObject<T> = T & {
   [P in keyof T]: T[P] extends (...args: any[]) => any

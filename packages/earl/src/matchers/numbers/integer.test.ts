@@ -1,7 +1,7 @@
-import { expect as earl } from '../../index'
-import { testMatcher, testMatcherFormat } from '../../test/matchers'
-import { TEST_VALUES } from '../../test/values'
-import { integer } from './integer'
+import { expect as earl } from '../../index.js'
+import { testMatcher, testMatcherFormat } from '../../test/matchers.js'
+import { TEST_VALUES } from '../../test/values.js'
+import { integer } from './integer.js'
 
 describe(integer.name, () => {
   testMatcherFormat(earl.integer(), 'integer()')

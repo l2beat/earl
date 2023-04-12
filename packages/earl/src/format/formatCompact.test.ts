@@ -2,8 +2,8 @@
 /* eslint-disable no-new-wrappers */
 import { expect } from 'chai'
 
-import { expect as earl } from '../index'
-import { formatCompact } from './formatCompact'
+import { expect as earl } from '../index.js'
+import { formatCompact } from './formatCompact.js'
 
 describe('formatCompact', () => {
   const testCases: [unknown, string][] = [

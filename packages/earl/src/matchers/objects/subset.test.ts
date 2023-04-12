@@ -1,7 +1,7 @@
-import { expect as earl } from '../../index'
-import { testMatcher, testMatcherFormat } from '../../test/matchers'
-import { TEST_OBJECTS, TEST_VALUES } from '../../test/values'
-import { subset } from './subset'
+import { expect as earl } from '../../index.js'
+import { testMatcher, testMatcherFormat } from '../../test/matchers.js'
+import { TEST_OBJECTS, TEST_VALUES } from '../../test/values.js'
+import { subset } from './subset.js'
 
 describe(subset.name, () => {
   testMatcherFormat(earl.subset({ x: 1 }), 'subset({ x: 1 })')

@@ -1,7 +1,7 @@
 import { expect } from 'chai'
 
-import { expect as earl } from '../../index'
-import { toBeBetween } from './toBeBetween'
+import { expect as earl } from '../../index.js'
+import { toBeBetween } from './toBeBetween.js'
 
 describe(toBeBetween.name, () => {
   describe('without .not', () => {

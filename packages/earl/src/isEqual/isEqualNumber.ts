@@ -1,4 +1,4 @@
-import { EqualityOptions } from './EqualityOptions'
+import { EqualityOptions } from './EqualityOptions.js'
 
 export function isEqualNumber(
   value: number,

@@ -1,6 +1,6 @@
-import { FormatOptions } from './FormatOptions'
-import { formatUnknown } from './formatUnknown'
-import { getOptionsWith } from './getOptionsWith'
+import { FormatOptions } from './FormatOptions.js'
+import { formatUnknown } from './formatUnknown.js'
+import { getOptionsWith } from './getOptionsWith.js'
 
 export function formatObjectEntries(
   value: object,

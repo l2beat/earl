@@ -1,6 +1,6 @@
-import { CanonicalType } from '../isEqual/getCanonicalType'
-import { FormatOptions } from './FormatOptions'
-import { formatString } from './formatString'
+import { CanonicalType } from '../isEqual/getCanonicalType.js'
+import { FormatOptions } from './FormatOptions.js'
+import { formatString } from './formatString.js'
 
 export function getRepresentation(
   value: unknown,

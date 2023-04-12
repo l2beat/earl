@@ -1,9 +1,9 @@
 import { readFileSync } from 'fs'
 import path from 'path'
 
-import { parseSnapshot } from './format'
-import { SnapshotUpdateMode } from './getSnapshotUpdateMode'
-import { TestContext } from './TestContext'
+import { parseSnapshot } from './format.js'
+import { SnapshotUpdateMode } from './getSnapshotUpdateMode.js'
+import { TestContext } from './TestContext.js'
 
 const counters = new Map<string, Map<string, number>>()
 const snapshots = new Map<string, Record<string, string>>()

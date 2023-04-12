@@ -1,7 +1,7 @@
-import { expect as earl } from '../../index'
-import { testMatcher, testMatcherFormat } from '../../test/matchers'
-import { TEST_VALUES } from '../../test/values'
-import { nullish } from './nullish'
+import { expect as earl } from '../../index.js'
+import { testMatcher, testMatcherFormat } from '../../test/matchers.js'
+import { TEST_VALUES } from '../../test/values.js'
+import { nullish } from './nullish.js'
 
 describe(nullish.name, () => {
   testMatcherFormat(earl.nullish(), 'nullish()')

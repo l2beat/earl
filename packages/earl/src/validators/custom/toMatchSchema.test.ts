@@ -1,8 +1,8 @@
 import { expect } from 'chai'
 import * as z from 'zod'
 
-import { expect as earl } from '../../index'
-import { toMatchSchema } from './toMatchSchema'
+import { expect as earl } from '../../index.js'
+import { toMatchSchema } from './toMatchSchema.js'
 
 describe(toMatchSchema.name, () => {
   describe('without .not', () => {

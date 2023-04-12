@@ -1,5 +1,5 @@
-import { FormatOptions } from './FormatOptions'
-import { toLine } from './toLine'
+import { FormatOptions } from './FormatOptions.js'
+import { toLine } from './toLine.js'
 
 export function formatNumber(
   value: number,

@@ -1,7 +1,7 @@
 import { expect } from 'chai'
 
-import { expect as earl } from '../../index'
-import { toExactlyEqual } from './toExactlyEqual'
+import { expect as earl } from '../../index.js'
+import { toExactlyEqual } from './toExactlyEqual.js'
 
 describe(toExactlyEqual.name, () => {
   describe('without .not', () => {

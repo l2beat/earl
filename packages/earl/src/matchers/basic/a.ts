@@ -1,4 +1,4 @@
-import { registerMatcher } from '../../expect'
+import { registerMatcher } from '../../expect.js'
 
 export type Newable<T> = new (...args: any[]) => T
 
@@ -7,7 +7,7 @@ export type NewableOrPrimitive =
   | SymbolConstructor
   | BigIntConstructor
 
-declare module '../../expect' {
+declare module '../../expect.js' {
   interface Matchers {
     /**
      * Matches an instance of a provided class or a primitive type. It is

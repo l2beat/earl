@@ -27,17 +27,10 @@
   "version": "1.0.0",
   "main": "./dist/cjs/index.js",
   "module": "./dist/esm/index.js",
-  "types": "./dist/esm/index.d.ts",
   "exports": {
     ".": {
-      "import": {
-        "types": "./dist/esm/index.d.ts",
-        "default": "./dist/esm/index.js"
-      },
-      "require": {
-        "types": "./dist/cjs/index.d.ts",
-        "default": "./dist/cjs/index.js"
-      }
+      "import": "./dist/esm/index.js",
+      "require": "./dist/cjs/index.js"
     }
   },
   "files": [
@@ -56,8 +49,8 @@
     "typecheck": "tsc --noEmit",
     "clean": "rimraf dist",
     "build": "pnpm clean &&  pnpm build:cjs && pnpm build:esm",
-    "build:cjs": "tsc -p ./tsconfig.cjs.json",
-    "build:esm": "tsc -p ./tsconfig.esm.json",
+    "build:cjs": "tsc -p ./tsconfig.cjs.json && cp static/package-cjs.json dist/cjs/package.json",
+    "build:esm": "tsc -p ./tsconfig.esm.json && cp static/package-esm.json dist/esm/package.json",
     "build:watch": "pnpm clean && tsc -p ./tsconfig.prod.json --watch",
     "build:watch:test": "pnpm clean && tsc -p ./tsconfig.json --watch",
     "test": "mocha",

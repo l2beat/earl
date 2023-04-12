@@ -1,7 +1,7 @@
-import { EqualityOptions } from './EqualityOptions'
-import { CanonicalType } from './getCanonicalType'
-import { getKeys } from './getKeys'
-import { isEqualUnknown } from './isEqualUnknown'
+import { EqualityOptions } from './EqualityOptions.js'
+import { CanonicalType } from './getCanonicalType.js'
+import { getKeys } from './getKeys.js'
+import { isEqualUnknown } from './isEqualUnknown.js'
 
 export function isEqualObject(
   value: object,
