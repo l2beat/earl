@@ -8,9 +8,10 @@
     "lint": "eslint --ext .ts,.js --max-warnings 0 test-esbuild test-node test-ts-node",
     "lint:fix": "pnpm lint --fix",
     "typecheck": "tsc --noEmit",
-    "test": "pnpm test:babel && pnpm test:esbuild && pnpm test:node && pnpm test:ts-node",
+    "test": "pnpm test:babel && pnpm test:esbuild && pnpm test:mjs && pnpm test:node && pnpm test:ts-node",
     "test:babel": "mocha --config test-babel/.mocharc.js",
     "test:esbuild": "mocha --config test-esbuild/.mocharc.js",
+    "test:mjs": "mocha --config test-mjs/.mocharc.js",
     "test:node": "mocha --config test-node/.mocharc.js",
     "test:ts-node": "mocha --config test-ts-node/.mocharc.js",
     "test:fix": "pnpm lint:fix && pnpm format:fix && pnpm typecheck && pnpm test"
