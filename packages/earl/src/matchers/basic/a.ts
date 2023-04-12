@@ -7,7 +7,7 @@ export type NewableOrPrimitive =
   | SymbolConstructor
   | BigIntConstructor
 
-declare module '../../expect' {
+declare module '../../expect.js' {
   interface Matchers {
     /**
      * Matches an instance of a provided class or a primitive type. It is

@@ -11,7 +11,7 @@ type MemberOf<T> = T extends (infer U)[]
   ? U
   : unknown
 
-declare module '../../expect' {
+declare module '../../expect.js' {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   interface Validators<T> {
     /**

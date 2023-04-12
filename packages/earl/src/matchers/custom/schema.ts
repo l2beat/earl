@@ -4,7 +4,7 @@ export interface ZodSchema {
   parse(value: unknown): any
 }
 
-declare module '../../expect' {
+declare module '../../expect.js' {
   interface Matchers {
     /**
      * Matches values conforming to the provided zod schema.

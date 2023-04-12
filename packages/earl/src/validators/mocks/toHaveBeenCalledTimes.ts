@@ -4,7 +4,7 @@ import { formatCompact } from '../../format/index.js'
 import { MockFunction } from '../../mocks/index.js'
 import { assertIsMock, formatCalledTimes, formatTimes } from './utils.js'
 
-declare module '../../expect' {
+declare module '../../expect.js' {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   interface Validators<T> {
     /**

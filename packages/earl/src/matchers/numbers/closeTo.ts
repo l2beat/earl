@@ -1,6 +1,6 @@
 import { registerMatcher } from '../../expect.js'
 
-declare module '../../expect' {
+declare module '../../expect.js' {
   interface Matchers {
     /**
      * Matches numbers that are close to the target value. The range is

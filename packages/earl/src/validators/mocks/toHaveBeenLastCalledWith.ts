@@ -3,7 +3,7 @@ import { registerValidator } from '../../expect.js'
 import { MockFunction, MockParameters } from '../../mocks/index.js'
 import { assertIsMock, compareArgs } from './utils.js'
 
-declare module '../../expect' {
+declare module '../../expect.js' {
   interface Validators<T> {
     /**
      * Asserts that when the mock function was called the last time it was

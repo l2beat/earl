@@ -8,7 +8,7 @@ import { getSnapshot } from './getSnapshot.js'
 import { getSnapshotUpdateMode } from './getSnapshotUpdateMode.js'
 import { TestContext } from './TestContext.js'
 
-declare module '../../expect' {
+declare module '../../expect.js' {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   interface Validators<T> {
     /**

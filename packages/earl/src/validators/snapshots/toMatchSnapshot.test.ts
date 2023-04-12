@@ -1,5 +1,6 @@
 import { expect } from 'chai'
 import { readFileSync, writeFileSync } from 'fs'
+import { fileURLToPath } from 'url'
 
 import { format, formatCompact } from '../../format/index.js'
 import { expect as earl } from '../../index.js'
@@ -13,11 +14,11 @@ describe(toMatchSnapshot.name, () => {
   let envCi: string | undefined
   let envUpdateSnapshots: string | undefined
   // eslint-disable-next-line no-path-concat
-  const SNAPSHOT_FILE = __filename + '.snapshot'
+  const SNAPSHOT_FILE = fileURLToPath(import.meta.url) + '.snapshot'
 
   const mochaContext = (title: string): MochaTestContext => ({
     test: {
-      file: __filename,
+      file: fileURLToPath(import.meta.url),
       fullTitle: () => title,
     },
   })

@@ -2,7 +2,7 @@ import { Control } from '../../Control.js'
 import { registerValidator } from '../../expect.js'
 import { formatCompact } from '../../format/index.js'
 
-declare module '../../expect' {
+declare module '../../expect.js' {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   interface Validators<T> {
     /**

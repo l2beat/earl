@@ -5,7 +5,7 @@ import { isEqual } from '../../isEqual/index.js'
 import { MockFunction, MockParameters } from '../../mocks/index.js'
 import { assertIsMock } from './utils.js'
 
-declare module '../../expect' {
+declare module '../../expect.js' {
   interface Validators<T> {
     /**
      * Asserts that the mock function was called at least once with the provided

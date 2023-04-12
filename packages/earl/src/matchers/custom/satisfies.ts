@@ -1,6 +1,6 @@
 import { registerMatcher } from '../../expect.js'
 
-declare module '../../expect' {
+declare module '../../expect.js' {
   interface Matchers {
     /**
      * Matches values for which the predicate returns a truthy value.

@@ -3,7 +3,7 @@ import { registerValidator } from '../../expect.js'
 import { MockFunction, MockParameters } from '../../mocks/index.js'
 import { assertIsMock, compareArgs, formatCalledTimes } from './utils.js'
 
-declare module '../../expect' {
+declare module '../../expect.js' {
   interface Validators<T> {
     /**
      * Asserts that the mock function was called exactly once and with the

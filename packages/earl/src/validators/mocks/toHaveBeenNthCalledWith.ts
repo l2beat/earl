@@ -9,7 +9,7 @@ import {
   formatTimes,
 } from './utils.js'
 
-declare module '../../expect' {
+declare module '../../expect.js' {
   interface Validators<T> {
     /**
      * Asserts that when the mock function was called the nth time it was called

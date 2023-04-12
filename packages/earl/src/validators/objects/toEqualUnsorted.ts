@@ -3,7 +3,7 @@ import { registerValidator } from '../../expect.js'
 import { formatCompact } from '../../format/index.js'
 import { isEqual } from '../../isEqual/index.js'
 
-declare module '../../expect' {
+declare module '../../expect.js' {
   interface Validators<T> {
     /**
      * Asserts that an array is equal to another array if the order of the items
