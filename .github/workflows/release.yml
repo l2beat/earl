@@ -28,9 +28,9 @@ jobs:
 
       - name: Either creates release PR or publishes packages to npm
         id: changesets
-        uses: changesets/action@master
+        uses: changesets/action@v1
         with:
-          version: pnpm changeset:version
+          version: pnpm changeset:version && pnpm install
           publish: pnpm changeset:release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
