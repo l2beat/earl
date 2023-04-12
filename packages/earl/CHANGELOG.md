@@ -1,5 +1,11 @@
 # earl
 
+## 1.0.1
+
+### Patch Changes
+
+- 2886d70: Fix esm exports
+
 ## 1.0.0
 
 ### Major Changes
