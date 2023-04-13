@@ -71,7 +71,7 @@ importers:
   examples/example-mocha:
     dependencies:
       earl:
-        specifier: workspace:^1.0.1
+        specifier: workspace:^1.1.0
         version: link:../../packages/earl
       example-plugin:
         specifier: workspace:^1.0.0
@@ -80,13 +80,13 @@ importers:
   examples/example-plugin:
     devDependencies:
       earl:
-        specifier: workspace:^1.0.1
+        specifier: workspace:^1.1.0
         version: link:../../packages/earl
 
   examples/example-uvu:
     dependencies:
       earl:
-        specifier: workspace:^1.0.1
+        specifier: workspace:^1.1.0
         version: link:../../packages/earl
       example-plugin:
         specifier: workspace:^1.0.0
@@ -105,7 +105,7 @@ importers:
         specifier: ^18.15.0
         version: 18.15.0
       earl:
-        specifier: workspace:^1.0.1
+        specifier: workspace:^1.1.0
         version: link:../../packages/earl
       mocha:
         specifier: 10.2.0
@@ -129,7 +129,7 @@ importers:
         specifier: ^7.21.0
         version: 7.21.0(@babel/core@7.21.3)
       earl:
-        specifier: workspace:^1.0.1
+        specifier: workspace:^1.1.0
         version: link:../earl
       error-stack-parser:
         specifier: ^2.1.4
@@ -175,7 +175,7 @@ importers:
         specifier: ^4.14.191
         version: 4.14.191
       earl:
-        specifier: workspace:^1.0.1
+        specifier: workspace:^1.1.0
         version: link:../earl
       fast-glob:
         specifier: ^3.2.12
