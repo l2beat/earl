@@ -1,9 +1,7 @@
 import { registerMatcher } from '../../expect.js'
 import { isEqual } from '../../isEqual/index.js'
 
-export interface Subset {
-  [key: string | number | symbol]: unknown
-}
+export type Subset = Record<string | number | symbol, unknown>
 
 declare module '../../expect.js' {
   interface Matchers {
