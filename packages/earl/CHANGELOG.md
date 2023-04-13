@@ -1,5 +1,11 @@
 # earl
 
+## 1.1.0
+
+### Minor Changes
+
+- 3a60d1f: Add toHaveSubset validator
+
 ## 1.0.1
 
 ### Patch Changes
