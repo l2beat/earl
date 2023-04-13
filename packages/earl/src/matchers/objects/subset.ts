@@ -7,9 +7,11 @@ export interface Subset {
 
 declare module '../../expect.js' {
   interface Matchers {
-    // TODO: mention `expect(...).toHaveSubset(subset)
     /**
      * Matches an object containing the given key value pairs.
+     *
+     * If you want to match a top level value, use
+     * `expect(...).toHaveSubset(subset)` instead.
      *
      * @param subset - The key value paris to match against.
      *
