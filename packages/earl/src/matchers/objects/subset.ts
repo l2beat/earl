@@ -1,6 +1,10 @@
 import { registerMatcher } from '../../expect.js'
 import { isEqual } from '../../isEqual/index.js'
 
+export interface Subset {
+  [key: string | number | symbol]: unknown
+}
+
 declare module '../../expect.js' {
   interface Matchers {
     // TODO: mention `expect(...).toHaveSubset(subset)
@@ -21,13 +25,17 @@ declare module '../../expect.js' {
      * })
      * ```
      */
-    subset(subset: object): never
+    subset(subset: Subset): never
   }
 }
 
 registerMatcher('subset', subset)
 
-export function subset(subset: Record<string, unknown>) {
+export function subset(subset: unknown) {
+  if (!isObject(subset)) {
+    return () => false
+  }
+
   return (value: unknown) => {
     if (!isObject(value)) {
       return false
@@ -38,7 +46,7 @@ export function subset(subset: Record<string, unknown>) {
   }
 }
 
-function isObject(value: unknown): value is Record<string, unknown> {
+function isObject(value: unknown): value is Subset {
   return (
     value != null && (typeof value === 'object' || typeof value === 'function')
   )

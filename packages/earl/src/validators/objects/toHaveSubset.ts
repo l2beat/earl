@@ -1,9 +1,7 @@
 import { Control } from '../../Control.js'
 import { registerValidator } from '../../expect.js'
 import { formatCompact } from '../../format/index.js'
-import { subset } from '../../matchers/objects/subset.js'
-
-export type SubsetMatchable = Record<string, any>
+import { Subset, subset } from '../../matchers/objects/subset.js'
 
 declare module '../../expect.js' {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -28,24 +26,18 @@ declare module '../../expect.js' {
      * })
      * ```
      */
-    toHaveSubset: (
-      this: Validators<SubsetMatchable>,
-      subset: SubsetMatchable,
-    ) => void
+    toHaveSubset(this: Validators<object>, subset: Subset): void
   }
 }
 
 registerValidator('toHaveSubset', toHaveSubset)
 
-export function toHaveSubset(
-  control: Control,
-  expected: SubsetMatchable,
-): void {
+export function toHaveSubset(control: Control, expected: Subset): void {
   const actualInline = formatCompact(control.actual)
-  const subsetInline = formatCompact(expected)
+  const expectedInline = formatCompact(expected)
   control.assert({
     success: subset(expected)(control.actual),
-    reason: `${subsetInline} is not a subset of object ${actualInline}`,
-    negatedReason: `${subsetInline} is a subset of object ${actualInline}, but it was expected not to be`,
+    reason: `The value ${actualInline} does not have a subset of ${expectedInline}, but it was expected to.`,
+    negatedReason: `The value ${actualInline} does has a subset of ${expectedInline}, but it was expected not to.`,
   })
 }

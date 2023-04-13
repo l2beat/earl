@@ -36,13 +36,15 @@ describe(toHaveSubset.name, () => {
       }).not.to.throw()
     })
 
-    it('fails for an object with an unmatching property', () => {
+    it('fails for an object with an unmatched property', () => {
       expect(() => {
         earl({ prop: true }).toHaveSubset({ prop: false })
-      }).to.throw('{ prop: false } is not a subset of object { prop: true }')
+      }).to.throw(
+        'The value { prop: true } does not have a subset of { prop: false }, but it was expected to.',
+      )
     })
 
-    it('fails for an object with multiple unmatching properties', () => {
+    it('fails for an object with multiple unmatched properties', () => {
       expect(() => {
         earl({
           prop: true,
@@ -52,11 +54,11 @@ describe(toHaveSubset.name, () => {
           prop2: 'duck',
         })
       }).to.throw(
-        '{ prop: false, prop2: "duck" } is not a subset of object { prop: true, prop2: "string" }',
+        'The value { prop: true, prop2: "string" } does not have a subset of { prop: false, prop2: "duck" }, but it was expected to.',
       )
     })
 
-    it('fails for an object with mixed match/unmatching properties', () => {
+    it('fails for an object with mixed matching / unmatched properties', () => {
       expect(() => {
         earl({
           prop: true,
@@ -66,7 +68,7 @@ describe(toHaveSubset.name, () => {
           prop2: 'duck',
         })
       }).to.throw(
-        '{ prop: true, prop2: "duck" } is not a subset of object { prop: true, prop2: "string" }',
+        'The value { prop: true, prop2: "string" } does not have a subset of { prop: true, prop2: "duck" }, but it was expected to.',
       )
     })
   })
@@ -76,7 +78,7 @@ describe(toHaveSubset.name, () => {
       expect(() => {
         earl({ prop: true }).not.toHaveSubset({ prop: true })
       }).to.throw(
-        '{ prop: true } is a subset of object { prop: true }, but it was expected not to be',
+        'The value { prop: true } does has a subset of { prop: true }, but it was expected not to.',
       )
     })
 
@@ -90,7 +92,7 @@ describe(toHaveSubset.name, () => {
           prop2: 'string',
         })
       }).to.throw(
-        '{ prop: true, prop2: "string" } is a subset of object { prop: true, prop2: "string" }, but it was expected not to be',
+        'The value { prop: true, prop2: "string" } does has a subset of { prop: true, prop2: "string" }, but it was expected not to.',
       )
     })
 
@@ -105,17 +107,17 @@ describe(toHaveSubset.name, () => {
           prop3: earl.a(Array),
         })
       }).to.throw(
-        '{ 2 entries } is a subset of object { 3 entries }, but it was expected not to be',
+        'The value { 3 entries } does has a subset of { 2 entries }, but it was expected not to.',
       )
     })
 
-    it('passes for an object with an unmatching property', () => {
+    it('passes for an object with an unmatched property', () => {
       expect(() => {
         earl({ prop: true }).not.toHaveSubset({ prop: false })
       }).not.to.throw()
     })
 
-    it('passes for an object with multiple unmatching properties', () => {
+    it('passes for an object with multiple unmatched properties', () => {
       expect(() => {
         earl({
           prop: true,
@@ -136,7 +138,7 @@ describe(toHaveSubset.name, () => {
     expect(() => {
       earl({ prop: true }).toHaveSubset({ prop: earl.a(String) })
     }).to.throw(
-      '{ prop: expect.a(String) } is not a subset of object { prop: true }',
+      'The value { prop: true } does not have a subset of { prop: expect.a(String) }, but it was expected to.',
     )
   })
 })
