@@ -48,7 +48,6 @@ expect(user).toEqual({
 ## Docs
 
 - [Getting started](https://earljs.dev/introduction/getting-started.html)
-- [Step by step guide](https://earljs.dev/introduction/step-by-step-guide.html)
 - [API reference](https://earljs.dev/api/api-reference.html)
 
 # License
