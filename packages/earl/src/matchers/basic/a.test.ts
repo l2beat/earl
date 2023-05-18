@@ -8,6 +8,19 @@ import {
 } from '../../test/values.js'
 import { a } from './a.js'
 
+class Person {
+  constructor(public name: string) {}
+  isJohn() {
+    return this.name === 'John'
+  }
+}
+
+class Employee extends Person {
+  constructor(name: string, public salary: number) {
+    super(name)
+  }
+}
+
 describe(a.name, () => {
   describe(String.name, () => {
     testMatcherFormat(earl.a(String), 'a(String)')
@@ -142,16 +155,3 @@ describe(a.name, () => {
     })
   })
 })
-
-class Person {
-  constructor(public name: string) {}
-  isJohn() {
-    return this.name === 'John'
-  }
-}
-
-class Employee extends Person {
-  constructor(name: string, public salary: number) {
-    super(name)
-  }
-}
