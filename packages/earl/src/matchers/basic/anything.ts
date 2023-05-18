@@ -17,7 +17,7 @@ declare module '../../expect.js' {
      * })
      * ```
      */
-    anything(): never
+    anything(): any
   }
 }
 

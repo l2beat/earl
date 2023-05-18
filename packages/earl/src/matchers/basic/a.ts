@@ -7,6 +7,27 @@ export type NewableOrPrimitive =
   | SymbolConstructor
   | BigIntConstructor
 
+export type ConstructorToInstance<T extends NewableOrPrimitive> =
+  T extends SymbolConstructor
+    ? symbol
+    : T extends BigIntConstructor
+    ? bigint
+    : T extends NumberConstructor
+    ? number
+    : T extends StringConstructor
+    ? string
+    : T extends BooleanConstructor
+    ? boolean
+    : T extends FunctionConstructor
+    ? Function
+    : T extends ArrayConstructor
+    ? never[]
+    : T extends ObjectConstructor
+    ? any // is there a better way to type any object?
+    : T extends Newable<infer N>
+    ? N
+    : never
+
 declare module '../../expect.js' {
   interface Matchers {
     /**
@@ -36,7 +57,7 @@ declare module '../../expect.js' {
      * })
      * ```
      */
-    a<T extends NewableOrPrimitive>(type: T): never
+    a<T extends NewableOrPrimitive>(type: T): ConstructorToInstance<T>
   }
 }
 
