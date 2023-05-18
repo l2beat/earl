@@ -40,6 +40,7 @@ describe(toEqual.name, () => {
         earl({ a: false }).toEqual({ a: earl.falsy() })
         earl({ a: false, b: 'string' }).toEqual({
           a: earl.falsy(),
+          // @ts-expect-error
           b: earl.falsy(),
         })
 
