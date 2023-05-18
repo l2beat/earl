@@ -90,19 +90,6 @@ describe(a.name, () => {
   })
 
   describe('custom class', () => {
-    class Person {
-      constructor(public name: string) {}
-      isJohn() {
-        return this.name === 'John'
-      }
-    }
-
-    class Employee extends Person {
-      constructor(name: string, public salary: number) {
-        super(name)
-      }
-    }
-
     testMatcherFormat(earl.a(Person), 'a(Person)')
 
     testMatcher(
@@ -115,4 +102,56 @@ describe(a.name, () => {
       ],
     )
   })
+
+  describe.skip('is type safe', () => {
+    it('matches with values corresponding to constructor', () => {
+      earl('foo').toEqual(earl.a(String))
+      earl(1).toEqual(earl.a(Number))
+      earl(true).toEqual(earl.a(Boolean))
+      earl(BigInt(1)).toEqual(earl.a(BigInt))
+      earl(Symbol('foo')).toEqual(earl.a(Symbol))
+      earl({}).toEqual(earl.a(Object))
+      earl({ deep: { nested: true } }).toEqual(earl.a(Object))
+      earl([]).toEqual(earl.a(Array))
+      earl([1, 2, 3]).toEqual(earl.a(Array))
+      earl(new Person('John')).toEqual(earl.a(Person))
+      // @note: on type level Employee is a Person
+      earl(new Person('John')).toEqual(earl.a(Employee))
+    })
+
+    it('matches does not match mistyped values', () => {
+      // @ts-expect-error - type mismatch
+      earl('foo').toEqual(earl.a(Number))
+      // @ts-expect-error - type mismatch
+      earl(1).toEqual(earl.a(String))
+      // @ts-expect-error - type mismatch
+      earl(true).toEqual(earl.a(String))
+      // @ts-expect-error - type mismatch
+      earl(BigInt(1)).toEqual(earl.a(Number))
+      // @ts-expect-error - type mismatch
+      earl(Symbol('foo')).toEqual(earl.a(String))
+      // @note: empty object is considered an array for some reason
+      earl({}).toEqual(earl.a(Array))
+      // @ts-expect-error - type mismatch
+      earl({ deep: { nested: true } }).toEqual(earl.a(Array))
+      // @note: we loose type information when matching against Object
+      earl([]).toEqual(earl.a(Object))
+      earl([1, 2, 3]).toEqual(earl.a(Object))
+      // @ts-expect-error - type mismatch
+      earl(new Person('John')).toEqual(earl.a(String))
+    })
+  })
 })
+
+class Person {
+  constructor(public name: string) {}
+  isJohn() {
+    return this.name === 'John'
+  }
+}
+
+class Employee extends Person {
+  constructor(name: string, public salary: number) {
+    super(name)
+  }
+}

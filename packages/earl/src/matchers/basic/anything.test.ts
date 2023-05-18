@@ -7,4 +7,18 @@ describe(anything.name, () => {
   testMatcherFormat(earl.anything(), 'anything()')
 
   testMatcher(anything(), TEST_VALUES, [])
+
+  describe.skip('is type safe', () => {
+    it('matches with any value', () => {
+      earl('foo').toEqual(earl.anything())
+      earl(1).toEqual(earl.anything())
+      earl(true).toEqual(earl.anything())
+      earl(BigInt(1)).toEqual(earl.anything())
+      earl(Symbol('foo')).toEqual(earl.anything())
+      earl({}).toEqual(earl.anything())
+      earl([]).toEqual(earl.anything())
+      earl(null).toEqual(earl.anything())
+      earl(undefined).toEqual(earl.anything())
+    })
+  })
 })
