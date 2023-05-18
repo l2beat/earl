@@ -1,4 +1,5 @@
 import { registerMatcher } from '../../expect.js'
+import { Matching } from '../../validators/other/toEqual.js'
 
 declare module '../../expect.js' {
   interface Matchers {
@@ -21,7 +22,7 @@ declare module '../../expect.js' {
      * })
      * ```
      */
-    falsy(): never
+    falsy(): Matching<false | null>
   }
 }
 

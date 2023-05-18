@@ -21,4 +21,10 @@ describe(subset.name, () => {
       ...TEST_VALUES.filter((x) => !TEST_OBJECTS.includes(x)),
     ],
   )
+
+  describe.skip('is type safe', () => {
+    it('matches with correct values', () => {
+      earl({ a: 5 }).toEqual(earl.subset({ a: 5, b: earl.a(String) }))
+    })
+  })
 })

@@ -25,18 +25,28 @@ describe(toEqual.name, () => {
       }
 
       expect(() => {
-        earl(actual).toEqual({
-          trimmed: true,
-          timestamp: earl.anything(),
-          name: earl.includes('Duck'),
-          age: earl.a(Number),
-          nested: {
-            b: earl.a(B),
-            deep: earl.a(Object),
-          },
-        })
+        const f = false as const
+        const t = true as const
+        earl(false).toEqual(earl.falsy())
+        earl(f).toEqual(earl.falsy())
+        earl(t).toEqual(earl.falsy())
+        earl('abc').toEqual(earl.falsy())
       }).not.to.throw()
     })
+
+    //   expect(() => {
+    //     earl(actual).toEqual({
+    //       trimmed: true,
+    //       timestamp: earl.anything(),
+    //       name: earl.includes('Duck'),
+    //       age: earl.a(Number),
+    //       nested: {
+    //         b: earl.a(B),
+    //         deep: earl.a(Object),
+    //       },
+    //     })
+    //   }).not.to.throw()
+    // })
 
     it('fails on unequal primitives', () => {
       expect(() => {

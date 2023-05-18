@@ -3,7 +3,7 @@ import { formatCompact } from './format/index.js'
 
 // to be overridden by plugins
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-export interface Validators<T> {}
+export interface Validators<TLeft> {}
 
 // to be overridden by plugins
 export interface Matchers {}

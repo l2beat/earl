@@ -117,7 +117,7 @@ describe(a.name, () => {
   })
 
   describe.skip('is type safe', () => {
-    it('matches with values corresponding to constructor', () => {
+    it('matches with correct values', () => {
       earl('foo').toEqual(earl.a(String))
       earl(1).toEqual(earl.a(Number))
       earl(true).toEqual(earl.a(Boolean))
@@ -135,7 +135,7 @@ describe(a.name, () => {
       earl(new Person('John')).toEqual(earl.a(Employee))
     })
 
-    it('matches does not match mistyped values', () => {
+    it('does not match with incorrect values', () => {
       // @ts-expect-error - type mismatch
       earl('foo').toEqual(earl.a(Number))
       // @ts-expect-error - type mismatch

@@ -157,10 +157,6 @@ importers:
         specifier: ^3.21.4
         version: 3.21.4
 
-  packages/earl/dist/cjs: {}
-
-  packages/earl/dist/esm: {}
-
   packages/earl/src: {}
 
   packages/website:

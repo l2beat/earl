@@ -3,8 +3,20 @@ import { registerValidator } from '../../expect.js'
 import { formatCompact } from '../../format/index.js'
 import { isEqual } from '../../isEqual/index.js'
 
+export type Matching<VALUES> = { __MATCHING: VALUES }
+
+export type ExpectedEqualMatching<TLeft, U, TRight> = TLeft extends U
+  ? TRight
+  : never
+
+export type ExpectedEqual<TLeft, TRight> = TRight extends Matching<infer U>
+  ? ExpectedEqualMatching<TLeft, U, TRight>
+  : TLeft extends TRight
+  ? TLeft
+  : never
+
 declare module '../../expect.js' {
-  interface Validators<T> {
+  interface Validators<TLeft> {
     /**
      * Asserts that a value is equal to another value. The equality is checked
      * using the `isEqual` function. This means that it checks objects
@@ -47,7 +59,7 @@ declare module '../../expect.js' {
      * expect(123).not.toEqual('foo')
      * ```
      */
-    toEqual(expected: T): void
+    toEqual<TRight>(expected: ExpectedEqual<TLeft, TRight>): void
   }
 }
 
