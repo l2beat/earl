@@ -125,6 +125,9 @@ describe(a.name, () => {
       earl(Symbol('foo')).toEqual(earl.a(Symbol))
       earl({}).toEqual(earl.a(Object))
       earl({ deep: { nested: true } }).toEqual(earl.a(Object))
+      earl({ deep: { nested: true } }).toEqual({
+        deep: earl.a(Object),
+      })
       earl([]).toEqual(earl.a(Array))
       earl([1, 2, 3]).toEqual(earl.a(Array))
       earl(new Person('John')).toEqual(earl.a(Person))
