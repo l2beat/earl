@@ -27,10 +27,37 @@ describe(toEqual.name, () => {
       expect(() => {
         const f = false as const
         const t = true as const
-        earl(false).toEqual(earl.falsy())
+        earl(false as const).toEqual(earl.falsy())
+        earl('' as const).toEqual(earl.falsy())
         earl(f).toEqual(earl.falsy())
-        earl(t).toEqual(earl.falsy())
-        earl('abc').toEqual(earl.falsy())
+        // @ts-expect-error - true not falsy
+        earl(true as const).toEqual(earl.falsy())
+        // @ts-expect-error - string not falsy
+        earl('abc' as const).toEqual(earl.falsy())
+
+        earl('abc').toEqual('abc')
+
+        earl({ a: false }).toEqual({ a: earl.falsy() })
+        earl({ a: false, b: 'string' }).toEqual({
+          a: earl.falsy(),
+          b: earl.falsy(),
+        })
+
+        earl({ a: false, nested: { deep: 'string', falsy: false } }).toEqual({
+          a: earl.falsy(),
+          nested: earl.subset({ falsy: earl.falsy() }),
+        })
+
+        earl({ a: false, nested: { deep: 'string', falsy: false } }).toEqual({
+          a: earl.falsy(),
+          nested: earl.subset({ deep: 'string' }),
+        })
+
+        earl({ a: false, nested: { deep: 'string', falsy: false } }).toEqual({
+          a: earl.falsy(),
+          // @ts-expect-error - random key
+          nested: earl.subset({ random: 'string' }),
+        })
       }).not.to.throw()
     })
 

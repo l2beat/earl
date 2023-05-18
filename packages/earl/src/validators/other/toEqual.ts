@@ -3,17 +3,28 @@ import { registerValidator } from '../../expect.js'
 import { formatCompact } from '../../format/index.js'
 import { isEqual } from '../../isEqual/index.js'
 
+// marker type useful when Matcher matches multiple values
 export type Matching<VALUES> = { __MATCHING: VALUES }
 
-export type ExpectedEqualMatching<TLeft, U, TRight> = TLeft extends U
-  ? TRight
+export type NonEmptyOnly<T> = keyof T extends never ? never : T
+
+type Access<V, K> = V extends object
+  ? K extends keyof V
+    ? V[K]
+    : never
   : never
 
 export type ExpectedEqual<TLeft, TRight> = TRight extends Matching<infer U>
-  ? ExpectedEqualMatching<TLeft, U, TRight>
-  : TLeft extends TRight
-  ? TLeft
-  : never
+  ? TLeft extends U
+    ? TRight // important bit here: we return original Matching<X|Y|Z> type
+    : ExpectedEqual<TLeft, U>
+  : TRight extends TLeft
+  ? TRight
+  : NonEmptyOnly<
+      TLeft extends object
+        ? { [K in keyof TLeft]: ExpectedEqual<TLeft[K], Access<TRight, K>> }
+        : never
+    >
 
 declare module '../../expect.js' {
   interface Validators<TLeft> {

@@ -22,7 +22,7 @@ declare module '../../expect.js' {
      * })
      * ```
      */
-    falsy(): Matching<false | null>
+    falsy(): Matching<false | null | '' | 0>
   }
 }
 
