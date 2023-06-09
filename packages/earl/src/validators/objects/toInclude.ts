@@ -61,7 +61,7 @@ declare module '../../expect.js' {
 registerValidator('toInclude', toInclude)
 
 export function toInclude(control: Control, ...items: unknown[]) {
-  const actualInline = formatCompact(control.actual)
+  const actualInline = formatCompact(control.actual, 100)
   const itemsInline = formatItems(items)
 
   if (items.length === 0) {
@@ -76,7 +76,7 @@ export function toInclude(control: Control, ...items: unknown[]) {
 }
 
 function formatItems(items: unknown[]) {
-  const joined = languageJoin(items.map((x) => formatCompact(x, 20)))
+  const joined = languageJoin(items.map((x) => formatCompact(x, 100)))
   return joined.length > 50 ? `all of: ${items.length} items` : joined
 }
 

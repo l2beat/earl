@@ -107,7 +107,7 @@ describe(toHaveSubset.name, () => {
           prop3: earl.a(Array),
         })
       }).to.throw(
-        'The value { 3 entries } does has a subset of { 2 entries }, but it was expected not to.',
+        'The value { prop: true, prop2: "string", prop3: [] } does has a subset of { prop2: expect.a(String), prop3: expect.a(Array) }, but it was expected not to.',
       )
     })
 

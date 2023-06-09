@@ -172,11 +172,7 @@ export function formatUnknown(
   const beginning = items.join(' ')
 
   if (options.inline) {
-    let jointEntries = entries.map((x) => x[1]).join(', ')
-    if (jointEntries.length > options.maxLineLength) {
-      jointEntries =
-        entries.length === 1 ? '1 entry' : `${entries.length} entries`
-    }
+    const jointEntries = entries.map((x) => x[1]).join(', ')
     if (type === 'Array') {
       return toLine(`${beginning}${jointEntries}]`)
     } else {
