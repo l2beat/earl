@@ -47,8 +47,8 @@ expect(user).toEqual({
 
 ## Docs
 
-- [Getting started](https://earljs.dev/introduction/getting-started.html)
-- [API reference](https://earljs.dev/api/api-reference.html)
+- [Getting started](https://earl.fun/introduction/getting-started.html)
+- [API reference](https://earl.fun/api/api-reference.html)
 
 # License
 
