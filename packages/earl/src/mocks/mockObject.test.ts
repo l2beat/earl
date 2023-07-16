@@ -1,7 +1,7 @@
 import { expect } from 'chai'
 
 import { isMockFn } from './mockFn.js'
-import { mockObject } from './mockObject.js'
+import { mockObject, resetMockObject } from './mockObject.js'
 
 describe(mockObject.name, () => {
   class Jogger {
@@ -35,5 +35,13 @@ describe(mockObject.name, () => {
     expect(() => instance.run()).to.throw(
       'Cannot access .run - no mock value provided.',
     )
+  })
+
+  it('can be resetted using mockReset', () => {
+    const instance = mockObject<Jogger>({ run: () => 10 })
+    instance.run.returnsOnce(20)
+    resetMockObject(instance)
+
+    expect(instance.run()).to.equal(10)
   })
 })
