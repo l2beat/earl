@@ -26,11 +26,19 @@ export class AssertionError extends Error {
 
   static getLocation(name: string) {
     const error = new Error('message')
-    const cleaned = getCleanStack(error)
-    const parsed = ErrorStackParser.parse({ stack: cleaned } as Error)
+    let cleaned: string | undefined
+    let parsed: ErrorStackParser.StackFrame[] | undefined
     return {
-      file: parsed[0]?.fileName,
-      stack: formatStack(name, parsed),
+      file: () => {
+        cleaned = cleaned ?? getCleanStack(error)
+        parsed = parsed ?? ErrorStackParser.parse({ stack: cleaned } as Error)
+        return parsed[0]?.fileName
+      },
+      stack: () => {
+        cleaned = cleaned ?? getCleanStack(error)
+        parsed = parsed ?? ErrorStackParser.parse({ stack: cleaned } as Error)
+        return formatStack(name, parsed)
+      },
     }
   }
 }
