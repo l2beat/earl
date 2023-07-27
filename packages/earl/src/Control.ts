@@ -4,8 +4,8 @@ import { format } from './format/index.js'
 export interface ValidationResult {
   success: boolean
   hint?: string
-  reason: string
-  negatedReason: string
+  reason: string | (() => string)
+  negatedReason: string | (() => string)
   actual?: unknown
   expected?: unknown
 }
@@ -32,14 +32,20 @@ export class Control {
   }
 
   get file() {
-    return this._location.file
+    return this._location.file()
   }
 
   assert = (result: ValidationResult) => {
     if (this.isNegated === result.success) {
       throw new AssertionError({
-        message: result.success ? result.negatedReason : result.reason,
-        stack: this._location.stack,
+        message: result.success
+          ? typeof result.negatedReason === 'string'
+            ? result.negatedReason
+            : result.negatedReason()
+          : typeof result.reason === 'string'
+          ? result.reason
+          : result.reason(),
+        stack: this._location.stack(),
         ...formatActualAndExpected(result),
       })
     }
@@ -49,8 +55,9 @@ export class Control {
     result: Omit<ValidationResult, 'success' | 'negatedReason'>,
   ): never => {
     throw new AssertionError({
-      message: result.reason,
-      stack: this._location.stack,
+      message:
+        typeof result.reason === 'string' ? result.reason : result.reason(),
+      stack: this._location.stack(),
       ...formatActualAndExpected(result),
     })
   }
