@@ -54,13 +54,15 @@ declare module '../../expect.js' {
 registerValidator('toEqual', toEqual)
 
 export function toEqual(control: Control, expected: unknown) {
-  const actualInline = formatCompact(control.actual)
-  const expectedInline = formatCompact(expected)
+  const actualInline = () => formatCompact(control.actual)
+  const expectedInline = () => formatCompact(expected)
 
   control.assert({
     success: isEqual(control.actual, expected),
-    reason: `The value ${actualInline} is not equal to ${expectedInline}, but it was expected to be equal.`,
-    negatedReason: `The value ${actualInline} is equal to ${expectedInline}, but it was expected not to be equal.`,
+    reason: () =>
+      `The value ${actualInline()} is not equal to ${expectedInline()}, but it was expected to be equal.`,
+    negatedReason: () =>
+      `The value ${actualInline()} is equal to ${expectedInline()}, but it was expected not to be equal.`,
     actual: control.actual,
     expected,
   })
