@@ -36,4 +36,12 @@ describe(mockObject.name, () => {
       'Cannot access .run - no mock value provided.',
     )
   })
+
+  it('can be reset using mockObject.reset', () => {
+    const instance = mockObject<Jogger>({ run: () => 10 })
+    instance.run.returnsOnce(20)
+    mockObject.reset(instance)
+
+    expect(instance.run()).to.equal(10)
+  })
 })
