@@ -5,8 +5,8 @@
   "scripts": {
     "format": "biome format .",
     "format:fix": "biome format --write .",
-    "lint": "biome check ./test-*",
-    "lint:fix": "biome check --apply ./test-*",
+    "lint": "biome check .",
+    "lint:fix": "biome check --apply .",
     "typecheck": "tsc --noEmit",
     "test": "pnpm test:babel && pnpm test:esbuild && pnpm test:mjs && pnpm test:node && pnpm test:ts-node",
     "test:babel": "mocha --config test-babel/.mocharc.js",
