@@ -1,7 +1,7 @@
 import { readFileSync } from 'node:fs'
 import path from 'node:path'
 
-import { getTestFile, getTestName, type TestContext } from './TestContext.js'
+import { type TestContext, getTestFile, getTestName } from './TestContext.js'
 import { parseSnapshot } from './format.js'
 import type { SnapshotUpdateMode } from './getSnapshotUpdateMode.js'
 
