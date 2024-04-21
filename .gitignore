@@ -3,5 +3,6 @@ dist
 **/tsconfig.tsbuildinfo
 **/tsconfig.prod.tsbuildinfo
 .vercel
+.vscode
 packages/website/.vitepress
 packages/website/generators/test-examples/output/examples.test.ts

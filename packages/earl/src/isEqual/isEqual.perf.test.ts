@@ -1,6 +1,3 @@
-/* eslint-disable symbol-description */
-/* eslint-disable no-new-wrappers */
-
 import { expect } from '../expect.js'
 
 describe('isEqual performance', function () {

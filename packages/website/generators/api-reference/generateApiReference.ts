@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import glob from 'fast-glob'
 import * as fs from 'node:fs'
 import { resolve } from 'node:path'

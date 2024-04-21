@@ -27,8 +27,8 @@ pnpm test
 
 ### Introducing changes
 
-We use prettier, and static analysis extensively but don't you worry! We have a
-magic script to run all checks locally and automatically fix all the
+We use a formatter and static analysis extensively but don't you worry! We have
+a magic script to run all checks locally and automatically fix all the
 auto-fixable problems:
 
 ```

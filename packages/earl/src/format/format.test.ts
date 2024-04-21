@@ -1,5 +1,3 @@
-/* eslint-disable symbol-description */
-/* eslint-disable no-new-wrappers */
 import { expect } from 'chai'
 
 import { expect as earl } from '../index.js'

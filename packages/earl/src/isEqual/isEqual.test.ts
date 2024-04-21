@@ -1,5 +1,3 @@
-/* eslint-disable symbol-description */
-/* eslint-disable no-new-wrappers */
 import { expect } from 'chai'
 
 import { type FormatOptions, format } from '../format/index.js'

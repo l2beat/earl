@@ -1,4 +1,3 @@
-/* eslint-disable */
 import * as z from 'zod'
 
 // #region setup
