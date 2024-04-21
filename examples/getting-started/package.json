@@ -6,11 +6,11 @@
     "test": "mocha"
   },
   "devDependencies": {
-    "@types/mocha": "^10.0.1",
-    "@types/node": "^18.15.0",
+    "@types/mocha": "^10.0.6",
+    "@types/node": "^20.12.7",
     "earl": "workspace:^1.2.0",
     "mocha": "10.2.0",
-    "ts-node": "^10.9.1",
-    "typescript": "^5.0.3"
+    "ts-node": "^10.9.2",
+    "typescript": "^5.4.5"
   }
 }
