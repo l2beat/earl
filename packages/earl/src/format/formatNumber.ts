@@ -8,8 +8,8 @@ export function formatNumber(
 ) {
   if (Object.is(value, -0) && options.minusZero) {
     return toLine('-0')
-  } else if (Object.is(value, NaN)) {
-    if (options.uniqueNaNs && Object.is(sibling, NaN)) {
+  } else if (Object.is(value, Number.NaN)) {
+    if (options.uniqueNaNs && Object.is(sibling, Number.NaN)) {
       return toLine('NaN (different)')
     }
     return toLine('NaN')

@@ -57,14 +57,12 @@ function getPrototypeName(value: object) {
   return '[custom prototype]'
 }
 
-// eslint-disable-next-line @typescript-eslint/ban-types
 export function getFunctionTypeName(value: Function) {
   const type = getFunctionType(value)
   const name = value.name || '[anonymous]'
   return `${type} ${name}${type === 'class' ? '' : '()'}`
 }
 
-// eslint-disable-next-line @typescript-eslint/ban-types
 function getFunctionType(value: Function) {
   if (value.toString().startsWith('class')) {
     return 'class'

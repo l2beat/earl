@@ -2,11 +2,10 @@ import { Control } from './Control.js'
 import { formatCompact } from './format/index.js'
 
 // to be overridden by plugins
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-export interface Validators<T> {}
+export type Validators<T> = {}
 
 // to be overridden by plugins
-export interface Matchers {}
+export type Matchers = {}
 
 export class Matcher {
   constructor(

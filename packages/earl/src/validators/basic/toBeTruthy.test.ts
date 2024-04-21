@@ -5,7 +5,7 @@ import { toBeTruthy } from './toBeTruthy.js'
 
 describe(toBeTruthy.name, () => {
   const truthyValues = [true, 42, 'hello', {}, [], () => {}]
-  const falsyValues = [null, undefined, false, 0, NaN, '']
+  const falsyValues = [null, undefined, false, 0, Number.NaN, '']
 
   describe('without .not', () => {
     describe('with truthy values', () => {

@@ -1,11 +1,10 @@
-import { Control } from '../../Control.js'
+import type { Control } from '../../Control.js'
 import { registerValidator } from '../../expect.js'
 import { LOOSE_FORMAT_OPTIONS } from '../../format/FormatOptions.js'
 import { format, formatCompact } from '../../format/index.js'
 import { isEqual, LOOSE_EQUALITY_OPTIONS } from '../../isEqual/index.js'
 
 declare module '../../expect.js' {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   interface Validators<T> {
     /**
      * Asserts that a value is loosely equal to another value. The equality is

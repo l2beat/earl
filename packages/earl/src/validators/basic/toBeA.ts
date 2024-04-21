@@ -1,10 +1,9 @@
-import { Control } from '../../Control.js'
+import type { Control } from '../../Control.js'
 import { registerValidator } from '../../expect.js'
 import { formatCompact } from '../../format/index.js'
 import { a, type NewableOrPrimitive } from '../../matchers/basic/a.js'
 
 declare module '../../expect.js' {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   interface Validators<T> {
     /**
      * Asserts that the value is an instance of a provided class or a primitive

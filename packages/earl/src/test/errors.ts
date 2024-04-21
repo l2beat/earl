@@ -48,7 +48,6 @@ export function stripIndent(
   ...expressions: unknown[]
 ) {
   const result = template.reduce((accumulator, part, i) => {
-    // eslint-disable-next-line @typescript-eslint/restrict-plus-operands
     return accumulator + expressions[i - 1] + part
   })
 
@@ -69,7 +68,7 @@ export function stripIndent(
     ...lines.filter((line) => !/^\s*$/.test(line)).map(leadingSpaces),
   )
 
-  if (minIndent === Infinity) {
+  if (minIndent === Number.POSITIVE_INFINITY) {
     minIndent = 0
   }
 

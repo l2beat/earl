@@ -31,7 +31,7 @@ export const DEFAULT_FORMAT_OPTIONS: FormatOptions = {
   ...DEFAULT_EQUALITY_OPTIONS,
   indentSize: 2,
   inline: false,
-  maxLineLength: Infinity,
+  maxLineLength: Number.POSITIVE_INFINITY,
   skipMatcherReplacement: false,
   requireStrictEquality: false,
 }

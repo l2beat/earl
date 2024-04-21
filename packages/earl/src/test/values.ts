@@ -15,7 +15,7 @@ export const TEST_NUMBERS = [
   Number.EPSILON,
   Number.NEGATIVE_INFINITY,
   Number.POSITIVE_INFINITY,
-  NaN,
+  Number.NaN,
 ]
 
 export const TEST_BIGINTS = [BigInt(0), BigInt(1), BigInt(-1000), BigInt(1000)]

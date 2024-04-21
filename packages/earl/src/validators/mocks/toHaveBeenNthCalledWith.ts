@@ -1,4 +1,4 @@
-import { Control } from '../../Control.js'
+import type { Control } from '../../Control.js'
 import { registerValidator } from '../../expect.js'
 import { formatCompact } from '../../format/index.js'
 import type { MockFunction, MockParameters } from '../../mocks/index.js'

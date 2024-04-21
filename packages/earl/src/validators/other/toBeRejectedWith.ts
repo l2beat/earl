@@ -1,10 +1,9 @@
-import { Control } from '../../Control.js'
+import type { Control } from '../../Control.js'
 import { registerValidator } from '../../expect.js'
 import { formatCompact } from '../../format/index.js'
 import { captureAsyncError, processError } from './errors.js'
 
 declare module '../../expect.js' {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   interface Validators<T> {
     /**
      * Asserts that an async function or a promise was rejected.
@@ -138,7 +137,6 @@ export async function toBeRejectedWith(
 
 async function handleAsyncFunction(
   control: Control,
-  // eslint-disable-next-line @typescript-eslint/ban-types
   fn: Function,
   errorClassOrMessage?: (new (...args: any[]) => Error) | string | RegExp,
   message?: string | RegExp,

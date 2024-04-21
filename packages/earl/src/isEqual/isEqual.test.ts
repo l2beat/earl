@@ -20,7 +20,7 @@ describe('isEqual', () => {
     minusZero: true,
     indentSize: 2,
     inline: true,
-    maxLineLength: Infinity,
+    maxLineLength: Number.POSITIVE_INFINITY,
     skipMatcherReplacement: true,
     requireStrictEquality: false,
   }
@@ -52,11 +52,11 @@ describe('isEqual', () => {
         [123.456, -123.456, false],
         [0, -0, true],
         [0, -0, false, { minusZero: true }],
-        [NaN, NaN, true],
-        [NaN, NaN, false, { uniqueNaNs: true }],
-        [Infinity, Infinity, true],
-        [Infinity, -Infinity, false],
-        [-Infinity, -Infinity, true],
+        [Number.NaN, Number.NaN, true],
+        [Number.NaN, Number.NaN, false, { uniqueNaNs: true }],
+        [Number.POSITIVE_INFINITY, Number.POSITIVE_INFINITY, true],
+        [Number.POSITIVE_INFINITY, Number.NEGATIVE_INFINITY, false],
+        [Number.NEGATIVE_INFINITY, Number.NEGATIVE_INFINITY, true],
       ],
     },
     {
@@ -119,9 +119,9 @@ describe('isEqual', () => {
             function* named() {},
             async function named() {},
             async function* named() {},
-            function () {},
+            () => {},
             function* () {},
-            async function () {},
+            async () => {},
             async function* () {},
           ]
           const testCases: TestCase[] = []
@@ -330,13 +330,8 @@ describe('isEqual', () => {
         ...(() => {
           class MyRegExp extends RegExp {}
           return [
-            [new RegExp('foo'), new MyRegExp('foo'), false],
-            [
-              new RegExp('foo'),
-              new MyRegExp('foo'),
-              true,
-              { ignorePrototypes: true },
-            ],
+            [/foo/, new MyRegExp('foo'), false],
+            [/foo/, new MyRegExp('foo'), true, { ignorePrototypes: true }],
             [new MyRegExp('foo'), new MyRegExp('foo'), true],
             [new MyRegExp('foo'), new MyRegExp('bar'), false],
             [
@@ -651,7 +646,7 @@ describe('isEqual', () => {
             ...equalityOptions,
             indentSize: 2,
             inline: false,
-            maxLineLength: Infinity,
+            maxLineLength: Number.POSITIVE_INFINITY,
             skipMatcherReplacement: false,
             requireStrictEquality: false,
           }

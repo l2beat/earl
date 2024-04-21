@@ -1,6 +1,6 @@
 import { writeFileSync } from 'fs'
 
-import { Control } from '../../Control.js'
+import type { Control } from '../../Control.js'
 import { registerValidator } from '../../expect.js'
 import { format, formatCompact } from '../../format/index.js'
 import { formatSnapshot } from './format.js'
@@ -9,7 +9,6 @@ import { getSnapshotUpdateMode } from './getSnapshotUpdateMode.js'
 import type { TestContext } from './TestContext.js'
 
 declare module '../../expect.js' {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   interface Validators<T> {
     /**
      * Asserts that a value is equal to a snapshot. The first time the assertion
@@ -50,7 +49,6 @@ declare module '../../expect.js' {
 registerValidator('toMatchSnapshot', toMatchSnapshot)
 
 export function toMatchSnapshot(control: Control, context: TestContext) {
-  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
   if (context === undefined) {
     throw new TypeError(
       'Invalid or no test context provided to .toMatchSnapshot(context).',

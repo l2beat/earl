@@ -18,7 +18,7 @@ describe(lessThanOrEqual.name, () => {
         -1,
         -100,
         -12356.789,
-        -Infinity,
+        Number.NEGATIVE_INFINITY,
         BigInt(10),
         BigInt(9),
         BigInt(0),
@@ -27,8 +27,8 @@ describe(lessThanOrEqual.name, () => {
       [
         11,
         19.998,
-        NaN,
-        Infinity,
+        Number.NaN,
+        Number.POSITIVE_INFINITY,
         BigInt(100),
         ...TEST_VALUES.filter(
           (x) => typeof x !== 'number' && typeof x !== 'bigint',

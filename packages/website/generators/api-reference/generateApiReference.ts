@@ -1,8 +1,8 @@
 /* eslint-disable no-console */
 import glob from 'fast-glob'
-import * as fs from 'fs'
-import { resolve } from 'path'
-import { promisify } from 'util'
+import * as fs from 'node:fs'
+import { resolve } from 'node:path'
+import { promisify } from 'node:util'
 
 const writeFile = promisify(fs.writeFile)
 const readFile = promisify(fs.readFile)
@@ -61,7 +61,7 @@ export async function generateApiReference(
   if (args.out) {
     await writeFile(args.out, output, 'utf-8')
     return ''
-  } else {
-    return output
   }
+
+  return output
 }

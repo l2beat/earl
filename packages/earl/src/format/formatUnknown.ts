@@ -87,7 +87,7 @@ export function formatUnknown(
   if (
     type === 'Error' &&
     options.inline &&
-    options.maxLineLength !== Infinity
+    options.maxLineLength !== Number.POSITIVE_INFINITY
   ) {
     return toLine(
       `${typeName ?? ''}(${formatString((value as Error).message, options)})`,

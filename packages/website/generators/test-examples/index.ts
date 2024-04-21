@@ -1,9 +1,9 @@
 import FastGlob from 'fast-glob'
-import { readFileSync, writeFileSync } from 'fs'
-import { basename, join } from 'path'
+import { readFileSync, writeFileSync } from 'node:fs'
+import { basename, join } from 'node:path'
 
 import { generateTestFile } from './generate'
-import { Example } from './types'
+import type { Example } from './types'
 
 export async function main() {
   console.log('Generating test examples from tsdocs...')

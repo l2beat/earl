@@ -19,7 +19,7 @@ describe(between.name, () => {
         -Number.EPSILON,
         Number.NEGATIVE_INFINITY,
         Number.POSITIVE_INFINITY,
-        NaN,
+        Number.NaN,
         ...TEST_VALUES.filter(
           (x) => typeof x !== 'number' && typeof x !== 'bigint',
         ),

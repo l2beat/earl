@@ -1,4 +1,4 @@
-import { Control } from '../../Control.js'
+import type { Control } from '../../Control.js'
 import { registerValidator } from '../../expect.js'
 import type { MockFunction, MockParameters } from '../../mocks/index.js'
 import { assertIsMock, compareArgs, formatCalledTimes } from './utils.js'

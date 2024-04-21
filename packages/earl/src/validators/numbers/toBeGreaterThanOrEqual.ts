@@ -1,10 +1,9 @@
-import { Control } from '../../Control.js'
+import type { Control } from '../../Control.js'
 import { registerValidator } from '../../expect.js'
 import { formatCompact } from '../../format/index.js'
 import { greaterThanOrEqual } from '../../matchers/numbers/greaterThanOrEqual.js'
 
 declare module '../../expect.js' {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   interface Validators<T> {
     /**
      * Asserts that a number is greater than or equal to the target value.

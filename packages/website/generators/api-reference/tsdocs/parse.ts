@@ -1,8 +1,8 @@
-import { DocExcerpt, DocNode, TSDocParser } from '@microsoft/tsdoc'
+import { DocExcerpt, type DocNode, TSDocParser } from '@microsoft/tsdoc'
 import { assert } from 'ts-essentials'
 import { Node, Project as TSProject } from 'ts-morph'
 
-import { MethodComment, MethodDocumentation, Param } from '../types'
+import type { MethodComment, MethodDocumentation, Param } from '../types'
 
 export function parseTsDocComment(
   methodComment: MethodComment,
@@ -16,10 +16,7 @@ export function parseTsDocComment(
 
   if (parserContext.log.messages.length > 0) {
     throw new Error(
-      `Syntax error: \n ${
-        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-        parserContext.log.messages[0]!.text
-      }\nwhile parsing: \n${methodComment.comment}\n${methodComment.signature}`,
+      `Syntax error: \n ${parserContext.log.messages[0]?.text}\nwhile parsing: \n${methodComment.comment}\n${methodComment.signature}`,
     )
   }
 
@@ -102,8 +99,7 @@ function abbreviateSignature(signature: string, project: TSProject): string {
   assert(Node.isFunctionDeclaration(functionDeclaration))
 
   if (signature.includes('this:')) {
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    functionDeclaration.getParameter('this')!.remove()
+    functionDeclaration.getParameter('this')?.remove()
   }
 
   functionDeclaration.removeReturnType()

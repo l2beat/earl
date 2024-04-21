@@ -47,7 +47,7 @@ export function a(type: NewableOrPrimitive) {
     if (type === String) {
       return typeof value === 'string'
     } else if (type === Number) {
-      return typeof value === 'number' && !isNaN(value)
+      return typeof value === 'number' && !Number.isNaN(value)
     } else if (type === Boolean) {
       return typeof value === 'boolean'
     } else if (type === BigInt) {

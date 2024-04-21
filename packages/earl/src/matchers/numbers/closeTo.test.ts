@@ -15,7 +15,7 @@ describe(closeTo.name, () => {
       5,
       123,
       -4,
-      NaN,
+      Number.NaN,
       ...TEST_VALUES.filter((x) => typeof x !== 'number'),
     ],
   )

@@ -14,7 +14,7 @@ describe('format', () => {
     compareErrorStack: false,
     indentSize: 2,
     inline: false,
-    maxLineLength: Infinity,
+    maxLineLength: Number.POSITIVE_INFINITY,
     skipMatcherReplacement: false,
     requireStrictEquality: false,
   }
@@ -33,11 +33,11 @@ describe('format', () => {
         [0.2, null, '0.2'],
         [-3, null, '-3'],
         [1e50, null, '1e+50'],
-        [NaN, null, 'NaN'],
-        [NaN, NaN, 'NaN'],
-        [NaN, NaN, 'NaN (different)', { uniqueNaNs: true }],
-        [Infinity, null, 'Infinity'],
-        [-Infinity, null, '-Infinity'],
+        [Number.NaN, null, 'NaN'],
+        [Number.NaN, Number.NaN, 'NaN'],
+        [Number.NaN, Number.NaN, 'NaN (different)', { uniqueNaNs: true }],
+        [Number.POSITIVE_INFINITY, null, 'Infinity'],
+        [Number.NEGATIVE_INFINITY, null, '-Infinity'],
         [0, null, '0'],
         [-0, null, '0'],
         [-0, null, '-0', { minusZero: true }],
@@ -85,8 +85,8 @@ describe('format', () => {
       testCases: [
         [function a() {}, null, 'function a()'],
         [function a() {}, function a() {}, 'function a() (different)'],
-        [function () {}, null, 'function [anonymous]()'],
-        [function () {}, function () {}, 'function [anonymous]() (different)'],
+        [() => {}, null, 'function [anonymous]()'],
+        [() => {}, () => {}, 'function [anonymous]() (different)'],
         [function* foo() {}, null, 'function* foo()'],
         [function* foo() {}, function* foo() {}, 'function* foo() (different)'],
         [function* () {}, null, 'function* [anonymous]()'],
@@ -97,7 +97,6 @@ describe('format', () => {
         ],
         // This is eval-ed to avoid typescript transpiling it
         // With a higher target this wouldn't be necessary
-        // eslint-disable-next-line no-eval
         ...eval(`[
           [async function foo() {}, null, 'async function foo()'],
           [async function foo() {}, async function foo() {}, 'async function foo() (different)'],
@@ -126,7 +125,7 @@ describe('format', () => {
           'function x() (different) & {\n  a: 1\n}',
         ],
         [
-          Object.assign(function () {}, { a: 1 }),
+          Object.assign(() => {}, { a: 1 }),
           null,
           'function [anonymous]() & {\n  a: 1\n}',
         ],

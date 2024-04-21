@@ -2,7 +2,7 @@ import { sortBy } from 'lodash'
 
 import { extractTsDocCommentsFromString } from './tsdocs/extract'
 import { parseTsDocComment } from './tsdocs/parse'
-import { MethodDocumentation } from './types'
+import type { MethodDocumentation } from './types'
 
 export function generateSectionReference(
   sectionName: string,
@@ -26,10 +26,11 @@ export function generateSectionReference(
     abbreviatedSignature: prefixMethodSignature(prefix, c.abbreviatedSignature),
   }))
 
+  const markdown = prefixed
+    .map(generateMarkdownForMethodDocumentation)
+    .join('\n')
   return {
-    reference:
-      `## ${sectionName}\n\n` +
-      prefixed.map(generateMarkdownForMethodDocumentation).join('\n'),
+    reference: `## ${sectionName}\n\n${markdown}`,
   }
 }
 
@@ -78,8 +79,10 @@ ${
   // Instead of rendering a few consecutive code snippets, we render a single,
   // examples separated with a blank line.
   doc.examples.reduce((a, v) => {
-    if (a.endsWith('```')) return a.slice(0, -3) + v.replace(/```\w+\n/, '\n')
-    else return a + '\n' + v
+    if (a.endsWith('```')) {
+      return a.slice(0, -3) + v.replace(/```\w+\n/, '\n')
+    }
+    return `${a}\n${v}`
   }, '')
 }`
 

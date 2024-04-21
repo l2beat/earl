@@ -13,7 +13,6 @@ describe(toMatchSnapshot.name, () => {
   let content: string
   let envCi: string | undefined
   let envUpdateSnapshots: string | undefined
-  // eslint-disable-next-line no-path-concat
   const SNAPSHOT_FILE = fileURLToPath(import.meta.url) + '.snapshot'
 
   const mochaContext = (title: string): MochaTestContext => ({

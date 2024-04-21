@@ -1,6 +1,3 @@
-// Common setup shared across all examples
-export {}
-
 /* eslint-disable */
 import * as z from 'zod'
 

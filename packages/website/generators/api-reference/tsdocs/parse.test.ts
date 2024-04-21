@@ -1,8 +1,9 @@
 import { expect } from 'earl'
 
-import { MethodComment } from '../types'
+import type { MethodComment } from '../types'
 import { parseTsDocComment } from './parse'
 
+// biome-ignore lint/suspicious/noExportsInTest: This is actually used in another file
 export const sampleMethodComment: MethodComment = {
   signature: 'someMethod(x: number, y: number): void',
   comment: `/**

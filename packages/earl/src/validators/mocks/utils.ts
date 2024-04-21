@@ -1,4 +1,4 @@
-import { Control } from '../../Control.js'
+import type { Control } from '../../Control.js'
 import { formatCompact } from '../../format/index.js'
 import { isEqual } from '../../isEqual/index.js'
 import { isMockFn, type MockFunction } from '../../mocks/index.js'

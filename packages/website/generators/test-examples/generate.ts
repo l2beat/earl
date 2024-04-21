@@ -1,7 +1,7 @@
-import { readFileSync } from 'fs'
-import { join } from 'path'
+import { readFileSync } from 'node:fs'
+import { join } from 'node:path'
 
-import { Example } from './types'
+import type { Example } from './types'
 
 export function generateTestFile(examples: Example[]): string {
   // cut off first few lines of preamble as they are comments

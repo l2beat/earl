@@ -28,7 +28,7 @@ async function captureErrorAsync(fn: () => Promise<void>) {
 
 function getStack(error: Error) {
   const stack = utils.stackTraceFilter()(error.stack ?? '')
-  return Parser.parse({ stack } as any).map((x) => ({
+  return Parser.parse({ stack } as Error).map((x) => ({
     at: x.functionName,
     file: x.fileName,
   }))
