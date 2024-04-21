@@ -1,12 +1,12 @@
-import { writeFileSync } from 'fs'
+import { writeFileSync } from 'node:fs'
 
 import type { Control } from '../../Control.js'
 import { registerValidator } from '../../expect.js'
 import { format, formatCompact } from '../../format/index.js'
+import type { TestContext } from './TestContext.js'
 import { formatSnapshot } from './format.js'
 import { getSnapshot } from './getSnapshot.js'
 import { getSnapshotUpdateMode } from './getSnapshotUpdateMode.js'
-import type { TestContext } from './TestContext.js'
 
 declare module '../../expect.js' {
   interface Validators<T> {
@@ -68,7 +68,7 @@ export function toMatchSnapshot(control: Control, context: TestContext) {
   } else if (snapshot.expected === undefined) {
     control.assert({
       success: false,
-      reason: `No snapshot was found. Snapshots cannot be generated on CI.`,
+      reason: 'No snapshot was found. Snapshots cannot be generated on CI.',
       negatedReason: '',
       actual,
       expected: undefined,

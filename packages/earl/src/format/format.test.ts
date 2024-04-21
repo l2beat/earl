@@ -3,8 +3,8 @@
 import { expect } from 'chai'
 
 import { expect as earl } from '../index.js'
-import { format } from './format.js'
 import type { FormatOptions } from './FormatOptions.js'
+import { format } from './format.js'
 
 describe('format', () => {
   const DEFAULTS: FormatOptions = {
@@ -211,7 +211,7 @@ describe('format', () => {
         [
           { x: 1 },
           {},
-          `(different) {\n  x: 1\n}`,
+          '(different) {\n  x: 1\n}',
           { requireStrictEquality: true },
         ],
         [

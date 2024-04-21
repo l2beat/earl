@@ -49,7 +49,8 @@ export function toHaveBeenLastCalledWith(
   if (lastCall === undefined) {
     return control.assert({
       success: false,
-      reason: `The mock function was never called, but it was expected to have been called at least once.`,
+      reason:
+        'The mock function was never called, but it was expected to have been called at least once.',
       negatedReason: '',
     })
   }

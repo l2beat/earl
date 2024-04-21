@@ -61,8 +61,7 @@ function contains(array: readonly any[], items: readonly any[]): boolean {
     if (foundIndex !== -1) {
       matchedIndexes[foundIndex] = true
       return true
-    } else {
-      return false
     }
+    return false
   })
 }

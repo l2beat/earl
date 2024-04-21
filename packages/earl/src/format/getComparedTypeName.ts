@@ -36,7 +36,8 @@ export function getComparedTypeName(
 export function getTypeName(value: unknown, ignorePrototypes: boolean) {
   if (typeof value === 'function') {
     return getFunctionTypeName(value)
-  } else if (typeof value === 'object' && value !== null) {
+  }
+  if (typeof value === 'object' && value !== null) {
     return ignorePrototypes ? getCanonicalType(value) : getPrototypeName(value)
   }
 }

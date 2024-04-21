@@ -1,9 +1,9 @@
-import { readFileSync } from 'fs'
-import path from 'path'
+import { readFileSync } from 'node:fs'
+import path from 'node:path'
 
+import type { TestContext } from './TestContext.js'
 import { parseSnapshot } from './format.js'
 import type { SnapshotUpdateMode } from './getSnapshotUpdateMode.js'
-import type { TestContext } from './TestContext.js'
 
 const counters = new Map<string, Map<string, number>>()
 const snapshots = new Map<string, Record<string, string>>()
@@ -26,7 +26,7 @@ export function getSnapshot(
   }
   const file = path.join(
     path.dirname(filePath),
-    path.basename(filePath) + '.snapshot',
+    `${path.basename(filePath)}.snapshot`,
   )
   const testName = getTestName(context)
   if (!testName) {

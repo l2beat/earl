@@ -46,22 +46,28 @@ export function a(type: NewableOrPrimitive) {
   return (value: unknown) => {
     if (type === String) {
       return typeof value === 'string'
-    } else if (type === Number) {
-      return typeof value === 'number' && !Number.isNaN(value)
-    } else if (type === Boolean) {
-      return typeof value === 'boolean'
-    } else if (type === BigInt) {
-      return typeof value === 'bigint'
-    } else if (type === Function) {
-      return typeof value === 'function'
-    } else if (type === Object) {
-      return typeof value === 'object' && value !== null
-    } else if (type === Symbol) {
-      return typeof value === 'symbol'
-    } else if (type === Array) {
-      return Array.isArray(value)
-    } else {
-      return value instanceof type
     }
+    if (type === Number) {
+      return typeof value === 'number' && !Number.isNaN(value)
+    }
+    if (type === Boolean) {
+      return typeof value === 'boolean'
+    }
+    if (type === BigInt) {
+      return typeof value === 'bigint'
+    }
+    if (type === Function) {
+      return typeof value === 'function'
+    }
+    if (type === Object) {
+      return typeof value === 'object' && value !== null
+    }
+    if (type === Symbol) {
+      return typeof value === 'symbol'
+    }
+    if (type === Array) {
+      return Array.isArray(value)
+    }
+    return value instanceof type
   }
 }

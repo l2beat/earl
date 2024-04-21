@@ -2,7 +2,7 @@ import type { Control } from '../../Control.js'
 import { registerValidator } from '../../expect.js'
 import { LOOSE_FORMAT_OPTIONS } from '../../format/FormatOptions.js'
 import { format, formatCompact } from '../../format/index.js'
-import { isEqual, LOOSE_EQUALITY_OPTIONS } from '../../isEqual/index.js'
+import { LOOSE_EQUALITY_OPTIONS, isEqual } from '../../isEqual/index.js'
 
 declare module '../../expect.js' {
   interface Validators<T> {

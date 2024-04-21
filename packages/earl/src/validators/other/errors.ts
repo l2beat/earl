@@ -100,12 +100,12 @@ function isMatchingMessage(
   if (typeof expected === 'string') {
     const thrownMessage = getMessageProperty(thrownError)
     return typeof thrownMessage === 'string' && thrownMessage.includes(expected)
-  } else if (expected instanceof RegExp) {
+  }
+  if (expected instanceof RegExp) {
     const thrownMessage = getMessageProperty(thrownError)
     return typeof thrownMessage === 'string' && expected.test(thrownMessage)
-  } else {
-    return true
   }
+  return true
 }
 
 function formatExpected(
@@ -126,7 +126,7 @@ function formatExpected(
     object.name = thrownName
   }
 
-  return `${className ? className + ' ' : ''}${format(object, null)}`
+  return `${className ? `${className} ` : ''}${format(object, null)}`
 }
 
 function getMessageProperty(thrownError: unknown): unknown {

@@ -1,10 +1,10 @@
 import { Matcher } from '../expect.js'
 import { getCanonicalType } from '../isEqual/getCanonicalType.js'
+import type { FormatOptions } from './FormatOptions.js'
 import { formatArrayEntries } from './formatArrayEntries.js'
 import { formatMapEntries } from './formatMapEntries.js'
 import { formatNumber } from './formatNumber.js'
 import { formatObjectEntries } from './formatObjectEntries.js'
-import type { FormatOptions } from './FormatOptions.js'
 import { formatSetEntries } from './formatSetEntries.js'
 import { formatString } from './formatString.js'
 import { formatSymbol } from './formatSymbol.js'
@@ -41,14 +41,13 @@ export function formatUnknown(
   if (value instanceof Matcher) {
     if (!options.skipMatcherReplacement && value.check(sibling)) {
       return formatUnknown(sibling, null, options, siblingStack, [])
-    } else {
-      let line = `expect.${value.toString()}`
-      if (options.inline && line.length > options.maxLineLength) {
-        // TODO: function name!
-        line = 'expect.?'
-      }
-      return toLine(line)
     }
+    let line = `expect.${value.toString()}`
+    if (options.inline && line.length > options.maxLineLength) {
+      // TODO: function name!
+      line = 'expect.?'
+    }
+    return toLine(line)
   }
 
   const selfIndex = valueStack.indexOf(value)
@@ -179,12 +178,10 @@ export function formatUnknown(
     }
     if (type === 'Array') {
       return toLine(`${beginning}${jointEntries}]`)
-    } else {
-      return toLine(`${beginning} ${jointEntries} }`)
     }
-  } else {
-    entries.unshift([0, beginning])
-    entries.push([0, type === 'Array' ? ']' : '}'])
-    return entries
+    return toLine(`${beginning} ${jointEntries} }`)
   }
+  entries.unshift([0, beginning])
+  entries.push([0, type === 'Array' ? ']' : '}'])
+  return entries
 }

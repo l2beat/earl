@@ -1,7 +1,7 @@
 import type { Control } from '../../Control.js'
 import { registerValidator } from '../../expect.js'
 import { formatCompact } from '../../format/index.js'
-import { schema, type ZodSchema } from '../../matchers/custom/schema.js'
+import { type ZodSchema, schema } from '../../matchers/custom/schema.js'
 
 declare module '../../expect.js' {
   interface Validators<T> {

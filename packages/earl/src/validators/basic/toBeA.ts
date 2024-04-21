@@ -1,7 +1,7 @@
 import type { Control } from '../../Control.js'
 import { registerValidator } from '../../expect.js'
 import { formatCompact } from '../../format/index.js'
-import { a, type NewableOrPrimitive } from '../../matchers/basic/a.js'
+import { type NewableOrPrimitive, a } from '../../matchers/basic/a.js'
 
 declare module '../../expect.js' {
   interface Validators<T> {
@@ -45,19 +45,26 @@ export function toBeA(control: Control, type: NewableOrPrimitive) {
 function getTypeName(type: NewableOrPrimitive) {
   if (type === String) {
     return 'a string'
-  } else if (type === Number) {
+  }
+  if (type === Number) {
     return 'a number'
-  } else if (type === Boolean) {
+  }
+  if (type === Boolean) {
     return 'a boolean'
-  } else if (type === BigInt) {
+  }
+  if (type === BigInt) {
     return 'a bigint'
-  } else if (type === Function) {
+  }
+  if (type === Function) {
     return 'a function'
-  } else if (type === Object) {
+  }
+  if (type === Object) {
     return 'an object'
-  } else if (type === Symbol) {
+  }
+  if (type === Symbol) {
     return 'a symbol'
-  } else if (type === Array) {
+  }
+  if (type === Array) {
     return 'an array'
   }
   if (typeof type === 'function') {

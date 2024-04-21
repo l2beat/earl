@@ -45,7 +45,7 @@ export function formatObjectEntries(
 
 function formatKey(key: string, options: FormatOptions) {
   if (options.inline && key.length > options.maxLineLength - 2) {
-    return JSON.stringify(key.slice(0, 7) + '...')
+    return JSON.stringify(`${key.slice(0, 7)}...`)
   }
   return /^\w+$/.test(key) ? key : JSON.stringify(key)
 }

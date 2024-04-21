@@ -55,7 +55,6 @@ export function formatArrayEntries(
 function formatEmpty(empty: number): [number, string] {
   if (empty === 1) {
     return [1, '<empty>']
-  } else {
-    return [1, `<${empty} empty items>`]
   }
+  return [1, `<${empty} empty items>`]
 }

@@ -16,7 +16,7 @@ export function parseSnapshot(snapshot: string) {
       name = line.slice(3)
       value = ''
     } else {
-      value += line + '\n'
+      value += `${line}\n`
     }
   }
   if (name) {

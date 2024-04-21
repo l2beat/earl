@@ -133,7 +133,7 @@ describe('Mock', () => {
         .given('foo')
         .returnsOnce(5)
         .returnsOnce(55)
-        .executes((x: string) => 'Hey ' + x)
+        .executes((x: string) => `Hey ${x}`)
 
       expect(fn('Marie')).to.equal(55)
       expect(fn('Marie')).to.equal('Hey Marie')
@@ -528,9 +528,8 @@ describe('Mock', () => {
       const fn = mockFn().executes((x: number) => {
         if (x < 3) {
           return 3
-        } else {
-          throw error
         }
+        throw error
       })
       try {
         fn(2)

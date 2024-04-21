@@ -46,6 +46,7 @@ export function toHaveBeenExhausted(control: Control) {
   control.assert({
     success: control.actual.isExhausted(),
     reason: `The mock function was not exhausted, ${remaining}.`,
-    negatedReason: `The mock function has been exhausted, but it was not expected to be.`,
+    negatedReason:
+      'The mock function has been exhausted, but it was not expected to be.',
   })
 }

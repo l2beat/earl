@@ -50,7 +50,8 @@ export function toHaveBeenCalledWith(control: Control, ...expected: unknown[]) {
   if (control.actual.calls.length === 0) {
     return control.assert({
       success: false,
-      reason: `The mock function was never called, but it was expected to have been called at least once.`,
+      reason:
+        'The mock function was never called, but it was expected to have been called at least once.',
       negatedReason: '',
     })
   }
