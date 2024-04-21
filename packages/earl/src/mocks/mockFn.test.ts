@@ -2,7 +2,7 @@ import { expect } from 'chai'
 import type { AssertTrue, IsExact } from 'conditional-type-checks'
 
 import { expect as earl } from '../expect.js'
-import { mockFn } from './mockFn.js'
+import { isMockFn, mockFn } from './mockFn.js'
 import type { MockFunction, MockFunctionOf } from './types/index.js'
 
 const sum = (a: number, b: number) => a + b
@@ -282,15 +282,15 @@ describe('Mock', () => {
       try {
         await fn(1)
         expect.fail()
-      } catch (e: any) {
-        expect(e.message).to.eq('some scary error')
+      } catch (e) {
+        expect((e as Error).message).to.eq('some scary error')
       }
 
       try {
         await fn(2)
         expect.fail()
-      } catch (e: any) {
-        expect(e.message).to.eq('different error')
+      } catch (e) {
+        expect((e as Error).message).to.eq('different error')
       }
     })
   })
@@ -438,6 +438,7 @@ describe('Mock', () => {
       expect(() => fn(3, 4)).to.throw(
         'The mock function was called but no default behavior has been provided.',
       )
+      // biome-ignore lint/suspicious/noExplicitAny: any is required here
       expect(() => (fn as any)()).to.throw(
         'The mock function was called but no default behavior has been provided.',
       )
@@ -501,6 +502,7 @@ describe('Mock', () => {
     })
 
     it('stores multiple calls', () => {
+      // biome-ignore lint/suspicious/noExplicitAny: any is required here
       const fn = mockFn((...args: any[]) => args.length)
       fn()
       fn(1)
@@ -561,5 +563,17 @@ describe('Mock', () => {
       fn(1)
       expect(fn.isExhausted()).to.equal(true)
     })
+  })
+})
+
+describe(isMockFn.name, () => {
+  it('returns true for mock functions', () => {
+    const fn = mockFn()
+    expect(isMockFn(fn)).to.equal(true)
+  })
+
+  it('returns false for regular functions', () => {
+    const fn = () => undefined
+    expect(isMockFn(fn)).to.equal(false)
   })
 })

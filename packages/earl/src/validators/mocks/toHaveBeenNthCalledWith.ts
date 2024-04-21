@@ -39,6 +39,7 @@ declare module '../../expect.js' {
      * ```
      */
     toHaveBeenNthCalledWith(
+      // biome-ignore lint/suspicious/noExplicitAny: any is required here
       this: Validators<MockFunction<any[], any>>,
       n: number,
       ...args: MockParameters<T>

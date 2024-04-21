@@ -23,6 +23,7 @@ declare module '../../expect.js' {
      * ```
      */
     toHaveLength(
+      // biome-ignore lint/suspicious/noExplicitAny: any is required here
       this: Validators<string | any[] | { length: number }>,
       length: number,
     ): void
@@ -45,6 +46,7 @@ export function toHaveLength(control: Control, expected: number) {
 
 function getLength(value: unknown) {
   try {
+    // biome-ignore lint/suspicious/noExplicitAny: any is required here
     return (value as any).length
   } catch {
     return undefined

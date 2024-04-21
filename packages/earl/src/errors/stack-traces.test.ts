@@ -10,9 +10,9 @@ describe('stack traces for errors', () => {
     try {
       earl(1).toEqual(2)
       expect.fail('should throw')
-    } catch (e: any) {
+    } catch (e) {
       expect(e).to.be.instanceOf(AssertionError, 'Earl did not throw')
-      const stackTrace = ErrorStackParser.parse(e)
+      const stackTrace = ErrorStackParser.parse(e as Error)
 
       expect(stackTrace[0]?.fileName?.endsWith('stack-traces.test.ts')).to.be
         .true
@@ -23,9 +23,9 @@ describe('stack traces for errors', () => {
     try {
       earl(await (async () => 1)()).toEqual(2)
       expect.fail('should throw')
-    } catch (e: any) {
+    } catch (e) {
       expect(e).to.be.instanceOf(AssertionError, 'Earl did not throw')
-      const stackTrace = ErrorStackParser.parse(e)
+      const stackTrace = ErrorStackParser.parse(e as Error)
 
       expect(stackTrace[0]?.fileName?.endsWith('stack-traces.test.ts')).to.be
         .true

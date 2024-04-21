@@ -1,11 +1,11 @@
 import { registerMatcher } from '../../expect.js'
 
+// biome-ignore lint/suspicious/noExplicitAny: any is required here
 export type Newable<T> = new (...args: any[]) => T
 
 export type NewableOrPrimitive =
-  | Newable<any>
-  | SymbolConstructor
-  | BigIntConstructor
+  // biome-ignore lint/suspicious/noExplicitAny: any is required here
+  Newable<any> | SymbolConstructor | BigIntConstructor
 
 declare module '../../expect.js' {
   interface Matchers {

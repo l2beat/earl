@@ -23,6 +23,7 @@ declare module '../../expect.js' {
      * ```
      */
     toHaveBeenCalledTimes(
+      // biome-ignore lint/suspicious/noExplicitAny: any is required here
       this: Validators<MockFunction<any[], any>>,
       times: number,
     ): void

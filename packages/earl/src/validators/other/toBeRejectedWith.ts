@@ -23,6 +23,7 @@ declare module '../../expect.js' {
      * ```
      */
     toBeRejected(
+      // biome-ignore lint/suspicious/noExplicitAny: any is required here
       this: Validators<(() => Promise<any>) | Promise<any>>,
     ): Promise<void>
 
@@ -61,6 +62,7 @@ declare module '../../expect.js' {
      * ```
      */
     toBeRejectedWith(
+      // biome-ignore lint/suspicious/noExplicitAny: any is required here
       this: Validators<(() => Promise<any>) | Promise<any>>,
       message: string | RegExp,
     ): Promise<void>
@@ -101,7 +103,9 @@ declare module '../../expect.js' {
      * ```
      */
     toBeRejectedWith(
+      // biome-ignore lint/suspicious/noExplicitAny: any is required here
       this: Validators<(() => Promise<any>) | Promise<any>>,
+      // biome-ignore lint/suspicious/noExplicitAny: any is required here
       errorClass: new (...args: any[]) => Error,
       message?: string | RegExp,
     ): Promise<void>
@@ -113,6 +117,7 @@ registerValidator('toBeRejectedWith', toBeRejectedWith)
 
 export async function toBeRejectedWith(
   control: Control,
+  // biome-ignore lint/suspicious/noExplicitAny: any is required here
   errorClassOrMessage?: (new (...args: any[]) => Error) | string | RegExp,
   message?: string | RegExp,
 ): Promise<void> {
@@ -137,7 +142,9 @@ export async function toBeRejectedWith(
 
 async function handleAsyncFunction(
   control: Control,
+  // biome-ignore lint/complexity/noBannedTypes: This is the best we can do
   fn: Function,
+  // biome-ignore lint/suspicious/noExplicitAny: any is required here
   errorClassOrMessage?: (new (...args: any[]) => Error) | string | RegExp,
   message?: string | RegExp,
 ) {
@@ -163,7 +170,9 @@ async function handleAsyncFunction(
 
 async function handlePromise(
   control: Control,
+  // biome-ignore lint/suspicious/noExplicitAny: any is required here
   promise: Promise<any>,
+  // biome-ignore lint/suspicious/noExplicitAny: any is required here
   errorClassOrMessage?: (new (...args: any[]) => Error) | string | RegExp,
   message?: string | RegExp,
 ) {

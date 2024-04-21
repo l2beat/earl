@@ -26,12 +26,14 @@ declare module '../../expect.js' {
      * })
      * ```
      */
+    // biome-ignore lint/suspicious/noExplicitAny: any is required here
     includes(...items: any[]): never
   }
 }
 
 registerMatcher('includes', includes)
 
+// biome-ignore lint/suspicious/noExplicitAny: any is required here
 export function includes(...items: any[]) {
   return (value: unknown) => {
     if (typeof value === 'string') {
@@ -47,10 +49,12 @@ export function includes(...items: any[]) {
   }
 }
 
+// biome-ignore lint/suspicious/noExplicitAny: any is required here
 function isIterable(value: unknown): value is Iterable<any> {
   return Symbol.iterator in Object(value)
 }
 
+// biome-ignore lint/suspicious/noExplicitAny: any is required here
 function contains(array: readonly any[], items: readonly any[]): boolean {
   const matchedIndexes: Record<number, boolean> = {}
   return items.every((expectedItem) => {

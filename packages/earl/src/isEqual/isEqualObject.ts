@@ -28,9 +28,11 @@ export function isEqualObject(
     if (
       !isEqualUnknown(
         // biome-ignore lint/style/noNonNullAssertion: We know that the key exists
+        // biome-ignore lint/suspicious/noExplicitAny: any is required here
         (value as any)[keys[i]!],
         valueStack,
         // biome-ignore lint/style/noNonNullAssertion: We know that the key exists
+        // biome-ignore lint/suspicious/noExplicitAny: any is required here
         (other as any)[otherKeys[i]!],
         otherStack,
         options,

@@ -22,6 +22,7 @@ declare module '../../expect.js' {
      * expect(fn).toHaveBeenExhausted()
      * ```
      */
+    // biome-ignore lint/suspicious/noExplicitAny: any is required here
     toHaveBeenExhausted(this: Validators<MockFunction<any[], any>>): void
   }
 }

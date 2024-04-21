@@ -24,9 +24,7 @@ describe(a.name, () => {
 
     testMatcher(
       a(Number),
-      TEST_VALUES.filter(
-        (x) => typeof x === 'number' && !Number.Number.isNaN(x),
-      ),
+      TEST_VALUES.filter((x) => typeof x === 'number' && !Number.isNaN(x)),
       TEST_VALUES.filter((x) => typeof x !== 'number').concat(Number.NaN),
     )
   })

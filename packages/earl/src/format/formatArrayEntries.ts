@@ -34,7 +34,9 @@ export function formatArrayEntries(
       })
 
       const valueFormat = formatUnknown(
+        // biome-ignore lint/suspicious/noExplicitAny: any is required here
         (value as any)[i],
+        // biome-ignore lint/suspicious/noExplicitAny: any is required here
         (sibling as any)?.[i],
         nestedOptions,
         valueStack,

@@ -199,11 +199,13 @@ describe('isEqual', () => {
         [
           (() => {
             const x = { y: 2 }
+            // biome-ignore lint/suspicious/noExplicitAny: any is required here
             ;(x as any).x = x
             return x
           })(),
           (() => {
             const x = { y: 2 }
+            // biome-ignore lint/suspicious/noExplicitAny: any is required here
             ;(x as any).x = x
             return x
           })(),
@@ -212,11 +214,13 @@ describe('isEqual', () => {
         [
           (() => {
             const x = { y: 2 }
+            // biome-ignore lint/suspicious/noExplicitAny: any is required here
             ;(x as any).x = x
             return x
           })(),
           (() => {
             const x = { x: { y: 2 }, y: 2 }
+            // biome-ignore lint/suspicious/noExplicitAny: any is required here
             ;(x.x as any).x = x
             return x
           })(),
@@ -226,9 +230,12 @@ describe('isEqual', () => {
           interface Node {
             prev?: Node
             next?: Node
+            // biome-ignore lint/suspicious/noExplicitAny: any is required here
             value: any
           }
+          // biome-ignore lint/suspicious/noExplicitAny: any is required here
           const node = (value: any): Node => ({ value })
+          // biome-ignore lint/suspicious/noExplicitAny: any is required here
           const list = (...values: any[]) =>
             values.map(node).map((node, index, nodes) => {
               node.prev = nodes[index - 1]
@@ -601,11 +608,11 @@ describe('isEqual', () => {
             const a = { x: 1 }
             const b = { y: 2 }
             return [
-              new Map<any, number>([
+              new Map<unknown, number>([
                 [a, 1],
                 [b, 2],
               ]),
-              new Map<any, number>([
+              new Map<unknown, number>([
                 [b, 2],
                 [a, 1],
               ]),
@@ -617,11 +624,11 @@ describe('isEqual', () => {
           ...(() => {
             const a = { x: 1 }
             return [
-              new Map<any, number>([
+              new Map<unknown, number>([
                 [a, 1],
                 [{ y: 2 }, 2],
               ]),
-              new Map<any, number>([
+              new Map<unknown, number>([
                 [{ y: 2 }, 2],
                 [a, 1],
               ]),

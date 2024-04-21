@@ -95,18 +95,30 @@ describe('format', () => {
           function* () {},
           'function* [anonymous]() (different)',
         ],
-        // This is eval-ed to avoid typescript transpiling it
-        // With a higher target this wouldn't be necessary
-        ...eval(`[
-          [async function foo() {}, null, 'async function foo()'],
-          [async function foo() {}, async function foo() {}, 'async function foo() (different)'],
-          [async function () {}, null, 'async function [anonymous]()'],
-          [async function () {}, async function () {}, 'async function [anonymous]() (different)'],
-          [async function* foo() {}, null, 'async function* foo()'],
-          [async function* foo() {}, async function* foo() {}, 'async function* foo() (different)'],
-          [async function* () {}, null, 'async function* [anonymous]()'],
-          [async function* () {}, async function* () {}, 'async function* [anonymous]() (different)'],
-        ]`),
+        [async function foo() {}, null, 'async function foo()'],
+        [
+          async function foo() {},
+          async function foo() {},
+          'async function foo() (different)',
+        ],
+        [async () => {}, null, 'async function [anonymous]()'],
+        [
+          async () => {},
+          async () => {},
+          'async function [anonymous]() (different)',
+        ],
+        [async function* foo() {}, null, 'async function* foo()'],
+        [
+          async function* foo() {},
+          async function* foo() {},
+          'async function* foo() (different)',
+        ],
+        [async function* () {}, null, 'async function* [anonymous]()'],
+        [
+          async function* () {},
+          async function* () {},
+          'async function* [anonymous]() (different)',
+        ],
         [Set.prototype.has, null, 'function has()'],
         [Set.prototype.has, Map.prototype.has, 'function has() (different)'],
         [class A {}, null, 'class A'],
@@ -130,6 +142,7 @@ describe('format', () => {
           'function [anonymous]() & {\n  a: 1\n}',
         ],
         [
+          // biome-ignore lint/complexity/noStaticOnlyClass: this is a test case
           class X {
             static x = 2
           },
@@ -227,6 +240,7 @@ describe('format', () => {
         [
           (() => {
             const x = { y: 2 }
+            // biome-ignore lint/suspicious/noExplicitAny: any is required here
             ;(x as any).x = x
             return x
           })(),
@@ -467,13 +481,14 @@ describe('format', () => {
           'Promise (different)',
           { ignorePrototypes: true },
         ],
-        [
-          ...(() => {
-            class MyPromise extends Promise<number> {}
-            return [MyPromise.resolve(1), MyPromise.resolve(1)]
-          })(),
-          'MyPromise (different)',
-        ],
+        (() => {
+          class MyPromise extends Promise<number> {}
+          return [
+            MyPromise.resolve(1),
+            MyPromise.resolve(1),
+            'MyPromise (different)',
+          ]
+        })(),
         [
           class MyPromise extends Promise<number> {}.resolve(1),
           null,
@@ -492,13 +507,10 @@ describe('format', () => {
           'WeakMap (different)',
           { ignorePrototypes: true },
         ],
-        [
-          ...(() => {
-            class MyWeakMap extends WeakMap {}
-            return [new MyWeakMap(), new MyWeakMap()]
-          })(),
-          'MyWeakMap (different)',
-        ],
+        (() => {
+          class MyWeakMap extends WeakMap {}
+          return [new MyWeakMap(), new MyWeakMap(), 'MyWeakMap (different)']
+        })(),
         [
           new (class MyWeakMap extends WeakMap {})(),
           null,
@@ -517,13 +529,10 @@ describe('format', () => {
           'WeakSet (different)',
           { ignorePrototypes: true },
         ],
-        [
-          ...(() => {
-            class MyWeakSet extends WeakSet {}
-            return [new MyWeakSet(), new MyWeakSet()]
-          })(),
-          'MyWeakSet (different)',
-        ],
+        (() => {
+          class MyWeakSet extends WeakSet {}
+          return [new MyWeakSet(), new MyWeakSet(), 'MyWeakSet (different)']
+        })(),
         [
           new (class MyWeakSet extends WeakSet {})(),
           null,
@@ -621,6 +630,7 @@ describe('format', () => {
           [earl.anything()],
           (() => {
             const x = [[[]]]
+            // biome-ignore lint/suspicious/noExplicitAny: any is required here
             ;(x as any)[0][0][0] = x
             return x
           })(),

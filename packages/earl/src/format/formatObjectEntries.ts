@@ -25,7 +25,9 @@ export function formatObjectEntries(
         (!!sibling && !Object.prototype.hasOwnProperty.call(sibling, key)),
     })
     const valueFormat = formatUnknown(
+      // biome-ignore lint/suspicious/noExplicitAny: any is required here
       (value as any)[key],
+      // biome-ignore lint/suspicious/noExplicitAny: any is required here
       (sibling as any)?.[key],
       nestedOptions,
       valueStack,

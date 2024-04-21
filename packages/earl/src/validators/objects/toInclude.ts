@@ -51,6 +51,7 @@ declare module '../../expect.js' {
      * ```
      */
     toInclude(
+      // biome-ignore lint/suspicious/noExplicitAny: any is required here
       this: Validators<any[] | Set<any> | Iterable<any>>,
       ...items: MemberOf<T>[]
     ): void
@@ -81,6 +82,7 @@ function formatItems(items: unknown[]) {
 
 function languageJoin(items: string[]) {
   if (items.length === 1) {
+    // biome-ignore lint/style/noNonNullAssertion: we know it's not empty
     return items[0]!
   }
   return `all of: ${items.slice(0, -1).join(', ')} and ${items.at(-1)}`

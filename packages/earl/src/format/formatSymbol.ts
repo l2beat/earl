@@ -2,6 +2,7 @@ import { toLine } from './toLine.js'
 
 const wellKnownSymbols = new Map<symbol, string>()
 for (const key of Object.getOwnPropertyNames(Symbol)) {
+  // biome-ignore lint/suspicious/noExplicitAny: any is required here
   const known = (Symbol as any)[key]
   if (typeof known === 'symbol') {
     wellKnownSymbols.set(known, `Symbol.${key}`)

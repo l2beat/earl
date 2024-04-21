@@ -20,6 +20,7 @@ declare module '../../expect.js' {
      * expect(new Set([1, 2, 3])).not.toBeEmpty()
      * ```
      */
+    // biome-ignore lint/suspicious/noExplicitAny: any is required here
     toBeEmpty(this: Validators<string | any[] | Set<any> | Map<any, any>>): void
   }
 }

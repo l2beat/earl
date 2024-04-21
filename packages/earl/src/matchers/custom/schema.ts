@@ -1,6 +1,7 @@
 import { registerMatcher } from '../../expect.js'
 
 export interface ZodSchema {
+  // biome-ignore lint/suspicious/noExplicitAny: any is required here
   parse(value: unknown): any
 }
 

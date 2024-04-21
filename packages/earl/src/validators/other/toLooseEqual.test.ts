@@ -47,10 +47,9 @@ describe(toLooseEqual.name, () => {
 
     it('fails on unequal objects', () => {
       expect(() => {
-        earl({
-          a: undefined,
-          b: true,
-        }).toLooseEqual({ b: false } as any)
+        earl({ a: undefined, b: true })
+          // biome-ignore lint/suspicious/noExplicitAny: any is required here
+          .toLooseEqual({ b: false } as any)
       }).to.throw(
         'The value { a: undefined, b: true } is not loosely equal to { b: false }, but it was expected to be loosely equal.',
       )

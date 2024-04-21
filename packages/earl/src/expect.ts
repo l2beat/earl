@@ -45,8 +45,10 @@ class Expectation {
 
 export function registerValidator(
   name: string,
+  // biome-ignore lint/suspicious/noExplicitAny: any is required here
   validator: (control: Control, ...args: any[]) => any,
 ) {
+  // biome-ignore lint/suspicious/noExplicitAny: any is required here
   function execute(this: Expectation, ...args: any[]) {
     return validator(this._getControl(name), ...args)
   }
@@ -62,12 +64,14 @@ type ValidatorsAndModifiers<T> = Validators<T> & {
 }
 
 const rawExpect = function expect<T>(value: T): ValidatorsAndModifiers<T> {
-  return new Expectation(value) as any
+  return new Expectation(value) as unknown as ValidatorsAndModifiers<T>
 }
 
+// biome-ignore lint/suspicious/noExplicitAny: any is required here
 const matchers: Record<string, (...args: any[]) => Matcher> =
   Object.create(null)
 
+// biome-ignore lint/suspicious/noExplicitAny: any is required here
 export function registerMatcher<A extends any[]>(
   name: string,
   check: (...args: A) => (value: unknown) => boolean,

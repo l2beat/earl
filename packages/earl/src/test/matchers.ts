@@ -2,6 +2,7 @@ import { expect } from 'chai'
 
 import { formatCompact } from '../format/index.js'
 
+// biome-ignore lint/suspicious/noExportsInTest: This is a test utility
 export function testMatcher(
   matcher: (value: unknown) => boolean,
   trueCases: unknown[],
@@ -20,8 +21,10 @@ export function testMatcher(
   }
 }
 
+// biome-ignore lint/suspicious/noExportsInTest: This is a test utility
 export function testMatcherFormat(matcher: never, expected: string) {
   it(`formats as ${expected}`, () => {
+    // biome-ignore lint/suspicious/noExplicitAny: any is required here
     expect((matcher as any).toString()).to.equal(expected)
   })
 }

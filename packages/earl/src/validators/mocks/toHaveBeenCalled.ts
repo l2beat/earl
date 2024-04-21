@@ -20,6 +20,7 @@ declare module '../../expect.js' {
      * expect(fn2).not.toHaveBeenCalled()
      * ```
      */
+    // biome-ignore lint/suspicious/noExplicitAny: any is required here
     toHaveBeenCalled(this: Validators<MockFunction<any[], any>>): void
   }
 }

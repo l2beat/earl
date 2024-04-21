@@ -3,9 +3,11 @@ import type { Awaited } from './util.js'
 
 export interface MockCall<TArgs, TReturn> {
   args: TArgs
+  // biome-ignore lint/suspicious/noExplicitAny: any is required here
   result: { type: 'return'; value: TReturn } | { type: 'throw'; error: any }
 }
 
+// biome-ignore lint/suspicious/noExplicitAny: any is required here
 export interface MockFunction<A extends any[], R> {
   /**
    * Calls the mock function.
@@ -66,6 +68,7 @@ export interface MockFunction<A extends any[], R> {
    *
    * @param error - The error to be thrown.
    */
+  // biome-ignore lint/suspicious/noExplicitAny: any is required here
   throwsOnce(error: any): MockFunction<A, R>
 
   /**
@@ -108,6 +111,7 @@ export interface MockFunction<A extends any[], R> {
    *
    * @param error - The error to be rejected inside the promise.
    */
+  // biome-ignore lint/suspicious/noExplicitAny: any is required here
   rejectsWith(error: any): MockFunction<A, R>
 
   /**
@@ -117,6 +121,7 @@ export interface MockFunction<A extends any[], R> {
    *
    * @param error - The error to be rejected inside the promise.
    */
+  // biome-ignore lint/suspicious/noExplicitAny: any is required here
   rejectsWithOnce(error: any): MockFunction<A, any>
 
   /**
@@ -139,8 +144,10 @@ export interface MockFunction<A extends any[], R> {
   given<B extends A>(...args: B): MockGiven<A, R, B>
 }
 
+// biome-ignore lint/suspicious/noExplicitAny: any is required here
 export type MockParameters<T> = T extends MockFunction<infer A, any> ? A : never
 
+// biome-ignore lint/suspicious/noExplicitAny: any is required here
 export type MockFunctionOf<T extends (...args: any[]) => any> = MockFunction<
   Parameters<T>,
   ReturnType<T>
