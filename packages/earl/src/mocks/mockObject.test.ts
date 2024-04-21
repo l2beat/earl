@@ -37,7 +37,7 @@ describe(mockObject.name, () => {
     )
   })
 
-  it('can be resetted using resetMockObject', () => {
+  it('can be reset using resetMockObject', () => {
     const instance = mockObject<Jogger>({ run: () => 10 })
     instance.run.returnsOnce(20)
     resetMockObject(instance)

@@ -68,11 +68,10 @@ function replaceFunctionsWithMocks<T extends object>(object: T) {
  *
  * @param mockObject - The `MockObject` to reset
  */
-export function resetMockObject<T>(mockObject: MockObject<T>): void {
-  for (const key of Object.keys(mockObject) as (keyof T)[]) {
-    const value = mockObject[key]
-    if (typeof value === 'function' && isMockFn(value)) {
-      value.reset();
+export function resetMockObject(mockObject: MockObject<unknown>): void {
+  for (const value of Object.values(mockObject)) {
+    if (isMockFn(value)) {
+      value.reset()
     }
   }
 }
