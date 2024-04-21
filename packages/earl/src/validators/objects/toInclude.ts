@@ -6,10 +6,10 @@ import { includes } from '../../matchers/objects/includes.js'
 type MemberOf<T> = T extends (infer U)[]
   ? U
   : T extends Set<infer U>
-  ? U
-  : T extends Iterable<infer U>
-  ? U
-  : unknown
+    ? U
+    : T extends Iterable<infer U>
+      ? U
+      : unknown
 
 declare module '../../expect.js' {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars

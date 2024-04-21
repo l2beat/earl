@@ -174,7 +174,10 @@ describe('isEqual', () => {
         [{ x: 1, y: 2 }, { y: 2, x: 1 }, true],
         ...(() => {
           class Vector2 {
-            constructor(public x: number, public y: number) {}
+            constructor(
+              public x: number,
+              public y: number,
+            ) {}
           }
           return [
             [new Vector2(1, 2), new Vector2(1, 2), true],

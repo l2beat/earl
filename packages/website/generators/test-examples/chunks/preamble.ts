@@ -6,7 +6,10 @@ import * as z from 'zod'
 
 // #region setup
 class Employee {
-  constructor(public name: string, public age: number) {}
+  constructor(
+    public name: string,
+    public age: number,
+  ) {}
 }
 
 const findPerson = (name: string) => ({
@@ -47,7 +50,10 @@ const catApi = {
 
 class Fish {
   readonly species: string
-  constructor(public name: string, opts?: { species: 'shark' }) {
+  constructor(
+    public name: string,
+    opts?: { species: 'shark' },
+  ) {
     this.species = opts?.species ?? 'fish'
   }
 }
@@ -123,11 +129,17 @@ function getExperimentStats() {
 }
 
 class Person {
-  constructor(public firstName: string, public lastName: string) {}
+  constructor(
+    public firstName: string,
+    public lastName: string,
+  ) {}
 }
 
 class Vector2 {
-  constructor(public readonly x: number, public readonly y: number) {}
+  constructor(
+    public readonly x: number,
+    public readonly y: number,
+  ) {}
 }
 
 async function getLatestProduct() {

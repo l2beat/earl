@@ -25,7 +25,10 @@ export const TEST_STRINGS = ['', 'foo', 'a longer string', '$₽Ξ𝐂ɨⲀʟ']
 export const TEST_SYMBOLS = [Symbol(), Symbol('foo'), Symbol.for('foo')]
 
 class Vector {
-  constructor(public readonly x: number, public readonly y: number) {}
+  constructor(
+    public readonly x: number,
+    public readonly y: number,
+  ) {}
 }
 
 export const TEST_OBJECTS = [

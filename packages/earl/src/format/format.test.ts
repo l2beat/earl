@@ -175,23 +175,35 @@ describe('format', () => {
         [new (class Foo {})(), null, 'Foo {}', { inline: true }],
         [
           new (class Vector2 {
-            constructor(public x: number, public y: number) {}
+            constructor(
+              public x: number,
+              public y: number,
+            ) {}
           })(1, 2),
           null,
           'Vector2 {\n  x: 1\n  y: 2\n}',
         ],
         [
           new (class Vector2 {
-            constructor(public x: number, public y: number) {}
+            constructor(
+              public x: number,
+              public y: number,
+            ) {}
           })(1, 2),
           new (class Vector2 {
-            constructor(public x: number, public y: number) {}
+            constructor(
+              public x: number,
+              public y: number,
+            ) {}
           })(1, 2),
           'Vector2 (different prototype) {\n  x: 1\n  y: 2\n}',
         ],
         [
           new (class Vector2 {
-            constructor(public x: number, public y: number) {}
+            constructor(
+              public x: number,
+              public y: number,
+            ) {}
           })(1, 2),
           null,
           '{\n  x: 1\n  y: 2\n}',

@@ -98,7 +98,10 @@ describe(a.name, () => {
     }
 
     class Employee extends Person {
-      constructor(name: string, public salary: number) {
+      constructor(
+        name: string,
+        public salary: number,
+      ) {
         super(name)
       }
     }
