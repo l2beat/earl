@@ -2,4 +2,4 @@
 "earl": minor
 ---
 
-Add resetMockObject which resets all functions on mockObject
+Add mockObject.reset which resets all functions on MockObject

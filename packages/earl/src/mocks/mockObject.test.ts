@@ -1,7 +1,7 @@
 import { expect } from 'chai'
 
 import { isMockFn } from './mockFn.js'
-import { mockObject, resetMockObject } from './mockObject.js'
+import { mockObject } from './mockObject.js'
 
 describe(mockObject.name, () => {
   class Jogger {
@@ -37,10 +37,10 @@ describe(mockObject.name, () => {
     )
   })
 
-  it('can be reset using resetMockObject', () => {
+  it('can be reset using mockObject.reset', () => {
     const instance = mockObject<Jogger>({ run: () => 10 })
     instance.run.returnsOnce(20)
-    resetMockObject(instance)
+    mockObject.reset(instance)
 
     expect(instance.run()).to.equal(10)
   })
