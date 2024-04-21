@@ -1,5 +1,11 @@
 # earl
 
+## 1.2.1
+
+### Patch Changes
+
+- A maintenance release. The code now uses biome instead of eslint + prettier. It also uses the newest version of TypeScript and features an updated tsconfig.json. End users shouldn't notice any changes.
+
 ## 1.2.0
 
 ### Minor Changes
