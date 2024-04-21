@@ -126,6 +126,12 @@ export interface MockFunction<A extends any[], R> {
   reset(): void
 
   /**
+   * Clears any memory of calls to this mock. After clearing the mock will act
+   * as if it was never called.
+   */
+  clear(): void
+
+  /**
    * Specifies a different behavior when other arguments are given.
    *
    * @param args - The arguments to match.

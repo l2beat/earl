@@ -113,10 +113,14 @@ export function mockFn<A extends any[], R>(
     defaultSpec = { type: 'not-ready' }
     oneTimeOverrides = []
     parameterOverrides = []
-    mock.calls = []
+    mock.clear()
     if (defaultImplementation) {
       mock.executes(defaultImplementation)
     }
+  }
+
+  mock.clear = function () {
+    mock.calls = []
   }
 
   mock.returns = function (value: any) {
