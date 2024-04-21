@@ -313,7 +313,7 @@ describe('Mock', () => {
     })
 
     it('clears mock calls', () => {
-      const fn = mockFn((a: string, b: string) => {})
+      const fn = mockFn((_a: string, _b: string) => {})
       fn('foo', 'bar')
       expect(fn.calls).to.deep.equal([
         { args: ['foo', 'bar'], result: { type: 'return', value: undefined } },
@@ -325,7 +325,7 @@ describe('Mock', () => {
 
   describe('.clear', () => {
     it('clears mock calls', () => {
-      const fn = mockFn((a: string, b: string) => {})
+      const fn = mockFn((_a: string, _b: string) => {})
       fn('foo', 'bar')
       expect(fn.calls).to.deep.equal([
         { args: ['foo', 'bar'], result: { type: 'return', value: undefined } },
