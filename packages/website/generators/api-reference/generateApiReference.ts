@@ -1,7 +1,7 @@
-import glob from 'fast-glob'
 import * as fs from 'node:fs'
 import { resolve } from 'node:path'
 import { promisify } from 'node:util'
+import glob from 'fast-glob'
 
 const writeFile = promisify(fs.writeFile)
 const readFile = promisify(fs.readFile)

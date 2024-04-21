@@ -1,5 +1,5 @@
-import { expect } from 'earl'
 import { readFileSync } from 'node:fs'
+import { expect } from 'earl'
 
 import { generateMarkdownForMethodDocumentation } from './generate'
 import { parseTsDocComment } from './tsdocs/parse'

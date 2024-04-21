@@ -1,6 +1,6 @@
-import FastGlob from 'fast-glob'
 import { readFileSync, writeFileSync } from 'node:fs'
 import { basename, join } from 'node:path'
+import FastGlob from 'fast-glob'
 
 import { generateTestFile } from './generate'
 import type { Example } from './types'
