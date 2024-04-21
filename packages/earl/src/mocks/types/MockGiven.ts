@@ -1,5 +1,5 @@
-import { MockFunction } from './MockFunction.js'
-import { Awaited } from './util.js'
+import type { MockFunction } from './MockFunction.js'
+import type { Awaited } from './util.js'
 
 export interface MockGiven<
   TArgs extends any[],

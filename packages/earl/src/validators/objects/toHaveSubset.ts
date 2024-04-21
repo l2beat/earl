@@ -1,7 +1,7 @@
 import { Control } from '../../Control.js'
 import { registerValidator } from '../../expect.js'
 import { formatCompact } from '../../format/index.js'
-import { Subset, subset } from '../../matchers/objects/subset.js'
+import { type Subset, subset } from '../../matchers/objects/subset.js'
 
 declare module '../../expect.js' {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars

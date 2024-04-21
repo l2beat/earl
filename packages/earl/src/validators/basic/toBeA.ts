@@ -1,7 +1,7 @@
 import { Control } from '../../Control.js'
 import { registerValidator } from '../../expect.js'
 import { formatCompact } from '../../format/index.js'
-import { a, NewableOrPrimitive } from '../../matchers/basic/a.js'
+import { a, type NewableOrPrimitive } from '../../matchers/basic/a.js'
 
 declare module '../../expect.js' {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars

@@ -6,7 +6,7 @@ import { format, formatCompact } from '../../format/index.js'
 import { expect as earl } from '../../index.js'
 import { formatSnapshot, parseSnapshot } from './format.js'
 import { resetSnapshotCache } from './getSnapshot.js'
-import { MochaTestContext } from './TestContext.js'
+import type { MochaTestContext } from './TestContext.js'
 import { toMatchSnapshot } from './toMatchSnapshot.js'
 
 describe(toMatchSnapshot.name, () => {

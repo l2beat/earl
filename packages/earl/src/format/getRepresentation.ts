@@ -1,5 +1,5 @@
-import { CanonicalType } from '../isEqual/getCanonicalType.js'
-import { FormatOptions } from './FormatOptions.js'
+import type { CanonicalType } from '../isEqual/getCanonicalType.js'
+import type { FormatOptions } from './FormatOptions.js'
 import { formatString } from './formatString.js'
 
 export function getRepresentation(

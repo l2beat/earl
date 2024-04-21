@@ -6,7 +6,7 @@ import { format, formatCompact } from '../../format/index.js'
 import { formatSnapshot } from './format.js'
 import { getSnapshot } from './getSnapshot.js'
 import { getSnapshotUpdateMode } from './getSnapshotUpdateMode.js'
-import { TestContext } from './TestContext.js'
+import type { TestContext } from './TestContext.js'
 
 declare module '../../expect.js' {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars

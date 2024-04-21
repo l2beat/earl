@@ -1,6 +1,6 @@
 import { Control } from '../../Control.js'
 import { registerValidator } from '../../expect.js'
-import { MockFunction } from '../../mocks/index.js'
+import type { MockFunction } from '../../mocks/index.js'
 import { assertIsMock } from './utils.js'
 
 declare module '../../expect.js' {

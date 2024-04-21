@@ -1,6 +1,6 @@
 import {
   DEFAULT_EQUALITY_OPTIONS,
-  EqualityOptions,
+  type EqualityOptions,
   LOOSE_EQUALITY_OPTIONS,
 } from '../isEqual/EqualityOptions.js'
 

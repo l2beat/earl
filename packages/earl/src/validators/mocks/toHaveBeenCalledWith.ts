@@ -2,7 +2,7 @@ import { Control } from '../../Control.js'
 import { registerValidator } from '../../expect.js'
 import { formatCompact } from '../../format/index.js'
 import { isEqual } from '../../isEqual/index.js'
-import { MockFunction, MockParameters } from '../../mocks/index.js'
+import type { MockFunction, MockParameters } from '../../mocks/index.js'
 import { assertIsMock } from './utils.js'
 
 declare module '../../expect.js' {
