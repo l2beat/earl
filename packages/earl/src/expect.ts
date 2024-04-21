@@ -2,10 +2,12 @@ import { Control } from './Control.js'
 import { formatCompact } from './format/index.js'
 
 // to be overridden by plugins
-export type Validators<T> = {}
+// biome-ignore lint/suspicious/noEmptyInterface: empty interface is intentional
+export interface Validators<T> {}
 
 // to be overridden by plugins
-export type Matchers = {}
+// biome-ignore lint/suspicious/noEmptyInterface: empty interface is intentional
+export interface Matchers {}
 
 export class Matcher {
   constructor(
