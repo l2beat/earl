@@ -13,7 +13,7 @@
     "test:fix": "pnpm lint:fix && pnpm format:fix && pnpm test && pnpm typecheck"
   },
   "dependencies": {
-    "earl": "workspace:^1.1.0",
+    "earl": "workspace:^1.2.0",
     "example-plugin": "workspace:^1.0.0"
   },
   "devDependencies": {

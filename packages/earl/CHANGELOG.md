@@ -1,5 +1,16 @@
 # earl
 
+## 1.2.0
+
+### Minor Changes
+
+- 46f000c: Add .clear to mocks which clears the calls array. Fixes .reset not clearing the calls.
+- e5ce81a: Add mockObject.reset which resets all functions on MockObject
+
+### Patch Changes
+
+- ce60bac: Improve performance by making some error messages lazy
+
 ## 1.1.0
 
 ### Minor Changes
