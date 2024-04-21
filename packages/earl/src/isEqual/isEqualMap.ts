@@ -1,4 +1,4 @@
-import { EqualityOptions } from './EqualityOptions.js'
+import type { EqualityOptions } from './EqualityOptions.js'
 import { isEqualUnknown } from './isEqualUnknown.js'
 
 export function isEqualMap(

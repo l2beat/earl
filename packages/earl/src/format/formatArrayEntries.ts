@@ -1,4 +1,4 @@
-import { FormatOptions } from './FormatOptions.js'
+import type { FormatOptions } from './FormatOptions.js'
 import { formatUnknown } from './formatUnknown.js'
 import { getOptionsWith } from './getOptionsWith.js'
 

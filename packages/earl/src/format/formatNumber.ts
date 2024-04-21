@@ -1,4 +1,4 @@
-import { FormatOptions } from './FormatOptions.js'
+import type { FormatOptions } from './FormatOptions.js'
 import { toLine } from './toLine.js'
 
 export function formatNumber(

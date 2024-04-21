@@ -2,9 +2,9 @@
 /* eslint-disable no-new-wrappers */
 import { expect } from 'chai'
 
-import { format, FormatOptions } from '../format/index.js'
+import { format, type FormatOptions } from '../format/index.js'
 import { expect as earl } from '../index.js'
-import { EqualityOptions } from './EqualityOptions.js'
+import type { EqualityOptions } from './EqualityOptions.js'
 import { isEqual } from './isEqual.js'
 
 describe('isEqual', () => {

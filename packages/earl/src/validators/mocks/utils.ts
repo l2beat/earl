@@ -1,7 +1,7 @@
 import { Control } from '../../Control.js'
 import { formatCompact } from '../../format/index.js'
 import { isEqual } from '../../isEqual/index.js'
-import { isMockFn, MockFunction } from '../../mocks/index.js'
+import { isMockFn, type MockFunction } from '../../mocks/index.js'
 
 export function assertIsMock(
   control: Control,

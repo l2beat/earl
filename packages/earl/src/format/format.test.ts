@@ -4,7 +4,7 @@ import { expect } from 'chai'
 
 import { expect as earl } from '../index.js'
 import { format } from './format.js'
-import { FormatOptions } from './FormatOptions.js'
+import type { FormatOptions } from './FormatOptions.js'
 
 describe('format', () => {
   const DEFAULTS: FormatOptions = {

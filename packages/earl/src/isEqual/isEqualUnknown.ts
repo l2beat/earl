@@ -1,5 +1,5 @@
 import { Matcher } from '../expect.js'
-import { EqualityOptions } from './EqualityOptions.js'
+import type { EqualityOptions } from './EqualityOptions.js'
 import { getCanonicalType } from './getCanonicalType.js'
 import { isEqualMap } from './isEqualMap.js'
 import { isEqualNumber } from './isEqualNumber.js'

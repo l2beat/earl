@@ -163,10 +163,6 @@ importers:
 
   packages/earl/dist/cjs: {}
 
-  packages/earl/dist/esm: {}
-
-  packages/earl/src: {}
-
   packages/website:
     dependencies:
       '@algolia/client-search':

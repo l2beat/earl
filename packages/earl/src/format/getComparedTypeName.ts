@@ -1,4 +1,7 @@
-import { CanonicalType, getCanonicalType } from '../isEqual/getCanonicalType.js'
+import {
+  type CanonicalType,
+  getCanonicalType,
+} from '../isEqual/getCanonicalType.js'
 
 export function getComparedTypeName(
   value: unknown,
