@@ -5,7 +5,12 @@
   "license": "MIT",
   "main": "./dist/index.js",
   "module": "./dist/index.js",
-  "types": "./types.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "require": "./dist/index.js"
+    }
+  },
   "scripts": {
     "start": "ts-node -T ./src/index.ts",
     "format": "biome format .",

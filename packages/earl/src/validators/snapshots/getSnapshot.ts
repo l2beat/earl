@@ -1,7 +1,7 @@
 import { readFileSync } from 'node:fs'
 import path from 'node:path'
 
-import type { TestContext } from './TestContext.js'
+import { getTestFile, getTestName, type TestContext } from './TestContext.js'
 import { parseSnapshot } from './format.js'
 import type { SnapshotUpdateMode } from './getSnapshotUpdateMode.js'
 
@@ -18,7 +18,7 @@ export function getSnapshot(
   context: TestContext,
   mode: SnapshotUpdateMode,
 ) {
-  const filePath = context.test?.file ?? controlFileName
+  const filePath = getTestFile(context) ?? controlFileName
   if (!filePath) {
     throw new TypeError(
       'Invalid test context. Cannot determine test file path.',
@@ -56,19 +56,5 @@ export function getSnapshot(
     name,
     content,
     expected: typeof expected === 'string' ? expected : undefined,
-  }
-}
-
-function getTestName(context: TestContext) {
-  const name = context.test?.fullTitle()
-  if (name) {
-    return name
-  }
-  if (context.__test__ !== undefined) {
-    const parts = [context.__test__]
-    if (context.__suite__) {
-      parts.unshift(context.__suite__)
-    }
-    return parts.join(' ')
   }
 }

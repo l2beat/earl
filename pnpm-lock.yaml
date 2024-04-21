@@ -57,6 +57,15 @@ importers:
         specifier: workspace:^1.0.0
         version: link:../example-plugin
 
+  examples/example-node-runner:
+    dependencies:
+      earl:
+        specifier: workspace:^1.2.1
+        version: link:../../packages/earl
+      example-plugin:
+        specifier: workspace:^1.0.0
+        version: link:../example-plugin
+
   examples/example-plugin:
     devDependencies:
       earl:

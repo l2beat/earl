@@ -1,0 +1,20 @@
+{
+  "name": "example-node-runner",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "start": "ts-node -T ./src/index.ts",
+    "format": "biome format .",
+    "format:fix": "biome format --write .",
+    "lint": "biome check ./src",
+    "lint:fix": "biome check --apply ./src",
+    "typecheck": "tsc --noEmit",
+    "test": "node --test --loader ts-node/esm src/*.test.ts",
+    "test:fix": "pnpm lint:fix && pnpm format:fix && pnpm test && pnpm typecheck"
+  },
+  "dependencies": {
+    "earl": "workspace:^1.2.1",
+    "example-plugin": "workspace:^1.0.0"
+  }
+}
