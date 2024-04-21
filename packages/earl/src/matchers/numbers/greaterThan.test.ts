@@ -9,7 +9,15 @@ describe(greaterThan.name, () => {
   describe('greaterThan(10)', () => {
     testMatcher(
       greaterThan(10),
-      [11, 10.5, 100, 12356.789, Infinity, BigInt(11), BigInt(100)],
+      [
+        11,
+        10.5,
+        100,
+        12356.789,
+        Number.POSITIVE_INFINITY,
+        BigInt(11),
+        BigInt(100),
+      ],
       [
         10,
         0,
@@ -19,8 +27,8 @@ describe(greaterThan.name, () => {
         9.998,
         5,
         -4,
-        NaN,
-        -Infinity,
+        Number.NaN,
+        Number.NEGATIVE_INFINITY,
         BigInt(10),
         BigInt(0),
         BigInt(-100),

@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-var-requires */
 const { expect } = require('earl')
 const { utils } = require('mocha')
 const Parser = require('error-stack-parser')

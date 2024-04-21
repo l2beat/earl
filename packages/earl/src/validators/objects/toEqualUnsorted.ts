@@ -1,4 +1,4 @@
-import { Control } from '../../Control.js'
+import type { Control } from '../../Control.js'
 import { registerValidator } from '../../expect.js'
 import { formatCompact } from '../../format/index.js'
 import { isEqual } from '../../isEqual/index.js'
@@ -26,6 +26,7 @@ declare module '../../expect.js' {
      * expect(['foo', 'bar']).not.toEqualUnsorted(['a', 'b', 'c'])
      * ```
      */
+    // biome-ignore lint/suspicious/noExplicitAny: any is required here
     toEqualUnsorted(this: Validators<any[]>, expected: T): void
   }
 }

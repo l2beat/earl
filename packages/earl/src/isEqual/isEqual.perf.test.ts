@@ -1,6 +1,3 @@
-/* eslint-disable symbol-description */
-/* eslint-disable no-new-wrappers */
-
 import { expect } from '../expect.js'
 
 describe('isEqual performance', function () {
@@ -29,7 +26,7 @@ describe('isEqual performance', function () {
     roles: ['User', 'Admin'],
   }
 
-  it('measure', function () {
+  it('measure', () => {
     const repeat = 5
     const iterations = 2000
     const testValue = [dataObject, dataObject, dataObject]

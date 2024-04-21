@@ -7,6 +7,7 @@ export type Spec =
 
 export interface ReturnSpec {
   type: 'return'
+  // biome-ignore lint/suspicious/noExplicitAny: any is required here
   value: any
 }
 /**
@@ -16,16 +17,19 @@ export interface ReturnSpec {
 
 export interface LazyReturnSpec {
   type: 'lazy-return'
+  // biome-ignore lint/suspicious/noExplicitAny: any is required here
   value: () => any
 }
 
 export interface ThrowSpec {
   type: 'throw'
+  // biome-ignore lint/suspicious/noExplicitAny: any is required here
   error: any
 }
 
 export interface ExecSpec {
   type: 'exec'
+  // biome-ignore lint: both any are required here
   implementation: (...args: any[]) => any
 }
 

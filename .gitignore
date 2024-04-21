@@ -1,7 +1,12 @@
 node_modules
 dist
 **/tsconfig.tsbuildinfo
-**/tsconfig.prod.tsbuildinfo
 .vercel
-packages/website/.vitepress
-packages/website/generators/test-examples/output/examples.test.ts
+.vscode
+
+# Instead of packages/website we use ** because biome has some weird bug
+# where it incorrectly uses the .gitignore file
+**/docs/.vitepress/cache
+**/docs/.vitepress/dist
+**/docs/api/api-reference.md
+**/generators/test-examples/output/examples.test.ts

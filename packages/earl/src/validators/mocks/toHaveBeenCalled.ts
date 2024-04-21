@@ -1,10 +1,9 @@
-import { Control } from '../../Control.js'
+import type { Control } from '../../Control.js'
 import { registerValidator } from '../../expect.js'
 import type { MockFunction } from '../../mocks/index.js'
 import { assertIsMock, formatCalledTimes } from './utils.js'
 
 declare module '../../expect.js' {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   interface Validators<T> {
     /**
      * Asserts that the mock function has been called at least once.
@@ -21,6 +20,7 @@ declare module '../../expect.js' {
      * expect(fn2).not.toHaveBeenCalled()
      * ```
      */
+    // biome-ignore lint/suspicious/noExplicitAny: any is required here
     toHaveBeenCalled(this: Validators<MockFunction<any[], any>>): void
   }
 }

@@ -1,4 +1,4 @@
-import { Control } from '../../Control.js'
+import type { Control } from '../../Control.js'
 import { format, formatCompact } from '../../format/index.js'
 
 export function captureError(fn: () => unknown) {
@@ -31,6 +31,7 @@ export function processError(
   control: Control,
   thrownError: unknown,
   sentenceStart: string,
+  // biome-ignore lint/suspicious/noExplicitAny: any is required here
   errorClassOrMessage?: (new (...args: any[]) => Error) | string | RegExp,
   message?: string | RegExp,
 ) {
@@ -88,6 +89,7 @@ export function processError(
 
 function isMatchingClass(
   thrownError: unknown,
+  // biome-ignore lint/suspicious/noExplicitAny: any is required here
   expected?: new (...args: any[]) => Error,
 ): boolean {
   return !expected || thrownError instanceof expected
@@ -100,16 +102,17 @@ function isMatchingMessage(
   if (typeof expected === 'string') {
     const thrownMessage = getMessageProperty(thrownError)
     return typeof thrownMessage === 'string' && thrownMessage.includes(expected)
-  } else if (expected instanceof RegExp) {
+  }
+  if (expected instanceof RegExp) {
     const thrownMessage = getMessageProperty(thrownError)
     return typeof thrownMessage === 'string' && expected.test(thrownMessage)
-  } else {
-    return true
   }
+  return true
 }
 
 function formatExpected(
   thrownError: unknown,
+  // biome-ignore lint/suspicious/noExplicitAny: any is required here
   expectedClass?: new (...args: any[]) => Error,
   expectedMessage?: string | RegExp,
 ) {
@@ -126,7 +129,7 @@ function formatExpected(
     object.name = thrownName
   }
 
-  return `${className ? className + ' ' : ''}${format(object, null)}`
+  return `${className ? `${className} ` : ''}${format(object, null)}`
 }
 
 function getMessageProperty(thrownError: unknown): unknown {

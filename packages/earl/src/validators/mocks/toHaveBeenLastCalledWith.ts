@@ -1,4 +1,4 @@
-import { Control } from '../../Control.js'
+import type { Control } from '../../Control.js'
 import { registerValidator } from '../../expect.js'
 import type { MockFunction, MockParameters } from '../../mocks/index.js'
 import { assertIsMock, compareArgs } from './utils.js'
@@ -31,6 +31,7 @@ declare module '../../expect.js' {
      * ```
      */
     toHaveBeenLastCalledWith(
+      // biome-ignore lint/suspicious/noExplicitAny: any is required here
       this: Validators<MockFunction<any[], any>>,
       ...args: MockParameters<T>
     ): void
@@ -49,7 +50,8 @@ export function toHaveBeenLastCalledWith(
   if (lastCall === undefined) {
     return control.assert({
       success: false,
-      reason: `The mock function was never called, but it was expected to have been called at least once.`,
+      reason:
+        'The mock function was never called, but it was expected to have been called at least once.',
       negatedReason: '',
     })
   }

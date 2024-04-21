@@ -1,9 +1,8 @@
-import { Control } from '../../Control.js'
+import type { Control } from '../../Control.js'
 import { registerValidator } from '../../expect.js'
 import { formatCompact } from '../../format/index.js'
 
 declare module '../../expect.js' {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   interface Validators<T> {
     /**
      * Asserts that a value is referentially equal to the expected value.
@@ -43,6 +42,7 @@ export function toExactlyEqual(control: Control, expected: unknown) {
 function sameValueZero(x: unknown, y: unknown) {
   if (typeof x === 'number' && typeof y === 'number') {
     // x and y are equal (may be -0 and 0) or they are both NaN
+    // biome-ignore lint/suspicious/noSelfCompare: this is intentional
     return x === y || (x !== x && y !== y)
   }
   return x === y

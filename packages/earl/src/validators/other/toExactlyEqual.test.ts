@@ -15,7 +15,7 @@ describe(toExactlyEqual.name, () => {
     it('passes for NaNs', () => {
       expect(() => {
         // @ts-expect-error - desired behavior
-        earl(NaN).toExactlyEqual(NaN)
+        earl(Number.NaN).toExactlyEqual(Number.NaN)
       }).not.to.throw()
     })
 
@@ -48,7 +48,7 @@ describe(toExactlyEqual.name, () => {
     it('fails for NaNs', () => {
       expect(() => {
         // @ts-expect-error - desired behavior
-        earl(NaN).not.toExactlyEqual(NaN)
+        earl(Number.NaN).not.toExactlyEqual(Number.NaN)
       }).to.throw(
         'The value NaN is the exact same value as NaN, but it was expected not to be.',
       )

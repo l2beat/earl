@@ -1,5 +1,5 @@
-import { format } from './format.js'
 import type { FormatOptions } from './FormatOptions.js'
+import { format } from './format.js'
 
 const FORMAT_OPTIONS: FormatOptions = {
   compareErrorStack: false,

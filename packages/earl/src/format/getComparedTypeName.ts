@@ -36,7 +36,8 @@ export function getComparedTypeName(
 export function getTypeName(value: unknown, ignorePrototypes: boolean) {
   if (typeof value === 'function') {
     return getFunctionTypeName(value)
-  } else if (typeof value === 'object' && value !== null) {
+  }
+  if (typeof value === 'object' && value !== null) {
     return ignorePrototypes ? getCanonicalType(value) : getPrototypeName(value)
   }
 }
@@ -46,25 +47,21 @@ function getPrototypeName(value: object) {
   if (prototype === Object.prototype) {
     return 'Object'
   }
-  const constructor = value.constructor as unknown
-  if (
-    typeof constructor === 'function' &&
-    constructor.prototype === prototype &&
-    constructor.name
-  ) {
-    return constructor.name
+  const c = value.constructor as unknown
+  if (typeof c === 'function' && c.prototype === prototype && c.name) {
+    return c.name
   }
   return '[custom prototype]'
 }
 
-// eslint-disable-next-line @typescript-eslint/ban-types
+// biome-ignore lint/complexity/noBannedTypes: This is the best we can do
 export function getFunctionTypeName(value: Function) {
   const type = getFunctionType(value)
   const name = value.name || '[anonymous]'
   return `${type} ${name}${type === 'class' ? '' : '()'}`
 }
 
-// eslint-disable-next-line @typescript-eslint/ban-types
+// biome-ignore lint/complexity/noBannedTypes: This is the best we can do
 function getFunctionType(value: Function) {
   if (value.toString().startsWith('class')) {
     return 'class'

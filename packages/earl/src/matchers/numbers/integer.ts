@@ -30,7 +30,8 @@ export function integer() {
   return (value: unknown) => {
     if (typeof value === 'number') {
       return Number.isInteger(value)
-    } else if (typeof value === 'bigint') {
+    }
+    if (typeof value === 'bigint') {
       return true
     }
     return false

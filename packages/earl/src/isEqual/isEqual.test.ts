@@ -1,8 +1,6 @@
-/* eslint-disable symbol-description */
-/* eslint-disable no-new-wrappers */
 import { expect } from 'chai'
 
-import { format, type FormatOptions } from '../format/index.js'
+import { type FormatOptions, format } from '../format/index.js'
 import { expect as earl } from '../index.js'
 import type { EqualityOptions } from './EqualityOptions.js'
 import { isEqual } from './isEqual.js'
@@ -20,7 +18,7 @@ describe('isEqual', () => {
     minusZero: true,
     indentSize: 2,
     inline: true,
-    maxLineLength: Infinity,
+    maxLineLength: Number.POSITIVE_INFINITY,
     skipMatcherReplacement: true,
     requireStrictEquality: false,
   }
@@ -52,11 +50,11 @@ describe('isEqual', () => {
         [123.456, -123.456, false],
         [0, -0, true],
         [0, -0, false, { minusZero: true }],
-        [NaN, NaN, true],
-        [NaN, NaN, false, { uniqueNaNs: true }],
-        [Infinity, Infinity, true],
-        [Infinity, -Infinity, false],
-        [-Infinity, -Infinity, true],
+        [Number.NaN, Number.NaN, true],
+        [Number.NaN, Number.NaN, false, { uniqueNaNs: true }],
+        [Number.POSITIVE_INFINITY, Number.POSITIVE_INFINITY, true],
+        [Number.POSITIVE_INFINITY, Number.NEGATIVE_INFINITY, false],
+        [Number.NEGATIVE_INFINITY, Number.NEGATIVE_INFINITY, true],
       ],
     },
     {
@@ -119,9 +117,9 @@ describe('isEqual', () => {
             function* named() {},
             async function named() {},
             async function* named() {},
-            function () {},
+            () => {},
             function* () {},
-            async function () {},
+            async () => {},
             async function* () {},
           ]
           const testCases: TestCase[] = []
@@ -174,7 +172,10 @@ describe('isEqual', () => {
         [{ x: 1, y: 2 }, { y: 2, x: 1 }, true],
         ...(() => {
           class Vector2 {
-            constructor(public x: number, public y: number) {}
+            constructor(
+              public x: number,
+              public y: number,
+            ) {}
           }
           return [
             [new Vector2(1, 2), new Vector2(1, 2), true],
@@ -196,11 +197,13 @@ describe('isEqual', () => {
         [
           (() => {
             const x = { y: 2 }
+            // biome-ignore lint/suspicious/noExplicitAny: any is required here
             ;(x as any).x = x
             return x
           })(),
           (() => {
             const x = { y: 2 }
+            // biome-ignore lint/suspicious/noExplicitAny: any is required here
             ;(x as any).x = x
             return x
           })(),
@@ -209,11 +212,13 @@ describe('isEqual', () => {
         [
           (() => {
             const x = { y: 2 }
+            // biome-ignore lint/suspicious/noExplicitAny: any is required here
             ;(x as any).x = x
             return x
           })(),
           (() => {
             const x = { x: { y: 2 }, y: 2 }
+            // biome-ignore lint/suspicious/noExplicitAny: any is required here
             ;(x.x as any).x = x
             return x
           })(),
@@ -223,9 +228,12 @@ describe('isEqual', () => {
           interface Node {
             prev?: Node
             next?: Node
+            // biome-ignore lint/suspicious/noExplicitAny: any is required here
             value: any
           }
+          // biome-ignore lint/suspicious/noExplicitAny: any is required here
           const node = (value: any): Node => ({ value })
+          // biome-ignore lint/suspicious/noExplicitAny: any is required here
           const list = (...values: any[]) =>
             values.map(node).map((node, index, nodes) => {
               node.prev = nodes[index - 1]
@@ -327,13 +335,8 @@ describe('isEqual', () => {
         ...(() => {
           class MyRegExp extends RegExp {}
           return [
-            [new RegExp('foo'), new MyRegExp('foo'), false],
-            [
-              new RegExp('foo'),
-              new MyRegExp('foo'),
-              true,
-              { ignorePrototypes: true },
-            ],
+            [/foo/, new MyRegExp('foo'), false],
+            [/foo/, new MyRegExp('foo'), true, { ignorePrototypes: true }],
             [new MyRegExp('foo'), new MyRegExp('foo'), true],
             [new MyRegExp('foo'), new MyRegExp('bar'), false],
             [
@@ -603,11 +606,11 @@ describe('isEqual', () => {
             const a = { x: 1 }
             const b = { y: 2 }
             return [
-              new Map<any, number>([
+              new Map<unknown, number>([
                 [a, 1],
                 [b, 2],
               ]),
-              new Map<any, number>([
+              new Map<unknown, number>([
                 [b, 2],
                 [a, 1],
               ]),
@@ -619,11 +622,11 @@ describe('isEqual', () => {
           ...(() => {
             const a = { x: 1 }
             return [
-              new Map<any, number>([
+              new Map<unknown, number>([
                 [a, 1],
                 [{ y: 2 }, 2],
               ]),
-              new Map<any, number>([
+              new Map<unknown, number>([
                 [{ y: 2 }, 2],
                 [a, 1],
               ]),
@@ -648,7 +651,7 @@ describe('isEqual', () => {
             ...equalityOptions,
             indentSize: 2,
             inline: false,
-            maxLineLength: Infinity,
+            maxLineLength: Number.POSITIVE_INFINITY,
             skipMatcherReplacement: false,
             requireStrictEquality: false,
           }

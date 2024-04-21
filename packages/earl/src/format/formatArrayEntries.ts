@@ -34,7 +34,9 @@ export function formatArrayEntries(
       })
 
       const valueFormat = formatUnknown(
+        // biome-ignore lint/suspicious/noExplicitAny: any is required here
         (value as any)[i],
+        // biome-ignore lint/suspicious/noExplicitAny: any is required here
         (sibling as any)?.[i],
         nestedOptions,
         valueStack,
@@ -55,7 +57,6 @@ export function formatArrayEntries(
 function formatEmpty(empty: number): [number, string] {
   if (empty === 1) {
     return [1, '<empty>']
-  } else {
-    return [1, `<${empty} empty items>`]
   }
+  return [1, `<${empty} empty items>`]
 }

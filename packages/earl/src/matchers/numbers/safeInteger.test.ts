@@ -31,9 +31,9 @@ describe(safeInteger.name, () => {
       Number.MIN_SAFE_INTEGER * 2,
       BigInt(Number.MAX_SAFE_INTEGER) * BigInt(2),
       BigInt(Number.MIN_SAFE_INTEGER) * BigInt(2),
-      Infinity,
-      -Infinity,
-      NaN,
+      Number.POSITIVE_INFINITY,
+      Number.NEGATIVE_INFINITY,
+      Number.NaN,
       TEST_VALUES.filter((x) => typeof x !== 'number' && typeof x !== 'bigint'),
     ],
   )

@@ -7,6 +7,7 @@ import type {
 } from './types/index.js'
 
 interface Override {
+  // biome-ignore lint/suspicious/noExplicitAny: any is required here
   args: any[]
   spec: Spec
 }
@@ -33,12 +34,15 @@ const mockSymbol = Symbol('mock')
  * const mock4 = mockFn().returnsOnce(420).returns(69)
  * ```
  */
+// biome-ignore lint/suspicious/noExplicitAny: any is required here
 export function mockFn<F extends (...args: any) => any>(
   defaultImplementation?: F,
 ): MockFunctionOf<F>
+// biome-ignore lint/suspicious/noExplicitAny: any is required here
 export function mockFn<A extends any[], R>(
   defaultImplementation?: (...args: A) => R,
 ): MockFunction<A, R>
+// biome-ignore lint/suspicious/noExplicitAny: any is required here
 export function mockFn<A extends any[], R>(
   defaultImplementation?: (...args: A) => R,
 ): MockFunction<A, R> {
@@ -48,6 +52,7 @@ export function mockFn<A extends any[], R>(
   let oneTimeOverrides: Spec[] = []
   let parameterOverrides: Override[] = []
 
+  // biome-ignore lint/suspicious/noExplicitAny: any is required here
   function mock(...args: any[]) {
     for (const override of parameterOverrides) {
       if (isEqual(args, override.args)) {
@@ -60,19 +65,16 @@ export function mockFn<A extends any[], R>(
   }
 
   mock[mockSymbol] = true
+  // biome-ignore lint/suspicious/noExplicitAny: any is required here
   mock.calls = [] as MockCall<any, any>[]
-  mock.isExhausted = function () {
-    return oneTimeOverrides.length === 0 && parameterOverrides.length === 0
-  }
+  mock.isExhausted = () =>
+    oneTimeOverrides.length === 0 && parameterOverrides.length === 0
 
-  mock.getOneTimeOverridesLength = function () {
-    return oneTimeOverrides.length
-  }
+  mock.getOneTimeOverridesLength = () => oneTimeOverrides.length
 
-  mock.getParameterOverridesLength = function () {
-    return parameterOverrides.length
-  }
+  mock.getParameterOverridesLength = () => parameterOverrides.length
 
+  // biome-ignore lint/suspicious/noExplicitAny: any is required here
   function runSpec(spec: Spec, args: any[]) {
     switch (spec.type) {
       case 'return': {
@@ -114,7 +116,7 @@ export function mockFn<A extends any[], R>(
     }
   }
 
-  mock.reset = function () {
+  mock.reset = () => {
     defaultSpec = { type: 'not-ready' }
     oneTimeOverrides = []
     parameterOverrides = []
@@ -124,56 +126,66 @@ export function mockFn<A extends any[], R>(
     }
   }
 
-  mock.clear = function () {
+  mock.clear = () => {
     mock.calls = []
   }
 
-  mock.returns = function (value: any) {
+  // biome-ignore lint/suspicious/noExplicitAny: any is required here
+  mock.returns = (value: any) => {
     defaultSpec = { type: 'return', value }
     return mock
   }
 
-  mock.returnsOnce = function (value: any) {
+  // biome-ignore lint/suspicious/noExplicitAny: any is required here
+  mock.returnsOnce = (value: any) => {
     oneTimeOverrides.push({ type: 'return', value })
     return mock
   }
 
-  mock.throws = function (error: any) {
+  // biome-ignore lint/suspicious/noExplicitAny: any is required here
+  mock.throws = (error: any) => {
     defaultSpec = { type: 'throw', error }
     return mock
   }
 
-  mock.throwsOnce = function (error: any) {
+  // biome-ignore lint/suspicious/noExplicitAny: any is required here
+  mock.throwsOnce = (error: any) => {
     oneTimeOverrides.push({ type: 'throw', error })
     return mock
   }
 
-  mock.executes = function (implementation: (...args: any[]) => any) {
+  // biome-ignore lint/suspicious/noExplicitAny: any is required here
+  mock.executes = (implementation: (...args: any[]) => any) => {
     defaultSpec = { type: 'exec', implementation }
     return mock
   }
 
-  mock.executesOnce = function (implementation: (...args: any[]) => any) {
+  // biome-ignore lint/suspicious/noExplicitAny: any is required here
+  mock.executesOnce = (implementation: (...args: any[]) => any) => {
     oneTimeOverrides.push({ type: 'exec', implementation })
     return mock
   }
 
-  mock.resolvesTo = function (value: any) {
+  // biome-ignore lint/suspicious/noExplicitAny: any is required here
+  mock.resolvesTo = (value: any) => {
     defaultSpec = { type: 'return', value: Promise.resolve(value) }
     return mock
   }
 
-  mock.resolvesToOnce = function (value: any) {
+  // biome-ignore lint/suspicious/noExplicitAny: any is required here
+  mock.resolvesToOnce = (value: any) => {
     oneTimeOverrides.push({ type: 'return', value: Promise.resolve(value) })
     return mock
   }
 
-  mock.rejectsWith = function (error: any) {
+  // biome-ignore lint/suspicious/noExplicitAny: any is required here
+  mock.rejectsWith = (error: any) => {
     defaultSpec = { type: 'lazy-return', value: () => Promise.reject(error) }
     return mock
   }
 
-  mock.rejectsWithOnce = function (error: any) {
+  // biome-ignore lint/suspicious/noExplicitAny: any is required here
+  mock.rejectsWithOnce = (error: any) => {
     oneTimeOverrides.push({
       type: 'lazy-return',
       value: () => Promise.reject(error),
@@ -181,43 +193,47 @@ export function mockFn<A extends any[], R>(
     return mock
   }
 
-  mock.given = function (...args: any[]) {
-    return {
-      returnsOnce(value: any) {
-        parameterOverrides.push({ args, spec: { type: 'return', value } })
-        return mock
-      },
+  // biome-ignore lint/suspicious/noExplicitAny: any is required here
+  mock.given = (...args: any[]) => ({
+    // biome-ignore lint/suspicious/noExplicitAny: any is required here
+    returnsOnce(value: any) {
+      parameterOverrides.push({ args, spec: { type: 'return', value } })
+      return mock
+    },
 
-      throwsOnce(error: any) {
-        parameterOverrides.push({ args, spec: { type: 'throw', error } })
-        return mock
-      },
+    // biome-ignore lint/suspicious/noExplicitAny: any is required here
+    throwsOnce(error: any) {
+      parameterOverrides.push({ args, spec: { type: 'throw', error } })
+      return mock
+    },
 
-      executesOnce(implementation: (...args: any[]) => any) {
-        parameterOverrides.push({
-          args,
-          spec: { type: 'exec', implementation },
-        })
-        return mock
-      },
+    // biome-ignore lint/suspicious/noExplicitAny: any is required here
+    executesOnce(implementation: (...args: any[]) => any) {
+      parameterOverrides.push({
+        args,
+        spec: { type: 'exec', implementation },
+      })
+      return mock
+    },
 
-      resolvesToOnce(value: any) {
-        parameterOverrides.push({
-          args,
-          spec: { type: 'return', value: Promise.resolve(value) },
-        })
-        return mock
-      },
+    // biome-ignore lint/suspicious/noExplicitAny: any is required here
+    resolvesToOnce(value: any) {
+      parameterOverrides.push({
+        args,
+        spec: { type: 'return', value: Promise.resolve(value) },
+      })
+      return mock
+    },
 
-      rejectsWithOnce(error: any) {
-        parameterOverrides.push({
-          args,
-          spec: { type: 'lazy-return', value: () => Promise.reject(error) },
-        })
-        return mock
-      },
-    }
-  }
+    // biome-ignore lint/suspicious/noExplicitAny: any is required here
+    rejectsWithOnce(error: any) {
+      parameterOverrides.push({
+        args,
+        spec: { type: 'lazy-return', value: () => Promise.reject(error) },
+      })
+      return mock
+    },
+  })
 
   if (defaultImplementation) {
     mock.executes(defaultImplementation)
@@ -226,6 +242,7 @@ export function mockFn<A extends any[], R>(
   return mock
 }
 
+// biome-ignore lint/suspicious/noExplicitAny: any is required here
 export function isMockFn(value: unknown): value is MockFunction<any[], any> {
-  return typeof value === 'function' && (value as any)[mockSymbol] === true
+  return typeof value === 'function' && mockSymbol in value
 }

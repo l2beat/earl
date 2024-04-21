@@ -1,10 +1,11 @@
-import { Control } from '../../Control.js'
+import type { Control } from '../../Control.js'
 import { formatCompact } from '../../format/index.js'
 import { isEqual } from '../../isEqual/index.js'
-import { isMockFn, type MockFunction } from '../../mocks/index.js'
+import { type MockFunction, isMockFn } from '../../mocks/index.js'
 
 export function assertIsMock(
   control: Control,
+  // biome-ignore lint/suspicious/noExplicitAny: any is required here
 ): asserts control is Control & { actual: MockFunction<any[], any> } {
   if (!isMockFn(control.actual)) {
     const actualInline = formatCompact(control.actual)
@@ -18,6 +19,7 @@ export function formatTimes(times: number) {
   return times === 1 ? 'once' : times === 2 ? 'twice' : `${times} times`
 }
 
+// biome-ignore lint/suspicious/noExplicitAny: any is required here
 export function formatCalledTimes(mock: MockFunction<any[], any>) {
   return mock.calls.length === 0
     ? 'never called'

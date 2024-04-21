@@ -1,6 +1,6 @@
 import { assert } from 'ts-essentials'
 
-import { MethodComment } from '../types'
+import type { MethodComment } from '../types'
 
 // @todo: this method could be simplified to only work when semicolon is present at the end of the signature
 export function extractTsDocCommentsFromString(
@@ -18,10 +18,8 @@ export function extractTsDocCommentsFromString(
     `Couldn't find any block comments in source:\n\`${source}\``,
   )
   while (rawMethodComment != null) {
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    const comment = `/** ${rawMethodComment[1]!.trim()} */`
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    let signature = removeGetterKeyword(rawMethodComment[2]!.trim())
+    const comment = `/** ${rawMethodComment[1]?.trim()} */`
+    let signature = removeGetterKeyword(rawMethodComment[2]?.trim() ?? '')
     signature = signature.replace(/\n/g, '')
     signature = signature.replace(/[ ]+/g, ' ')
     signature = signature.replace(/,[ ]?\)/g, ')')

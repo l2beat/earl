@@ -24,9 +24,9 @@ describe(integer.name, () => {
     [
       0.5,
       -1.2,
-      Infinity,
-      -Infinity,
-      NaN,
+      Number.POSITIVE_INFINITY,
+      Number.NEGATIVE_INFINITY,
+      Number.NaN,
       TEST_VALUES.filter((x) => typeof x !== 'number' && typeof x !== 'bigint'),
     ],
   )

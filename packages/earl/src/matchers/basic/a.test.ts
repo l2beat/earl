@@ -25,7 +25,7 @@ describe(a.name, () => {
     testMatcher(
       a(Number),
       TEST_VALUES.filter((x) => typeof x === 'number' && !Number.isNaN(x)),
-      TEST_VALUES.filter((x) => typeof x !== 'number').concat(NaN),
+      TEST_VALUES.filter((x) => typeof x !== 'number').concat(Number.NaN),
     )
   })
 
@@ -98,7 +98,10 @@ describe(a.name, () => {
     }
 
     class Employee extends Person {
-      constructor(name: string, public salary: number) {
+      constructor(
+        name: string,
+        public salary: number,
+      ) {
         super(name)
       }
     }

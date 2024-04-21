@@ -2,6 +2,7 @@ import type { MockFunction } from './MockFunction.js'
 import type { Awaited } from './util.js'
 
 export interface MockGiven<
+  // biome-ignore lint/suspicious/noExplicitAny: any is required here
   TArgs extends any[],
   TReturn,
   TGivenArgs extends TArgs,
@@ -22,6 +23,7 @@ export interface MockGiven<
    *
    * @param error - The error to be thrown.
    */
+  // biome-ignore lint/suspicious/noExplicitAny: any is required here
   throwsOnce(error: any): MockFunction<TArgs, TReturn>
 
   /**
@@ -51,5 +53,6 @@ export interface MockGiven<
    *
    * @param error - The error to be rejected inside the promise.
    */
+  // biome-ignore lint/suspicious/noExplicitAny: any is required here
   rejectsWithOnce(error: any): MockFunction<TArgs, TReturn>
 }

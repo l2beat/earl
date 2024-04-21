@@ -27,10 +27,12 @@ export function isEqualObject(
   for (let i = 0; i < keys.length; i++) {
     if (
       !isEqualUnknown(
-        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+        // biome-ignore lint/style/noNonNullAssertion: We know that the key exists
+        // biome-ignore lint/suspicious/noExplicitAny: any is required here
         (value as any)[keys[i]!],
         valueStack,
-        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+        // biome-ignore lint/style/noNonNullAssertion: We know that the key exists
+        // biome-ignore lint/suspicious/noExplicitAny: any is required here
         (other as any)[otherKeys[i]!],
         otherStack,
         options,

@@ -1,10 +1,9 @@
-import { Control } from '../../Control.js'
+import type { Control } from '../../Control.js'
 import { registerValidator } from '../../expect.js'
 import { formatCompact } from '../../format/index.js'
 import { length } from '../../matchers/objects/length.js'
 
 declare module '../../expect.js' {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   interface Validators<T> {
     /**
      * Asserts that a string, array or object with a `length` property has a
@@ -24,6 +23,7 @@ declare module '../../expect.js' {
      * ```
      */
     toHaveLength(
+      // biome-ignore lint/suspicious/noExplicitAny: any is required here
       this: Validators<string | any[] | { length: number }>,
       length: number,
     ): void
@@ -46,6 +46,7 @@ export function toHaveLength(control: Control, expected: number) {
 
 function getLength(value: unknown) {
   try {
+    // biome-ignore lint/suspicious/noExplicitAny: any is required here
     return (value as any).length
   } catch {
     return undefined

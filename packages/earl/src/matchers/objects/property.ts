@@ -27,8 +27,9 @@ declare module '../../expect.js' {
 
 registerMatcher('property', property)
 
-export function property(key: string, expected?: unknown) {
-  const hasValue = arguments.length >= 2
+export function property(key: string, ...values: unknown[]) {
+  const expected = values[0]
+  const hasValue = values.length > 0
   return (value: unknown) => {
     if (typeof value !== 'object' || value === null) {
       return false

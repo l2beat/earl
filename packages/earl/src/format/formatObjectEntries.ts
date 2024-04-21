@@ -25,7 +25,9 @@ export function formatObjectEntries(
         (!!sibling && !Object.prototype.hasOwnProperty.call(sibling, key)),
     })
     const valueFormat = formatUnknown(
+      // biome-ignore lint/suspicious/noExplicitAny: any is required here
       (value as any)[key],
+      // biome-ignore lint/suspicious/noExplicitAny: any is required here
       (sibling as any)?.[key],
       nestedOptions,
       valueStack,
@@ -45,7 +47,7 @@ export function formatObjectEntries(
 
 function formatKey(key: string, options: FormatOptions) {
   if (options.inline && key.length > options.maxLineLength - 2) {
-    return JSON.stringify(key.slice(0, 7) + '...')
+    return JSON.stringify(`${key.slice(0, 7)}...`)
   }
   return /^\w+$/.test(key) ? key : JSON.stringify(key)
 }

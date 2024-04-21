@@ -1,10 +1,9 @@
-import { Control } from '../../Control.js'
+import type { Control } from '../../Control.js'
 import { registerValidator } from '../../expect.js'
 import type { MockFunction } from '../../mocks/index.js'
 import { assertIsMock } from './utils.js'
 
 declare module '../../expect.js' {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   interface Validators<T> {
     /**
      * Asserts that the mock function was called enough so that all the
@@ -23,6 +22,7 @@ declare module '../../expect.js' {
      * expect(fn).toHaveBeenExhausted()
      * ```
      */
+    // biome-ignore lint/suspicious/noExplicitAny: any is required here
     toHaveBeenExhausted(this: Validators<MockFunction<any[], any>>): void
   }
 }
@@ -47,6 +47,7 @@ export function toHaveBeenExhausted(control: Control) {
   control.assert({
     success: control.actual.isExhausted(),
     reason: `The mock function was not exhausted, ${remaining}.`,
-    negatedReason: `The mock function has been exhausted, but it was not expected to be.`,
+    negatedReason:
+      'The mock function has been exhausted, but it was not expected to be.',
   })
 }

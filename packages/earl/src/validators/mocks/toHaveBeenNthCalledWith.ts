@@ -1,4 +1,4 @@
-import { Control } from '../../Control.js'
+import type { Control } from '../../Control.js'
 import { registerValidator } from '../../expect.js'
 import { formatCompact } from '../../format/index.js'
 import type { MockFunction, MockParameters } from '../../mocks/index.js'
@@ -39,6 +39,7 @@ declare module '../../expect.js' {
      * ```
      */
     toHaveBeenNthCalledWith(
+      // biome-ignore lint/suspicious/noExplicitAny: any is required here
       this: Validators<MockFunction<any[], any>>,
       n: number,
       ...args: MockParameters<T>

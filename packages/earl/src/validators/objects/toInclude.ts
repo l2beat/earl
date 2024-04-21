@@ -1,4 +1,4 @@
-import { Control } from '../../Control.js'
+import type { Control } from '../../Control.js'
 import { registerValidator } from '../../expect.js'
 import { formatCompact } from '../../format/index.js'
 import { includes } from '../../matchers/objects/includes.js'
@@ -6,13 +6,12 @@ import { includes } from '../../matchers/objects/includes.js'
 type MemberOf<T> = T extends (infer U)[]
   ? U
   : T extends Set<infer U>
-  ? U
-  : T extends Iterable<infer U>
-  ? U
-  : unknown
+    ? U
+    : T extends Iterable<infer U>
+      ? U
+      : unknown
 
 declare module '../../expect.js' {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   interface Validators<T> {
     /**
      * Asserts that a string includes all of the provided substrings. The
@@ -52,6 +51,7 @@ declare module '../../expect.js' {
      * ```
      */
     toInclude(
+      // biome-ignore lint/suspicious/noExplicitAny: any is required here
       this: Validators<any[] | Set<any> | Iterable<any>>,
       ...items: MemberOf<T>[]
     ): void
@@ -82,9 +82,8 @@ function formatItems(items: unknown[]) {
 
 function languageJoin(items: string[]) {
   if (items.length === 1) {
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    // biome-ignore lint/style/noNonNullAssertion: we know it's not empty
     return items[0]!
   }
-  // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
   return `all of: ${items.slice(0, -1).join(', ')} and ${items.at(-1)}`
 }

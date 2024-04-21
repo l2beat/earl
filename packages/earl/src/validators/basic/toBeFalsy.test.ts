@@ -4,7 +4,7 @@ import { expect as earl, formatCompact } from '../../index.js'
 import { toBeFalsy } from './toBeFalsy.js'
 
 describe(toBeFalsy.name, () => {
-  const falsyValues = [null, undefined, false, 0, NaN, '']
+  const falsyValues = [null, undefined, false, 0, Number.NaN, '']
   const truthyValues = [true, 42, 'hello', {}, [], () => {}]
 
   describe('without .not', () => {

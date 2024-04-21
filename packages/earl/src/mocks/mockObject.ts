@@ -2,6 +2,7 @@ import { isMockFn, mockFn } from './mockFn.js'
 import type { MockFunctionOf } from './types/index.js'
 
 export type MockObject<T> = T & {
+  // biome-ignore lint/suspicious/noExplicitAny: any is required here
   [P in keyof T]: T[P] extends (...args: any[]) => any
     ? MockFunctionOf<T[P]>
     : T[P]
@@ -56,6 +57,7 @@ function replaceFunctionsWithMocks<T extends object>(object: T) {
     const value = clone[key]
     if (typeof value === 'function') {
       if (!isMockFn(value)) {
+        // biome-ignore lint/suspicious/noExplicitAny: any is required here
         clone[key] = mockFn(value as any) as any
       }
     }

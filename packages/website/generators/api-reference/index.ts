@@ -1,5 +1,5 @@
-import { writeFileSync } from 'fs'
-import path from 'path'
+import { writeFileSync } from 'node:fs'
+import path from 'node:path'
 
 import { generateApiReference } from './generateApiReference'
 
@@ -31,7 +31,6 @@ async function main() {
 }
 
 void main().catch((err) => {
-  // eslint-disable-next-line no-console
   console.error(err)
   process.exit(1)
 })

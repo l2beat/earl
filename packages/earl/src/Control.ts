@@ -43,8 +43,8 @@ export class Control {
             ? result.negatedReason
             : result.negatedReason()
           : typeof result.reason === 'string'
-          ? result.reason
-          : result.reason(),
+            ? result.reason
+            : result.reason(),
         stack: this._location.stack(),
         ...formatActualAndExpected(result),
       })

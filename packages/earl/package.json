@@ -43,10 +43,10 @@
     "!src/test"
   ],
   "scripts": {
-    "format": "prettier --check .",
-    "format:fix": "prettier --write .",
-    "lint": "eslint --ext .ts --max-warnings 0 src",
-    "lint:fix": "pnpm lint --fix",
+    "format": "biome format .",
+    "format:fix": "biome format --write .",
+    "lint": "biome check ./src",
+    "lint:fix": "biome check --apply ./src",
     "typecheck": "tsc --noEmit",
     "clean": "rimraf dist",
     "build": "pnpm run clean && pnpm run build:esm && pnpm run build:cjs",

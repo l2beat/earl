@@ -1,10 +1,9 @@
-import { Control } from '../../Control.js'
+import type { Control } from '../../Control.js'
 import { registerValidator } from '../../expect.js'
 import { formatCompact } from '../../format/index.js'
 import { empty } from '../../matchers/objects/empty.js'
 
 declare module '../../expect.js' {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   interface Validators<T> {
     /**
      * Asserts that a string, array, sets or map is empty.
@@ -21,6 +20,7 @@ declare module '../../expect.js' {
      * expect(new Set([1, 2, 3])).not.toBeEmpty()
      * ```
      */
+    // biome-ignore lint/suspicious/noExplicitAny: any is required here
     toBeEmpty(this: Validators<string | any[] | Set<any> | Map<any, any>>): void
   }
 }

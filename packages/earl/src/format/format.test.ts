@@ -1,10 +1,8 @@
-/* eslint-disable symbol-description */
-/* eslint-disable no-new-wrappers */
 import { expect } from 'chai'
 
 import { expect as earl } from '../index.js'
-import { format } from './format.js'
 import type { FormatOptions } from './FormatOptions.js'
+import { format } from './format.js'
 
 describe('format', () => {
   const DEFAULTS: FormatOptions = {
@@ -14,7 +12,7 @@ describe('format', () => {
     compareErrorStack: false,
     indentSize: 2,
     inline: false,
-    maxLineLength: Infinity,
+    maxLineLength: Number.POSITIVE_INFINITY,
     skipMatcherReplacement: false,
     requireStrictEquality: false,
   }
@@ -33,11 +31,11 @@ describe('format', () => {
         [0.2, null, '0.2'],
         [-3, null, '-3'],
         [1e50, null, '1e+50'],
-        [NaN, null, 'NaN'],
-        [NaN, NaN, 'NaN'],
-        [NaN, NaN, 'NaN (different)', { uniqueNaNs: true }],
-        [Infinity, null, 'Infinity'],
-        [-Infinity, null, '-Infinity'],
+        [Number.NaN, null, 'NaN'],
+        [Number.NaN, Number.NaN, 'NaN'],
+        [Number.NaN, Number.NaN, 'NaN (different)', { uniqueNaNs: true }],
+        [Number.POSITIVE_INFINITY, null, 'Infinity'],
+        [Number.NEGATIVE_INFINITY, null, '-Infinity'],
         [0, null, '0'],
         [-0, null, '0'],
         [-0, null, '-0', { minusZero: true }],
@@ -85,8 +83,8 @@ describe('format', () => {
       testCases: [
         [function a() {}, null, 'function a()'],
         [function a() {}, function a() {}, 'function a() (different)'],
-        [function () {}, null, 'function [anonymous]()'],
-        [function () {}, function () {}, 'function [anonymous]() (different)'],
+        [() => {}, null, 'function [anonymous]()'],
+        [() => {}, () => {}, 'function [anonymous]() (different)'],
         [function* foo() {}, null, 'function* foo()'],
         [function* foo() {}, function* foo() {}, 'function* foo() (different)'],
         [function* () {}, null, 'function* [anonymous]()'],
@@ -95,19 +93,30 @@ describe('format', () => {
           function* () {},
           'function* [anonymous]() (different)',
         ],
-        // This is eval-ed to avoid typescript transpiling it
-        // With a higher target this wouldn't be necessary
-        // eslint-disable-next-line no-eval
-        ...eval(`[
-          [async function foo() {}, null, 'async function foo()'],
-          [async function foo() {}, async function foo() {}, 'async function foo() (different)'],
-          [async function () {}, null, 'async function [anonymous]()'],
-          [async function () {}, async function () {}, 'async function [anonymous]() (different)'],
-          [async function* foo() {}, null, 'async function* foo()'],
-          [async function* foo() {}, async function* foo() {}, 'async function* foo() (different)'],
-          [async function* () {}, null, 'async function* [anonymous]()'],
-          [async function* () {}, async function* () {}, 'async function* [anonymous]() (different)'],
-        ]`),
+        [async function foo() {}, null, 'async function foo()'],
+        [
+          async function foo() {},
+          async function foo() {},
+          'async function foo() (different)',
+        ],
+        [async () => {}, null, 'async function [anonymous]()'],
+        [
+          async () => {},
+          async () => {},
+          'async function [anonymous]() (different)',
+        ],
+        [async function* foo() {}, null, 'async function* foo()'],
+        [
+          async function* foo() {},
+          async function* foo() {},
+          'async function* foo() (different)',
+        ],
+        [async function* () {}, null, 'async function* [anonymous]()'],
+        [
+          async function* () {},
+          async function* () {},
+          'async function* [anonymous]() (different)',
+        ],
         [Set.prototype.has, null, 'function has()'],
         [Set.prototype.has, Map.prototype.has, 'function has() (different)'],
         [class A {}, null, 'class A'],
@@ -126,11 +135,12 @@ describe('format', () => {
           'function x() (different) & {\n  a: 1\n}',
         ],
         [
-          Object.assign(function () {}, { a: 1 }),
+          Object.assign(() => {}, { a: 1 }),
           null,
           'function [anonymous]() & {\n  a: 1\n}',
         ],
         [
+          // biome-ignore lint/complexity/noStaticOnlyClass: this is a test case
           class X {
             static x = 2
           },
@@ -175,23 +185,35 @@ describe('format', () => {
         [new (class Foo {})(), null, 'Foo {}', { inline: true }],
         [
           new (class Vector2 {
-            constructor(public x: number, public y: number) {}
+            constructor(
+              public x: number,
+              public y: number,
+            ) {}
           })(1, 2),
           null,
           'Vector2 {\n  x: 1\n  y: 2\n}',
         ],
         [
           new (class Vector2 {
-            constructor(public x: number, public y: number) {}
+            constructor(
+              public x: number,
+              public y: number,
+            ) {}
           })(1, 2),
           new (class Vector2 {
-            constructor(public x: number, public y: number) {}
+            constructor(
+              public x: number,
+              public y: number,
+            ) {}
           })(1, 2),
           'Vector2 (different prototype) {\n  x: 1\n  y: 2\n}',
         ],
         [
           new (class Vector2 {
-            constructor(public x: number, public y: number) {}
+            constructor(
+              public x: number,
+              public y: number,
+            ) {}
           })(1, 2),
           null,
           '{\n  x: 1\n  y: 2\n}',
@@ -200,7 +222,7 @@ describe('format', () => {
         [
           { x: 1 },
           {},
-          `(different) {\n  x: 1\n}`,
+          '(different) {\n  x: 1\n}',
           { requireStrictEquality: true },
         ],
         [
@@ -216,6 +238,7 @@ describe('format', () => {
         [
           (() => {
             const x = { y: 2 }
+            // biome-ignore lint/suspicious/noExplicitAny: any is required here
             ;(x as any).x = x
             return x
           })(),
@@ -456,13 +479,14 @@ describe('format', () => {
           'Promise (different)',
           { ignorePrototypes: true },
         ],
-        [
-          ...(() => {
-            class MyPromise extends Promise<number> {}
-            return [MyPromise.resolve(1), MyPromise.resolve(1)]
-          })(),
-          'MyPromise (different)',
-        ],
+        (() => {
+          class MyPromise extends Promise<number> {}
+          return [
+            MyPromise.resolve(1),
+            MyPromise.resolve(1),
+            'MyPromise (different)',
+          ]
+        })(),
         [
           class MyPromise extends Promise<number> {}.resolve(1),
           null,
@@ -481,13 +505,10 @@ describe('format', () => {
           'WeakMap (different)',
           { ignorePrototypes: true },
         ],
-        [
-          ...(() => {
-            class MyWeakMap extends WeakMap {}
-            return [new MyWeakMap(), new MyWeakMap()]
-          })(),
-          'MyWeakMap (different)',
-        ],
+        (() => {
+          class MyWeakMap extends WeakMap {}
+          return [new MyWeakMap(), new MyWeakMap(), 'MyWeakMap (different)']
+        })(),
         [
           new (class MyWeakMap extends WeakMap {})(),
           null,
@@ -506,13 +527,10 @@ describe('format', () => {
           'WeakSet (different)',
           { ignorePrototypes: true },
         ],
-        [
-          ...(() => {
-            class MyWeakSet extends WeakSet {}
-            return [new MyWeakSet(), new MyWeakSet()]
-          })(),
-          'MyWeakSet (different)',
-        ],
+        (() => {
+          class MyWeakSet extends WeakSet {}
+          return [new MyWeakSet(), new MyWeakSet(), 'MyWeakSet (different)']
+        })(),
         [
           new (class MyWeakSet extends WeakSet {})(),
           null,
@@ -610,6 +628,7 @@ describe('format', () => {
           [earl.anything()],
           (() => {
             const x = [[[]]]
+            // biome-ignore lint/suspicious/noExplicitAny: any is required here
             ;(x as any)[0][0][0] = x
             return x
           })(),
