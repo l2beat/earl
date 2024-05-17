@@ -14,7 +14,8 @@
     "test:fix": "pnpm lint:fix && pnpm format:fix && pnpm test && pnpm typecheck"
   },
   "dependencies": {
-    "earl": "workspace:^1.2.1"
+    "earl": "workspace:^1.2.1",
+    "example-plugin": "workspace:^"
   },
   "devDependencies": {
     "@voxpelli/node-test-pretty-reporter": "^1.1.1",
