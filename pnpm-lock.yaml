@@ -51,7 +51,7 @@ importers:
   examples/example-mocha:
     dependencies:
       earl:
-        specifier: workspace:^1.2.1
+        specifier: workspace:^1.3.0
         version: link:../../packages/earl
       example-plugin:
         specifier: workspace:^1.0.0
@@ -60,7 +60,7 @@ importers:
   examples/example-node-runner:
     dependencies:
       earl:
-        specifier: workspace:^1.2.1
+        specifier: workspace:^1.3.0
         version: link:../../packages/earl
       example-plugin:
         specifier: workspace:^
@@ -76,7 +76,7 @@ importers:
   examples/example-plugin:
     devDependencies:
       earl:
-        specifier: workspace:^1.2.1
+        specifier: workspace:^1.3.0
         version: link:../../packages/earl
 
   examples/example-plugin/dist/cjs: {}
@@ -103,7 +103,7 @@ importers:
         specifier: ^20.12.7
         version: 20.12.7
       earl:
-        specifier: workspace:^1.2.1
+        specifier: workspace:^1.3.0
         version: link:../../packages/earl
       mocha:
         specifier: 10.2.0
@@ -169,7 +169,7 @@ importers:
         specifier: ^4.14.191
         version: 4.14.191
       earl:
-        specifier: workspace:^1.2.1
+        specifier: workspace:^1.3.0
         version: link:../earl
       fast-glob:
         specifier: ^3.2.12
