@@ -1,5 +1,12 @@
 # website
 
+## 1.0.6
+
+### Patch Changes
+
+- Updated dependencies [ed0c287]
+  - earl@1.3.0
+
 ## 1.0.5
 
 ### Patch Changes
