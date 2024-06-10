@@ -9,7 +9,8 @@ editLink: true
 
 Earl is an ergonomic, modern and type-safe assertion library written in
 TypeScript. You might be familiar with similar libraries like: _chai_ or
-_assert_. Earl should be used with a test runner like _mocha_ or _uvu_.
+_assert_. Earl should be used with a test runner like _mocha_, _uvu_ or
+_node:test_.
 
 To install Earl run:
 
@@ -128,8 +129,8 @@ for information on how to configure your project fully.
 
 ## Installing mocha
 
-**Earl** is designed to be used with a test runner like _mocha_ or _uvu_. In
-this tutorial we're going to use mocha.
+**Earl** is designed to be used with a test runner like _mocha_, _uvu_ or
+_node:test_. In this tutorial we're going to use mocha.
 
 We could install just mocha, but we're going to grab a few more packages to
 help us work with TypeScript.
