@@ -1,3 +1,4 @@
+import { fileURLToPath } from 'node:url'
 import ErrorStackParser from 'error-stack-parser'
 
 interface AssertionErrorOptions {
@@ -34,7 +35,7 @@ export class AssertionError extends Error {
         parsed = parsed ?? ErrorStackParser.parse({ stack: cleaned } as Error)
         const fileName = parsed[0]?.fileName
         if (fileName?.startsWith('file://')) {
-          return fileName.slice(7)
+          return fileURLToPath(fileName)
         }
         return fileName
       },

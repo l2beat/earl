@@ -1,3 +1,5 @@
+import { fileURLToPath } from 'node:url'
+
 export type TestContext = NodeTestContext | MochaTestContext | UvuTestContext
 
 export interface NodeTestContext {
@@ -20,6 +22,9 @@ export function getTestFile(context: TestContext): string | undefined {
   if ('test' in context) {
     const file = context.test?.file
     if (typeof file === 'string') {
+      if (file.startsWith('file://')) {
+        return fileURLToPath(file)
+      }
       return file
     }
   }

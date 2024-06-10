@@ -1,3 +1,4 @@
+import { fileURLToPath } from 'node:url'
 import { expect } from 'chai'
 import ErrorStackParser from 'error-stack-parser'
 
@@ -41,6 +42,6 @@ describe('stack traces for errors', () => {
       return nestedGetControl()
     }
     const control = nestedValidator()
-    expect(control.file).to.equal(import.meta.url)
+    expect(control.file).to.equal(fileURLToPath(import.meta.url))
   })
 })
