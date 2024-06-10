@@ -1,0 +1,13 @@
+// work 1
+
+{
+  very: {
+    nested: {
+      wow: "wow"
+    }
+  }
+}
+
+// work 2
+
+"totally different thing"

@@ -1,2 +1,2 @@
-import './evenNumber'
-import './toBeEven'
+import './evenNumber.js'
+import './toBeEven.js'

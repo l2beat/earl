@@ -3,9 +3,15 @@
   "private": true,
   "version": "1.0.0",
   "license": "MIT",
-  "main": "./dist/index.js",
-  "module": "./dist/index.js",
-  "types": "./types.d.ts",
+  "type": "module",
+  "main": "./dist/cjs/index.js",
+  "module": "./dist/esm/index.js",
+  "exports": {
+    ".": {
+      "import": "./dist/esm/index.js",
+      "require": "./dist/cjs/index.js"
+    }
+  },
   "scripts": {
     "start": "ts-node -T ./src/index.ts",
     "format": "biome format .",
@@ -14,7 +20,9 @@
     "lint:fix": "biome check --apply ./src",
     "typecheck": "tsc --noEmit",
     "clean": "rimraf dist tsconfig.tsbuildinfo",
-    "build": "pnpm clean && tsc --build",
+    "build": "pnpm run clean && pnpm run build:esm && pnpm run build:cjs",
+    "build:esm": "tsc -p tsconfig.esm.json",
+    "build:cjs": "tsc -p tsconfig.cjs.json && cp cjs-package.json dist/cjs/package.json",
     "test:fix": "pnpm lint:fix && pnpm format:fix && pnpm typecheck"
   },
   "devDependencies": {

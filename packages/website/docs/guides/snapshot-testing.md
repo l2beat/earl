@@ -39,3 +39,17 @@ test('foo matches snapshot', (ctx) => {
 
 test.run()
 ```
+
+## Usage with node:test
+
+```ts
+import { expect } from 'earl'
+import { describe, it } from 'node:test'
+
+test('foo matches snapshot', (ctx) => {
+  // Here we pass the `ctx` as test context
+  expect('foo').toMatchSnapshot(ctx)
+})
+
+test.run()
+```
