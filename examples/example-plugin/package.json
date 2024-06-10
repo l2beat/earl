@@ -26,9 +26,9 @@
     "test:fix": "pnpm lint:fix && pnpm format:fix && pnpm typecheck"
   },
   "devDependencies": {
-    "earl": "workspace:^1.2.1"
+    "earl": "workspace:^1.3.0"
   },
   "peerDependencies": {
-    "earl": "workspace:^1.2.1"
+    "earl": "workspace:^1.3.0"
   }
 }

@@ -1,5 +1,11 @@
 # earl
 
+## 1.3.0
+
+### Minor Changes
+
+- ed0c287: Add support for node:test
+
 ## 1.2.1
 
 ### Patch Changes
