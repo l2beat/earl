@@ -1,7 +1,8 @@
 {
-  "name": "example-mocha",
+  "name": "example-node-runner",
   "private": true,
   "version": "1.0.0",
+  "type": "module",
   "scripts": {
     "start": "ts-node -T ./src/index.ts",
     "format": "biome format .",
@@ -9,11 +10,15 @@
     "lint": "biome check ./src",
     "lint:fix": "biome check --apply ./src",
     "typecheck": "tsc --noEmit",
-    "test": "mocha",
+    "test": "glob -c \"node --test --test-reporter=@voxpelli/node-test-pretty-reporter --loader ts-node/esm\" \"src/*.test.ts\"",
     "test:fix": "pnpm lint:fix && pnpm format:fix && pnpm test && pnpm typecheck"
   },
   "dependencies": {
     "earl": "workspace:^1.3.0",
-    "example-plugin": "workspace:^1.0.0"
+    "example-plugin": "workspace:^"
+  },
+  "devDependencies": {
+    "@voxpelli/node-test-pretty-reporter": "^1.1.1",
+    "glob": "^10.3.15"
   }
 }
