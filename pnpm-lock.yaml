@@ -32,15 +32,15 @@ importers:
       chai-as-promised:
         specifier: ^7.1.1
         version: 7.1.1(chai@4.4.1)
-      conditional-type-checks:
-        specifier: ^1.0.6
-        version: 1.0.6
       mocha:
         specifier: 10.2.0
         version: 10.2.0
       rimraf:
         specifier: ^4.4.1
         version: 4.4.1
+      ts-essentials:
+        specifier: ^10.0.0
+        version: 10.0.1(typescript@5.4.5)
       ts-node:
         specifier: ^10.9.2
         version: 10.9.2(@types/node@20.12.7)(typescript@5.4.5)
@@ -175,9 +175,6 @@ importers:
       lodash:
         specifier: ^4.17.21
         version: 4.17.21
-      ts-essentials:
-        specifier: ^9.3.1
-        version: 9.3.1(typescript@5.4.5)
       ts-morph:
         specifier: ^17.0.1
         version: 17.0.1
@@ -1670,9 +1667,6 @@ packages:
   concat-map@0.0.1:
     resolution: {integrity: sha512-/Srv4dswyQNBfohGpz9o6Yb3Gz3SrUDqBH5rTuhGR7ahtlbYKnVxw2bCFMRljaA7EXHaXZ8wsHdodFvbkhKmqg==}
 
-  conditional-type-checks@1.0.6:
-    resolution: {integrity: sha512-3vyi+yNcmKq+xl1sTX7Ta+4pUvjusMYbC6FSbrS6YJV8TI51wiRn24u4bfdFVhDKKH5GtpKQzxW7bqXbPWllgQ==}
-
   convert-source-map@2.0.0:
     resolution: {integrity: sha512-Kvp459HrV2FEJ1CAsi1Ku+MY3kasH19TFykTz2xWmMeq6bk2NU3XXvfJ+Q61m0xktWwt+1HSYf3JZsTms3aRJg==}
 
@@ -2982,10 +2976,13 @@ packages:
     resolution: {integrity: sha512-c1PTsA3tYrIsLGkJkzHF+w9F2EyxfXGo4UyJc4pFL++FMjnq0HJS69T3M7d//gKrFKwy429bouPescbjecU+Zw==}
     engines: {node: '>=8'}
 
-  ts-essentials@9.3.1:
-    resolution: {integrity: sha512-9CChSvQMyVRo29Vb1A2jbs+LKo3d/bAf+ndSaX0T8cEiy/HChVaRN/HY5DqUryZ8hZ6uol9bEgCnGmnDbwBR9Q==}
+  ts-essentials@10.0.1:
+    resolution: {integrity: sha512-HPH+H2bkkO8FkMDau+hFvv7KYozzned9Zr1Urn7rRPXMF4mZmCKOq+u4AI1AAW+2bofIOXTuSdKo9drQuni2dQ==}
     peerDependencies:
-      typescript: '>=4.1.0'
+      typescript: '>=4.5.0'
+    peerDependenciesMeta:
+      typescript:
+        optional: true
 
   ts-morph@17.0.1:
     resolution: {integrity: sha512-10PkHyXmrtsTvZSL+cqtJLTgFXkU43Gd0JCc0Rw6GchWbqKe0Rwgt1v3ouobTZwQzF1mGhDeAlWYBMGRV7y+3g==}
@@ -4916,8 +4913,6 @@ snapshots:
 
   concat-map@0.0.1: {}
 
-  conditional-type-checks@1.0.6: {}
-
   convert-source-map@2.0.0: {}
 
   core-js-compat@3.37.0:
@@ -6404,8 +6399,8 @@ snapshots:
 
   trim-newlines@3.0.1: {}
 
-  ts-essentials@9.3.1(typescript@5.4.5):
-    dependencies:
+  ts-essentials@10.0.1(typescript@5.4.5):
+    optionalDependencies:
       typescript: 5.4.5
 
   ts-morph@17.0.1:
