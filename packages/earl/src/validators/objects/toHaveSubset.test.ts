@@ -78,7 +78,7 @@ describe(toHaveSubset.name, () => {
       expect(() => {
         earl({ prop: true }).not.toHaveSubset({ prop: true })
       }).to.throw(
-        'The value { prop: true } does has a subset of { prop: true }, but it was expected not to.',
+        'The value { prop: true } does have a subset of { prop: true }, but it was expected not to.',
       )
     })
 
@@ -92,7 +92,7 @@ describe(toHaveSubset.name, () => {
           prop2: 'string',
         })
       }).to.throw(
-        'The value { prop: true, prop2: "string" } does has a subset of { prop: true, prop2: "string" }, but it was expected not to.',
+        'The value { prop: true, prop2: "string" } does have a subset of { prop: true, prop2: "string" }, but it was expected not to.',
       )
     })
 
@@ -107,7 +107,7 @@ describe(toHaveSubset.name, () => {
           prop3: earl.a(Array),
         })
       }).to.throw(
-        'The value { 3 entries } does has a subset of { 2 entries }, but it was expected not to.',
+        'The value { prop: true, prop2: "string", prop3: [] } does have a subset of { prop2: expect.a(String), prop3: expect.a(Array) }, but it was expected not to.',
       )
     })
 

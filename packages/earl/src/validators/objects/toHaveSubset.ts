@@ -37,6 +37,6 @@ export function toHaveSubset(control: Control, expected: Subset): void {
   control.assert({
     success: subset(expected)(control.actual),
     reason: `The value ${actualInline} does not have a subset of ${expectedInline}, but it was expected to.`,
-    negatedReason: `The value ${actualInline} does has a subset of ${expectedInline}, but it was expected not to.`,
+    negatedReason: `The value ${actualInline} does have a subset of ${expectedInline}, but it was expected not to.`,
   })
 }
