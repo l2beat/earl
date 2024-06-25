@@ -1,9 +1,9 @@
 import { expect } from 'chai'
-import type { AssertTrue, IsExact } from 'conditional-type-checks'
+import { isExact } from 'ts-essentials'
 
 import { expect as earl } from '../expect.js'
 import { isMockFn, mockFn } from './mockFn.js'
-import type { MockFunction, MockFunctionOf } from './types/index.js'
+import type { MockFunction } from './types/index.js'
 
 const sum = (a: number, b: number) => a + b
 
@@ -159,12 +159,7 @@ describe('Mock', () => {
 
       expect(fn(2, 2)).to.eq(4)
 
-      type _ = AssertTrue<
-        IsExact<
-          MockFunction<[number, number], number>,
-          MockFunctionOf<Operation>
-        >
-      >
+      isExact<MockFunction<[number, number], number>>()(fn)
     })
   })
 
