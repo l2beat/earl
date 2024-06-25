@@ -2,14 +2,11 @@
   "name": "earl-monorepo",
   "private": true,
   "engines": {
-    "node": ">=16",
-    "pnpm": "^8"
+    "node": ">=18",
+    "pnpm": ">=9"
   },
   "workspaces": {
-    "packages": [
-      "packages/*",
-      "examples/*"
-    ]
+    "packages": ["packages/*", "examples/*"]
   },
   "scripts": {
     "lint": "pnpm --recursive --parallel lint",
