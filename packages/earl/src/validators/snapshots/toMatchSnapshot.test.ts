@@ -114,7 +114,9 @@ describe(toMatchSnapshot.name, () => {
     it('fails when a value is not present in the snapshot', () => {
       expect(() => {
         earl('baz').toMatchSnapshot(mochaContext('unknown'))
-      }).to.throw('No snapshot was found. Snapshots cannot be generated on CI.')
+      }).to.throw(
+        'No snapshot was found. Snapshots cannot be generated on CI. Run tests locally to generate snapshots.',
+      )
     })
 
     it('cannot be set to update on ci', () => {
