@@ -69,7 +69,7 @@ export function toMatchSnapshot(control: Control, context: TestContext) {
     control.assert({
       success: false,
       reason:
-        'No snapshot was found. Snapshots cannot be generated on CI. Run tests locally to generate snapshots.',
+        'No snapshot was found. Snapshots cannot be generated on CI. Run tests locally to generate them.',
       negatedReason: '',
       actual,
       expected: undefined,

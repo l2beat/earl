@@ -115,7 +115,7 @@ describe(toMatchSnapshot.name, () => {
       expect(() => {
         earl('baz').toMatchSnapshot(mochaContext('unknown'))
       }).to.throw(
-        'No snapshot was found. Snapshots cannot be generated on CI. Run tests locally to generate snapshots.',
+        'No snapshot was found. Snapshots cannot be generated on CI. Run tests locally to generate them.',
       )
     })
 
