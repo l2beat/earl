@@ -153,8 +153,6 @@ importers:
         specifier: ^3.22.5
         version: 3.22.5
 
-  packages/earl/dist/cjs: {}
-
   packages/website:
     dependencies:
       '@algolia/client-search':
