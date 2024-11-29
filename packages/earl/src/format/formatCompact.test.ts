@@ -56,10 +56,10 @@ describe('formatCompact', () => {
     [{ x: 1, y: 1 }, '{ x: 1, y: 1 }'],
     [
       { x: 'long value long value', y: 'long value long value' },
-      '{ 2 entries }',
+      '{ x: "long va...", y: "long va..." }',
     ],
     [{ x: 1, y: 1, z: 1 }, '{ x: 1, y: 1, z: 1 }'],
-    [{ x: 'long value', y: 'long value', z: 'long value' }, '{ 3 entries }'],
+    [{ x: 'long value', y: 'long value', z: 'long value' }, '{ x: "long value", y: "long value", z: "long value" }'],
     [[], '[]'],
     [[1, 2], '[1, 2]'],
     [
@@ -72,6 +72,11 @@ describe('formatCompact', () => {
     [earl.anything(), 'expect.anything()'],
     [[earl.anything()], '[expect.anything()]'],
     [new (class Foo {})(), 'Foo {}'],
+    [
+      [{ _id: 42, foo: 'bar' }, { _id: 43, foo: 'baz' }, { _id: 44, lorem: 'ipsum' }, { _id: 45, lorem: 'ipsum', 
+      'long value long value': false }],
+      '[{ _id: 42, foo: "bar" }, { _id: 43, foo: "baz" }, { _id: 44, lorem: "ipsum" }, { _id: 45, "long va...": false, lorem: "ipsum" }]'
+    ]
   ]
 
   for (const [value, expected] of testCases) {
