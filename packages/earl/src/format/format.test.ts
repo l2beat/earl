@@ -15,6 +15,7 @@ describe('format', () => {
     maxLineLength: Number.POSITIVE_INFINITY,
     skipMatcherReplacement: false,
     requireStrictEquality: false,
+    splitMultilineStrings: false,
   }
 
   interface TestCaseGroup {

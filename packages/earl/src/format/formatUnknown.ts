@@ -29,7 +29,7 @@ export function formatUnknown(
     case 'boolean':
       return toLine(value ? 'true' : 'false')
     case 'string':
-      return toLine(formatString(value as string, options))
+      return formatStringBlock(value as string, options)
     case 'bigint':
       return toLine(`${value as bigint}n`)
     case 'number':
@@ -184,4 +184,16 @@ export function formatUnknown(
   entries.unshift([0, beginning])
   entries.push([0, type === 'Array' ? ']' : '}'])
   return entries
+}
+
+function formatStringBlock(
+  value: string,
+  options: FormatOptions,
+): [number, string][] {
+  if (options.splitMultilineStrings && value.includes('\n')) {
+    const lines = value.split('\n')
+    const formattedLines: [number, string][] = lines.map((line) => [0, line])
+    return [[0, '"""'], ...formattedLines, [0, '"""']]
+  }
+  return toLine(formatString(value, options))
 }

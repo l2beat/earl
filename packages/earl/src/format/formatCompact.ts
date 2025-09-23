@@ -11,6 +11,7 @@ const FORMAT_OPTIONS: FormatOptions = {
   maxLineLength: 30,
   skipMatcherReplacement: true,
   requireStrictEquality: false,
+  splitMultilineStrings: false,
 }
 
 export function formatCompact(value: unknown, maxLineLength?: number): string {
