@@ -655,6 +655,7 @@ describe('isEqual', () => {
             maxLineLength: Number.POSITIVE_INFINITY,
             skipMatcherReplacement: false,
             requireStrictEquality: false,
+            splitMultilineStrings: false,
           }
 
           it('a -> b', () => {

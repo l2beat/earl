@@ -29,7 +29,11 @@ export function formatUnknown(
     case 'boolean':
       return toLine(value ? 'true' : 'false')
     case 'string':
-      return formatStringBlock(value as string, options)
+      return formatStringBlock({
+        value: value as string,
+        options: options,
+        isChild: isObjectValue(valueStack),
+      })
     case 'bigint':
       return toLine(`${value as bigint}n`)
     case 'number':
@@ -186,14 +190,29 @@ export function formatUnknown(
   return entries
 }
 
-function formatStringBlock(
-  value: string,
-  options: FormatOptions,
-): [number, string][] {
-  if (options.splitMultilineStrings && value.includes('\n')) {
-    const lines = value.split('\n')
-    const formattedLines: [number, string][] = lines.map((line) => [0, line])
-    return [[0, '"""'], ...formattedLines, [0, '"""']]
+export function formatStringBlock({
+  value,
+  options,
+  isChild,
+}: {
+  value: string
+  options: FormatOptions
+  isChild: boolean
+}): [number, string][] {
+  if (!options.splitMultilineStrings || !value.includes('\n')) {
+    return toLine(formatString(value, options))
   }
-  return toLine(formatString(value, options))
+
+  const lines: [number, string][] = value.split('\n').map((line) => [0, line])
+  const blocks: [number, string][] = [[0, '"""'], ...lines, [0, '"""']]
+  return isChild ? [[0, ''], ...blocks] : blocks
+}
+
+function isObjectValue(valueStack: unknown[]): boolean {
+  if (valueStack.length < 1) {
+    return false
+  }
+
+  const parent = valueStack[valueStack.length - 1]
+  return !!parent && typeof parent === 'object' && !Array.isArray(parent)
 }
