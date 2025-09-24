@@ -25,6 +25,9 @@ export interface FormatOptions extends EqualityOptions {
    * Mark top-level objects that aren't strictly equal as different
    */
   requireStrictEquality: boolean
+  /**
+   * Format multiline strings as triple-quoted blocks instead of escaping them as `\n`
+   */
   splitMultilineStrings: boolean
 }
 

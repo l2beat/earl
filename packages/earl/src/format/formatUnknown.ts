@@ -7,6 +7,7 @@ import { formatNumber } from './formatNumber.js'
 import { formatObjectEntries } from './formatObjectEntries.js'
 import { formatSetEntries } from './formatSetEntries.js'
 import { formatString } from './formatString.js'
+import { formatStringBlock } from './formatStringBlock.js'
 import { formatSymbol } from './formatSymbol.js'
 import { getComparedTypeName } from './getComparedTypeName.js'
 import { getRepresentation } from './getRepresentation.js'
@@ -32,7 +33,7 @@ export function formatUnknown(
       return formatStringBlock({
         value: value as string,
         options: options,
-        isChild: isObjectValue(valueStack),
+        valueStack,
       })
     case 'bigint':
       return toLine(`${value as bigint}n`)
@@ -188,31 +189,4 @@ export function formatUnknown(
   entries.unshift([0, beginning])
   entries.push([0, type === 'Array' ? ']' : '}'])
   return entries
-}
-
-export function formatStringBlock({
-  value,
-  options,
-  isChild,
-}: {
-  value: string
-  options: FormatOptions
-  isChild: boolean
-}): [number, string][] {
-  if (!options.splitMultilineStrings || !value.includes('\n')) {
-    return toLine(formatString(value, options))
-  }
-
-  const lines: [number, string][] = value.split('\n').map((line) => [0, line])
-  const blocks: [number, string][] = [[0, '"""'], ...lines, [0, '"""']]
-  return isChild ? [[0, ''], ...blocks] : blocks
-}
-
-function isObjectValue(valueStack: unknown[]): boolean {
-  if (valueStack.length < 1) {
-    return false
-  }
-
-  const parent = valueStack[valueStack.length - 1]
-  return !!parent && typeof parent === 'object' && !Array.isArray(parent)
 }
