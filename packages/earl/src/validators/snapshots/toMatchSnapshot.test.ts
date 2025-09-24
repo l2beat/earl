@@ -100,7 +100,7 @@ describe(toMatchSnapshot.name, () => {
     process.env.CI = 'true'
 
     const x = {
-      multiline: 'a\nb\nc',
+      multiline: 'a\nb\n"""\nc',
       map: new Map([['multiline', 'a\nb\nc']]),
       array: ['a', 'b', 'a\nb\nc'],
     }
@@ -119,7 +119,7 @@ describe(toMatchSnapshot.name, () => {
     process.env.CI = 'true'
 
     const x = {
-      multiline: 'a\nb\nc',
+      multiline: 'a\nb\n"""\nc',
       map: new Map([['multiline', 'a\nb\nc']]),
       array: ['a', 'b', 'a\nb\nc'],
     }

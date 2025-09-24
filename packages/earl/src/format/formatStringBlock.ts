@@ -2,6 +2,8 @@ import type { FormatOptions } from './FormatOptions.js'
 import { formatString } from './formatString.js'
 import { toLine } from './toLine.js'
 
+export const MULTILINE_DELIMITER = '"""'
+
 export function formatStringBlock({
   value,
   options,
@@ -15,8 +17,14 @@ export function formatStringBlock({
     return toLine(formatString(value, options))
   }
 
-  const lines: [number, string][] = value.split('\n').map((line) => [0, line])
-  const blocks: [number, string][] = [[0, '"""'], ...lines, [0, '"""']]
+  const lines: [number, string][] = value
+    .split('\n')
+    .map((line) => [0, line === MULTILINE_DELIMITER ? `"${line}"` : line])
+  const blocks: [number, string][] = [
+    [0, MULTILINE_DELIMITER],
+    ...lines,
+    [0, MULTILINE_DELIMITER],
+  ]
 
   const withNewLine = shouldIncludeNewLine(valueStack)
 

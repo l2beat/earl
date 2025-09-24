@@ -60,7 +60,12 @@ describe('format', () => {
         ['foo', null, '"foo"'],
         ['', null, '""'],
         ['a\nb', null, '"a\\nb"'],
-        ['a\nb', null, '"""\na\nb\n"""', { splitMultilineStrings: true }],
+        [
+          'a\nb\n"""',
+          null,
+          '"""\na\nb\n"""""\n"""',
+          { splitMultilineStrings: true },
+        ],
       ],
     },
     {
