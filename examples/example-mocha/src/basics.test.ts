@@ -3,7 +3,11 @@ import { expect } from 'earl'
 describe('basics', () => {
   it('works', function () {
     class Person {
-      constructor(readonly name: string) {}
+      readonly name: string
+
+      constructor(name: string) {
+        this.name = name
+      }
     }
 
     const response = {
