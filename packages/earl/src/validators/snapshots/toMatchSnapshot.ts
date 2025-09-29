@@ -2,6 +2,10 @@ import { writeFileSync } from 'node:fs'
 
 import type { Control } from '../../Control.js'
 import { registerValidator } from '../../expect.js'
+import {
+  DEFAULT_FORMAT_OPTIONS,
+  type FormatOptions,
+} from '../../format/FormatOptions.js'
 import { format, formatCompact } from '../../format/index.js'
 import type { TestContext } from './TestContext.js'
 import { formatSnapshot } from './format.js'
@@ -57,10 +61,14 @@ export function toMatchSnapshot(control: Control, context: TestContext) {
   if (control.isNegated) {
     throw new TypeError("toMatchSnapshot cannot be used with 'not'.")
   }
-  const actual = format(control.actual, null)
-
   const mode = getSnapshotUpdateMode()
   const snapshot = getSnapshot(control.file, context, mode)
+
+  const formatOptions: FormatOptions = {
+    ...DEFAULT_FORMAT_OPTIONS,
+    splitMultilineStrings: !hasLegacyMultilineString(snapshot.content),
+  }
+  const actual = format(control.actual, null, formatOptions)
 
   if (mode === 'all' || (mode === 'new' && snapshot.expected === undefined)) {
     snapshot.content[snapshot.name] = actual
@@ -85,4 +93,8 @@ export function toMatchSnapshot(control: Control, context: TestContext) {
       expected: snapshot.expected,
     })
   }
+}
+
+function hasLegacyMultilineString(content: Record<string, string>) {
+  return Object.values(content).some((value) => value.includes('\\n'))
 }

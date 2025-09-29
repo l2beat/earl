@@ -21,6 +21,7 @@ describe('isEqual', () => {
     maxLineLength: Number.POSITIVE_INFINITY,
     skipMatcherReplacement: true,
     requireStrictEquality: false,
+    splitMultilineStrings: false,
   }
 
   interface TestCaseGroup {
@@ -654,6 +655,7 @@ describe('isEqual', () => {
             maxLineLength: Number.POSITIVE_INFINITY,
             skipMatcherReplacement: false,
             requireStrictEquality: false,
+            splitMultilineStrings: false,
           }
 
           it('a -> b', () => {

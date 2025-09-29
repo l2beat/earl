@@ -7,6 +7,7 @@ import { formatNumber } from './formatNumber.js'
 import { formatObjectEntries } from './formatObjectEntries.js'
 import { formatSetEntries } from './formatSetEntries.js'
 import { formatString } from './formatString.js'
+import { formatStringBlock } from './formatStringBlock.js'
 import { formatSymbol } from './formatSymbol.js'
 import { getComparedTypeName } from './getComparedTypeName.js'
 import { getRepresentation } from './getRepresentation.js'
@@ -29,7 +30,11 @@ export function formatUnknown(
     case 'boolean':
       return toLine(value ? 'true' : 'false')
     case 'string':
-      return toLine(formatString(value as string, options))
+      return formatStringBlock({
+        value: value as string,
+        options: options,
+        valueStack,
+      })
     case 'bigint':
       return toLine(`${value as bigint}n`)
     case 'number':

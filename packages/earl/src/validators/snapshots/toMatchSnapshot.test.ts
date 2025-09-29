@@ -5,7 +5,11 @@ import { expect } from 'chai'
 import { format, formatCompact } from '../../format/index.js'
 import { expect as earl } from '../../index.js'
 import type { MochaTestContext } from './TestContext.js'
-import { formatSnapshot, parseSnapshot } from './format.js'
+import {
+  SNAPSHOT_FORMAT_OPTIONS,
+  formatSnapshot,
+  parseSnapshot,
+} from './format.js'
 import { resetSnapshotCache } from './getSnapshot.js'
 import { toMatchSnapshot } from './toMatchSnapshot.js'
 
@@ -74,8 +78,8 @@ describe(toMatchSnapshot.name, () => {
     x.x = x
 
     const content = {
-      'complex 1': format(x, null),
-      'complex 2': format({ ...x, x: null }, null),
+      'complex 1': format(x, null, SNAPSHOT_FORMAT_OPTIONS),
+      'complex 2': format({ ...x, x: null }, null, SNAPSHOT_FORMAT_OPTIONS),
     }
     writeFileSync(SNAPSHOT_FILE, formatSnapshot(content), 'utf8')
 
@@ -90,6 +94,44 @@ describe(toMatchSnapshot.name, () => {
         x,
       )} is not equal to snapshot. Run with UPDATE_SNAPSHOTS=true to update snapshots.`,
     )
+  })
+
+  it('handles multiline strings', () => {
+    process.env.CI = 'true'
+
+    const x = {
+      multiline: 'a\nb\n"""\nc',
+      map: new Map([['multiline', 'a\nb\nc']]),
+      array: ['a', 'b', 'a\nb\nc'],
+    }
+
+    const content = {
+      'multiline 1': format(x, null, SNAPSHOT_FORMAT_OPTIONS),
+    }
+    writeFileSync(SNAPSHOT_FILE, formatSnapshot(content), 'utf8')
+
+    expect(() => {
+      earl(x).toMatchSnapshot(mochaContext('multiline'))
+    }).not.to.throw()
+  })
+
+  it('handles legacy multiline strings', () => {
+    process.env.CI = 'true'
+
+    const x = {
+      multiline: 'a\nb\n"""\nc',
+      map: new Map([['multiline', 'a\nb\nc']]),
+      array: ['a', 'b', 'a\nb\nc'],
+    }
+
+    const content = {
+      'multiline 1': format(x, null),
+    }
+    writeFileSync(SNAPSHOT_FILE, formatSnapshot(content), 'utf8')
+
+    expect(() => {
+      earl(x).toMatchSnapshot(mochaContext('multiline'))
+    }).not.to.throw()
   })
 
   describe('on CI', () => {

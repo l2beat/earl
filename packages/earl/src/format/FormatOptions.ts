@@ -25,6 +25,10 @@ export interface FormatOptions extends EqualityOptions {
    * Mark top-level objects that aren't strictly equal as different
    */
   requireStrictEquality: boolean
+  /**
+   * Format multiline strings as triple-quoted blocks instead of escaping them as `\n`
+   */
+  splitMultilineStrings: boolean
 }
 
 export const DEFAULT_FORMAT_OPTIONS: FormatOptions = {
@@ -34,6 +38,7 @@ export const DEFAULT_FORMAT_OPTIONS: FormatOptions = {
   maxLineLength: Number.POSITIVE_INFINITY,
   skipMatcherReplacement: false,
   requireStrictEquality: false,
+  splitMultilineStrings: false,
 }
 
 export const LOOSE_FORMAT_OPTIONS = {

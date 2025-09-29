@@ -15,6 +15,7 @@ describe('format', () => {
     maxLineLength: Number.POSITIVE_INFINITY,
     skipMatcherReplacement: false,
     requireStrictEquality: false,
+    splitMultilineStrings: false,
   }
 
   interface TestCaseGroup {
@@ -59,6 +60,12 @@ describe('format', () => {
         ['foo', null, '"foo"'],
         ['', null, '""'],
         ['a\nb', null, '"a\\nb"'],
+        [
+          'a\nb\n"""',
+          null,
+          '"""\na\nb\n"""""\n"""',
+          { splitMultilineStrings: true },
+        ],
       ],
     },
     {
@@ -164,6 +171,12 @@ describe('format', () => {
         [{ y: 2, x: 1 }, null, '{\n  x: 1\n  y: 2\n}'],
         [{ '': 1, y: 2 }, null, '{\n  "": 1\n  y: 2\n}'],
         [{ 'foo\nbar': 1 }, null, '{\n  "foo\\nbar": 1\n}'],
+        [
+          { x: 'a\nb' },
+          null,
+          '{\n  x: \n  """\n  a\n  b\n  """\n}',
+          { splitMultilineStrings: true },
+        ],
         [
           { x: 1, y: { a: 'x', b: 'y' } },
           null,
@@ -319,6 +332,12 @@ describe('format', () => {
           [1, 2, 'asd', { x: 1, y: 2 }],
           null,
           '[\n  1\n  2\n  "asd"\n  {\n    x: 1\n    y: 2\n  }\n]',
+        ],
+        [
+          ['a', 'b', 'a\nb', 'c'],
+          null,
+          '[\n  "a"\n  "b"\n  """\n  a\n  b\n  """\n  "c"\n]',
+          { splitMultilineStrings: true },
         ],
         [
           Object.assign([1, 2, 3], { y: 'foo', x: 'bar' }),
@@ -667,6 +686,12 @@ describe('format', () => {
           null,
           'Set {\n  1\n  2\n  foo: "bar"\n}',
         ],
+        [
+          new Set(['a\nb', 2]),
+          null,
+          'Set {\n  """\n  a\n  b\n  """\n  2\n}',
+          { splitMultilineStrings: true },
+        ],
       ],
     },
     {
@@ -733,6 +758,15 @@ describe('format', () => {
           null,
           'Map { { x: 1 } => [2] }',
           { inline: true },
+        ],
+        [
+          new Map([
+            [1, 'a\nb'],
+            [2, 'b'],
+          ]),
+          null,
+          'Map {\n  1 => \n  """\n  a\n  b\n  """\n  2 => "b"\n}',
+          { splitMultilineStrings: true },
         ],
       ],
     },
