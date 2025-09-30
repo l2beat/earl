@@ -1,5 +1,13 @@
 # website
 
+## 1.0.7
+
+### Patch Changes
+
+- 6098a2c: Use ts-essentials@10
+- Updated dependencies [bc6c0a9]
+  - earl@2.0.0
+
 ## 1.0.6
 
 ### Patch Changes
