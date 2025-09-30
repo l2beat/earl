@@ -1,7 +1,7 @@
 {
   "name": "website",
   "private": true,
-  "version": "1.0.6",
+  "version": "1.0.7",
   "scripts": {
     "start": "vitepress dev docs",
     "format": "biome format .",
@@ -16,7 +16,7 @@
     "generate:example-tests": "ts-node -T ./generators/test-examples/index.ts"
   },
   "dependencies": {
-    "earl": "workspace:^1.3.0",
+    "earl": "workspace:^2.0.0",
     "@algolia/client-search": "^4.15.0",
     "@microsoft/tsdoc": "^0.14.2",
     "@types/lodash": "^4.14.191",
